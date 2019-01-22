@@ -5,7 +5,6 @@ package oapi
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -124,7 +123,7 @@ func (client *Client) POST_AcceptNetPeering(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_AcceptNetPeeringResponses{}
 	switch {
@@ -213,7 +212,7 @@ func (client *Client) POST_AuthenticateAccount(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_AuthenticateAccountResponses{}
 	switch {
@@ -258,7 +257,7 @@ func (client *Client) POST_CheckSignature(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CheckSignatureResponses{}
 	switch {
@@ -303,7 +302,7 @@ func (client *Client) POST_CopyAccount(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CopyAccountResponses{}
 	switch {
@@ -348,7 +347,7 @@ func (client *Client) POST_CreateAccount(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateAccountResponses{}
 	switch {
@@ -393,7 +392,7 @@ func (client *Client) POST_CreateApiKey(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateApiKeyResponses{}
 	switch {
@@ -438,7 +437,7 @@ func (client *Client) POST_CreateClientGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateClientGatewayResponses{}
 	switch {
@@ -483,7 +482,7 @@ func (client *Client) POST_CreateDhcpOptions(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateDhcpOptionsResponses{}
 	switch {
@@ -528,7 +527,7 @@ func (client *Client) POST_CreateDirectLink(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateDirectLinkResponses{}
 	switch {
@@ -573,7 +572,7 @@ func (client *Client) POST_CreateDirectLinkInterface(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateDirectLinkInterfaceResponses{}
 	switch {
@@ -618,7 +617,7 @@ func (client *Client) POST_CreateImage(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateImageResponses{}
 	switch {
@@ -696,7 +695,7 @@ func (client *Client) POST_CreateImageExportTask(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateImageExportTaskResponses{}
 	switch {
@@ -741,7 +740,7 @@ func (client *Client) POST_CreateInternetService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateInternetServiceResponses{}
 	switch {
@@ -819,7 +818,7 @@ func (client *Client) POST_CreateKeypair(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateKeypairResponses{}
 	switch {
@@ -908,7 +907,7 @@ func (client *Client) POST_CreateListenerRule(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateListenerRuleResponses{}
 	switch {
@@ -953,7 +952,7 @@ func (client *Client) POST_CreateLoadBalancer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateLoadBalancerResponses{}
 	switch {
@@ -998,7 +997,7 @@ func (client *Client) POST_CreateLoadBalancerListeners(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateLoadBalancerListenersResponses{}
 	switch {
@@ -1043,7 +1042,7 @@ func (client *Client) POST_CreateLoadBalancerPolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateLoadBalancerPolicyResponses{}
 	switch {
@@ -1088,7 +1087,7 @@ func (client *Client) POST_CreateNatService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateNatServiceResponses{}
 	switch {
@@ -1166,7 +1165,7 @@ func (client *Client) POST_CreateNet(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateNetResponses{}
 	switch {
@@ -1255,7 +1254,7 @@ func (client *Client) POST_CreateNetAccessPoint(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateNetAccessPointResponses{}
 	switch {
@@ -1300,7 +1299,7 @@ func (client *Client) POST_CreateNetPeering(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateNetPeeringResponses{}
 	switch {
@@ -1378,7 +1377,7 @@ func (client *Client) POST_CreateNic(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateNicResponses{}
 	switch {
@@ -1456,7 +1455,7 @@ func (client *Client) POST_CreatePolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreatePolicyResponses{}
 	switch {
@@ -1501,7 +1500,7 @@ func (client *Client) POST_CreatePublicIp(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreatePublicIpResponses{}
 	switch {
@@ -1579,7 +1578,7 @@ func (client *Client) POST_CreateRoute(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateRouteResponses{}
 	switch {
@@ -1657,7 +1656,7 @@ func (client *Client) POST_CreateRouteTable(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateRouteTableResponses{}
 	switch {
@@ -1735,7 +1734,7 @@ func (client *Client) POST_CreateSecurityGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateSecurityGroupResponses{}
 	switch {
@@ -1813,7 +1812,7 @@ func (client *Client) POST_CreateSecurityGroupRule(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateSecurityGroupRuleResponses{}
 	switch {
@@ -1891,7 +1890,7 @@ func (client *Client) POST_CreateServerCertificate(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateServerCertificateResponses{}
 	switch {
@@ -1936,7 +1935,7 @@ func (client *Client) POST_CreateSnapshot(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateSnapshotResponses{}
 	switch {
@@ -2014,7 +2013,7 @@ func (client *Client) POST_CreateSnapshotExportTask(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateSnapshotExportTaskResponses{}
 	switch {
@@ -2059,7 +2058,7 @@ func (client *Client) POST_CreateSubnet(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateSubnetResponses{}
 	switch {
@@ -2148,7 +2147,7 @@ func (client *Client) POST_CreateTags(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateTagsResponses{}
 	switch {
@@ -2226,7 +2225,7 @@ func (client *Client) POST_CreateUser(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateUserResponses{}
 	switch {
@@ -2271,7 +2270,7 @@ func (client *Client) POST_CreateUserGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateUserGroupResponses{}
 	switch {
@@ -2316,7 +2315,7 @@ func (client *Client) POST_CreateVirtualGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateVirtualGatewayResponses{}
 	switch {
@@ -2361,7 +2360,7 @@ func (client *Client) POST_CreateVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateVmsResponses{}
 	switch {
@@ -2439,7 +2438,7 @@ func (client *Client) POST_CreateVolume(
 	}
 	defer resp.Body.Close()
 	// if resp.StatusCode != 200 {
-	// 	return nil, errors.New(resp.Status)
+	// 	return nil, checkErrorResponse(resp)
 	// }
 	response = &POST_CreateVolumeResponses{}
 	switch {
@@ -2488,7 +2487,7 @@ func (client *Client) POST_CreateVolume(
 		}
 		response.Code500 = result
 	default:
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	return
 }
@@ -2517,7 +2516,7 @@ func (client *Client) POST_CreateVpnConnection(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateVpnConnectionResponses{}
 	switch {
@@ -2562,7 +2561,7 @@ func (client *Client) POST_CreateVpnConnectionRoute(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_CreateVpnConnectionRouteResponses{}
 	switch {
@@ -2607,7 +2606,7 @@ func (client *Client) POST_DeleteApiKey(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteApiKeyResponses{}
 	switch {
@@ -2652,7 +2651,7 @@ func (client *Client) POST_DeleteClientGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteClientGatewayResponses{}
 	switch {
@@ -2697,7 +2696,7 @@ func (client *Client) POST_DeleteDhcpOptions(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteDhcpOptionsResponses{}
 	switch {
@@ -2742,7 +2741,7 @@ func (client *Client) POST_DeleteDirectLink(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteDirectLinkResponses{}
 	switch {
@@ -2787,7 +2786,7 @@ func (client *Client) POST_DeleteDirectLinkInterface(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteDirectLinkInterfaceResponses{}
 	switch {
@@ -2832,7 +2831,7 @@ func (client *Client) POST_DeleteExportTask(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteExportTaskResponses{}
 	switch {
@@ -2877,7 +2876,7 @@ func (client *Client) POST_DeleteImage(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteImageResponses{}
 	switch {
@@ -2955,7 +2954,7 @@ func (client *Client) POST_DeleteInternetService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteInternetServiceResponses{}
 	switch {
@@ -3033,7 +3032,7 @@ func (client *Client) POST_DeleteKeypair(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteKeypairResponses{}
 	switch {
@@ -3111,7 +3110,7 @@ func (client *Client) POST_DeleteListenerRule(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteListenerRuleResponses{}
 	switch {
@@ -3156,7 +3155,7 @@ func (client *Client) POST_DeleteLoadBalancer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteLoadBalancerResponses{}
 	switch {
@@ -3201,7 +3200,7 @@ func (client *Client) POST_DeleteLoadBalancerListeners(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteLoadBalancerListenersResponses{}
 	switch {
@@ -3246,7 +3245,7 @@ func (client *Client) POST_DeleteLoadBalancerPolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteLoadBalancerPolicyResponses{}
 	switch {
@@ -3291,7 +3290,7 @@ func (client *Client) POST_DeleteNatService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteNatServiceResponses{}
 	switch {
@@ -3369,7 +3368,7 @@ func (client *Client) POST_DeleteNet(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteNetResponses{}
 	switch {
@@ -3447,7 +3446,7 @@ func (client *Client) POST_DeleteNetAccessPoints(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteNetAccessPointsResponses{}
 	switch {
@@ -3492,7 +3491,7 @@ func (client *Client) POST_DeleteNetPeering(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteNetPeeringResponses{}
 	switch {
@@ -3581,7 +3580,7 @@ func (client *Client) POST_DeleteNic(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteNicResponses{}
 	switch {
@@ -3659,7 +3658,7 @@ func (client *Client) POST_DeletePolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeletePolicyResponses{}
 	switch {
@@ -3704,7 +3703,7 @@ func (client *Client) POST_DeletePublicIp(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeletePublicIpResponses{}
 	switch {
@@ -3782,7 +3781,7 @@ func (client *Client) POST_DeleteRoute(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteRouteResponses{}
 	switch {
@@ -3860,7 +3859,7 @@ func (client *Client) POST_DeleteRouteTable(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteRouteTableResponses{}
 	switch {
@@ -3938,7 +3937,7 @@ func (client *Client) POST_DeleteSecurityGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteSecurityGroupResponses{}
 	switch {
@@ -4016,7 +4015,7 @@ func (client *Client) POST_DeleteSecurityGroupRule(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteSecurityGroupRuleResponses{}
 	switch {
@@ -4094,7 +4093,7 @@ func (client *Client) POST_DeleteServerCertificate(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteServerCertificateResponses{}
 	switch {
@@ -4139,7 +4138,7 @@ func (client *Client) POST_DeleteSnapshot(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteSnapshotResponses{}
 	switch {
@@ -4217,7 +4216,7 @@ func (client *Client) POST_DeleteSubnet(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteSubnetResponses{}
 	switch {
@@ -4295,7 +4294,7 @@ func (client *Client) POST_DeleteTags(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteTagsResponses{}
 	switch {
@@ -4373,7 +4372,7 @@ func (client *Client) POST_DeleteUser(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteUserResponses{}
 	switch {
@@ -4418,7 +4417,7 @@ func (client *Client) POST_DeleteUserGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteUserGroupResponses{}
 	switch {
@@ -4463,7 +4462,7 @@ func (client *Client) POST_DeleteVirtualGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteVirtualGatewayResponses{}
 	switch {
@@ -4508,7 +4507,7 @@ func (client *Client) POST_DeleteVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteVmsResponses{}
 	switch {
@@ -4586,7 +4585,7 @@ func (client *Client) POST_DeleteVolume(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteVolumeResponses{}
 	switch {
@@ -4664,7 +4663,7 @@ func (client *Client) POST_DeleteVpnConnection(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteVpnConnectionResponses{}
 	switch {
@@ -4709,7 +4708,7 @@ func (client *Client) POST_DeleteVpnConnectionRoute(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeleteVpnConnectionRouteResponses{}
 	switch {
@@ -4754,7 +4753,7 @@ func (client *Client) POST_DeregisterUserInUserGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeregisterUserInUserGroupResponses{}
 	switch {
@@ -4799,7 +4798,7 @@ func (client *Client) POST_DeregisterVmsInLoadBalancer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_DeregisterVmsInLoadBalancerResponses{}
 	switch {
@@ -4844,7 +4843,7 @@ func (client *Client) POST_LinkInternetService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkInternetServiceResponses{}
 	switch {
@@ -4922,7 +4921,7 @@ func (client *Client) POST_LinkNic(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkNicResponses{}
 	switch {
@@ -5000,7 +4999,7 @@ func (client *Client) POST_LinkPolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkPolicyResponses{}
 	switch {
@@ -5045,7 +5044,7 @@ func (client *Client) POST_LinkPrivateIps(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkPrivateIpsResponses{}
 	switch {
@@ -5123,7 +5122,7 @@ func (client *Client) POST_LinkPublicIp(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkPublicIpResponses{}
 	switch {
@@ -5201,7 +5200,7 @@ func (client *Client) POST_LinkRouteTable(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkRouteTableResponses{}
 	switch {
@@ -5279,7 +5278,7 @@ func (client *Client) POST_LinkVirtualGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkVirtualGatewayResponses{}
 	switch {
@@ -5324,7 +5323,7 @@ func (client *Client) POST_LinkVolume(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_LinkVolumeResponses{}
 	switch {
@@ -5402,7 +5401,7 @@ func (client *Client) POST_PurchaseReservedVmsOffer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_PurchaseReservedVmsOfferResponses{}
 	switch {
@@ -5447,7 +5446,7 @@ func (client *Client) POST_ReadAccount(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadAccountResponses{}
 	switch {
@@ -5492,7 +5491,7 @@ func (client *Client) POST_ReadAccountConsumption(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadAccountConsumptionResponses{}
 	switch {
@@ -5537,7 +5536,7 @@ func (client *Client) POST_ReadAdminPassword(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadAdminPasswordResponses{}
 	switch {
@@ -5615,7 +5614,7 @@ func (client *Client) POST_ReadApiKeys(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadApiKeysResponses{}
 	switch {
@@ -5660,7 +5659,7 @@ func (client *Client) POST_ReadApiLogs(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadApiLogsResponses{}
 	switch {
@@ -5705,7 +5704,7 @@ func (client *Client) POST_ReadBillableDigest(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadBillableDigestResponses{}
 	switch {
@@ -5750,7 +5749,7 @@ func (client *Client) POST_ReadCatalog(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadCatalogResponses{}
 	switch {
@@ -5795,7 +5794,7 @@ func (client *Client) POST_ReadClientGateways(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadClientGatewaysResponses{}
 	switch {
@@ -5840,7 +5839,7 @@ func (client *Client) POST_ReadConsoleOutput(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadConsoleOutputResponses{}
 	switch {
@@ -5918,7 +5917,7 @@ func (client *Client) POST_ReadDhcpOptions(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadDhcpOptionsResponses{}
 	switch {
@@ -5963,7 +5962,7 @@ func (client *Client) POST_ReadDirectLinkInterfaces(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadDirectLinkInterfacesResponses{}
 	switch {
@@ -6008,7 +6007,7 @@ func (client *Client) POST_ReadDirectLinks(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadDirectLinksResponses{}
 	switch {
@@ -6053,7 +6052,7 @@ func (client *Client) POST_ReadImageExportTasks(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadImageExportTasksResponses{}
 	switch {
@@ -6098,7 +6097,7 @@ func (client *Client) POST_ReadImages(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadImagesResponses{}
 	switch {
@@ -6176,7 +6175,7 @@ func (client *Client) POST_ReadInternetServices(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadInternetServicesResponses{}
 	switch {
@@ -6254,7 +6253,7 @@ func (client *Client) POST_ReadKeypairs(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadKeypairsResponses{}
 	switch {
@@ -6336,7 +6335,7 @@ func (client *Client) POST_ReadListenerRules(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadListenerRulesResponses{}
 	switch {
@@ -6381,7 +6380,7 @@ func (client *Client) POST_ReadLoadBalancers(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadLoadBalancersResponses{}
 	switch {
@@ -6426,7 +6425,7 @@ func (client *Client) POST_ReadLocations(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadLocationsResponses{}
 	switch {
@@ -6471,7 +6470,7 @@ func (client *Client) POST_ReadNatServices(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNatServicesResponses{}
 	switch {
@@ -6549,7 +6548,7 @@ func (client *Client) POST_ReadNetAccessPointServices(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNetAccessPointServicesResponses{}
 	switch {
@@ -6594,7 +6593,7 @@ func (client *Client) POST_ReadNetAccessPoints(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNetAccessPointsResponses{}
 	switch {
@@ -6639,7 +6638,7 @@ func (client *Client) POST_ReadNetPeerings(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNetPeeringsResponses{}
 	switch {
@@ -6717,7 +6716,7 @@ func (client *Client) POST_ReadNets(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNetsResponses{}
 	switch {
@@ -6795,7 +6794,7 @@ func (client *Client) POST_ReadNics(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadNicsResponses{}
 	switch {
@@ -6873,7 +6872,7 @@ func (client *Client) POST_ReadPolicies(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadPoliciesResponses{}
 	switch {
@@ -6918,7 +6917,7 @@ func (client *Client) POST_ReadPrefixLists(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadPrefixListsResponses{}
 	switch {
@@ -6963,7 +6962,7 @@ func (client *Client) POST_ReadProductTypes(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadProductTypesResponses{}
 	switch {
@@ -7008,7 +7007,7 @@ func (client *Client) POST_ReadPublicCatalog(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadPublicCatalogResponses{}
 	switch {
@@ -7053,7 +7052,7 @@ func (client *Client) POST_ReadPublicIpRanges(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadPublicIpRangesResponses{}
 	switch {
@@ -7098,7 +7097,7 @@ func (client *Client) POST_ReadPublicIps(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadPublicIpsResponses{}
 	switch {
@@ -7176,7 +7175,7 @@ func (client *Client) POST_ReadQuotas(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadQuotasResponses{}
 	switch {
@@ -7221,7 +7220,7 @@ func (client *Client) POST_ReadRegionConfig(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadRegionConfigResponses{}
 	switch {
@@ -7266,7 +7265,7 @@ func (client *Client) POST_ReadRegions(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadRegionsResponses{}
 	switch {
@@ -7311,7 +7310,7 @@ func (client *Client) POST_ReadReservedVmOffers(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadReservedVmOffersResponses{}
 	switch {
@@ -7360,7 +7359,7 @@ func (client *Client) POST_ReadReservedVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadReservedVmsResponses{}
 	switch {
@@ -7405,7 +7404,7 @@ func (client *Client) POST_ReadRouteTables(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadRouteTablesResponses{}
 	switch {
@@ -7483,7 +7482,7 @@ func (client *Client) POST_ReadSecurityGroups(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadSecurityGroupsResponses{}
 	switch {
@@ -7561,7 +7560,7 @@ func (client *Client) POST_ReadServerCertificates(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadServerCertificatesResponses{}
 	switch {
@@ -7606,7 +7605,7 @@ func (client *Client) POST_ReadSnapshotExportTasks(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadSnapshotExportTasksResponses{}
 	switch {
@@ -7651,7 +7650,7 @@ func (client *Client) POST_ReadSnapshots(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadSnapshotsResponses{}
 	switch {
@@ -7729,7 +7728,7 @@ func (client *Client) POST_ReadSubnets(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadSubnetsResponses{}
 	switch {
@@ -7807,7 +7806,7 @@ func (client *Client) POST_ReadSubregions(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadSubregionsResponses{}
 	switch {
@@ -7852,7 +7851,7 @@ func (client *Client) POST_ReadTags(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadTagsResponses{}
 	switch {
@@ -7930,7 +7929,7 @@ func (client *Client) POST_ReadUserGroups(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadUserGroupsResponses{}
 	switch {
@@ -7975,7 +7974,7 @@ func (client *Client) POST_ReadUsers(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadUsersResponses{}
 	switch {
@@ -8020,7 +8019,7 @@ func (client *Client) POST_ReadVirtualGateways(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVirtualGatewaysResponses{}
 	switch {
@@ -8065,7 +8064,7 @@ func (client *Client) POST_ReadVmTypes(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVmTypesResponses{}
 	switch {
@@ -8110,7 +8109,7 @@ func (client *Client) POST_ReadVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVmsResponses{}
 	switch {
@@ -8188,7 +8187,7 @@ func (client *Client) POST_ReadVmsHealth(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVmsHealthResponses{}
 	switch {
@@ -8233,7 +8232,7 @@ func (client *Client) POST_ReadVmsState(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVmsStateResponses{}
 	switch {
@@ -8311,7 +8310,7 @@ func (client *Client) POST_ReadVolumes(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVolumesResponses{}
 	switch {
@@ -8389,7 +8388,7 @@ func (client *Client) POST_ReadVpnConnections(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ReadVpnConnectionsResponses{}
 	switch {
@@ -8434,7 +8433,7 @@ func (client *Client) POST_RebootVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_RebootVmsResponses{}
 	switch {
@@ -8512,7 +8511,7 @@ func (client *Client) POST_RegisterUserInUserGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_RegisterUserInUserGroupResponses{}
 	switch {
@@ -8557,7 +8556,7 @@ func (client *Client) POST_RegisterVmsInLoadBalancer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_RegisterVmsInLoadBalancerResponses{}
 	switch {
@@ -8602,7 +8601,7 @@ func (client *Client) POST_RejectNetPeering(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_RejectNetPeeringResponses{}
 	switch {
@@ -8691,7 +8690,7 @@ func (client *Client) POST_ResetAccountPassword(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_ResetAccountPasswordResponses{}
 	switch {
@@ -8736,7 +8735,7 @@ func (client *Client) POST_SendResetPasswordEmail(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_SendResetPasswordEmailResponses{}
 	switch {
@@ -8781,7 +8780,7 @@ func (client *Client) POST_StartVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_StartVmsResponses{}
 	switch {
@@ -8859,7 +8858,7 @@ func (client *Client) POST_StopVms(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_StopVmsResponses{}
 	switch {
@@ -8941,7 +8940,7 @@ func (client *Client) POST_UnlinkInternetService(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkInternetServiceResponses{}
 	switch {
@@ -9019,7 +9018,7 @@ func (client *Client) POST_UnlinkNic(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkNicResponses{}
 	switch {
@@ -9097,7 +9096,7 @@ func (client *Client) POST_UnlinkPolicy(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkPolicyResponses{}
 	switch {
@@ -9142,7 +9141,7 @@ func (client *Client) POST_UnlinkPrivateIps(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkPrivateIpsResponses{}
 	switch {
@@ -9220,7 +9219,7 @@ func (client *Client) POST_UnlinkPublicIp(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkPublicIpResponses{}
 	switch {
@@ -9298,7 +9297,7 @@ func (client *Client) POST_UnlinkRouteTable(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkRouteTableResponses{}
 	switch {
@@ -9376,7 +9375,7 @@ func (client *Client) POST_UnlinkVirtualGateway(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkVirtualGatewayResponses{}
 	switch {
@@ -9421,7 +9420,7 @@ func (client *Client) POST_UnlinkVolume(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UnlinkVolumeResponses{}
 	switch {
@@ -9499,7 +9498,7 @@ func (client *Client) POST_UpdateAccount(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateAccountResponses{}
 	switch {
@@ -9544,7 +9543,7 @@ func (client *Client) POST_UpdateApiKey(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateApiKeyResponses{}
 	switch {
@@ -9589,7 +9588,7 @@ func (client *Client) POST_UpdateHealthCheck(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateHealthCheckResponses{}
 	switch {
@@ -9634,7 +9633,7 @@ func (client *Client) POST_UpdateImage(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateImageResponses{}
 	switch {
@@ -9712,7 +9711,7 @@ func (client *Client) POST_UpdateKeypair(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateKeypairResponses{}
 	switch {
@@ -9757,7 +9756,7 @@ func (client *Client) POST_UpdateListenerRule(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateListenerRuleResponses{}
 	switch {
@@ -9802,7 +9801,7 @@ func (client *Client) POST_UpdateLoadBalancer(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateLoadBalancerResponses{}
 	switch {
@@ -9847,7 +9846,7 @@ func (client *Client) POST_UpdateNet(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateNetResponses{}
 	switch {
@@ -9925,7 +9924,7 @@ func (client *Client) POST_UpdateNetAccessPoint(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateNetAccessPointResponses{}
 	switch {
@@ -9970,7 +9969,7 @@ func (client *Client) POST_UpdateNic(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateNicResponses{}
 	switch {
@@ -10048,7 +10047,7 @@ func (client *Client) POST_UpdateRoute(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateRouteResponses{}
 	switch {
@@ -10126,7 +10125,7 @@ func (client *Client) POST_UpdateRoutePropagation(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateRoutePropagationResponses{}
 	switch {
@@ -10171,7 +10170,7 @@ func (client *Client) POST_UpdateServerCertificate(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateServerCertificateResponses{}
 	switch {
@@ -10216,7 +10215,7 @@ func (client *Client) POST_UpdateSnapshot(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateSnapshotResponses{}
 	switch {
@@ -10294,7 +10293,7 @@ func (client *Client) POST_UpdateUser(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateUserResponses{}
 	switch {
@@ -10339,7 +10338,7 @@ func (client *Client) POST_UpdateUserGroup(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateUserGroupResponses{}
 	switch {
@@ -10388,7 +10387,7 @@ func (client *Client) POST_UpdateVm(
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
+		return nil, checkErrorResponse(resp)
 	}
 	response = &POST_UpdateVmResponses{}
 	switch {
@@ -10440,4 +10439,33 @@ func (client *Client) POST_UpdateVm(
 		break
 	}
 	return
+}
+
+func checkErrorResponse(resp *http.Response) error {
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("error reading response error body %s", err)
+	}
+
+	reason, errFmt := fmtErrorResponse(body)
+	if errFmt != nil {
+		return fmt.Errorf("error formating error resonse %s", err)
+	}
+
+	return fmt.Errorf("error, status code %d, reason: %s", resp.StatusCode, reason)
+}
+
+func fmtErrorResponse(errBody []byte) (string, error) {
+	result := &ErrorResponse{}
+	err := json.Unmarshal(errBody, result)
+	if err != nil {
+		return "", err
+	}
+
+	errors, errPretty := json.MarshalIndent(result, "", "  ")
+	if errPretty != nil {
+		return "", err
+	}
+
+	return string(errors), nil
 }
