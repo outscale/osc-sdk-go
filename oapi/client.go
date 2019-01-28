@@ -10469,3 +10469,5 @@ func fmtErrorResponse(errBody []byte) (string, error) {
 
 	return string(errors), nil
 }
+
+var _ OAPIClient = (*Client)(nil)
