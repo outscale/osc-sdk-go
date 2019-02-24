@@ -73,6 +73,10 @@ func NewClient(config *Config, c *http.Client) *Client {
 	return client
 }
 
+func (c *Client) GetConfig() *Config {
+	return c.config
+}
+
 // Sign ...
 func (c *Client) Sign(req *http.Request, body []byte) error {
 	reader := strings.NewReader(string(body))
@@ -2437,9 +2441,9 @@ func (client *Client) POST_CreateVolume(
 		return
 	}
 	defer resp.Body.Close()
-	// if resp.StatusCode != 200 {
-	// 	return nil, checkErrorResponse(resp)
-	// }
+	if resp.StatusCode != 200 {
+		return nil, checkErrorResponse(resp)
+	}
 	response = &POST_CreateVolumeResponses{}
 	switch {
 	case resp.StatusCode == 200:
