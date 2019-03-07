@@ -129,7 +129,7 @@ type BlockDeviceMappingVmUpdate struct {
 
 // implements the service definition of Bsu
 type Bsu struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	Iops               int64  `json:"Iops,omitempty"`
 	LinkDate           string `json:"LinkDate,omitempty"`
 	SnapshotId         string `json:"SnapshotId,omitempty"`
@@ -140,7 +140,7 @@ type Bsu struct {
 
 // implements the service definition of BsuCreated
 type BsuCreated struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	LinkDate           string `json:"LinkDate,omitempty"`
 	State              string `json:"State,omitempty"`
 	VolumeId           string `json:"VolumeId,omitempty"`
@@ -148,7 +148,7 @@ type BsuCreated struct {
 
 // implements the service definition of BsuToCreate
 type BsuToCreate struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	Iops               int64  `json:"Iops,omitempty"`
 	SnapshotId         string `json:"SnapshotId,omitempty"`
 	VolumeSize         int64  `json:"VolumeSize,omitempty"`
@@ -157,7 +157,7 @@ type BsuToCreate struct {
 
 // implements the service definition of BsuToUpdateVm
 type BsuToUpdateVm struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	VolumeId           string `json:"VolumeId,omitempty"`
 }
 
@@ -1548,7 +1548,7 @@ type FiltersVm struct {
 	AccountIds                           []string `json:"AccountIds,omitempty"`
 	ActivatedCheck                       bool     `json:"ActivatedCheck,omitempty"`
 	Architectures                        []string `json:"Architectures,omitempty"`
-	BlockDeviceMappingDeleteOnVmDeletion bool     `json:"BlockDeviceMappingDeleteOnVmDeletion,omitempty"`
+	BlockDeviceMappingDeleteOnVmDeletion *bool    `json:"BlockDeviceMappingDeleteOnVmDeletion,omitempty"`
 	BlockDeviceMappingDeviceNames        []string `json:"BlockDeviceMappingDeviceNames,omitempty"`
 	BlockDeviceMappingLinkDates          []string `json:"BlockDeviceMappingLinkDates,omitempty"`
 	BlockDeviceMappingStates             []string `json:"BlockDeviceMappingStates,omitempty"`
@@ -1747,7 +1747,7 @@ type LinkInternetServiceResponse struct {
 
 // implements the service definition of LinkNic
 type LinkNic struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	DeviceNumber       int64  `json:"DeviceNumber,omitempty"`
 	LinkNicId          string `json:"LinkNicId,omitempty"`
 	State              string `json:"State,omitempty"`
@@ -1757,7 +1757,7 @@ type LinkNic struct {
 
 // implements the service definition of LinkNicLight
 type LinkNicLight struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	DeviceNumber       int64  `json:"DeviceNumber,omitempty"`
 	LinkNicId          string `json:"LinkNicId,omitempty"`
 	State              string `json:"State,omitempty"`
@@ -1779,7 +1779,7 @@ type LinkNicResponse struct {
 
 // implements the service definition of LinkNicToUpdate
 type LinkNicToUpdate struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	LinkNicId          string `json:"LinkNicId,omitempty"`
 }
 
@@ -1892,7 +1892,7 @@ type LinkVolumeResponse struct {
 
 // implements the service definition of LinkedVolume
 type LinkedVolume struct {
-	DeleteOnVmDeletion bool   `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion *bool  `json:"DeleteOnVmDeletion,omitempty"`
 	DeviceName         string `json:"DeviceName,omitempty"`
 	State              string `json:"State,omitempty"`
 	VmId               string `json:"VmId,omitempty"`
