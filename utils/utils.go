@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httputil"
 )
@@ -12,18 +13,15 @@ func DebugRequest(req *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string("####################"))
-	fmt.Println(string("###### REQUEST #######"))
-	fmt.Println(string(requestDump))
+	log.Printf("[DEBUG] Request\n%s", string(requestDump))
 }
 
 // DebugResponse ...
-func DebugResponse(req *http.Response) {
-	requestDump, err := httputil.DumpResponse(req, true)
+func DebugResponse(res *http.Response) {
+	responseDump, err := httputil.DumpResponse(res, true)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string("####################"))
-	fmt.Println(string("###### RESPONSE #######"))
-	fmt.Println(string(requestDump))
+
+	log.Printf("[DEBUG] Response\n%s", string(responseDump))
 }
