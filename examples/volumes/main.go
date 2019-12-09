@@ -11,8 +11,8 @@ import (
 func main() {
 	client := osc.NewAPIClient(osc.NewConfiguration())
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: "XXX",
-		SecretKey: "XXX",
+		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
+		SecretKey: os.Getenv("OSC_SECRET_KEY"),
 	})
 
 	read, httpRes, err := client.VolumeApi.ReadVolumes(auth, nil)
