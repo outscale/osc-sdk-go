@@ -1445,6 +1445,9 @@ type FiltersPublicIp struct {
 	PublicIpIds     []string `json:"PublicIpIds,omitempty"`
 	PublicIps       []string `json:"PublicIps,omitempty"`
 	VmIds           []string `json:"VmIds,omitempty"`
+	TagKeys         []string `json:"TagKeys,omitempty"`
+	TagValues       []string `json:"TagValues,omitempty"`
+	Tags            []string `json:"Tags,omitempty"`
 }
 
 // implements the service definition of FiltersRouteTable
