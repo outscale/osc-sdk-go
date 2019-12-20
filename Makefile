@@ -4,7 +4,7 @@ all: osc
 osc: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD)/.sdk:/local -v $(PWD)/osc-api:/api --rm outscale/openapi-generator:osc-v1 generate -i /api/outscale.yaml -g go --package-name osc --git-user-id outscale-dev --git-repo-id osc-sdk-go/osc -o /local
+	docker run -v $(PWD):/sdk --rm outscale/openapi-generator:osc-v2 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk
 	mv .sdk osc
 
 osc-api/outscale.yaml:

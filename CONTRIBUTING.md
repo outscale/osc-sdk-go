@@ -12,7 +12,7 @@ The generator builds last Outscale API version. To do so:
 4. launch sdk generation by running `make`
 5. new sdk is now generated in `osc` folder
 
-Under the hood, a [patched version](https://github.com/outscale-dev/openapi-generator/tree/go-awsv4-wip) of [OpenAPI-Genetator](https://github.com/OpenAPITools/openapi-generator) is used.
+Under the hood, a [patched version](https://github.com/outscale-dev/openapi-generator/tree/osc-v2) of [OpenAPI-Genetator](https://github.com/OpenAPITools/openapi-generator) is used.
 Patched version adds support for [AWSv4 signature](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 
 # Before sending a merge request

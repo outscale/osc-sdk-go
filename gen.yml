@@ -1,0 +1,5 @@
+# OpenAPI Generator configuration file
+packageName: osc
+gitUserId: outscale-dev
+gitRepoId: osc-sdk-go/osc
+withAWSV4Signature: true
