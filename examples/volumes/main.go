@@ -29,7 +29,6 @@ func main() {
 	}
 
 	println("Creating 10GB GP2 volume")
-	// TODO find a cleaner way to pass options
 	creationOpts := osc.CreateVolumeOpts{
 		CreateVolumeRequest: optional.NewInterface(
 			osc.CreateVolumeRequest{
@@ -49,7 +48,6 @@ func main() {
 	println("Created volume", creation.Volume.VolumeId)
 
 	println("Reading created volume details")
-	// TODO find a cleaner way to pass options
 	readOpts := osc.ReadVolumesOpts{
 		ReadVolumesRequest: optional.NewInterface(
 			osc.ReadVolumesRequest{
@@ -74,7 +72,6 @@ func main() {
 	println("State:", volume.State)
 
 	println("Deleting volume", creation.Volume.VolumeId)
-	// TODO find a cleaner way to pass options
 	deletionOpts := osc.DeleteVolumeOpts{
 		DeleteVolumeRequest: optional.NewInterface(
 			osc.DeleteVolumeRequest{
