@@ -27,3 +27,7 @@ reuse:
 build-examples: examples
 	find ./examples -type d -depth 1 -exec go build -o /dev/null {} \;
 
+.PHONY: gofmt
+gofmt:
+	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -l {} \;
+	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -w {} \;
