@@ -16,10 +16,14 @@ clean:
 
 
 .PHONY: test
-test: reuse
+test: build-examples reuse
 	@echo all tests OK
 
 .PHONY: reuse
 reuse:
 	docker run -v $(PWD):/code --rm fsfe/reuse /bin/sh -c "cd /code && reuse lint"
+
+.PHONY: build-examples
+build-examples: examples
+	find ./examples -type d -depth 1 -exec go build -o /dev/null {} \;
 
