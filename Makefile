@@ -14,6 +14,12 @@ osc-api/outscale.yaml:
 clean:
 	rm -rf .sdk osc-api osc || true
 
+
+.PHONY: test
+test: reuse
+	@echo all tests OK
+
 .PHONY: reuse
 reuse:
 	docker run -v $(PWD):/code --rm fsfe/reuse /bin/sh -c "cd /code && reuse lint"
+
