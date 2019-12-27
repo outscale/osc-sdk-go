@@ -19,7 +19,7 @@ func main() {
 
 	read, httpRes, err := client.SubregionApi.ReadSubregions(auth, nil)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while reading subregions")
+		fmt.Fprint(os.Stderr, "Error while reading subregions ")
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
@@ -27,6 +27,6 @@ func main() {
 	}
 	println("We have ", len(read.Subregions), "subregions (Availability Zones):")
 	for _, sub := range read.Subregions {
-		println("(", sub.RegionName, ")", sub.SubregionName, ":", sub.State)
+		println("- (", sub.RegionName, ")", sub.SubregionName, ":", sub.State)
 	}
 }
