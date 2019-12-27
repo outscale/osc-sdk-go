@@ -25,7 +25,7 @@ func main() {
 	}
 	println("We currently have", len(read.Volumes), "volumes:")
 	for _, volume := range read.Volumes {
-		println(volume.VolumeId)
+		println("-", volume.VolumeId)
 	}
 
 	println("Creating 10GB GP2 volume")
@@ -39,9 +39,9 @@ func main() {
 	}
 	creation, httpRes, err := client.VolumeApi.CreateVolume(auth, &creationOpts)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while creating volume")
+		fmt.Fprint(os.Stderr, "Error while creating volume ")
 		if httpRes != nil {
-			fmt.Fprintln(os.Stderr, "Error while creating volume:", httpRes.Status)
+			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
 		os.Exit(1)
 	}
@@ -58,7 +58,7 @@ func main() {
 	}
 	read, httpRes, err = client.VolumeApi.ReadVolumes(auth, &readOpts)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while reading volumes")
+		fmt.Fprint(os.Stderr, "Error while reading volumes ")
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
@@ -66,10 +66,10 @@ func main() {
 	}
 	println(creation.Volume.VolumeId, "details:")
 	volume := read.Volumes[0]
-	println("Id:", volume.VolumeId)
-	println("Size:", volume.Size)
-	println("Type:", volume.VolumeType)
-	println("State:", volume.State)
+	println("- Id:", volume.VolumeId)
+	println("- Size:", volume.Size)
+	println("- Type:", volume.VolumeType)
+	println("- State:", volume.State)
 
 	println("Deleting volume", creation.Volume.VolumeId)
 	deletionOpts := osc.DeleteVolumeOpts{
@@ -80,9 +80,9 @@ func main() {
 	}
 	_, httpRes, err = client.VolumeApi.DeleteVolume(auth, &deletionOpts)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while creating volume")
+		fmt.Fprint(os.Stderr, "Error while deleting volume ")
 		if httpRes != nil {
-			fmt.Fprintln(os.Stderr, "Error while creating volume:", httpRes.Status)
+			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
 		os.Exit(1)
 	}
