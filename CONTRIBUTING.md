@@ -8,8 +8,7 @@ Other contributions like examples and tests are welcome!
 
 1. have some tools ready: GNU make, git, docker
 2. edit `version` file and to the latest version
-3. clean old sdk using `make clean`
-4. launch sdk generation by running `make`
+4. launch sdk generation by running `make gen`
 5. new sdk is now generated in `osc` folder
 
 Under the hood, a [patched version](https://github.com/outscale-dev/openapi-generator/tree/osc-v2) of [OpenAPI-Genetator](https://github.com/OpenAPITools/openapi-generator) is used.

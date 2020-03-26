@@ -1,5 +1,14 @@
 VERSION=$(shell cat version)
-all: osc
+all: help
+
+.PHONY: help
+help:
+	@echo "help:"
+	@echo "- make gen  : regenerate SDK"
+	@echo "- make test : run all tests"
+
+.PHONY: gen
+gen: clean osc
 
 osc: osc-api/outscale.yaml
 	rm -rf .sdk || true
