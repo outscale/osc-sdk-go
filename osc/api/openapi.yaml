@@ -17,7 +17,7 @@ info:
   title: 3DS OUTSCALE API
   version: "0.17"
 servers:
-- url: https://api.{region}.outscale.com/oapi/v0
+- url: https://api.{region}.outscale.com/oapi/latest
   variables:
     region:
       default: eu-west-2

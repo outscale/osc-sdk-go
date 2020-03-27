@@ -91,12 +91,12 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		BasePath:      "https://api.eu-west-2.outscale.com/oapi/v0",
+		BasePath:      "https://api.eu-west-2.outscale.com/oapi/latest",
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "OpenAPI-Generator/1.0.0/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{{
-			Url: "https://api.{region}.outscale.com/oapi/v0",
+			Url: "https://api.{region}.outscale.com/oapi/latest",
 			Description: "No description provided",
 			Variables: map[string]ServerVariable{
 				"region": ServerVariable{

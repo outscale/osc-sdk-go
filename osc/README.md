@@ -29,7 +29,7 @@ import "./osc"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.eu-west-2.outscale.com/oapi/v0*
+All URIs are relative to *https://api.eu-west-2.outscale.com/oapi/latest*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -580,6 +580,16 @@ auth := context.WithValue(context.Background(), sw.ContextAPIKey, sw.APIKey{
 r, err := client.Service.Operation(auth, args)
 ```
 
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAWSv4, sw.AWSv4{
+    AccessKey: "ACCESSKEYSTRING",
+    SecretKey: "SECRETKEYSTRING",
+})
+r, err := client.Service.Operation(auth, args)
+```
 
 ## Author
 
