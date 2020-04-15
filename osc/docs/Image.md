@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **ProductCodes** | **[]string** | The product code associated with the OMI (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
 **RootDeviceName** | **string** | The name of the root device. | [optional] 
 **RootDeviceType** | **string** | The type of root device used by the OMI (always &#x60;bsu&#x60;). | [optional] 
-**State** | **string** | The state of the OMI. | [optional] 
+**State** | **string** | The state of the OMI (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **StateComment** | [**StateComment**](StateComment.md) |  | [optional] 
 **Tags** | [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the OMI. | [optional] 
 

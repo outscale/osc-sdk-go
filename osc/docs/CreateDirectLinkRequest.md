@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bandwidth** | **string** | The bandwidth of the DirectLink (&#x60;1GBps&#x60; \\| &#x60;10GBps&#x60;). | 
+**Bandwidth** | **string** | The bandwidth of the DirectLink (&#x60;1Gbps&#x60; \\| &#x60;10Gbps&#x60;). | 
 **DirectLinkName** | **string** | The name of the DirectLink. | 
 **DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
 **Location** | **string** | The code of the requested location for the DirectLink, returned by the [ReadLocations](#readlocations) method. | 

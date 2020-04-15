@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BlockDeviceMappings** | [**[]BlockDeviceMappingVmUpdate**](BlockDeviceMappingVmUpdate.md) | One or more block device mappings of the VM. This parameter modifies the &#x60;DeleteOnDeletion&#x60; attribute for volumes attached to the VM. | [optional] 
+**BlockDeviceMappings** | [**[]BlockDeviceMappingVmUpdate**](BlockDeviceMappingVmUpdate.md) | One or more block device mappings of the VM. | [optional] 
 **BsuOptimized** | **bool** | If &#x60;true&#x60;, the VM is optimized for BSU I/O. | [optional] 
 **DeletionProtection** | **bool** | If &#x60;true&#x60;, you cannot terminate the VM using Cockpit, the CLI or the API. If &#x60;false&#x60;, you can. | [optional] 
 **DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 

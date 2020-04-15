@@ -1,6 +1,6 @@
 # \VpnConnectionApi
 
-All URIs are relative to *https://api.eu-west-2.outscale.com/oapi/latest*
+All URIs are relative to *https://api.eu-west-2.outscale.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
