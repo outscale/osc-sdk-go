@@ -1,1 +1,0 @@
-# Outscale oAPI Go SDK
