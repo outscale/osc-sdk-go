@@ -1,0 +1,28 @@
+From ca76500400cea1eb88442e446d187be24ab2694b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9rome=20Jutteau?= <jerome.jutteau@outscale.com>
+Date: Fri, 24 Apr 2020 15:46:50 +0200
+Subject: [PATCH 2/2] Quickfix: Fix Snapshot size in order to use long type
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jérome Jutteau <jerome.jutteau@outscale.com>
+---
+ outscale.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/outscale.yaml b/outscale.yaml
+index 549d468..59d0e71 100644
+--- a/outscale.yaml
++++ b/outscale.yaml
+@@ -1121,6 +1121,7 @@ components:
+         SnapshotSize:
+           description: The size of the snapshot created in your account, in bytes. This size must be exactly the same as the source snapshot one.
+           type: integer
++          format: int64
+         SourceRegionName:
+           description: The name of the source Region, which must be the same as the Region of your account.
+           type: string
+-- 
+2.26.0
+

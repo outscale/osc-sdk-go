@@ -1,4 +1,4 @@
-From 4b33c4ed8949ceeea2be8715cc580ca9b9622351 Mon Sep 17 00:00:00 2001
+From 9f0309446f96eb73d72add4df875fafd5d53e58f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?J=C3=A9rome=20Jutteau?= <jerome.jutteau@outscale.com>
 Date: Wed, 15 Apr 2020 11:28:22 +0200
 Subject: [PATCH 1/2] Quickfix: remove empty requestBody

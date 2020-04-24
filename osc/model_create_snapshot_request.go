@@ -18,7 +18,7 @@ type CreateSnapshotRequest struct {
 	// The pre-signed URL of the snapshot you want to import from the OSU bucket.
 	FileLocation string `json:"FileLocation,omitempty"`
 	// The size of the snapshot created in your account, in bytes. This size must be exactly the same as the source snapshot one.
-	SnapshotSize int32 `json:"SnapshotSize,omitempty"`
+	SnapshotSize int64 `json:"SnapshotSize,omitempty"`
 	// The name of the source Region, which must be the same as the Region of your account.
 	SourceRegionName string `json:"SourceRegionName,omitempty"`
 	// The ID of the snapshot you want to copy.
