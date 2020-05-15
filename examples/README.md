@@ -2,7 +2,7 @@
 
 In order to run examples, you will need to get few modules:
 ```shell
-go get github.com/outscale-dev/osc-sdk-go/osc
+go get github.com/outscale/osc-sdk-go/osc
 ```
 
 You can then setup your credentials (eu-west-2 region) with environement variables:

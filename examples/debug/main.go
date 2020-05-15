@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/outscale-dev/osc-sdk-go/osc"
+	"github.com/outscale/osc-sdk-go/osc"
 	"os"
 )
 

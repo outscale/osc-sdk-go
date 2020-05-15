@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/outscale-dev/osc-sdk-go/osc"
+	"github.com/outscale/osc-sdk-go/osc"
 )
 
 func main() {

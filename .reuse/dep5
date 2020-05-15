@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: osc-sdk-go-generator
+Upstream-Name: osc-sdk-go
 Upstream-Contact: Outscale support <support@outscale.com>
-Source: https://gitlab.com/outscale-dev/osc-sdk-go-generator/
+Source: https://gitlab.com/outscale/osc-sdk-go/
 
 Files: *.md
 Copyright: 2019 Outscale SAS <support@outscale.com>

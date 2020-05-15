@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/antihax/optional"
-	"github.com/outscale-dev/osc-sdk-go/osc"
+	"github.com/outscale/osc-sdk-go/osc"
 	"os"
 )
 

@@ -6,7 +6,7 @@ Welcome to Outscale SDK for [golang](https://golang.org/).
 
 Simply grab go module:
 ```bash
-$ go get github.com/outscale-dev/osc-sdk-go/osc
+$ go get github.com/outscale/osc-sdk-go/osc
 ```
 
 See [examples](examples/) folder to jump straight into the code!
