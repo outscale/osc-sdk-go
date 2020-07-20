@@ -9,8 +9,11 @@ import (
 )
 
 func main() {
-	config := osc.NewConfiguration()
-	config.BasePath, _ = config.ServerUrl(0, map[string]string{"region": "eu-west-2"})
+	config, err := osc.NewConfiguration().AddRegion("eu-west-2")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+	}
+
 	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
