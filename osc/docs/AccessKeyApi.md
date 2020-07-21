@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAccessKey**](AccessKeyApi.md#CreateAccessKey) | **Post** /CreateAccessKey | 
 [**DeleteAccessKey**](AccessKeyApi.md#DeleteAccessKey) | **Post** /DeleteAccessKey | 
+[**ReadAccessKeys**](AccessKeyApi.md#ReadAccessKeys) | **Post** /ReadAccessKeys | 
+[**ReadSecretAccessKey**](AccessKeyApi.md#ReadSecretAccessKey) | **Post** /ReadSecretAccessKey | 
 [**UpdateAccessKey**](AccessKeyApi.md#UpdateAccessKey) | **Post** /UpdateAccessKey | 
 
 
@@ -64,6 +66,88 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteAccessKeyResponse**](DeleteAccessKeyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadAccessKeys
+
+> ReadAccessKeysResponse ReadAccessKeys(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ReadAccessKeysOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ReadAccessKeysOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readAccessKeysRequest** | [**optional.Interface of ReadAccessKeysRequest**](ReadAccessKeysRequest.md)|  | 
+
+### Return type
+
+[**ReadAccessKeysResponse**](ReadAccessKeysResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadSecretAccessKey
+
+> ReadSecretAccessKeyResponse ReadSecretAccessKey(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ReadSecretAccessKeyOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ReadSecretAccessKeyOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readSecretAccessKeyRequest** | [**optional.Interface of ReadSecretAccessKeyRequest**](ReadSecretAccessKeyRequest.md)|  | 
+
+### Return type
+
+[**ReadSecretAccessKeyResponse**](ReadSecretAccessKeyResponse.md)
 
 ### Authorization
 

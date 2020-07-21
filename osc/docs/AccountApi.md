@@ -7,6 +7,8 @@ Method | HTTP request | Description
 [**CheckAuthentication**](AccountApi.md#CheckAuthentication) | **Post** /CheckAuthentication | 
 [**CreateAccount**](AccountApi.md#CreateAccount) | **Post** /CreateAccount | 
 [**ReadAccounts**](AccountApi.md#ReadAccounts) | **Post** /ReadAccounts | 
+[**ResetAccountPassword**](AccountApi.md#ResetAccountPassword) | **Post** /ResetAccountPassword | 
+[**SendResetPasswordEmail**](AccountApi.md#SendResetPasswordEmail) | **Post** /SendResetPasswordEmail | 
 [**UpdateAccount**](AccountApi.md#UpdateAccount) | **Post** /UpdateAccount | 
 
 
@@ -119,6 +121,88 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadAccountsResponse**](ReadAccountsResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResetAccountPassword
+
+> ResetAccountPasswordResponse ResetAccountPassword(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ResetAccountPasswordOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ResetAccountPasswordOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **resetAccountPasswordRequest** | [**optional.Interface of ResetAccountPasswordRequest**](ResetAccountPasswordRequest.md)|  | 
+
+### Return type
+
+[**ResetAccountPasswordResponse**](ResetAccountPasswordResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SendResetPasswordEmail
+
+> SendResetPasswordEmailResponse SendResetPasswordEmail(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***SendResetPasswordEmailOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a SendResetPasswordEmailOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sendResetPasswordEmailRequest** | [**optional.Interface of SendResetPasswordEmailRequest**](SendResetPasswordEmailRequest.md)|  | 
+
+### Return type
+
+[**SendResetPasswordEmailResponse**](SendResetPasswordEmailResponse.md)
 
 ### Authorization
 
