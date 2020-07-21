@@ -24,3 +24,10 @@ If you plan to make some change here, consider making a pull request in [openapi
 Otherwise:
 - your merge request must be rebased on `next-release` branch
 - be sure that tests still pass by running `make test`
+
+# How to release
+
+1. edit `version` file
+2. `make gen` to update the sdk
+3. `make test` and `make run-examples` and fix any issue
+4. update `changelog.md` file
