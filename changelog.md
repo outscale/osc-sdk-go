@@ -24,3 +24,7 @@
   - ReadRegions
   - SecretAccessKey actions
   - ServerCertificate actions
+
+# v1.1
+
+- New region: cn-southeast-1
