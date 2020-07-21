@@ -18,5 +18,9 @@ Under the hood:
 
 # Sending a Merge Request
 
+Content in `osc` folder is generated at each release.
+If you plan to make some change here, consider making a pull request in [openapi-generator project](https://github.com/OpenAPITools/openapi-generator/).
+
+Otherwise:
 - your merge request must be rebased on `next-release` branch
 - be sure that tests still pass by running `make test`
