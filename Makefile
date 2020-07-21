@@ -14,8 +14,6 @@ osc: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk
-	# Quick fix due to encoding error, soon to be fixed at Outscale
-	docker run -it --rm -v $(PWD):/sdk openapitools/openapi-generator-cli:v4.3.0 sed -i 's#jsonCheck.MatchString(contentType)#jsonCheck.MatchString(contentType) || contentType == "text/plain"#g' /sdk/.sdk/client.go
 	mv .sdk osc
 
 osc-api/outscale.yaml:
