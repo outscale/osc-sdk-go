@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **SubnetId** | **string** | The ID of the Subnet in which you want to create the VM. | [optional] 
 **UserData** | **string** | Data or script used to add a specific configuration to the VM. It must be base64-encoded. | [optional] 
 **VmInitiatedShutdownBehavior** | **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
-**VmType** | **string** | The type of VM (&#x60;tinav2.c1r2&#x60; by default).&lt;br /&gt; For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
+**VmType** | **string** | The type of VM (&#x60;t2.small&#x60; by default).&lt;br /&gt; For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

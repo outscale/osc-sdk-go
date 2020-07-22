@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountIds** | **[]string** | The account IDs of the owners of the security groups. | [optional] 
+**NetIds** | **[]string** | The IDs of the Nets specified when the security groups were created. | [optional] 
 **SecurityGroupIds** | **[]string** | The IDs of the security groups. | [optional] 
 **SecurityGroupNames** | **[]string** | The names of the security groups. | [optional] 
 **TagKeys** | **[]string** | The keys of the tags associated with the security groups. | [optional] 

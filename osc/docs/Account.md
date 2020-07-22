@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **City** | **string** | The city of the account owner. | [optional] 
 **CompanyName** | **string** | The name of the company for the account. | [optional] 
 **Country** | **string** | The country of the account owner. | [optional] 
-**CustomerId** | **string** | The ID of the customer. It must be 8 digits (by default, &#x60;12345678&#x60;). | [optional] 
+**CustomerId** | **string** | The ID of the customer. | [optional] 
 **Email** | **string** | The email address for the account. | [optional] 
 **FirstName** | **string** | The first name of the account owner. | [optional] 
 **JobTitle** | **string** | The job title of the account owner. | [optional] 

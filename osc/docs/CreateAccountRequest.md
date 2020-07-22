@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **City** | **string** | The city of the account owner. | 
 **CompanyName** | **string** | The name of the company for the account. | 
 **Country** | **string** | The country of the account owner. | 
-**CustomerId** | **string** | The ID of the customer. It must be 8 digits (by default, &#x60;12345678&#x60;). | 
+**CustomerId** | **string** | The ID of the customer. It must be 8 digits. | 
 **DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
 **Email** | **string** | The email address for the account. | 
 **FirstName** | **string** | The first name of the account owner. | 

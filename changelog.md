@@ -28,3 +28,15 @@
 # v1.1
 
 - New region: cn-southeast-1
+
+# 1.2
+
+- SnapshotSize: fixed yaml type to avoid size limitation (as it is expressed in bytes)
+- CreateAccessKey: has it's own object description
+- New filters on ressources:
+  - InternetService: LinkNetIds, LinkNetIds
+  - Net: IsDefault
+  - RouteTable: LinkRouteTableIds, LinkRouteTableMain, RouteDestinationServiceIds
+  - SecurityGroup: NetIds
+  - FlexibleGpuCatalog: Generations
+- Documentation fixes

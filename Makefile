@@ -17,7 +17,7 @@ osc: osc-api/outscale.yaml
 	mv .sdk osc
 
 osc-api/outscale.yaml:
-	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(VERSION) $(VERSION) && git am ../.patch/*.patch
+	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(VERSION) $(VERSION)
 
 .PHONY: clean
 clean:

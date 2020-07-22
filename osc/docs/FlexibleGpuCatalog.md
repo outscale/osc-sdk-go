@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Generations** | **string** | The generations of VMs that the fGPU is compatible with. | [optional] 
+**Generations** | **[]string** | The generations of VMs that the fGPU is compatible with. | [optional] 
 **MaxCpu** | **int32** | The maximum number of VM vCores that the fGPU is compatible with. | [optional] 
 **MaxRam** | **int32** | The maximum amount of VM memory that the fGPU is compatible with. | [optional] 
 **ModelName** | **string** | The model of fGPU. | [optional] 
