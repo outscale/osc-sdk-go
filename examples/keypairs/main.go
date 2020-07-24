@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/antihax/optional"
-	osc "github.com/outscale/osc-sdk-go/v1"
+	osc "github.com/jerome-jutteau/osc-sdk-go/v1"
 )
 
 func main() {
