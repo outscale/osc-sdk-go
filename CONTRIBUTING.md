@@ -27,7 +27,11 @@ Otherwise:
 
 # How to release
 
-1. edit `version` file
-2. `make gen` to update the sdk
-3. `make test` and `make run-examples` and fix any issue
-4. update `changelog.md` file
+1. rebase on next-release branch
+2. edit `version` file
+3. `make gen` to update the sdk
+4. `make test` and `make run-examples` and fix any issue
+5. update `changelog.md` file
+6. commit changes
+7. tag version
+8. push to next-release and master
