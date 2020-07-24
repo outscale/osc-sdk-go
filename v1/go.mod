@@ -1,4 +1,4 @@
-module github.com/outscale/osc-sdk-go/osc
+module github.com/outscale/osc-sdk-go/v1
 
 require (
 	github.com/antihax/optional v1.0.0

@@ -4,11 +4,7 @@ Welcome to Outscale SDK for [golang](https://golang.org/).
 
 ## How to use the SDK ?
 
-Simply grab go module:
-```bash
-$ go get github.com/outscale/osc-sdk-go/osc
-```
-
+Outscale Go SDK is using [go modules](https://blog.golang.org/using-go-modules).
 See [examples](examples/) folder to jump straight into the code!
 
 # Contributing

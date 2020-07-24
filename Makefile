@@ -8,20 +8,20 @@ help:
 	@echo "- make test : run all tests"
 
 .PHONY: gen
-gen: clean osc
+gen: clean v1
 
-osc: osc-api/outscale.yaml
+v1: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk
-	mv .sdk osc
+	mv .sdk v1
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(VERSION) $(VERSION)
 
 .PHONY: clean
 clean:
-	rm -rf .sdk osc-api osc || true
+	rm -rf .sdk osc-api v1 || true
 
 
 .PHONY: test
