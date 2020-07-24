@@ -1,4 +1,4 @@
-module github.com/outscale/osc-sdk-go/osc/examples/keypairs
+module github.com/outscale/osc-sdk-go/examples/keypairs
 
 go 1.14
 
