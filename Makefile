@@ -30,7 +30,7 @@ test: build-examples reuse
 
 .PHONY: reuse
 reuse:
-	docker run -v $(PWD):/code --rm fsfe/reuse /bin/sh -c "cd /code && reuse lint"
+	docker run --volume $(PWD):/data fsfe/reuse lint
 
 .PHONY: build-examples
 build-examples: examples
