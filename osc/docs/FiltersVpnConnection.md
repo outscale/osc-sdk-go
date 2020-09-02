@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **RouteDestinationIpRanges** | **[]string** | The destination IP ranges. | [optional] 
 **States** | **[]string** | The states of the VPN connections (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **StaticRoutesOnly** | **bool** | If &#x60;false&#x60;, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If &#x60;true&#x60;, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 
+**TagKeys** | **[]string** | The keys of the tags associated with the VPN connections. | [optional] 
+**TagValues** | **[]string** | The values of the tags associated with the VPN connections. | [optional] 
+**Tags** | **[]string** | The key/value combination of the tags associated with the VPN connections, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
 **VirtualGatewayIds** | **[]string** | The IDs of the virtual gateways. | [optional] 
 **VpnConnectionIds** | **[]string** | The IDs of the VPN connections. | [optional] 
 

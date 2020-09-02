@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **QueryApiName** | **string** | The name of the API service used by the call. | [optional] 
 **QueryApiVersion** | **string** | The version of the API service used by the call. | [optional] 
 **QueryCallName** | **string** | The name of the call. | [optional] 
-**QueryDate** | **string** | The date and time of the query (in ISO 8601 base or extended format). | [optional] 
+**QueryDate** | **string** | The date of the query, in ISO 8601 format. | [optional] 
 **QueryHeaderRaw** | **string** | The query header raw. | [optional] 
 **QueryHeaderSize** | **int32** | The query header size. | [optional] 
 **QueryIpAddress** | **string** | The IP address used for the query. | [optional] 

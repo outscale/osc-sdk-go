@@ -40,3 +40,9 @@
   - SecurityGroup: NetIds
   - FlexibleGpuCatalog: Generations
 - Documentation fixes
+
+# 1.3
+
+- AccessKeys: can now have an expiration date
+- Flexible GPU support filtering on Generation
+- Tag filtering added for Subnets and VPN connections
