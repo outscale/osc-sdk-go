@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## CreateNetAccessPoint
 
-> CreateNetAccessPointResponse CreateNetAccessPoint(ctx, optional)
+> CreateNetAccessPointResponse CreateNetAccessPoint(ctx).CreateNetAccessPointRequest(createNetAccessPointRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createNetAccessPointRequest := openapiclient.CreateNetAccessPointRequest{DryRun: false, NetId: "NetId_example", RouteTableIds: []string{"RouteTableIds_example"), ServiceName: "ServiceName_example"} // CreateNetAccessPointRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetAccessPointApi.CreateNetAccessPoint(context.Background()).CreateNetAccessPointRequest(createNetAccessPointRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetAccessPointApi.CreateNetAccessPoint``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateNetAccessPoint`: CreateNetAccessPointResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetAccessPointApi.CreateNetAccessPoint`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateNetAccessPointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateNetAccessPointOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateNetAccessPointOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createNetAccessPointRequest** | [**optional.Interface of CreateNetAccessPointRequest**](CreateNetAccessPointRequest.md)|  | 
+ **createNetAccessPointRequest** | [**CreateNetAccessPointRequest**](CreateNetAccessPointRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## DeleteNetAccessPoint
 
-> DeleteNetAccessPointResponse DeleteNetAccessPoint(ctx, optional)
+> DeleteNetAccessPointResponse DeleteNetAccessPoint(ctx).DeleteNetAccessPointRequest(deleteNetAccessPointRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteNetAccessPointRequest := openapiclient.DeleteNetAccessPointRequest{DryRun: false, NetAccessPointId: "NetAccessPointId_example"} // DeleteNetAccessPointRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetAccessPointApi.DeleteNetAccessPoint(context.Background()).DeleteNetAccessPointRequest(deleteNetAccessPointRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetAccessPointApi.DeleteNetAccessPoint``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteNetAccessPoint`: DeleteNetAccessPointResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetAccessPointApi.DeleteNetAccessPoint`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNetAccessPointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteNetAccessPointOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteNetAccessPointOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteNetAccessPointRequest** | [**optional.Interface of DeleteNetAccessPointRequest**](DeleteNetAccessPointRequest.md)|  | 
+ **deleteNetAccessPointRequest** | [**DeleteNetAccessPointRequest**](DeleteNetAccessPointRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## ReadNetAccessPointServices
 
-> ReadNetAccessPointServicesResponse ReadNetAccessPointServices(ctx, optional)
+> ReadNetAccessPointServicesResponse ReadNetAccessPointServices(ctx).ReadNetAccessPointServicesRequest(readNetAccessPointServicesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readNetAccessPointServicesRequest := openapiclient.ReadNetAccessPointServicesRequest{DryRun: false, Filters: openapiclient.FiltersService{ServiceIds: []string{"ServiceIds_example"), ServiceNames: []string{"ServiceNames_example")}} // ReadNetAccessPointServicesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetAccessPointApi.ReadNetAccessPointServices(context.Background()).ReadNetAccessPointServicesRequest(readNetAccessPointServicesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetAccessPointApi.ReadNetAccessPointServices``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadNetAccessPointServices`: ReadNetAccessPointServicesResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetAccessPointApi.ReadNetAccessPointServices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadNetAccessPointServicesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadNetAccessPointServicesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadNetAccessPointServicesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readNetAccessPointServicesRequest** | [**optional.Interface of ReadNetAccessPointServicesRequest**](ReadNetAccessPointServicesRequest.md)|  | 
+ **readNetAccessPointServicesRequest** | [**ReadNetAccessPointServicesRequest**](ReadNetAccessPointServicesRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ No authorization required
 
 ## ReadNetAccessPoints
 
-> ReadNetAccessPointsResponse ReadNetAccessPoints(ctx, optional)
+> ReadNetAccessPointsResponse ReadNetAccessPoints(ctx).ReadNetAccessPointsRequest(readNetAccessPointsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readNetAccessPointsRequest := openapiclient.ReadNetAccessPointsRequest{DryRun: false, Filters: openapiclient.FiltersNetAccessPoint{NetAccessPointIds: []string{"NetAccessPointIds_example"), NetIds: []string{"NetIds_example"), ServiceNames: []string{"ServiceNames_example"), States: []string{"States_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadNetAccessPointsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetAccessPointApi.ReadNetAccessPoints(context.Background()).ReadNetAccessPointsRequest(readNetAccessPointsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetAccessPointApi.ReadNetAccessPoints``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadNetAccessPoints`: ReadNetAccessPointsResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetAccessPointApi.ReadNetAccessPoints`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadNetAccessPointsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadNetAccessPointsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadNetAccessPointsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readNetAccessPointsRequest** | [**optional.Interface of ReadNetAccessPointsRequest**](ReadNetAccessPointsRequest.md)|  | 
+ **readNetAccessPointsRequest** | [**ReadNetAccessPointsRequest**](ReadNetAccessPointsRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## UpdateNetAccessPoint
 
-> UpdateNetAccessPointResponse UpdateNetAccessPoint(ctx, optional)
+> UpdateNetAccessPointResponse UpdateNetAccessPoint(ctx).UpdateNetAccessPointRequest(updateNetAccessPointRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateNetAccessPointRequest := openapiclient.UpdateNetAccessPointRequest{AddRouteTableIds: []string{"AddRouteTableIds_example"), DryRun: false, NetAccessPointId: "NetAccessPointId_example", RemoveRouteTableIds: []string{"RemoveRouteTableIds_example")} // UpdateNetAccessPointRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetAccessPointApi.UpdateNetAccessPoint(context.Background()).UpdateNetAccessPointRequest(updateNetAccessPointRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetAccessPointApi.UpdateNetAccessPoint``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateNetAccessPoint`: UpdateNetAccessPointResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetAccessPointApi.UpdateNetAccessPoint`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateNetAccessPointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateNetAccessPointOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateNetAccessPointOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateNetAccessPointRequest** | [**optional.Interface of UpdateNetAccessPointRequest**](UpdateNetAccessPointRequest.md)|  | 
+ **updateNetAccessPointRequest** | [**UpdateNetAccessPointRequest**](UpdateNetAccessPointRequest.md) |  | 
 
 ### Return type
 

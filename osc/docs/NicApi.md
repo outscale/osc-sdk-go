@@ -17,26 +17,49 @@ Method | HTTP request | Description
 
 ## CreateNic
 
-> CreateNicResponse CreateNic(ctx, optional)
+> CreateNicResponse CreateNic(ctx).CreateNicRequest(createNicRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createNicRequest := openapiclient.CreateNicRequest{Description: "Description_example", DryRun: false, PrivateIps: []PrivateIpLight{openapiclient.PrivateIpLight{IsPrimary: false, PrivateIp: "PrivateIp_example"}), SecurityGroupIds: []string{"SecurityGroupIds_example"), SubnetId: "SubnetId_example"} // CreateNicRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.CreateNic(context.Background()).CreateNicRequest(createNicRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.CreateNic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateNic`: CreateNicResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.CreateNic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateNicRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateNicOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateNicOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createNicRequest** | [**optional.Interface of CreateNicRequest**](CreateNicRequest.md)|  | 
+ **createNicRequest** | [**CreateNicRequest**](CreateNicRequest.md) |  | 
 
 ### Return type
 
@@ -58,26 +81,49 @@ Name | Type | Description  | Notes
 
 ## DeleteNic
 
-> DeleteNicResponse DeleteNic(ctx, optional)
+> DeleteNicResponse DeleteNic(ctx).DeleteNicRequest(deleteNicRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteNicRequest := openapiclient.DeleteNicRequest{DryRun: false, NicId: "NicId_example"} // DeleteNicRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.DeleteNic(context.Background()).DeleteNicRequest(deleteNicRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.DeleteNic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteNic`: DeleteNicResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.DeleteNic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNicRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteNicOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteNicOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteNicRequest** | [**optional.Interface of DeleteNicRequest**](DeleteNicRequest.md)|  | 
+ **deleteNicRequest** | [**DeleteNicRequest**](DeleteNicRequest.md) |  | 
 
 ### Return type
 
@@ -99,26 +145,49 @@ Name | Type | Description  | Notes
 
 ## LinkNic
 
-> LinkNicResponse LinkNic(ctx, optional)
+> LinkNicResponse LinkNic(ctx).LinkNicRequest(linkNicRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkNicRequest := openapiclient.LinkNicRequest{DeviceNumber: 123, DryRun: false, NicId: "NicId_example", VmId: "VmId_example"} // LinkNicRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.LinkNic(context.Background()).LinkNicRequest(linkNicRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.LinkNic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkNic`: LinkNicResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.LinkNic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkNicRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkNicOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkNicOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkNicRequest** | [**optional.Interface of LinkNicRequest**](LinkNicRequest.md)|  | 
+ **linkNicRequest** | [**LinkNicRequest**](LinkNicRequest.md) |  | 
 
 ### Return type
 
@@ -140,26 +209,49 @@ Name | Type | Description  | Notes
 
 ## LinkPrivateIps
 
-> LinkPrivateIpsResponse LinkPrivateIps(ctx, optional)
+> LinkPrivateIpsResponse LinkPrivateIps(ctx).LinkPrivateIpsRequest(linkPrivateIpsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkPrivateIpsRequest := openapiclient.LinkPrivateIpsRequest{AllowRelink: false, DryRun: false, NicId: "NicId_example", PrivateIps: []string{"PrivateIps_example"), SecondaryPrivateIpCount: 123} // LinkPrivateIpsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.LinkPrivateIps(context.Background()).LinkPrivateIpsRequest(linkPrivateIpsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.LinkPrivateIps``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkPrivateIps`: LinkPrivateIpsResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.LinkPrivateIps`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkPrivateIpsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkPrivateIpsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkPrivateIpsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkPrivateIpsRequest** | [**optional.Interface of LinkPrivateIpsRequest**](LinkPrivateIpsRequest.md)|  | 
+ **linkPrivateIpsRequest** | [**LinkPrivateIpsRequest**](LinkPrivateIpsRequest.md) |  | 
 
 ### Return type
 
@@ -181,26 +273,49 @@ Name | Type | Description  | Notes
 
 ## ReadNics
 
-> ReadNicsResponse ReadNics(ctx, optional)
+> ReadNicsResponse ReadNics(ctx).ReadNicsRequest(readNicsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readNicsRequest := openapiclient.ReadNicsRequest{DryRun: false, Filters: openapiclient.FiltersNic{LinkNicSortNumbers: []int32{123), LinkNicVmIds: []string{"LinkNicVmIds_example"), NicIds: []string{"NicIds_example"), PrivateIpsPrivateIps: []string{"PrivateIpsPrivateIps_example"), SubnetIds: []string{"SubnetIds_example")}} // ReadNicsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.ReadNics(context.Background()).ReadNicsRequest(readNicsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.ReadNics``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadNics`: ReadNicsResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.ReadNics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadNicsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadNicsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadNicsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readNicsRequest** | [**optional.Interface of ReadNicsRequest**](ReadNicsRequest.md)|  | 
+ **readNicsRequest** | [**ReadNicsRequest**](ReadNicsRequest.md) |  | 
 
 ### Return type
 
@@ -222,26 +337,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkNic
 
-> UnlinkNicResponse UnlinkNic(ctx, optional)
+> UnlinkNicResponse UnlinkNic(ctx).UnlinkNicRequest(unlinkNicRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkNicRequest := openapiclient.UnlinkNicRequest{DryRun: false, LinkNicId: "LinkNicId_example"} // UnlinkNicRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.UnlinkNic(context.Background()).UnlinkNicRequest(unlinkNicRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.UnlinkNic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkNic`: UnlinkNicResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.UnlinkNic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkNicRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkNicOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkNicOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkNicRequest** | [**optional.Interface of UnlinkNicRequest**](UnlinkNicRequest.md)|  | 
+ **unlinkNicRequest** | [**UnlinkNicRequest**](UnlinkNicRequest.md) |  | 
 
 ### Return type
 
@@ -263,26 +401,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkPrivateIps
 
-> UnlinkPrivateIpsResponse UnlinkPrivateIps(ctx, optional)
+> UnlinkPrivateIpsResponse UnlinkPrivateIps(ctx).UnlinkPrivateIpsRequest(unlinkPrivateIpsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkPrivateIpsRequest := openapiclient.UnlinkPrivateIpsRequest{DryRun: false, NicId: "NicId_example", PrivateIps: []string{"PrivateIps_example")} // UnlinkPrivateIpsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.UnlinkPrivateIps(context.Background()).UnlinkPrivateIpsRequest(unlinkPrivateIpsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.UnlinkPrivateIps``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkPrivateIps`: UnlinkPrivateIpsResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.UnlinkPrivateIps`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkPrivateIpsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkPrivateIpsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkPrivateIpsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkPrivateIpsRequest** | [**optional.Interface of UnlinkPrivateIpsRequest**](UnlinkPrivateIpsRequest.md)|  | 
+ **unlinkPrivateIpsRequest** | [**UnlinkPrivateIpsRequest**](UnlinkPrivateIpsRequest.md) |  | 
 
 ### Return type
 
@@ -304,26 +465,49 @@ Name | Type | Description  | Notes
 
 ## UpdateNic
 
-> UpdateNicResponse UpdateNic(ctx, optional)
+> UpdateNicResponse UpdateNic(ctx).UpdateNicRequest(updateNicRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateNicRequest := openapiclient.UpdateNicRequest{Description: "Description_example", DryRun: false, LinkNic: openapiclient.LinkNicToUpdate{DeleteOnVmDeletion: false, LinkNicId: "LinkNicId_example"}, NicId: "NicId_example", SecurityGroupIds: []string{"SecurityGroupIds_example")} // UpdateNicRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NicApi.UpdateNic(context.Background()).UpdateNicRequest(updateNicRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NicApi.UpdateNic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateNic`: UpdateNicResponse
+    fmt.Fprintf(os.Stdout, "Response from `NicApi.UpdateNic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateNicRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateNicOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateNicOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateNicRequest** | [**optional.Interface of UpdateNicRequest**](UpdateNicRequest.md)|  | 
+ **updateNicRequest** | [**UpdateNicRequest**](UpdateNicRequest.md) |  | 
 
 ### Return type
 

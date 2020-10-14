@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateSecurityGroup
 
-> CreateSecurityGroupResponse CreateSecurityGroup(ctx, optional)
+> CreateSecurityGroupResponse CreateSecurityGroup(ctx).CreateSecurityGroupRequest(createSecurityGroupRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createSecurityGroupRequest := openapiclient.CreateSecurityGroupRequest{Description: "Description_example", DryRun: false, NetId: "NetId_example", SecurityGroupName: "SecurityGroupName_example"} // CreateSecurityGroupRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SecurityGroupApi.CreateSecurityGroup(context.Background()).CreateSecurityGroupRequest(createSecurityGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SecurityGroupApi.CreateSecurityGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSecurityGroup`: CreateSecurityGroupResponse
+    fmt.Fprintf(os.Stdout, "Response from `SecurityGroupApi.CreateSecurityGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateSecurityGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSecurityGroupOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSecurityGroupOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createSecurityGroupRequest** | [**optional.Interface of CreateSecurityGroupRequest**](CreateSecurityGroupRequest.md)|  | 
+ **createSecurityGroupRequest** | [**CreateSecurityGroupRequest**](CreateSecurityGroupRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteSecurityGroup
 
-> DeleteSecurityGroupResponse DeleteSecurityGroup(ctx, optional)
+> DeleteSecurityGroupResponse DeleteSecurityGroup(ctx).DeleteSecurityGroupRequest(deleteSecurityGroupRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteSecurityGroupRequest := openapiclient.DeleteSecurityGroupRequest{DryRun: false, SecurityGroupId: "SecurityGroupId_example", SecurityGroupName: "SecurityGroupName_example"} // DeleteSecurityGroupRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SecurityGroupApi.DeleteSecurityGroup(context.Background()).DeleteSecurityGroupRequest(deleteSecurityGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SecurityGroupApi.DeleteSecurityGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteSecurityGroup`: DeleteSecurityGroupResponse
+    fmt.Fprintf(os.Stdout, "Response from `SecurityGroupApi.DeleteSecurityGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSecurityGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteSecurityGroupOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteSecurityGroupOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteSecurityGroupRequest** | [**optional.Interface of DeleteSecurityGroupRequest**](DeleteSecurityGroupRequest.md)|  | 
+ **deleteSecurityGroupRequest** | [**DeleteSecurityGroupRequest**](DeleteSecurityGroupRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadSecurityGroups
 
-> ReadSecurityGroupsResponse ReadSecurityGroups(ctx, optional)
+> ReadSecurityGroupsResponse ReadSecurityGroups(ctx).ReadSecurityGroupsRequest(readSecurityGroupsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSecurityGroupsRequest := openapiclient.ReadSecurityGroupsRequest{DryRun: false, Filters: openapiclient.FiltersSecurityGroup{AccountIds: []string{"AccountIds_example"), NetIds: []string{"NetIds_example"), SecurityGroupIds: []string{"SecurityGroupIds_example"), SecurityGroupNames: []string{"SecurityGroupNames_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadSecurityGroupsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SecurityGroupApi.ReadSecurityGroups(context.Background()).ReadSecurityGroupsRequest(readSecurityGroupsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SecurityGroupApi.ReadSecurityGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSecurityGroups`: ReadSecurityGroupsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SecurityGroupApi.ReadSecurityGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSecurityGroupsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSecurityGroupsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSecurityGroupsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSecurityGroupsRequest** | [**optional.Interface of ReadSecurityGroupsRequest**](ReadSecurityGroupsRequest.md)|  | 
+ **readSecurityGroupsRequest** | [**ReadSecurityGroupsRequest**](ReadSecurityGroupsRequest.md) |  | 
 
 ### Return type
 

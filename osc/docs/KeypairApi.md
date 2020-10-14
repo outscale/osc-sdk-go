@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateKeypair
 
-> CreateKeypairResponse CreateKeypair(ctx, optional)
+> CreateKeypairResponse CreateKeypair(ctx).CreateKeypairRequest(createKeypairRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createKeypairRequest := openapiclient.CreateKeypairRequest{DryRun: false, KeypairName: "KeypairName_example", PublicKey: "PublicKey_example"} // CreateKeypairRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.KeypairApi.CreateKeypair(context.Background()).CreateKeypairRequest(createKeypairRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `KeypairApi.CreateKeypair``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateKeypair`: CreateKeypairResponse
+    fmt.Fprintf(os.Stdout, "Response from `KeypairApi.CreateKeypair`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateKeypairRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateKeypairOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateKeypairOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createKeypairRequest** | [**optional.Interface of CreateKeypairRequest**](CreateKeypairRequest.md)|  | 
+ **createKeypairRequest** | [**CreateKeypairRequest**](CreateKeypairRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteKeypair
 
-> DeleteKeypairResponse DeleteKeypair(ctx, optional)
+> DeleteKeypairResponse DeleteKeypair(ctx).DeleteKeypairRequest(deleteKeypairRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteKeypairRequest := openapiclient.DeleteKeypairRequest{DryRun: false, KeypairName: "KeypairName_example"} // DeleteKeypairRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.KeypairApi.DeleteKeypair(context.Background()).DeleteKeypairRequest(deleteKeypairRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `KeypairApi.DeleteKeypair``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteKeypair`: DeleteKeypairResponse
+    fmt.Fprintf(os.Stdout, "Response from `KeypairApi.DeleteKeypair`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteKeypairRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteKeypairOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteKeypairOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteKeypairRequest** | [**optional.Interface of DeleteKeypairRequest**](DeleteKeypairRequest.md)|  | 
+ **deleteKeypairRequest** | [**DeleteKeypairRequest**](DeleteKeypairRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadKeypairs
 
-> ReadKeypairsResponse ReadKeypairs(ctx, optional)
+> ReadKeypairsResponse ReadKeypairs(ctx).ReadKeypairsRequest(readKeypairsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readKeypairsRequest := openapiclient.ReadKeypairsRequest{DryRun: false, Filters: openapiclient.FiltersKeypair{KeypairFingerprints: []string{"KeypairFingerprints_example"), KeypairNames: []string{"KeypairNames_example")}} // ReadKeypairsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.KeypairApi.ReadKeypairs(context.Background()).ReadKeypairsRequest(readKeypairsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `KeypairApi.ReadKeypairs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadKeypairs`: ReadKeypairsResponse
+    fmt.Fprintf(os.Stdout, "Response from `KeypairApi.ReadKeypairs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadKeypairsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadKeypairsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadKeypairsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readKeypairsRequest** | [**optional.Interface of ReadKeypairsRequest**](ReadKeypairsRequest.md)|  | 
+ **readKeypairsRequest** | [**ReadKeypairsRequest**](ReadKeypairsRequest.md) |  | 
 
 ### Return type
 

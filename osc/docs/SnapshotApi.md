@@ -15,26 +15,49 @@ Method | HTTP request | Description
 
 ## CreateSnapshot
 
-> CreateSnapshotResponse CreateSnapshot(ctx, optional)
+> CreateSnapshotResponse CreateSnapshot(ctx).CreateSnapshotRequest(createSnapshotRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createSnapshotRequest := openapiclient.CreateSnapshotRequest{Description: "Description_example", DryRun: false, FileLocation: "FileLocation_example", SnapshotSize: int64(123), SourceRegionName: "SourceRegionName_example", SourceSnapshotId: "SourceSnapshotId_example", VolumeId: "VolumeId_example"} // CreateSnapshotRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.CreateSnapshot(context.Background()).CreateSnapshotRequest(createSnapshotRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.CreateSnapshot``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSnapshot`: CreateSnapshotResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.CreateSnapshot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateSnapshotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSnapshotOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSnapshotOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createSnapshotRequest** | [**optional.Interface of CreateSnapshotRequest**](CreateSnapshotRequest.md)|  | 
+ **createSnapshotRequest** | [**CreateSnapshotRequest**](CreateSnapshotRequest.md) |  | 
 
 ### Return type
 
@@ -56,26 +79,49 @@ Name | Type | Description  | Notes
 
 ## CreateSnapshotExportTask
 
-> CreateSnapshotExportTaskResponse CreateSnapshotExportTask(ctx, optional)
+> CreateSnapshotExportTaskResponse CreateSnapshotExportTask(ctx).CreateSnapshotExportTaskRequest(createSnapshotExportTaskRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createSnapshotExportTaskRequest := openapiclient.CreateSnapshotExportTaskRequest{DryRun: false, OsuExport: openapiclient.OsuExport{DiskImageFormat: "DiskImageFormat_example", OsuApiKey: openapiclient.OsuApiKey{ApiKeyId: "ApiKeyId_example", SecretKey: "SecretKey_example"}, OsuBucket: "OsuBucket_example", OsuManifestUrl: "OsuManifestUrl_example", OsuPrefix: "OsuPrefix_example"}, SnapshotId: "SnapshotId_example"} // CreateSnapshotExportTaskRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.CreateSnapshotExportTask(context.Background()).CreateSnapshotExportTaskRequest(createSnapshotExportTaskRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.CreateSnapshotExportTask``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSnapshotExportTask`: CreateSnapshotExportTaskResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.CreateSnapshotExportTask`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateSnapshotExportTaskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSnapshotExportTaskOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSnapshotExportTaskOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createSnapshotExportTaskRequest** | [**optional.Interface of CreateSnapshotExportTaskRequest**](CreateSnapshotExportTaskRequest.md)|  | 
+ **createSnapshotExportTaskRequest** | [**CreateSnapshotExportTaskRequest**](CreateSnapshotExportTaskRequest.md) |  | 
 
 ### Return type
 
@@ -97,26 +143,49 @@ Name | Type | Description  | Notes
 
 ## DeleteSnapshot
 
-> DeleteSnapshotResponse DeleteSnapshot(ctx, optional)
+> DeleteSnapshotResponse DeleteSnapshot(ctx).DeleteSnapshotRequest(deleteSnapshotRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteSnapshotRequest := openapiclient.DeleteSnapshotRequest{DryRun: false, SnapshotId: "SnapshotId_example"} // DeleteSnapshotRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.DeleteSnapshot(context.Background()).DeleteSnapshotRequest(deleteSnapshotRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.DeleteSnapshot``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteSnapshot`: DeleteSnapshotResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.DeleteSnapshot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSnapshotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteSnapshotOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteSnapshotOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteSnapshotRequest** | [**optional.Interface of DeleteSnapshotRequest**](DeleteSnapshotRequest.md)|  | 
+ **deleteSnapshotRequest** | [**DeleteSnapshotRequest**](DeleteSnapshotRequest.md) |  | 
 
 ### Return type
 
@@ -138,26 +207,49 @@ Name | Type | Description  | Notes
 
 ## ReadSnapshotExportTasks
 
-> ReadSnapshotExportTasksResponse ReadSnapshotExportTasks(ctx, optional)
+> ReadSnapshotExportTasksResponse ReadSnapshotExportTasks(ctx).ReadSnapshotExportTasksRequest(readSnapshotExportTasksRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSnapshotExportTasksRequest := openapiclient.ReadSnapshotExportTasksRequest{DryRun: false, Filters: openapiclient.FiltersExportTask{TaskIds: []string{"TaskIds_example")}} // ReadSnapshotExportTasksRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.ReadSnapshotExportTasks(context.Background()).ReadSnapshotExportTasksRequest(readSnapshotExportTasksRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.ReadSnapshotExportTasks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSnapshotExportTasks`: ReadSnapshotExportTasksResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.ReadSnapshotExportTasks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSnapshotExportTasksRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSnapshotExportTasksOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSnapshotExportTasksOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSnapshotExportTasksRequest** | [**optional.Interface of ReadSnapshotExportTasksRequest**](ReadSnapshotExportTasksRequest.md)|  | 
+ **readSnapshotExportTasksRequest** | [**ReadSnapshotExportTasksRequest**](ReadSnapshotExportTasksRequest.md) |  | 
 
 ### Return type
 
@@ -179,26 +271,49 @@ Name | Type | Description  | Notes
 
 ## ReadSnapshots
 
-> ReadSnapshotsResponse ReadSnapshots(ctx, optional)
+> ReadSnapshotsResponse ReadSnapshots(ctx).ReadSnapshotsRequest(readSnapshotsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSnapshotsRequest := openapiclient.ReadSnapshotsRequest{DryRun: false, Filters: openapiclient.FiltersSnapshot{AccountAliases: []string{"AccountAliases_example"), AccountIds: []string{"AccountIds_example"), Descriptions: []string{"Descriptions_example"), PermissionsToCreateVolumeAccountIds: []string{"PermissionsToCreateVolumeAccountIds_example"), PermissionsToCreateVolumeGlobalPermission: false, Progresses: []int32{123), SnapshotIds: []string{"SnapshotIds_example"), States: []string{"States_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example"), VolumeIds: []string{"VolumeIds_example"), VolumeSizes: []int32{123)}} // ReadSnapshotsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.ReadSnapshots(context.Background()).ReadSnapshotsRequest(readSnapshotsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.ReadSnapshots``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSnapshots`: ReadSnapshotsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.ReadSnapshots`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSnapshotsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSnapshotsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSnapshotsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSnapshotsRequest** | [**optional.Interface of ReadSnapshotsRequest**](ReadSnapshotsRequest.md)|  | 
+ **readSnapshotsRequest** | [**ReadSnapshotsRequest**](ReadSnapshotsRequest.md) |  | 
 
 ### Return type
 
@@ -220,26 +335,49 @@ Name | Type | Description  | Notes
 
 ## UpdateSnapshot
 
-> UpdateSnapshotResponse UpdateSnapshot(ctx, optional)
+> UpdateSnapshotResponse UpdateSnapshot(ctx).UpdateSnapshotRequest(updateSnapshotRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateSnapshotRequest := openapiclient.UpdateSnapshotRequest{DryRun: false, PermissionsToCreateVolume: openapiclient.PermissionsOnResourceCreation{Additions: openapiclient.PermissionsOnResource{AccountIds: []string{"AccountIds_example"), GlobalPermission: false}, Removals: openapiclient.PermissionsOnResource{AccountIds: []string{"AccountIds_example"), GlobalPermission: false}}, SnapshotId: "SnapshotId_example"} // UpdateSnapshotRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SnapshotApi.UpdateSnapshot(context.Background()).UpdateSnapshotRequest(updateSnapshotRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SnapshotApi.UpdateSnapshot``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateSnapshot`: UpdateSnapshotResponse
+    fmt.Fprintf(os.Stdout, "Response from `SnapshotApi.UpdateSnapshot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateSnapshotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateSnapshotOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateSnapshotOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateSnapshotRequest** | [**optional.Interface of UpdateSnapshotRequest**](UpdateSnapshotRequest.md)|  | 
+ **updateSnapshotRequest** | [**UpdateSnapshotRequest**](UpdateSnapshotRequest.md) |  | 
 
 ### Return type
 

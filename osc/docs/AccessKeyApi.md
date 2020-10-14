@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## CreateAccessKey
 
-> CreateAccessKeyResponse CreateAccessKey(ctx, optional)
+> CreateAccessKeyResponse CreateAccessKey(ctx).CreateAccessKeyRequest(createAccessKeyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createAccessKeyRequest := openapiclient.CreateAccessKeyRequest{DryRun: false, ExpirationDate: "ExpirationDate_example"} // CreateAccessKeyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessKeyApi.CreateAccessKey(context.Background()).CreateAccessKeyRequest(createAccessKeyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.CreateAccessKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAccessKey`: CreateAccessKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.CreateAccessKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAccessKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAccessKeyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateAccessKeyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createAccessKeyRequest** | [**optional.Interface of CreateAccessKeyRequest**](CreateAccessKeyRequest.md)|  | 
+ **createAccessKeyRequest** | [**CreateAccessKeyRequest**](CreateAccessKeyRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## DeleteAccessKey
 
-> DeleteAccessKeyResponse DeleteAccessKey(ctx, optional)
+> DeleteAccessKeyResponse DeleteAccessKey(ctx).DeleteAccessKeyRequest(deleteAccessKeyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteAccessKeyRequest := openapiclient.DeleteAccessKeyRequest{AccessKeyId: "AccessKeyId_example", DryRun: false} // DeleteAccessKeyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessKeyApi.DeleteAccessKey(context.Background()).DeleteAccessKeyRequest(deleteAccessKeyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.DeleteAccessKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteAccessKey`: DeleteAccessKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.DeleteAccessKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAccessKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteAccessKeyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteAccessKeyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteAccessKeyRequest** | [**optional.Interface of DeleteAccessKeyRequest**](DeleteAccessKeyRequest.md)|  | 
+ **deleteAccessKeyRequest** | [**DeleteAccessKeyRequest**](DeleteAccessKeyRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## ReadAccessKeys
 
-> ReadAccessKeysResponse ReadAccessKeys(ctx, optional)
+> ReadAccessKeysResponse ReadAccessKeys(ctx).ReadAccessKeysRequest(readAccessKeysRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readAccessKeysRequest := openapiclient.ReadAccessKeysRequest{DryRun: false, Filters: openapiclient.FiltersAccessKeys{AccessKeyIds: []string{"AccessKeyIds_example"), States: []string{"States_example")}} // ReadAccessKeysRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessKeyApi.ReadAccessKeys(context.Background()).ReadAccessKeysRequest(readAccessKeysRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.ReadAccessKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadAccessKeys`: ReadAccessKeysResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.ReadAccessKeys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadAccessKeysRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadAccessKeysOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadAccessKeysOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readAccessKeysRequest** | [**optional.Interface of ReadAccessKeysRequest**](ReadAccessKeysRequest.md)|  | 
+ **readAccessKeysRequest** | [**ReadAccessKeysRequest**](ReadAccessKeysRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ Name | Type | Description  | Notes
 
 ## ReadSecretAccessKey
 
-> ReadSecretAccessKeyResponse ReadSecretAccessKey(ctx, optional)
+> ReadSecretAccessKeyResponse ReadSecretAccessKey(ctx).ReadSecretAccessKeyRequest(readSecretAccessKeyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSecretAccessKeyRequest := openapiclient.ReadSecretAccessKeyRequest{AccessKeyId: "AccessKeyId_example", DryRun: false} // ReadSecretAccessKeyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessKeyApi.ReadSecretAccessKey(context.Background()).ReadSecretAccessKeyRequest(readSecretAccessKeyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.ReadSecretAccessKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSecretAccessKey`: ReadSecretAccessKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.ReadSecretAccessKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSecretAccessKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSecretAccessKeyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSecretAccessKeyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSecretAccessKeyRequest** | [**optional.Interface of ReadSecretAccessKeyRequest**](ReadSecretAccessKeyRequest.md)|  | 
+ **readSecretAccessKeyRequest** | [**ReadSecretAccessKeyRequest**](ReadSecretAccessKeyRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## UpdateAccessKey
 
-> UpdateAccessKeyResponse UpdateAccessKey(ctx, optional)
+> UpdateAccessKeyResponse UpdateAccessKey(ctx).UpdateAccessKeyRequest(updateAccessKeyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateAccessKeyRequest := openapiclient.UpdateAccessKeyRequest{AccessKeyId: "AccessKeyId_example", DryRun: false, State: "State_example"} // UpdateAccessKeyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessKeyApi.UpdateAccessKey(context.Background()).UpdateAccessKeyRequest(updateAccessKeyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.UpdateAccessKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAccessKey`: UpdateAccessKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.UpdateAccessKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateAccessKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateAccessKeyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateAccessKeyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateAccessKeyRequest** | [**optional.Interface of UpdateAccessKeyRequest**](UpdateAccessKeyRequest.md)|  | 
+ **updateAccessKeyRequest** | [**UpdateAccessKeyRequest**](UpdateAccessKeyRequest.md) |  | 
 
 ### Return type
 

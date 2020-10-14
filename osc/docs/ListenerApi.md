@@ -15,26 +15,49 @@ Method | HTTP request | Description
 
 ## CreateListenerRule
 
-> CreateListenerRuleResponse CreateListenerRule(ctx, optional)
+> CreateListenerRuleResponse CreateListenerRule(ctx).CreateListenerRuleRequest(createListenerRuleRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createListenerRuleRequest := openapiclient.CreateListenerRuleRequest{DryRun: false, Listener: openapiclient.LoadBalancerLight{LoadBalancerName: "LoadBalancerName_example", LoadBalancerPort: 123}, ListenerRule: openapiclient.ListenerRuleForCreation{Action: "Action_example", HostNamePattern: "HostNamePattern_example", ListenerRuleId: "ListenerRuleId_example", ListenerRuleName: "ListenerRuleName_example", PathPattern: "PathPattern_example", Priority: 123}, VmIds: []string{"VmIds_example")} // CreateListenerRuleRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.CreateListenerRule(context.Background()).CreateListenerRuleRequest(createListenerRuleRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.CreateListenerRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateListenerRule`: CreateListenerRuleResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.CreateListenerRule`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateListenerRuleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateListenerRuleOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateListenerRuleOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createListenerRuleRequest** | [**optional.Interface of CreateListenerRuleRequest**](CreateListenerRuleRequest.md)|  | 
+ **createListenerRuleRequest** | [**CreateListenerRuleRequest**](CreateListenerRuleRequest.md) |  | 
 
 ### Return type
 
@@ -56,26 +79,49 @@ Name | Type | Description  | Notes
 
 ## CreateLoadBalancerListeners
 
-> CreateLoadBalancerListenersResponse CreateLoadBalancerListeners(ctx, optional)
+> CreateLoadBalancerListenersResponse CreateLoadBalancerListeners(ctx).CreateLoadBalancerListenersRequest(createLoadBalancerListenersRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createLoadBalancerListenersRequest := openapiclient.CreateLoadBalancerListenersRequest{DryRun: false, Listeners: []ListenerForCreation{openapiclient.ListenerForCreation{BackendPort: 123, BackendProtocol: "BackendProtocol_example", LoadBalancerPort: 123, LoadBalancerProtocol: "LoadBalancerProtocol_example", ServerCertificateId: "ServerCertificateId_example"}), LoadBalancerName: "LoadBalancerName_example"} // CreateLoadBalancerListenersRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.CreateLoadBalancerListeners(context.Background()).CreateLoadBalancerListenersRequest(createLoadBalancerListenersRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.CreateLoadBalancerListeners``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLoadBalancerListeners`: CreateLoadBalancerListenersResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.CreateLoadBalancerListeners`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLoadBalancerListenersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateLoadBalancerListenersOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateLoadBalancerListenersOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createLoadBalancerListenersRequest** | [**optional.Interface of CreateLoadBalancerListenersRequest**](CreateLoadBalancerListenersRequest.md)|  | 
+ **createLoadBalancerListenersRequest** | [**CreateLoadBalancerListenersRequest**](CreateLoadBalancerListenersRequest.md) |  | 
 
 ### Return type
 
@@ -97,26 +143,49 @@ Name | Type | Description  | Notes
 
 ## DeleteListenerRule
 
-> DeleteListenerRuleResponse DeleteListenerRule(ctx, optional)
+> DeleteListenerRuleResponse DeleteListenerRule(ctx).DeleteListenerRuleRequest(deleteListenerRuleRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteListenerRuleRequest := openapiclient.DeleteListenerRuleRequest{DryRun: false, ListenerRuleName: "ListenerRuleName_example"} // DeleteListenerRuleRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.DeleteListenerRule(context.Background()).DeleteListenerRuleRequest(deleteListenerRuleRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.DeleteListenerRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteListenerRule`: DeleteListenerRuleResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.DeleteListenerRule`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteListenerRuleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteListenerRuleOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteListenerRuleOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteListenerRuleRequest** | [**optional.Interface of DeleteListenerRuleRequest**](DeleteListenerRuleRequest.md)|  | 
+ **deleteListenerRuleRequest** | [**DeleteListenerRuleRequest**](DeleteListenerRuleRequest.md) |  | 
 
 ### Return type
 
@@ -138,26 +207,49 @@ Name | Type | Description  | Notes
 
 ## DeleteLoadBalancerListeners
 
-> DeleteLoadBalancerListenersResponse DeleteLoadBalancerListeners(ctx, optional)
+> DeleteLoadBalancerListenersResponse DeleteLoadBalancerListeners(ctx).DeleteLoadBalancerListenersRequest(deleteLoadBalancerListenersRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteLoadBalancerListenersRequest := openapiclient.DeleteLoadBalancerListenersRequest{DryRun: false, LoadBalancerName: "LoadBalancerName_example", LoadBalancerPorts: []int32{123)} // DeleteLoadBalancerListenersRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.DeleteLoadBalancerListeners(context.Background()).DeleteLoadBalancerListenersRequest(deleteLoadBalancerListenersRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.DeleteLoadBalancerListeners``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteLoadBalancerListeners`: DeleteLoadBalancerListenersResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.DeleteLoadBalancerListeners`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteLoadBalancerListenersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteLoadBalancerListenersOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteLoadBalancerListenersOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteLoadBalancerListenersRequest** | [**optional.Interface of DeleteLoadBalancerListenersRequest**](DeleteLoadBalancerListenersRequest.md)|  | 
+ **deleteLoadBalancerListenersRequest** | [**DeleteLoadBalancerListenersRequest**](DeleteLoadBalancerListenersRequest.md) |  | 
 
 ### Return type
 
@@ -179,26 +271,49 @@ Name | Type | Description  | Notes
 
 ## ReadListenerRules
 
-> ReadListenerRulesResponse ReadListenerRules(ctx, optional)
+> ReadListenerRulesResponse ReadListenerRules(ctx).ReadListenerRulesRequest(readListenerRulesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readListenerRulesRequest := openapiclient.ReadListenerRulesRequest{DryRun: false, Filters: openapiclient.FiltersListenerRule{ListenerRuleNames: []string{"ListenerRuleNames_example")}} // ReadListenerRulesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.ReadListenerRules(context.Background()).ReadListenerRulesRequest(readListenerRulesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.ReadListenerRules``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadListenerRules`: ReadListenerRulesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.ReadListenerRules`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadListenerRulesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadListenerRulesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadListenerRulesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readListenerRulesRequest** | [**optional.Interface of ReadListenerRulesRequest**](ReadListenerRulesRequest.md)|  | 
+ **readListenerRulesRequest** | [**ReadListenerRulesRequest**](ReadListenerRulesRequest.md) |  | 
 
 ### Return type
 
@@ -220,26 +335,49 @@ Name | Type | Description  | Notes
 
 ## UpdateListenerRule
 
-> UpdateListenerRuleResponse UpdateListenerRule(ctx, optional)
+> UpdateListenerRuleResponse UpdateListenerRule(ctx).UpdateListenerRuleRequest(updateListenerRuleRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateListenerRuleRequest := openapiclient.UpdateListenerRuleRequest{DryRun: false, HostPattern: "HostPattern_example", ListenerRuleName: "ListenerRuleName_example", PathPattern: "PathPattern_example"} // UpdateListenerRuleRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ListenerApi.UpdateListenerRule(context.Background()).UpdateListenerRuleRequest(updateListenerRuleRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ListenerApi.UpdateListenerRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateListenerRule`: UpdateListenerRuleResponse
+    fmt.Fprintf(os.Stdout, "Response from `ListenerApi.UpdateListenerRule`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateListenerRuleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateListenerRuleOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateListenerRuleOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateListenerRuleRequest** | [**optional.Interface of UpdateListenerRuleRequest**](UpdateListenerRuleRequest.md)|  | 
+ **updateListenerRuleRequest** | [**UpdateListenerRuleRequest**](UpdateListenerRuleRequest.md) |  | 
 
 ### Return type
 

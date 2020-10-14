@@ -11,26 +11,49 @@ Method | HTTP request | Description
 
 ## CreateLoadBalancerPolicy
 
-> CreateLoadBalancerPolicyResponse CreateLoadBalancerPolicy(ctx, optional)
+> CreateLoadBalancerPolicyResponse CreateLoadBalancerPolicy(ctx).CreateLoadBalancerPolicyRequest(createLoadBalancerPolicyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createLoadBalancerPolicyRequest := openapiclient.CreateLoadBalancerPolicyRequest{CookieName: "CookieName_example", DryRun: false, LoadBalancerName: "LoadBalancerName_example", PolicyName: "PolicyName_example", PolicyType: "PolicyType_example"} // CreateLoadBalancerPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LoadBalancerPolicyApi.CreateLoadBalancerPolicy(context.Background()).CreateLoadBalancerPolicyRequest(createLoadBalancerPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancerPolicyApi.CreateLoadBalancerPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLoadBalancerPolicy`: CreateLoadBalancerPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `LoadBalancerPolicyApi.CreateLoadBalancerPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLoadBalancerPolicyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateLoadBalancerPolicyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateLoadBalancerPolicyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createLoadBalancerPolicyRequest** | [**optional.Interface of CreateLoadBalancerPolicyRequest**](CreateLoadBalancerPolicyRequest.md)|  | 
+ **createLoadBalancerPolicyRequest** | [**CreateLoadBalancerPolicyRequest**](CreateLoadBalancerPolicyRequest.md) |  | 
 
 ### Return type
 
@@ -52,26 +75,49 @@ Name | Type | Description  | Notes
 
 ## DeleteLoadBalancerPolicy
 
-> DeleteLoadBalancerPolicyResponse DeleteLoadBalancerPolicy(ctx, optional)
+> DeleteLoadBalancerPolicyResponse DeleteLoadBalancerPolicy(ctx).DeleteLoadBalancerPolicyRequest(deleteLoadBalancerPolicyRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteLoadBalancerPolicyRequest := openapiclient.DeleteLoadBalancerPolicyRequest{DryRun: false, LoadBalancerName: "LoadBalancerName_example", PolicyName: "PolicyName_example"} // DeleteLoadBalancerPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LoadBalancerPolicyApi.DeleteLoadBalancerPolicy(context.Background()).DeleteLoadBalancerPolicyRequest(deleteLoadBalancerPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancerPolicyApi.DeleteLoadBalancerPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteLoadBalancerPolicy`: DeleteLoadBalancerPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `LoadBalancerPolicyApi.DeleteLoadBalancerPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteLoadBalancerPolicyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteLoadBalancerPolicyOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteLoadBalancerPolicyOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteLoadBalancerPolicyRequest** | [**optional.Interface of DeleteLoadBalancerPolicyRequest**](DeleteLoadBalancerPolicyRequest.md)|  | 
+ **deleteLoadBalancerPolicyRequest** | [**DeleteLoadBalancerPolicyRequest**](DeleteLoadBalancerPolicyRequest.md) |  | 
 
 ### Return type
 

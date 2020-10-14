@@ -13,26 +13,49 @@ Method | HTTP request | Description
 
 ## CreateSubnet
 
-> CreateSubnetResponse CreateSubnet(ctx, optional)
+> CreateSubnetResponse CreateSubnet(ctx).CreateSubnetRequest(createSubnetRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createSubnetRequest := openapiclient.CreateSubnetRequest{DryRun: false, IpRange: "IpRange_example", NetId: "NetId_example", SubregionName: "SubregionName_example"} // CreateSubnetRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubnetApi.CreateSubnet(context.Background()).CreateSubnetRequest(createSubnetRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubnetApi.CreateSubnet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSubnet`: CreateSubnetResponse
+    fmt.Fprintf(os.Stdout, "Response from `SubnetApi.CreateSubnet`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateSubnetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSubnetOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSubnetOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createSubnetRequest** | [**optional.Interface of CreateSubnetRequest**](CreateSubnetRequest.md)|  | 
+ **createSubnetRequest** | [**CreateSubnetRequest**](CreateSubnetRequest.md) |  | 
 
 ### Return type
 
@@ -54,26 +77,49 @@ Name | Type | Description  | Notes
 
 ## DeleteSubnet
 
-> DeleteSubnetResponse DeleteSubnet(ctx, optional)
+> DeleteSubnetResponse DeleteSubnet(ctx).DeleteSubnetRequest(deleteSubnetRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteSubnetRequest := openapiclient.DeleteSubnetRequest{DryRun: false, SubnetId: "SubnetId_example"} // DeleteSubnetRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubnetApi.DeleteSubnet(context.Background()).DeleteSubnetRequest(deleteSubnetRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubnetApi.DeleteSubnet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteSubnet`: DeleteSubnetResponse
+    fmt.Fprintf(os.Stdout, "Response from `SubnetApi.DeleteSubnet`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSubnetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteSubnetOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteSubnetOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteSubnetRequest** | [**optional.Interface of DeleteSubnetRequest**](DeleteSubnetRequest.md)|  | 
+ **deleteSubnetRequest** | [**DeleteSubnetRequest**](DeleteSubnetRequest.md) |  | 
 
 ### Return type
 
@@ -95,26 +141,49 @@ Name | Type | Description  | Notes
 
 ## ReadSubnets
 
-> ReadSubnetsResponse ReadSubnets(ctx, optional)
+> ReadSubnetsResponse ReadSubnets(ctx).ReadSubnetsRequest(readSubnetsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSubnetsRequest := openapiclient.ReadSubnetsRequest{DryRun: false, Filters: openapiclient.FiltersSubnet{AvailableIpsCounts: []int32{123), IpRanges: []string{"IpRanges_example"), NetIds: []string{"NetIds_example"), States: []string{"States_example"), SubnetIds: []string{"SubnetIds_example"), SubregionNames: []string{"SubregionNames_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadSubnetsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubnetApi.ReadSubnets(context.Background()).ReadSubnetsRequest(readSubnetsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubnetApi.ReadSubnets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSubnets`: ReadSubnetsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SubnetApi.ReadSubnets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSubnetsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSubnetsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSubnetsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSubnetsRequest** | [**optional.Interface of ReadSubnetsRequest**](ReadSubnetsRequest.md)|  | 
+ **readSubnetsRequest** | [**ReadSubnetsRequest**](ReadSubnetsRequest.md) |  | 
 
 ### Return type
 
@@ -136,26 +205,49 @@ Name | Type | Description  | Notes
 
 ## UpdateSubnet
 
-> UpdateSubnetResponse UpdateSubnet(ctx, optional)
+> UpdateSubnetResponse UpdateSubnet(ctx).UpdateSubnetRequest(updateSubnetRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateSubnetRequest := openapiclient.UpdateSubnetRequest{DryRun: false, MapPublicIpOnLaunch: false, SubnetId: "SubnetId_example"} // UpdateSubnetRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubnetApi.UpdateSubnet(context.Background()).UpdateSubnetRequest(updateSubnetRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubnetApi.UpdateSubnet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateSubnet`: UpdateSubnetResponse
+    fmt.Fprintf(os.Stdout, "Response from `SubnetApi.UpdateSubnet`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateSubnetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateSubnetOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateSubnetOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateSubnetRequest** | [**optional.Interface of UpdateSubnetRequest**](UpdateSubnetRequest.md)|  | 
+ **updateSubnetRequest** | [**UpdateSubnetRequest**](UpdateSubnetRequest.md) |  | 
 
 ### Return type
 

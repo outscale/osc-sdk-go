@@ -16,26 +16,49 @@ Method | HTTP request | Description
 
 ## CheckAuthentication
 
-> CheckAuthenticationResponse CheckAuthentication(ctx, optional)
+> CheckAuthenticationResponse CheckAuthentication(ctx).CheckAuthenticationRequest(checkAuthenticationRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    checkAuthenticationRequest := openapiclient.CheckAuthenticationRequest{DryRun: false, Login: "Login_example", Password: "Password_example"} // CheckAuthenticationRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.CheckAuthentication(context.Background()).CheckAuthenticationRequest(checkAuthenticationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.CheckAuthentication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CheckAuthentication`: CheckAuthenticationResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.CheckAuthentication`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCheckAuthenticationRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CheckAuthenticationOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CheckAuthenticationOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **checkAuthenticationRequest** | [**optional.Interface of CheckAuthenticationRequest**](CheckAuthenticationRequest.md)|  | 
+ **checkAuthenticationRequest** | [**CheckAuthenticationRequest**](CheckAuthenticationRequest.md) |  | 
 
 ### Return type
 
@@ -57,26 +80,49 @@ Name | Type | Description  | Notes
 
 ## CreateAccount
 
-> CreateAccountResponse CreateAccount(ctx, optional)
+> CreateAccountResponse CreateAccount(ctx).CreateAccountRequest(createAccountRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createAccountRequest := openapiclient.CreateAccountRequest{City: "City_example", CompanyName: "CompanyName_example", Country: "Country_example", CustomerId: "CustomerId_example", DryRun: false, Email: "Email_example", FirstName: "FirstName_example", JobTitle: "JobTitle_example", LastName: "LastName_example", MobileNumber: "MobileNumber_example", PhoneNumber: "PhoneNumber_example", StateProvince: "StateProvince_example", VatNumber: "VatNumber_example", ZipCode: "ZipCode_example"} // CreateAccountRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.CreateAccount(context.Background()).CreateAccountRequest(createAccountRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.CreateAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAccount`: CreateAccountResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.CreateAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAccountRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAccountOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateAccountOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createAccountRequest** | [**optional.Interface of CreateAccountRequest**](CreateAccountRequest.md)|  | 
+ **createAccountRequest** | [**CreateAccountRequest**](CreateAccountRequest.md) |  | 
 
 ### Return type
 
@@ -98,26 +144,49 @@ Name | Type | Description  | Notes
 
 ## ReadAccounts
 
-> ReadAccountsResponse ReadAccounts(ctx, optional)
+> ReadAccountsResponse ReadAccounts(ctx).ReadAccountsRequest(readAccountsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readAccountsRequest := openapiclient.ReadAccountsRequest{DryRun: false} // ReadAccountsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.ReadAccounts(context.Background()).ReadAccountsRequest(readAccountsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.ReadAccounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadAccounts`: ReadAccountsResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.ReadAccounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadAccountsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadAccountsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadAccountsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readAccountsRequest** | [**optional.Interface of ReadAccountsRequest**](ReadAccountsRequest.md)|  | 
+ **readAccountsRequest** | [**ReadAccountsRequest**](ReadAccountsRequest.md) |  | 
 
 ### Return type
 
@@ -139,26 +208,49 @@ Name | Type | Description  | Notes
 
 ## ReadConsumptionAccount
 
-> ReadConsumptionAccountResponse ReadConsumptionAccount(ctx, optional)
+> ReadConsumptionAccountResponse ReadConsumptionAccount(ctx).ReadConsumptionAccountRequest(readConsumptionAccountRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readConsumptionAccountRequest := openapiclient.ReadConsumptionAccountRequest{DryRun: false, FromDate: "FromDate_example", ToDate: "ToDate_example"} // ReadConsumptionAccountRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.ReadConsumptionAccount(context.Background()).ReadConsumptionAccountRequest(readConsumptionAccountRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.ReadConsumptionAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadConsumptionAccount`: ReadConsumptionAccountResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.ReadConsumptionAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadConsumptionAccountRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadConsumptionAccountOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadConsumptionAccountOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readConsumptionAccountRequest** | [**optional.Interface of ReadConsumptionAccountRequest**](ReadConsumptionAccountRequest.md)|  | 
+ **readConsumptionAccountRequest** | [**ReadConsumptionAccountRequest**](ReadConsumptionAccountRequest.md) |  | 
 
 ### Return type
 
@@ -180,26 +272,49 @@ Name | Type | Description  | Notes
 
 ## ResetAccountPassword
 
-> ResetAccountPasswordResponse ResetAccountPassword(ctx, optional)
+> ResetAccountPasswordResponse ResetAccountPassword(ctx).ResetAccountPasswordRequest(resetAccountPasswordRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    resetAccountPasswordRequest := openapiclient.ResetAccountPasswordRequest{DryRun: false, Password: "Password_example", Token: "Token_example"} // ResetAccountPasswordRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.ResetAccountPassword(context.Background()).ResetAccountPasswordRequest(resetAccountPasswordRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.ResetAccountPassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetAccountPassword`: ResetAccountPasswordResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.ResetAccountPassword`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResetAccountPasswordRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ResetAccountPasswordOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ResetAccountPasswordOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resetAccountPasswordRequest** | [**optional.Interface of ResetAccountPasswordRequest**](ResetAccountPasswordRequest.md)|  | 
+ **resetAccountPasswordRequest** | [**ResetAccountPasswordRequest**](ResetAccountPasswordRequest.md) |  | 
 
 ### Return type
 
@@ -221,26 +336,49 @@ Name | Type | Description  | Notes
 
 ## SendResetPasswordEmail
 
-> SendResetPasswordEmailResponse SendResetPasswordEmail(ctx, optional)
+> SendResetPasswordEmailResponse SendResetPasswordEmail(ctx).SendResetPasswordEmailRequest(sendResetPasswordEmailRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sendResetPasswordEmailRequest := openapiclient.SendResetPasswordEmailRequest{DryRun: false, Email: "Email_example"} // SendResetPasswordEmailRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.SendResetPasswordEmail(context.Background()).SendResetPasswordEmailRequest(sendResetPasswordEmailRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.SendResetPasswordEmail``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SendResetPasswordEmail`: SendResetPasswordEmailResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.SendResetPasswordEmail`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSendResetPasswordEmailRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***SendResetPasswordEmailOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a SendResetPasswordEmailOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sendResetPasswordEmailRequest** | [**optional.Interface of SendResetPasswordEmailRequest**](SendResetPasswordEmailRequest.md)|  | 
+ **sendResetPasswordEmailRequest** | [**SendResetPasswordEmailRequest**](SendResetPasswordEmailRequest.md) |  | 
 
 ### Return type
 
@@ -262,26 +400,49 @@ Name | Type | Description  | Notes
 
 ## UpdateAccount
 
-> UpdateAccountResponse UpdateAccount(ctx, optional)
+> UpdateAccountResponse UpdateAccount(ctx).UpdateAccountRequest(updateAccountRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateAccountRequest := openapiclient.UpdateAccountRequest{City: "City_example", CompanyName: "CompanyName_example", Country: "Country_example", DryRun: false, Email: "Email_example", FirstName: "FirstName_example", JobTitle: "JobTitle_example", LastName: "LastName_example", MobileNumber: "MobileNumber_example", PhoneNumber: "PhoneNumber_example", StateProvince: "StateProvince_example", VatNumber: "VatNumber_example", ZipCode: "ZipCode_example"} // UpdateAccountRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.UpdateAccount(context.Background()).UpdateAccountRequest(updateAccountRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.UpdateAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAccount`: UpdateAccountResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.UpdateAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateAccountRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateAccountOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateAccountOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateAccountRequest** | [**optional.Interface of UpdateAccountRequest**](UpdateAccountRequest.md)|  | 
+ **updateAccountRequest** | [**UpdateAccountRequest**](UpdateAccountRequest.md) |  | 
 
 ### Return type
 

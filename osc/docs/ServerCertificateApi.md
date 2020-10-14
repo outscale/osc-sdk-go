@@ -13,26 +13,49 @@ Method | HTTP request | Description
 
 ## CreateServerCertificate
 
-> CreateServerCertificateResponse CreateServerCertificate(ctx, optional)
+> CreateServerCertificateResponse CreateServerCertificate(ctx).CreateServerCertificateRequest(createServerCertificateRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createServerCertificateRequest := openapiclient.CreateServerCertificateRequest{Body: "Body_example", Chain: "Chain_example", DryRun: false, Name: "Name_example", Path: "Path_example", PrivateKey: "PrivateKey_example"} // CreateServerCertificateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServerCertificateApi.CreateServerCertificate(context.Background()).CreateServerCertificateRequest(createServerCertificateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServerCertificateApi.CreateServerCertificate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateServerCertificate`: CreateServerCertificateResponse
+    fmt.Fprintf(os.Stdout, "Response from `ServerCertificateApi.CreateServerCertificate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateServerCertificateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServerCertificateOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateServerCertificateOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createServerCertificateRequest** | [**optional.Interface of CreateServerCertificateRequest**](CreateServerCertificateRequest.md)|  | 
+ **createServerCertificateRequest** | [**CreateServerCertificateRequest**](CreateServerCertificateRequest.md) |  | 
 
 ### Return type
 
@@ -54,26 +77,49 @@ Name | Type | Description  | Notes
 
 ## DeleteServerCertificate
 
-> DeleteServerCertificateResponse DeleteServerCertificate(ctx, optional)
+> DeleteServerCertificateResponse DeleteServerCertificate(ctx).DeleteServerCertificateRequest(deleteServerCertificateRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteServerCertificateRequest := openapiclient.DeleteServerCertificateRequest{DryRun: false, Name: "Name_example"} // DeleteServerCertificateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServerCertificateApi.DeleteServerCertificate(context.Background()).DeleteServerCertificateRequest(deleteServerCertificateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServerCertificateApi.DeleteServerCertificate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteServerCertificate`: DeleteServerCertificateResponse
+    fmt.Fprintf(os.Stdout, "Response from `ServerCertificateApi.DeleteServerCertificate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteServerCertificateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteServerCertificateOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteServerCertificateOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteServerCertificateRequest** | [**optional.Interface of DeleteServerCertificateRequest**](DeleteServerCertificateRequest.md)|  | 
+ **deleteServerCertificateRequest** | [**DeleteServerCertificateRequest**](DeleteServerCertificateRequest.md) |  | 
 
 ### Return type
 
@@ -95,26 +141,49 @@ Name | Type | Description  | Notes
 
 ## ReadServerCertificates
 
-> ReadServerCertificatesResponse ReadServerCertificates(ctx, optional)
+> ReadServerCertificatesResponse ReadServerCertificates(ctx).ReadServerCertificatesRequest(readServerCertificatesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readServerCertificatesRequest := openapiclient.ReadServerCertificatesRequest{DryRun: false, Filters: openapiclient.FiltersServerCertificate{Paths: "Paths_example"}} // ReadServerCertificatesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServerCertificateApi.ReadServerCertificates(context.Background()).ReadServerCertificatesRequest(readServerCertificatesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServerCertificateApi.ReadServerCertificates``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadServerCertificates`: ReadServerCertificatesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ServerCertificateApi.ReadServerCertificates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadServerCertificatesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadServerCertificatesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadServerCertificatesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readServerCertificatesRequest** | [**optional.Interface of ReadServerCertificatesRequest**](ReadServerCertificatesRequest.md)|  | 
+ **readServerCertificatesRequest** | [**ReadServerCertificatesRequest**](ReadServerCertificatesRequest.md) |  | 
 
 ### Return type
 
@@ -136,26 +205,49 @@ Name | Type | Description  | Notes
 
 ## UpdateServerCertificate
 
-> UpdateServerCertificateResponse UpdateServerCertificate(ctx, optional)
+> UpdateServerCertificateResponse UpdateServerCertificate(ctx).UpdateServerCertificateRequest(updateServerCertificateRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateServerCertificateRequest := openapiclient.UpdateServerCertificateRequest{DryRun: false, Name: "Name_example", NewName: "NewName_example", NewPath: "NewPath_example"} // UpdateServerCertificateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServerCertificateApi.UpdateServerCertificate(context.Background()).UpdateServerCertificateRequest(updateServerCertificateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServerCertificateApi.UpdateServerCertificate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateServerCertificate`: UpdateServerCertificateResponse
+    fmt.Fprintf(os.Stdout, "Response from `ServerCertificateApi.UpdateServerCertificate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateServerCertificateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateServerCertificateOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateServerCertificateOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateServerCertificateRequest** | [**optional.Interface of UpdateServerCertificateRequest**](UpdateServerCertificateRequest.md)|  | 
+ **updateServerCertificateRequest** | [**UpdateServerCertificateRequest**](UpdateServerCertificateRequest.md) |  | 
 
 ### Return type
 

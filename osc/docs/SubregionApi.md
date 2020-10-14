@@ -10,26 +10,49 @@ Method | HTTP request | Description
 
 ## ReadSubregions
 
-> ReadSubregionsResponse ReadSubregions(ctx, optional)
+> ReadSubregionsResponse ReadSubregions(ctx).ReadSubregionsRequest(readSubregionsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readSubregionsRequest := openapiclient.ReadSubregionsRequest{DryRun: false, Filters: openapiclient.FiltersSubregion{SubregionNames: []string{"SubregionNames_example")}} // ReadSubregionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubregionApi.ReadSubregions(context.Background()).ReadSubregionsRequest(readSubregionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubregionApi.ReadSubregions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadSubregions`: ReadSubregionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SubregionApi.ReadSubregions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadSubregionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadSubregionsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadSubregionsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSubregionsRequest** | [**optional.Interface of ReadSubregionsRequest**](ReadSubregionsRequest.md)|  | 
+ **readSubregionsRequest** | [**ReadSubregionsRequest**](ReadSubregionsRequest.md) |  | 
 
 ### Return type
 

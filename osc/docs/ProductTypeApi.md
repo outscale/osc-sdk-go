@@ -10,26 +10,49 @@ Method | HTTP request | Description
 
 ## ReadProductTypes
 
-> ReadProductTypesResponse ReadProductTypes(ctx, optional)
+> ReadProductTypesResponse ReadProductTypes(ctx).ReadProductTypesRequest(readProductTypesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readProductTypesRequest := openapiclient.ReadProductTypesRequest{DryRun: false, Filters: openapiclient.FiltersProductType{ProductTypeIds: []string{"ProductTypeIds_example")}} // ReadProductTypesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ProductTypeApi.ReadProductTypes(context.Background()).ReadProductTypesRequest(readProductTypesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ProductTypeApi.ReadProductTypes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadProductTypes`: ReadProductTypesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ProductTypeApi.ReadProductTypes`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadProductTypesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadProductTypesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadProductTypesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readProductTypesRequest** | [**optional.Interface of ReadProductTypesRequest**](ReadProductTypesRequest.md)|  | 
+ **readProductTypesRequest** | [**ReadProductTypesRequest**](ReadProductTypesRequest.md) |  | 
 
 ### Return type
 

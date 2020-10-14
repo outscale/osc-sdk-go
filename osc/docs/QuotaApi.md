@@ -10,26 +10,49 @@ Method | HTTP request | Description
 
 ## ReadQuotas
 
-> ReadQuotasResponse ReadQuotas(ctx, optional)
+> ReadQuotasResponse ReadQuotas(ctx).ReadQuotasRequest(readQuotasRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readQuotasRequest := openapiclient.ReadQuotasRequest{DryRun: false, Filters: openapiclient.FiltersQuota{Collections: []string{"Collections_example"), QuotaNames: []string{"QuotaNames_example"), QuotaTypes: []string{"QuotaTypes_example"), ShortDescriptions: []string{"ShortDescriptions_example")}} // ReadQuotasRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.QuotaApi.ReadQuotas(context.Background()).ReadQuotasRequest(readQuotasRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QuotaApi.ReadQuotas``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadQuotas`: ReadQuotasResponse
+    fmt.Fprintf(os.Stdout, "Response from `QuotaApi.ReadQuotas`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadQuotasRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadQuotasOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadQuotasOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readQuotasRequest** | [**optional.Interface of ReadQuotasRequest**](ReadQuotasRequest.md)|  | 
+ **readQuotasRequest** | [**ReadQuotasRequest**](ReadQuotasRequest.md) |  | 
 
 ### Return type
 

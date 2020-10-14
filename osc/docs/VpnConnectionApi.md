@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## CreateVpnConnection
 
-> CreateVpnConnectionResponse CreateVpnConnection(ctx, optional)
+> CreateVpnConnectionResponse CreateVpnConnection(ctx).CreateVpnConnectionRequest(createVpnConnectionRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createVpnConnectionRequest := openapiclient.CreateVpnConnectionRequest{ClientGatewayId: "ClientGatewayId_example", ConnectionType: "ConnectionType_example", DryRun: false, StaticRoutesOnly: false, VirtualGatewayId: "VirtualGatewayId_example"} // CreateVpnConnectionRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.CreateVpnConnection(context.Background()).CreateVpnConnectionRequest(createVpnConnectionRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.CreateVpnConnection``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateVpnConnection`: CreateVpnConnectionResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.CreateVpnConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateVpnConnectionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateVpnConnectionOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateVpnConnectionOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVpnConnectionRequest** | [**optional.Interface of CreateVpnConnectionRequest**](CreateVpnConnectionRequest.md)|  | 
+ **createVpnConnectionRequest** | [**CreateVpnConnectionRequest**](CreateVpnConnectionRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## CreateVpnConnectionRoute
 
-> CreateVpnConnectionRouteResponse CreateVpnConnectionRoute(ctx, optional)
+> CreateVpnConnectionRouteResponse CreateVpnConnectionRoute(ctx).CreateVpnConnectionRouteRequest(createVpnConnectionRouteRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createVpnConnectionRouteRequest := openapiclient.CreateVpnConnectionRouteRequest{DestinationIpRange: "DestinationIpRange_example", DryRun: false, VpnConnectionId: "VpnConnectionId_example"} // CreateVpnConnectionRouteRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.CreateVpnConnectionRoute(context.Background()).CreateVpnConnectionRouteRequest(createVpnConnectionRouteRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.CreateVpnConnectionRoute``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateVpnConnectionRoute`: CreateVpnConnectionRouteResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.CreateVpnConnectionRoute`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateVpnConnectionRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateVpnConnectionRouteOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateVpnConnectionRouteOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVpnConnectionRouteRequest** | [**optional.Interface of CreateVpnConnectionRouteRequest**](CreateVpnConnectionRouteRequest.md)|  | 
+ **createVpnConnectionRouteRequest** | [**CreateVpnConnectionRouteRequest**](CreateVpnConnectionRouteRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## DeleteVpnConnection
 
-> DeleteVpnConnectionResponse DeleteVpnConnection(ctx, optional)
+> DeleteVpnConnectionResponse DeleteVpnConnection(ctx).DeleteVpnConnectionRequest(deleteVpnConnectionRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteVpnConnectionRequest := openapiclient.DeleteVpnConnectionRequest{DryRun: false, VpnConnectionId: "VpnConnectionId_example"} // DeleteVpnConnectionRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.DeleteVpnConnection(context.Background()).DeleteVpnConnectionRequest(deleteVpnConnectionRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.DeleteVpnConnection``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteVpnConnection`: DeleteVpnConnectionResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.DeleteVpnConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteVpnConnectionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteVpnConnectionOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteVpnConnectionOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteVpnConnectionRequest** | [**optional.Interface of DeleteVpnConnectionRequest**](DeleteVpnConnectionRequest.md)|  | 
+ **deleteVpnConnectionRequest** | [**DeleteVpnConnectionRequest**](DeleteVpnConnectionRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ Name | Type | Description  | Notes
 
 ## DeleteVpnConnectionRoute
 
-> DeleteVpnConnectionRouteResponse DeleteVpnConnectionRoute(ctx, optional)
+> DeleteVpnConnectionRouteResponse DeleteVpnConnectionRoute(ctx).DeleteVpnConnectionRouteRequest(deleteVpnConnectionRouteRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteVpnConnectionRouteRequest := openapiclient.DeleteVpnConnectionRouteRequest{DestinationIpRange: "DestinationIpRange_example", DryRun: false, VpnConnectionId: "VpnConnectionId_example"} // DeleteVpnConnectionRouteRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.DeleteVpnConnectionRoute(context.Background()).DeleteVpnConnectionRouteRequest(deleteVpnConnectionRouteRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.DeleteVpnConnectionRoute``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteVpnConnectionRoute`: DeleteVpnConnectionRouteResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.DeleteVpnConnectionRoute`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteVpnConnectionRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteVpnConnectionRouteOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteVpnConnectionRouteOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteVpnConnectionRouteRequest** | [**optional.Interface of DeleteVpnConnectionRouteRequest**](DeleteVpnConnectionRouteRequest.md)|  | 
+ **deleteVpnConnectionRouteRequest** | [**DeleteVpnConnectionRouteRequest**](DeleteVpnConnectionRouteRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## ReadVpnConnections
 
-> ReadVpnConnectionsResponse ReadVpnConnections(ctx, optional)
+> ReadVpnConnectionsResponse ReadVpnConnections(ctx).ReadVpnConnectionsRequest(readVpnConnectionsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readVpnConnectionsRequest := openapiclient.ReadVpnConnectionsRequest{DryRun: false, Filters: openapiclient.FiltersVpnConnection{BgpAsns: []int32{123), ClientGatewayIds: []string{"ClientGatewayIds_example"), ConnectionTypes: []string{"ConnectionTypes_example"), RouteDestinationIpRanges: []string{"RouteDestinationIpRanges_example"), States: []string{"States_example"), StaticRoutesOnly: false, TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example"), VirtualGatewayIds: []string{"VirtualGatewayIds_example"), VpnConnectionIds: []string{"VpnConnectionIds_example")}} // ReadVpnConnectionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.ReadVpnConnections(context.Background()).ReadVpnConnectionsRequest(readVpnConnectionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.ReadVpnConnections``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadVpnConnections`: ReadVpnConnectionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.ReadVpnConnections`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadVpnConnectionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadVpnConnectionsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadVpnConnectionsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readVpnConnectionsRequest** | [**optional.Interface of ReadVpnConnectionsRequest**](ReadVpnConnectionsRequest.md)|  | 
+ **readVpnConnectionsRequest** | [**ReadVpnConnectionsRequest**](ReadVpnConnectionsRequest.md) |  | 
 
 ### Return type
 

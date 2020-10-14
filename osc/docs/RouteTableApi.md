@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## CreateRouteTable
 
-> CreateRouteTableResponse CreateRouteTable(ctx, optional)
+> CreateRouteTableResponse CreateRouteTable(ctx).CreateRouteTableRequest(createRouteTableRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createRouteTableRequest := openapiclient.CreateRouteTableRequest{DryRun: false, NetId: "NetId_example"} // CreateRouteTableRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteTableApi.CreateRouteTable(context.Background()).CreateRouteTableRequest(createRouteTableRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteTableApi.CreateRouteTable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateRouteTable`: CreateRouteTableResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteTableApi.CreateRouteTable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateRouteTableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateRouteTableOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateRouteTableOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createRouteTableRequest** | [**optional.Interface of CreateRouteTableRequest**](CreateRouteTableRequest.md)|  | 
+ **createRouteTableRequest** | [**CreateRouteTableRequest**](CreateRouteTableRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## DeleteRouteTable
 
-> DeleteRouteTableResponse DeleteRouteTable(ctx, optional)
+> DeleteRouteTableResponse DeleteRouteTable(ctx).DeleteRouteTableRequest(deleteRouteTableRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteRouteTableRequest := openapiclient.DeleteRouteTableRequest{DryRun: false, RouteTableId: "RouteTableId_example"} // DeleteRouteTableRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteTableApi.DeleteRouteTable(context.Background()).DeleteRouteTableRequest(deleteRouteTableRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteTableApi.DeleteRouteTable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteRouteTable`: DeleteRouteTableResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteTableApi.DeleteRouteTable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteRouteTableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteRouteTableOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteRouteTableOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteRouteTableRequest** | [**optional.Interface of DeleteRouteTableRequest**](DeleteRouteTableRequest.md)|  | 
+ **deleteRouteTableRequest** | [**DeleteRouteTableRequest**](DeleteRouteTableRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## LinkRouteTable
 
-> LinkRouteTableResponse LinkRouteTable(ctx, optional)
+> LinkRouteTableResponse LinkRouteTable(ctx).LinkRouteTableRequest(linkRouteTableRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkRouteTableRequest := openapiclient.LinkRouteTableRequest{DryRun: false, RouteTableId: "RouteTableId_example", SubnetId: "SubnetId_example"} // LinkRouteTableRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteTableApi.LinkRouteTable(context.Background()).LinkRouteTableRequest(linkRouteTableRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteTableApi.LinkRouteTable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkRouteTable`: LinkRouteTableResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteTableApi.LinkRouteTable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkRouteTableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkRouteTableOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkRouteTableOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkRouteTableRequest** | [**optional.Interface of LinkRouteTableRequest**](LinkRouteTableRequest.md)|  | 
+ **linkRouteTableRequest** | [**LinkRouteTableRequest**](LinkRouteTableRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ Name | Type | Description  | Notes
 
 ## ReadRouteTables
 
-> ReadRouteTablesResponse ReadRouteTables(ctx, optional)
+> ReadRouteTablesResponse ReadRouteTables(ctx).ReadRouteTablesRequest(readRouteTablesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readRouteTablesRequest := openapiclient.ReadRouteTablesRequest{DryRun: false, Filters: openapiclient.FiltersRouteTable{LinkRouteTableIds: []string{"LinkRouteTableIds_example"), LinkRouteTableLinkRouteTableIds: []string{"LinkRouteTableLinkRouteTableIds_example"), LinkRouteTableMain: false, LinkSubnetIds: []string{"LinkSubnetIds_example"), NetIds: []string{"NetIds_example"), RouteCreationMethods: []string{"RouteCreationMethods_example"), RouteDestinationIpRanges: []string{"RouteDestinationIpRanges_example"), RouteDestinationServiceIds: []string{"RouteDestinationServiceIds_example"), RouteGatewayIds: []string{"RouteGatewayIds_example"), RouteNatServiceIds: []string{"RouteNatServiceIds_example"), RouteNetPeeringIds: []string{"RouteNetPeeringIds_example"), RouteStates: []string{"RouteStates_example"), RouteTableIds: []string{"RouteTableIds_example"), RouteVmIds: []string{"RouteVmIds_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadRouteTablesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteTableApi.ReadRouteTables(context.Background()).ReadRouteTablesRequest(readRouteTablesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteTableApi.ReadRouteTables``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadRouteTables`: ReadRouteTablesResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteTableApi.ReadRouteTables`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadRouteTablesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadRouteTablesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadRouteTablesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readRouteTablesRequest** | [**optional.Interface of ReadRouteTablesRequest**](ReadRouteTablesRequest.md)|  | 
+ **readRouteTablesRequest** | [**ReadRouteTablesRequest**](ReadRouteTablesRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkRouteTable
 
-> UnlinkRouteTableResponse UnlinkRouteTable(ctx, optional)
+> UnlinkRouteTableResponse UnlinkRouteTable(ctx).UnlinkRouteTableRequest(unlinkRouteTableRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkRouteTableRequest := openapiclient.UnlinkRouteTableRequest{DryRun: false, LinkRouteTableId: "LinkRouteTableId_example"} // UnlinkRouteTableRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteTableApi.UnlinkRouteTable(context.Background()).UnlinkRouteTableRequest(unlinkRouteTableRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteTableApi.UnlinkRouteTable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkRouteTable`: UnlinkRouteTableResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteTableApi.UnlinkRouteTable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkRouteTableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkRouteTableOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkRouteTableOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkRouteTableRequest** | [**optional.Interface of UnlinkRouteTableRequest**](UnlinkRouteTableRequest.md)|  | 
+ **unlinkRouteTableRequest** | [**UnlinkRouteTableRequest**](UnlinkRouteTableRequest.md) |  | 
 
 ### Return type
 

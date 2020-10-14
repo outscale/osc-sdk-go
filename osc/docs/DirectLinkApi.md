@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateDirectLink
 
-> CreateDirectLinkResponse CreateDirectLink(ctx, optional)
+> CreateDirectLinkResponse CreateDirectLink(ctx).CreateDirectLinkRequest(createDirectLinkRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createDirectLinkRequest := openapiclient.CreateDirectLinkRequest{Bandwidth: "Bandwidth_example", DirectLinkName: "DirectLinkName_example", DryRun: false, Location: "Location_example"} // CreateDirectLinkRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkApi.CreateDirectLink(context.Background()).CreateDirectLinkRequest(createDirectLinkRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkApi.CreateDirectLink``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateDirectLink`: CreateDirectLinkResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkApi.CreateDirectLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateDirectLinkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateDirectLinkOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateDirectLinkOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createDirectLinkRequest** | [**optional.Interface of CreateDirectLinkRequest**](CreateDirectLinkRequest.md)|  | 
+ **createDirectLinkRequest** | [**CreateDirectLinkRequest**](CreateDirectLinkRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteDirectLink
 
-> DeleteDirectLinkResponse DeleteDirectLink(ctx, optional)
+> DeleteDirectLinkResponse DeleteDirectLink(ctx).DeleteDirectLinkRequest(deleteDirectLinkRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteDirectLinkRequest := openapiclient.DeleteDirectLinkRequest{DirectLinkId: "DirectLinkId_example", DryRun: false} // DeleteDirectLinkRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkApi.DeleteDirectLink(context.Background()).DeleteDirectLinkRequest(deleteDirectLinkRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkApi.DeleteDirectLink``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteDirectLink`: DeleteDirectLinkResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkApi.DeleteDirectLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDirectLinkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteDirectLinkOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteDirectLinkOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteDirectLinkRequest** | [**optional.Interface of DeleteDirectLinkRequest**](DeleteDirectLinkRequest.md)|  | 
+ **deleteDirectLinkRequest** | [**DeleteDirectLinkRequest**](DeleteDirectLinkRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadDirectLinks
 
-> ReadDirectLinksResponse ReadDirectLinks(ctx, optional)
+> ReadDirectLinksResponse ReadDirectLinks(ctx).ReadDirectLinksRequest(readDirectLinksRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readDirectLinksRequest := openapiclient.ReadDirectLinksRequest{DryRun: false, Filters: openapiclient.FiltersDirectLink{DirectLinkIds: []string{"DirectLinkIds_example")}} // ReadDirectLinksRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkApi.ReadDirectLinks(context.Background()).ReadDirectLinksRequest(readDirectLinksRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkApi.ReadDirectLinks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadDirectLinks`: ReadDirectLinksResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkApi.ReadDirectLinks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadDirectLinksRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadDirectLinksOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadDirectLinksOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readDirectLinksRequest** | [**optional.Interface of ReadDirectLinksRequest**](ReadDirectLinksRequest.md)|  | 
+ **readDirectLinksRequest** | [**ReadDirectLinksRequest**](ReadDirectLinksRequest.md) |  | 
 
 ### Return type
 

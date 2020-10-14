@@ -16,26 +16,49 @@ Method | HTTP request | Description
 
 ## CreateFlexibleGpu
 
-> CreateFlexibleGpuResponse CreateFlexibleGpu(ctx, optional)
+> CreateFlexibleGpuResponse CreateFlexibleGpu(ctx).CreateFlexibleGpuRequest(createFlexibleGpuRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createFlexibleGpuRequest := openapiclient.CreateFlexibleGpuRequest{DeleteOnVmDeletion: false, DryRun: false, Generation: "Generation_example", ModelName: "ModelName_example", SubregionName: "SubregionName_example"} // CreateFlexibleGpuRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.CreateFlexibleGpu(context.Background()).CreateFlexibleGpuRequest(createFlexibleGpuRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.CreateFlexibleGpu``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateFlexibleGpu`: CreateFlexibleGpuResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.CreateFlexibleGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateFlexibleGpuRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateFlexibleGpuOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateFlexibleGpuOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createFlexibleGpuRequest** | [**optional.Interface of CreateFlexibleGpuRequest**](CreateFlexibleGpuRequest.md)|  | 
+ **createFlexibleGpuRequest** | [**CreateFlexibleGpuRequest**](CreateFlexibleGpuRequest.md) |  | 
 
 ### Return type
 
@@ -57,26 +80,49 @@ Name | Type | Description  | Notes
 
 ## DeleteFlexibleGpu
 
-> DeleteFlexibleGpuResponse DeleteFlexibleGpu(ctx, optional)
+> DeleteFlexibleGpuResponse DeleteFlexibleGpu(ctx).DeleteFlexibleGpuRequest(deleteFlexibleGpuRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteFlexibleGpuRequest := openapiclient.DeleteFlexibleGpuRequest{DryRun: false, FlexibleGpuId: "FlexibleGpuId_example"} // DeleteFlexibleGpuRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.DeleteFlexibleGpu(context.Background()).DeleteFlexibleGpuRequest(deleteFlexibleGpuRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.DeleteFlexibleGpu``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteFlexibleGpu`: DeleteFlexibleGpuResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.DeleteFlexibleGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteFlexibleGpuRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteFlexibleGpuOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteFlexibleGpuOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteFlexibleGpuRequest** | [**optional.Interface of DeleteFlexibleGpuRequest**](DeleteFlexibleGpuRequest.md)|  | 
+ **deleteFlexibleGpuRequest** | [**DeleteFlexibleGpuRequest**](DeleteFlexibleGpuRequest.md) |  | 
 
 ### Return type
 
@@ -98,26 +144,49 @@ Name | Type | Description  | Notes
 
 ## LinkFlexibleGpu
 
-> LinkFlexibleGpuResponse LinkFlexibleGpu(ctx, optional)
+> LinkFlexibleGpuResponse LinkFlexibleGpu(ctx).LinkFlexibleGpuRequest(linkFlexibleGpuRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkFlexibleGpuRequest := openapiclient.LinkFlexibleGpuRequest{DryRun: false, FlexibleGpuId: "FlexibleGpuId_example", VmId: "VmId_example"} // LinkFlexibleGpuRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.LinkFlexibleGpu(context.Background()).LinkFlexibleGpuRequest(linkFlexibleGpuRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.LinkFlexibleGpu``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkFlexibleGpu`: LinkFlexibleGpuResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.LinkFlexibleGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkFlexibleGpuRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkFlexibleGpuOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkFlexibleGpuOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkFlexibleGpuRequest** | [**optional.Interface of LinkFlexibleGpuRequest**](LinkFlexibleGpuRequest.md)|  | 
+ **linkFlexibleGpuRequest** | [**LinkFlexibleGpuRequest**](LinkFlexibleGpuRequest.md) |  | 
 
 ### Return type
 
@@ -139,26 +208,49 @@ Name | Type | Description  | Notes
 
 ## ReadFlexibleGpuCatalog
 
-> ReadFlexibleGpuCatalogResponse ReadFlexibleGpuCatalog(ctx, optional)
+> ReadFlexibleGpuCatalogResponse ReadFlexibleGpuCatalog(ctx).ReadFlexibleGpuCatalogRequest(readFlexibleGpuCatalogRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readFlexibleGpuCatalogRequest := openapiclient.ReadFlexibleGpuCatalogRequest{DryRun: false} // ReadFlexibleGpuCatalogRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.ReadFlexibleGpuCatalog(context.Background()).ReadFlexibleGpuCatalogRequest(readFlexibleGpuCatalogRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.ReadFlexibleGpuCatalog``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadFlexibleGpuCatalog`: ReadFlexibleGpuCatalogResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.ReadFlexibleGpuCatalog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadFlexibleGpuCatalogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadFlexibleGpuCatalogOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadFlexibleGpuCatalogOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readFlexibleGpuCatalogRequest** | [**optional.Interface of ReadFlexibleGpuCatalogRequest**](ReadFlexibleGpuCatalogRequest.md)|  | 
+ **readFlexibleGpuCatalogRequest** | [**ReadFlexibleGpuCatalogRequest**](ReadFlexibleGpuCatalogRequest.md) |  | 
 
 ### Return type
 
@@ -180,26 +272,49 @@ No authorization required
 
 ## ReadFlexibleGpus
 
-> ReadFlexibleGpusResponse ReadFlexibleGpus(ctx, optional)
+> ReadFlexibleGpusResponse ReadFlexibleGpus(ctx).ReadFlexibleGpusRequest(readFlexibleGpusRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readFlexibleGpusRequest := openapiclient.ReadFlexibleGpusRequest{DryRun: false, Filters: openapiclient.FiltersFlexibleGpu{DeleteOnVmDeletion: false, FlexibleGpuIds: []string{"FlexibleGpuIds_example"), Generations: []string{"Generations_example"), ModelNames: []string{"ModelNames_example"), States: []string{"States_example"), SubregionNames: []string{"SubregionNames_example"), VmIds: []string{"VmIds_example")}} // ReadFlexibleGpusRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.ReadFlexibleGpus(context.Background()).ReadFlexibleGpusRequest(readFlexibleGpusRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.ReadFlexibleGpus``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadFlexibleGpus`: ReadFlexibleGpusResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.ReadFlexibleGpus`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadFlexibleGpusRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadFlexibleGpusOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadFlexibleGpusOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readFlexibleGpusRequest** | [**optional.Interface of ReadFlexibleGpusRequest**](ReadFlexibleGpusRequest.md)|  | 
+ **readFlexibleGpusRequest** | [**ReadFlexibleGpusRequest**](ReadFlexibleGpusRequest.md) |  | 
 
 ### Return type
 
@@ -221,26 +336,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkFlexibleGpu
 
-> UnlinkFlexibleGpuResponse UnlinkFlexibleGpu(ctx, optional)
+> UnlinkFlexibleGpuResponse UnlinkFlexibleGpu(ctx).UnlinkFlexibleGpuRequest(unlinkFlexibleGpuRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkFlexibleGpuRequest := openapiclient.UnlinkFlexibleGpuRequest{DryRun: false, FlexibleGpuId: "FlexibleGpuId_example"} // UnlinkFlexibleGpuRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.UnlinkFlexibleGpu(context.Background()).UnlinkFlexibleGpuRequest(unlinkFlexibleGpuRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.UnlinkFlexibleGpu``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkFlexibleGpu`: UnlinkFlexibleGpuResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.UnlinkFlexibleGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkFlexibleGpuRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkFlexibleGpuOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkFlexibleGpuOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkFlexibleGpuRequest** | [**optional.Interface of UnlinkFlexibleGpuRequest**](UnlinkFlexibleGpuRequest.md)|  | 
+ **unlinkFlexibleGpuRequest** | [**UnlinkFlexibleGpuRequest**](UnlinkFlexibleGpuRequest.md) |  | 
 
 ### Return type
 
@@ -262,26 +400,49 @@ Name | Type | Description  | Notes
 
 ## UpdateFlexibleGpu
 
-> UpdateFlexibleGpuResponse UpdateFlexibleGpu(ctx, optional)
+> UpdateFlexibleGpuResponse UpdateFlexibleGpu(ctx).UpdateFlexibleGpuRequest(updateFlexibleGpuRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateFlexibleGpuRequest := openapiclient.UpdateFlexibleGpuRequest{DeleteOnVmDeletion: false, DryRun: false, FlexibleGpuId: "FlexibleGpuId_example"} // UpdateFlexibleGpuRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.FlexibleGpuApi.UpdateFlexibleGpu(context.Background()).UpdateFlexibleGpuRequest(updateFlexibleGpuRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FlexibleGpuApi.UpdateFlexibleGpu``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateFlexibleGpu`: UpdateFlexibleGpuResponse
+    fmt.Fprintf(os.Stdout, "Response from `FlexibleGpuApi.UpdateFlexibleGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateFlexibleGpuRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateFlexibleGpuOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateFlexibleGpuOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateFlexibleGpuRequest** | [**optional.Interface of UpdateFlexibleGpuRequest**](UpdateFlexibleGpuRequest.md)|  | 
+ **updateFlexibleGpuRequest** | [**UpdateFlexibleGpuRequest**](UpdateFlexibleGpuRequest.md) |  | 
 
 ### Return type
 

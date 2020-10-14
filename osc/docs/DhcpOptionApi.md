@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateDhcpOptions
 
-> CreateDhcpOptionsResponse CreateDhcpOptions(ctx, optional)
+> CreateDhcpOptionsResponse CreateDhcpOptions(ctx).CreateDhcpOptionsRequest(createDhcpOptionsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createDhcpOptionsRequest := openapiclient.CreateDhcpOptionsRequest{DomainName: "DomainName_example", DomainNameServers: []string{"DomainNameServers_example"), DryRun: false, NtpServers: []string{"NtpServers_example")} // CreateDhcpOptionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DhcpOptionApi.CreateDhcpOptions(context.Background()).CreateDhcpOptionsRequest(createDhcpOptionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DhcpOptionApi.CreateDhcpOptions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateDhcpOptions`: CreateDhcpOptionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DhcpOptionApi.CreateDhcpOptions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateDhcpOptionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateDhcpOptionsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateDhcpOptionsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createDhcpOptionsRequest** | [**optional.Interface of CreateDhcpOptionsRequest**](CreateDhcpOptionsRequest.md)|  | 
+ **createDhcpOptionsRequest** | [**CreateDhcpOptionsRequest**](CreateDhcpOptionsRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteDhcpOptions
 
-> DeleteDhcpOptionsResponse DeleteDhcpOptions(ctx, optional)
+> DeleteDhcpOptionsResponse DeleteDhcpOptions(ctx).DeleteDhcpOptionsRequest(deleteDhcpOptionsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteDhcpOptionsRequest := openapiclient.DeleteDhcpOptionsRequest{DhcpOptionsSetId: "DhcpOptionsSetId_example", DryRun: false} // DeleteDhcpOptionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DhcpOptionApi.DeleteDhcpOptions(context.Background()).DeleteDhcpOptionsRequest(deleteDhcpOptionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DhcpOptionApi.DeleteDhcpOptions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteDhcpOptions`: DeleteDhcpOptionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DhcpOptionApi.DeleteDhcpOptions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDhcpOptionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteDhcpOptionsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteDhcpOptionsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteDhcpOptionsRequest** | [**optional.Interface of DeleteDhcpOptionsRequest**](DeleteDhcpOptionsRequest.md)|  | 
+ **deleteDhcpOptionsRequest** | [**DeleteDhcpOptionsRequest**](DeleteDhcpOptionsRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadDhcpOptions
 
-> ReadDhcpOptionsResponse ReadDhcpOptions(ctx, optional)
+> ReadDhcpOptionsResponse ReadDhcpOptions(ctx).ReadDhcpOptionsRequest(readDhcpOptionsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readDhcpOptionsRequest := openapiclient.ReadDhcpOptionsRequest{DryRun: false, Filters: openapiclient.FiltersDhcpOptions{Default: false, DhcpOptionsSetIds: []string{"DhcpOptionsSetIds_example"), DomainNameServers: []string{"DomainNameServers_example"), DomainNames: []string{"DomainNames_example"), NtpServers: []string{"NtpServers_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadDhcpOptionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DhcpOptionApi.ReadDhcpOptions(context.Background()).ReadDhcpOptionsRequest(readDhcpOptionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DhcpOptionApi.ReadDhcpOptions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadDhcpOptions`: ReadDhcpOptionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DhcpOptionApi.ReadDhcpOptions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadDhcpOptionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadDhcpOptionsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadDhcpOptionsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readDhcpOptionsRequest** | [**optional.Interface of ReadDhcpOptionsRequest**](ReadDhcpOptionsRequest.md)|  | 
+ **readDhcpOptionsRequest** | [**ReadDhcpOptionsRequest**](ReadDhcpOptionsRequest.md) |  | 
 
 ### Return type
 

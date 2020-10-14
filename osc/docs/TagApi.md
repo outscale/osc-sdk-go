@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateTags
 
-> CreateTagsResponse CreateTags(ctx, optional)
+> CreateTagsResponse CreateTags(ctx).CreateTagsRequest(createTagsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createTagsRequest := openapiclient.CreateTagsRequest{DryRun: false, ResourceIds: []string{"ResourceIds_example"), Tags: []ResourceTag{openapiclient.ResourceTag{Key: "Key_example", Value: "Value_example"})} // CreateTagsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TagApi.CreateTags(context.Background()).CreateTagsRequest(createTagsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TagApi.CreateTags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateTags`: CreateTagsResponse
+    fmt.Fprintf(os.Stdout, "Response from `TagApi.CreateTags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateTagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateTagsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateTagsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createTagsRequest** | [**optional.Interface of CreateTagsRequest**](CreateTagsRequest.md)|  | 
+ **createTagsRequest** | [**CreateTagsRequest**](CreateTagsRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteTags
 
-> DeleteTagsResponse DeleteTags(ctx, optional)
+> DeleteTagsResponse DeleteTags(ctx).DeleteTagsRequest(deleteTagsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteTagsRequest := openapiclient.DeleteTagsRequest{DryRun: false, ResourceIds: []string{"ResourceIds_example"), Tags: []ResourceTag{openapiclient.ResourceTag{Key: "Key_example", Value: "Value_example"})} // DeleteTagsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TagApi.DeleteTags(context.Background()).DeleteTagsRequest(deleteTagsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TagApi.DeleteTags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteTags`: DeleteTagsResponse
+    fmt.Fprintf(os.Stdout, "Response from `TagApi.DeleteTags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteTagsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteTagsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteTagsRequest** | [**optional.Interface of DeleteTagsRequest**](DeleteTagsRequest.md)|  | 
+ **deleteTagsRequest** | [**DeleteTagsRequest**](DeleteTagsRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadTags
 
-> ReadTagsResponse ReadTags(ctx, optional)
+> ReadTagsResponse ReadTags(ctx).ReadTagsRequest(readTagsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readTagsRequest := openapiclient.ReadTagsRequest{DryRun: false, Filters: openapiclient.FiltersTag{Keys: []string{"Keys_example"), ResourceIds: []string{"ResourceIds_example"), ResourceTypes: []string{"ResourceTypes_example"), Values: []string{"Values_example")}} // ReadTagsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TagApi.ReadTags(context.Background()).ReadTagsRequest(readTagsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TagApi.ReadTags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadTags`: ReadTagsResponse
+    fmt.Fprintf(os.Stdout, "Response from `TagApi.ReadTags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadTagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadTagsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadTagsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readTagsRequest** | [**optional.Interface of ReadTagsRequest**](ReadTagsRequest.md)|  | 
+ **readTagsRequest** | [**ReadTagsRequest**](ReadTagsRequest.md) |  | 
 
 ### Return type
 

@@ -10,26 +10,49 @@ Method | HTTP request | Description
 
 ## DeleteExportTask
 
-> DeleteExportTaskResponse DeleteExportTask(ctx, optional)
+> DeleteExportTaskResponse DeleteExportTask(ctx).DeleteExportTaskRequest(deleteExportTaskRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteExportTaskRequest := openapiclient.DeleteExportTaskRequest{DryRun: false, ExportTaskId: "ExportTaskId_example"} // DeleteExportTaskRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskApi.DeleteExportTask(context.Background()).DeleteExportTaskRequest(deleteExportTaskRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskApi.DeleteExportTask``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteExportTask`: DeleteExportTaskResponse
+    fmt.Fprintf(os.Stdout, "Response from `TaskApi.DeleteExportTask`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteExportTaskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteExportTaskOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteExportTaskOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteExportTaskRequest** | [**optional.Interface of DeleteExportTaskRequest**](DeleteExportTaskRequest.md)|  | 
+ **deleteExportTaskRequest** | [**DeleteExportTaskRequest**](DeleteExportTaskRequest.md) |  | 
 
 ### Return type
 

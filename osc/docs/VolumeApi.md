@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## CreateVolume
 
-> CreateVolumeResponse CreateVolume(ctx, optional)
+> CreateVolumeResponse CreateVolume(ctx).CreateVolumeRequest(createVolumeRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createVolumeRequest := openapiclient.CreateVolumeRequest{DryRun: false, Iops: 123, Size: 123, SnapshotId: "SnapshotId_example", SubregionName: "SubregionName_example", VolumeType: "VolumeType_example"} // CreateVolumeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.CreateVolume(context.Background()).CreateVolumeRequest(createVolumeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.CreateVolume``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateVolume`: CreateVolumeResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.CreateVolume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateVolumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateVolumeOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateVolumeOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVolumeRequest** | [**optional.Interface of CreateVolumeRequest**](CreateVolumeRequest.md)|  | 
+ **createVolumeRequest** | [**CreateVolumeRequest**](CreateVolumeRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## DeleteVolume
 
-> DeleteVolumeResponse DeleteVolume(ctx, optional)
+> DeleteVolumeResponse DeleteVolume(ctx).DeleteVolumeRequest(deleteVolumeRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteVolumeRequest := openapiclient.DeleteVolumeRequest{DryRun: false, VolumeId: "VolumeId_example"} // DeleteVolumeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.DeleteVolume(context.Background()).DeleteVolumeRequest(deleteVolumeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.DeleteVolume``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteVolume`: DeleteVolumeResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.DeleteVolume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteVolumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteVolumeOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteVolumeOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteVolumeRequest** | [**optional.Interface of DeleteVolumeRequest**](DeleteVolumeRequest.md)|  | 
+ **deleteVolumeRequest** | [**DeleteVolumeRequest**](DeleteVolumeRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## LinkVolume
 
-> LinkVolumeResponse LinkVolume(ctx, optional)
+> LinkVolumeResponse LinkVolume(ctx).LinkVolumeRequest(linkVolumeRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkVolumeRequest := openapiclient.LinkVolumeRequest{DeviceName: "DeviceName_example", DryRun: false, VmId: "VmId_example", VolumeId: "VolumeId_example"} // LinkVolumeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.LinkVolume(context.Background()).LinkVolumeRequest(linkVolumeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.LinkVolume``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkVolume`: LinkVolumeResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.LinkVolume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkVolumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkVolumeOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkVolumeOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkVolumeRequest** | [**optional.Interface of LinkVolumeRequest**](LinkVolumeRequest.md)|  | 
+ **linkVolumeRequest** | [**LinkVolumeRequest**](LinkVolumeRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ Name | Type | Description  | Notes
 
 ## ReadVolumes
 
-> ReadVolumesResponse ReadVolumes(ctx, optional)
+> ReadVolumesResponse ReadVolumes(ctx).ReadVolumesRequest(readVolumesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readVolumesRequest := openapiclient.ReadVolumesRequest{DryRun: false, Filters: openapiclient.FiltersVolume{CreationDates: []string{time.Now()), LinkVolumeDeleteOnVmDeletion: false, LinkVolumeDeviceNames: []string{"LinkVolumeDeviceNames_example"), LinkVolumeLinkDates: []string{time.Now()), LinkVolumeLinkStates: []string{"LinkVolumeLinkStates_example"), LinkVolumeVmIds: []string{"LinkVolumeVmIds_example"), SnapshotIds: []string{"SnapshotIds_example"), SubregionNames: []string{"SubregionNames_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example"), VolumeIds: []string{"VolumeIds_example"), VolumeSizes: []int32{123), VolumeStates: []string{"VolumeStates_example"), VolumeTypes: []string{"VolumeTypes_example")}} // ReadVolumesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.ReadVolumes(context.Background()).ReadVolumesRequest(readVolumesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.ReadVolumes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadVolumes`: ReadVolumesResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.ReadVolumes`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadVolumesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadVolumesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadVolumesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readVolumesRequest** | [**optional.Interface of ReadVolumesRequest**](ReadVolumesRequest.md)|  | 
+ **readVolumesRequest** | [**ReadVolumesRequest**](ReadVolumesRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkVolume
 
-> UnlinkVolumeResponse UnlinkVolume(ctx, optional)
+> UnlinkVolumeResponse UnlinkVolume(ctx).UnlinkVolumeRequest(unlinkVolumeRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkVolumeRequest := openapiclient.UnlinkVolumeRequest{DryRun: false, ForceUnlink: false, VolumeId: "VolumeId_example"} // UnlinkVolumeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.UnlinkVolume(context.Background()).UnlinkVolumeRequest(unlinkVolumeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.UnlinkVolume``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkVolume`: UnlinkVolumeResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.UnlinkVolume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkVolumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkVolumeOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkVolumeOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkVolumeRequest** | [**optional.Interface of UnlinkVolumeRequest**](UnlinkVolumeRequest.md)|  | 
+ **unlinkVolumeRequest** | [**UnlinkVolumeRequest**](UnlinkVolumeRequest.md) |  | 
 
 ### Return type
 

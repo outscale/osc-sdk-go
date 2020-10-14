@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateClientGateway
 
-> CreateClientGatewayResponse CreateClientGateway(ctx, optional)
+> CreateClientGatewayResponse CreateClientGateway(ctx).CreateClientGatewayRequest(createClientGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createClientGatewayRequest := openapiclient.CreateClientGatewayRequest{BgpAsn: 123, ConnectionType: "ConnectionType_example", DryRun: false, PublicIp: "PublicIp_example"} // CreateClientGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClientGatewayApi.CreateClientGateway(context.Background()).CreateClientGatewayRequest(createClientGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ClientGatewayApi.CreateClientGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateClientGateway`: CreateClientGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `ClientGatewayApi.CreateClientGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateClientGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateClientGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateClientGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createClientGatewayRequest** | [**optional.Interface of CreateClientGatewayRequest**](CreateClientGatewayRequest.md)|  | 
+ **createClientGatewayRequest** | [**CreateClientGatewayRequest**](CreateClientGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteClientGateway
 
-> DeleteClientGatewayResponse DeleteClientGateway(ctx, optional)
+> DeleteClientGatewayResponse DeleteClientGateway(ctx).DeleteClientGatewayRequest(deleteClientGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteClientGatewayRequest := openapiclient.DeleteClientGatewayRequest{ClientGatewayId: "ClientGatewayId_example", DryRun: false} // DeleteClientGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClientGatewayApi.DeleteClientGateway(context.Background()).DeleteClientGatewayRequest(deleteClientGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ClientGatewayApi.DeleteClientGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteClientGateway`: DeleteClientGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `ClientGatewayApi.DeleteClientGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteClientGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteClientGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteClientGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteClientGatewayRequest** | [**optional.Interface of DeleteClientGatewayRequest**](DeleteClientGatewayRequest.md)|  | 
+ **deleteClientGatewayRequest** | [**DeleteClientGatewayRequest**](DeleteClientGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadClientGateways
 
-> ReadClientGatewaysResponse ReadClientGateways(ctx, optional)
+> ReadClientGatewaysResponse ReadClientGateways(ctx).ReadClientGatewaysRequest(readClientGatewaysRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readClientGatewaysRequest := openapiclient.ReadClientGatewaysRequest{DryRun: false, Filters: openapiclient.FiltersClientGateway{BgpAsns: []int32{123), ClientGatewayIds: []string{"ClientGatewayIds_example"), ConnectionTypes: []string{"ConnectionTypes_example"), PublicIps: []string{"PublicIps_example"), States: []string{"States_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadClientGatewaysRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClientGatewayApi.ReadClientGateways(context.Background()).ReadClientGatewaysRequest(readClientGatewaysRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ClientGatewayApi.ReadClientGateways``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadClientGateways`: ReadClientGatewaysResponse
+    fmt.Fprintf(os.Stdout, "Response from `ClientGatewayApi.ReadClientGateways`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadClientGatewaysRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadClientGatewaysOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadClientGatewaysOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readClientGatewaysRequest** | [**optional.Interface of ReadClientGatewaysRequest**](ReadClientGatewaysRequest.md)|  | 
+ **readClientGatewaysRequest** | [**ReadClientGatewaysRequest**](ReadClientGatewaysRequest.md) |  | 
 
 ### Return type
 

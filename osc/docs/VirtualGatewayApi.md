@@ -15,26 +15,49 @@ Method | HTTP request | Description
 
 ## CreateVirtualGateway
 
-> CreateVirtualGatewayResponse CreateVirtualGateway(ctx, optional)
+> CreateVirtualGatewayResponse CreateVirtualGateway(ctx).CreateVirtualGatewayRequest(createVirtualGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createVirtualGatewayRequest := openapiclient.CreateVirtualGatewayRequest{ConnectionType: "ConnectionType_example", DryRun: false} // CreateVirtualGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.CreateVirtualGateway(context.Background()).CreateVirtualGatewayRequest(createVirtualGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.CreateVirtualGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateVirtualGateway`: CreateVirtualGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.CreateVirtualGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateVirtualGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateVirtualGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateVirtualGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createVirtualGatewayRequest** | [**optional.Interface of CreateVirtualGatewayRequest**](CreateVirtualGatewayRequest.md)|  | 
+ **createVirtualGatewayRequest** | [**CreateVirtualGatewayRequest**](CreateVirtualGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -56,26 +79,49 @@ Name | Type | Description  | Notes
 
 ## DeleteVirtualGateway
 
-> DeleteVirtualGatewayResponse DeleteVirtualGateway(ctx, optional)
+> DeleteVirtualGatewayResponse DeleteVirtualGateway(ctx).DeleteVirtualGatewayRequest(deleteVirtualGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteVirtualGatewayRequest := openapiclient.DeleteVirtualGatewayRequest{DryRun: false, VirtualGatewayId: "VirtualGatewayId_example"} // DeleteVirtualGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.DeleteVirtualGateway(context.Background()).DeleteVirtualGatewayRequest(deleteVirtualGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.DeleteVirtualGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteVirtualGateway`: DeleteVirtualGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.DeleteVirtualGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteVirtualGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteVirtualGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteVirtualGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteVirtualGatewayRequest** | [**optional.Interface of DeleteVirtualGatewayRequest**](DeleteVirtualGatewayRequest.md)|  | 
+ **deleteVirtualGatewayRequest** | [**DeleteVirtualGatewayRequest**](DeleteVirtualGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -97,26 +143,49 @@ Name | Type | Description  | Notes
 
 ## LinkVirtualGateway
 
-> LinkVirtualGatewayResponse LinkVirtualGateway(ctx, optional)
+> LinkVirtualGatewayResponse LinkVirtualGateway(ctx).LinkVirtualGatewayRequest(linkVirtualGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkVirtualGatewayRequest := openapiclient.LinkVirtualGatewayRequest{DryRun: false, NetId: "NetId_example", VirtualGatewayId: "VirtualGatewayId_example"} // LinkVirtualGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.LinkVirtualGateway(context.Background()).LinkVirtualGatewayRequest(linkVirtualGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.LinkVirtualGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkVirtualGateway`: LinkVirtualGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.LinkVirtualGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkVirtualGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LinkVirtualGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LinkVirtualGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **linkVirtualGatewayRequest** | [**optional.Interface of LinkVirtualGatewayRequest**](LinkVirtualGatewayRequest.md)|  | 
+ **linkVirtualGatewayRequest** | [**LinkVirtualGatewayRequest**](LinkVirtualGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -138,26 +207,49 @@ Name | Type | Description  | Notes
 
 ## ReadVirtualGateways
 
-> ReadVirtualGatewaysResponse ReadVirtualGateways(ctx, optional)
+> ReadVirtualGatewaysResponse ReadVirtualGateways(ctx).ReadVirtualGatewaysRequest(readVirtualGatewaysRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readVirtualGatewaysRequest := openapiclient.ReadVirtualGatewaysRequest{DryRun: false, Filters: openapiclient.FiltersVirtualGateway{ConnectionTypes: []string{"ConnectionTypes_example"), LinkNetIds: []string{"LinkNetIds_example"), LinkStates: []string{"LinkStates_example"), States: []string{"States_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example"), VirtualGatewayIds: []string{"VirtualGatewayIds_example")}} // ReadVirtualGatewaysRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.ReadVirtualGateways(context.Background()).ReadVirtualGatewaysRequest(readVirtualGatewaysRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.ReadVirtualGateways``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadVirtualGateways`: ReadVirtualGatewaysResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.ReadVirtualGateways`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadVirtualGatewaysRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadVirtualGatewaysOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadVirtualGatewaysOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readVirtualGatewaysRequest** | [**optional.Interface of ReadVirtualGatewaysRequest**](ReadVirtualGatewaysRequest.md)|  | 
+ **readVirtualGatewaysRequest** | [**ReadVirtualGatewaysRequest**](ReadVirtualGatewaysRequest.md) |  | 
 
 ### Return type
 
@@ -179,26 +271,49 @@ Name | Type | Description  | Notes
 
 ## UnlinkVirtualGateway
 
-> UnlinkVirtualGatewayResponse UnlinkVirtualGateway(ctx, optional)
+> UnlinkVirtualGatewayResponse UnlinkVirtualGateway(ctx).UnlinkVirtualGatewayRequest(unlinkVirtualGatewayRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkVirtualGatewayRequest := openapiclient.UnlinkVirtualGatewayRequest{DryRun: false, NetId: "NetId_example", VirtualGatewayId: "VirtualGatewayId_example"} // UnlinkVirtualGatewayRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.UnlinkVirtualGateway(context.Background()).UnlinkVirtualGatewayRequest(unlinkVirtualGatewayRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.UnlinkVirtualGateway``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkVirtualGateway`: UnlinkVirtualGatewayResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.UnlinkVirtualGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkVirtualGatewayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UnlinkVirtualGatewayOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UnlinkVirtualGatewayOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **unlinkVirtualGatewayRequest** | [**optional.Interface of UnlinkVirtualGatewayRequest**](UnlinkVirtualGatewayRequest.md)|  | 
+ **unlinkVirtualGatewayRequest** | [**UnlinkVirtualGatewayRequest**](UnlinkVirtualGatewayRequest.md) |  | 
 
 ### Return type
 
@@ -220,26 +335,49 @@ Name | Type | Description  | Notes
 
 ## UpdateRoutePropagation
 
-> UpdateRoutePropagationResponse UpdateRoutePropagation(ctx, optional)
+> UpdateRoutePropagationResponse UpdateRoutePropagation(ctx).UpdateRoutePropagationRequest(updateRoutePropagationRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateRoutePropagationRequest := openapiclient.UpdateRoutePropagationRequest{DryRun: false, Enable: false, RouteTableId: "RouteTableId_example", VirtualGatewayId: "VirtualGatewayId_example"} // UpdateRoutePropagationRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VirtualGatewayApi.UpdateRoutePropagation(context.Background()).UpdateRoutePropagationRequest(updateRoutePropagationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualGatewayApi.UpdateRoutePropagation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateRoutePropagation`: UpdateRoutePropagationResponse
+    fmt.Fprintf(os.Stdout, "Response from `VirtualGatewayApi.UpdateRoutePropagation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateRoutePropagationRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateRoutePropagationOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateRoutePropagationOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateRoutePropagationRequest** | [**optional.Interface of UpdateRoutePropagationRequest**](UpdateRoutePropagationRequest.md)|  | 
+ **updateRoutePropagationRequest** | [**UpdateRoutePropagationRequest**](UpdateRoutePropagationRequest.md) |  | 
 
 ### Return type
 

@@ -15,26 +15,49 @@ Method | HTTP request | Description
 
 ## CreateImage
 
-> CreateImageResponse CreateImage(ctx, optional)
+> CreateImageResponse CreateImage(ctx).CreateImageRequest(createImageRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createImageRequest := openapiclient.CreateImageRequest{Architecture: "Architecture_example", BlockDeviceMappings: []BlockDeviceMappingImage{openapiclient.BlockDeviceMappingImage{Bsu: openapiclient.BsuToCreate{DeleteOnVmDeletion: false, Iops: 123, SnapshotId: "SnapshotId_example", VolumeSize: 123, VolumeType: "VolumeType_example"}, DeviceName: "DeviceName_example", VirtualDeviceName: "VirtualDeviceName_example"}), Description: "Description_example", DryRun: false, FileLocation: "FileLocation_example", ImageName: "ImageName_example", NoReboot: false, RootDeviceName: "RootDeviceName_example", SourceImageId: "SourceImageId_example", SourceRegionName: "SourceRegionName_example", VmId: "VmId_example"} // CreateImageRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.CreateImage(context.Background()).CreateImageRequest(createImageRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.CreateImage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateImage`: CreateImageResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.CreateImage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateImageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateImageOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateImageOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createImageRequest** | [**optional.Interface of CreateImageRequest**](CreateImageRequest.md)|  | 
+ **createImageRequest** | [**CreateImageRequest**](CreateImageRequest.md) |  | 
 
 ### Return type
 
@@ -56,26 +79,49 @@ Name | Type | Description  | Notes
 
 ## CreateImageExportTask
 
-> CreateImageExportTaskResponse CreateImageExportTask(ctx, optional)
+> CreateImageExportTaskResponse CreateImageExportTask(ctx).CreateImageExportTaskRequest(createImageExportTaskRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createImageExportTaskRequest := openapiclient.CreateImageExportTaskRequest{DryRun: false, ImageId: "ImageId_example", OsuExport: openapiclient.OsuExport{DiskImageFormat: "DiskImageFormat_example", OsuApiKey: openapiclient.OsuApiKey{ApiKeyId: "ApiKeyId_example", SecretKey: "SecretKey_example"}, OsuBucket: "OsuBucket_example", OsuManifestUrl: "OsuManifestUrl_example", OsuPrefix: "OsuPrefix_example"}} // CreateImageExportTaskRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.CreateImageExportTask(context.Background()).CreateImageExportTaskRequest(createImageExportTaskRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.CreateImageExportTask``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateImageExportTask`: CreateImageExportTaskResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.CreateImageExportTask`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateImageExportTaskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateImageExportTaskOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateImageExportTaskOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createImageExportTaskRequest** | [**optional.Interface of CreateImageExportTaskRequest**](CreateImageExportTaskRequest.md)|  | 
+ **createImageExportTaskRequest** | [**CreateImageExportTaskRequest**](CreateImageExportTaskRequest.md) |  | 
 
 ### Return type
 
@@ -97,26 +143,49 @@ Name | Type | Description  | Notes
 
 ## DeleteImage
 
-> DeleteImageResponse DeleteImage(ctx, optional)
+> DeleteImageResponse DeleteImage(ctx).DeleteImageRequest(deleteImageRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteImageRequest := openapiclient.DeleteImageRequest{DryRun: false, ImageId: "ImageId_example"} // DeleteImageRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.DeleteImage(context.Background()).DeleteImageRequest(deleteImageRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.DeleteImage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteImage`: DeleteImageResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.DeleteImage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteImageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteImageOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteImageOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteImageRequest** | [**optional.Interface of DeleteImageRequest**](DeleteImageRequest.md)|  | 
+ **deleteImageRequest** | [**DeleteImageRequest**](DeleteImageRequest.md) |  | 
 
 ### Return type
 
@@ -138,26 +207,49 @@ Name | Type | Description  | Notes
 
 ## ReadImageExportTasks
 
-> ReadImageExportTasksResponse ReadImageExportTasks(ctx, optional)
+> ReadImageExportTasksResponse ReadImageExportTasks(ctx).ReadImageExportTasksRequest(readImageExportTasksRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readImageExportTasksRequest := openapiclient.ReadImageExportTasksRequest{DryRun: false, Filters: openapiclient.FiltersExportTask{TaskIds: []string{"TaskIds_example")}} // ReadImageExportTasksRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.ReadImageExportTasks(context.Background()).ReadImageExportTasksRequest(readImageExportTasksRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.ReadImageExportTasks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadImageExportTasks`: ReadImageExportTasksResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.ReadImageExportTasks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadImageExportTasksRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadImageExportTasksOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadImageExportTasksOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readImageExportTasksRequest** | [**optional.Interface of ReadImageExportTasksRequest**](ReadImageExportTasksRequest.md)|  | 
+ **readImageExportTasksRequest** | [**ReadImageExportTasksRequest**](ReadImageExportTasksRequest.md) |  | 
 
 ### Return type
 
@@ -179,26 +271,49 @@ Name | Type | Description  | Notes
 
 ## ReadImages
 
-> ReadImagesResponse ReadImages(ctx, optional)
+> ReadImagesResponse ReadImages(ctx).ReadImagesRequest(readImagesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readImagesRequest := openapiclient.ReadImagesRequest{DryRun: false, Filters: openapiclient.FiltersImage{AccountAliases: []string{"AccountAliases_example"), AccountIds: []string{"AccountIds_example"), Architectures: []string{"Architectures_example"), BlockDeviceMappingDeleteOnVmDeletion: false, BlockDeviceMappingDeviceNames: []string{"BlockDeviceMappingDeviceNames_example"), BlockDeviceMappingSnapshotIds: []string{"BlockDeviceMappingSnapshotIds_example"), BlockDeviceMappingVolumeSizes: []int32{123), BlockDeviceMappingVolumeTypes: []string{"BlockDeviceMappingVolumeTypes_example"), Descriptions: []string{"Descriptions_example"), FileLocations: []string{"FileLocations_example"), ImageIds: []string{"ImageIds_example"), ImageNames: []string{"ImageNames_example"), PermissionsToLaunchAccountIds: []string{"PermissionsToLaunchAccountIds_example"), PermissionsToLaunchGlobalPermission: false, RootDeviceNames: []string{"RootDeviceNames_example"), RootDeviceTypes: []string{"RootDeviceTypes_example"), States: []string{"States_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example"), VirtualizationTypes: []string{"VirtualizationTypes_example")}} // ReadImagesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.ReadImages(context.Background()).ReadImagesRequest(readImagesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.ReadImages``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadImages`: ReadImagesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.ReadImages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadImagesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadImagesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadImagesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readImagesRequest** | [**optional.Interface of ReadImagesRequest**](ReadImagesRequest.md)|  | 
+ **readImagesRequest** | [**ReadImagesRequest**](ReadImagesRequest.md) |  | 
 
 ### Return type
 
@@ -220,26 +335,49 @@ Name | Type | Description  | Notes
 
 ## UpdateImage
 
-> UpdateImageResponse UpdateImage(ctx, optional)
+> UpdateImageResponse UpdateImage(ctx).UpdateImageRequest(updateImageRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateImageRequest := openapiclient.UpdateImageRequest{DryRun: false, ImageId: "ImageId_example", PermissionsToLaunch: openapiclient.PermissionsOnResourceCreation{Additions: openapiclient.PermissionsOnResource{AccountIds: []string{"AccountIds_example"), GlobalPermission: false}, Removals: openapiclient.PermissionsOnResource{AccountIds: []string{"AccountIds_example"), GlobalPermission: false}}} // UpdateImageRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImageApi.UpdateImage(context.Background()).UpdateImageRequest(updateImageRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImageApi.UpdateImage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateImage`: UpdateImageResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImageApi.UpdateImage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateImageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateImageOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateImageOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateImageRequest** | [**optional.Interface of UpdateImageRequest**](UpdateImageRequest.md)|  | 
+ **updateImageRequest** | [**UpdateImageRequest**](UpdateImageRequest.md) |  | 
 
 ### Return type
 

@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateDirectLinkInterface
 
-> CreateDirectLinkInterfaceResponse CreateDirectLinkInterface(ctx, optional)
+> CreateDirectLinkInterfaceResponse CreateDirectLinkInterface(ctx).CreateDirectLinkInterfaceRequest(createDirectLinkInterfaceRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createDirectLinkInterfaceRequest := openapiclient.CreateDirectLinkInterfaceRequest{DirectLinkId: "DirectLinkId_example", DirectLinkInterface: openapiclient.DirectLinkInterface{BgpAsn: 123, BgpKey: "BgpKey_example", ClientPrivateIp: "ClientPrivateIp_example", DirectLinkInterfaceName: "DirectLinkInterfaceName_example", OutscalePrivateIp: "OutscalePrivateIp_example", VirtualGatewayId: "VirtualGatewayId_example", Vlan: 123}, DryRun: false} // CreateDirectLinkInterfaceRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkInterfaceApi.CreateDirectLinkInterface(context.Background()).CreateDirectLinkInterfaceRequest(createDirectLinkInterfaceRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkInterfaceApi.CreateDirectLinkInterface``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateDirectLinkInterface`: CreateDirectLinkInterfaceResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkInterfaceApi.CreateDirectLinkInterface`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateDirectLinkInterfaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateDirectLinkInterfaceOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateDirectLinkInterfaceOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createDirectLinkInterfaceRequest** | [**optional.Interface of CreateDirectLinkInterfaceRequest**](CreateDirectLinkInterfaceRequest.md)|  | 
+ **createDirectLinkInterfaceRequest** | [**CreateDirectLinkInterfaceRequest**](CreateDirectLinkInterfaceRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteDirectLinkInterface
 
-> DeleteDirectLinkInterfaceResponse DeleteDirectLinkInterface(ctx, optional)
+> DeleteDirectLinkInterfaceResponse DeleteDirectLinkInterface(ctx).DeleteDirectLinkInterfaceRequest(deleteDirectLinkInterfaceRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteDirectLinkInterfaceRequest := openapiclient.DeleteDirectLinkInterfaceRequest{DirectLinkInterfaceId: "DirectLinkInterfaceId_example", DryRun: false} // DeleteDirectLinkInterfaceRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkInterfaceApi.DeleteDirectLinkInterface(context.Background()).DeleteDirectLinkInterfaceRequest(deleteDirectLinkInterfaceRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkInterfaceApi.DeleteDirectLinkInterface``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteDirectLinkInterface`: DeleteDirectLinkInterfaceResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkInterfaceApi.DeleteDirectLinkInterface`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDirectLinkInterfaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteDirectLinkInterfaceOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteDirectLinkInterfaceOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteDirectLinkInterfaceRequest** | [**optional.Interface of DeleteDirectLinkInterfaceRequest**](DeleteDirectLinkInterfaceRequest.md)|  | 
+ **deleteDirectLinkInterfaceRequest** | [**DeleteDirectLinkInterfaceRequest**](DeleteDirectLinkInterfaceRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadDirectLinkInterfaces
 
-> ReadDirectLinkInterfacesResponse ReadDirectLinkInterfaces(ctx, optional)
+> ReadDirectLinkInterfacesResponse ReadDirectLinkInterfaces(ctx).ReadDirectLinkInterfacesRequest(readDirectLinkInterfacesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readDirectLinkInterfacesRequest := openapiclient.ReadDirectLinkInterfacesRequest{DryRun: false, Filters: openapiclient.FiltersDirectLinkInterface{DirectLinkIds: []string{"DirectLinkIds_example"), DirectLinkInterfaceIds: []string{"DirectLinkInterfaceIds_example")}} // ReadDirectLinkInterfacesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectLinkInterfaceApi.ReadDirectLinkInterfaces(context.Background()).ReadDirectLinkInterfacesRequest(readDirectLinkInterfacesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectLinkInterfaceApi.ReadDirectLinkInterfaces``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadDirectLinkInterfaces`: ReadDirectLinkInterfacesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectLinkInterfaceApi.ReadDirectLinkInterfaces`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadDirectLinkInterfacesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadDirectLinkInterfacesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadDirectLinkInterfacesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readDirectLinkInterfacesRequest** | [**optional.Interface of ReadDirectLinkInterfacesRequest**](ReadDirectLinkInterfacesRequest.md)|  | 
+ **readDirectLinkInterfacesRequest** | [**ReadDirectLinkInterfacesRequest**](ReadDirectLinkInterfacesRequest.md) |  | 
 
 ### Return type
 

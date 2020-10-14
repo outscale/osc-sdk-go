@@ -10,26 +10,49 @@ Method | HTTP request | Description
 
 ## ReadApiLogs
 
-> ReadApiLogsResponse ReadApiLogs(ctx, optional)
+> ReadApiLogsResponse ReadApiLogs(ctx).ReadApiLogsRequest(readApiLogsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readApiLogsRequest := openapiclient.ReadApiLogsRequest{DryRun: false, Filters: openapiclient.FiltersApiLog{QueryAccessKeys: []string{"QueryAccessKeys_example"), QueryApiNames: []string{"QueryApiNames_example"), QueryCallNames: []string{"QueryCallNames_example"), QueryDateAfter: time.Now(), QueryDateBefore: time.Now(), QueryIpAddresses: []string{"QueryIpAddresses_example"), QueryUserAgents: []string{"QueryUserAgents_example"), RequestIds: []string{"RequestIds_example"), ResponseStatusCodes: []int32{123)}, NextPageToken: "NextPageToken_example", ResultsPerPage: 123, With: openapiclient.With{AccountId: false, CallDuration: false, QueryAccessKey: false, QueryApiName: false, QueryApiVersion: false, QueryCallName: false, QueryDate: false, QueryHeaderRaw: false, QueryHeaderSize: false, QueryIpAddress: false, QueryPayloadRaw: false, QueryPayloadSize: false, QueryUserAgent: false, RequestId: false, ResponseSize: false, ResponseStatusCode: false}} // ReadApiLogsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ApiLogApi.ReadApiLogs(context.Background()).ReadApiLogsRequest(readApiLogsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApiLogApi.ReadApiLogs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadApiLogs`: ReadApiLogsResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApiLogApi.ReadApiLogs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadApiLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadApiLogsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadApiLogsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readApiLogsRequest** | [**optional.Interface of ReadApiLogsRequest**](ReadApiLogsRequest.md)|  | 
+ **readApiLogsRequest** | [**ReadApiLogsRequest**](ReadApiLogsRequest.md) |  | 
 
 ### Return type
 

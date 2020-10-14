@@ -14,26 +14,49 @@ Method | HTTP request | Description
 
 ## AcceptNetPeering
 
-> AcceptNetPeeringResponse AcceptNetPeering(ctx, optional)
+> AcceptNetPeeringResponse AcceptNetPeering(ctx).AcceptNetPeeringRequest(acceptNetPeeringRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    acceptNetPeeringRequest := openapiclient.AcceptNetPeeringRequest{DryRun: false, NetPeeringId: "NetPeeringId_example"} // AcceptNetPeeringRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetPeeringApi.AcceptNetPeering(context.Background()).AcceptNetPeeringRequest(acceptNetPeeringRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetPeeringApi.AcceptNetPeering``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AcceptNetPeering`: AcceptNetPeeringResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetPeeringApi.AcceptNetPeering`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAcceptNetPeeringRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AcceptNetPeeringOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AcceptNetPeeringOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **acceptNetPeeringRequest** | [**optional.Interface of AcceptNetPeeringRequest**](AcceptNetPeeringRequest.md)|  | 
+ **acceptNetPeeringRequest** | [**AcceptNetPeeringRequest**](AcceptNetPeeringRequest.md) |  | 
 
 ### Return type
 
@@ -55,26 +78,49 @@ Name | Type | Description  | Notes
 
 ## CreateNetPeering
 
-> CreateNetPeeringResponse CreateNetPeering(ctx, optional)
+> CreateNetPeeringResponse CreateNetPeering(ctx).CreateNetPeeringRequest(createNetPeeringRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createNetPeeringRequest := openapiclient.CreateNetPeeringRequest{AccepterNetId: "AccepterNetId_example", DryRun: false, SourceNetId: "SourceNetId_example"} // CreateNetPeeringRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetPeeringApi.CreateNetPeering(context.Background()).CreateNetPeeringRequest(createNetPeeringRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetPeeringApi.CreateNetPeering``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateNetPeering`: CreateNetPeeringResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetPeeringApi.CreateNetPeering`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateNetPeeringRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateNetPeeringOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateNetPeeringOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createNetPeeringRequest** | [**optional.Interface of CreateNetPeeringRequest**](CreateNetPeeringRequest.md)|  | 
+ **createNetPeeringRequest** | [**CreateNetPeeringRequest**](CreateNetPeeringRequest.md) |  | 
 
 ### Return type
 
@@ -96,26 +142,49 @@ Name | Type | Description  | Notes
 
 ## DeleteNetPeering
 
-> DeleteNetPeeringResponse DeleteNetPeering(ctx, optional)
+> DeleteNetPeeringResponse DeleteNetPeering(ctx).DeleteNetPeeringRequest(deleteNetPeeringRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteNetPeeringRequest := openapiclient.DeleteNetPeeringRequest{DryRun: false, NetPeeringId: "NetPeeringId_example"} // DeleteNetPeeringRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetPeeringApi.DeleteNetPeering(context.Background()).DeleteNetPeeringRequest(deleteNetPeeringRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetPeeringApi.DeleteNetPeering``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteNetPeering`: DeleteNetPeeringResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetPeeringApi.DeleteNetPeering`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNetPeeringRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteNetPeeringOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteNetPeeringOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteNetPeeringRequest** | [**optional.Interface of DeleteNetPeeringRequest**](DeleteNetPeeringRequest.md)|  | 
+ **deleteNetPeeringRequest** | [**DeleteNetPeeringRequest**](DeleteNetPeeringRequest.md) |  | 
 
 ### Return type
 
@@ -137,26 +206,49 @@ Name | Type | Description  | Notes
 
 ## ReadNetPeerings
 
-> ReadNetPeeringsResponse ReadNetPeerings(ctx, optional)
+> ReadNetPeeringsResponse ReadNetPeerings(ctx).ReadNetPeeringsRequest(readNetPeeringsRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readNetPeeringsRequest := openapiclient.ReadNetPeeringsRequest{DryRun: false, Filters: openapiclient.FiltersNetPeering{AccepterNetAccountIds: []string{"AccepterNetAccountIds_example"), AccepterNetIpRanges: []string{"AccepterNetIpRanges_example"), AccepterNetNetIds: []string{"AccepterNetNetIds_example"), NetPeeringIds: []string{"NetPeeringIds_example"), SourceNetAccountIds: []string{"SourceNetAccountIds_example"), SourceNetIpRanges: []string{"SourceNetIpRanges_example"), SourceNetNetIds: []string{"SourceNetNetIds_example"), StateMessages: []string{"StateMessages_example"), StateNames: []string{"StateNames_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadNetPeeringsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetPeeringApi.ReadNetPeerings(context.Background()).ReadNetPeeringsRequest(readNetPeeringsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetPeeringApi.ReadNetPeerings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadNetPeerings`: ReadNetPeeringsResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetPeeringApi.ReadNetPeerings`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadNetPeeringsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadNetPeeringsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadNetPeeringsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readNetPeeringsRequest** | [**optional.Interface of ReadNetPeeringsRequest**](ReadNetPeeringsRequest.md)|  | 
+ **readNetPeeringsRequest** | [**ReadNetPeeringsRequest**](ReadNetPeeringsRequest.md) |  | 
 
 ### Return type
 
@@ -178,26 +270,49 @@ Name | Type | Description  | Notes
 
 ## RejectNetPeering
 
-> RejectNetPeeringResponse RejectNetPeering(ctx, optional)
+> RejectNetPeeringResponse RejectNetPeering(ctx).RejectNetPeeringRequest(rejectNetPeeringRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    rejectNetPeeringRequest := openapiclient.RejectNetPeeringRequest{DryRun: false, NetPeeringId: "NetPeeringId_example"} // RejectNetPeeringRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NetPeeringApi.RejectNetPeering(context.Background()).RejectNetPeeringRequest(rejectNetPeeringRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NetPeeringApi.RejectNetPeering``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `RejectNetPeering`: RejectNetPeeringResponse
+    fmt.Fprintf(os.Stdout, "Response from `NetPeeringApi.RejectNetPeering`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRejectNetPeeringRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***RejectNetPeeringOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a RejectNetPeeringOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **rejectNetPeeringRequest** | [**optional.Interface of RejectNetPeeringRequest**](RejectNetPeeringRequest.md)|  | 
+ **rejectNetPeeringRequest** | [**RejectNetPeeringRequest**](RejectNetPeeringRequest.md) |  | 
 
 ### Return type
 

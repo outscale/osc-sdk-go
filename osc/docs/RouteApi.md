@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateRoute
 
-> CreateRouteResponse CreateRoute(ctx, optional)
+> CreateRouteResponse CreateRoute(ctx).CreateRouteRequest(createRouteRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createRouteRequest := openapiclient.CreateRouteRequest{DestinationIpRange: "DestinationIpRange_example", DryRun: false, GatewayId: "GatewayId_example", NatServiceId: "NatServiceId_example", NetPeeringId: "NetPeeringId_example", NicId: "NicId_example", RouteTableId: "RouteTableId_example", VmId: "VmId_example"} // CreateRouteRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteApi.CreateRoute(context.Background()).CreateRouteRequest(createRouteRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteApi.CreateRoute``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateRoute`: CreateRouteResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteApi.CreateRoute`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateRouteOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateRouteOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createRouteRequest** | [**optional.Interface of CreateRouteRequest**](CreateRouteRequest.md)|  | 
+ **createRouteRequest** | [**CreateRouteRequest**](CreateRouteRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteRoute
 
-> DeleteRouteResponse DeleteRoute(ctx, optional)
+> DeleteRouteResponse DeleteRoute(ctx).DeleteRouteRequest(deleteRouteRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteRouteRequest := openapiclient.DeleteRouteRequest{DestinationIpRange: "DestinationIpRange_example", DryRun: false, RouteTableId: "RouteTableId_example"} // DeleteRouteRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteApi.DeleteRoute(context.Background()).DeleteRouteRequest(deleteRouteRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteApi.DeleteRoute``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteRoute`: DeleteRouteResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteApi.DeleteRoute`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteRouteOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteRouteOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteRouteRequest** | [**optional.Interface of DeleteRouteRequest**](DeleteRouteRequest.md)|  | 
+ **deleteRouteRequest** | [**DeleteRouteRequest**](DeleteRouteRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## UpdateRoute
 
-> UpdateRouteResponse UpdateRoute(ctx, optional)
+> UpdateRouteResponse UpdateRoute(ctx).UpdateRouteRequest(updateRouteRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateRouteRequest := openapiclient.UpdateRouteRequest{DestinationIpRange: "DestinationIpRange_example", DryRun: false, GatewayId: "GatewayId_example", NatServiceId: "NatServiceId_example", NetPeeringId: "NetPeeringId_example", NicId: "NicId_example", RouteTableId: "RouteTableId_example", VmId: "VmId_example"} // UpdateRouteRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RouteApi.UpdateRoute(context.Background()).UpdateRouteRequest(updateRouteRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RouteApi.UpdateRoute``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateRoute`: UpdateRouteResponse
+    fmt.Fprintf(os.Stdout, "Response from `RouteApi.UpdateRoute`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateRouteOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a UpdateRouteOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateRouteRequest** | [**optional.Interface of UpdateRouteRequest**](UpdateRouteRequest.md)|  | 
+ **updateRouteRequest** | [**UpdateRouteRequest**](UpdateRouteRequest.md) |  | 
 
 ### Return type
 

@@ -12,26 +12,49 @@ Method | HTTP request | Description
 
 ## CreateNatService
 
-> CreateNatServiceResponse CreateNatService(ctx, optional)
+> CreateNatServiceResponse CreateNatService(ctx).CreateNatServiceRequest(createNatServiceRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createNatServiceRequest := openapiclient.CreateNatServiceRequest{DryRun: false, PublicIpId: "PublicIpId_example", SubnetId: "SubnetId_example"} // CreateNatServiceRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NatServiceApi.CreateNatService(context.Background()).CreateNatServiceRequest(createNatServiceRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatServiceApi.CreateNatService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateNatService`: CreateNatServiceResponse
+    fmt.Fprintf(os.Stdout, "Response from `NatServiceApi.CreateNatService`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateNatServiceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateNatServiceOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateNatServiceOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createNatServiceRequest** | [**optional.Interface of CreateNatServiceRequest**](CreateNatServiceRequest.md)|  | 
+ **createNatServiceRequest** | [**CreateNatServiceRequest**](CreateNatServiceRequest.md) |  | 
 
 ### Return type
 
@@ -53,26 +76,49 @@ Name | Type | Description  | Notes
 
 ## DeleteNatService
 
-> DeleteNatServiceResponse DeleteNatService(ctx, optional)
+> DeleteNatServiceResponse DeleteNatService(ctx).DeleteNatServiceRequest(deleteNatServiceRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteNatServiceRequest := openapiclient.DeleteNatServiceRequest{DryRun: false, NatServiceId: "NatServiceId_example"} // DeleteNatServiceRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NatServiceApi.DeleteNatService(context.Background()).DeleteNatServiceRequest(deleteNatServiceRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatServiceApi.DeleteNatService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteNatService`: DeleteNatServiceResponse
+    fmt.Fprintf(os.Stdout, "Response from `NatServiceApi.DeleteNatService`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNatServiceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***DeleteNatServiceOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteNatServiceOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deleteNatServiceRequest** | [**optional.Interface of DeleteNatServiceRequest**](DeleteNatServiceRequest.md)|  | 
+ **deleteNatServiceRequest** | [**DeleteNatServiceRequest**](DeleteNatServiceRequest.md) |  | 
 
 ### Return type
 
@@ -94,26 +140,49 @@ Name | Type | Description  | Notes
 
 ## ReadNatServices
 
-> ReadNatServicesResponse ReadNatServices(ctx, optional)
+> ReadNatServicesResponse ReadNatServices(ctx).ReadNatServicesRequest(readNatServicesRequest).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readNatServicesRequest := openapiclient.ReadNatServicesRequest{DryRun: false, Filters: openapiclient.FiltersNatService{NatServiceIds: []string{"NatServiceIds_example"), NetIds: []string{"NetIds_example"), States: []string{"States_example"), SubnetIds: []string{"SubnetIds_example"), TagKeys: []string{"TagKeys_example"), TagValues: []string{"TagValues_example"), Tags: []string{"Tags_example")}} // ReadNatServicesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.NatServiceApi.ReadNatServices(context.Background()).ReadNatServicesRequest(readNatServicesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatServiceApi.ReadNatServices``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadNatServices`: ReadNatServicesResponse
+    fmt.Fprintf(os.Stdout, "Response from `NatServiceApi.ReadNatServices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadNatServicesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ReadNatServicesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ReadNatServicesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readNatServicesRequest** | [**optional.Interface of ReadNatServicesRequest**](ReadNatServicesRequest.md)|  | 
+ **readNatServicesRequest** | [**ReadNatServicesRequest**](ReadNatServicesRequest.md) |  | 
 
 ### Return type
 
