@@ -13,7 +13,7 @@ gen: clean osc
 osc: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk
+	docker run -e GO_POST_PROCESS_FILE="/usr/local/bin/gofmt -w" -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v5.0.0-beta generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk
 	mv .sdk osc
 
 osc-api/outscale.yaml:
