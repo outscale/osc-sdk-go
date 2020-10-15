@@ -1,3 +1,8 @@
+# 1.4
+
+- Updated OpenAPI-generator
+- Documentation fixes
+
 # 1.3
 
 - AccessKeys: can now have an expiration date
