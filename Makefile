@@ -1,4 +1,4 @@
-VERSION=$(shell cat version)
+API_VERSION=$(shell cat api_version)
 all: help
 
 .PHONY: help
@@ -17,7 +17,7 @@ osc: osc-api/outscale.yaml
 	mv .sdk osc
 
 osc-api/outscale.yaml:
-	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(VERSION) $(VERSION)
+	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
 
 .PHONY: clean
 clean:

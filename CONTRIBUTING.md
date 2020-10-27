@@ -7,7 +7,7 @@ Other contributions like examples and tests are welcome!
 # Generate SDK
 
 1. have some tools ready: GNU make, git, docker
-2. edit `version` file and to the latest version
+2. edit `api_version` file and to the latest Outscale API version
 4. launch sdk generation by running `make gen`
 5. new sdk is now generated in `osc` folder
 
@@ -28,7 +28,7 @@ Otherwise:
 # How to release
 
 1. rebase on next-release branch
-2. edit `version` file
+2. edit `api_version` file
 3. `make gen` to update the sdk
 4. `make test` and `make run-examples` and fix any issue
 5. update `changelog.md` file
