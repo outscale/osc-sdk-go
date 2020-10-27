@@ -8,8 +8,10 @@ Other contributions like examples and tests are welcome!
 
 1. have some tools ready: GNU make, git, docker
 2. edit `api_version` file and to the latest Outscale API version
+3. edit `sdk_version` file and change it according to [semantic versioning](https://semver.org/) from the SDK perspective (not API)
 4. launch sdk generation by running `make gen`
 5. new sdk is now generated in `osc` folder
+6. make sure that examples can still run using `make run-examples`
 
 Under the hood:
 - we get official Outscale yaml
