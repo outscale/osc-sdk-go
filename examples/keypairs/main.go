@@ -4,9 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-
-	"github.com/antihax/optional"
-	"github.com/outscale/osc-sdk-go/osc"
+	"github.com/outscale/osc-sdk-go/v2"
 )
 
 func main() {

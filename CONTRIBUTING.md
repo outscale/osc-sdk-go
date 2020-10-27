@@ -1,6 +1,6 @@
 # Hacking Outscale SDK
 
-SDK itself is generated from Outscale's [OpenAPI description](https://github.com/outscale/osc-api) in [osc](osc/) folder using OpenAPI Genetator.
+SDK itself is generated from Outscale's [OpenAPI description](https://github.com/outscale/osc-api) using [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator/).
 
 Other contributions like examples and tests are welcome!
 
@@ -24,12 +24,11 @@ When OpenAPI generator introduce a breaking change, SDK can be generated in seve
 Under the hood:
 - we get official Outscale yaml
 - apply some patch if needed (.patch folder)
-- run openapi-generator through docker to build osc folder
+- run openapi-generator through docker to build the SDK
 
 # Sending a Merge Request
 
-Content in `osc` folder is generated at each release.
-If you plan to make some change here, consider making a pull request in [openapi-generator project](https://github.com/OpenAPITools/openapi-generator/).
+As SDK is generated at each release. If you plan to make some change inside, consider making a pull request in [openapi-generator project](https://github.com/OpenAPITools/openapi-generator/).
 
 Otherwise:
 - your merge request must be rebased on the corresponding major version branch (v1, v2, ...)

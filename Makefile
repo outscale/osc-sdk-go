@@ -9,21 +9,21 @@ help:
 	@echo "- make test : run all tests"
 
 .PHONY: gen
-gen: clean osc
+gen: clean v2
 
-osc: osc-api/outscale.yaml
+v2: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
-	mv .sdk osc
+	# note that this sha version is taken after 5.0.0-beta2 version
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli@sha256:b3a29dfe6a5eecffa737666b619f7a6e914ecc7cf181273f38a1e3b87cc5a579 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	mv .sdk v2
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
 
 .PHONY: clean
 clean:
-	rm -rf .sdk osc-api osc || true
-
+	rm -rf .sdk osc-api v2 || true
 
 .PHONY: test
 test: build-examples reuse
