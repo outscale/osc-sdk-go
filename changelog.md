@@ -1,11 +1,19 @@
-# 1.3
+# v1.4.0
 
+- Based on Outscale API v1.4
+- Fixed SDK package versioning
+- Warning: SDK versioning may now differ from Outscale API versioning
+
+# v1.3.0
+
+- Based on Outscale API v1.3
 - AccessKeys: can now have an expiration date
 - Flexible GPU support filtering on Generation
 - Tag filtering added for Subnets and VPN connections
 
-# 1.2
+# v1.2.0
 
+- Based on Outscale API v1.2
 - SnapshotSize: fixed yaml type to avoid size limitation (as it is expressed in bytes)
 - CreateAccessKey: has it's own object description
 - New filters on ressources:
@@ -16,17 +24,15 @@
   - FlexibleGpuCatalog: Generations
 - Documentation fixes
 
-# v0.0.1 to v0.0.9
+# v1.1.0
 
-- first (beta) versions of Outscale API
-
-# v1.1
-
+- Based on Outscale API v1.1
 - New region: cn-southeast-1
 
-# v1.0
+# v1.0.0
 
 - first stable version of Outscale API !
+- Based on Outscale API v1.0
 - breaking change if you come from v0.0.9 version
 - more examples
 - does not use a custom version of openapi-generator
@@ -46,3 +52,8 @@
 - ... but breaking change with previous version
 - SDK generated with openapi-generator
 - add examples
+
+
+# v0.0.1 to v0.0.9
+
+- first (beta) versions of Outscale API
