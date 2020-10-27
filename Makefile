@@ -31,7 +31,7 @@ test: build-examples reuse
 
 .PHONY: reuse
 reuse:
-	docker run --volume $(PWD):/data fsfe/reuse lint
+	docker run --volume $(PWD):/data fsfe/reuse:0.11.1 lint
 
 .PHONY: build-examples
 build-examples: examples
