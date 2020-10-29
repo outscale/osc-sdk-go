@@ -15,7 +15,7 @@ v2: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
 	# note that this sha version is taken after 5.0.0-beta2 version
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli@sha256:b3a29dfe6a5eecffa737666b619f7a6e914ecc7cf181273f38a1e3b87cc5a579 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	docker run -v $(PWD):/sdk --rm -e GO_POST_PROCESS_FILE="/usr/local/bin/gofmt -w" openapitools/openapi-generator-cli@sha256:b3a29dfe6a5eecffa737666b619f7a6e914ecc7cf181273f38a1e3b87cc5a579 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	mv .sdk v2
 
 osc-api/outscale.yaml:
