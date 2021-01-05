@@ -1,3 +1,7 @@
+# v1.5.0
+
+- Upgraded to API v1.6
+
 # v1.4.0
 
 - Based on Outscale API v1.4

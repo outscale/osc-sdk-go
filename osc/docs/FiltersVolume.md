@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | The key/value combination of the tags associated with the volumes, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
 **VolumeIds** | **[]string** | The IDs of the volumes. | [optional] 
 **VolumeSizes** | **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
-**VolumeStates** | **[]string** | The states of the volumes (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
+**VolumeStates** | **[]string** | The states of the volumes (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;updating&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
 **VolumeTypes** | **[]string** | The types of the volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

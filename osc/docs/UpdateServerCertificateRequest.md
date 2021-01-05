@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
-**Name** | **string** | The name of the server certificate you want to modify. | [optional] 
+**Name** | **string** | The name of the server certificate you want to modify. | 
 **NewName** | **string** | A new name for the server certificate. | [optional] 
 **NewPath** | **string** | A new path for the server certificate. | [optional] 
 

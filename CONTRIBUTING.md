@@ -23,7 +23,6 @@ When OpenAPI generator introduce a breaking change, SDK can be generated in seve
 
 Under the hood:
 - we get official Outscale yaml
-- apply some patch if needed (.patch folder)
 - run openapi-generator through docker to build osc folder
 
 # Sending a Merge Request

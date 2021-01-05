@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkNicSortNumbers** | **[]int32** | The device numbers the NICs are attached to. | [optional] 
 **LinkNicVmIds** | **[]string** | The IDs of the VMs the NICs are attached to. | [optional] 
 **NicIds** | **[]string** | The IDs of the NICs. | [optional] 
 **PrivateIpsPrivateIps** | **[]string** | The private IP addresses of the NICs. | [optional] 

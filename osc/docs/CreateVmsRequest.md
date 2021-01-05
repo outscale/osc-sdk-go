@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **MaxVmsCount** | **int32** | The maximum number of VMs you want to create. If all the VMs cannot be created, the largest possible number of VMs above MinVmsCount is created. | [optional] 
 **MinVmsCount** | **int32** | The minimum number of VMs you want to create. If this number of VMs cannot be created, no VMs are created. | [optional] 
 **Nics** | [**[]NicForVmCreation**](NicForVmCreation.md) | One or more NICs. If you specify this parameter, you must define one NIC as the primary network interface of the VM with &#x60;0&#x60; as its device number. | [optional] 
-**Performance** | **string** | The performance of the VM (&#x60;standard&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] [default to PERFORMANCE_HIGH]
+**Performance** | **string** | The performance of the VM (&#x60;medium&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] [default to PERFORMANCE_HIGH]
 **Placement** | [**Placement**](Placement.md) |  | [optional] 
 **PrivateIps** | **[]string** | One or more private IP addresses of the VM. | [optional] 
 **SecurityGroupIds** | **[]string** | One or more IDs of security group for the VMs. | [optional] 

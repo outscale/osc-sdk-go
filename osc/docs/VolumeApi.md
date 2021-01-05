@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**LinkVolume**](VolumeApi.md#LinkVolume) | **Post** /LinkVolume | 
 [**ReadVolumes**](VolumeApi.md#ReadVolumes) | **Post** /ReadVolumes | 
 [**UnlinkVolume**](VolumeApi.md#UnlinkVolume) | **Post** /UnlinkVolume | 
+[**UpdateVolume**](VolumeApi.md#UpdateVolume) | **Post** /UpdateVolume | 
 
 
 
@@ -202,6 +203,47 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UnlinkVolumeResponse**](UnlinkVolumeResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateVolume
+
+> UpdateVolumeResponse UpdateVolume(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***UpdateVolumeOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a UpdateVolumeOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateVolumeRequest** | [**optional.Interface of UpdateVolumeRequest**](UpdateVolumeRequest.md)|  | 
+
+### Return type
+
+[**UpdateVolumeResponse**](UpdateVolumeResponse.md)
 
 ### Authorization
 

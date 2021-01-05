@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Title** | **string** | A description of the consumed resource. | [optional] 
 **ToDate** | **string** | The end of the time period. | [optional] 
 **Type** | **string** | The type of resource, depending on the API call. | [optional] 
-**Value** | **string** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
+**Value** | **float64** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
