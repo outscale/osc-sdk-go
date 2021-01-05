@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ServiceIds** | Pointer to **[]string** | The IDs of the services. | [optional] 
-**ServiceNames** | Pointer to **[]string** | The names of the prefix lists, which identify the 3DS OUTSCALE services they are associated with. | [optional] 
+**ServiceNames** | Pointer to **[]string** | The names of the services. | [optional] 
 
 ## Methods
 

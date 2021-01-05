@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the volumes, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
 **VolumeIds** | Pointer to **[]string** | The IDs of the volumes. | [optional] 
 **VolumeSizes** | Pointer to **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
-**VolumeStates** | Pointer to **[]string** | The states of the volumes (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
+**VolumeStates** | Pointer to **[]string** | The states of the volumes (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;updating&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
 **VolumeTypes** | Pointer to **[]string** | The types of the volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
 
 ## Methods

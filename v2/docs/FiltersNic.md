@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkNicSortNumbers** | Pointer to **[]int32** | The device numbers the NICs are attached to. | [optional] 
 **LinkNicVmIds** | Pointer to **[]string** | The IDs of the VMs the NICs are attached to. | [optional] 
 **NicIds** | Pointer to **[]string** | The IDs of the NICs. | [optional] 
 **PrivateIpsPrivateIps** | Pointer to **[]string** | The private IP addresses of the NICs. | [optional] 
@@ -28,31 +27,6 @@ will change when the set of required properties is changed
 NewFiltersNicWithDefaults instantiates a new FiltersNic object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetLinkNicSortNumbers
-
-`func (o *FiltersNic) GetLinkNicSortNumbers() []int32`
-
-GetLinkNicSortNumbers returns the LinkNicSortNumbers field if non-nil, zero value otherwise.
-
-### GetLinkNicSortNumbersOk
-
-`func (o *FiltersNic) GetLinkNicSortNumbersOk() (*[]int32, bool)`
-
-GetLinkNicSortNumbersOk returns a tuple with the LinkNicSortNumbers field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinkNicSortNumbers
-
-`func (o *FiltersNic) SetLinkNicSortNumbers(v []int32)`
-
-SetLinkNicSortNumbers sets LinkNicSortNumbers field to given value.
-
-### HasLinkNicSortNumbers
-
-`func (o *FiltersNic) HasLinkNicSortNumbers() bool`
-
-HasLinkNicSortNumbers returns a boolean if a field has been set.
 
 ### GetLinkNicVmIds
 

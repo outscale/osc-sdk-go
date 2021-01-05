@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NetAccessPointIds** | Pointer to **[]string** | The IDs of the Net access points. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets. | [optional] 
-**ServiceNames** | Pointer to **[]string** | The names of the prefix lists corresponding to the services. For more information, see [DescribePrefixLists](#describeprefixlists) | [optional] 
+**ServiceNames** | Pointer to **[]string** | The names of the services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices). | [optional] 
 **States** | Pointer to **[]string** | The states of the Net access points (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Net access points. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the Net access points. | [optional] 

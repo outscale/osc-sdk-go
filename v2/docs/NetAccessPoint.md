@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **NetAccessPointId** | Pointer to **string** | The ID of the Net access point. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net with which the Net access point is associated. | [optional] 
 **RouteTableIds** | Pointer to **[]string** | The ID of the route tables associated with the Net access point. | [optional] 
-**ServiceName** | Pointer to **string** | The name of the prefix list corresponding to the service with which the Net access point is associated. | [optional] 
+**ServiceName** | Pointer to **string** | The name of the service with which the Net access point is associated. | [optional] 
 **State** | Pointer to **string** | The state of the Net access point (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the Net access point. | [optional] 
 

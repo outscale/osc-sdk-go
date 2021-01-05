@@ -5,7 +5,9 @@ README.md
 api/openapi.yaml
 api_access_key.go
 api_account.go
+api_api_access_rule.go
 api_api_log.go
+api_ca.go
 api_client_gateway.go
 api_dhcp_option.go
 api_direct_link.go
@@ -18,6 +20,7 @@ api_listener.go
 api_load_balancer.go
 api_load_balancer_policy.go
 api_location.go
+api_master_key.go
 api_nat_service.go
 api_net.go
 api_net_access_point.go
@@ -52,6 +55,8 @@ docs/AccessKeySecretKey.md
 docs/AccessLog.md
 docs/Account.md
 docs/AccountApi.md
+docs/ApiAccessRule.md
+docs/ApiAccessRuleApi.md
 docs/ApiLogApi.md
 docs/ApplicationStickyCookiePolicy.md
 docs/BackendVmHealth.md
@@ -62,6 +67,8 @@ docs/BlockDeviceMappingVmUpdate.md
 docs/BsuCreated.md
 docs/BsuToCreate.md
 docs/BsuToUpdateVm.md
+docs/Ca.md
+docs/CaApi.md
 docs/CheckAuthenticationRequest.md
 docs/CheckAuthenticationResponse.md
 docs/ClientGateway.md
@@ -71,6 +78,10 @@ docs/CreateAccessKeyRequest.md
 docs/CreateAccessKeyResponse.md
 docs/CreateAccountRequest.md
 docs/CreateAccountResponse.md
+docs/CreateApiAccessRuleRequest.md
+docs/CreateApiAccessRuleResponse.md
+docs/CreateCaRequest.md
+docs/CreateCaResponse.md
 docs/CreateClientGatewayRequest.md
 docs/CreateClientGatewayResponse.md
 docs/CreateDhcpOptionsRequest.md
@@ -99,6 +110,8 @@ docs/CreateLoadBalancerRequest.md
 docs/CreateLoadBalancerResponse.md
 docs/CreateLoadBalancerTagsRequest.md
 docs/CreateLoadBalancerTagsResponse.md
+docs/CreateMasterKeyRequest.md
+docs/CreateMasterKeyResponse.md
 docs/CreateNatServiceRequest.md
 docs/CreateNatServiceResponse.md
 docs/CreateNetAccessPointRequest.md
@@ -139,8 +152,14 @@ docs/CreateVpnConnectionRequest.md
 docs/CreateVpnConnectionResponse.md
 docs/CreateVpnConnectionRouteRequest.md
 docs/CreateVpnConnectionRouteResponse.md
+docs/DecryptCiphertextRequest.md
+docs/DecryptCiphertextResponse.md
 docs/DeleteAccessKeyRequest.md
 docs/DeleteAccessKeyResponse.md
+docs/DeleteApiAccessRuleRequest.md
+docs/DeleteApiAccessRuleResponse.md
+docs/DeleteCaRequest.md
+docs/DeleteCaResponse.md
 docs/DeleteClientGatewayRequest.md
 docs/DeleteClientGatewayResponse.md
 docs/DeleteDhcpOptionsRequest.md
@@ -169,6 +188,8 @@ docs/DeleteLoadBalancerRequest.md
 docs/DeleteLoadBalancerResponse.md
 docs/DeleteLoadBalancerTagsRequest.md
 docs/DeleteLoadBalancerTagsResponse.md
+docs/DeleteMasterKeyRequest.md
+docs/DeleteMasterKeyResponse.md
 docs/DeleteNatServiceRequest.md
 docs/DeleteNatServiceResponse.md
 docs/DeleteNetAccessPointRequest.md
@@ -216,10 +237,14 @@ docs/DirectLinkApi.md
 docs/DirectLinkInterface.md
 docs/DirectLinkInterfaceApi.md
 docs/DirectLinkInterfaces.md
+docs/EncryptPlaintextRequest.md
+docs/EncryptPlaintextResponse.md
 docs/ErrorResponse.md
 docs/Errors.md
 docs/FiltersAccessKeys.md
+docs/FiltersApiAccessRule.md
 docs/FiltersApiLog.md
+docs/FiltersCa.md
 docs/FiltersClientGateway.md
 docs/FiltersDhcpOptions.md
 docs/FiltersDirectLink.md
@@ -231,6 +256,7 @@ docs/FiltersInternetService.md
 docs/FiltersKeypair.md
 docs/FiltersListenerRule.md
 docs/FiltersLoadBalancer.md
+docs/FiltersMasterKey.md
 docs/FiltersNatService.md
 docs/FiltersNet.md
 docs/FiltersNetAccessPoint.md
@@ -256,6 +282,8 @@ docs/FiltersVpnConnection.md
 docs/FlexibleGpu.md
 docs/FlexibleGpuApi.md
 docs/FlexibleGpuCatalog.md
+docs/GenerateDataKeyRequest.md
+docs/GenerateDataKeyResponse.md
 docs/HealthCheck.md
 docs/Image.md
 docs/ImageApi.md
@@ -303,6 +331,8 @@ docs/Location.md
 docs/LocationApi.md
 docs/Log.md
 docs/MaintenanceEvent.md
+docs/MasterKey.md
+docs/MasterKeyApi.md
 docs/NatService.md
 docs/NatServiceApi.md
 docs/Net.md
@@ -339,8 +369,12 @@ docs/ReadAccountsRequest.md
 docs/ReadAccountsResponse.md
 docs/ReadAdminPasswordRequest.md
 docs/ReadAdminPasswordResponse.md
+docs/ReadApiAccessRulesRequest.md
+docs/ReadApiAccessRulesResponse.md
 docs/ReadApiLogsRequest.md
 docs/ReadApiLogsResponse.md
+docs/ReadCasRequest.md
+docs/ReadCasResponse.md
 docs/ReadClientGatewaysRequest.md
 docs/ReadClientGatewaysResponse.md
 docs/ReadConsoleOutputRequest.md
@@ -373,6 +407,8 @@ docs/ReadLoadBalancersRequest.md
 docs/ReadLoadBalancersResponse.md
 docs/ReadLocationsRequest.md
 docs/ReadLocationsResponse.md
+docs/ReadMasterKeysRequest.md
+docs/ReadMasterKeysResponse.md
 docs/ReadNatServicesRequest.md
 docs/ReadNatServicesResponse.md
 docs/ReadNetAccessPointServicesRequest.md
@@ -474,6 +510,8 @@ docs/SubregionApi.md
 docs/Tag.md
 docs/TagApi.md
 docs/TaskApi.md
+docs/UndeleteMasterKeyRequest.md
+docs/UndeleteMasterKeyResponse.md
 docs/UnlinkFlexibleGpuRequest.md
 docs/UnlinkFlexibleGpuResponse.md
 docs/UnlinkInternetServiceRequest.md
@@ -494,6 +532,10 @@ docs/UpdateAccessKeyRequest.md
 docs/UpdateAccessKeyResponse.md
 docs/UpdateAccountRequest.md
 docs/UpdateAccountResponse.md
+docs/UpdateApiAccessRuleRequest.md
+docs/UpdateApiAccessRuleResponse.md
+docs/UpdateCaRequest.md
+docs/UpdateCaResponse.md
 docs/UpdateFlexibleGpuRequest.md
 docs/UpdateFlexibleGpuResponse.md
 docs/UpdateImageRequest.md
@@ -502,6 +544,8 @@ docs/UpdateListenerRuleRequest.md
 docs/UpdateListenerRuleResponse.md
 docs/UpdateLoadBalancerRequest.md
 docs/UpdateLoadBalancerResponse.md
+docs/UpdateMasterKeyRequest.md
+docs/UpdateMasterKeyResponse.md
 docs/UpdateNetAccessPointRequest.md
 docs/UpdateNetAccessPointResponse.md
 docs/UpdateNetRequest.md
@@ -520,6 +564,8 @@ docs/UpdateSubnetRequest.md
 docs/UpdateSubnetResponse.md
 docs/UpdateVmRequest.md
 docs/UpdateVmResponse.md
+docs/UpdateVolumeRequest.md
+docs/UpdateVolumeResponse.md
 docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
 docs/Vm.md
@@ -542,6 +588,7 @@ model_access_key.go
 model_access_key_secret_key.go
 model_access_log.go
 model_account.go
+model_api_access_rule.go
 model_application_sticky_cookie_policy.go
 model_backend_vm_health.go
 model_block_device_mapping_created.go
@@ -551,6 +598,7 @@ model_block_device_mapping_vm_update.go
 model_bsu_created.go
 model_bsu_to_create.go
 model_bsu_to_update_vm.go
+model_ca.go
 model_check_authentication_request.go
 model_check_authentication_response.go
 model_client_gateway.go
@@ -559,6 +607,10 @@ model_create_access_key_request.go
 model_create_access_key_response.go
 model_create_account_request.go
 model_create_account_response.go
+model_create_api_access_rule_request.go
+model_create_api_access_rule_response.go
+model_create_ca_request.go
+model_create_ca_response.go
 model_create_client_gateway_request.go
 model_create_client_gateway_response.go
 model_create_dhcp_options_request.go
@@ -587,6 +639,8 @@ model_create_load_balancer_request.go
 model_create_load_balancer_response.go
 model_create_load_balancer_tags_request.go
 model_create_load_balancer_tags_response.go
+model_create_master_key_request.go
+model_create_master_key_response.go
 model_create_nat_service_request.go
 model_create_nat_service_response.go
 model_create_net_access_point_request.go
@@ -627,8 +681,14 @@ model_create_vpn_connection_request.go
 model_create_vpn_connection_response.go
 model_create_vpn_connection_route_request.go
 model_create_vpn_connection_route_response.go
+model_decrypt_ciphertext_request.go
+model_decrypt_ciphertext_response.go
 model_delete_access_key_request.go
 model_delete_access_key_response.go
+model_delete_api_access_rule_request.go
+model_delete_api_access_rule_response.go
+model_delete_ca_request.go
+model_delete_ca_response.go
 model_delete_client_gateway_request.go
 model_delete_client_gateway_response.go
 model_delete_dhcp_options_request.go
@@ -657,6 +717,8 @@ model_delete_load_balancer_request.go
 model_delete_load_balancer_response.go
 model_delete_load_balancer_tags_request.go
 model_delete_load_balancer_tags_response.go
+model_delete_master_key_request.go
+model_delete_master_key_response.go
 model_delete_nat_service_request.go
 model_delete_nat_service_response.go
 model_delete_net_access_point_request.go
@@ -701,10 +763,14 @@ model_dhcp_options_set.go
 model_direct_link.go
 model_direct_link_interface.go
 model_direct_link_interfaces.go
+model_encrypt_plaintext_request.go
+model_encrypt_plaintext_response.go
 model_error_response.go
 model_errors.go
 model_filters_access_keys.go
+model_filters_api_access_rule.go
 model_filters_api_log.go
+model_filters_ca.go
 model_filters_client_gateway.go
 model_filters_dhcp_options.go
 model_filters_direct_link.go
@@ -716,6 +782,7 @@ model_filters_internet_service.go
 model_filters_keypair.go
 model_filters_listener_rule.go
 model_filters_load_balancer.go
+model_filters_master_key.go
 model_filters_nat_service.go
 model_filters_net.go
 model_filters_net_access_point.go
@@ -740,6 +807,8 @@ model_filters_volume.go
 model_filters_vpn_connection.go
 model_flexible_gpu.go
 model_flexible_gpu_catalog.go
+model_generate_data_key_request.go
+model_generate_data_key_response.go
 model_health_check.go
 model_image.go
 model_image_export_task.go
@@ -780,6 +849,7 @@ model_load_balancer_tag.go
 model_location.go
 model_log.go
 model_maintenance_event.go
+model_master_key.go
 model_nat_service.go
 model_net.go
 model_net_access_point.go
@@ -808,8 +878,12 @@ model_read_accounts_request.go
 model_read_accounts_response.go
 model_read_admin_password_request.go
 model_read_admin_password_response.go
+model_read_api_access_rules_request.go
+model_read_api_access_rules_response.go
 model_read_api_logs_request.go
 model_read_api_logs_response.go
+model_read_cas_request.go
+model_read_cas_response.go
 model_read_client_gateways_request.go
 model_read_client_gateways_response.go
 model_read_console_output_request.go
@@ -842,6 +916,8 @@ model_read_load_balancers_request.go
 model_read_load_balancers_response.go
 model_read_locations_request.go
 model_read_locations_response.go
+model_read_master_keys_request.go
+model_read_master_keys_response.go
 model_read_nat_services_request.go
 model_read_nat_services_response.go
 model_read_net_access_point_services_request.go
@@ -932,6 +1008,8 @@ model_stop_vms_response.go
 model_subnet.go
 model_subregion.go
 model_tag.go
+model_undelete_master_key_request.go
+model_undelete_master_key_response.go
 model_unlink_flexible_gpu_request.go
 model_unlink_flexible_gpu_response.go
 model_unlink_internet_service_request.go
@@ -952,6 +1030,10 @@ model_update_access_key_request.go
 model_update_access_key_response.go
 model_update_account_request.go
 model_update_account_response.go
+model_update_api_access_rule_request.go
+model_update_api_access_rule_response.go
+model_update_ca_request.go
+model_update_ca_response.go
 model_update_flexible_gpu_request.go
 model_update_flexible_gpu_response.go
 model_update_image_request.go
@@ -960,6 +1042,8 @@ model_update_listener_rule_request.go
 model_update_listener_rule_response.go
 model_update_load_balancer_request.go
 model_update_load_balancer_response.go
+model_update_master_key_request.go
+model_update_master_key_response.go
 model_update_net_access_point_request.go
 model_update_net_access_point_response.go
 model_update_net_request.go
@@ -978,6 +1062,8 @@ model_update_subnet_request.go
 model_update_subnet_response.go
 model_update_vm_request.go
 model_update_vm_response.go
+model_update_volume_request.go
+model_update_volume_response.go
 model_virtual_gateway.go
 model_vm.go
 model_vm_state.go

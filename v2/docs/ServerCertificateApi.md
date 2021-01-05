@@ -222,7 +222,7 @@ import (
 )
 
 func main() {
-    updateServerCertificateRequest := *openapiclient.NewUpdateServerCertificateRequest() // UpdateServerCertificateRequest |  (optional)
+    updateServerCertificateRequest := *openapiclient.NewUpdateServerCertificateRequest("Name_example") // UpdateServerCertificateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

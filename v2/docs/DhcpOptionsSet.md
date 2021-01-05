@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Default** | Pointer to **bool** | If &#x60;true&#x60;, the DHCP options set is a default one. If &#x60;false&#x60;, it is not. | [optional] 
-**DhcpOptionsName** | Pointer to **string** | The name of the DHCP options set. | [optional] 
 **DhcpOptionsSetId** | Pointer to **string** | The ID of the DHCP options set. | [optional] 
 **DomainName** | Pointer to **string** | The domain name. | [optional] 
 **DomainNameServers** | Pointer to **[]string** | One or more IP addresses for the domain name servers. | [optional] 
@@ -55,31 +54,6 @@ SetDefault sets Default field to given value.
 `func (o *DhcpOptionsSet) HasDefault() bool`
 
 HasDefault returns a boolean if a field has been set.
-
-### GetDhcpOptionsName
-
-`func (o *DhcpOptionsSet) GetDhcpOptionsName() string`
-
-GetDhcpOptionsName returns the DhcpOptionsName field if non-nil, zero value otherwise.
-
-### GetDhcpOptionsNameOk
-
-`func (o *DhcpOptionsSet) GetDhcpOptionsNameOk() (*string, bool)`
-
-GetDhcpOptionsNameOk returns a tuple with the DhcpOptionsName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDhcpOptionsName
-
-`func (o *DhcpOptionsSet) SetDhcpOptionsName(v string)`
-
-SetDhcpOptionsName sets DhcpOptionsName field to given value.
-
-### HasDhcpOptionsName
-
-`func (o *DhcpOptionsSet) HasDhcpOptionsName() bool`
-
-HasDhcpOptionsName returns a boolean if a field has been set.
 
 ### GetDhcpOptionsSetId
 

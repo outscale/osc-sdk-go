@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **LinkedVolumes** | Pointer to [**[]LinkedVolume**](LinkedVolume.md) | Information about your volume attachment. | [optional] 
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). | [optional] 
 **SnapshotId** | Pointer to **string** | The snapshot from which the volume was created. | [optional] 
-**State** | Pointer to **string** | The state of the volume (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
+**State** | Pointer to **string** | The state of the volume (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;updating&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The Subregion in which the volume was created. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the volume. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume. | [optional] 

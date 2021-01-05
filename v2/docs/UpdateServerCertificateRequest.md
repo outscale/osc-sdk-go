@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
-**Name** | Pointer to **string** | The name of the server certificate you want to modify. | [optional] 
+**Name** | **string** | The name of the server certificate you want to modify. | 
 **NewName** | Pointer to **string** | A new name for the server certificate. | [optional] 
 **NewPath** | Pointer to **string** | A new path for the server certificate. | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateServerCertificateRequest
 
-`func NewUpdateServerCertificateRequest() *UpdateServerCertificateRequest`
+`func NewUpdateServerCertificateRequest(name string, ) *UpdateServerCertificateRequest`
 
 NewUpdateServerCertificateRequest instantiates a new UpdateServerCertificateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *UpdateServerCertificateRequest) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetNewName
 

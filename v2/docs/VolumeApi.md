@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**LinkVolume**](VolumeApi.md#LinkVolume) | **Post** /LinkVolume | 
 [**ReadVolumes**](VolumeApi.md#ReadVolumes) | **Post** /ReadVolumes | 
 [**UnlinkVolume**](VolumeApi.md#UnlinkVolume) | **Post** /UnlinkVolume | 
+[**UpdateVolume**](VolumeApi.md#UpdateVolume) | **Post** /UpdateVolume | 
 
 
 
@@ -317,6 +318,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UnlinkVolumeResponse**](UnlinkVolumeResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateVolume
+
+> UpdateVolumeResponse UpdateVolume(ctx).UpdateVolumeRequest(updateVolumeRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateVolumeRequest := *openapiclient.NewUpdateVolumeRequest("VolumeId_example") // UpdateVolumeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.UpdateVolume(context.Background()).UpdateVolumeRequest(updateVolumeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.UpdateVolume``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateVolume`: UpdateVolumeResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.UpdateVolume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateVolumeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateVolumeRequest** | [**UpdateVolumeRequest**](UpdateVolumeRequest.md) |  | 
+
+### Return type
+
+[**UpdateVolumeResponse**](UpdateVolumeResponse.md)
 
 ### Authorization
 

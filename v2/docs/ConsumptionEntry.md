@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period. | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 
-**Value** | Pointer to **string** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
+**Value** | Pointer to **float64** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *ConsumptionEntry) GetValue() string`
+`func (o *ConsumptionEntry) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *ConsumptionEntry) GetValueOk() (*string, bool)`
+`func (o *ConsumptionEntry) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *ConsumptionEntry) SetValue(v string)`
+`func (o *ConsumptionEntry) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

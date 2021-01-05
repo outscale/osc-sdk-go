@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IpRanges** | Pointer to **[]string** | The list of network prefixes used by the service, in CIDR notation. | [optional] 
 **ServiceId** | Pointer to **string** | The ID of the service. | [optional] 
-**ServiceName** | Pointer to **string** | The name of the prefix list, which identifies the 3DS OUTSCALE service it is associated with. | [optional] 
+**ServiceName** | Pointer to **string** | The name of the service. | [optional] 
 
 ## Methods
 

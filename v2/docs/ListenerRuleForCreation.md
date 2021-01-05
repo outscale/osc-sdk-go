@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** | The type of action for the rule (always &#x60;forward&#x60;). | [optional] 
 **HostNamePattern** | Pointer to **string** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?].  | [optional] 
-**ListenerRuleId** | Pointer to **string** | The ID of the listener. | [optional] 
 **ListenerRuleName** | Pointer to **string** | A human-readable name for the listener rule. | [optional] 
 **PathPattern** | Pointer to **string** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~\&quot;&#39;@:+?]. | [optional] 
 **Priority** | **int32** | The priority level of the listener rule, between &#x60;1&#x60; and &#x60;19999&#x60; both included. Each rule must have a unique priority level. Otherwise, an error is returned. | 
@@ -79,31 +78,6 @@ SetHostNamePattern sets HostNamePattern field to given value.
 `func (o *ListenerRuleForCreation) HasHostNamePattern() bool`
 
 HasHostNamePattern returns a boolean if a field has been set.
-
-### GetListenerRuleId
-
-`func (o *ListenerRuleForCreation) GetListenerRuleId() string`
-
-GetListenerRuleId returns the ListenerRuleId field if non-nil, zero value otherwise.
-
-### GetListenerRuleIdOk
-
-`func (o *ListenerRuleForCreation) GetListenerRuleIdOk() (*string, bool)`
-
-GetListenerRuleIdOk returns a tuple with the ListenerRuleId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetListenerRuleId
-
-`func (o *ListenerRuleForCreation) SetListenerRuleId(v string)`
-
-SetListenerRuleId sets ListenerRuleId field to given value.
-
-### HasListenerRuleId
-
-`func (o *ListenerRuleForCreation) HasListenerRuleId() bool`
-
-HasListenerRuleId returns a boolean if a field has been set.
 
 ### GetListenerRuleName
 

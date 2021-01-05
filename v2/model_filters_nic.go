@@ -3,7 +3,7 @@
  *
  * Welcome to the 3DS OUTSCALE's API documentation.<br /><br />  The 3DS OUTSCALE API enables you to manage your resources in the 3DS OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the 3DS OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the 3DS OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
  *
- * API version: 1.4
+ * API version: 1.6
  * Contact: support@outscale.com
  */
 
@@ -17,8 +17,6 @@ import (
 
 // FiltersNic One or more filters.
 type FiltersNic struct {
-	// The device numbers the NICs are attached to.
-	LinkNicSortNumbers *[]int32 `json:"LinkNicSortNumbers,omitempty"`
 	// The IDs of the VMs the NICs are attached to.
 	LinkNicVmIds *[]string `json:"LinkNicVmIds,omitempty"`
 	// The IDs of the NICs.
@@ -44,38 +42,6 @@ func NewFiltersNic() *FiltersNic {
 func NewFiltersNicWithDefaults() *FiltersNic {
 	this := FiltersNic{}
 	return &this
-}
-
-// GetLinkNicSortNumbers returns the LinkNicSortNumbers field value if set, zero value otherwise.
-func (o *FiltersNic) GetLinkNicSortNumbers() []int32 {
-	if o == nil || o.LinkNicSortNumbers == nil {
-		var ret []int32
-		return ret
-	}
-	return *o.LinkNicSortNumbers
-}
-
-// GetLinkNicSortNumbersOk returns a tuple with the LinkNicSortNumbers field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FiltersNic) GetLinkNicSortNumbersOk() (*[]int32, bool) {
-	if o == nil || o.LinkNicSortNumbers == nil {
-		return nil, false
-	}
-	return o.LinkNicSortNumbers, true
-}
-
-// HasLinkNicSortNumbers returns a boolean if a field has been set.
-func (o *FiltersNic) HasLinkNicSortNumbers() bool {
-	if o != nil && o.LinkNicSortNumbers != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinkNicSortNumbers gets a reference to the given []int32 and assigns it to the LinkNicSortNumbers field.
-func (o *FiltersNic) SetLinkNicSortNumbers(v []int32) {
-	o.LinkNicSortNumbers = &v
 }
 
 // GetLinkNicVmIds returns the LinkNicVmIds field value if set, zero value otherwise.
@@ -208,9 +174,6 @@ func (o *FiltersNic) SetSubnetIds(v []string) {
 
 func (o FiltersNic) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LinkNicSortNumbers != nil {
-		toSerialize["LinkNicSortNumbers"] = o.LinkNicSortNumbers
-	}
 	if o.LinkNicVmIds != nil {
 		toSerialize["LinkNicVmIds"] = o.LinkNicVmIds
 	}

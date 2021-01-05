@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
 **NetId** | **string** | The ID of the Net. | 
 **RouteTableIds** | Pointer to **[]string** | One or more IDs of route tables to use for the connection. | [optional] 
-**ServiceName** | **string** | The prefix list name corresponding to the service (for example, &#x60;com.outscale.eu-west-2.osu&#x60; for OSU). | 
+**ServiceName** | **string** | The name of the service (in the format &#x60;com.outscale.region.service&#x60;). | 
 
 ## Methods
 
