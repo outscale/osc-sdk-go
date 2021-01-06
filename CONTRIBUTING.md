@@ -32,14 +32,16 @@ If you plan to make some change here, consider making a pull request in [openapi
 
 Otherwise:
 - your merge request must be rebased on the corresponding major version branch (v1, v2, ...)
-- be sure that tests still pass by running `make test` and `make run-examples`
+- be sure that tests still pass by running `make test`
 
 # How to release
 
-1. rebase on corresponding major version branch (v1, v2, ...)
-2. edit `sdk_version` and `api_version` file
-3. `make gen` to update the sdk
-4. `make test` and `make run-examples` and fix any issue
+For each major version (v1, v2, ...):
+1. rebase on corresponding major version branch
+2. update `api_version` to the last Outscale API version
+3. update `sdk_version` following [semantic versioning](https://semver.org/) logic.
+4. `make gen` to re-build the sdk
+5. `make test` and fix any issue
 5. update `changelog.md` file
 6. commit changes
 7. tag version

@@ -1,3 +1,8 @@
+# v1.5.1
+
+- fixed missing files
+- rework examples to prepare CI/CD
+
 # v1.5.0
 
 - Upgraded to API v1.6

@@ -1,14 +1,12 @@
-# Run Examples
+# Examples
 
-In order to run examples, you will need to get few modules:
-```shell
-go get github.com/outscale/osc-sdk-go/osc
-```
+In order to run examples, you will need to setup your credentials (eu-west-2 region) with environement variables and run `go test`:
 
-You can then setup your credentials (eu-west-2 region) with environement variables:
 ```bash
 export OSC_ACCESS_KEY=<ACCESS_KEY>
 export OSC_SECRET_KEY=<SECRET_KEY>
+cd osc/
+go test -run Volume
+go test -run Keypair
+...
 ```
-
-Then you can `cd` in each example and hit `go run .`

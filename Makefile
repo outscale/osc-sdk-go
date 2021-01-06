@@ -1,5 +1,7 @@
 API_VERSION=$(shell cat api_version)
 SDK_VERSION=$(shell cat sdk_version)
+USER_ID=$(shell id -u)
+GROUP_ID=$(shell id -g)
 all: help
 
 .PHONY: help
@@ -11,10 +13,14 @@ help:
 .PHONY: gen
 gen: clean osc
 
-osc: osc-api/outscale.yaml
+osc: osc-generate update-examples
+
+.PHONY: osc-generate
+osc-generate: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk osc
 
 osc-api/outscale.yaml:
@@ -24,22 +30,18 @@ osc-api/outscale.yaml:
 clean:
 	rm -rf .sdk osc-api osc || true
 
+.PHONY: update-examples
+update-examples:
+	@find $(PWD)/examples/ -type f -name *.go -exec ln -sr {} osc/ \;
 
 .PHONY: test
-test: build-examples reuse
+test: reuse
+	cd osc && go test
 	@echo all tests OK
 
 .PHONY: reuse
 reuse:
 	docker run --volume $(PWD):/data fsfe/reuse:0.11.1 lint
-
-.PHONY: build-examples
-build-examples: examples
-	find ./examples -type d -depth 1 -exec go build -o /dev/null {} \;
-
-.PHONY: run-examples
-run-examples:
-	find ./examples -type d -depth 1 -exec go run {} \;
 
 .PHONY: gofmt
 gofmt:
