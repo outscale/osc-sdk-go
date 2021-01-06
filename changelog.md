@@ -1,6 +1,7 @@
 # v1.5.1
 
 - fixed missing files
+- rework examples to prepare CI/CD
 
 # v1.5.0
 
