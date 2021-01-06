@@ -1,3 +1,7 @@
+# v1.5.1
+
+- fixed missing files
+
 # v1.5.0
 
 - Upgraded to API v1.6

@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-     	config := osc.NewConfiguration()
+	config := osc.NewConfiguration()
 	config.Debug = true
 	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
