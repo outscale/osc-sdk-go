@@ -74,7 +74,7 @@ func ExampleVirtualMachine() {
 			osc.CreateVmsRequest{
 				ImageId:     "ami-b0d57010",
 				Performance: "standard",
-				VmType:      "tinav4.c1r1",
+				VmType:      "tinav4.c1r1p1",
 			}),
 	}
 	creation, httpRes, err := client.VmApi.CreateVms(auth, &creationOpts)
