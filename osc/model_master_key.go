@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // MasterKey Information about a master key.
 type MasterKey struct {
 	// The date and time of creation of the master key.

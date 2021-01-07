@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // FiltersMasterKey One or more filters.
 type FiltersMasterKey struct {
 	// The descriptions of the master keys.

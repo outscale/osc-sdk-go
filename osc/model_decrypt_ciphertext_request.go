@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // DecryptCiphertextRequest struct for DecryptCiphertextRequest
 type DecryptCiphertextRequest struct {
 	// The ciphertext you want to decrypt.

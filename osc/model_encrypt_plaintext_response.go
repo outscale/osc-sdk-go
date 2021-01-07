@@ -9,9 +9,10 @@
  */
 
 package osc
+
 // EncryptPlaintextResponse struct for EncryptPlaintextResponse
 type EncryptPlaintextResponse struct {
 	// The encrypted plaintext.
-	Ciphertext string `json:"Ciphertext,omitempty"`
+	Ciphertext      string          `json:"Ciphertext,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

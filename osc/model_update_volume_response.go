@@ -9,8 +9,9 @@
  */
 
 package osc
+
 // UpdateVolumeResponse struct for UpdateVolumeResponse
 type UpdateVolumeResponse struct {
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
-	Volume Volume `json:"Volume,omitempty"`
+	Volume          Volume          `json:"Volume,omitempty"`
 }

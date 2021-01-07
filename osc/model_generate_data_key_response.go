@@ -9,11 +9,12 @@
  */
 
 package osc
+
 // GenerateDataKeyResponse struct for GenerateDataKeyResponse
 type GenerateDataKeyResponse struct {
 	// The encrypted data key, encoded in base64.
 	Ciphertext string `json:"Ciphertext,omitempty"`
 	// The decrypted data key, encoded in base64.
-	Plaintext string `json:"Plaintext,omitempty"`
+	Plaintext       string          `json:"Plaintext,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

@@ -9,8 +9,9 @@
  */
 
 package osc
+
 // CreateMasterKeyResponse struct for CreateMasterKeyResponse
 type CreateMasterKeyResponse struct {
-	MasterKey MasterKey `json:"MasterKey,omitempty"`
+	MasterKey       MasterKey       `json:"MasterKey,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }
