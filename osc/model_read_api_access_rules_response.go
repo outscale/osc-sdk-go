@@ -9,9 +9,10 @@
  */
 
 package osc
+
 // ReadApiAccessRulesResponse struct for ReadApiAccessRulesResponse
 type ReadApiAccessRulesResponse struct {
 	// A list of API access rules.
-	ApiAccessRules []ApiAccessRule `json:"ApiAccessRules,omitempty"`
+	ApiAccessRules  []ApiAccessRule `json:"ApiAccessRules,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

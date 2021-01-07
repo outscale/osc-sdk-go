@@ -9,11 +9,12 @@
  */
 
 package osc
+
 // OsuExport Information about the OSU export.
 type OsuExport struct {
 	// The format of the export disk (`qcow2` \\| `raw`).
-	DiskImageFormat string `json:"DiskImageFormat"`
-	OsuApiKey OsuApiKey `json:"OsuApiKey,omitempty"`
+	DiskImageFormat string    `json:"DiskImageFormat"`
+	OsuApiKey       OsuApiKey `json:"OsuApiKey,omitempty"`
 	// The name of the OSU bucket where you want to export the object.
 	OsuBucket string `json:"OsuBucket"`
 	// The URL of the manifest file.

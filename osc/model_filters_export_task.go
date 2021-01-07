@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // FiltersExportTask One or more filters.
 type FiltersExportTask struct {
 	// The IDs of the export tasks.

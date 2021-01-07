@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // UndeleteMasterKeyRequest struct for UndeleteMasterKeyRequest
 type UndeleteMasterKeyRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.

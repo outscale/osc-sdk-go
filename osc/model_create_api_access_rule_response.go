@@ -9,8 +9,9 @@
  */
 
 package osc
+
 // CreateApiAccessRuleResponse struct for CreateApiAccessRuleResponse
 type CreateApiAccessRuleResponse struct {
-	ApiAccessRule ApiAccessRule `json:"ApiAccessRule,omitempty"`
+	ApiAccessRule   ApiAccessRule   `json:"ApiAccessRule,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

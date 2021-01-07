@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // FiltersNic One or more filters.
 type FiltersNic struct {
 	// The IDs of the VMs the NICs are attached to.

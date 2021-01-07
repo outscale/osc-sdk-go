@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // UpdateCaRequest struct for UpdateCaRequest
 type UpdateCaRequest struct {
 	// The ID of the CA.

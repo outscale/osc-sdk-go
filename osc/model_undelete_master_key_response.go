@@ -9,8 +9,9 @@
  */
 
 package osc
+
 // UndeleteMasterKeyResponse struct for UndeleteMasterKeyResponse
 type UndeleteMasterKeyResponse struct {
-	MasterKey MasterKey `json:"MasterKey,omitempty"`
+	MasterKey       MasterKey       `json:"MasterKey,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

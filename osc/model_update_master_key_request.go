@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // UpdateMasterKeyRequest struct for UpdateMasterKeyRequest
 type UpdateMasterKeyRequest struct {
 	// The new description for the master key, between 0 and 8192 Unicode characters.

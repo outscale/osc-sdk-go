@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // DeleteCaRequest struct for DeleteCaRequest
 type DeleteCaRequest struct {
 	// The ID of the CA you want to delete.

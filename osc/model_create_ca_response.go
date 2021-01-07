@@ -9,8 +9,9 @@
  */
 
 package osc
+
 // CreateCaResponse struct for CreateCaResponse
 type CreateCaResponse struct {
-	Ca Ca `json:"Ca,omitempty"`
+	Ca              Ca              `json:"Ca,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

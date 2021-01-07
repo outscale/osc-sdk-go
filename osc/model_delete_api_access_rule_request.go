@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // DeleteApiAccessRuleRequest struct for DeleteApiAccessRuleRequest
 type DeleteApiAccessRuleRequest struct {
 	// The ID of the API access rule you want to delete.
