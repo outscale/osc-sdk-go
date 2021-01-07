@@ -50,6 +50,14 @@ reuse-test:
 go-test:
 	cd osc && go test .
 
+# try to regen, should not have any difference
+.PHONY: regen-test
+regen-test: gen
+	git add osc
+	git add examples
+	git diff --cached -s --exit-code
+	git diff -s --exit-code
+
 .PHONY: gofmt
 gofmt:
 	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -l {} \;
