@@ -9,11 +9,12 @@
  */
 
 package osc
+
 // DecryptCiphertextResponse struct for DecryptCiphertextResponse
 type DecryptCiphertextResponse struct {
 	// The ID of the master key used to decrypt the data.
 	MasterKeyId string `json:"MasterKeyId,omitempty"`
 	// The decrypted ciphertext, encoded in base64.
-	Plaintext string `json:"Plaintext,omitempty"`
+	Plaintext       string          `json:"Plaintext,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }

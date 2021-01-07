@@ -12,10 +12,10 @@ package osc
 
 import (
 	_context "context"
+	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -28,14 +28,14 @@ type MasterKeyApiService service
 
 // CreateMasterKeyOpts Optional parameters for the method 'CreateMasterKey'
 type CreateMasterKeyOpts struct {
-    CreateMasterKeyRequest optional.Interface
+	CreateMasterKeyRequest optional.Interface
 }
 
 /*
 CreateMasterKey Method for CreateMasterKey
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *CreateMasterKeyOpts - Optional Parameters:
- * @param "CreateMasterKeyRequest" (optional.Interface of CreateMasterKeyRequest) - 
+ * @param "CreateMasterKeyRequest" (optional.Interface of CreateMasterKeyRequest) -
 @return CreateMasterKeyResponse
 */
 func (a *MasterKeyApiService) CreateMasterKey(ctx _context.Context, localVarOptionals *CreateMasterKeyOpts) (CreateMasterKeyResponse, *_nethttp.Response, error) {
@@ -139,14 +139,14 @@ func (a *MasterKeyApiService) CreateMasterKey(ctx _context.Context, localVarOpti
 
 // DecryptCiphertextOpts Optional parameters for the method 'DecryptCiphertext'
 type DecryptCiphertextOpts struct {
-    DecryptCiphertextRequest optional.Interface
+	DecryptCiphertextRequest optional.Interface
 }
 
 /*
 DecryptCiphertext Method for DecryptCiphertext
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *DecryptCiphertextOpts - Optional Parameters:
- * @param "DecryptCiphertextRequest" (optional.Interface of DecryptCiphertextRequest) - 
+ * @param "DecryptCiphertextRequest" (optional.Interface of DecryptCiphertextRequest) -
 @return DecryptCiphertextResponse
 */
 func (a *MasterKeyApiService) DecryptCiphertext(ctx _context.Context, localVarOptionals *DecryptCiphertextOpts) (DecryptCiphertextResponse, *_nethttp.Response, error) {
@@ -250,14 +250,14 @@ func (a *MasterKeyApiService) DecryptCiphertext(ctx _context.Context, localVarOp
 
 // DeleteMasterKeyOpts Optional parameters for the method 'DeleteMasterKey'
 type DeleteMasterKeyOpts struct {
-    DeleteMasterKeyRequest optional.Interface
+	DeleteMasterKeyRequest optional.Interface
 }
 
 /*
 DeleteMasterKey Method for DeleteMasterKey
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *DeleteMasterKeyOpts - Optional Parameters:
- * @param "DeleteMasterKeyRequest" (optional.Interface of DeleteMasterKeyRequest) - 
+ * @param "DeleteMasterKeyRequest" (optional.Interface of DeleteMasterKeyRequest) -
 @return DeleteMasterKeyResponse
 */
 func (a *MasterKeyApiService) DeleteMasterKey(ctx _context.Context, localVarOptionals *DeleteMasterKeyOpts) (DeleteMasterKeyResponse, *_nethttp.Response, error) {
@@ -361,14 +361,14 @@ func (a *MasterKeyApiService) DeleteMasterKey(ctx _context.Context, localVarOpti
 
 // EncryptPlaintextOpts Optional parameters for the method 'EncryptPlaintext'
 type EncryptPlaintextOpts struct {
-    EncryptPlaintextRequest optional.Interface
+	EncryptPlaintextRequest optional.Interface
 }
 
 /*
 EncryptPlaintext Method for EncryptPlaintext
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *EncryptPlaintextOpts - Optional Parameters:
- * @param "EncryptPlaintextRequest" (optional.Interface of EncryptPlaintextRequest) - 
+ * @param "EncryptPlaintextRequest" (optional.Interface of EncryptPlaintextRequest) -
 @return EncryptPlaintextResponse
 */
 func (a *MasterKeyApiService) EncryptPlaintext(ctx _context.Context, localVarOptionals *EncryptPlaintextOpts) (EncryptPlaintextResponse, *_nethttp.Response, error) {
@@ -472,14 +472,14 @@ func (a *MasterKeyApiService) EncryptPlaintext(ctx _context.Context, localVarOpt
 
 // GenerateDataKeyOpts Optional parameters for the method 'GenerateDataKey'
 type GenerateDataKeyOpts struct {
-    GenerateDataKeyRequest optional.Interface
+	GenerateDataKeyRequest optional.Interface
 }
 
 /*
 GenerateDataKey Method for GenerateDataKey
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GenerateDataKeyOpts - Optional Parameters:
- * @param "GenerateDataKeyRequest" (optional.Interface of GenerateDataKeyRequest) - 
+ * @param "GenerateDataKeyRequest" (optional.Interface of GenerateDataKeyRequest) -
 @return GenerateDataKeyResponse
 */
 func (a *MasterKeyApiService) GenerateDataKey(ctx _context.Context, localVarOptionals *GenerateDataKeyOpts) (GenerateDataKeyResponse, *_nethttp.Response, error) {
@@ -583,14 +583,14 @@ func (a *MasterKeyApiService) GenerateDataKey(ctx _context.Context, localVarOpti
 
 // ReadMasterKeysOpts Optional parameters for the method 'ReadMasterKeys'
 type ReadMasterKeysOpts struct {
-    ReadMasterKeysRequest optional.Interface
+	ReadMasterKeysRequest optional.Interface
 }
 
 /*
 ReadMasterKeys Method for ReadMasterKeys
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ReadMasterKeysOpts - Optional Parameters:
- * @param "ReadMasterKeysRequest" (optional.Interface of ReadMasterKeysRequest) - 
+ * @param "ReadMasterKeysRequest" (optional.Interface of ReadMasterKeysRequest) -
 @return ReadMasterKeysResponse
 */
 func (a *MasterKeyApiService) ReadMasterKeys(ctx _context.Context, localVarOptionals *ReadMasterKeysOpts) (ReadMasterKeysResponse, *_nethttp.Response, error) {
@@ -694,14 +694,14 @@ func (a *MasterKeyApiService) ReadMasterKeys(ctx _context.Context, localVarOptio
 
 // UndeleteMasterKeyOpts Optional parameters for the method 'UndeleteMasterKey'
 type UndeleteMasterKeyOpts struct {
-    UndeleteMasterKeyRequest optional.Interface
+	UndeleteMasterKeyRequest optional.Interface
 }
 
 /*
 UndeleteMasterKey Method for UndeleteMasterKey
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UndeleteMasterKeyOpts - Optional Parameters:
- * @param "UndeleteMasterKeyRequest" (optional.Interface of UndeleteMasterKeyRequest) - 
+ * @param "UndeleteMasterKeyRequest" (optional.Interface of UndeleteMasterKeyRequest) -
 @return UndeleteMasterKeyResponse
 */
 func (a *MasterKeyApiService) UndeleteMasterKey(ctx _context.Context, localVarOptionals *UndeleteMasterKeyOpts) (UndeleteMasterKeyResponse, *_nethttp.Response, error) {
@@ -805,14 +805,14 @@ func (a *MasterKeyApiService) UndeleteMasterKey(ctx _context.Context, localVarOp
 
 // UpdateMasterKeyOpts Optional parameters for the method 'UpdateMasterKey'
 type UpdateMasterKeyOpts struct {
-    UpdateMasterKeyRequest optional.Interface
+	UpdateMasterKeyRequest optional.Interface
 }
 
 /*
 UpdateMasterKey Method for UpdateMasterKey
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UpdateMasterKeyOpts - Optional Parameters:
- * @param "UpdateMasterKeyRequest" (optional.Interface of UpdateMasterKeyRequest) - 
+ * @param "UpdateMasterKeyRequest" (optional.Interface of UpdateMasterKeyRequest) -
 @return UpdateMasterKeyResponse
 */
 func (a *MasterKeyApiService) UpdateMasterKey(ctx _context.Context, localVarOptionals *UpdateMasterKeyOpts) (UpdateMasterKeyResponse, *_nethttp.Response, error) {

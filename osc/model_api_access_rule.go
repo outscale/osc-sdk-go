@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // ApiAccessRule Information about the API access rule.
 type ApiAccessRule struct {
 	//  The ID of the API access rule.

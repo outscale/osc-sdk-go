@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // FiltersApiAccessRule One or more filters.
 type FiltersApiAccessRule struct {
 	// One or more IDs of API access rules.

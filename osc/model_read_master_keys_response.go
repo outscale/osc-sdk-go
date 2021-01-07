@@ -9,9 +9,10 @@
  */
 
 package osc
+
 // ReadMasterKeysResponse struct for ReadMasterKeysResponse
 type ReadMasterKeysResponse struct {
 	// Information about one or more master keys.
-	MasterKeys []MasterKey `json:"MasterKeys,omitempty"`
+	MasterKeys      []MasterKey     `json:"MasterKeys,omitempty"`
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
 }
