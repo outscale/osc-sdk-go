@@ -1,3 +1,8 @@
+# v1.5.2
+
+- make sure sdk generation can be reproduced in through testing
+- add CI integration tests
+
 # v1.5.1
 
 - fixed missing files
