@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // CreateCaRequest struct for CreateCaRequest
 type CreateCaRequest struct {
 	// The CA in PEM format.

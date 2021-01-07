@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // DeleteMasterKeyRequest struct for DeleteMasterKeyRequest
 type DeleteMasterKeyRequest struct {
 	// The waiting period before deletion, in days (between `7` and `30`). By default, `30`.

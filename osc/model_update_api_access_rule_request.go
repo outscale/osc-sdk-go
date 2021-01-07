@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // UpdateApiAccessRuleRequest struct for UpdateApiAccessRuleRequest
 type UpdateApiAccessRuleRequest struct {
 	// The ID of the API access rule you want to update.

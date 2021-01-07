@@ -9,9 +9,10 @@
  */
 
 package osc
+
 // ReadApiAccessRulesRequest struct for ReadApiAccessRulesRequest
 type ReadApiAccessRulesRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun bool `json:"DryRun,omitempty"`
+	DryRun  bool                 `json:"DryRun,omitempty"`
 	Filters FiltersApiAccessRule `json:"Filters,omitempty"`
 }

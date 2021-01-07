@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // CreateApiAccessRuleRequest struct for CreateApiAccessRuleRequest
 type CreateApiAccessRuleRequest struct {
 	//  One or more IDs of Client Certificate Authorities (CAs).

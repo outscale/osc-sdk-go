@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // CreateMasterKeyRequest struct for CreateMasterKeyRequest
 type CreateMasterKeyRequest struct {
 	// A description for the master key, between 0 and 8192 Unicode characters.

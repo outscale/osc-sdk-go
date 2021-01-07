@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // FiltersCa One or more filters.
 type FiltersCa struct {
 	// The fingerprints of the CAs.

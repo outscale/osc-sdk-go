@@ -9,9 +9,10 @@
  */
 
 package osc
+
 // ReadCasRequest struct for ReadCasRequest
 type ReadCasRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun bool `json:"DryRun,omitempty"`
+	DryRun  bool      `json:"DryRun,omitempty"`
 	Filters FiltersCa `json:"Filters,omitempty"`
 }

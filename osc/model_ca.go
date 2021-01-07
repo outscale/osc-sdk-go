@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // Ca Information about the Client Certificate Authority (CA).
 type Ca struct {
 	// The fingerprint of the CA.

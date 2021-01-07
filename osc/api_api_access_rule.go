@@ -12,10 +12,10 @@ package osc
 
 import (
 	_context "context"
+	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -28,14 +28,14 @@ type ApiAccessRuleApiService service
 
 // CreateApiAccessRuleOpts Optional parameters for the method 'CreateApiAccessRule'
 type CreateApiAccessRuleOpts struct {
-    CreateApiAccessRuleRequest optional.Interface
+	CreateApiAccessRuleRequest optional.Interface
 }
 
 /*
 CreateApiAccessRule Method for CreateApiAccessRule
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *CreateApiAccessRuleOpts - Optional Parameters:
- * @param "CreateApiAccessRuleRequest" (optional.Interface of CreateApiAccessRuleRequest) - 
+ * @param "CreateApiAccessRuleRequest" (optional.Interface of CreateApiAccessRuleRequest) -
 @return CreateApiAccessRuleResponse
 */
 func (a *ApiAccessRuleApiService) CreateApiAccessRule(ctx _context.Context, localVarOptionals *CreateApiAccessRuleOpts) (CreateApiAccessRuleResponse, *_nethttp.Response, error) {
@@ -139,14 +139,14 @@ func (a *ApiAccessRuleApiService) CreateApiAccessRule(ctx _context.Context, loca
 
 // DeleteApiAccessRuleOpts Optional parameters for the method 'DeleteApiAccessRule'
 type DeleteApiAccessRuleOpts struct {
-    DeleteApiAccessRuleRequest optional.Interface
+	DeleteApiAccessRuleRequest optional.Interface
 }
 
 /*
 DeleteApiAccessRule Method for DeleteApiAccessRule
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *DeleteApiAccessRuleOpts - Optional Parameters:
- * @param "DeleteApiAccessRuleRequest" (optional.Interface of DeleteApiAccessRuleRequest) - 
+ * @param "DeleteApiAccessRuleRequest" (optional.Interface of DeleteApiAccessRuleRequest) -
 @return DeleteApiAccessRuleResponse
 */
 func (a *ApiAccessRuleApiService) DeleteApiAccessRule(ctx _context.Context, localVarOptionals *DeleteApiAccessRuleOpts) (DeleteApiAccessRuleResponse, *_nethttp.Response, error) {
@@ -250,14 +250,14 @@ func (a *ApiAccessRuleApiService) DeleteApiAccessRule(ctx _context.Context, loca
 
 // ReadApiAccessRulesOpts Optional parameters for the method 'ReadApiAccessRules'
 type ReadApiAccessRulesOpts struct {
-    ReadApiAccessRulesRequest optional.Interface
+	ReadApiAccessRulesRequest optional.Interface
 }
 
 /*
 ReadApiAccessRules Method for ReadApiAccessRules
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ReadApiAccessRulesOpts - Optional Parameters:
- * @param "ReadApiAccessRulesRequest" (optional.Interface of ReadApiAccessRulesRequest) - 
+ * @param "ReadApiAccessRulesRequest" (optional.Interface of ReadApiAccessRulesRequest) -
 @return ReadApiAccessRulesResponse
 */
 func (a *ApiAccessRuleApiService) ReadApiAccessRules(ctx _context.Context, localVarOptionals *ReadApiAccessRulesOpts) (ReadApiAccessRulesResponse, *_nethttp.Response, error) {
@@ -361,14 +361,14 @@ func (a *ApiAccessRuleApiService) ReadApiAccessRules(ctx _context.Context, local
 
 // UpdateApiAccessRuleOpts Optional parameters for the method 'UpdateApiAccessRule'
 type UpdateApiAccessRuleOpts struct {
-    UpdateApiAccessRuleRequest optional.Interface
+	UpdateApiAccessRuleRequest optional.Interface
 }
 
 /*
 UpdateApiAccessRule Method for UpdateApiAccessRule
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UpdateApiAccessRuleOpts - Optional Parameters:
- * @param "UpdateApiAccessRuleRequest" (optional.Interface of UpdateApiAccessRuleRequest) - 
+ * @param "UpdateApiAccessRuleRequest" (optional.Interface of UpdateApiAccessRuleRequest) -
 @return UpdateApiAccessRuleResponse
 */
 func (a *ApiAccessRuleApiService) UpdateApiAccessRule(ctx _context.Context, localVarOptionals *UpdateApiAccessRuleOpts) (UpdateApiAccessRuleResponse, *_nethttp.Response, error) {

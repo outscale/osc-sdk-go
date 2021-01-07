@@ -9,6 +9,7 @@
  */
 
 package osc
+
 // DeleteApiAccessRuleResponse struct for DeleteApiAccessRuleResponse
 type DeleteApiAccessRuleResponse struct {
 	ResponseContext ResponseContext `json:"ResponseContext,omitempty"`
