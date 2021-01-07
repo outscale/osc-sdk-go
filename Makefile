@@ -13,7 +13,7 @@ help:
 .PHONY: gen
 gen: clean osc
 
-osc: osc-generate update-examples
+osc: osc-generate update-examples update-build gofmt
 
 .PHONY: osc-generate
 osc-generate: osc-api/outscale.yaml
@@ -34,16 +34,26 @@ clean:
 update-examples:
 	@find $(PWD)/examples/ -type f -name *.go -exec ln -sr {} osc/ \;
 
+# make sure that go.mod and go.sum are updated as well
+.PHONY: update-build
+	cd osc && go build
+
 .PHONY: test
-test: reuse
-	cd osc && go test
+test: reuse-test go-test
 	@echo all tests OK
 
-.PHONY: reuse
-reuse:
+.PHONY: reuse-test
+reuse-test:
 	docker run --volume $(PWD):/data fsfe/reuse:0.11.1 lint
+
+.PHONY: go-test
+go-test:
+	cd osc && go test .
 
 .PHONY: gofmt
 gofmt:
 	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -l {} \;
 	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -w {} \;
+	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -l {} \;
+	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -w {} \;
+
