@@ -1,0 +1,30 @@
+name: auto-build-v1
+
+on:
+  schedule:
+    # At minute 0 on every day-of-week from Monday through Friday.
+    # Thanks https://crontab.guru/
+    - cron: '0 * * * MON-FRI'
+
+jobs:
+  auto-build:
+    #environment: XXXXXXXXX
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - name: check for new osc-api version
+        run: make osc-api-check
+      - name: auto-generate release
+        run: make release-build
+      - name: push release branch
+        run: make release-push
+        env:
+          XXX: ${{ secrets.XXX }}
+      - name: create pull request
+        run: make release-pr
+        env:
+          YYY: ${{ secrets.YYY }}
