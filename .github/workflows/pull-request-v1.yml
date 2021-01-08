@@ -1,12 +1,8 @@
-name: CI
+name: pull-request-v1
 
 on:
-  push:
-    branches: [ v1 ]
   pull_request:
     branches: [ v1 ]
-
-  workflow_dispatch:
 
 jobs:
   reuse-test:
