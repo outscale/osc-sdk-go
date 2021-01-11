@@ -27,3 +27,7 @@ jobs:
         run: make release-push
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: create pull request
+        run: make release-pr
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
