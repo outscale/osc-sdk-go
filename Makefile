@@ -1,3 +1,4 @@
+
 API_VERSION=$(shell cat api_version)
 SDK_VERSION=$(shell cat sdk_version)
 USER_ID=$(shell id -u)
@@ -65,3 +66,18 @@ gofmt:
 	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -l {} \;
 	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -w {} \;
 
+.PHONY: osc-api-check
+osc-api-check:
+	bash .github/scripts/osc-api-check.sh
+
+.PHONY: release-build
+release-build:
+	bash .github/scripts/release-build.sh v1o
+
+.PHONY: release-push
+release-push:
+	bash .github/scripts/release-push.sh
+
+.PHONY: release-pr
+release-pr:
+	bash .github/scripts/release-pr.sh

@@ -8,7 +8,7 @@ on:
 
 jobs:
   auto-build:
-    #environment: XXXXXXXXX
+    environment: auto-build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,14 +17,16 @@ jobs:
         with:
           go-version: 1.15
       - name: check for new osc-api version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make osc-api-check
       - name: auto-generate release
         run: make release-build
       - name: push release branch
         run: make release-push
         env:
-          XXX: ${{ secrets.XXX }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: create pull request
         run: make release-pr
         env:
-          YYY: ${{ secrets.YYY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
