@@ -66,9 +66,9 @@ gofmt:
 	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -w {} \;
 
 # Used by bot to auto-release
-# GITHUB_TOKEN is needed
+# GITHUB_TOKEN and SSH_PRIVATE_KEY are needed
 .PHONY: auto-release
-auto-release: osc-api-check release-build
+auto-release: osc-api-check release-build release-push
 	@echo OK
 
 .PHONY: osc-api-check
@@ -78,3 +78,7 @@ osc-api-check:
 .PHONY: release-build
 release-build:
 	bash .github/scripts/release-build.sh
+
+.PHONY: release-push
+release-push:
+	bash .github/scripts/release-push.sh
