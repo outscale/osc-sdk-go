@@ -68,7 +68,7 @@ gofmt:
 # Used by bot to auto-release
 # GITHUB_TOKEN and SSH_PRIVATE_KEY are needed
 .PHONY: auto-release
-auto-release: osc-api-check release-build release-push
+auto-release: osc-api-check release-build release-push release-pr
 	@echo OK
 
 .PHONY: osc-api-check
@@ -82,3 +82,7 @@ release-build:
 .PHONY: release-push
 release-push:
 	bash .github/scripts/release-push.sh
+
+.PHONY: release-pr
+release-pr:
+	bash .github/scripts/release-pr.sh

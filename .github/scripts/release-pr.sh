@@ -1,0 +1,16 @@
+#!/bin/env bash
+set -e
+
+root=$(cd "$(dirname $0)/../.." && pwd)
+new_sdk_version=$(cat $root/sdk_version)
+major=$(echo $new_sdk_version | cut -d '.' -f 1)
+branch_name="autobuild-$new_sdk_version"
+osc_api_version="$(cat $root/api_version)"
+
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "GITHUB_TOKEN is missing, abort."
+    exit 1
+fi
+
+# https://docs.github.com/en/free-pro-team@latest/rest/reference/pulls#create-a-pull-request
+curl -s -X POST -u LolUserName:$GITHUB_TOKEN -d "{\"head\":\"$branch_name\",\"base\":\"$major'\",\"title\":\"$new_sdk_version version\",\"body\":\"Automatic build of $new_sdk_version version based on $osc_api_version\"}" "https://api.github.com/repos/outscale/osc-sdk-go/pulls"
