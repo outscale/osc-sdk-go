@@ -72,7 +72,7 @@ osc-api-check:
 
 .PHONY: release-build
 release-build:
-	bash .github/scripts/release-build.sh v1o
+	bash .github/scripts/release-build.sh
 
 .PHONY: release-push
 release-push:

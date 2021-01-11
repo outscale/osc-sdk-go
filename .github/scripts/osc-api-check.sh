@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/env bash
 set -e
 root=$(cd "$(dirname $0)/../.." && pwd)
 github_url="https://api.github.com/repos/outscale/osc-api/releases"
 
 if [ -z "$GITHUB_TOKEN" ]; then
-    echo "GITHUB_TOKEN is not set, abort."
+    echo "GITHUB_TOKEN is missing, abort."
     exit 1
 fi
 
@@ -18,5 +18,5 @@ if [[ "$local_api_version" = "$osc_api_last_release" ]]; then
     echo "no update needed, exiting"
     exit 1
 fi
-
+"
 echo $osc_api_last_release > $root/osc_sdk_go
