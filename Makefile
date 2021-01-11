@@ -65,3 +65,12 @@ gofmt:
 	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -l {} \;
 	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -w {} \;
 
+# Used by bot to auto-release
+# GITHUB_TOKEN is needed
+.PHONY: auto-release
+auto-release: osc-api-check
+	@echo OK
+
+.PHONY: osc-api-check
+osc-api-check:
+	bash .github/scripts/osc-api-check.sh
