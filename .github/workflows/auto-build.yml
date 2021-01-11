@@ -19,3 +19,6 @@ jobs:
       - name: check for new osc-api version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make osc-api-check
+      - name: auto-generate release
+        run: make release-build

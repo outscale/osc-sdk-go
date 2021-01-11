@@ -68,9 +68,13 @@ gofmt:
 # Used by bot to auto-release
 # GITHUB_TOKEN is needed
 .PHONY: auto-release
-auto-release: osc-api-check
+auto-release: osc-api-check release-build
 	@echo OK
 
 .PHONY: osc-api-check
 osc-api-check:
 	bash .github/scripts/osc-api-check.sh
+
+.PHONY: release-build
+release-build:
+	bash .github/scripts/release-build.sh
