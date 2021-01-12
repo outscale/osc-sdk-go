@@ -15,4 +15,6 @@ jobs:
         run: echo test0
       - name: test1
         run: echo test1
+      - name: test2
+        run: bash -c false
 
