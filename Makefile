@@ -68,12 +68,16 @@ gofmt:
 # Used by bot to auto-release
 # GH_TOKEN and SSH_PRIVATE_KEY are needed
 .PHONY: auto-release
-auto-release: osc-api-check release-build release-push release-pr
+auto-release: osc-api-check release-check-duplicate release-build release-push release-pr
 	@echo OK
 
 .PHONY: osc-api-check
 osc-api-check:
 	bash .github/scripts/osc-api-check.sh
+
+.PHONY: release-check-duplicate
+release-check-duplicate:
+	bash .github/scripts/release-check-duplicate.sh
 
 .PHONY: release-build
 release-build:
