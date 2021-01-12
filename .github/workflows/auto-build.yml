@@ -4,7 +4,7 @@ on:
   schedule:
     # At minute 0 on every day-of-week from Monday through Friday.
     # Thanks https://crontab.guru/
-    - cron: '10 * * * *'
+    - cron: '17 * * * *'
 
 jobs:
   auto-build:
