@@ -1,3 +1,7 @@
+# v1.5.4
+
+- fix Github CI for autobuild-v1
+
 # v1.5.3
 
 - use Github CI to detect osc-api change and create new release
