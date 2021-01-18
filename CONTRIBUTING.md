@@ -46,3 +46,5 @@ For each major version (v1, v2, ...):
 6. commit changes
 7. tag version
 8. push to corresponding branch
+
+Note that CI should automatically detect new release on osc-api, update the SDK and push a new version.

@@ -1,3 +1,7 @@
+# v1.5.3
+
+- use Github CI to detect osc-api change and create new release
+
 # v1.5.2
 
 - make sure sdk generation can be reproduced in through testing
