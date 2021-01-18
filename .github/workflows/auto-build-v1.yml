@@ -22,6 +22,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: make osc-api-check
+      - name: check for release duplicate
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: make release-check-duplicate
       - name: auto-generate release
         run: make release-build
       - name: push release branch
