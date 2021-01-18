@@ -1,3 +1,7 @@
+# v1.5.5
+
+- autobuild: keep workflow errors for buggy builds only
+
 # v1.5.4
 
 - fix Github CI for autobuild-v1
