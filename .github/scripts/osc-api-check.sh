@@ -2,6 +2,10 @@
 set -e
 
 root=$(cd "$(dirname $0)/../.." && pwd)
+if [ -e "$root/.auto-release-abort" ]; then
+    echo "previous step triggered stop, abort"
+    exit 0
+fi
 github_url="https://api.github.com/repos/outscale/osc-api/releases"
 
 if [ -z "$GH_TOKEN" ]; then
@@ -17,7 +21,8 @@ echo "last available version: $osc_api_last_release"
 
 if [[ "$local_api_version" = "$osc_api_last_release" ]]; then
     echo "no update needed, exiting"
-    exit 1
+    touch "$root/.auto-release-abort"
+    exit 0
 fi
 
 echo "$osc_api_last_release" > $root/api_version

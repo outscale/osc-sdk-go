@@ -2,6 +2,10 @@
 set -e
 
 root=$(cd "$(dirname $0)/../.." && pwd)
+if [ -e "$root/.auto-release-abort" ]; then
+    echo "previous step triggered stop, abort"
+    exit 0
+fi
 # build new version number
 local_sdk_version=$(cat $root/sdk_version)
 local_sdk_version_major=$(echo $local_sdk_version | cut -d '.' -f 1)
@@ -20,5 +24,6 @@ result=$(curl -s -u LolUserName:$GH_TOKEN "https://api.github.com/repos/outscale
 
 if [ ! -z "$result" ]; then
     echo "Pull request seems to alread exist, abort."
-    exit 1
+    touch "$root/.auto-release-abort"
+    exit 0
 fi    

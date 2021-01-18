@@ -2,6 +2,10 @@
 set -e
 
 root=$(cd "$(dirname $0)/../.." && pwd)
+if [ -e "$root/.auto-release-abort" ]; then
+    echo "previous step triggered stop, abort"
+    exit 0
+fi
 # build new version number
 local_sdk_version=$(cat $root/sdk_version)
 local_sdk_version_major=$(echo $local_sdk_version | cut -d '.' -f 1)
