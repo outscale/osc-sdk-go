@@ -20,7 +20,7 @@ if [ -z "$GH_TOKEN" ]; then
     exit 1
 fi
 
-result=$(curl -s -u LolUserName:$GH_TOKEN "https://api.github.com/repos/outscale/osc-sdk-go/pulls" | jq ".[] | select(.title == \"$new_sdk_version version\") | .title")
+result=$(curl -s -u LolUserName:$GH_TOKEN "https://api.github.com/repos/outscale/osc-sdk-go/pulls" | jq ".[] | select(.title == \"SDK v$new_sdk_version\") | .title")
 
 if [ ! -z "$result" ]; then
     echo "Pull request seems to alread exist, abort."
