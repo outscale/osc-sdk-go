@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Listeners** | [**[]ListenerForCreation**](ListenerForCreation.md) | One or more listeners to create. | 
 **LoadBalancerName** | **string** | The unique name of the load balancer (32 alphanumeric or hyphen characters maximum, but cannot start or end with a hyphen). | 
 **LoadBalancerType** | **string** | The type of load balancer: &#x60;internet-facing&#x60; or &#x60;internal&#x60;. Use this parameter only for load balancers in a Net. | [optional] 

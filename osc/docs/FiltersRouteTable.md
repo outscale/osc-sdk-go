@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkRouteTableIds** | **[]string** | The IDs of the route tables involved in the associations. | [optional] 
 **LinkRouteTableLinkRouteTableIds** | **[]string** | The IDs of the associations between the route tables and the Subnets. | [optional] 
-**LinkRouteTableMain** | **bool** | If &#x60;true&#x60;, the route tables are the main ones for their Nets. | [optional] 
+**LinkRouteTableMain** | **bool** | If true, the route tables are the main ones for their Nets. | [optional] 
 **LinkSubnetIds** | **[]string** | The IDs of the Subnets involved in the associations. | [optional] 
 **NetIds** | **[]string** | The IDs of the Nets for the route tables. | [optional] 
 **RouteCreationMethods** | **[]string** | The methods used to create a route. | [optional] 

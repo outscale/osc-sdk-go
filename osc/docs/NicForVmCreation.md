@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | **bool** | If &#x60;true&#x60;, the NIC is deleted when the VM is terminated. You can specify &#x60;true&#x60; only if you create a NIC when creating a VM. | [optional] 
+**DeleteOnVmDeletion** | **bool** | If true, the NIC is deleted when the VM is terminated. You can specify true only if you create a NIC when creating a VM. | [optional] 
 **Description** | **string** | The description of the NIC, if you are creating a NIC when creating the VM. | [optional] 
 **DeviceNumber** | **int32** | The index of the VM device for the NIC attachment (between 0 and 7, both included). This parameter is required if you create a NIC when creating the VM. | [optional] 
 **NicId** | **string** | The ID of the NIC, if you are attaching an existing NIC when creating a VM. | [optional] 

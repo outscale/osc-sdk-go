@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Default** | **bool** | If &#x60;true&#x60;, the DHCP options set is a default one. If &#x60;false&#x60;, it is not. | [optional] 
+**Default** | **bool** | If true, the DHCP options set is a default one. If false, it is not. | [optional] 
 **DhcpOptionsSetId** | **string** | The ID of the DHCP options set. | [optional] 
 **DomainName** | **string** | The domain name. | [optional] 
 **DomainNameServers** | **[]string** | One or more IP addresses for the domain name servers. | [optional] 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NetId** | **string** | The ID of the Net from which you want to detach the virtual gateway. | 
 **VirtualGatewayId** | **string** | The ID of the virtual gateway. | 
 
