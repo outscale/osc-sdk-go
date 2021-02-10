@@ -32,7 +32,7 @@ clean:
 
 .PHONY: update-examples
 update-examples:
-	@find $(PWD)/examples/ -type f -name *.go -exec ln -sr {} osc/ \;
+	@find $(PWD)/examples/ -type f -name "*.go" -exec ln -sr {} osc/ \;
 
 # make sure that go.mod and go.sum are updated as well
 .PHONY: update-build
@@ -60,10 +60,10 @@ regen-test: gen
 
 .PHONY: gofmt
 gofmt:
-	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -l {} \;
-	@find $(PWD)/examples/ -type f -name *.go -exec gofmt -w {} \;
-	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -l {} \;
-	@find $(PWD)/osc/ -type f -name *.go -exec gofmt -w {} \;
+	@find $(PWD)/examples/ -type f -name "*.go" -exec gofmt -l {} \;
+	@find $(PWD)/examples/ -type f -name "*.go" -exec gofmt -w {} \;
+	@find $(PWD)/osc/ -type f -name "*.go" -exec gofmt -l {} \;
+	@find $(PWD)/osc/ -type f -name "*.go" -exec gofmt -w {} \;
 
 # Used by bot to auto-release
 # GH_TOKEN and SSH_PRIVATE_KEY are needed
