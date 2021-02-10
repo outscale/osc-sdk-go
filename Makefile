@@ -2,7 +2,7 @@ API_VERSION=$(shell cat api_version)
 SDK_VERSION=$(shell cat sdk_version)
 USER_ID=$(shell id -u)
 GROUP_ID=$(shell id -g)
-OPENAPI_GEN_VERSION=@sha256:b3a29dfe6a5eecffa737666b619f7a6e914ecc7cf181273f38a1e3b87cc5a579
+OPENAPI_GEN_VERSION=:v5.0.1
 
 all: help
 
