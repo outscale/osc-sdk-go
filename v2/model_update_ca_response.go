@@ -17,7 +17,7 @@ import (
 
 // UpdateCaResponse struct for UpdateCaResponse
 type UpdateCaResponse struct {
-	Ca *Ca `json:"Ca,omitempty"`
+	Ca              *Ca              `json:"Ca,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateCaResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

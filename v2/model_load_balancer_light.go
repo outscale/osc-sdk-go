@@ -27,7 +27,7 @@ type LoadBalancerLight struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLoadBalancerLight(loadBalancerName string, loadBalancerPort int32, ) *LoadBalancerLight {
+func NewLoadBalancerLight(loadBalancerName string, loadBalancerPort int32) *LoadBalancerLight {
 	this := LoadBalancerLight{}
 	this.LoadBalancerName = loadBalancerName
 	this.LoadBalancerPort = loadBalancerPort
@@ -44,7 +44,7 @@ func NewLoadBalancerLightWithDefaults() *LoadBalancerLight {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *LoadBalancerLight) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -55,7 +55,7 @@ func (o *LoadBalancerLight) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *LoadBalancerLight) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -68,7 +68,7 @@ func (o *LoadBalancerLight) SetLoadBalancerName(v string) {
 
 // GetLoadBalancerPort returns the LoadBalancerPort field value
 func (o *LoadBalancerLight) GetLoadBalancerPort() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -79,7 +79,7 @@ func (o *LoadBalancerLight) GetLoadBalancerPort() int32 {
 // GetLoadBalancerPortOk returns a tuple with the LoadBalancerPort field value
 // and a boolean to check if the value has been set.
 func (o *LoadBalancerLight) GetLoadBalancerPortOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerPort, true
@@ -136,5 +136,3 @@ func (v *NullableLoadBalancerLight) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

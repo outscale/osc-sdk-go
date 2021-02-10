@@ -17,7 +17,7 @@ import (
 
 // CreateImageResponse struct for CreateImageResponse
 type CreateImageResponse struct {
-	Image *Image `json:"Image,omitempty"`
+	Image           *Image           `json:"Image,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateImageResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

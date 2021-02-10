@@ -17,7 +17,7 @@ import (
 
 // CreateLoadBalancerResponse struct for CreateLoadBalancerResponse
 type CreateLoadBalancerResponse struct {
-	LoadBalancer *LoadBalancer `json:"LoadBalancer,omitempty"`
+	LoadBalancer    *LoadBalancer    `json:"LoadBalancer,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateLoadBalancerResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

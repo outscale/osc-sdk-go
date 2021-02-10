@@ -27,7 +27,7 @@ type DeleteServerCertificateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteServerCertificateRequest(name string, ) *DeleteServerCertificateRequest {
+func NewDeleteServerCertificateRequest(name string) *DeleteServerCertificateRequest {
 	this := DeleteServerCertificateRequest{}
 	this.Name = name
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteServerCertificateRequest) SetDryRun(v bool) {
 
 // GetName returns the Name field value
 func (o *DeleteServerCertificateRequest) GetName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteServerCertificateRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *DeleteServerCertificateRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteServerCertificateRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

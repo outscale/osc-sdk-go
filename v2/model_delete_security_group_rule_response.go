@@ -18,7 +18,7 @@ import (
 // DeleteSecurityGroupRuleResponse struct for DeleteSecurityGroupRuleResponse
 type DeleteSecurityGroupRuleResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	SecurityGroup *SecurityGroup `json:"SecurityGroup,omitempty"`
+	SecurityGroup   *SecurityGroup   `json:"SecurityGroup,omitempty"`
 }
 
 // NewDeleteSecurityGroupRuleResponse instantiates a new DeleteSecurityGroupRuleResponse object
@@ -148,5 +148,3 @@ func (v *NullableDeleteSecurityGroupRuleResponse) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

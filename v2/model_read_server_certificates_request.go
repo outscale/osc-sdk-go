@@ -18,7 +18,7 @@ import (
 // ReadServerCertificatesRequest struct for ReadServerCertificatesRequest
 type ReadServerCertificatesRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun  *bool                     `json:"DryRun,omitempty"`
 	Filters *FiltersServerCertificate `json:"Filters,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadServerCertificatesRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

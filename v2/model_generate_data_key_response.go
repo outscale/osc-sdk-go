@@ -20,7 +20,7 @@ type GenerateDataKeyResponse struct {
 	// The encrypted data key, encoded in base64.
 	Ciphertext *string `json:"Ciphertext,omitempty"`
 	// The decrypted data key, encoded in base64.
-	Plaintext *string `json:"Plaintext,omitempty"`
+	Plaintext       *string          `json:"Plaintext,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -186,5 +186,3 @@ func (v *NullableGenerateDataKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

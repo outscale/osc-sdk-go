@@ -18,7 +18,7 @@ import (
 // ReadPublicIpsResponse struct for ReadPublicIpsResponse
 type ReadPublicIpsResponse struct {
 	// Information about one or more EIPs.
-	PublicIps *[]PublicIp `json:"PublicIps,omitempty"`
+	PublicIps       *[]PublicIp      `json:"PublicIps,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadPublicIpsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

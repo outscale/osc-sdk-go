@@ -17,7 +17,7 @@ import (
 
 // CreateListenerRuleResponse struct for CreateListenerRuleResponse
 type CreateListenerRuleResponse struct {
-	ListenerRule *ListenerRule `json:"ListenerRule,omitempty"`
+	ListenerRule    *ListenerRule    `json:"ListenerRule,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateListenerRuleResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

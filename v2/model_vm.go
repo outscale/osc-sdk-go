@@ -44,8 +44,8 @@ type Vm struct {
 	// Indicates the operating system (OS) of the VM.
 	OsFamily *string `json:"OsFamily,omitempty"`
 	// The performance of the VM (`medium` \\| `high` \\|  `highest`).
-	Performance *string `json:"Performance,omitempty"`
-	Placement *Placement `json:"Placement,omitempty"`
+	Performance *string    `json:"Performance,omitempty"`
+	Placement   *Placement `json:"Placement,omitempty"`
 	// The name of the private DNS.
 	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
 	// The primary private IP address of the VM.
@@ -1259,5 +1259,3 @@ func (v *NullableVm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

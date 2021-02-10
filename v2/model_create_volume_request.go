@@ -21,7 +21,7 @@ type CreateVolumeRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 	// The number of I/O operations per second (IOPS). This parameter must be specified only if you create an `io1` volume. The maximum number of IOPS allowed for `io1` volumes is `13000`.
 	Iops *int32 `json:"Iops,omitempty"`
-	// The size of the volume, in gibibytes (GiB). The maximum allowed size for a volume is 14901 GiB. This parameter is required if the volume is not created from a snapshot (`SnapshotId` unspecified). 
+	// The size of the volume, in gibibytes (GiB). The maximum allowed size for a volume is 14901 GiB. This parameter is required if the volume is not created from a snapshot (`SnapshotId` unspecified).
 	Size *int32 `json:"Size,omitempty"`
 	// The ID of the snapshot from which you want to create the volume.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
@@ -35,7 +35,7 @@ type CreateVolumeRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateVolumeRequest(subregionName string, ) *CreateVolumeRequest {
+func NewCreateVolumeRequest(subregionName string) *CreateVolumeRequest {
 	this := CreateVolumeRequest{}
 	this.SubregionName = subregionName
 	return &this
@@ -179,7 +179,7 @@ func (o *CreateVolumeRequest) SetSnapshotId(v string) {
 
 // GetSubregionName returns the SubregionName field value
 func (o *CreateVolumeRequest) GetSubregionName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -190,7 +190,7 @@ func (o *CreateVolumeRequest) GetSubregionName() string {
 // GetSubregionNameOk returns a tuple with the SubregionName field value
 // and a boolean to check if the value has been set.
 func (o *CreateVolumeRequest) GetSubregionNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SubregionName, true
@@ -291,5 +291,3 @@ func (v *NullableCreateVolumeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

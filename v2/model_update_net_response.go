@@ -17,7 +17,7 @@ import (
 
 // UpdateNetResponse struct for UpdateNetResponse
 type UpdateNetResponse struct {
-	Net *Net `json:"Net,omitempty"`
+	Net             *Net             `json:"Net,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateNetResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

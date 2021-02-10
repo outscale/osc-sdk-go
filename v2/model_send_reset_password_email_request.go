@@ -27,7 +27,7 @@ type SendResetPasswordEmailRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSendResetPasswordEmailRequest(email string, ) *SendResetPasswordEmailRequest {
+func NewSendResetPasswordEmailRequest(email string) *SendResetPasswordEmailRequest {
 	this := SendResetPasswordEmailRequest{}
 	this.Email = email
 	return &this
@@ -75,7 +75,7 @@ func (o *SendResetPasswordEmailRequest) SetDryRun(v bool) {
 
 // GetEmail returns the Email field value
 func (o *SendResetPasswordEmailRequest) GetEmail() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *SendResetPasswordEmailRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *SendResetPasswordEmailRequest) GetEmailOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Email, true
@@ -143,5 +143,3 @@ func (v *NullableSendResetPasswordEmailRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

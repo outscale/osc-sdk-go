@@ -29,7 +29,7 @@ type CreateCaRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCaRequest(caPem string, ) *CreateCaRequest {
+func NewCreateCaRequest(caPem string) *CreateCaRequest {
 	this := CreateCaRequest{}
 	this.CaPem = caPem
 	return &this
@@ -45,7 +45,7 @@ func NewCreateCaRequestWithDefaults() *CreateCaRequest {
 
 // GetCaPem returns the CaPem field value
 func (o *CreateCaRequest) GetCaPem() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -56,7 +56,7 @@ func (o *CreateCaRequest) GetCaPem() string {
 // GetCaPemOk returns a tuple with the CaPem field value
 // and a boolean to check if the value has been set.
 func (o *CreateCaRequest) GetCaPemOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CaPem, true
@@ -180,5 +180,3 @@ func (v *NullableCreateCaRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

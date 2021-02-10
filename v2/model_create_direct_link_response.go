@@ -17,7 +17,7 @@ import (
 
 // CreateDirectLinkResponse struct for CreateDirectLinkResponse
 type CreateDirectLinkResponse struct {
-	DirectLink *DirectLink `json:"DirectLink,omitempty"`
+	DirectLink      *DirectLink      `json:"DirectLink,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateDirectLinkResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

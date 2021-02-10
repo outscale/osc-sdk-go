@@ -33,7 +33,7 @@ type LinkPrivateIpsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkPrivateIpsRequest(nicId string, ) *LinkPrivateIpsRequest {
+func NewLinkPrivateIpsRequest(nicId string) *LinkPrivateIpsRequest {
 	this := LinkPrivateIpsRequest{}
 	this.NicId = nicId
 	return &this
@@ -113,7 +113,7 @@ func (o *LinkPrivateIpsRequest) SetDryRun(v bool) {
 
 // GetNicId returns the NicId field value
 func (o *LinkPrivateIpsRequest) GetNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -124,7 +124,7 @@ func (o *LinkPrivateIpsRequest) GetNicId() string {
 // GetNicIdOk returns a tuple with the NicId field value
 // and a boolean to check if the value has been set.
 func (o *LinkPrivateIpsRequest) GetNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NicId, true
@@ -254,5 +254,3 @@ func (v *NullableLinkPrivateIpsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

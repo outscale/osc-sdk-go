@@ -27,7 +27,7 @@ type DeleteNetRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteNetRequest(netId string, ) *DeleteNetRequest {
+func NewDeleteNetRequest(netId string) *DeleteNetRequest {
 	this := DeleteNetRequest{}
 	this.NetId = netId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteNetRequest) SetDryRun(v bool) {
 
 // GetNetId returns the NetId field value
 func (o *DeleteNetRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteNetRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteNetRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteNetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

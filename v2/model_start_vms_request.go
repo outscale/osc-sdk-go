@@ -27,7 +27,7 @@ type StartVmsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStartVmsRequest(vmIds []string, ) *StartVmsRequest {
+func NewStartVmsRequest(vmIds []string) *StartVmsRequest {
 	this := StartVmsRequest{}
 	this.VmIds = vmIds
 	return &this
@@ -75,7 +75,7 @@ func (o *StartVmsRequest) SetDryRun(v bool) {
 
 // GetVmIds returns the VmIds field value
 func (o *StartVmsRequest) GetVmIds() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *StartVmsRequest) GetVmIds() []string {
 // GetVmIdsOk returns a tuple with the VmIds field value
 // and a boolean to check if the value has been set.
 func (o *StartVmsRequest) GetVmIdsOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VmIds, true
@@ -143,5 +143,3 @@ func (v *NullableStartVmsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

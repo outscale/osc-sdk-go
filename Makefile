@@ -15,7 +15,7 @@ help:
 .PHONY: gen
 gen: clean v2
 
-v2: osc-generate update-examples update-build gofmt
+v2: osc-generate update-examples go-modules-update gofmt
 
 .PHONY: osc-generate
 osc-generate: osc-api/outscale.yaml
@@ -28,6 +28,12 @@ osc-generate: osc-api/outscale.yaml
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
 
+.PHONY: go-modules-update
+go.sum-udpate:
+	go get -u ./...
+	go mod tidy
+	cd v2 && go get -u ./... && go mod tidy
+
 .PHONY: clean
 clean:
 	rm -rf .sdk osc-api v2 || true
@@ -35,10 +41,6 @@ clean:
 .PHONY: update-examples
 update-examples:
 	@find $(PWD)/examples/ -type f -name "*.go" -exec ln -sr {} v2/ \;
-
-# make sure that go.mod and go.sum are updated as well
-.PHONY: update-build
-	cd v2 && go build
 
 .PHONY: test
 test: reuse-test go-test

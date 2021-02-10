@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type DhcpOptionApiService service
 
 type ApiCreateDhcpOptionsRequest struct {
-	ctx _context.Context
-	ApiService *DhcpOptionApiService
+	ctx                      _context.Context
+	ApiService               *DhcpOptionApiService
 	createDhcpOptionsRequest *CreateDhcpOptionsRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateDhcpOptionsRequest) Execute() (CreateDhcpOptionsResponse, *_net
 func (a *DhcpOptionApiService) CreateDhcpOptions(ctx _context.Context) ApiCreateDhcpOptionsRequest {
 	return ApiCreateDhcpOptionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *DhcpOptionApiService) CreateDhcpOptionsExecute(r ApiCreateDhcpOptionsRe
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *DhcpOptionApiService) CreateDhcpOptionsExecute(r ApiCreateDhcpOptionsRe
 }
 
 type ApiDeleteDhcpOptionsRequest struct {
-	ctx _context.Context
-	ApiService *DhcpOptionApiService
+	ctx                      _context.Context
+	ApiService               *DhcpOptionApiService
 	deleteDhcpOptionsRequest *DeleteDhcpOptionsRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteDhcpOptionsRequest) Execute() (DeleteDhcpOptionsResponse, *_net
 func (a *DhcpOptionApiService) DeleteDhcpOptions(ctx _context.Context) ApiDeleteDhcpOptionsRequest {
 	return ApiDeleteDhcpOptionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *DhcpOptionApiService) DeleteDhcpOptionsExecute(r ApiDeleteDhcpOptionsRe
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *DhcpOptionApiService) DeleteDhcpOptionsExecute(r ApiDeleteDhcpOptionsRe
 }
 
 type ApiReadDhcpOptionsRequest struct {
-	ctx _context.Context
-	ApiService *DhcpOptionApiService
+	ctx                    _context.Context
+	ApiService             *DhcpOptionApiService
 	readDhcpOptionsRequest *ReadDhcpOptionsRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadDhcpOptionsRequest) Execute() (ReadDhcpOptionsResponse, *_nethttp
 func (a *DhcpOptionApiService) ReadDhcpOptions(ctx _context.Context) ApiReadDhcpOptionsRequest {
 	return ApiReadDhcpOptionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *DhcpOptionApiService) ReadDhcpOptionsExecute(r ApiReadDhcpOptionsReques
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

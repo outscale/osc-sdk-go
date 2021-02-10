@@ -18,7 +18,7 @@ import (
 // CreateSecurityGroupResponse struct for CreateSecurityGroupResponse
 type CreateSecurityGroupResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	SecurityGroup *SecurityGroup `json:"SecurityGroup,omitempty"`
+	SecurityGroup   *SecurityGroup   `json:"SecurityGroup,omitempty"`
 }
 
 // NewCreateSecurityGroupResponse instantiates a new CreateSecurityGroupResponse object
@@ -148,5 +148,3 @@ func (v *NullableCreateSecurityGroupResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

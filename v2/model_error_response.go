@@ -18,7 +18,7 @@ import (
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
 	// One or more errors.
-	Errors *[]Errors `json:"Errors,omitempty"`
+	Errors          *[]Errors        `json:"Errors,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableErrorResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

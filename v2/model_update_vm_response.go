@@ -18,7 +18,7 @@ import (
 // UpdateVmResponse struct for UpdateVmResponse
 type UpdateVmResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	Vm *Vm `json:"Vm,omitempty"`
+	Vm              *Vm              `json:"Vm,omitempty"`
 }
 
 // NewUpdateVmResponse instantiates a new UpdateVmResponse object
@@ -148,5 +148,3 @@ func (v *NullableUpdateVmResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

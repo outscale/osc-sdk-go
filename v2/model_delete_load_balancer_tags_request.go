@@ -29,7 +29,7 @@ type DeleteLoadBalancerTagsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteLoadBalancerTagsRequest(loadBalancerNames []string, tags []ResourceLoadBalancerTag, ) *DeleteLoadBalancerTagsRequest {
+func NewDeleteLoadBalancerTagsRequest(loadBalancerNames []string, tags []ResourceLoadBalancerTag) *DeleteLoadBalancerTagsRequest {
 	this := DeleteLoadBalancerTagsRequest{}
 	this.LoadBalancerNames = loadBalancerNames
 	this.Tags = tags
@@ -78,7 +78,7 @@ func (o *DeleteLoadBalancerTagsRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerNames returns the LoadBalancerNames field value
 func (o *DeleteLoadBalancerTagsRequest) GetLoadBalancerNames() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *DeleteLoadBalancerTagsRequest) GetLoadBalancerNames() []string {
 // GetLoadBalancerNamesOk returns a tuple with the LoadBalancerNames field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerTagsRequest) GetLoadBalancerNamesOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerNames, true
@@ -102,7 +102,7 @@ func (o *DeleteLoadBalancerTagsRequest) SetLoadBalancerNames(v []string) {
 
 // GetTags returns the Tags field value
 func (o *DeleteLoadBalancerTagsRequest) GetTags() []ResourceLoadBalancerTag {
-	if o == nil  {
+	if o == nil {
 		var ret []ResourceLoadBalancerTag
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteLoadBalancerTagsRequest) GetTags() []ResourceLoadBalancerTag {
 // GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerTagsRequest) GetTagsOk() (*[]ResourceLoadBalancerTag, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Tags, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteLoadBalancerTagsRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

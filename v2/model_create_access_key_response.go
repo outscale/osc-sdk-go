@@ -17,8 +17,8 @@ import (
 
 // CreateAccessKeyResponse struct for CreateAccessKeyResponse
 type CreateAccessKeyResponse struct {
-	AccessKey *AccessKeySecretKey `json:"AccessKey,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	AccessKey       *AccessKeySecretKey `json:"AccessKey,omitempty"`
+	ResponseContext *ResponseContext    `json:"ResponseContext,omitempty"`
 }
 
 // NewCreateAccessKeyResponse instantiates a new CreateAccessKeyResponse object
@@ -148,5 +148,3 @@ func (v *NullableCreateAccessKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

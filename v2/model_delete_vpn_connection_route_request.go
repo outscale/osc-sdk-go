@@ -29,7 +29,7 @@ type DeleteVpnConnectionRouteRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteVpnConnectionRouteRequest(destinationIpRange string, vpnConnectionId string, ) *DeleteVpnConnectionRouteRequest {
+func NewDeleteVpnConnectionRouteRequest(destinationIpRange string, vpnConnectionId string) *DeleteVpnConnectionRouteRequest {
 	this := DeleteVpnConnectionRouteRequest{}
 	this.DestinationIpRange = destinationIpRange
 	this.VpnConnectionId = vpnConnectionId
@@ -46,7 +46,7 @@ func NewDeleteVpnConnectionRouteRequestWithDefaults() *DeleteVpnConnectionRouteR
 
 // GetDestinationIpRange returns the DestinationIpRange field value
 func (o *DeleteVpnConnectionRouteRequest) GetDestinationIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *DeleteVpnConnectionRouteRequest) GetDestinationIpRange() string {
 // GetDestinationIpRangeOk returns a tuple with the DestinationIpRange field value
 // and a boolean to check if the value has been set.
 func (o *DeleteVpnConnectionRouteRequest) GetDestinationIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DestinationIpRange, true
@@ -102,7 +102,7 @@ func (o *DeleteVpnConnectionRouteRequest) SetDryRun(v bool) {
 
 // GetVpnConnectionId returns the VpnConnectionId field value
 func (o *DeleteVpnConnectionRouteRequest) GetVpnConnectionId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteVpnConnectionRouteRequest) GetVpnConnectionId() string {
 // GetVpnConnectionIdOk returns a tuple with the VpnConnectionId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteVpnConnectionRouteRequest) GetVpnConnectionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VpnConnectionId, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteVpnConnectionRouteRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

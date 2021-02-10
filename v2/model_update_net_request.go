@@ -29,7 +29,7 @@ type UpdateNetRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateNetRequest(dhcpOptionsSetId string, netId string, ) *UpdateNetRequest {
+func NewUpdateNetRequest(dhcpOptionsSetId string, netId string) *UpdateNetRequest {
 	this := UpdateNetRequest{}
 	this.DhcpOptionsSetId = dhcpOptionsSetId
 	this.NetId = netId
@@ -46,7 +46,7 @@ func NewUpdateNetRequestWithDefaults() *UpdateNetRequest {
 
 // GetDhcpOptionsSetId returns the DhcpOptionsSetId field value
 func (o *UpdateNetRequest) GetDhcpOptionsSetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *UpdateNetRequest) GetDhcpOptionsSetId() string {
 // GetDhcpOptionsSetIdOk returns a tuple with the DhcpOptionsSetId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateNetRequest) GetDhcpOptionsSetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DhcpOptionsSetId, true
@@ -102,7 +102,7 @@ func (o *UpdateNetRequest) SetDryRun(v bool) {
 
 // GetNetId returns the NetId field value
 func (o *UpdateNetRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *UpdateNetRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateNetRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -173,5 +173,3 @@ func (v *NullableUpdateNetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

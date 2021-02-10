@@ -17,7 +17,7 @@ import (
 
 // UpdateMasterKeyResponse struct for UpdateMasterKeyResponse
 type UpdateMasterKeyResponse struct {
-	MasterKey *MasterKey `json:"MasterKey,omitempty"`
+	MasterKey       *MasterKey       `json:"MasterKey,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateMasterKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -27,7 +27,7 @@ type DeleteNatServiceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteNatServiceRequest(natServiceId string, ) *DeleteNatServiceRequest {
+func NewDeleteNatServiceRequest(natServiceId string) *DeleteNatServiceRequest {
 	this := DeleteNatServiceRequest{}
 	this.NatServiceId = natServiceId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteNatServiceRequest) SetDryRun(v bool) {
 
 // GetNatServiceId returns the NatServiceId field value
 func (o *DeleteNatServiceRequest) GetNatServiceId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteNatServiceRequest) GetNatServiceId() string {
 // GetNatServiceIdOk returns a tuple with the NatServiceId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteNatServiceRequest) GetNatServiceIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NatServiceId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteNatServiceRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

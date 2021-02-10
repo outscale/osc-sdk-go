@@ -31,7 +31,7 @@ type UpdateNetAccessPointRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateNetAccessPointRequest(netAccessPointId string, ) *UpdateNetAccessPointRequest {
+func NewUpdateNetAccessPointRequest(netAccessPointId string) *UpdateNetAccessPointRequest {
 	this := UpdateNetAccessPointRequest{}
 	this.NetAccessPointId = netAccessPointId
 	return &this
@@ -111,7 +111,7 @@ func (o *UpdateNetAccessPointRequest) SetDryRun(v bool) {
 
 // GetNetAccessPointId returns the NetAccessPointId field value
 func (o *UpdateNetAccessPointRequest) GetNetAccessPointId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -122,7 +122,7 @@ func (o *UpdateNetAccessPointRequest) GetNetAccessPointId() string {
 // GetNetAccessPointIdOk returns a tuple with the NetAccessPointId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateNetAccessPointRequest) GetNetAccessPointIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetAccessPointId, true
@@ -217,5 +217,3 @@ func (v *NullableUpdateNetAccessPointRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

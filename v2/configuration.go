@@ -88,9 +88,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL string
+	URL         string
 	Description string
-	Variables map[string]ServerVariable
+	Variables   map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -111,16 +111,16 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/2.0.0-beta.4/go",
-		Debug:            false,
-		Servers:          ServerConfigurations{
+		DefaultHeader: make(map[string]string),
+		UserAgent:     "OpenAPI-Generator/2.0.0-beta.5/go",
+		Debug:         false,
+		Servers: ServerConfigurations{
 			{
-				URL: "https://api.{region}.outscale.com/api/v1",
+				URL:         "https://api.{region}.outscale.com/api/v1",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"region": ServerVariable{
-						Description: "No description provided",
+						Description:  "No description provided",
 						DefaultValue: "eu-west-2",
 						EnumValues: []string{
 							"cloudgouv-eu-west-1",
@@ -133,11 +133,11 @@ func NewConfiguration() *Configuration {
 				},
 			},
 			{
-				URL: "https://api.{region}.outscale.hk/api/v1",
+				URL:         "https://api.{region}.outscale.hk/api/v1",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"region": ServerVariable{
-						Description: "No description provided",
+						Description:  "No description provided",
 						DefaultValue: "cn-southeast-1",
 						EnumValues: []string{
 							"cn-southeast-1",
@@ -146,8 +146,7 @@ func NewConfiguration() *Configuration {
 				},
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{
-		},
+		OperationServers: map[string]ServerConfigurations{},
 	}
 	return cfg
 }

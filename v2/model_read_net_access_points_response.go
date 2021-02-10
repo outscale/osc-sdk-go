@@ -19,7 +19,7 @@ import (
 type ReadNetAccessPointsResponse struct {
 	// One or more Net access points.
 	NetAccessPoints *[]NetAccessPoint `json:"NetAccessPoints,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext *ResponseContext  `json:"ResponseContext,omitempty"`
 }
 
 // NewReadNetAccessPointsResponse instantiates a new ReadNetAccessPointsResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadNetAccessPointsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

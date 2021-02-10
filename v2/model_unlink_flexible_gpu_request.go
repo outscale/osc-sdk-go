@@ -27,7 +27,7 @@ type UnlinkFlexibleGpuRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkFlexibleGpuRequest(flexibleGpuId string, ) *UnlinkFlexibleGpuRequest {
+func NewUnlinkFlexibleGpuRequest(flexibleGpuId string) *UnlinkFlexibleGpuRequest {
 	this := UnlinkFlexibleGpuRequest{}
 	this.FlexibleGpuId = flexibleGpuId
 	return &this
@@ -75,7 +75,7 @@ func (o *UnlinkFlexibleGpuRequest) SetDryRun(v bool) {
 
 // GetFlexibleGpuId returns the FlexibleGpuId field value
 func (o *UnlinkFlexibleGpuRequest) GetFlexibleGpuId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *UnlinkFlexibleGpuRequest) GetFlexibleGpuId() string {
 // GetFlexibleGpuIdOk returns a tuple with the FlexibleGpuId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkFlexibleGpuRequest) GetFlexibleGpuIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FlexibleGpuId, true
@@ -143,5 +143,3 @@ func (v *NullableUnlinkFlexibleGpuRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

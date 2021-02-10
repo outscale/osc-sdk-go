@@ -19,7 +19,7 @@ import (
 type ReadDhcpOptionsResponse struct {
 	// Information about one or more DHCP options sets.
 	DhcpOptionsSets *[]DhcpOptionsSet `json:"DhcpOptionsSets,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext *ResponseContext  `json:"ResponseContext,omitempty"`
 }
 
 // NewReadDhcpOptionsResponse instantiates a new ReadDhcpOptionsResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadDhcpOptionsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

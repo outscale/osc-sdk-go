@@ -47,7 +47,7 @@ type UpdateVmRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateVmRequest(vmId string, ) *UpdateVmRequest {
+func NewUpdateVmRequest(vmId string) *UpdateVmRequest {
 	this := UpdateVmRequest{}
 	this.VmId = vmId
 	return &this
@@ -351,7 +351,7 @@ func (o *UpdateVmRequest) SetUserData(v string) {
 
 // GetVmId returns the VmId field value
 func (o *UpdateVmRequest) GetVmId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -362,7 +362,7 @@ func (o *UpdateVmRequest) GetVmId() string {
 // GetVmIdOk returns a tuple with the VmId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateVmRequest) GetVmIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VmId, true
@@ -513,5 +513,3 @@ func (v *NullableUpdateVmRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

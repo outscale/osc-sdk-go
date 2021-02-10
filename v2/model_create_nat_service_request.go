@@ -29,7 +29,7 @@ type CreateNatServiceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNatServiceRequest(publicIpId string, subnetId string, ) *CreateNatServiceRequest {
+func NewCreateNatServiceRequest(publicIpId string, subnetId string) *CreateNatServiceRequest {
 	this := CreateNatServiceRequest{}
 	this.PublicIpId = publicIpId
 	this.SubnetId = subnetId
@@ -78,7 +78,7 @@ func (o *CreateNatServiceRequest) SetDryRun(v bool) {
 
 // GetPublicIpId returns the PublicIpId field value
 func (o *CreateNatServiceRequest) GetPublicIpId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *CreateNatServiceRequest) GetPublicIpId() string {
 // GetPublicIpIdOk returns a tuple with the PublicIpId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNatServiceRequest) GetPublicIpIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PublicIpId, true
@@ -102,7 +102,7 @@ func (o *CreateNatServiceRequest) SetPublicIpId(v string) {
 
 // GetSubnetId returns the SubnetId field value
 func (o *CreateNatServiceRequest) GetSubnetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *CreateNatServiceRequest) GetSubnetId() string {
 // GetSubnetIdOk returns a tuple with the SubnetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNatServiceRequest) GetSubnetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SubnetId, true
@@ -173,5 +173,3 @@ func (v *NullableCreateNatServiceRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

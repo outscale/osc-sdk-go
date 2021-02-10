@@ -17,7 +17,7 @@ import (
 
 // DeleteLoadBalancerPolicyResponse struct for DeleteLoadBalancerPolicyResponse
 type DeleteLoadBalancerPolicyResponse struct {
-	LoadBalancer *LoadBalancer `json:"LoadBalancer,omitempty"`
+	LoadBalancer    *LoadBalancer    `json:"LoadBalancer,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableDeleteLoadBalancerPolicyResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

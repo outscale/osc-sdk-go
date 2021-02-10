@@ -19,7 +19,7 @@ import (
 type UpdateLoadBalancerRequest struct {
 	AccessLog *AccessLog `json:"AccessLog,omitempty"`
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun      *bool        `json:"DryRun,omitempty"`
 	HealthCheck *HealthCheck `json:"HealthCheck,omitempty"`
 	// The name of the load balancer.
 	LoadBalancerName string `json:"LoadBalancerName"`
@@ -35,7 +35,7 @@ type UpdateLoadBalancerRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateLoadBalancerRequest(loadBalancerName string, ) *UpdateLoadBalancerRequest {
+func NewUpdateLoadBalancerRequest(loadBalancerName string) *UpdateLoadBalancerRequest {
 	this := UpdateLoadBalancerRequest{}
 	this.LoadBalancerName = loadBalancerName
 	return &this
@@ -147,7 +147,7 @@ func (o *UpdateLoadBalancerRequest) SetHealthCheck(v HealthCheck) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *UpdateLoadBalancerRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -158,7 +158,7 @@ func (o *UpdateLoadBalancerRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *UpdateLoadBalancerRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -326,5 +326,3 @@ func (v *NullableUpdateLoadBalancerRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type LoadBalancerPolicyApiService service
 
 type ApiCreateLoadBalancerPolicyRequest struct {
-	ctx _context.Context
-	ApiService *LoadBalancerPolicyApiService
+	ctx                             _context.Context
+	ApiService                      *LoadBalancerPolicyApiService
 	createLoadBalancerPolicyRequest *CreateLoadBalancerPolicyRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateLoadBalancerPolicyRequest) Execute() (CreateLoadBalancerPolicyR
 func (a *LoadBalancerPolicyApiService) CreateLoadBalancerPolicy(ctx _context.Context) ApiCreateLoadBalancerPolicyRequest {
 	return ApiCreateLoadBalancerPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *LoadBalancerPolicyApiService) CreateLoadBalancerPolicyExecute(r ApiCrea
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *LoadBalancerPolicyApiService) CreateLoadBalancerPolicyExecute(r ApiCrea
 }
 
 type ApiDeleteLoadBalancerPolicyRequest struct {
-	ctx _context.Context
-	ApiService *LoadBalancerPolicyApiService
+	ctx                             _context.Context
+	ApiService                      *LoadBalancerPolicyApiService
 	deleteLoadBalancerPolicyRequest *DeleteLoadBalancerPolicyRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteLoadBalancerPolicyRequest) Execute() (DeleteLoadBalancerPolicyR
 func (a *LoadBalancerPolicyApiService) DeleteLoadBalancerPolicy(ctx _context.Context) ApiDeleteLoadBalancerPolicyRequest {
 	return ApiDeleteLoadBalancerPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *LoadBalancerPolicyApiService) DeleteLoadBalancerPolicyExecute(r ApiDele
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

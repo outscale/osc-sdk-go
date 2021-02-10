@@ -29,7 +29,7 @@ type ReadVmsHealthRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReadVmsHealthRequest(loadBalancerName string, ) *ReadVmsHealthRequest {
+func NewReadVmsHealthRequest(loadBalancerName string) *ReadVmsHealthRequest {
 	this := ReadVmsHealthRequest{}
 	this.LoadBalancerName = loadBalancerName
 	return &this
@@ -109,7 +109,7 @@ func (o *ReadVmsHealthRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *ReadVmsHealthRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -120,7 +120,7 @@ func (o *ReadVmsHealthRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *ReadVmsHealthRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -180,5 +180,3 @@ func (v *NullableReadVmsHealthRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

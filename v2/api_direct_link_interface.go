@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type DirectLinkInterfaceApiService service
 
 type ApiCreateDirectLinkInterfaceRequest struct {
-	ctx _context.Context
-	ApiService *DirectLinkInterfaceApiService
+	ctx                              _context.Context
+	ApiService                       *DirectLinkInterfaceApiService
 	createDirectLinkInterfaceRequest *CreateDirectLinkInterfaceRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateDirectLinkInterfaceRequest) Execute() (CreateDirectLinkInterfac
 func (a *DirectLinkInterfaceApiService) CreateDirectLinkInterface(ctx _context.Context) ApiCreateDirectLinkInterfaceRequest {
 	return ApiCreateDirectLinkInterfaceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *DirectLinkInterfaceApiService) CreateDirectLinkInterfaceExecute(r ApiCr
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *DirectLinkInterfaceApiService) CreateDirectLinkInterfaceExecute(r ApiCr
 }
 
 type ApiDeleteDirectLinkInterfaceRequest struct {
-	ctx _context.Context
-	ApiService *DirectLinkInterfaceApiService
+	ctx                              _context.Context
+	ApiService                       *DirectLinkInterfaceApiService
 	deleteDirectLinkInterfaceRequest *DeleteDirectLinkInterfaceRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteDirectLinkInterfaceRequest) Execute() (DeleteDirectLinkInterfac
 func (a *DirectLinkInterfaceApiService) DeleteDirectLinkInterface(ctx _context.Context) ApiDeleteDirectLinkInterfaceRequest {
 	return ApiDeleteDirectLinkInterfaceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *DirectLinkInterfaceApiService) DeleteDirectLinkInterfaceExecute(r ApiDe
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *DirectLinkInterfaceApiService) DeleteDirectLinkInterfaceExecute(r ApiDe
 }
 
 type ApiReadDirectLinkInterfacesRequest struct {
-	ctx _context.Context
-	ApiService *DirectLinkInterfaceApiService
+	ctx                             _context.Context
+	ApiService                      *DirectLinkInterfaceApiService
 	readDirectLinkInterfacesRequest *ReadDirectLinkInterfacesRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadDirectLinkInterfacesRequest) Execute() (ReadDirectLinkInterfacesR
 func (a *DirectLinkInterfaceApiService) ReadDirectLinkInterfaces(ctx _context.Context) ApiReadDirectLinkInterfacesRequest {
 	return ApiReadDirectLinkInterfacesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *DirectLinkInterfaceApiService) ReadDirectLinkInterfacesExecute(r ApiRea
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

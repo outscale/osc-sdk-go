@@ -31,7 +31,7 @@ type CreateNetAccessPointRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNetAccessPointRequest(netId string, serviceName string, ) *CreateNetAccessPointRequest {
+func NewCreateNetAccessPointRequest(netId string, serviceName string) *CreateNetAccessPointRequest {
 	this := CreateNetAccessPointRequest{}
 	this.NetId = netId
 	this.ServiceName = serviceName
@@ -80,7 +80,7 @@ func (o *CreateNetAccessPointRequest) SetDryRun(v bool) {
 
 // GetNetId returns the NetId field value
 func (o *CreateNetAccessPointRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -91,7 +91,7 @@ func (o *CreateNetAccessPointRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNetAccessPointRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -136,7 +136,7 @@ func (o *CreateNetAccessPointRequest) SetRouteTableIds(v []string) {
 
 // GetServiceName returns the ServiceName field value
 func (o *CreateNetAccessPointRequest) GetServiceName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -147,7 +147,7 @@ func (o *CreateNetAccessPointRequest) GetServiceName() string {
 // GetServiceNameOk returns a tuple with the ServiceName field value
 // and a boolean to check if the value has been set.
 func (o *CreateNetAccessPointRequest) GetServiceNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ServiceName, true
@@ -210,5 +210,3 @@ func (v *NullableCreateNetAccessPointRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

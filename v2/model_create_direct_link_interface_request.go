@@ -18,7 +18,7 @@ import (
 // CreateDirectLinkInterfaceRequest struct for CreateDirectLinkInterfaceRequest
 type CreateDirectLinkInterfaceRequest struct {
 	// The ID of the existing DirectLink for which you want to create the DirectLink interface.
-	DirectLinkId string `json:"DirectLinkId"`
+	DirectLinkId        string              `json:"DirectLinkId"`
 	DirectLinkInterface DirectLinkInterface `json:"DirectLinkInterface"`
 	// If `true`, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
@@ -28,7 +28,7 @@ type CreateDirectLinkInterfaceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateDirectLinkInterfaceRequest(directLinkId string, directLinkInterface DirectLinkInterface, ) *CreateDirectLinkInterfaceRequest {
+func NewCreateDirectLinkInterfaceRequest(directLinkId string, directLinkInterface DirectLinkInterface) *CreateDirectLinkInterfaceRequest {
 	this := CreateDirectLinkInterfaceRequest{}
 	this.DirectLinkId = directLinkId
 	this.DirectLinkInterface = directLinkInterface
@@ -45,7 +45,7 @@ func NewCreateDirectLinkInterfaceRequestWithDefaults() *CreateDirectLinkInterfac
 
 // GetDirectLinkId returns the DirectLinkId field value
 func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -56,7 +56,7 @@ func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkId() string {
 // GetDirectLinkIdOk returns a tuple with the DirectLinkId field value
 // and a boolean to check if the value has been set.
 func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DirectLinkId, true
@@ -69,7 +69,7 @@ func (o *CreateDirectLinkInterfaceRequest) SetDirectLinkId(v string) {
 
 // GetDirectLinkInterface returns the DirectLinkInterface field value
 func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkInterface() DirectLinkInterface {
-	if o == nil  {
+	if o == nil {
 		var ret DirectLinkInterface
 		return ret
 	}
@@ -80,7 +80,7 @@ func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkInterface() DirectLinkIn
 // GetDirectLinkInterfaceOk returns a tuple with the DirectLinkInterface field value
 // and a boolean to check if the value has been set.
 func (o *CreateDirectLinkInterfaceRequest) GetDirectLinkInterfaceOk() (*DirectLinkInterface, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DirectLinkInterface, true
@@ -172,5 +172,3 @@ func (v *NullableCreateDirectLinkInterfaceRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

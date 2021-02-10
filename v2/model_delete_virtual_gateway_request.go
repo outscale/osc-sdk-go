@@ -27,7 +27,7 @@ type DeleteVirtualGatewayRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteVirtualGatewayRequest(virtualGatewayId string, ) *DeleteVirtualGatewayRequest {
+func NewDeleteVirtualGatewayRequest(virtualGatewayId string) *DeleteVirtualGatewayRequest {
 	this := DeleteVirtualGatewayRequest{}
 	this.VirtualGatewayId = virtualGatewayId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteVirtualGatewayRequest) SetDryRun(v bool) {
 
 // GetVirtualGatewayId returns the VirtualGatewayId field value
 func (o *DeleteVirtualGatewayRequest) GetVirtualGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteVirtualGatewayRequest) GetVirtualGatewayId() string {
 // GetVirtualGatewayIdOk returns a tuple with the VirtualGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteVirtualGatewayRequest) GetVirtualGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VirtualGatewayId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteVirtualGatewayRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

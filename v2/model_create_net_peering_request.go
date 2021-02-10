@@ -29,7 +29,7 @@ type CreateNetPeeringRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNetPeeringRequest(accepterNetId string, sourceNetId string, ) *CreateNetPeeringRequest {
+func NewCreateNetPeeringRequest(accepterNetId string, sourceNetId string) *CreateNetPeeringRequest {
 	this := CreateNetPeeringRequest{}
 	this.AccepterNetId = accepterNetId
 	this.SourceNetId = sourceNetId
@@ -46,7 +46,7 @@ func NewCreateNetPeeringRequestWithDefaults() *CreateNetPeeringRequest {
 
 // GetAccepterNetId returns the AccepterNetId field value
 func (o *CreateNetPeeringRequest) GetAccepterNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *CreateNetPeeringRequest) GetAccepterNetId() string {
 // GetAccepterNetIdOk returns a tuple with the AccepterNetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNetPeeringRequest) GetAccepterNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccepterNetId, true
@@ -102,7 +102,7 @@ func (o *CreateNetPeeringRequest) SetDryRun(v bool) {
 
 // GetSourceNetId returns the SourceNetId field value
 func (o *CreateNetPeeringRequest) GetSourceNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *CreateNetPeeringRequest) GetSourceNetId() string {
 // GetSourceNetIdOk returns a tuple with the SourceNetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNetPeeringRequest) GetSourceNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SourceNetId, true
@@ -173,5 +173,3 @@ func (v *NullableCreateNetPeeringRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

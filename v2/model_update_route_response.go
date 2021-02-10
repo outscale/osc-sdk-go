@@ -18,7 +18,7 @@ import (
 // UpdateRouteResponse struct for UpdateRouteResponse
 type UpdateRouteResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	RouteTable *RouteTable `json:"RouteTable,omitempty"`
+	RouteTable      *RouteTable      `json:"RouteTable,omitempty"`
 }
 
 // NewUpdateRouteResponse instantiates a new UpdateRouteResponse object
@@ -148,5 +148,3 @@ func (v *NullableUpdateRouteResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,7 +17,7 @@ import (
 
 // CreateCaResponse struct for CreateCaResponse
 type CreateCaResponse struct {
-	Ca *Ca `json:"Ca,omitempty"`
+	Ca              *Ca              `json:"Ca,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateCaResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

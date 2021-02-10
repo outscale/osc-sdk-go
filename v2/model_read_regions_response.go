@@ -18,7 +18,7 @@ import (
 // ReadRegionsResponse struct for ReadRegionsResponse
 type ReadRegionsResponse struct {
 	// Information about one or more Regions.
-	Regions *[]Region `json:"Regions,omitempty"`
+	Regions         *[]Region        `json:"Regions,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadRegionsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

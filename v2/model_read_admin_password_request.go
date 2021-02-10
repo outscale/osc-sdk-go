@@ -27,7 +27,7 @@ type ReadAdminPasswordRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReadAdminPasswordRequest(vmId string, ) *ReadAdminPasswordRequest {
+func NewReadAdminPasswordRequest(vmId string) *ReadAdminPasswordRequest {
 	this := ReadAdminPasswordRequest{}
 	this.VmId = vmId
 	return &this
@@ -75,7 +75,7 @@ func (o *ReadAdminPasswordRequest) SetDryRun(v bool) {
 
 // GetVmId returns the VmId field value
 func (o *ReadAdminPasswordRequest) GetVmId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *ReadAdminPasswordRequest) GetVmId() string {
 // GetVmIdOk returns a tuple with the VmId field value
 // and a boolean to check if the value has been set.
 func (o *ReadAdminPasswordRequest) GetVmIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VmId, true
@@ -143,5 +143,3 @@ func (v *NullableReadAdminPasswordRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

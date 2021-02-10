@@ -18,7 +18,7 @@ import (
 // CreateDirectLinkInterfaceResponse struct for CreateDirectLinkInterfaceResponse
 type CreateDirectLinkInterfaceResponse struct {
 	DirectLinkInterface *DirectLinkInterfaces `json:"DirectLinkInterface,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext     *ResponseContext      `json:"ResponseContext,omitempty"`
 }
 
 // NewCreateDirectLinkInterfaceResponse instantiates a new CreateDirectLinkInterfaceResponse object
@@ -148,5 +148,3 @@ func (v *NullableCreateDirectLinkInterfaceResponse) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

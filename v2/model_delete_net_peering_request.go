@@ -27,7 +27,7 @@ type DeleteNetPeeringRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteNetPeeringRequest(netPeeringId string, ) *DeleteNetPeeringRequest {
+func NewDeleteNetPeeringRequest(netPeeringId string) *DeleteNetPeeringRequest {
 	this := DeleteNetPeeringRequest{}
 	this.NetPeeringId = netPeeringId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteNetPeeringRequest) SetDryRun(v bool) {
 
 // GetNetPeeringId returns the NetPeeringId field value
 func (o *DeleteNetPeeringRequest) GetNetPeeringId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteNetPeeringRequest) GetNetPeeringId() string {
 // GetNetPeeringIdOk returns a tuple with the NetPeeringId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteNetPeeringRequest) GetNetPeeringIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetPeeringId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteNetPeeringRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

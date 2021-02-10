@@ -29,7 +29,7 @@ type DeleteTagsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteTagsRequest(resourceIds []string, tags []ResourceTag, ) *DeleteTagsRequest {
+func NewDeleteTagsRequest(resourceIds []string, tags []ResourceTag) *DeleteTagsRequest {
 	this := DeleteTagsRequest{}
 	this.ResourceIds = resourceIds
 	this.Tags = tags
@@ -78,7 +78,7 @@ func (o *DeleteTagsRequest) SetDryRun(v bool) {
 
 // GetResourceIds returns the ResourceIds field value
 func (o *DeleteTagsRequest) GetResourceIds() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *DeleteTagsRequest) GetResourceIds() []string {
 // GetResourceIdsOk returns a tuple with the ResourceIds field value
 // and a boolean to check if the value has been set.
 func (o *DeleteTagsRequest) GetResourceIdsOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ResourceIds, true
@@ -102,7 +102,7 @@ func (o *DeleteTagsRequest) SetResourceIds(v []string) {
 
 // GetTags returns the Tags field value
 func (o *DeleteTagsRequest) GetTags() []ResourceTag {
-	if o == nil  {
+	if o == nil {
 		var ret []ResourceTag
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteTagsRequest) GetTags() []ResourceTag {
 // GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *DeleteTagsRequest) GetTagsOk() (*[]ResourceTag, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Tags, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteTagsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

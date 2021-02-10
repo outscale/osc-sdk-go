@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-    createClientGatewayRequest := *openapiclient.NewCreateClientGatewayRequest(123, "ConnectionType_example", "PublicIp_example") // CreateClientGatewayRequest |  (optional)
+    createClientGatewayRequest := *openapiclient.NewCreateClientGatewayRequest(int32(123), "ConnectionType_example", "PublicIp_example") // CreateClientGatewayRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -20,7 +20,7 @@ type ReadApiLogsResponse struct {
 	// Information displayed in one or more API logs.
 	Logs *[]Log `json:"Logs,omitempty"`
 	// The token to request the next page of results.
-	NextPageToken *string `json:"NextPageToken,omitempty"`
+	NextPageToken   *string          `json:"NextPageToken,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -186,5 +186,3 @@ func (v *NullableReadApiLogsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

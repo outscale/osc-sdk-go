@@ -27,7 +27,7 @@ type DeleteNicRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteNicRequest(nicId string, ) *DeleteNicRequest {
+func NewDeleteNicRequest(nicId string) *DeleteNicRequest {
 	this := DeleteNicRequest{}
 	this.NicId = nicId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteNicRequest) SetDryRun(v bool) {
 
 // GetNicId returns the NicId field value
 func (o *DeleteNicRequest) GetNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteNicRequest) GetNicId() string {
 // GetNicIdOk returns a tuple with the NicId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteNicRequest) GetNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NicId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteNicRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

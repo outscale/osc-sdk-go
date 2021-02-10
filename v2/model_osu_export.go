@@ -18,8 +18,8 @@ import (
 // OsuExport Information about the OSU export.
 type OsuExport struct {
 	// The format of the export disk (`qcow2` \\| `raw`).
-	DiskImageFormat string `json:"DiskImageFormat"`
-	OsuApiKey *OsuApiKey `json:"OsuApiKey,omitempty"`
+	DiskImageFormat string     `json:"DiskImageFormat"`
+	OsuApiKey       *OsuApiKey `json:"OsuApiKey,omitempty"`
 	// The name of the OSU bucket where you want to export the object.
 	OsuBucket string `json:"OsuBucket"`
 	// The URL of the manifest file.
@@ -32,7 +32,7 @@ type OsuExport struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOsuExport(diskImageFormat string, osuBucket string, ) *OsuExport {
+func NewOsuExport(diskImageFormat string, osuBucket string) *OsuExport {
 	this := OsuExport{}
 	this.DiskImageFormat = diskImageFormat
 	this.OsuBucket = osuBucket
@@ -49,7 +49,7 @@ func NewOsuExportWithDefaults() *OsuExport {
 
 // GetDiskImageFormat returns the DiskImageFormat field value
 func (o *OsuExport) GetDiskImageFormat() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -60,7 +60,7 @@ func (o *OsuExport) GetDiskImageFormat() string {
 // GetDiskImageFormatOk returns a tuple with the DiskImageFormat field value
 // and a boolean to check if the value has been set.
 func (o *OsuExport) GetDiskImageFormatOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DiskImageFormat, true
@@ -105,7 +105,7 @@ func (o *OsuExport) SetOsuApiKey(v OsuApiKey) {
 
 // GetOsuBucket returns the OsuBucket field value
 func (o *OsuExport) GetOsuBucket() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -116,7 +116,7 @@ func (o *OsuExport) GetOsuBucket() string {
 // GetOsuBucketOk returns a tuple with the OsuBucket field value
 // and a boolean to check if the value has been set.
 func (o *OsuExport) GetOsuBucketOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.OsuBucket, true
@@ -246,5 +246,3 @@ func (v *NullableOsuExport) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

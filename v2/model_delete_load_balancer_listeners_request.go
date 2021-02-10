@@ -29,7 +29,7 @@ type DeleteLoadBalancerListenersRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteLoadBalancerListenersRequest(loadBalancerName string, loadBalancerPorts []int32, ) *DeleteLoadBalancerListenersRequest {
+func NewDeleteLoadBalancerListenersRequest(loadBalancerName string, loadBalancerPorts []int32) *DeleteLoadBalancerListenersRequest {
 	this := DeleteLoadBalancerListenersRequest{}
 	this.LoadBalancerName = loadBalancerName
 	this.LoadBalancerPorts = loadBalancerPorts
@@ -78,7 +78,7 @@ func (o *DeleteLoadBalancerListenersRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -102,7 +102,7 @@ func (o *DeleteLoadBalancerListenersRequest) SetLoadBalancerName(v string) {
 
 // GetLoadBalancerPorts returns the LoadBalancerPorts field value
 func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerPorts() []int32 {
-	if o == nil  {
+	if o == nil {
 		var ret []int32
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerPorts() []int32 {
 // GetLoadBalancerPortsOk returns a tuple with the LoadBalancerPorts field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerListenersRequest) GetLoadBalancerPortsOk() (*[]int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerPorts, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteLoadBalancerListenersRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

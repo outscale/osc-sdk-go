@@ -31,7 +31,7 @@ type CreateClientGatewayRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateClientGatewayRequest(bgpAsn int32, connectionType string, publicIp string, ) *CreateClientGatewayRequest {
+func NewCreateClientGatewayRequest(bgpAsn int32, connectionType string, publicIp string) *CreateClientGatewayRequest {
 	this := CreateClientGatewayRequest{}
 	this.BgpAsn = bgpAsn
 	this.ConnectionType = connectionType
@@ -49,7 +49,7 @@ func NewCreateClientGatewayRequestWithDefaults() *CreateClientGatewayRequest {
 
 // GetBgpAsn returns the BgpAsn field value
 func (o *CreateClientGatewayRequest) GetBgpAsn() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -60,7 +60,7 @@ func (o *CreateClientGatewayRequest) GetBgpAsn() int32 {
 // GetBgpAsnOk returns a tuple with the BgpAsn field value
 // and a boolean to check if the value has been set.
 func (o *CreateClientGatewayRequest) GetBgpAsnOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.BgpAsn, true
@@ -73,7 +73,7 @@ func (o *CreateClientGatewayRequest) SetBgpAsn(v int32) {
 
 // GetConnectionType returns the ConnectionType field value
 func (o *CreateClientGatewayRequest) GetConnectionType() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *CreateClientGatewayRequest) GetConnectionType() string {
 // GetConnectionTypeOk returns a tuple with the ConnectionType field value
 // and a boolean to check if the value has been set.
 func (o *CreateClientGatewayRequest) GetConnectionTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ConnectionType, true
@@ -129,7 +129,7 @@ func (o *CreateClientGatewayRequest) SetDryRun(v bool) {
 
 // GetPublicIp returns the PublicIp field value
 func (o *CreateClientGatewayRequest) GetPublicIp() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -140,7 +140,7 @@ func (o *CreateClientGatewayRequest) GetPublicIp() string {
 // GetPublicIpOk returns a tuple with the PublicIp field value
 // and a boolean to check if the value has been set.
 func (o *CreateClientGatewayRequest) GetPublicIpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PublicIp, true
@@ -203,5 +203,3 @@ func (v *NullableCreateClientGatewayRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

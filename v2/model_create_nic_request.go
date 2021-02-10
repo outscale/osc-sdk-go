@@ -33,7 +33,7 @@ type CreateNicRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNicRequest(subnetId string, ) *CreateNicRequest {
+func NewCreateNicRequest(subnetId string) *CreateNicRequest {
 	this := CreateNicRequest{}
 	this.SubnetId = subnetId
 	return &this
@@ -177,7 +177,7 @@ func (o *CreateNicRequest) SetSecurityGroupIds(v []string) {
 
 // GetSubnetId returns the SubnetId field value
 func (o *CreateNicRequest) GetSubnetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -188,7 +188,7 @@ func (o *CreateNicRequest) GetSubnetId() string {
 // GetSubnetIdOk returns a tuple with the SubnetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateNicRequest) GetSubnetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SubnetId, true
@@ -254,5 +254,3 @@ func (v *NullableCreateNicRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

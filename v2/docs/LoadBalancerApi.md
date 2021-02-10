@@ -36,7 +36,7 @@ import (
 )
 
 func main() {
-    createLoadBalancerRequest := *openapiclient.NewCreateLoadBalancerRequest([]ListenerForCreation{*openapiclient.NewListenerForCreation(123, 123, "LoadBalancerProtocol_example")), "LoadBalancerName_example") // CreateLoadBalancerRequest |  (optional)
+    createLoadBalancerRequest := *openapiclient.NewCreateLoadBalancerRequest([]openapiclient.ListenerForCreation{*openapiclient.NewListenerForCreation(int32(123), int32(123), "LoadBalancerProtocol_example")}, "LoadBalancerName_example") // CreateLoadBalancerRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -100,7 +100,7 @@ import (
 )
 
 func main() {
-    createLoadBalancerTagsRequest := *openapiclient.NewCreateLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"), []ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example"))) // CreateLoadBalancerTagsRequest |  (optional)
+    createLoadBalancerTagsRequest := *openapiclient.NewCreateLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"}, []openapiclient.ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example")}) // CreateLoadBalancerTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -228,7 +228,7 @@ import (
 )
 
 func main() {
-    deleteLoadBalancerTagsRequest := *openapiclient.NewDeleteLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"), []ResourceLoadBalancerTag{*openapiclient.NewResourceLoadBalancerTag())) // DeleteLoadBalancerTagsRequest |  (optional)
+    deleteLoadBalancerTagsRequest := *openapiclient.NewDeleteLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"}, []openapiclient.ResourceLoadBalancerTag{*openapiclient.NewResourceLoadBalancerTag()}) // DeleteLoadBalancerTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -292,7 +292,7 @@ import (
 )
 
 func main() {
-    deregisterVmsInLoadBalancerRequest := *openapiclient.NewDeregisterVmsInLoadBalancerRequest([]string{"BackendVmIds_example"), "LoadBalancerName_example") // DeregisterVmsInLoadBalancerRequest |  (optional)
+    deregisterVmsInLoadBalancerRequest := *openapiclient.NewDeregisterVmsInLoadBalancerRequest([]string{"BackendVmIds_example"}, "LoadBalancerName_example") // DeregisterVmsInLoadBalancerRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -356,7 +356,7 @@ import (
 )
 
 func main() {
-    readLoadBalancerTagsRequest := *openapiclient.NewReadLoadBalancerTagsRequest([]string{"LoadBalancerNames_example")) // ReadLoadBalancerTagsRequest |  (optional)
+    readLoadBalancerTagsRequest := *openapiclient.NewReadLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"}) // ReadLoadBalancerTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -548,7 +548,7 @@ import (
 )
 
 func main() {
-    registerVmsInLoadBalancerRequest := *openapiclient.NewRegisterVmsInLoadBalancerRequest([]string{"BackendVmIds_example"), "LoadBalancerName_example") // RegisterVmsInLoadBalancerRequest |  (optional)
+    registerVmsInLoadBalancerRequest := *openapiclient.NewRegisterVmsInLoadBalancerRequest([]string{"BackendVmIds_example"}, "LoadBalancerName_example") // RegisterVmsInLoadBalancerRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -23,7 +23,7 @@ type LoadBalancer struct {
 	// One or more IDs of back-end VMs for the load balancer.
 	BackendVmIds *[]string `json:"BackendVmIds,omitempty"`
 	// The DNS name of the load balancer.
-	DnsName *string `json:"DnsName,omitempty"`
+	DnsName     *string      `json:"DnsName,omitempty"`
 	HealthCheck *HealthCheck `json:"HealthCheck,omitempty"`
 	// The listeners for the load balancer.
 	Listeners *[]Listener `json:"Listeners,omitempty"`
@@ -36,7 +36,7 @@ type LoadBalancer struct {
 	// The ID of the Net for the load balancer.
 	NetId *string `json:"NetId,omitempty"`
 	// One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net.
-	SecurityGroups *[]string `json:"SecurityGroups,omitempty"`
+	SecurityGroups      *[]string            `json:"SecurityGroups,omitempty"`
 	SourceSecurityGroup *SourceSecurityGroup `json:"SourceSecurityGroup,omitempty"`
 	// The IDs of the Subnets for the load balancer.
 	Subnets *[]string `json:"Subnets,omitempty"`
@@ -628,5 +628,3 @@ func (v *NullableLoadBalancer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

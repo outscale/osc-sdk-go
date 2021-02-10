@@ -29,7 +29,7 @@ type UnlinkInternetServiceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkInternetServiceRequest(internetServiceId string, netId string, ) *UnlinkInternetServiceRequest {
+func NewUnlinkInternetServiceRequest(internetServiceId string, netId string) *UnlinkInternetServiceRequest {
 	this := UnlinkInternetServiceRequest{}
 	this.InternetServiceId = internetServiceId
 	this.NetId = netId
@@ -78,7 +78,7 @@ func (o *UnlinkInternetServiceRequest) SetDryRun(v bool) {
 
 // GetInternetServiceId returns the InternetServiceId field value
 func (o *UnlinkInternetServiceRequest) GetInternetServiceId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *UnlinkInternetServiceRequest) GetInternetServiceId() string {
 // GetInternetServiceIdOk returns a tuple with the InternetServiceId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkInternetServiceRequest) GetInternetServiceIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InternetServiceId, true
@@ -102,7 +102,7 @@ func (o *UnlinkInternetServiceRequest) SetInternetServiceId(v string) {
 
 // GetNetId returns the NetId field value
 func (o *UnlinkInternetServiceRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *UnlinkInternetServiceRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkInternetServiceRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -173,5 +173,3 @@ func (v *NullableUnlinkInternetServiceRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

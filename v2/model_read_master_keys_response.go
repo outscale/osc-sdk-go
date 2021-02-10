@@ -18,7 +18,7 @@ import (
 // ReadMasterKeysResponse struct for ReadMasterKeysResponse
 type ReadMasterKeysResponse struct {
 	// Information about one or more master keys.
-	MasterKeys *[]MasterKey `json:"MasterKeys,omitempty"`
+	MasterKeys      *[]MasterKey     `json:"MasterKeys,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadMasterKeysResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

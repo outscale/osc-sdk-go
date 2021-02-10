@@ -18,7 +18,7 @@ import (
 // ReadApiAccessRulesResponse struct for ReadApiAccessRulesResponse
 type ReadApiAccessRulesResponse struct {
 	// A list of API access rules.
-	ApiAccessRules *[]ApiAccessRule `json:"ApiAccessRules,omitempty"`
+	ApiAccessRules  *[]ApiAccessRule `json:"ApiAccessRules,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadApiAccessRulesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

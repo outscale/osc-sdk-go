@@ -29,7 +29,7 @@ type UnlinkVirtualGatewayRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkVirtualGatewayRequest(netId string, virtualGatewayId string, ) *UnlinkVirtualGatewayRequest {
+func NewUnlinkVirtualGatewayRequest(netId string, virtualGatewayId string) *UnlinkVirtualGatewayRequest {
 	this := UnlinkVirtualGatewayRequest{}
 	this.NetId = netId
 	this.VirtualGatewayId = virtualGatewayId
@@ -78,7 +78,7 @@ func (o *UnlinkVirtualGatewayRequest) SetDryRun(v bool) {
 
 // GetNetId returns the NetId field value
 func (o *UnlinkVirtualGatewayRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *UnlinkVirtualGatewayRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkVirtualGatewayRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -102,7 +102,7 @@ func (o *UnlinkVirtualGatewayRequest) SetNetId(v string) {
 
 // GetVirtualGatewayId returns the VirtualGatewayId field value
 func (o *UnlinkVirtualGatewayRequest) GetVirtualGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *UnlinkVirtualGatewayRequest) GetVirtualGatewayId() string {
 // GetVirtualGatewayIdOk returns a tuple with the VirtualGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkVirtualGatewayRequest) GetVirtualGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VirtualGatewayId, true
@@ -173,5 +173,3 @@ func (v *NullableUnlinkVirtualGatewayRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

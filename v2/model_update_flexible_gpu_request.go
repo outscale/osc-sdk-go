@@ -29,7 +29,7 @@ type UpdateFlexibleGpuRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateFlexibleGpuRequest(flexibleGpuId string, ) *UpdateFlexibleGpuRequest {
+func NewUpdateFlexibleGpuRequest(flexibleGpuId string) *UpdateFlexibleGpuRequest {
 	this := UpdateFlexibleGpuRequest{}
 	this.FlexibleGpuId = flexibleGpuId
 	return &this
@@ -109,7 +109,7 @@ func (o *UpdateFlexibleGpuRequest) SetDryRun(v bool) {
 
 // GetFlexibleGpuId returns the FlexibleGpuId field value
 func (o *UpdateFlexibleGpuRequest) GetFlexibleGpuId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -120,7 +120,7 @@ func (o *UpdateFlexibleGpuRequest) GetFlexibleGpuId() string {
 // GetFlexibleGpuIdOk returns a tuple with the FlexibleGpuId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateFlexibleGpuRequest) GetFlexibleGpuIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FlexibleGpuId, true
@@ -180,5 +180,3 @@ func (v *NullableUpdateFlexibleGpuRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

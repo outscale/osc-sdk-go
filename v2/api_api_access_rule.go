@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type ApiAccessRuleApiService service
 
 type ApiCreateApiAccessRuleRequest struct {
-	ctx _context.Context
-	ApiService *ApiAccessRuleApiService
+	ctx                        _context.Context
+	ApiService                 *ApiAccessRuleApiService
 	createApiAccessRuleRequest *CreateApiAccessRuleRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateApiAccessRuleRequest) Execute() (CreateApiAccessRuleResponse, *
 func (a *ApiAccessRuleApiService) CreateApiAccessRule(ctx _context.Context) ApiCreateApiAccessRuleRequest {
 	return ApiCreateApiAccessRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *ApiAccessRuleApiService) CreateApiAccessRuleExecute(r ApiCreateApiAcces
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *ApiAccessRuleApiService) CreateApiAccessRuleExecute(r ApiCreateApiAcces
 }
 
 type ApiDeleteApiAccessRuleRequest struct {
-	ctx _context.Context
-	ApiService *ApiAccessRuleApiService
+	ctx                        _context.Context
+	ApiService                 *ApiAccessRuleApiService
 	deleteApiAccessRuleRequest *DeleteApiAccessRuleRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteApiAccessRuleRequest) Execute() (DeleteApiAccessRuleResponse, *
 func (a *ApiAccessRuleApiService) DeleteApiAccessRule(ctx _context.Context) ApiDeleteApiAccessRuleRequest {
 	return ApiDeleteApiAccessRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *ApiAccessRuleApiService) DeleteApiAccessRuleExecute(r ApiDeleteApiAcces
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *ApiAccessRuleApiService) DeleteApiAccessRuleExecute(r ApiDeleteApiAcces
 }
 
 type ApiReadApiAccessRulesRequest struct {
-	ctx _context.Context
-	ApiService *ApiAccessRuleApiService
+	ctx                       _context.Context
+	ApiService                *ApiAccessRuleApiService
 	readApiAccessRulesRequest *ReadApiAccessRulesRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadApiAccessRulesRequest) Execute() (ReadApiAccessRulesResponse, *_n
 func (a *ApiAccessRuleApiService) ReadApiAccessRules(ctx _context.Context) ApiReadApiAccessRulesRequest {
 	return ApiReadApiAccessRulesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *ApiAccessRuleApiService) ReadApiAccessRulesExecute(r ApiReadApiAccessRu
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,8 +394,8 @@ func (a *ApiAccessRuleApiService) ReadApiAccessRulesExecute(r ApiReadApiAccessRu
 }
 
 type ApiUpdateApiAccessRuleRequest struct {
-	ctx _context.Context
-	ApiService *ApiAccessRuleApiService
+	ctx                        _context.Context
+	ApiService                 *ApiAccessRuleApiService
 	updateApiAccessRuleRequest *UpdateApiAccessRuleRequest
 }
 
@@ -412,7 +416,7 @@ func (r ApiUpdateApiAccessRuleRequest) Execute() (UpdateApiAccessRuleResponse, *
 func (a *ApiAccessRuleApiService) UpdateApiAccessRule(ctx _context.Context) ApiUpdateApiAccessRuleRequest {
 	return ApiUpdateApiAccessRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -486,6 +490,7 @@ func (a *ApiAccessRuleApiService) UpdateApiAccessRuleExecute(r ApiUpdateApiAcces
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

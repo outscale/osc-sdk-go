@@ -33,7 +33,7 @@ type CreateVpnConnectionRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateVpnConnectionRequest(clientGatewayId string, connectionType string, virtualGatewayId string, ) *CreateVpnConnectionRequest {
+func NewCreateVpnConnectionRequest(clientGatewayId string, connectionType string, virtualGatewayId string) *CreateVpnConnectionRequest {
 	this := CreateVpnConnectionRequest{}
 	this.ClientGatewayId = clientGatewayId
 	this.ConnectionType = connectionType
@@ -51,7 +51,7 @@ func NewCreateVpnConnectionRequestWithDefaults() *CreateVpnConnectionRequest {
 
 // GetClientGatewayId returns the ClientGatewayId field value
 func (o *CreateVpnConnectionRequest) GetClientGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -62,7 +62,7 @@ func (o *CreateVpnConnectionRequest) GetClientGatewayId() string {
 // GetClientGatewayIdOk returns a tuple with the ClientGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *CreateVpnConnectionRequest) GetClientGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientGatewayId, true
@@ -75,7 +75,7 @@ func (o *CreateVpnConnectionRequest) SetClientGatewayId(v string) {
 
 // GetConnectionType returns the ConnectionType field value
 func (o *CreateVpnConnectionRequest) GetConnectionType() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *CreateVpnConnectionRequest) GetConnectionType() string {
 // GetConnectionTypeOk returns a tuple with the ConnectionType field value
 // and a boolean to check if the value has been set.
 func (o *CreateVpnConnectionRequest) GetConnectionTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ConnectionType, true
@@ -163,7 +163,7 @@ func (o *CreateVpnConnectionRequest) SetStaticRoutesOnly(v bool) {
 
 // GetVirtualGatewayId returns the VirtualGatewayId field value
 func (o *CreateVpnConnectionRequest) GetVirtualGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -174,7 +174,7 @@ func (o *CreateVpnConnectionRequest) GetVirtualGatewayId() string {
 // GetVirtualGatewayIdOk returns a tuple with the VirtualGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *CreateVpnConnectionRequest) GetVirtualGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VirtualGatewayId, true
@@ -240,5 +240,3 @@ func (v *NullableCreateVpnConnectionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

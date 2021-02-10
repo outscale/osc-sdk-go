@@ -27,7 +27,7 @@ type DeleteClientGatewayRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteClientGatewayRequest(clientGatewayId string, ) *DeleteClientGatewayRequest {
+func NewDeleteClientGatewayRequest(clientGatewayId string) *DeleteClientGatewayRequest {
 	this := DeleteClientGatewayRequest{}
 	this.ClientGatewayId = clientGatewayId
 	return &this
@@ -43,7 +43,7 @@ func NewDeleteClientGatewayRequestWithDefaults() *DeleteClientGatewayRequest {
 
 // GetClientGatewayId returns the ClientGatewayId field value
 func (o *DeleteClientGatewayRequest) GetClientGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *DeleteClientGatewayRequest) GetClientGatewayId() string {
 // GetClientGatewayIdOk returns a tuple with the ClientGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteClientGatewayRequest) GetClientGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientGatewayId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteClientGatewayRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

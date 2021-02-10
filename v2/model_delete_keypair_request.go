@@ -27,7 +27,7 @@ type DeleteKeypairRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteKeypairRequest(keypairName string, ) *DeleteKeypairRequest {
+func NewDeleteKeypairRequest(keypairName string) *DeleteKeypairRequest {
 	this := DeleteKeypairRequest{}
 	this.KeypairName = keypairName
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteKeypairRequest) SetDryRun(v bool) {
 
 // GetKeypairName returns the KeypairName field value
 func (o *DeleteKeypairRequest) GetKeypairName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteKeypairRequest) GetKeypairName() string {
 // GetKeypairNameOk returns a tuple with the KeypairName field value
 // and a boolean to check if the value has been set.
 func (o *DeleteKeypairRequest) GetKeypairNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.KeypairName, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteKeypairRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

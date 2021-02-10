@@ -29,7 +29,7 @@ type LinkFlexibleGpuRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkFlexibleGpuRequest(flexibleGpuId string, vmId string, ) *LinkFlexibleGpuRequest {
+func NewLinkFlexibleGpuRequest(flexibleGpuId string, vmId string) *LinkFlexibleGpuRequest {
 	this := LinkFlexibleGpuRequest{}
 	this.FlexibleGpuId = flexibleGpuId
 	this.VmId = vmId
@@ -78,7 +78,7 @@ func (o *LinkFlexibleGpuRequest) SetDryRun(v bool) {
 
 // GetFlexibleGpuId returns the FlexibleGpuId field value
 func (o *LinkFlexibleGpuRequest) GetFlexibleGpuId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *LinkFlexibleGpuRequest) GetFlexibleGpuId() string {
 // GetFlexibleGpuIdOk returns a tuple with the FlexibleGpuId field value
 // and a boolean to check if the value has been set.
 func (o *LinkFlexibleGpuRequest) GetFlexibleGpuIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FlexibleGpuId, true
@@ -102,7 +102,7 @@ func (o *LinkFlexibleGpuRequest) SetFlexibleGpuId(v string) {
 
 // GetVmId returns the VmId field value
 func (o *LinkFlexibleGpuRequest) GetVmId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *LinkFlexibleGpuRequest) GetVmId() string {
 // GetVmIdOk returns a tuple with the VmId field value
 // and a boolean to check if the value has been set.
 func (o *LinkFlexibleGpuRequest) GetVmIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VmId, true
@@ -173,5 +173,3 @@ func (v *NullableLinkFlexibleGpuRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

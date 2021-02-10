@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type VolumeApiService service
 
 type ApiCreateVolumeRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx                 _context.Context
+	ApiService          *VolumeApiService
 	createVolumeRequest *CreateVolumeRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateVolumeRequest) Execute() (CreateVolumeResponse, *_nethttp.Respo
 func (a *VolumeApiService) CreateVolume(ctx _context.Context) ApiCreateVolumeRequest {
 	return ApiCreateVolumeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *VolumeApiService) CreateVolumeExecute(r ApiCreateVolumeRequest) (Create
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -177,8 +179,8 @@ func (a *VolumeApiService) CreateVolumeExecute(r ApiCreateVolumeRequest) (Create
 }
 
 type ApiDeleteVolumeRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx                 _context.Context
+	ApiService          *VolumeApiService
 	deleteVolumeRequest *DeleteVolumeRequest
 }
 
@@ -199,7 +201,7 @@ func (r ApiDeleteVolumeRequest) Execute() (DeleteVolumeResponse, *_nethttp.Respo
 func (a *VolumeApiService) DeleteVolume(ctx _context.Context) ApiDeleteVolumeRequest {
 	return ApiDeleteVolumeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -273,6 +275,7 @@ func (a *VolumeApiService) DeleteVolumeExecute(r ApiDeleteVolumeRequest) (Delete
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -327,8 +330,8 @@ func (a *VolumeApiService) DeleteVolumeExecute(r ApiDeleteVolumeRequest) (Delete
 }
 
 type ApiLinkVolumeRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx               _context.Context
+	ApiService        *VolumeApiService
 	linkVolumeRequest *LinkVolumeRequest
 }
 
@@ -349,7 +352,7 @@ func (r ApiLinkVolumeRequest) Execute() (LinkVolumeResponse, *_nethttp.Response,
 func (a *VolumeApiService) LinkVolume(ctx _context.Context) ApiLinkVolumeRequest {
 	return ApiLinkVolumeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -423,6 +426,7 @@ func (a *VolumeApiService) LinkVolumeExecute(r ApiLinkVolumeRequest) (LinkVolume
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -477,8 +481,8 @@ func (a *VolumeApiService) LinkVolumeExecute(r ApiLinkVolumeRequest) (LinkVolume
 }
 
 type ApiReadVolumesRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx                _context.Context
+	ApiService         *VolumeApiService
 	readVolumesRequest *ReadVolumesRequest
 }
 
@@ -499,7 +503,7 @@ func (r ApiReadVolumesRequest) Execute() (ReadVolumesResponse, *_nethttp.Respons
 func (a *VolumeApiService) ReadVolumes(ctx _context.Context) ApiReadVolumesRequest {
 	return ApiReadVolumesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -573,6 +577,7 @@ func (a *VolumeApiService) ReadVolumesExecute(r ApiReadVolumesRequest) (ReadVolu
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -627,8 +632,8 @@ func (a *VolumeApiService) ReadVolumesExecute(r ApiReadVolumesRequest) (ReadVolu
 }
 
 type ApiUnlinkVolumeRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx                 _context.Context
+	ApiService          *VolumeApiService
 	unlinkVolumeRequest *UnlinkVolumeRequest
 }
 
@@ -649,7 +654,7 @@ func (r ApiUnlinkVolumeRequest) Execute() (UnlinkVolumeResponse, *_nethttp.Respo
 func (a *VolumeApiService) UnlinkVolume(ctx _context.Context) ApiUnlinkVolumeRequest {
 	return ApiUnlinkVolumeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -723,6 +728,7 @@ func (a *VolumeApiService) UnlinkVolumeExecute(r ApiUnlinkVolumeRequest) (Unlink
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -777,8 +783,8 @@ func (a *VolumeApiService) UnlinkVolumeExecute(r ApiUnlinkVolumeRequest) (Unlink
 }
 
 type ApiUpdateVolumeRequest struct {
-	ctx _context.Context
-	ApiService *VolumeApiService
+	ctx                 _context.Context
+	ApiService          *VolumeApiService
 	updateVolumeRequest *UpdateVolumeRequest
 }
 
@@ -799,7 +805,7 @@ func (r ApiUpdateVolumeRequest) Execute() (UpdateVolumeResponse, *_nethttp.Respo
 func (a *VolumeApiService) UpdateVolume(ctx _context.Context) ApiUpdateVolumeRequest {
 	return ApiUpdateVolumeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -873,6 +879,7 @@ func (a *VolumeApiService) UpdateVolumeExecute(r ApiUpdateVolumeRequest) (Update
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

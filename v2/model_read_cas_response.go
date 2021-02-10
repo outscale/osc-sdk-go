@@ -18,7 +18,7 @@ import (
 // ReadCasResponse struct for ReadCasResponse
 type ReadCasResponse struct {
 	// Information about one or more CAs.
-	Cas *[]Ca `json:"Cas,omitempty"`
+	Cas             *[]Ca            `json:"Cas,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadCasResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

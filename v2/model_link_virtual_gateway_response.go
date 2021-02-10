@@ -18,7 +18,7 @@ import (
 // LinkVirtualGatewayResponse struct for LinkVirtualGatewayResponse
 type LinkVirtualGatewayResponse struct {
 	NetToVirtualGatewayLink *NetToVirtualGatewayLink `json:"NetToVirtualGatewayLink,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext         *ResponseContext         `json:"ResponseContext,omitempty"`
 }
 
 // NewLinkVirtualGatewayResponse instantiates a new LinkVirtualGatewayResponse object
@@ -148,5 +148,3 @@ func (v *NullableLinkVirtualGatewayResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

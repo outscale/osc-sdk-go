@@ -27,7 +27,7 @@ type DeleteListenerRuleRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteListenerRuleRequest(listenerRuleName string, ) *DeleteListenerRuleRequest {
+func NewDeleteListenerRuleRequest(listenerRuleName string) *DeleteListenerRuleRequest {
 	this := DeleteListenerRuleRequest{}
 	this.ListenerRuleName = listenerRuleName
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteListenerRuleRequest) SetDryRun(v bool) {
 
 // GetListenerRuleName returns the ListenerRuleName field value
 func (o *DeleteListenerRuleRequest) GetListenerRuleName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteListenerRuleRequest) GetListenerRuleName() string {
 // GetListenerRuleNameOk returns a tuple with the ListenerRuleName field value
 // and a boolean to check if the value has been set.
 func (o *DeleteListenerRuleRequest) GetListenerRuleNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ListenerRuleName, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteListenerRuleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

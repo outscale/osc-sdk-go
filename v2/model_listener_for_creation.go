@@ -33,7 +33,7 @@ type ListenerForCreation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListenerForCreation(backendPort int32, loadBalancerPort int32, loadBalancerProtocol string, ) *ListenerForCreation {
+func NewListenerForCreation(backendPort int32, loadBalancerPort int32, loadBalancerProtocol string) *ListenerForCreation {
 	this := ListenerForCreation{}
 	this.BackendPort = backendPort
 	this.LoadBalancerPort = loadBalancerPort
@@ -51,7 +51,7 @@ func NewListenerForCreationWithDefaults() *ListenerForCreation {
 
 // GetBackendPort returns the BackendPort field value
 func (o *ListenerForCreation) GetBackendPort() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -62,7 +62,7 @@ func (o *ListenerForCreation) GetBackendPort() int32 {
 // GetBackendPortOk returns a tuple with the BackendPort field value
 // and a boolean to check if the value has been set.
 func (o *ListenerForCreation) GetBackendPortOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.BackendPort, true
@@ -107,7 +107,7 @@ func (o *ListenerForCreation) SetBackendProtocol(v string) {
 
 // GetLoadBalancerPort returns the LoadBalancerPort field value
 func (o *ListenerForCreation) GetLoadBalancerPort() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *ListenerForCreation) GetLoadBalancerPort() int32 {
 // GetLoadBalancerPortOk returns a tuple with the LoadBalancerPort field value
 // and a boolean to check if the value has been set.
 func (o *ListenerForCreation) GetLoadBalancerPortOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerPort, true
@@ -131,7 +131,7 @@ func (o *ListenerForCreation) SetLoadBalancerPort(v int32) {
 
 // GetLoadBalancerProtocol returns the LoadBalancerProtocol field value
 func (o *ListenerForCreation) GetLoadBalancerProtocol() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -142,7 +142,7 @@ func (o *ListenerForCreation) GetLoadBalancerProtocol() string {
 // GetLoadBalancerProtocolOk returns a tuple with the LoadBalancerProtocol field value
 // and a boolean to check if the value has been set.
 func (o *ListenerForCreation) GetLoadBalancerProtocolOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerProtocol, true
@@ -240,5 +240,3 @@ func (v *NullableListenerForCreation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

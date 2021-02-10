@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type RegionApiService service
 
 type ApiReadRegionsRequest struct {
-	ctx _context.Context
-	ApiService *RegionApiService
+	ctx                _context.Context
+	ApiService         *RegionApiService
 	readRegionsRequest *ReadRegionsRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiReadRegionsRequest) Execute() (ReadRegionsResponse, *_nethttp.Respons
 func (a *RegionApiService) ReadRegions(ctx _context.Context) ApiReadRegionsRequest {
 	return ApiReadRegionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *RegionApiService) ReadRegionsExecute(r ApiReadRegionsRequest) (ReadRegi
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

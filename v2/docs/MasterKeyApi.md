@@ -98,7 +98,7 @@ import (
 )
 
 func main() {
-    decryptCiphertextRequest := *openapiclient.NewDecryptCiphertextRequest(123) // DecryptCiphertextRequest |  (optional)
+    decryptCiphertextRequest := *openapiclient.NewDecryptCiphertextRequest(string(123)) // DecryptCiphertextRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -226,7 +226,7 @@ import (
 )
 
 func main() {
-    encryptPlaintextRequest := *openapiclient.NewEncryptPlaintextRequest("MasterKeyId_example", 123) // EncryptPlaintextRequest |  (optional)
+    encryptPlaintextRequest := *openapiclient.NewEncryptPlaintextRequest("MasterKeyId_example", string(123)) // EncryptPlaintextRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -290,7 +290,7 @@ import (
 )
 
 func main() {
-    generateDataKeyRequest := *openapiclient.NewGenerateDataKeyRequest("MasterKeyId_example", 123) // GenerateDataKeyRequest |  (optional)
+    generateDataKeyRequest := *openapiclient.NewGenerateDataKeyRequest("MasterKeyId_example", int32(123)) // GenerateDataKeyRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

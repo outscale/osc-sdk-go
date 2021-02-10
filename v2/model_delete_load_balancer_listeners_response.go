@@ -17,7 +17,7 @@ import (
 
 // DeleteLoadBalancerListenersResponse struct for DeleteLoadBalancerListenersResponse
 type DeleteLoadBalancerListenersResponse struct {
-	LoadBalancer *LoadBalancer `json:"LoadBalancer,omitempty"`
+	LoadBalancer    *LoadBalancer    `json:"LoadBalancer,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableDeleteLoadBalancerListenersResponse) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

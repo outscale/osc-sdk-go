@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type QuotaApiService service
 
 type ApiReadQuotasRequest struct {
-	ctx _context.Context
-	ApiService *QuotaApiService
+	ctx               _context.Context
+	ApiService        *QuotaApiService
 	readQuotasRequest *ReadQuotasRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiReadQuotasRequest) Execute() (ReadQuotasResponse, *_nethttp.Response,
 func (a *QuotaApiService) ReadQuotas(ctx _context.Context) ApiReadQuotasRequest {
 	return ApiReadQuotasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *QuotaApiService) ReadQuotasExecute(r ApiReadQuotasRequest) (ReadQuotasR
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

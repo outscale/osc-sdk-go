@@ -31,7 +31,7 @@ type UpdateServerCertificateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateServerCertificateRequest(name string, ) *UpdateServerCertificateRequest {
+func NewUpdateServerCertificateRequest(name string) *UpdateServerCertificateRequest {
 	this := UpdateServerCertificateRequest{}
 	this.Name = name
 	return &this
@@ -79,7 +79,7 @@ func (o *UpdateServerCertificateRequest) SetDryRun(v bool) {
 
 // GetName returns the Name field value
 func (o *UpdateServerCertificateRequest) GetName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -90,7 +90,7 @@ func (o *UpdateServerCertificateRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *UpdateServerCertificateRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -217,5 +217,3 @@ func (v *NullableUpdateServerCertificateRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

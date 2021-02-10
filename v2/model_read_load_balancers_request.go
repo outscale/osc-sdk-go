@@ -18,7 +18,7 @@ import (
 // ReadLoadBalancersRequest struct for ReadLoadBalancersRequest
 type ReadLoadBalancersRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun  *bool                `json:"DryRun,omitempty"`
 	Filters *FiltersLoadBalancer `json:"Filters,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadLoadBalancersRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

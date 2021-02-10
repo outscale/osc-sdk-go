@@ -18,7 +18,7 @@ import (
 // ReadImagesResponse struct for ReadImagesResponse
 type ReadImagesResponse struct {
 	// Information about one or more OMIs.
-	Images *[]Image `json:"Images,omitempty"`
+	Images          *[]Image         `json:"Images,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadImagesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

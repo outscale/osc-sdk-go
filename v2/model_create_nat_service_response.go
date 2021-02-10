@@ -17,7 +17,7 @@ import (
 
 // CreateNatServiceResponse struct for CreateNatServiceResponse
 type CreateNatServiceResponse struct {
-	NatService *NatService `json:"NatService,omitempty"`
+	NatService      *NatService      `json:"NatService,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateNatServiceResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

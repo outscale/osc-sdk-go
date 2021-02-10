@@ -17,7 +17,7 @@ import (
 
 // CreateNetAccessPointResponse struct for CreateNetAccessPointResponse
 type CreateNetAccessPointResponse struct {
-	NetAccessPoint *NetAccessPoint `json:"NetAccessPoint,omitempty"`
+	NetAccessPoint  *NetAccessPoint  `json:"NetAccessPoint,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateNetAccessPointResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

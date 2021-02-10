@@ -17,7 +17,7 @@ import (
 
 // UpdateAccountResponse struct for UpdateAccountResponse
 type UpdateAccountResponse struct {
-	Account *Account `json:"Account,omitempty"`
+	Account         *Account         `json:"Account,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateAccountResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

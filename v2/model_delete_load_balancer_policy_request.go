@@ -29,7 +29,7 @@ type DeleteLoadBalancerPolicyRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteLoadBalancerPolicyRequest(loadBalancerName string, policyName string, ) *DeleteLoadBalancerPolicyRequest {
+func NewDeleteLoadBalancerPolicyRequest(loadBalancerName string, policyName string) *DeleteLoadBalancerPolicyRequest {
 	this := DeleteLoadBalancerPolicyRequest{}
 	this.LoadBalancerName = loadBalancerName
 	this.PolicyName = policyName
@@ -78,7 +78,7 @@ func (o *DeleteLoadBalancerPolicyRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *DeleteLoadBalancerPolicyRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *DeleteLoadBalancerPolicyRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerPolicyRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -102,7 +102,7 @@ func (o *DeleteLoadBalancerPolicyRequest) SetLoadBalancerName(v string) {
 
 // GetPolicyName returns the PolicyName field value
 func (o *DeleteLoadBalancerPolicyRequest) GetPolicyName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteLoadBalancerPolicyRequest) GetPolicyName() string {
 // GetPolicyNameOk returns a tuple with the PolicyName field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoadBalancerPolicyRequest) GetPolicyNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PolicyName, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteLoadBalancerPolicyRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

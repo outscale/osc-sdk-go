@@ -19,7 +19,7 @@ import (
 type ListenerRuleForCreation struct {
 	// The type of action for the rule (always `forward`).
 	Action *string `json:"Action,omitempty"`
-	// A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?]. 
+	// A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?].
 	HostNamePattern *string `json:"HostNamePattern,omitempty"`
 	// A human-readable name for the listener rule.
 	ListenerRuleName *string `json:"ListenerRuleName,omitempty"`
@@ -33,7 +33,7 @@ type ListenerRuleForCreation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListenerRuleForCreation(priority int32, ) *ListenerRuleForCreation {
+func NewListenerRuleForCreation(priority int32) *ListenerRuleForCreation {
 	this := ListenerRuleForCreation{}
 	this.Priority = priority
 	return &this
@@ -177,7 +177,7 @@ func (o *ListenerRuleForCreation) SetPathPattern(v string) {
 
 // GetPriority returns the Priority field value
 func (o *ListenerRuleForCreation) GetPriority() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -188,7 +188,7 @@ func (o *ListenerRuleForCreation) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value
 // and a boolean to check if the value has been set.
 func (o *ListenerRuleForCreation) GetPriorityOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Priority, true
@@ -254,5 +254,3 @@ func (v *NullableListenerRuleForCreation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

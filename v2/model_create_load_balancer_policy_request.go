@@ -33,7 +33,7 @@ type CreateLoadBalancerPolicyRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateLoadBalancerPolicyRequest(loadBalancerName string, policyName string, policyType string, ) *CreateLoadBalancerPolicyRequest {
+func NewCreateLoadBalancerPolicyRequest(loadBalancerName string, policyName string, policyType string) *CreateLoadBalancerPolicyRequest {
 	this := CreateLoadBalancerPolicyRequest{}
 	this.LoadBalancerName = loadBalancerName
 	this.PolicyName = policyName
@@ -115,7 +115,7 @@ func (o *CreateLoadBalancerPolicyRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *CreateLoadBalancerPolicyRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -126,7 +126,7 @@ func (o *CreateLoadBalancerPolicyRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerPolicyRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -139,7 +139,7 @@ func (o *CreateLoadBalancerPolicyRequest) SetLoadBalancerName(v string) {
 
 // GetPolicyName returns the PolicyName field value
 func (o *CreateLoadBalancerPolicyRequest) GetPolicyName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *CreateLoadBalancerPolicyRequest) GetPolicyName() string {
 // GetPolicyNameOk returns a tuple with the PolicyName field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerPolicyRequest) GetPolicyNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PolicyName, true
@@ -163,7 +163,7 @@ func (o *CreateLoadBalancerPolicyRequest) SetPolicyName(v string) {
 
 // GetPolicyType returns the PolicyType field value
 func (o *CreateLoadBalancerPolicyRequest) GetPolicyType() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -174,7 +174,7 @@ func (o *CreateLoadBalancerPolicyRequest) GetPolicyType() string {
 // GetPolicyTypeOk returns a tuple with the PolicyType field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerPolicyRequest) GetPolicyTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PolicyType, true
@@ -240,5 +240,3 @@ func (v *NullableCreateLoadBalancerPolicyRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -18,7 +18,7 @@ import (
 // LinkPublicIpResponse struct for LinkPublicIpResponse
 type LinkPublicIpResponse struct {
 	// (Net only) The ID representing the association of the EIP with the VM or the NIC.
-	LinkPublicIpId *string `json:"LinkPublicIpId,omitempty"`
+	LinkPublicIpId  *string          `json:"LinkPublicIpId,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableLinkPublicIpResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

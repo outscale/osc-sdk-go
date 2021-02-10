@@ -31,7 +31,7 @@ type CreateDirectLinkRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateDirectLinkRequest(bandwidth string, directLinkName string, location string, ) *CreateDirectLinkRequest {
+func NewCreateDirectLinkRequest(bandwidth string, directLinkName string, location string) *CreateDirectLinkRequest {
 	this := CreateDirectLinkRequest{}
 	this.Bandwidth = bandwidth
 	this.DirectLinkName = directLinkName
@@ -49,7 +49,7 @@ func NewCreateDirectLinkRequestWithDefaults() *CreateDirectLinkRequest {
 
 // GetBandwidth returns the Bandwidth field value
 func (o *CreateDirectLinkRequest) GetBandwidth() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -60,7 +60,7 @@ func (o *CreateDirectLinkRequest) GetBandwidth() string {
 // GetBandwidthOk returns a tuple with the Bandwidth field value
 // and a boolean to check if the value has been set.
 func (o *CreateDirectLinkRequest) GetBandwidthOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Bandwidth, true
@@ -73,7 +73,7 @@ func (o *CreateDirectLinkRequest) SetBandwidth(v string) {
 
 // GetDirectLinkName returns the DirectLinkName field value
 func (o *CreateDirectLinkRequest) GetDirectLinkName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *CreateDirectLinkRequest) GetDirectLinkName() string {
 // GetDirectLinkNameOk returns a tuple with the DirectLinkName field value
 // and a boolean to check if the value has been set.
 func (o *CreateDirectLinkRequest) GetDirectLinkNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DirectLinkName, true
@@ -129,7 +129,7 @@ func (o *CreateDirectLinkRequest) SetDryRun(v bool) {
 
 // GetLocation returns the Location field value
 func (o *CreateDirectLinkRequest) GetLocation() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -140,7 +140,7 @@ func (o *CreateDirectLinkRequest) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *CreateDirectLinkRequest) GetLocationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -203,5 +203,3 @@ func (v *NullableCreateDirectLinkRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

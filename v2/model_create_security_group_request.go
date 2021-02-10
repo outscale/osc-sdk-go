@@ -31,7 +31,7 @@ type CreateSecurityGroupRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateSecurityGroupRequest(description string, securityGroupName string, ) *CreateSecurityGroupRequest {
+func NewCreateSecurityGroupRequest(description string, securityGroupName string) *CreateSecurityGroupRequest {
 	this := CreateSecurityGroupRequest{}
 	this.Description = description
 	this.SecurityGroupName = securityGroupName
@@ -48,7 +48,7 @@ func NewCreateSecurityGroupRequestWithDefaults() *CreateSecurityGroupRequest {
 
 // GetDescription returns the Description field value
 func (o *CreateSecurityGroupRequest) GetDescription() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -59,7 +59,7 @@ func (o *CreateSecurityGroupRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *CreateSecurityGroupRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Description, true
@@ -136,7 +136,7 @@ func (o *CreateSecurityGroupRequest) SetNetId(v string) {
 
 // GetSecurityGroupName returns the SecurityGroupName field value
 func (o *CreateSecurityGroupRequest) GetSecurityGroupName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -147,7 +147,7 @@ func (o *CreateSecurityGroupRequest) GetSecurityGroupName() string {
 // GetSecurityGroupNameOk returns a tuple with the SecurityGroupName field value
 // and a boolean to check if the value has been set.
 func (o *CreateSecurityGroupRequest) GetSecurityGroupNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SecurityGroupName, true
@@ -210,5 +210,3 @@ func (v *NullableCreateSecurityGroupRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

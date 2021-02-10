@@ -33,9 +33,9 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"golang.org/x/oauth2"
-	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
+	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -280,7 +280,6 @@ func parameterToJson(obj interface{}) (string, error) {
 	return string(jsonBuf), err
 }
 
-
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
@@ -506,13 +505,13 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return nil
 	}
 	if jsonCheck.MatchString(contentType) {
-		if actualObj, ok := v.(interface{GetActualInstance() interface{}}); ok { // oneOf, anyOf schemas
-			if unmarshalObj, ok := actualObj.(interface{UnmarshalJSON([]byte) error}); ok { // make sure it has UnmarshalJSON defined
-				if err = unmarshalObj.UnmarshalJSON(b); err!= nil {
+		if actualObj, ok := v.(interface{ GetActualInstance() interface{} }); ok { // oneOf, anyOf schemas
+			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
+				if err = unmarshalObj.UnmarshalJSON(b); err != nil {
 					return err
 				}
 			} else {
-				errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
+				return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 			}
 		} else if err = json.Unmarshal(b, v); err != nil { // simple model
 			return err

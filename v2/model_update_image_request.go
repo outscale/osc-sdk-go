@@ -20,7 +20,7 @@ type UpdateImageRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 	// The ID of the OMI you want to modify.
-	ImageId string `json:"ImageId"`
+	ImageId             string                        `json:"ImageId"`
 	PermissionsToLaunch PermissionsOnResourceCreation `json:"PermissionsToLaunch"`
 }
 
@@ -28,7 +28,7 @@ type UpdateImageRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateImageRequest(imageId string, permissionsToLaunch PermissionsOnResourceCreation, ) *UpdateImageRequest {
+func NewUpdateImageRequest(imageId string, permissionsToLaunch PermissionsOnResourceCreation) *UpdateImageRequest {
 	this := UpdateImageRequest{}
 	this.ImageId = imageId
 	this.PermissionsToLaunch = permissionsToLaunch
@@ -77,7 +77,7 @@ func (o *UpdateImageRequest) SetDryRun(v bool) {
 
 // GetImageId returns the ImageId field value
 func (o *UpdateImageRequest) GetImageId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -88,7 +88,7 @@ func (o *UpdateImageRequest) GetImageId() string {
 // GetImageIdOk returns a tuple with the ImageId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateImageRequest) GetImageIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageId, true
@@ -101,7 +101,7 @@ func (o *UpdateImageRequest) SetImageId(v string) {
 
 // GetPermissionsToLaunch returns the PermissionsToLaunch field value
 func (o *UpdateImageRequest) GetPermissionsToLaunch() PermissionsOnResourceCreation {
-	if o == nil  {
+	if o == nil {
 		var ret PermissionsOnResourceCreation
 		return ret
 	}
@@ -112,7 +112,7 @@ func (o *UpdateImageRequest) GetPermissionsToLaunch() PermissionsOnResourceCreat
 // GetPermissionsToLaunchOk returns a tuple with the PermissionsToLaunch field value
 // and a boolean to check if the value has been set.
 func (o *UpdateImageRequest) GetPermissionsToLaunchOk() (*PermissionsOnResourceCreation, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PermissionsToLaunch, true
@@ -172,5 +172,3 @@ func (v *NullableUpdateImageRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -29,7 +29,7 @@ type CreateNetRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNetRequest(ipRange string, ) *CreateNetRequest {
+func NewCreateNetRequest(ipRange string) *CreateNetRequest {
 	this := CreateNetRequest{}
 	this.IpRange = ipRange
 	return &this
@@ -77,7 +77,7 @@ func (o *CreateNetRequest) SetDryRun(v bool) {
 
 // GetIpRange returns the IpRange field value
 func (o *CreateNetRequest) GetIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -88,7 +88,7 @@ func (o *CreateNetRequest) GetIpRange() string {
 // GetIpRangeOk returns a tuple with the IpRange field value
 // and a boolean to check if the value has been set.
 func (o *CreateNetRequest) GetIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IpRange, true
@@ -180,5 +180,3 @@ func (v *NullableCreateNetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

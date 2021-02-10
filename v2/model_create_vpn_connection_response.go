@@ -18,7 +18,7 @@ import (
 // CreateVpnConnectionResponse struct for CreateVpnConnectionResponse
 type CreateVpnConnectionResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	VpnConnection *VpnConnection `json:"VpnConnection,omitempty"`
+	VpnConnection   *VpnConnection   `json:"VpnConnection,omitempty"`
 }
 
 // NewCreateVpnConnectionResponse instantiates a new CreateVpnConnectionResponse object
@@ -148,5 +148,3 @@ func (v *NullableCreateVpnConnectionResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

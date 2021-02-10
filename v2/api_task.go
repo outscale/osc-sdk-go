@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type TaskApiService service
 
 type ApiDeleteExportTaskRequest struct {
-	ctx _context.Context
-	ApiService *TaskApiService
+	ctx                     _context.Context
+	ApiService              *TaskApiService
 	deleteExportTaskRequest *DeleteExportTaskRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiDeleteExportTaskRequest) Execute() (DeleteExportTaskResponse, *_netht
 func (a *TaskApiService) DeleteExportTask(ctx _context.Context) ApiDeleteExportTaskRequest {
 	return ApiDeleteExportTaskRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *TaskApiService) DeleteExportTaskExecute(r ApiDeleteExportTaskRequest) (
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

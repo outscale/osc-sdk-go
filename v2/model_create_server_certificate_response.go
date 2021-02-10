@@ -17,7 +17,7 @@ import (
 
 // CreateServerCertificateResponse struct for CreateServerCertificateResponse
 type CreateServerCertificateResponse struct {
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext   *ResponseContext   `json:"ResponseContext,omitempty"`
 	ServerCertificate *ServerCertificate `json:"ServerCertificate,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateServerCertificateResponse) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

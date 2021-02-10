@@ -31,7 +31,7 @@ type UpdateListenerRuleRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateListenerRuleRequest(listenerRuleName string, ) *UpdateListenerRuleRequest {
+func NewUpdateListenerRuleRequest(listenerRuleName string) *UpdateListenerRuleRequest {
 	this := UpdateListenerRuleRequest{}
 	this.ListenerRuleName = listenerRuleName
 	return &this
@@ -111,7 +111,7 @@ func (o *UpdateListenerRuleRequest) SetHostPattern(v string) {
 
 // GetListenerRuleName returns the ListenerRuleName field value
 func (o *UpdateListenerRuleRequest) GetListenerRuleName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -122,7 +122,7 @@ func (o *UpdateListenerRuleRequest) GetListenerRuleName() string {
 // GetListenerRuleNameOk returns a tuple with the ListenerRuleName field value
 // and a boolean to check if the value has been set.
 func (o *UpdateListenerRuleRequest) GetListenerRuleNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ListenerRuleName, true
@@ -217,5 +217,3 @@ func (v *NullableUpdateListenerRuleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

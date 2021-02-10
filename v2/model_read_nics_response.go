@@ -18,7 +18,7 @@ import (
 // ReadNicsResponse struct for ReadNicsResponse
 type ReadNicsResponse struct {
 	// Information about one or more NICs.
-	Nics *[]Nic `json:"Nics,omitempty"`
+	Nics            *[]Nic           `json:"Nics,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadNicsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

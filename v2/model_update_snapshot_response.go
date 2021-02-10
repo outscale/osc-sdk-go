@@ -18,7 +18,7 @@ import (
 // UpdateSnapshotResponse struct for UpdateSnapshotResponse
 type UpdateSnapshotResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	Snapshot *Snapshot `json:"Snapshot,omitempty"`
+	Snapshot        *Snapshot        `json:"Snapshot,omitempty"`
 }
 
 // NewUpdateSnapshotResponse instantiates a new UpdateSnapshotResponse object
@@ -148,5 +148,3 @@ func (v *NullableUpdateSnapshotResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

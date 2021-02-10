@@ -19,7 +19,7 @@ import (
 type ReadFlexibleGpuCatalogResponse struct {
 	// Information about one or more fGPUs available in the public catalog.
 	FlexibleGpuCatalog *[]FlexibleGpuCatalog `json:"FlexibleGpuCatalog,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext    *ResponseContext      `json:"ResponseContext,omitempty"`
 }
 
 // NewReadFlexibleGpuCatalogResponse instantiates a new ReadFlexibleGpuCatalogResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadFlexibleGpuCatalogResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

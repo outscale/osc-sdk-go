@@ -33,7 +33,7 @@ type CreateFlexibleGpuRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateFlexibleGpuRequest(modelName string, subregionName string, ) *CreateFlexibleGpuRequest {
+func NewCreateFlexibleGpuRequest(modelName string, subregionName string) *CreateFlexibleGpuRequest {
 	this := CreateFlexibleGpuRequest{}
 	var deleteOnVmDeletion bool = false
 	this.DeleteOnVmDeletion = &deleteOnVmDeletion
@@ -150,7 +150,7 @@ func (o *CreateFlexibleGpuRequest) SetGeneration(v string) {
 
 // GetModelName returns the ModelName field value
 func (o *CreateFlexibleGpuRequest) GetModelName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -161,7 +161,7 @@ func (o *CreateFlexibleGpuRequest) GetModelName() string {
 // GetModelNameOk returns a tuple with the ModelName field value
 // and a boolean to check if the value has been set.
 func (o *CreateFlexibleGpuRequest) GetModelNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ModelName, true
@@ -174,7 +174,7 @@ func (o *CreateFlexibleGpuRequest) SetModelName(v string) {
 
 // GetSubregionName returns the SubregionName field value
 func (o *CreateFlexibleGpuRequest) GetSubregionName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -185,7 +185,7 @@ func (o *CreateFlexibleGpuRequest) GetSubregionName() string {
 // GetSubregionNameOk returns a tuple with the SubregionName field value
 // and a boolean to check if the value has been set.
 func (o *CreateFlexibleGpuRequest) GetSubregionNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SubregionName, true
@@ -251,5 +251,3 @@ func (v *NullableCreateFlexibleGpuRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

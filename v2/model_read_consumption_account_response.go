@@ -19,7 +19,7 @@ import (
 type ReadConsumptionAccountResponse struct {
 	// Information about the resources consumed during the specified time period.
 	ConsumptionEntries *[]ConsumptionEntry `json:"ConsumptionEntries,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext    *ResponseContext    `json:"ResponseContext,omitempty"`
 }
 
 // NewReadConsumptionAccountResponse instantiates a new ReadConsumptionAccountResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadConsumptionAccountResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -29,7 +29,7 @@ type UnlinkVolumeRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkVolumeRequest(volumeId string, ) *UnlinkVolumeRequest {
+func NewUnlinkVolumeRequest(volumeId string) *UnlinkVolumeRequest {
 	this := UnlinkVolumeRequest{}
 	this.VolumeId = volumeId
 	return &this
@@ -109,7 +109,7 @@ func (o *UnlinkVolumeRequest) SetForceUnlink(v bool) {
 
 // GetVolumeId returns the VolumeId field value
 func (o *UnlinkVolumeRequest) GetVolumeId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -120,7 +120,7 @@ func (o *UnlinkVolumeRequest) GetVolumeId() string {
 // GetVolumeIdOk returns a tuple with the VolumeId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkVolumeRequest) GetVolumeIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VolumeId, true
@@ -180,5 +180,3 @@ func (v *NullableUnlinkVolumeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

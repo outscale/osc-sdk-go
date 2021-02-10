@@ -27,7 +27,7 @@ type RejectNetPeeringRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRejectNetPeeringRequest(netPeeringId string, ) *RejectNetPeeringRequest {
+func NewRejectNetPeeringRequest(netPeeringId string) *RejectNetPeeringRequest {
 	this := RejectNetPeeringRequest{}
 	this.NetPeeringId = netPeeringId
 	return &this
@@ -75,7 +75,7 @@ func (o *RejectNetPeeringRequest) SetDryRun(v bool) {
 
 // GetNetPeeringId returns the NetPeeringId field value
 func (o *RejectNetPeeringRequest) GetNetPeeringId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *RejectNetPeeringRequest) GetNetPeeringId() string {
 // GetNetPeeringIdOk returns a tuple with the NetPeeringId field value
 // and a boolean to check if the value has been set.
 func (o *RejectNetPeeringRequest) GetNetPeeringIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetPeeringId, true
@@ -143,5 +143,3 @@ func (v *NullableRejectNetPeeringRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

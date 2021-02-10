@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-    createListenerRuleRequest := *openapiclient.NewCreateListenerRuleRequest(*openapiclient.NewLoadBalancerLight("LoadBalancerName_example", 123), *openapiclient.NewListenerRuleForCreation(123), []string{"VmIds_example")) // CreateListenerRuleRequest |  (optional)
+    createListenerRuleRequest := *openapiclient.NewCreateListenerRuleRequest(*openapiclient.NewLoadBalancerLight("LoadBalancerName_example", int32(123)), *openapiclient.NewListenerRuleForCreation(int32(123)), []string{"VmIds_example"}) // CreateListenerRuleRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-    createLoadBalancerListenersRequest := *openapiclient.NewCreateLoadBalancerListenersRequest([]ListenerForCreation{*openapiclient.NewListenerForCreation(123, 123, "LoadBalancerProtocol_example")), "LoadBalancerName_example") // CreateLoadBalancerListenersRequest |  (optional)
+    createLoadBalancerListenersRequest := *openapiclient.NewCreateLoadBalancerListenersRequest([]openapiclient.ListenerForCreation{*openapiclient.NewListenerForCreation(int32(123), int32(123), "LoadBalancerProtocol_example")}, "LoadBalancerName_example") // CreateLoadBalancerListenersRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -224,7 +224,7 @@ import (
 )
 
 func main() {
-    deleteLoadBalancerListenersRequest := *openapiclient.NewDeleteLoadBalancerListenersRequest("LoadBalancerName_example", []int32{123)) // DeleteLoadBalancerListenersRequest |  (optional)
+    deleteLoadBalancerListenersRequest := *openapiclient.NewDeleteLoadBalancerListenersRequest("LoadBalancerName_example", []int32{int32(123)}) // DeleteLoadBalancerListenersRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

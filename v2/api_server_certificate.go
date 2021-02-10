@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type ServerCertificateApiService service
 
 type ApiCreateServerCertificateRequest struct {
-	ctx _context.Context
-	ApiService *ServerCertificateApiService
+	ctx                            _context.Context
+	ApiService                     *ServerCertificateApiService
 	createServerCertificateRequest *CreateServerCertificateRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateServerCertificateRequest) Execute() (CreateServerCertificateRes
 func (a *ServerCertificateApiService) CreateServerCertificate(ctx _context.Context) ApiCreateServerCertificateRequest {
 	return ApiCreateServerCertificateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *ServerCertificateApiService) CreateServerCertificateExecute(r ApiCreate
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *ServerCertificateApiService) CreateServerCertificateExecute(r ApiCreate
 }
 
 type ApiDeleteServerCertificateRequest struct {
-	ctx _context.Context
-	ApiService *ServerCertificateApiService
+	ctx                            _context.Context
+	ApiService                     *ServerCertificateApiService
 	deleteServerCertificateRequest *DeleteServerCertificateRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteServerCertificateRequest) Execute() (DeleteServerCertificateRes
 func (a *ServerCertificateApiService) DeleteServerCertificate(ctx _context.Context) ApiDeleteServerCertificateRequest {
 	return ApiDeleteServerCertificateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *ServerCertificateApiService) DeleteServerCertificateExecute(r ApiDelete
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *ServerCertificateApiService) DeleteServerCertificateExecute(r ApiDelete
 }
 
 type ApiReadServerCertificatesRequest struct {
-	ctx _context.Context
-	ApiService *ServerCertificateApiService
+	ctx                           _context.Context
+	ApiService                    *ServerCertificateApiService
 	readServerCertificatesRequest *ReadServerCertificatesRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadServerCertificatesRequest) Execute() (ReadServerCertificatesRespo
 func (a *ServerCertificateApiService) ReadServerCertificates(ctx _context.Context) ApiReadServerCertificatesRequest {
 	return ApiReadServerCertificatesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *ServerCertificateApiService) ReadServerCertificatesExecute(r ApiReadSer
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,8 +394,8 @@ func (a *ServerCertificateApiService) ReadServerCertificatesExecute(r ApiReadSer
 }
 
 type ApiUpdateServerCertificateRequest struct {
-	ctx _context.Context
-	ApiService *ServerCertificateApiService
+	ctx                            _context.Context
+	ApiService                     *ServerCertificateApiService
 	updateServerCertificateRequest *UpdateServerCertificateRequest
 }
 
@@ -412,7 +416,7 @@ func (r ApiUpdateServerCertificateRequest) Execute() (UpdateServerCertificateRes
 func (a *ServerCertificateApiService) UpdateServerCertificate(ctx _context.Context) ApiUpdateServerCertificateRequest {
 	return ApiUpdateServerCertificateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -486,6 +490,7 @@ func (a *ServerCertificateApiService) UpdateServerCertificateExecute(r ApiUpdate
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

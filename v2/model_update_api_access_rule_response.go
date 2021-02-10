@@ -17,7 +17,7 @@ import (
 
 // UpdateApiAccessRuleResponse struct for UpdateApiAccessRuleResponse
 type UpdateApiAccessRuleResponse struct {
-	ApiAccessRule *ApiAccessRule `json:"ApiAccessRule,omitempty"`
+	ApiAccessRule   *ApiAccessRule   `json:"ApiAccessRule,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateApiAccessRuleResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

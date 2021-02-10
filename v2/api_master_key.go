@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type MasterKeyApiService service
 
 type ApiCreateMasterKeyRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                    _context.Context
+	ApiService             *MasterKeyApiService
 	createMasterKeyRequest *CreateMasterKeyRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateMasterKeyRequest) Execute() (CreateMasterKeyResponse, *_nethttp
 func (a *MasterKeyApiService) CreateMasterKey(ctx _context.Context) ApiCreateMasterKeyRequest {
 	return ApiCreateMasterKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *MasterKeyApiService) CreateMasterKeyExecute(r ApiCreateMasterKeyRequest
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *MasterKeyApiService) CreateMasterKeyExecute(r ApiCreateMasterKeyRequest
 }
 
 type ApiDecryptCiphertextRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                      _context.Context
+	ApiService               *MasterKeyApiService
 	decryptCiphertextRequest *DecryptCiphertextRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDecryptCiphertextRequest) Execute() (DecryptCiphertextResponse, *_net
 func (a *MasterKeyApiService) DecryptCiphertext(ctx _context.Context) ApiDecryptCiphertextRequest {
 	return ApiDecryptCiphertextRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *MasterKeyApiService) DecryptCiphertextExecute(r ApiDecryptCiphertextReq
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *MasterKeyApiService) DecryptCiphertextExecute(r ApiDecryptCiphertextReq
 }
 
 type ApiDeleteMasterKeyRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                    _context.Context
+	ApiService             *MasterKeyApiService
 	deleteMasterKeyRequest *DeleteMasterKeyRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiDeleteMasterKeyRequest) Execute() (DeleteMasterKeyResponse, *_nethttp
 func (a *MasterKeyApiService) DeleteMasterKey(ctx _context.Context) ApiDeleteMasterKeyRequest {
 	return ApiDeleteMasterKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *MasterKeyApiService) DeleteMasterKeyExecute(r ApiDeleteMasterKeyRequest
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,8 +394,8 @@ func (a *MasterKeyApiService) DeleteMasterKeyExecute(r ApiDeleteMasterKeyRequest
 }
 
 type ApiEncryptPlaintextRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                     _context.Context
+	ApiService              *MasterKeyApiService
 	encryptPlaintextRequest *EncryptPlaintextRequest
 }
 
@@ -412,7 +416,7 @@ func (r ApiEncryptPlaintextRequest) Execute() (EncryptPlaintextResponse, *_netht
 func (a *MasterKeyApiService) EncryptPlaintext(ctx _context.Context) ApiEncryptPlaintextRequest {
 	return ApiEncryptPlaintextRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -486,6 +490,7 @@ func (a *MasterKeyApiService) EncryptPlaintextExecute(r ApiEncryptPlaintextReque
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -511,8 +516,8 @@ func (a *MasterKeyApiService) EncryptPlaintextExecute(r ApiEncryptPlaintextReque
 }
 
 type ApiGenerateDataKeyRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                    _context.Context
+	ApiService             *MasterKeyApiService
 	generateDataKeyRequest *GenerateDataKeyRequest
 }
 
@@ -533,7 +538,7 @@ func (r ApiGenerateDataKeyRequest) Execute() (GenerateDataKeyResponse, *_nethttp
 func (a *MasterKeyApiService) GenerateDataKey(ctx _context.Context) ApiGenerateDataKeyRequest {
 	return ApiGenerateDataKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -607,6 +612,7 @@ func (a *MasterKeyApiService) GenerateDataKeyExecute(r ApiGenerateDataKeyRequest
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -632,8 +638,8 @@ func (a *MasterKeyApiService) GenerateDataKeyExecute(r ApiGenerateDataKeyRequest
 }
 
 type ApiReadMasterKeysRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                   _context.Context
+	ApiService            *MasterKeyApiService
 	readMasterKeysRequest *ReadMasterKeysRequest
 }
 
@@ -654,7 +660,7 @@ func (r ApiReadMasterKeysRequest) Execute() (ReadMasterKeysResponse, *_nethttp.R
 func (a *MasterKeyApiService) ReadMasterKeys(ctx _context.Context) ApiReadMasterKeysRequest {
 	return ApiReadMasterKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -728,6 +734,7 @@ func (a *MasterKeyApiService) ReadMasterKeysExecute(r ApiReadMasterKeysRequest) 
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -753,8 +760,8 @@ func (a *MasterKeyApiService) ReadMasterKeysExecute(r ApiReadMasterKeysRequest) 
 }
 
 type ApiUndeleteMasterKeyRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                      _context.Context
+	ApiService               *MasterKeyApiService
 	undeleteMasterKeyRequest *UndeleteMasterKeyRequest
 }
 
@@ -775,7 +782,7 @@ func (r ApiUndeleteMasterKeyRequest) Execute() (UndeleteMasterKeyResponse, *_net
 func (a *MasterKeyApiService) UndeleteMasterKey(ctx _context.Context) ApiUndeleteMasterKeyRequest {
 	return ApiUndeleteMasterKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -849,6 +856,7 @@ func (a *MasterKeyApiService) UndeleteMasterKeyExecute(r ApiUndeleteMasterKeyReq
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -874,8 +882,8 @@ func (a *MasterKeyApiService) UndeleteMasterKeyExecute(r ApiUndeleteMasterKeyReq
 }
 
 type ApiUpdateMasterKeyRequest struct {
-	ctx _context.Context
-	ApiService *MasterKeyApiService
+	ctx                    _context.Context
+	ApiService             *MasterKeyApiService
 	updateMasterKeyRequest *UpdateMasterKeyRequest
 }
 
@@ -896,7 +904,7 @@ func (r ApiUpdateMasterKeyRequest) Execute() (UpdateMasterKeyResponse, *_nethttp
 func (a *MasterKeyApiService) UpdateMasterKey(ctx _context.Context) ApiUpdateMasterKeyRequest {
 	return ApiUpdateMasterKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -970,6 +978,7 @@ func (a *MasterKeyApiService) UpdateMasterKeyExecute(r ApiUpdateMasterKeyRequest
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

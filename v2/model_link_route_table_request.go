@@ -29,7 +29,7 @@ type LinkRouteTableRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkRouteTableRequest(routeTableId string, subnetId string, ) *LinkRouteTableRequest {
+func NewLinkRouteTableRequest(routeTableId string, subnetId string) *LinkRouteTableRequest {
 	this := LinkRouteTableRequest{}
 	this.RouteTableId = routeTableId
 	this.SubnetId = subnetId
@@ -78,7 +78,7 @@ func (o *LinkRouteTableRequest) SetDryRun(v bool) {
 
 // GetRouteTableId returns the RouteTableId field value
 func (o *LinkRouteTableRequest) GetRouteTableId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *LinkRouteTableRequest) GetRouteTableId() string {
 // GetRouteTableIdOk returns a tuple with the RouteTableId field value
 // and a boolean to check if the value has been set.
 func (o *LinkRouteTableRequest) GetRouteTableIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RouteTableId, true
@@ -102,7 +102,7 @@ func (o *LinkRouteTableRequest) SetRouteTableId(v string) {
 
 // GetSubnetId returns the SubnetId field value
 func (o *LinkRouteTableRequest) GetSubnetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *LinkRouteTableRequest) GetSubnetId() string {
 // GetSubnetIdOk returns a tuple with the SubnetId field value
 // and a boolean to check if the value has been set.
 func (o *LinkRouteTableRequest) GetSubnetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SubnetId, true
@@ -173,5 +173,3 @@ func (v *NullableLinkRouteTableRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

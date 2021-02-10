@@ -18,7 +18,7 @@ import (
 // ReadNetAccessPointServicesRequest struct for ReadNetAccessPointServicesRequest
 type ReadNetAccessPointServicesRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun  *bool           `json:"DryRun,omitempty"`
 	Filters *FiltersService `json:"Filters,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadNetAccessPointServicesRequest) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

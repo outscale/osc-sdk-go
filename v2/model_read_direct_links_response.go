@@ -18,7 +18,7 @@ import (
 // ReadDirectLinksResponse struct for ReadDirectLinksResponse
 type ReadDirectLinksResponse struct {
 	// Information about one or more DirectLinks.
-	DirectLinks *[]DirectLink `json:"DirectLinks,omitempty"`
+	DirectLinks     *[]DirectLink    `json:"DirectLinks,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadDirectLinksResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

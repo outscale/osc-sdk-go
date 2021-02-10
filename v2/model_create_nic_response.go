@@ -17,7 +17,7 @@ import (
 
 // CreateNicResponse struct for CreateNicResponse
 type CreateNicResponse struct {
-	Nic *Nic `json:"Nic,omitempty"`
+	Nic             *Nic             `json:"Nic,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateNicResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

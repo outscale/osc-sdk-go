@@ -18,7 +18,7 @@ import (
 // UpdateVolumeResponse struct for UpdateVolumeResponse
 type UpdateVolumeResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	Volume *Volume `json:"Volume,omitempty"`
+	Volume          *Volume          `json:"Volume,omitempty"`
 }
 
 // NewUpdateVolumeResponse instantiates a new UpdateVolumeResponse object
@@ -148,5 +148,3 @@ func (v *NullableUpdateVolumeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

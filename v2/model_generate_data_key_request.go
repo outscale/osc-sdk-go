@@ -33,7 +33,7 @@ type GenerateDataKeyRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGenerateDataKeyRequest(masterKeyId string, size int32, ) *GenerateDataKeyRequest {
+func NewGenerateDataKeyRequest(masterKeyId string, size int32) *GenerateDataKeyRequest {
 	this := GenerateDataKeyRequest{}
 	this.MasterKeyId = masterKeyId
 	this.Size = size
@@ -146,7 +146,7 @@ func (o *GenerateDataKeyRequest) SetGeneratePlaintext(v bool) {
 
 // GetMasterKeyId returns the MasterKeyId field value
 func (o *GenerateDataKeyRequest) GetMasterKeyId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -157,7 +157,7 @@ func (o *GenerateDataKeyRequest) GetMasterKeyId() string {
 // GetMasterKeyIdOk returns a tuple with the MasterKeyId field value
 // and a boolean to check if the value has been set.
 func (o *GenerateDataKeyRequest) GetMasterKeyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.MasterKeyId, true
@@ -170,7 +170,7 @@ func (o *GenerateDataKeyRequest) SetMasterKeyId(v string) {
 
 // GetSize returns the Size field value
 func (o *GenerateDataKeyRequest) GetSize() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -181,7 +181,7 @@ func (o *GenerateDataKeyRequest) GetSize() int32 {
 // GetSizeOk returns a tuple with the Size field value
 // and a boolean to check if the value has been set.
 func (o *GenerateDataKeyRequest) GetSizeOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Size, true
@@ -247,5 +247,3 @@ func (v *NullableGenerateDataKeyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

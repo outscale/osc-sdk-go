@@ -17,7 +17,7 @@ import (
 
 // CreatePublicIpResponse struct for CreatePublicIpResponse
 type CreatePublicIpResponse struct {
-	PublicIp *PublicIp `json:"PublicIp,omitempty"`
+	PublicIp        *PublicIp        `json:"PublicIp,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreatePublicIpResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

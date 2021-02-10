@@ -29,7 +29,7 @@ type CreateLoadBalancerTagsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateLoadBalancerTagsRequest(loadBalancerNames []string, tags []ResourceTag, ) *CreateLoadBalancerTagsRequest {
+func NewCreateLoadBalancerTagsRequest(loadBalancerNames []string, tags []ResourceTag) *CreateLoadBalancerTagsRequest {
 	this := CreateLoadBalancerTagsRequest{}
 	this.LoadBalancerNames = loadBalancerNames
 	this.Tags = tags
@@ -78,7 +78,7 @@ func (o *CreateLoadBalancerTagsRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerNames returns the LoadBalancerNames field value
 func (o *CreateLoadBalancerTagsRequest) GetLoadBalancerNames() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *CreateLoadBalancerTagsRequest) GetLoadBalancerNames() []string {
 // GetLoadBalancerNamesOk returns a tuple with the LoadBalancerNames field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerTagsRequest) GetLoadBalancerNamesOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerNames, true
@@ -102,7 +102,7 @@ func (o *CreateLoadBalancerTagsRequest) SetLoadBalancerNames(v []string) {
 
 // GetTags returns the Tags field value
 func (o *CreateLoadBalancerTagsRequest) GetTags() []ResourceTag {
-	if o == nil  {
+	if o == nil {
 		var ret []ResourceTag
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *CreateLoadBalancerTagsRequest) GetTags() []ResourceTag {
 // GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerTagsRequest) GetTagsOk() (*[]ResourceTag, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Tags, true
@@ -173,5 +173,3 @@ func (v *NullableCreateLoadBalancerTagsRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

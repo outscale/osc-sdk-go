@@ -27,7 +27,7 @@ type ReadSecretAccessKeyRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReadSecretAccessKeyRequest(accessKeyId string, ) *ReadSecretAccessKeyRequest {
+func NewReadSecretAccessKeyRequest(accessKeyId string) *ReadSecretAccessKeyRequest {
 	this := ReadSecretAccessKeyRequest{}
 	this.AccessKeyId = accessKeyId
 	return &this
@@ -43,7 +43,7 @@ func NewReadSecretAccessKeyRequestWithDefaults() *ReadSecretAccessKeyRequest {
 
 // GetAccessKeyId returns the AccessKeyId field value
 func (o *ReadSecretAccessKeyRequest) GetAccessKeyId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *ReadSecretAccessKeyRequest) GetAccessKeyId() string {
 // GetAccessKeyIdOk returns a tuple with the AccessKeyId field value
 // and a boolean to check if the value has been set.
 func (o *ReadSecretAccessKeyRequest) GetAccessKeyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccessKeyId, true
@@ -143,5 +143,3 @@ func (v *NullableReadSecretAccessKeyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

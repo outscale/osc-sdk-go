@@ -17,7 +17,7 @@ import (
 
 // CreateNetPeeringResponse struct for CreateNetPeeringResponse
 type CreateNetPeeringResponse struct {
-	NetPeering *NetPeering `json:"NetPeering,omitempty"`
+	NetPeering      *NetPeering      `json:"NetPeering,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateNetPeeringResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

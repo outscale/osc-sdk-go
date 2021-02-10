@@ -29,7 +29,7 @@ type CreateVpnConnectionRouteRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateVpnConnectionRouteRequest(destinationIpRange string, vpnConnectionId string, ) *CreateVpnConnectionRouteRequest {
+func NewCreateVpnConnectionRouteRequest(destinationIpRange string, vpnConnectionId string) *CreateVpnConnectionRouteRequest {
 	this := CreateVpnConnectionRouteRequest{}
 	this.DestinationIpRange = destinationIpRange
 	this.VpnConnectionId = vpnConnectionId
@@ -46,7 +46,7 @@ func NewCreateVpnConnectionRouteRequestWithDefaults() *CreateVpnConnectionRouteR
 
 // GetDestinationIpRange returns the DestinationIpRange field value
 func (o *CreateVpnConnectionRouteRequest) GetDestinationIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *CreateVpnConnectionRouteRequest) GetDestinationIpRange() string {
 // GetDestinationIpRangeOk returns a tuple with the DestinationIpRange field value
 // and a boolean to check if the value has been set.
 func (o *CreateVpnConnectionRouteRequest) GetDestinationIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DestinationIpRange, true
@@ -102,7 +102,7 @@ func (o *CreateVpnConnectionRouteRequest) SetDryRun(v bool) {
 
 // GetVpnConnectionId returns the VpnConnectionId field value
 func (o *CreateVpnConnectionRouteRequest) GetVpnConnectionId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *CreateVpnConnectionRouteRequest) GetVpnConnectionId() string {
 // GetVpnConnectionIdOk returns a tuple with the VpnConnectionId field value
 // and a boolean to check if the value has been set.
 func (o *CreateVpnConnectionRouteRequest) GetVpnConnectionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VpnConnectionId, true
@@ -173,5 +173,3 @@ func (v *NullableCreateVpnConnectionRouteRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

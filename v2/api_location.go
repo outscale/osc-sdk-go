@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type LocationApiService service
 
 type ApiReadLocationsRequest struct {
-	ctx _context.Context
-	ApiService *LocationApiService
+	ctx                  _context.Context
+	ApiService           *LocationApiService
 	readLocationsRequest *ReadLocationsRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiReadLocationsRequest) Execute() (ReadLocationsResponse, *_nethttp.Res
 func (a *LocationApiService) ReadLocations(ctx _context.Context) ApiReadLocationsRequest {
 	return ApiReadLocationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -109,6 +110,7 @@ func (a *LocationApiService) ReadLocationsExecute(r ApiReadLocationsRequest) (Re
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

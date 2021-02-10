@@ -20,7 +20,7 @@ type UpdateNicRequest struct {
 	// A new description for the NIC.
 	Description *string `json:"Description,omitempty"`
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun  *bool            `json:"DryRun,omitempty"`
 	LinkNic *LinkNicToUpdate `json:"LinkNic,omitempty"`
 	// The ID of the NIC you want to modify.
 	NicId string `json:"NicId"`
@@ -32,7 +32,7 @@ type UpdateNicRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateNicRequest(nicId string, ) *UpdateNicRequest {
+func NewUpdateNicRequest(nicId string) *UpdateNicRequest {
 	this := UpdateNicRequest{}
 	this.NicId = nicId
 	return &this
@@ -144,7 +144,7 @@ func (o *UpdateNicRequest) SetLinkNic(v LinkNicToUpdate) {
 
 // GetNicId returns the NicId field value
 func (o *UpdateNicRequest) GetNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -155,7 +155,7 @@ func (o *UpdateNicRequest) GetNicId() string {
 // GetNicIdOk returns a tuple with the NicId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateNicRequest) GetNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NicId, true
@@ -253,5 +253,3 @@ func (v *NullableUpdateNicRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,7 +19,7 @@ import (
 type ReadImageExportTasksResponse struct {
 	// Information about one or more image export tasks.
 	ImageExportTasks *[]ImageExportTask `json:"ImageExportTasks,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext  *ResponseContext   `json:"ResponseContext,omitempty"`
 }
 
 // NewReadImageExportTasksResponse instantiates a new ReadImageExportTasksResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadImageExportTasksResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

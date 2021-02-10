@@ -27,7 +27,7 @@ type DeleteVpnConnectionRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteVpnConnectionRequest(vpnConnectionId string, ) *DeleteVpnConnectionRequest {
+func NewDeleteVpnConnectionRequest(vpnConnectionId string) *DeleteVpnConnectionRequest {
 	this := DeleteVpnConnectionRequest{}
 	this.VpnConnectionId = vpnConnectionId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteVpnConnectionRequest) SetDryRun(v bool) {
 
 // GetVpnConnectionId returns the VpnConnectionId field value
 func (o *DeleteVpnConnectionRequest) GetVpnConnectionId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteVpnConnectionRequest) GetVpnConnectionId() string {
 // GetVpnConnectionIdOk returns a tuple with the VpnConnectionId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteVpnConnectionRequest) GetVpnConnectionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VpnConnectionId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteVpnConnectionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

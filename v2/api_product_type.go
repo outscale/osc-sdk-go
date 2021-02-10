@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type ProductTypeApiService service
 
 type ApiReadProductTypesRequest struct {
-	ctx _context.Context
-	ApiService *ProductTypeApiService
+	ctx                     _context.Context
+	ApiService              *ProductTypeApiService
 	readProductTypesRequest *ReadProductTypesRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiReadProductTypesRequest) Execute() (ReadProductTypesResponse, *_netht
 func (a *ProductTypeApiService) ReadProductTypes(ctx _context.Context) ApiReadProductTypesRequest {
 	return ApiReadProductTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -109,6 +110,7 @@ func (a *ProductTypeApiService) ReadProductTypesExecute(r ApiReadProductTypesReq
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

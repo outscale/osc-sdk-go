@@ -29,7 +29,7 @@ type ReadConsumptionAccountRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReadConsumptionAccountRequest(fromDate string, toDate string, ) *ReadConsumptionAccountRequest {
+func NewReadConsumptionAccountRequest(fromDate string, toDate string) *ReadConsumptionAccountRequest {
 	this := ReadConsumptionAccountRequest{}
 	this.FromDate = fromDate
 	this.ToDate = toDate
@@ -78,7 +78,7 @@ func (o *ReadConsumptionAccountRequest) SetDryRun(v bool) {
 
 // GetFromDate returns the FromDate field value
 func (o *ReadConsumptionAccountRequest) GetFromDate() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *ReadConsumptionAccountRequest) GetFromDate() string {
 // GetFromDateOk returns a tuple with the FromDate field value
 // and a boolean to check if the value has been set.
 func (o *ReadConsumptionAccountRequest) GetFromDateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FromDate, true
@@ -102,7 +102,7 @@ func (o *ReadConsumptionAccountRequest) SetFromDate(v string) {
 
 // GetToDate returns the ToDate field value
 func (o *ReadConsumptionAccountRequest) GetToDate() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *ReadConsumptionAccountRequest) GetToDate() string {
 // GetToDateOk returns a tuple with the ToDate field value
 // and a boolean to check if the value has been set.
 func (o *ReadConsumptionAccountRequest) GetToDateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ToDate, true
@@ -173,5 +173,3 @@ func (v *NullableReadConsumptionAccountRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

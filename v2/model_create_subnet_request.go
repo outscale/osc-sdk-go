@@ -31,7 +31,7 @@ type CreateSubnetRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateSubnetRequest(ipRange string, netId string, ) *CreateSubnetRequest {
+func NewCreateSubnetRequest(ipRange string, netId string) *CreateSubnetRequest {
 	this := CreateSubnetRequest{}
 	this.IpRange = ipRange
 	this.NetId = netId
@@ -80,7 +80,7 @@ func (o *CreateSubnetRequest) SetDryRun(v bool) {
 
 // GetIpRange returns the IpRange field value
 func (o *CreateSubnetRequest) GetIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -91,7 +91,7 @@ func (o *CreateSubnetRequest) GetIpRange() string {
 // GetIpRangeOk returns a tuple with the IpRange field value
 // and a boolean to check if the value has been set.
 func (o *CreateSubnetRequest) GetIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IpRange, true
@@ -104,7 +104,7 @@ func (o *CreateSubnetRequest) SetIpRange(v string) {
 
 // GetNetId returns the NetId field value
 func (o *CreateSubnetRequest) GetNetId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -115,7 +115,7 @@ func (o *CreateSubnetRequest) GetNetId() string {
 // GetNetIdOk returns a tuple with the NetId field value
 // and a boolean to check if the value has been set.
 func (o *CreateSubnetRequest) GetNetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NetId, true
@@ -210,5 +210,3 @@ func (v *NullableCreateSubnetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

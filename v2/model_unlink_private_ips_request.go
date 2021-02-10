@@ -29,7 +29,7 @@ type UnlinkPrivateIpsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkPrivateIpsRequest(nicId string, privateIps []string, ) *UnlinkPrivateIpsRequest {
+func NewUnlinkPrivateIpsRequest(nicId string, privateIps []string) *UnlinkPrivateIpsRequest {
 	this := UnlinkPrivateIpsRequest{}
 	this.NicId = nicId
 	this.PrivateIps = privateIps
@@ -78,7 +78,7 @@ func (o *UnlinkPrivateIpsRequest) SetDryRun(v bool) {
 
 // GetNicId returns the NicId field value
 func (o *UnlinkPrivateIpsRequest) GetNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *UnlinkPrivateIpsRequest) GetNicId() string {
 // GetNicIdOk returns a tuple with the NicId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkPrivateIpsRequest) GetNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NicId, true
@@ -102,7 +102,7 @@ func (o *UnlinkPrivateIpsRequest) SetNicId(v string) {
 
 // GetPrivateIps returns the PrivateIps field value
 func (o *UnlinkPrivateIpsRequest) GetPrivateIps() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *UnlinkPrivateIpsRequest) GetPrivateIps() []string {
 // GetPrivateIpsOk returns a tuple with the PrivateIps field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkPrivateIpsRequest) GetPrivateIpsOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PrivateIps, true
@@ -173,5 +173,3 @@ func (v *NullableUnlinkPrivateIpsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

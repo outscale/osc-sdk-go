@@ -31,7 +31,7 @@ type LinkNicRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkNicRequest(deviceNumber int32, nicId string, vmId string, ) *LinkNicRequest {
+func NewLinkNicRequest(deviceNumber int32, nicId string, vmId string) *LinkNicRequest {
 	this := LinkNicRequest{}
 	this.DeviceNumber = deviceNumber
 	this.NicId = nicId
@@ -49,7 +49,7 @@ func NewLinkNicRequestWithDefaults() *LinkNicRequest {
 
 // GetDeviceNumber returns the DeviceNumber field value
 func (o *LinkNicRequest) GetDeviceNumber() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -60,7 +60,7 @@ func (o *LinkNicRequest) GetDeviceNumber() int32 {
 // GetDeviceNumberOk returns a tuple with the DeviceNumber field value
 // and a boolean to check if the value has been set.
 func (o *LinkNicRequest) GetDeviceNumberOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DeviceNumber, true
@@ -105,7 +105,7 @@ func (o *LinkNicRequest) SetDryRun(v bool) {
 
 // GetNicId returns the NicId field value
 func (o *LinkNicRequest) GetNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -116,7 +116,7 @@ func (o *LinkNicRequest) GetNicId() string {
 // GetNicIdOk returns a tuple with the NicId field value
 // and a boolean to check if the value has been set.
 func (o *LinkNicRequest) GetNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NicId, true
@@ -129,7 +129,7 @@ func (o *LinkNicRequest) SetNicId(v string) {
 
 // GetVmId returns the VmId field value
 func (o *LinkNicRequest) GetVmId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -140,7 +140,7 @@ func (o *LinkNicRequest) GetVmId() string {
 // GetVmIdOk returns a tuple with the VmId field value
 // and a boolean to check if the value has been set.
 func (o *LinkNicRequest) GetVmIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VmId, true
@@ -203,5 +203,3 @@ func (v *NullableLinkNicRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

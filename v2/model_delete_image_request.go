@@ -27,7 +27,7 @@ type DeleteImageRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteImageRequest(imageId string, ) *DeleteImageRequest {
+func NewDeleteImageRequest(imageId string) *DeleteImageRequest {
 	this := DeleteImageRequest{}
 	this.ImageId = imageId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteImageRequest) SetDryRun(v bool) {
 
 // GetImageId returns the ImageId field value
 func (o *DeleteImageRequest) GetImageId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteImageRequest) GetImageId() string {
 // GetImageIdOk returns a tuple with the ImageId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteImageRequest) GetImageIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteImageRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

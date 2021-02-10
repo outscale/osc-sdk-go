@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type TagApiService service
 
 type ApiCreateTagsRequest struct {
-	ctx _context.Context
-	ApiService *TagApiService
+	ctx               _context.Context
+	ApiService        *TagApiService
 	createTagsRequest *CreateTagsRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateTagsRequest) Execute() (CreateTagsResponse, *_nethttp.Response,
 func (a *TagApiService) CreateTags(ctx _context.Context) ApiCreateTagsRequest {
 	return ApiCreateTagsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *TagApiService) CreateTagsExecute(r ApiCreateTagsRequest) (CreateTagsRes
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -177,8 +179,8 @@ func (a *TagApiService) CreateTagsExecute(r ApiCreateTagsRequest) (CreateTagsRes
 }
 
 type ApiDeleteTagsRequest struct {
-	ctx _context.Context
-	ApiService *TagApiService
+	ctx               _context.Context
+	ApiService        *TagApiService
 	deleteTagsRequest *DeleteTagsRequest
 }
 
@@ -199,7 +201,7 @@ func (r ApiDeleteTagsRequest) Execute() (DeleteTagsResponse, *_nethttp.Response,
 func (a *TagApiService) DeleteTags(ctx _context.Context) ApiDeleteTagsRequest {
 	return ApiDeleteTagsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -273,6 +275,7 @@ func (a *TagApiService) DeleteTagsExecute(r ApiDeleteTagsRequest) (DeleteTagsRes
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -327,8 +330,8 @@ func (a *TagApiService) DeleteTagsExecute(r ApiDeleteTagsRequest) (DeleteTagsRes
 }
 
 type ApiReadTagsRequest struct {
-	ctx _context.Context
-	ApiService *TagApiService
+	ctx             _context.Context
+	ApiService      *TagApiService
 	readTagsRequest *ReadTagsRequest
 }
 
@@ -349,7 +352,7 @@ func (r ApiReadTagsRequest) Execute() (ReadTagsResponse, *_nethttp.Response, err
 func (a *TagApiService) ReadTags(ctx _context.Context) ApiReadTagsRequest {
 	return ApiReadTagsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -423,6 +426,7 @@ func (a *TagApiService) ReadTagsExecute(r ApiReadTagsRequest) (ReadTagsResponse,
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

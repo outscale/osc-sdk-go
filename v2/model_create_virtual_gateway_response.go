@@ -18,7 +18,7 @@ import (
 // CreateVirtualGatewayResponse struct for CreateVirtualGatewayResponse
 type CreateVirtualGatewayResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	VirtualGateway *VirtualGateway `json:"VirtualGateway,omitempty"`
+	VirtualGateway  *VirtualGateway  `json:"VirtualGateway,omitempty"`
 }
 
 // NewCreateVirtualGatewayResponse instantiates a new CreateVirtualGatewayResponse object
@@ -148,5 +148,3 @@ func (v *NullableCreateVirtualGatewayResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -18,7 +18,7 @@ import (
 // UpdateSubnetResponse struct for UpdateSubnetResponse
 type UpdateSubnetResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	Subnet *Subnet `json:"Subnet,omitempty"`
+	Subnet          *Subnet          `json:"Subnet,omitempty"`
 }
 
 // NewUpdateSubnetResponse instantiates a new UpdateSubnetResponse object
@@ -148,5 +148,3 @@ func (v *NullableUpdateSubnetResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

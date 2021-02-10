@@ -27,7 +27,7 @@ type UnlinkNicRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnlinkNicRequest(linkNicId string, ) *UnlinkNicRequest {
+func NewUnlinkNicRequest(linkNicId string) *UnlinkNicRequest {
 	this := UnlinkNicRequest{}
 	this.LinkNicId = linkNicId
 	return &this
@@ -75,7 +75,7 @@ func (o *UnlinkNicRequest) SetDryRun(v bool) {
 
 // GetLinkNicId returns the LinkNicId field value
 func (o *UnlinkNicRequest) GetLinkNicId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *UnlinkNicRequest) GetLinkNicId() string {
 // GetLinkNicIdOk returns a tuple with the LinkNicId field value
 // and a boolean to check if the value has been set.
 func (o *UnlinkNicRequest) GetLinkNicIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LinkNicId, true
@@ -143,5 +143,3 @@ func (v *NullableUnlinkNicRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

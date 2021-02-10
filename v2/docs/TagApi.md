@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-    createTagsRequest := *openapiclient.NewCreateTagsRequest([]string{"ResourceIds_example"), []ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example"))) // CreateTagsRequest |  (optional)
+    createTagsRequest := *openapiclient.NewCreateTagsRequest([]string{"ResourceIds_example"}, []openapiclient.ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example")}) // CreateTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -93,7 +93,7 @@ import (
 )
 
 func main() {
-    deleteTagsRequest := *openapiclient.NewDeleteTagsRequest([]string{"ResourceIds_example"), []ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example"))) // DeleteTagsRequest |  (optional)
+    deleteTagsRequest := *openapiclient.NewDeleteTagsRequest([]string{"ResourceIds_example"}, []openapiclient.ResourceTag{*openapiclient.NewResourceTag("Key_example", "Value_example")}) // DeleteTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

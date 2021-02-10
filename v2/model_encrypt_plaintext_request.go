@@ -31,7 +31,7 @@ type EncryptPlaintextRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEncryptPlaintextRequest(masterKeyId string, plaintext string, ) *EncryptPlaintextRequest {
+func NewEncryptPlaintextRequest(masterKeyId string, plaintext string) *EncryptPlaintextRequest {
 	this := EncryptPlaintextRequest{}
 	this.MasterKeyId = masterKeyId
 	this.Plaintext = plaintext
@@ -112,7 +112,7 @@ func (o *EncryptPlaintextRequest) SetEncryptionContext(v map[string]string) {
 
 // GetMasterKeyId returns the MasterKeyId field value
 func (o *EncryptPlaintextRequest) GetMasterKeyId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -123,7 +123,7 @@ func (o *EncryptPlaintextRequest) GetMasterKeyId() string {
 // GetMasterKeyIdOk returns a tuple with the MasterKeyId field value
 // and a boolean to check if the value has been set.
 func (o *EncryptPlaintextRequest) GetMasterKeyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.MasterKeyId, true
@@ -136,7 +136,7 @@ func (o *EncryptPlaintextRequest) SetMasterKeyId(v string) {
 
 // GetPlaintext returns the Plaintext field value
 func (o *EncryptPlaintextRequest) GetPlaintext() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -147,7 +147,7 @@ func (o *EncryptPlaintextRequest) GetPlaintext() string {
 // GetPlaintextOk returns a tuple with the Plaintext field value
 // and a boolean to check if the value has been set.
 func (o *EncryptPlaintextRequest) GetPlaintextOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Plaintext, true
@@ -210,5 +210,3 @@ func (v *NullableEncryptPlaintextRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

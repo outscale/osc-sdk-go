@@ -27,7 +27,7 @@ type DeleteDirectLinkInterfaceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteDirectLinkInterfaceRequest(directLinkInterfaceId string, ) *DeleteDirectLinkInterfaceRequest {
+func NewDeleteDirectLinkInterfaceRequest(directLinkInterfaceId string) *DeleteDirectLinkInterfaceRequest {
 	this := DeleteDirectLinkInterfaceRequest{}
 	this.DirectLinkInterfaceId = directLinkInterfaceId
 	return &this
@@ -43,7 +43,7 @@ func NewDeleteDirectLinkInterfaceRequestWithDefaults() *DeleteDirectLinkInterfac
 
 // GetDirectLinkInterfaceId returns the DirectLinkInterfaceId field value
 func (o *DeleteDirectLinkInterfaceRequest) GetDirectLinkInterfaceId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *DeleteDirectLinkInterfaceRequest) GetDirectLinkInterfaceId() string {
 // GetDirectLinkInterfaceIdOk returns a tuple with the DirectLinkInterfaceId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteDirectLinkInterfaceRequest) GetDirectLinkInterfaceIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DirectLinkInterfaceId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteDirectLinkInterfaceRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -162,7 +162,7 @@ import (
 )
 
 func main() {
-    linkNicRequest := *openapiclient.NewLinkNicRequest(123, "NicId_example", "VmId_example") // LinkNicRequest |  (optional)
+    linkNicRequest := *openapiclient.NewLinkNicRequest(int32(123), "NicId_example", "VmId_example") // LinkNicRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -418,7 +418,7 @@ import (
 )
 
 func main() {
-    unlinkPrivateIpsRequest := *openapiclient.NewUnlinkPrivateIpsRequest("NicId_example", []string{"PrivateIps_example")) // UnlinkPrivateIpsRequest |  (optional)
+    unlinkPrivateIpsRequest := *openapiclient.NewUnlinkPrivateIpsRequest("NicId_example", []string{"PrivateIps_example"}) // UnlinkPrivateIpsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

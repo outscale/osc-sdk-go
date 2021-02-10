@@ -18,7 +18,7 @@ import (
 // ReadAccessKeysResponse struct for ReadAccessKeysResponse
 type ReadAccessKeysResponse struct {
 	// A list of access keys.
-	AccessKeys *[]AccessKey `json:"AccessKeys,omitempty"`
+	AccessKeys      *[]AccessKey     `json:"AccessKeys,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadAccessKeysResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

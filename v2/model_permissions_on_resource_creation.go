@@ -18,7 +18,7 @@ import (
 // PermissionsOnResourceCreation Information about the permissions for the resource.
 type PermissionsOnResourceCreation struct {
 	Additions *PermissionsOnResource `json:"Additions,omitempty"`
-	Removals *PermissionsOnResource `json:"Removals,omitempty"`
+	Removals  *PermissionsOnResource `json:"Removals,omitempty"`
 }
 
 // NewPermissionsOnResourceCreation instantiates a new PermissionsOnResourceCreation object
@@ -148,5 +148,3 @@ func (v *NullablePermissionsOnResourceCreation) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

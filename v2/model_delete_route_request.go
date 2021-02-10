@@ -29,7 +29,7 @@ type DeleteRouteRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteRouteRequest(destinationIpRange string, routeTableId string, ) *DeleteRouteRequest {
+func NewDeleteRouteRequest(destinationIpRange string, routeTableId string) *DeleteRouteRequest {
 	this := DeleteRouteRequest{}
 	this.DestinationIpRange = destinationIpRange
 	this.RouteTableId = routeTableId
@@ -46,7 +46,7 @@ func NewDeleteRouteRequestWithDefaults() *DeleteRouteRequest {
 
 // GetDestinationIpRange returns the DestinationIpRange field value
 func (o *DeleteRouteRequest) GetDestinationIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *DeleteRouteRequest) GetDestinationIpRange() string {
 // GetDestinationIpRangeOk returns a tuple with the DestinationIpRange field value
 // and a boolean to check if the value has been set.
 func (o *DeleteRouteRequest) GetDestinationIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DestinationIpRange, true
@@ -102,7 +102,7 @@ func (o *DeleteRouteRequest) SetDryRun(v bool) {
 
 // GetRouteTableId returns the RouteTableId field value
 func (o *DeleteRouteRequest) GetRouteTableId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeleteRouteRequest) GetRouteTableId() string {
 // GetRouteTableIdOk returns a tuple with the RouteTableId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteRouteRequest) GetRouteTableIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RouteTableId, true
@@ -173,5 +173,3 @@ func (v *NullableDeleteRouteRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

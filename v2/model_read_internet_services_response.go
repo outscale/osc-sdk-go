@@ -19,7 +19,7 @@ import (
 type ReadInternetServicesResponse struct {
 	// Information about one or more Internet services.
 	InternetServices *[]InternetService `json:"InternetServices,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext  *ResponseContext   `json:"ResponseContext,omitempty"`
 }
 
 // NewReadInternetServicesResponse instantiates a new ReadInternetServicesResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadInternetServicesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,7 +17,7 @@ import (
 
 // UndeleteMasterKeyResponse struct for UndeleteMasterKeyResponse
 type UndeleteMasterKeyResponse struct {
-	MasterKey *MasterKey `json:"MasterKey,omitempty"`
+	MasterKey       *MasterKey       `json:"MasterKey,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUndeleteMasterKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

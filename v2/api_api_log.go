@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type ApiLogApiService service
 
 type ApiReadApiLogsRequest struct {
-	ctx _context.Context
-	ApiService *ApiLogApiService
+	ctx                _context.Context
+	ApiService         *ApiLogApiService
 	readApiLogsRequest *ReadApiLogsRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiReadApiLogsRequest) Execute() (ReadApiLogsResponse, *_nethttp.Respons
 func (a *ApiLogApiService) ReadApiLogs(ctx _context.Context) ApiReadApiLogsRequest {
 	return ApiReadApiLogsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *ApiLogApiService) ReadApiLogsExecute(r ApiReadApiLogsRequest) (ReadApiL
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-    createDirectLinkInterfaceRequest := *openapiclient.NewCreateDirectLinkInterfaceRequest("DirectLinkId_example", *openapiclient.NewDirectLinkInterface(123, "DirectLinkInterfaceName_example", "VirtualGatewayId_example", 123)) // CreateDirectLinkInterfaceRequest |  (optional)
+    createDirectLinkInterfaceRequest := *openapiclient.NewCreateDirectLinkInterfaceRequest("DirectLinkId_example", *openapiclient.NewDirectLinkInterface(int32(123), "DirectLinkInterfaceName_example", "VirtualGatewayId_example", int32(123))) // CreateDirectLinkInterfaceRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

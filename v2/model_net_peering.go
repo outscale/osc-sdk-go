@@ -19,9 +19,9 @@ import (
 type NetPeering struct {
 	AccepterNet *AccepterNet `json:"AccepterNet,omitempty"`
 	// The ID of the Net peering connection.
-	NetPeeringId *string `json:"NetPeeringId,omitempty"`
-	SourceNet *SourceNet `json:"SourceNet,omitempty"`
-	State *NetPeeringState `json:"State,omitempty"`
+	NetPeeringId *string          `json:"NetPeeringId,omitempty"`
+	SourceNet    *SourceNet       `json:"SourceNet,omitempty"`
+	State        *NetPeeringState `json:"State,omitempty"`
 	// One or more tags associated with the Net peering connection.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 }
@@ -258,5 +258,3 @@ func (v *NullableNetPeering) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

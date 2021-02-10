@@ -17,7 +17,7 @@ import (
 
 // CreateClientGatewayResponse struct for CreateClientGatewayResponse
 type CreateClientGatewayResponse struct {
-	ClientGateway *ClientGateway `json:"ClientGateway,omitempty"`
+	ClientGateway   *ClientGateway   `json:"ClientGateway,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateClientGatewayResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

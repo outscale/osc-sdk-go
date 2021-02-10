@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-    deleteVmsRequest := *openapiclient.NewDeleteVmsRequest([]string{"VmIds_example")) // DeleteVmsRequest |  (optional)
+    deleteVmsRequest := *openapiclient.NewDeleteVmsRequest([]string{"VmIds_example"}) // DeleteVmsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -485,7 +485,7 @@ import (
 )
 
 func main() {
-    rebootVmsRequest := *openapiclient.NewRebootVmsRequest([]string{"VmIds_example")) // RebootVmsRequest |  (optional)
+    rebootVmsRequest := *openapiclient.NewRebootVmsRequest([]string{"VmIds_example"}) // RebootVmsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -549,7 +549,7 @@ import (
 )
 
 func main() {
-    startVmsRequest := *openapiclient.NewStartVmsRequest([]string{"VmIds_example")) // StartVmsRequest |  (optional)
+    startVmsRequest := *openapiclient.NewStartVmsRequest([]string{"VmIds_example"}) // StartVmsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -613,7 +613,7 @@ import (
 )
 
 func main() {
-    stopVmsRequest := *openapiclient.NewStopVmsRequest([]string{"VmIds_example")) // StopVmsRequest |  (optional)
+    stopVmsRequest := *openapiclient.NewStopVmsRequest([]string{"VmIds_example"}) // StopVmsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

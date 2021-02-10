@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type CaApiService service
 
 type ApiCreateCaRequest struct {
-	ctx _context.Context
-	ApiService *CaApiService
+	ctx             _context.Context
+	ApiService      *CaApiService
 	createCaRequest *CreateCaRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCreateCaRequest) Execute() (CreateCaResponse, *_nethttp.Response, err
 func (a *CaApiService) CreateCa(ctx _context.Context) ApiCreateCaRequest {
 	return ApiCreateCaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *CaApiService) CreateCaExecute(r ApiCreateCaRequest) (CreateCaResponse, 
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *CaApiService) CreateCaExecute(r ApiCreateCaRequest) (CreateCaResponse, 
 }
 
 type ApiDeleteCaRequest struct {
-	ctx _context.Context
-	ApiService *CaApiService
+	ctx             _context.Context
+	ApiService      *CaApiService
 	deleteCaRequest *DeleteCaRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiDeleteCaRequest) Execute() (DeleteCaResponse, *_nethttp.Response, err
 func (a *CaApiService) DeleteCa(ctx _context.Context) ApiDeleteCaRequest {
 	return ApiDeleteCaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *CaApiService) DeleteCaExecute(r ApiDeleteCaRequest) (DeleteCaResponse, 
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *CaApiService) DeleteCaExecute(r ApiDeleteCaRequest) (DeleteCaResponse, 
 }
 
 type ApiReadCasRequest struct {
-	ctx _context.Context
-	ApiService *CaApiService
+	ctx            _context.Context
+	ApiService     *CaApiService
 	readCasRequest *ReadCasRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadCasRequest) Execute() (ReadCasResponse, *_nethttp.Response, error
 func (a *CaApiService) ReadCas(ctx _context.Context) ApiReadCasRequest {
 	return ApiReadCasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *CaApiService) ReadCasExecute(r ApiReadCasRequest) (ReadCasResponse, *_n
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,8 +394,8 @@ func (a *CaApiService) ReadCasExecute(r ApiReadCasRequest) (ReadCasResponse, *_n
 }
 
 type ApiUpdateCaRequest struct {
-	ctx _context.Context
-	ApiService *CaApiService
+	ctx             _context.Context
+	ApiService      *CaApiService
 	updateCaRequest *UpdateCaRequest
 }
 
@@ -412,7 +416,7 @@ func (r ApiUpdateCaRequest) Execute() (UpdateCaResponse, *_nethttp.Response, err
 func (a *CaApiService) UpdateCa(ctx _context.Context) ApiUpdateCaRequest {
 	return ApiUpdateCaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -486,6 +490,7 @@ func (a *CaApiService) UpdateCaExecute(r ApiUpdateCaRequest) (UpdateCaResponse, 
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -17,7 +17,7 @@ import (
 
 // CreateKeypairResponse struct for CreateKeypairResponse
 type CreateKeypairResponse struct {
-	Keypair *KeypairCreated `json:"Keypair,omitempty"`
+	Keypair         *KeypairCreated  `json:"Keypair,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableCreateKeypairResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

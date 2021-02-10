@@ -19,7 +19,7 @@ import (
 type ReadDirectLinkInterfacesResponse struct {
 	// Information about one or more DirectLink interfaces.
 	DirectLinkInterfaces *[]DirectLinkInterfaces `json:"DirectLinkInterfaces,omitempty"`
-	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+	ResponseContext      *ResponseContext        `json:"ResponseContext,omitempty"`
 }
 
 // NewReadDirectLinkInterfacesResponse instantiates a new ReadDirectLinkInterfacesResponse object
@@ -149,5 +149,3 @@ func (v *NullableReadDirectLinkInterfacesResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

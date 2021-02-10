@@ -27,7 +27,7 @@ type DeleteApiAccessRuleRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteApiAccessRuleRequest(apiAccessRuleId string, ) *DeleteApiAccessRuleRequest {
+func NewDeleteApiAccessRuleRequest(apiAccessRuleId string) *DeleteApiAccessRuleRequest {
 	this := DeleteApiAccessRuleRequest{}
 	this.ApiAccessRuleId = apiAccessRuleId
 	return &this
@@ -43,7 +43,7 @@ func NewDeleteApiAccessRuleRequestWithDefaults() *DeleteApiAccessRuleRequest {
 
 // GetApiAccessRuleId returns the ApiAccessRuleId field value
 func (o *DeleteApiAccessRuleRequest) GetApiAccessRuleId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *DeleteApiAccessRuleRequest) GetApiAccessRuleId() string {
 // GetApiAccessRuleIdOk returns a tuple with the ApiAccessRuleId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteApiAccessRuleRequest) GetApiAccessRuleIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ApiAccessRuleId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteApiAccessRuleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

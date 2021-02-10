@@ -17,7 +17,7 @@ import (
 
 // UpdateFlexibleGpuResponse struct for UpdateFlexibleGpuResponse
 type UpdateFlexibleGpuResponse struct {
-	FlexibleGpu *FlexibleGpu `json:"FlexibleGpu,omitempty"`
+	FlexibleGpu     *FlexibleGpu     `json:"FlexibleGpu,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateFlexibleGpuResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

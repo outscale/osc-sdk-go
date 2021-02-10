@@ -39,7 +39,7 @@ type CreateLoadBalancerRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateLoadBalancerRequest(listeners []ListenerForCreation, loadBalancerName string, ) *CreateLoadBalancerRequest {
+func NewCreateLoadBalancerRequest(listeners []ListenerForCreation, loadBalancerName string) *CreateLoadBalancerRequest {
 	this := CreateLoadBalancerRequest{}
 	this.Listeners = listeners
 	this.LoadBalancerName = loadBalancerName
@@ -88,7 +88,7 @@ func (o *CreateLoadBalancerRequest) SetDryRun(v bool) {
 
 // GetListeners returns the Listeners field value
 func (o *CreateLoadBalancerRequest) GetListeners() []ListenerForCreation {
-	if o == nil  {
+	if o == nil {
 		var ret []ListenerForCreation
 		return ret
 	}
@@ -99,7 +99,7 @@ func (o *CreateLoadBalancerRequest) GetListeners() []ListenerForCreation {
 // GetListenersOk returns a tuple with the Listeners field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerRequest) GetListenersOk() (*[]ListenerForCreation, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Listeners, true
@@ -112,7 +112,7 @@ func (o *CreateLoadBalancerRequest) SetListeners(v []ListenerForCreation) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *CreateLoadBalancerRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -123,7 +123,7 @@ func (o *CreateLoadBalancerRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *CreateLoadBalancerRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -358,5 +358,3 @@ func (v *NullableCreateLoadBalancerRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

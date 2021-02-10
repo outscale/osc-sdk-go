@@ -39,7 +39,7 @@ type UpdateRouteRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateRouteRequest(destinationIpRange string, routeTableId string, ) *UpdateRouteRequest {
+func NewUpdateRouteRequest(destinationIpRange string, routeTableId string) *UpdateRouteRequest {
 	this := UpdateRouteRequest{}
 	this.DestinationIpRange = destinationIpRange
 	this.RouteTableId = routeTableId
@@ -56,7 +56,7 @@ func NewUpdateRouteRequestWithDefaults() *UpdateRouteRequest {
 
 // GetDestinationIpRange returns the DestinationIpRange field value
 func (o *UpdateRouteRequest) GetDestinationIpRange() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -67,7 +67,7 @@ func (o *UpdateRouteRequest) GetDestinationIpRange() string {
 // GetDestinationIpRangeOk returns a tuple with the DestinationIpRange field value
 // and a boolean to check if the value has been set.
 func (o *UpdateRouteRequest) GetDestinationIpRangeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DestinationIpRange, true
@@ -240,7 +240,7 @@ func (o *UpdateRouteRequest) SetNicId(v string) {
 
 // GetRouteTableId returns the RouteTableId field value
 func (o *UpdateRouteRequest) GetRouteTableId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -251,7 +251,7 @@ func (o *UpdateRouteRequest) GetRouteTableId() string {
 // GetRouteTableIdOk returns a tuple with the RouteTableId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateRouteRequest) GetRouteTableIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RouteTableId, true
@@ -358,5 +358,3 @@ func (v *NullableUpdateRouteRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -18,7 +18,7 @@ import (
 // ReadNetsResponse struct for ReadNetsResponse
 type ReadNetsResponse struct {
 	// Information about the described Nets.
-	Nets *[]Net `json:"Nets,omitempty"`
+	Nets            *[]Net           `json:"Nets,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadNetsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

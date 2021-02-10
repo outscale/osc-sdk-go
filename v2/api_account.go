@@ -12,6 +12,7 @@
 package osc
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -27,8 +28,8 @@ var (
 type AccountApiService service
 
 type ApiCheckAuthenticationRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                        _context.Context
+	ApiService                 *AccountApiService
 	checkAuthenticationRequest *CheckAuthenticationRequest
 }
 
@@ -49,7 +50,7 @@ func (r ApiCheckAuthenticationRequest) Execute() (CheckAuthenticationResponse, *
 func (a *AccountApiService) CheckAuthentication(ctx _context.Context) ApiCheckAuthenticationRequest {
 	return ApiCheckAuthenticationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,6 +124,7 @@ func (a *AccountApiService) CheckAuthenticationExecute(r ApiCheckAuthenticationR
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -148,8 +150,8 @@ func (a *AccountApiService) CheckAuthenticationExecute(r ApiCheckAuthenticationR
 }
 
 type ApiCreateAccountRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                  _context.Context
+	ApiService           *AccountApiService
 	createAccountRequest *CreateAccountRequest
 }
 
@@ -170,7 +172,7 @@ func (r ApiCreateAccountRequest) Execute() (CreateAccountResponse, *_nethttp.Res
 func (a *AccountApiService) CreateAccount(ctx _context.Context) ApiCreateAccountRequest {
 	return ApiCreateAccountRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -244,6 +246,7 @@ func (a *AccountApiService) CreateAccountExecute(r ApiCreateAccountRequest) (Cre
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -269,8 +272,8 @@ func (a *AccountApiService) CreateAccountExecute(r ApiCreateAccountRequest) (Cre
 }
 
 type ApiReadAccountsRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                 _context.Context
+	ApiService          *AccountApiService
 	readAccountsRequest *ReadAccountsRequest
 }
 
@@ -291,7 +294,7 @@ func (r ApiReadAccountsRequest) Execute() (ReadAccountsResponse, *_nethttp.Respo
 func (a *AccountApiService) ReadAccounts(ctx _context.Context) ApiReadAccountsRequest {
 	return ApiReadAccountsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -365,6 +368,7 @@ func (a *AccountApiService) ReadAccountsExecute(r ApiReadAccountsRequest) (ReadA
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,8 +394,8 @@ func (a *AccountApiService) ReadAccountsExecute(r ApiReadAccountsRequest) (ReadA
 }
 
 type ApiReadConsumptionAccountRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                           _context.Context
+	ApiService                    *AccountApiService
 	readConsumptionAccountRequest *ReadConsumptionAccountRequest
 }
 
@@ -412,7 +416,7 @@ func (r ApiReadConsumptionAccountRequest) Execute() (ReadConsumptionAccountRespo
 func (a *AccountApiService) ReadConsumptionAccount(ctx _context.Context) ApiReadConsumptionAccountRequest {
 	return ApiReadConsumptionAccountRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -486,6 +490,7 @@ func (a *AccountApiService) ReadConsumptionAccountExecute(r ApiReadConsumptionAc
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -511,8 +516,8 @@ func (a *AccountApiService) ReadConsumptionAccountExecute(r ApiReadConsumptionAc
 }
 
 type ApiResetAccountPasswordRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                         _context.Context
+	ApiService                  *AccountApiService
 	resetAccountPasswordRequest *ResetAccountPasswordRequest
 }
 
@@ -533,7 +538,7 @@ func (r ApiResetAccountPasswordRequest) Execute() (ResetAccountPasswordResponse,
 func (a *AccountApiService) ResetAccountPassword(ctx _context.Context) ApiResetAccountPasswordRequest {
 	return ApiResetAccountPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -607,6 +612,7 @@ func (a *AccountApiService) ResetAccountPasswordExecute(r ApiResetAccountPasswor
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -632,8 +638,8 @@ func (a *AccountApiService) ResetAccountPasswordExecute(r ApiResetAccountPasswor
 }
 
 type ApiSendResetPasswordEmailRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                           _context.Context
+	ApiService                    *AccountApiService
 	sendResetPasswordEmailRequest *SendResetPasswordEmailRequest
 }
 
@@ -654,7 +660,7 @@ func (r ApiSendResetPasswordEmailRequest) Execute() (SendResetPasswordEmailRespo
 func (a *AccountApiService) SendResetPasswordEmail(ctx _context.Context) ApiSendResetPasswordEmailRequest {
 	return ApiSendResetPasswordEmailRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -728,6 +734,7 @@ func (a *AccountApiService) SendResetPasswordEmailExecute(r ApiSendResetPassword
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -753,8 +760,8 @@ func (a *AccountApiService) SendResetPasswordEmailExecute(r ApiSendResetPassword
 }
 
 type ApiUpdateAccountRequest struct {
-	ctx _context.Context
-	ApiService *AccountApiService
+	ctx                  _context.Context
+	ApiService           *AccountApiService
 	updateAccountRequest *UpdateAccountRequest
 }
 
@@ -775,7 +782,7 @@ func (r ApiUpdateAccountRequest) Execute() (UpdateAccountResponse, *_nethttp.Res
 func (a *AccountApiService) UpdateAccount(ctx _context.Context) ApiUpdateAccountRequest {
 	return ApiUpdateAccountRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -849,6 +856,7 @@ func (a *AccountApiService) UpdateAccountExecute(r ApiUpdateAccountRequest) (Upd
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

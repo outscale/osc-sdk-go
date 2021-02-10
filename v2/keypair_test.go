@@ -1,0 +1,1 @@
+../examples/keypair_test.go

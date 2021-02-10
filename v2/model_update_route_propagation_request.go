@@ -31,7 +31,7 @@ type UpdateRoutePropagationRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateRoutePropagationRequest(enable bool, routeTableId string, virtualGatewayId string, ) *UpdateRoutePropagationRequest {
+func NewUpdateRoutePropagationRequest(enable bool, routeTableId string, virtualGatewayId string) *UpdateRoutePropagationRequest {
 	this := UpdateRoutePropagationRequest{}
 	this.Enable = enable
 	this.RouteTableId = routeTableId
@@ -81,7 +81,7 @@ func (o *UpdateRoutePropagationRequest) SetDryRun(v bool) {
 
 // GetEnable returns the Enable field value
 func (o *UpdateRoutePropagationRequest) GetEnable() bool {
-	if o == nil  {
+	if o == nil {
 		var ret bool
 		return ret
 	}
@@ -92,7 +92,7 @@ func (o *UpdateRoutePropagationRequest) GetEnable() bool {
 // GetEnableOk returns a tuple with the Enable field value
 // and a boolean to check if the value has been set.
 func (o *UpdateRoutePropagationRequest) GetEnableOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Enable, true
@@ -105,7 +105,7 @@ func (o *UpdateRoutePropagationRequest) SetEnable(v bool) {
 
 // GetRouteTableId returns the RouteTableId field value
 func (o *UpdateRoutePropagationRequest) GetRouteTableId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -116,7 +116,7 @@ func (o *UpdateRoutePropagationRequest) GetRouteTableId() string {
 // GetRouteTableIdOk returns a tuple with the RouteTableId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateRoutePropagationRequest) GetRouteTableIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RouteTableId, true
@@ -129,7 +129,7 @@ func (o *UpdateRoutePropagationRequest) SetRouteTableId(v string) {
 
 // GetVirtualGatewayId returns the VirtualGatewayId field value
 func (o *UpdateRoutePropagationRequest) GetVirtualGatewayId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -140,7 +140,7 @@ func (o *UpdateRoutePropagationRequest) GetVirtualGatewayId() string {
 // GetVirtualGatewayIdOk returns a tuple with the VirtualGatewayId field value
 // and a boolean to check if the value has been set.
 func (o *UpdateRoutePropagationRequest) GetVirtualGatewayIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VirtualGatewayId, true
@@ -203,5 +203,3 @@ func (v *NullableUpdateRoutePropagationRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,7 +17,7 @@ import (
 
 // UpdateAccessKeyResponse struct for UpdateAccessKeyResponse
 type UpdateAccessKeyResponse struct {
-	AccessKey *AccessKey `json:"AccessKey,omitempty"`
+	AccessKey       *AccessKey       `json:"AccessKey,omitempty"`
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableUpdateAccessKeyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

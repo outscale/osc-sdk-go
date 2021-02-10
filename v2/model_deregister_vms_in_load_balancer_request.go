@@ -29,7 +29,7 @@ type DeregisterVmsInLoadBalancerRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeregisterVmsInLoadBalancerRequest(backendVmIds []string, loadBalancerName string, ) *DeregisterVmsInLoadBalancerRequest {
+func NewDeregisterVmsInLoadBalancerRequest(backendVmIds []string, loadBalancerName string) *DeregisterVmsInLoadBalancerRequest {
 	this := DeregisterVmsInLoadBalancerRequest{}
 	this.BackendVmIds = backendVmIds
 	this.LoadBalancerName = loadBalancerName
@@ -46,7 +46,7 @@ func NewDeregisterVmsInLoadBalancerRequestWithDefaults() *DeregisterVmsInLoadBal
 
 // GetBackendVmIds returns the BackendVmIds field value
 func (o *DeregisterVmsInLoadBalancerRequest) GetBackendVmIds() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *DeregisterVmsInLoadBalancerRequest) GetBackendVmIds() []string {
 // GetBackendVmIdsOk returns a tuple with the BackendVmIds field value
 // and a boolean to check if the value has been set.
 func (o *DeregisterVmsInLoadBalancerRequest) GetBackendVmIdsOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.BackendVmIds, true
@@ -102,7 +102,7 @@ func (o *DeregisterVmsInLoadBalancerRequest) SetDryRun(v bool) {
 
 // GetLoadBalancerName returns the LoadBalancerName field value
 func (o *DeregisterVmsInLoadBalancerRequest) GetLoadBalancerName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -113,7 +113,7 @@ func (o *DeregisterVmsInLoadBalancerRequest) GetLoadBalancerName() string {
 // GetLoadBalancerNameOk returns a tuple with the LoadBalancerName field value
 // and a boolean to check if the value has been set.
 func (o *DeregisterVmsInLoadBalancerRequest) GetLoadBalancerNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoadBalancerName, true
@@ -173,5 +173,3 @@ func (v *NullableDeregisterVmsInLoadBalancerRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

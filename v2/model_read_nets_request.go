@@ -18,7 +18,7 @@ import (
 // ReadNetsRequest struct for ReadNetsRequest
 type ReadNetsRequest struct {
 	// If `true`, checks whether you have the required permissions to perform the action.
-	DryRun *bool `json:"DryRun,omitempty"`
+	DryRun  *bool       `json:"DryRun,omitempty"`
 	Filters *FiltersNet `json:"Filters,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableReadNetsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -27,7 +27,7 @@ type DeleteVolumeRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteVolumeRequest(volumeId string, ) *DeleteVolumeRequest {
+func NewDeleteVolumeRequest(volumeId string) *DeleteVolumeRequest {
 	this := DeleteVolumeRequest{}
 	this.VolumeId = volumeId
 	return &this
@@ -75,7 +75,7 @@ func (o *DeleteVolumeRequest) SetDryRun(v bool) {
 
 // GetVolumeId returns the VolumeId field value
 func (o *DeleteVolumeRequest) GetVolumeId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *DeleteVolumeRequest) GetVolumeId() string {
 // GetVolumeIdOk returns a tuple with the VolumeId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteVolumeRequest) GetVolumeIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VolumeId, true
@@ -143,5 +143,3 @@ func (v *NullableDeleteVolumeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

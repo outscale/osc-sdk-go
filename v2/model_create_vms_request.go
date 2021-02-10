@@ -40,8 +40,8 @@ type CreateVmsRequest struct {
 	// One or more NICs. If you specify this parameter, you must define one NIC as the primary network interface of the VM with `0` as its device number.
 	Nics *[]NicForVmCreation `json:"Nics,omitempty"`
 	// The performance of the VM (`medium` \\| `high` \\|  `highest`).
-	Performance *string `json:"Performance,omitempty"`
-	Placement *Placement `json:"Placement,omitempty"`
+	Performance *string    `json:"Performance,omitempty"`
+	Placement   *Placement `json:"Placement,omitempty"`
 	// One or more private IP addresses of the VM.
 	PrivateIps *[]string `json:"PrivateIps,omitempty"`
 	// One or more IDs of security group for the VMs.
@@ -62,7 +62,7 @@ type CreateVmsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateVmsRequest(imageId string, ) *CreateVmsRequest {
+func NewCreateVmsRequest(imageId string) *CreateVmsRequest {
 	this := CreateVmsRequest{}
 	this.ImageId = imageId
 	var performance string = "high"
@@ -274,7 +274,7 @@ func (o *CreateVmsRequest) SetDryRun(v bool) {
 
 // GetImageId returns the ImageId field value
 func (o *CreateVmsRequest) GetImageId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -285,7 +285,7 @@ func (o *CreateVmsRequest) GetImageId() string {
 // GetImageIdOk returns a tuple with the ImageId field value
 // and a boolean to check if the value has been set.
 func (o *CreateVmsRequest) GetImageIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageId, true
@@ -812,5 +812,3 @@ func (v *NullableCreateVmsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
