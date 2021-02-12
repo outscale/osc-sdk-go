@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | **bool** | If &#x60;true&#x60;, the volume is deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | **bool** | If true, the volume is deleted when the VM is terminated. | [optional] 
 **DeviceNumber** | **int32** | The device index for the NIC attachment (between 1 and 7, both included). | [optional] 
 **LinkNicId** | **string** | The ID of the NIC to attach. | [optional] 
 **State** | **string** | The state of the attachment (&#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60; \\| &#x60;detached&#x60;). | [optional] 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Listener** | [**LoadBalancerLight**](LoadBalancerLight.md) |  | 
 **ListenerRule** | [**ListenerRuleForCreation**](ListenerRuleForCreation.md) |  | 
 **VmIds** | **[]string** | The IDs of the backend VMs. | 
