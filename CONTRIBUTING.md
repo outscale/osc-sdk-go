@@ -40,11 +40,12 @@ For each major version (v1, v2, ...):
 1. rebase on corresponding major version branch
 2. update `api_version` to the last Outscale API version
 3. update `sdk_version` following [semantic versioning](https://semver.org/) logic.
-4. `make gen` to re-build the sdk
-5. `make test` and fix any issue
-5. update `changelog.md` file
-6. commit changes
-7. tag version
-8. push to corresponding branch
+4. eventually update go.mod file
+5. `make gen` to re-build the sdk
+6. `make test` and fix any issue
+7. update `changelog.md` file
+8. commit changes
+9. tag version
+10. push to corresponding branch
 
 Note that CI should automatically detect new release on osc-api, update the SDK and push a new version.
