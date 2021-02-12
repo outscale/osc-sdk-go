@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** | The type of action for the rule (always &#x60;forward&#x60;). | [optional] 
 **HostNamePattern** | Pointer to **string** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?].  | [optional] 
-**ListenerRuleName** | Pointer to **string** | A human-readable name for the listener rule. | [optional] 
+**ListenerRuleName** | **string** | A human-readable name for the listener rule. | 
 **PathPattern** | Pointer to **string** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~\&quot;&#39;@:+?]. | [optional] 
 **Priority** | **int32** | The priority level of the listener rule, between &#x60;1&#x60; and &#x60;19999&#x60; both included. Each rule must have a unique priority level. Otherwise, an error is returned. | 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewListenerRuleForCreation
 
-`func NewListenerRuleForCreation(priority int32, ) *ListenerRuleForCreation`
+`func NewListenerRuleForCreation(listenerRuleName string, priority int32, ) *ListenerRuleForCreation`
 
 NewListenerRuleForCreation instantiates a new ListenerRuleForCreation object
 This constructor will assign default values to properties that have it defined,
@@ -98,11 +98,6 @@ and a boolean to check if the value has been set.
 
 SetListenerRuleName sets ListenerRuleName field to given value.
 
-### HasListenerRuleName
-
-`func (o *ListenerRuleForCreation) HasListenerRuleName() bool`
-
-HasListenerRuleName returns a boolean if a field has been set.
 
 ### GetPathPattern
 

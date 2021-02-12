@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountIds** | Pointer to **[]string** | The account ID of one or more users who have permissions for the resource. | [optional] 
-**GlobalPermission** | Pointer to **bool** | If &#x60;true&#x60;, the resource is public. If &#x60;false&#x60;, the resource is private. | [optional] 
+**GlobalPermission** | Pointer to **bool** | If true, the resource is public. If false, the resource is private. | [optional] 
 
 ## Methods
 

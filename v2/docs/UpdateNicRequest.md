@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | A new description for the NIC. | [optional] 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LinkNic** | Pointer to [**LinkNicToUpdate**](LinkNicToUpdate.md) |  | [optional] 
 **NicId** | **string** | The ID of the NIC you want to modify. | 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security groups for the NIC.&lt;br /&gt; You must specify at least one group, even if you use the default security group in the Net. | [optional] 

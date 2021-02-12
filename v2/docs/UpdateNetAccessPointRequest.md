@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AddRouteTableIds** | Pointer to **[]string** | One or more IDs of route tables to associate with the specified Net access point. | [optional] 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NetAccessPointId** | **string** | The ID of the Net access point. | 
 **RemoveRouteTableIds** | Pointer to **[]string** | One or more IDs of route tables to disassociate from the specified Net access point. | [optional] 
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **IpRange** | **string** | The IP range for the Net, in CIDR notation (for example, 10.0.0.0/16). | 
 **Tenancy** | Pointer to **string** | The tenancy options for the VMs (&#x60;default&#x60; if a VM created in a Net can be launched with any tenancy, &#x60;dedicated&#x60; if it can be launched with dedicated tenancy VMs running on single-tenant hardware). | [optional] 
 

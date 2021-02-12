@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersApiLog**](FiltersApiLog.md) |  | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. | [optional] 
 **ResultsPerPage** | Pointer to **int32** | The maximum number of items returned in a single page. By default, 100. | [optional] 

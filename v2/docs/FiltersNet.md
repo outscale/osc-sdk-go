@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DhcpOptionsSetIds** | Pointer to **[]string** | The IDs of the DHCP options sets. | [optional] 
 **IpRanges** | Pointer to **[]string** | The IP ranges for the Nets, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
-**IsDefault** | Pointer to **bool** | If &#x60;true&#x60;, the Net used is the default one. | [optional] 
+**IsDefault** | Pointer to **bool** | If true, the Net used is the default one. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets. | [optional] 
 **States** | Pointer to **[]string** | The states of the Nets (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Nets. | [optional] 

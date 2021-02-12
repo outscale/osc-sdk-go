@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-    createListenerRuleRequest := *openapiclient.NewCreateListenerRuleRequest(*openapiclient.NewLoadBalancerLight("LoadBalancerName_example", int32(123)), *openapiclient.NewListenerRuleForCreation(int32(123)), []string{"VmIds_example"}) // CreateListenerRuleRequest |  (optional)
+    createListenerRuleRequest := *openapiclient.NewCreateListenerRuleRequest(*openapiclient.NewLoadBalancerLight("LoadBalancerName_example", int32(123)), *openapiclient.NewListenerRuleForCreation("ListenerRuleName_example", int32(123)), []string{"VmIds_example"}) // CreateListenerRuleRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

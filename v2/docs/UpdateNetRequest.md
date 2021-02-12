@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DhcpOptionsSetId** | **string** | The ID of the DHCP options set (or &#x60;default&#x60; if you want to associate the default one). | 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NetId** | **string** | The ID of the Net. | 
 
 ## Methods

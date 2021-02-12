@@ -1,3 +1,7 @@
+# v2.0.0
+
+- updating to Outscale API 1.7.2
+
 # v2.0.0-beta4
 
 - updating to Outscale API 1.6

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Name** | **string** | The name of the server certificate you want to modify. | 
 **NewName** | Pointer to **string** | A new name for the server certificate. | [optional] 
 **NewPath** | Pointer to **string** | A new path for the server certificate. | [optional] 

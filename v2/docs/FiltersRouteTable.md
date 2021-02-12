@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkRouteTableIds** | Pointer to **[]string** | The IDs of the route tables involved in the associations. | [optional] 
 **LinkRouteTableLinkRouteTableIds** | Pointer to **[]string** | The IDs of the associations between the route tables and the Subnets. | [optional] 
-**LinkRouteTableMain** | Pointer to **bool** | If &#x60;true&#x60;, the route tables are the main ones for their Nets. | [optional] 
+**LinkRouteTableMain** | Pointer to **bool** | If true, the route tables are the main ones for their Nets. | [optional] 
 **LinkSubnetIds** | Pointer to **[]string** | The IDs of the Subnets involved in the associations. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets for the route tables. | [optional] 
 **RouteCreationMethods** | Pointer to **[]string** | The methods used to create a route. | [optional] 

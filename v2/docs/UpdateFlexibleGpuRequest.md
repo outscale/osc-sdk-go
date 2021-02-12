@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | Pointer to **bool** | If &#x60;true&#x60;, the fGPU is deleted when the VM is terminated. | [optional] 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DeleteOnVmDeletion** | Pointer to **bool** | If true, the fGPU is deleted when the VM is terminated. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FlexibleGpuId** | **string** | The ID of the fGPU you want to modify. | 
 
 ## Methods

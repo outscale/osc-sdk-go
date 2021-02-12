@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the EIP with the VM or the NIC. | [optional] 
 **PublicIp** | Pointer to **string** | The External IP address. In the public Cloud, this parameter is required. | [optional] 
 

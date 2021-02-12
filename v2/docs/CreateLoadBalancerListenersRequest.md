@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Listeners** | [**[]ListenerForCreation**](ListenerForCreation.md) | One or more listeners for the load balancer. | 
 **LoadBalancerName** | **string** | The name of the load balancer for which you want to create listeners. | 
 

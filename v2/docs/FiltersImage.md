@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | Pointer to **[]string** | The names of the OMIs, provided when they were created. | [optional] 
 **PermissionsToLaunchAccountIds** | Pointer to **[]string** | The account IDs of the users who have launch permissions for the OMIs. | [optional] 
-**PermissionsToLaunchGlobalPermission** | Pointer to **bool** | If &#x60;true&#x60;, lists all public OMIs. If &#x60;false&#x60;, lists all private OMIs. | [optional] 
+**PermissionsToLaunchGlobalPermission** | Pointer to **bool** | If true, lists all public OMIs. If false, lists all private OMIs. | [optional] 
 **RootDeviceNames** | Pointer to **[]string** | The device names of the root devices (for example, &#x60;/dev/sda1&#x60;). | [optional] 
 **RootDeviceTypes** | Pointer to **[]string** | The types of root device used by the OMIs (always &#x60;bsu&#x60;). | [optional] 
 **States** | Pointer to **[]string** | The states of the OMIs (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 

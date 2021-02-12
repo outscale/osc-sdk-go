@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CaIds** | Pointer to **[]string** |  One or more IDs of Client Certificate Authorities (CAs). | [optional] 
 **Cns** | Pointer to **[]string** | One or more Client Certificate Common Names (CNs). If this parameter is specified, you must also specify the &#x60;CaIds&#x60; parameter. | [optional] 
 **Description** | Pointer to **string** | A description for the API access rule. | [optional] 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **IpRanges** | Pointer to **[]string** | One or more IP ranges, in CIDR notation (for example, 192.0.2.0/16). | [optional] 
 
 ## Methods

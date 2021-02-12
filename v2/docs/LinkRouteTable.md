@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkRouteTableId** | Pointer to **string** | The ID of the association between the route table and the Subnet. | [optional] 
-**Main** | Pointer to **bool** | If &#x60;true&#x60;, the route table is the main one. | [optional] 
+**Main** | Pointer to **bool** | If true, the route table is the main one. | [optional] 
 **RouteTableId** | Pointer to **string** | The ID of the route table. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 
 

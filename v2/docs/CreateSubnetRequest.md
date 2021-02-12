@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **IpRange** | **string** | The IP range in the Subnet, in CIDR notation (for example, 10.0.0.0/16). | 
 **NetId** | **string** | The ID of the Net for which you want to create a Subnet. | 
 **SubregionName** | Pointer to **string** | The name of the Subregion in which you want to create the Subnet. | [optional] 

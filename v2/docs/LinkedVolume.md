@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | Pointer to **bool** | If &#x60;true&#x60;, the volume is deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | Pointer to **bool** | If true, the volume is deleted when the VM is terminated. | [optional] 
 **DeviceName** | Pointer to **string** | The name of the device. | [optional] 
 **State** | Pointer to **string** | The state of the attachment of the volume (&#x60;attaching&#x60; \\| &#x60;detaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detached&#x60;). | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 

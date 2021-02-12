@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ResourceIds** | **[]string** | One or more resource IDs. | 
 **Tags** | [**[]ResourceTag**](ResourceTag.md) | One or more tags to add to the specified resources. | 
 

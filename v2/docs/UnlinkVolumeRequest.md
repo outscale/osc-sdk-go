@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ForceUnlink** | Pointer to **bool** | Forces the detachment of the volume in case of previous failure. Important: This action may damage your data or file systems. | [optional] 
 **VolumeId** | **string** | The ID of the volume you want to detach. | 
 

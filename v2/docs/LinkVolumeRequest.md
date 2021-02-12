@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DeviceName** | **string** | The name of the device. | 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **VmId** | **string** | The ID of the VM you want to attach the volume to. | 
 **VolumeId** | **string** | The ID of the volume you want to attach. | 
 

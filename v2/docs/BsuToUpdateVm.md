@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | Pointer to **bool** | If &#x60;true&#x60;, the volume is deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | Pointer to **bool** | If true, the volume is deleted when the VM is terminated. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume. | [optional] 
 
 ## Methods

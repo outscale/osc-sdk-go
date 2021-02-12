@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AccountIds** | Pointer to **[]string** | The account IDs of the owners of the snapshots. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the snapshots. | [optional] 
 **PermissionsToCreateVolumeAccountIds** | Pointer to **[]string** | The account IDs of one or more users who have permissions to create volumes. | [optional] 
-**PermissionsToCreateVolumeGlobalPermission** | Pointer to **bool** | If &#x60;true&#x60;, lists all public volumes. If &#x60;false&#x60;, lists all private volumes. | [optional] 
+**PermissionsToCreateVolumeGlobalPermission** | Pointer to **bool** | If true, lists all public volumes. If false, lists all private volumes. | [optional] 
 **Progresses** | Pointer to **[]int32** | The progresses of the snapshots, as a percentage. | [optional] 
 **SnapshotIds** | Pointer to **[]string** | The IDs of the snapshots. | [optional] 
 **States** | Pointer to **[]string** | The states of the snapshots (&#x60;in-queue&#x60; \\| &#x60;completed&#x60; \\| &#x60;error&#x60;). | [optional] 

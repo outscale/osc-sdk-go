@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **City** | Pointer to **string** | The new city of the account owner. | [optional] 
 **CompanyName** | Pointer to **string** | The new name of the company for the account. | [optional] 
 **Country** | Pointer to **string** | The new country of the account owner. | [optional] 
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Email** | Pointer to **string** | The new email address for the account. | [optional] 
 **FirstName** | Pointer to **string** | The new first name of the account owner. | [optional] 
 **JobTitle** | Pointer to **string** | The new job title of the account owner. | [optional] 

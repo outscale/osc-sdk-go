@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | Pointer to **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
-**MapPublicIpOnLaunch** | **bool** | If &#x60;true&#x60;, a public IP address is assigned to the network interface cards (NICs) created in the specified Subnet. | 
+**DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
+**MapPublicIpOnLaunch** | **bool** | If true, a public IP address is assigned to the network interface cards (NICs) created in the specified Subnet. | 
 **SubnetId** | **string** | The ID of the Subnet. | 
 
 ## Methods
