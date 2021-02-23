@@ -17,6 +17,10 @@ gen: clean v2
 
 v2: osc-generate update-examples go-modules-update gofmt
 
+.PNONY: openapi-generator-help
+openapi-generator-help:
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) config-help -g go
+
 .PHONY: osc-generate
 osc-generate: osc-api/outscale.yaml
 	rm -rf .sdk || true
