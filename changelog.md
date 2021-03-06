@@ -1,3 +1,7 @@
+# v1.6.0
+
+- Upgraded to API v1.7.2
+
 # v1.5.5
 
 - autobuild: keep workflow errors for buggy builds only

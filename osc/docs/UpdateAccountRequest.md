@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **City** | **string** | The new city of the account owner. | [optional] 
 **CompanyName** | **string** | The new name of the company for the account. | [optional] 
 **Country** | **string** | The new country of the account owner. | [optional] 
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Email** | **string** | The new email address for the account. | [optional] 
 **FirstName** | **string** | The new first name of the account owner. | [optional] 
 **JobTitle** | **string** | The new job title of the account owner. | [optional] 

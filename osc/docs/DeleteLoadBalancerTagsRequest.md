@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LoadBalancerNames** | **[]string** | One or more load balancer names. | 
 **Tags** | [**[]ResourceLoadBalancerTag**](ResourceLoadBalancerTag.md) | One or more tags to delete from the load balancers. | 
 

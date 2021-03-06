@@ -15,7 +15,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.6"
+  version: "1.7"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -540,28 +540,6 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - LoadBalancer
-  /CreateMasterKey:
-    description: |-
-      Creates a master key. For more information, see [About Outscale Key Management Service (OKMS)](https://wiki.outscale.net/pages/viewpage.action?pageId=49023567).<br /><br />
-
-      **[NOTE]**<br />
-      By default, your account has a quota of 20 master keys.
-    post:
-      operationId: CreateMasterKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateMasterKeyRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateMasterKeyResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /CreateNatService:
     description: |-
       Creates a network address translation (NAT) service in the specified public Subnet of a Net.<br />
@@ -1297,24 +1275,6 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - VpnConnection
-  /DecryptCiphertext:
-    description: Decrypts ciphertext into plaintext.
-    post:
-      operationId: DecryptCiphertext
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DecryptCiphertextRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DecryptCiphertextResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /DeleteAccessKey:
     description: |-
       Deletes the specified access key associated with the account that sends the request.<br /><br />
@@ -1706,30 +1666,6 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - LoadBalancer
-  /DeleteMasterKey:
-    description: |-
-      Schedules the deletion of a master key.<br />
-      If the request succeeds, the state of the master key becomes `PendingDeletion` and the master key is deleted at the end of the waiting period.<br /><br />
-
-      **[NOTE]**<br />
-      - You cannot delete the default master key of your account.<br />
-      - You cannot modify the waiting period after you have scheduled the deletion. However, you can cancel the scheduled deletion using the [UndeleteMasterKey](#undeletemasterkey) method.
-    post:
-      operationId: DeleteMasterKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DeleteMasterKeyRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteMasterKeyResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /DeleteNatService:
     description: |-
       Deletes a specified network address translation (NAT) service.<br />
@@ -2394,42 +2330,6 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - LoadBalancer
-  /EncryptPlaintext:
-    description: Encrypts plaintext into ciphertext using a master key.
-    post:
-      operationId: EncryptPlaintext
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EncryptPlaintextRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EncryptPlaintextResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
-  /GenerateDataKey:
-    description: Generates a data key using a master key.
-    post:
-      operationId: GenerateDataKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GenerateDataKeyRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GenerateDataKeyResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /LinkFlexibleGpu:
     description: |-
       Attaches one of your allocated flexible GPUs (fGPUs) to one of your virtual machines (VMs).<br />
@@ -3264,24 +3164,6 @@ paths:
       security: []
       tags:
       - Location
-  /ReadMasterKeys:
-    description: Returns information about one or more master keys.
-    post:
-      operationId: ReadMasterKeys
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReadMasterKeysRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReadMasterKeysResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /ReadNatServices:
     description: |-
       Lists one or more network address translation (NAT) services.<br /><br />
@@ -4333,26 +4215,6 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Vm
-  /UndeleteMasterKey:
-    description: |-
-      Cancels the deletion of a master key that is scheduled for deletion.<br />
-      If the request succeeds, the state of the master key becomes `Disabled`.
-    post:
-      operationId: UndeleteMasterKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UndeleteMasterKeyRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UndeleteMasterKeyResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /UnlinkFlexibleGpu:
     description: |-
       Detaches a flexible GPU (fGPU) from a virtual machine (VM).<br />
@@ -4803,24 +4665,6 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - LoadBalancer
-  /UpdateMasterKey:
-    description: Modifies one or more attributes of a master key.
-    post:
-      operationId: UpdateMasterKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateMasterKeyRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateMasterKeyResponse'
-          description: The HTTP 200 response (OK).
-      tags:
-      - MasterKey
   /UpdateNet:
     description: Associates a DHCP options set with a specified Net.
     post:
@@ -5164,8 +5008,8 @@ components:
         NetPeeringId: NetPeeringId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetPeeringId:
           description: The ID of the Net peering connection you want to accept.
@@ -5296,9 +5140,9 @@ components:
         OsuBucketName: OsuBucketName
       properties:
         IsEnabled:
-          description: If `true`, access logs are enabled for your load balancer.
-            If `false`, they are not. If you set this to `true` in your request, the
-            `OsuBucketName` parameter is required.
+          description: If true, access logs are enabled for your load balancer. If
+            false, they are not. If you set this to true in your request, the `OsuBucketName`
+            parameter is required.
           type: boolean
         OsuBucketName:
           description: The name of the Object Storage Unit (OSU) bucket for the access
@@ -5557,8 +5401,8 @@ components:
         LinkDate: 2000-01-23
       properties:
         DeleteOnVmDeletion:
-          description: Set to `true` by default, which means that the volume is deleted
-            when the VM is terminated. If set to `false`, the volume is not deleted
+          description: Set to true by default, which means that the volume is deleted
+            when the VM is terminated. If set to false, the volume is not deleted
             when the VM is terminated.
           type: boolean
         LinkDate:
@@ -5583,8 +5427,8 @@ components:
         VolumeSize: 6
       properties:
         DeleteOnVmDeletion:
-          description: Set to `true` by default, which means that the volume is deleted
-            when the VM is terminated. If set to `false`, the volume is not deleted
+          description: Set to true by default, which means that the volume is deleted
+            when the VM is terminated. If set to false, the volume is not deleted
             when the VM is terminated.
           type: boolean
         Iops:
@@ -5615,7 +5459,7 @@ components:
         DeleteOnVmDeletion: true
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the volume is deleted when the VM is terminated.
+          description: If true, the volume is deleted when the VM is terminated.
           type: boolean
         VolumeId:
           description: The ID of the volume.
@@ -5647,8 +5491,8 @@ components:
         Password: Password
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Login:
           description: The email address of the account.
@@ -5756,8 +5600,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ExpirationDate:
           description: The date and time at which you want the access key to expire,
@@ -5815,8 +5659,8 @@ components:
           description: The ID of the customer. It must be 8 digits.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Email:
           description: The email address for the account.
@@ -5911,8 +5755,8 @@ components:
           description: A description for the API access rule.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         IpRanges:
           description: One or more IP ranges, in CIDR notation (for example, 192.0.2.0/16).
@@ -5957,8 +5801,8 @@ components:
           description: The description of the CA.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - CaPem
@@ -5995,8 +5839,8 @@ components:
             client gateway (only `ipsec.1` is supported).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         PublicIp:
           description: The public fixed IPv4 address of your client gateway.
@@ -6051,8 +5895,8 @@ components:
             type: string
           type: array
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NtpServers:
           description: The IP addresses of the Network Time Protocol (NTP) servers.
@@ -6107,8 +5951,8 @@ components:
         DirectLinkInterface:
           $ref: '#/components/schemas/DirectLinkInterface'
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - DirectLinkId
@@ -6154,8 +5998,8 @@ components:
           description: The name of the DirectLink.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Location:
           description: The code of the requested location for the DirectLink, returned
@@ -6196,11 +6040,11 @@ components:
       properties:
         DeleteOnVmDeletion:
           default: false
-          description: If `true`, the fGPU is deleted when the VM is terminated.
+          description: If true, the fGPU is deleted when the VM is terminated.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Generation:
           description: The processor generation that the fGPU must be compatible with.
@@ -6253,8 +6097,8 @@ components:
           DiskImageFormat: DiskImageFormat
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ImageId:
           description: The ID of the OMI to export.
@@ -6338,8 +6182,8 @@ components:
           description: A description for the new OMI.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FileLocation:
           description: The pre-signed URL of the OMI manifest file, or the full path
@@ -6352,8 +6196,8 @@ components:
             Constraints: 3-128 alphanumeric characters, underscores (_), spaces ( ), parentheses (()), slashes (/), periods (.), or dashes (-).
           type: string
         NoReboot:
-          description: If `false`, the VM shuts down before creating the OMI and then
-            reboots. If `true`, the VM does not.
+          description: If false, the VM shuts down before creating the OMI and then
+            reboots. If true, the VM does not.
           type: boolean
         RootDeviceName:
           description: The name of the root device.
@@ -6432,8 +6276,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     CreateInternetServiceResponse:
@@ -6464,8 +6308,8 @@ components:
         KeypairName: KeypairName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         KeypairName:
           description: A unique name for the keypair, with a maximum length of 255
@@ -6510,8 +6354,8 @@ components:
         - VmIds
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Listener:
           $ref: '#/components/schemas/LoadBalancerLight'
@@ -6567,8 +6411,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Listeners:
           description: One or more listeners for the load balancer.
@@ -6672,8 +6516,8 @@ components:
             cookie.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer for which you want to create
@@ -6799,8 +6643,8 @@ components:
         LoadBalancerType: LoadBalancerType
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Listeners:
           description: One or more listeners to create.
@@ -6933,8 +6777,8 @@ components:
           Key: Key
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerNames:
           description: One or more load balancer names.
@@ -6959,38 +6803,6 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
-    CreateMasterKeyRequest:
-      additionalProperties: false
-      example:
-        Description: Description
-        DryRun: true
-      properties:
-        Description:
-          description: A description for the master key, between 0 and 8192 Unicode
-            characters.
-          type: string
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-      type: object
-    CreateMasterKeyResponse:
-      additionalProperties: false
-      example:
-        MasterKey:
-          CreationDate: CreationDate
-          Description: Description
-          State: State
-          DeletionDate: DeletionDate
-          MasterKeyId: MasterKeyId
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        MasterKey:
-          $ref: '#/components/schemas/MasterKey'
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
     CreateNatServiceRequest:
       additionalProperties: false
       example:
@@ -6999,8 +6811,8 @@ components:
         SubnetId: SubnetId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         PublicIpId:
           description: |-
@@ -7051,8 +6863,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net.
@@ -7104,8 +6916,8 @@ components:
           description: The ID of the Net you want to connect with.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         SourceNetId:
           description: The ID of the Net you send the peering request from.
@@ -7151,8 +6963,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         IpRange:
           description: The IP range for the Net, in CIDR notation (for example, 10.0.0.0/16).
@@ -7206,8 +7018,8 @@ components:
           description: A description for the NIC.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         PrivateIps:
           description: |-
@@ -7299,8 +7111,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     CreatePublicIpResponse:
@@ -7344,8 +7156,8 @@ components:
             (for example, 10.0.0.0/24).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         GatewayId:
           description: The ID of an Internet service or virtual gateway attached to
@@ -7431,8 +7243,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net for which you want to create a route table.
@@ -7507,8 +7319,8 @@ components:
             of 255 [ASCII printable characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net for the security group.
@@ -7658,8 +7470,8 @@ components:
         FromPortRange: 0
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Flow:
           description: 'The direction of the flow: `Inbound` or `Outbound`. You can
@@ -7807,8 +7619,8 @@ components:
           description: The PEM-encoded intermediate certification authorities.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Name:
           description: 'A unique name for the certificate. Constraints: 1-128 alphanumeric
@@ -7859,8 +7671,8 @@ components:
           DiskImageFormat: DiskImageFormat
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         OsuExport:
           $ref: '#/components/schemas/OsuExport'
@@ -7916,8 +7728,8 @@ components:
           description: A description for the snapshot.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FileLocation:
           description: The pre-signed URL of the snapshot you want to import from
@@ -7978,8 +7790,8 @@ components:
         SubregionName: SubregionName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         IpRange:
           description: The IP range in the Subnet, in CIDR notation (for example,
@@ -8033,8 +7845,8 @@ components:
           Key: Key
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ResourceIds:
           description: One or more resource IDs.
@@ -8070,8 +7882,8 @@ components:
             (only `ipsec.1` is supported).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - ConnectionType
@@ -8185,22 +7997,22 @@ components:
             $ref: '#/components/schemas/BlockDeviceMappingVmCreation'
           type: array
         BootOnCreation:
-          description: By default or if `true`, the VM is started on creation. If
-            `false`, the VM is stopped on creation.
+          description: By default or if true, the VM is started on creation. If false,
+            the VM is stopped on creation.
           type: boolean
         BsuOptimized:
-          description: If `true`, the VM is created with optimized BSU I/O.
+          description: If true, the VM is created with optimized BSU I/O.
           type: boolean
         ClientToken:
           description: A unique identifier which enables you to manage the idempotency.
           type: string
         DeletionProtection:
-          description: If `true`, you cannot terminate the VM using Cockpit, the CLI
-            or the API. If `false`, you can.
+          description: If true, you cannot terminate the VM using Cockpit, the CLI
+            or the API. If false, you can.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ImageId:
           description: The ID of the OMI used to create the VM. You can find the list
@@ -8560,8 +8372,8 @@ components:
         SubregionName: SubregionName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Iops:
           description: The number of I/O operations per second (IOPS). This parameter
@@ -8638,14 +8450,14 @@ components:
           description: The type of VPN connection (only `ipsec.1` is supported).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         StaticRoutesOnly:
-          description: If `false`, the VPN connection uses dynamic routing with Border
-            Gateway Protocol (BGP). If `true`, routing is controlled using static
-            routes. For more information about how to create and delete static routes,
-            see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
+          description: If false, the VPN connection uses dynamic routing with Border
+            Gateway Protocol (BGP). If true, routing is controlled using static routes.
+            For more information about how to create and delete static routes, see
+            [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
           type: boolean
         VirtualGatewayId:
           description: The ID of the virtual gateway.
@@ -8698,8 +8510,8 @@ components:
             10.12.0.0/16).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VpnConnectionId:
           description: The ID of the target VPN connection of the static route.
@@ -8717,49 +8529,6 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
-    DecryptCiphertextRequest:
-      additionalProperties: false
-      example:
-        Ciphertext: Ciphertext
-        EncryptionContext:
-          key: EncryptionContext
-        DryRun: true
-      properties:
-        Ciphertext:
-          description: The ciphertext you want to decrypt.
-          format: byte
-          type: string
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        EncryptionContext:
-          additionalProperties:
-            description: EncryptionContext_Element
-            type: string
-          description: Information about the encryption context.
-          type: object
-      required:
-      - Ciphertext
-      type: object
-    DecryptCiphertextResponse:
-      additionalProperties: false
-      example:
-        ResponseContext:
-          RequestId: RequestId
-        Plaintext: Plaintext
-        MasterKeyId: MasterKeyId
-      properties:
-        MasterKeyId:
-          description: The ID of the master key used to decrypt the data.
-          type: string
-        Plaintext:
-          description: The decrypted ciphertext, encoded in base64.
-          format: byte
-          type: string
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
     DeleteAccessKeyRequest:
       additionalProperties: false
       example:
@@ -8770,8 +8539,8 @@ components:
           description: The ID of the access key you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - AccessKeyId
@@ -8795,8 +8564,8 @@ components:
           description: The ID of the API access rule you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - ApiAccessRuleId
@@ -8820,8 +8589,8 @@ components:
           description: The ID of the CA you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - CaId
@@ -8845,8 +8614,8 @@ components:
           description: The ID of the client gateway you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - ClientGatewayId
@@ -8870,8 +8639,8 @@ components:
           description: The ID of the DHCP options set you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - DhcpOptionsSetId
@@ -8895,8 +8664,8 @@ components:
           description: The ID of the DirectLink interface you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - DirectLinkInterfaceId
@@ -8920,8 +8689,8 @@ components:
           description: The ID of the DirectLink you want to delete.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - DirectLinkId
@@ -8942,8 +8711,8 @@ components:
         ExportTaskId: ExportTaskId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ExportTaskId:
           description: The ID of the export task to delete.
@@ -8967,8 +8736,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FlexibleGpuId:
           description: The ID of the fGPU you want to delete.
@@ -8992,8 +8761,8 @@ components:
         ImageId: ImageId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ImageId:
           description: The ID of the OMI you want to delete.
@@ -9017,8 +8786,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         InternetServiceId:
           description: The ID of the Internet service you want to delete.
@@ -9042,8 +8811,8 @@ components:
         KeypairName: KeypairName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         KeypairName:
           description: The name of the keypair you want to delete.
@@ -9067,8 +8836,8 @@ components:
         ListenerRuleName: ListenerRuleName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ListenerRuleName:
           description: The name of the rule you want to delete.
@@ -9095,8 +8864,8 @@ components:
         - 0
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer for which you want to delete
@@ -9193,8 +8962,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer for which you want to delete
@@ -9288,8 +9057,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer you want to delete.
@@ -9318,8 +9087,8 @@ components:
         - Key: Key
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerNames:
           description: One or more load balancer names.
@@ -9344,36 +9113,6 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
-    DeleteMasterKeyRequest:
-      additionalProperties: false
-      example:
-        DaysUntilDeletion: 0
-        DryRun: true
-        MasterKeyId: MasterKeyId
-      properties:
-        DaysUntilDeletion:
-          description: The waiting period before deletion, in days (between `7` and
-            `30`). By default, `30`.
-          type: integer
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        MasterKeyId:
-          description: The ID of the master key.
-          type: string
-      required:
-      - MasterKeyId
-      type: object
-    DeleteMasterKeyResponse:
-      additionalProperties: false
-      example:
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
     DeleteNatServiceRequest:
       additionalProperties: false
       example:
@@ -9381,8 +9120,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NatServiceId:
           description: The ID of the NAT service you want to delete.
@@ -9406,8 +9145,8 @@ components:
         NetAccessPointId: NetAccessPointId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetAccessPointId:
           description: The ID of the Net access point.
@@ -9431,8 +9170,8 @@ components:
         NetPeeringId: NetPeeringId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetPeeringId:
           description: The ID of the Net peering connection you want to delete.
@@ -9456,8 +9195,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net you want to delete.
@@ -9481,8 +9220,8 @@ components:
         NicId: NicId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NicId:
           description: The ID of the NIC you want to delete.
@@ -9507,8 +9246,8 @@ components:
         PublicIpId: PublicIpId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         PublicIp:
           description: The EIP. In the public Cloud, this parameter is required.
@@ -9538,8 +9277,8 @@ components:
           description: The exact IP range for the route.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         RouteTableId:
           description: The ID of the route table from which you want to delete a route.
@@ -9609,8 +9348,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         RouteTableId:
           description: The ID of the route table you want to delete.
@@ -9635,8 +9374,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         SecurityGroupId:
           description: The ID of the security group you want to delete.
@@ -9701,8 +9440,8 @@ components:
         SecurityGroupAccountIdToUnlink: SecurityGroupAccountIdToUnlink
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Flow:
           description: 'The direction of the flow: `Inbound` or `Outbound`. You can
@@ -9839,8 +9578,8 @@ components:
         Name: Name
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Name:
           description: The name of the server certificate you want to delete.
@@ -9864,8 +9603,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         SnapshotId:
           description: The ID of the snapshot you want to delete.
@@ -9889,8 +9628,8 @@ components:
         SubnetId: SubnetId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         SubnetId:
           description: The ID of the Subnet you want to delete.
@@ -9921,8 +9660,8 @@ components:
           Key: Key
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ResourceIds:
           description: One or more resource IDs.
@@ -9955,8 +9694,8 @@ components:
         VirtualGatewayId: VirtualGatewayId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VirtualGatewayId:
           description: The ID of the virtual gateway you want to delete.
@@ -9982,8 +9721,8 @@ components:
         - VmIds
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmIds:
           description: One or more IDs of VMs.
@@ -10021,8 +9760,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VolumeId:
           description: The ID of the volume you want to delete.
@@ -10046,8 +9785,8 @@ components:
         VpnConnectionId: VpnConnectionId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VpnConnectionId:
           description: The ID of the VPN connection you want to delete.
@@ -10076,8 +9815,8 @@ components:
             (for example, 10.12.0.0/16).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VpnConnectionId:
           description: The ID of the target VPN connection of the static route to
@@ -10111,8 +9850,8 @@ components:
             type: string
           type: array
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer.
@@ -10150,8 +9889,8 @@ components:
           Key: Key
       properties:
         Default:
-          description: If `true`, the DHCP options set is a default one. If `false`,
-            it is not.
+          description: If true, the DHCP options set is a default one. If false, it
+            is not.
           type: boolean
         DhcpOptionsSetId:
           description: The ID of the DHCP options set.
@@ -10314,58 +10053,6 @@ components:
         Vlan:
           description: The VLAN number associated with the DirectLink interface.
           type: integer
-      type: object
-    EncryptPlaintextRequest:
-      additionalProperties: false
-      example:
-        EncryptionContext:
-          key: EncryptionContext
-        DryRun: true
-        Plaintext: Plaintext
-        MasterKeyId: MasterKeyId
-      properties:
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        EncryptionContext:
-          additionalProperties:
-            description: EncryptionContext_Element
-            type: string
-          description: Information about the encryption context.
-          type: object
-        MasterKeyId:
-          description: The ID of the master key used to encrypt the data.
-          type: string
-        Plaintext:
-          description: |-
-            The plaintext you want to encrypt, encoded in base64.<br />
-            This base64-encoded plaintext must contain between 1 and 4096 characters.
-          format: byte
-          type: string
-      required:
-      - MasterKeyId
-      - Plaintext
-      type: object
-    EncryptPlaintextResponse:
-      additionalProperties: false
-      example:
-        Ciphertext: Ciphertext
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        Ciphertext:
-          description: The encrypted plaintext.
-          format: byte
-          type: string
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
-    EncryptionContext:
-      additionalProperties:
-        description: EncryptionContext_Element
-        type: string
-      description: Information about the encryption context.
       type: object
     ErrorResponse:
       additionalProperties: false
@@ -10666,8 +10353,8 @@ components:
         - DhcpOptionsSetIds
       properties:
         Default:
-          description: If `true`, lists all default DHCP options set. If `false`,
-            lists all non-default DHCP options set.
+          description: If true, lists all default DHCP options set. If false, lists
+            all non-default DHCP options set.
           type: boolean
         DhcpOptionsSetIds:
           description: The IDs of the DHCP options sets.
@@ -10950,7 +10637,7 @@ components:
             type: string
           type: array
         PermissionsToLaunchGlobalPermission:
-          description: If `true`, lists all public OMIs. If `false`, lists all private
+          description: If true, lists all public OMIs. If false, lists all private
             OMIs.
           type: boolean
         RootDeviceNames:
@@ -11097,36 +10784,6 @@ components:
             type: string
           type: array
       type: object
-    FiltersMasterKey:
-      additionalProperties: false
-      description: One or more filters.
-      example:
-        States:
-        - States
-        - States
-        Descriptions:
-        - Descriptions
-        - Descriptions
-        MasterKeyIds:
-        - MasterKeyIds
-        - MasterKeyIds
-      properties:
-        Descriptions:
-          description: The descriptions of the master keys.
-          items:
-            type: string
-          type: array
-        MasterKeyIds:
-          description: The IDs of the master keys.
-          items:
-            type: string
-          type: array
-        States:
-          description: The states of the master keys (`Enabled` \| `Disabled` \| `PendingDeletion`).
-          items:
-            type: string
-          type: array
-      type: object
     FiltersNatService:
       additionalProperties: false
       description: One or more filters.
@@ -11230,7 +10887,7 @@ components:
             type: string
           type: array
         IsDefault:
-          description: If `true`, the Net used is the default one.
+          description: If true, the Net used is the default one.
           type: boolean
         NetIds:
           description: The IDs of the Nets.
@@ -11439,15 +11096,148 @@ components:
         LinkNicVmIds:
         - LinkNicVmIds
         - LinkNicVmIds
+        LinkPublicIpPublicIpIds:
+        - LinkPublicIpPublicIpIds
+        - LinkPublicIpPublicIpIds
+        PrivateIpsPrimaryIp: true
+        LinkNicVmAccountIds:
+        - LinkNicVmAccountIds
+        - LinkNicVmAccountIds
         SubnetIds:
         - SubnetIds
         - SubnetIds
+        LinkPublicIpAccountIds:
+        - LinkPublicIpAccountIds
+        - LinkPublicIpAccountIds
+        TagValues:
+        - TagValues
+        - TagValues
+        States:
+        - States
+        - States
+        Descriptions:
+        - Descriptions
+        - Descriptions
+        LinkPublicIpLinkPublicIpIds:
+        - LinkPublicIpLinkPublicIpIds
+        - LinkPublicIpLinkPublicIpIds
+        SubregionNames:
+        - SubregionNames
+        - SubregionNames
+        LinkNicStates:
+        - LinkNicStates
+        - LinkNicStates
+        Tags:
+        - Tags
+        - Tags
+        NetIds:
+        - NetIds
+        - NetIds
+        LinkNicDeleteOnVmDeletion: true
+        PrivateIpsLinkPublicIpPublicIps:
+        - PrivateIpsLinkPublicIpPublicIps
+        - PrivateIpsLinkPublicIpPublicIps
+        SecurityGroupNames:
+        - SecurityGroupNames
+        - SecurityGroupNames
+        SecurityGroupIds:
+        - SecurityGroupIds
+        - SecurityGroupIds
+        LinkNicDeviceNumbers:
+        - 0
+        - 0
+        TagKeys:
+        - TagKeys
+        - TagKeys
+        IsSourceDestCheck: true
+        PrivateDnsNames:
+        - PrivateDnsNames
+        - PrivateDnsNames
+        LinkPublicIpPublicIps:
+        - LinkPublicIpPublicIps
+        - LinkPublicIpPublicIps
+        LinkNicLinkNicIds:
+        - LinkNicLinkNicIds
+        - LinkNicLinkNicIds
+        PrivateIpsLinkPublicIpAccountIds:
+        - PrivateIpsLinkPublicIpAccountIds
+        - PrivateIpsLinkPublicIpAccountIds
+        MacAddresses:
+        - MacAddresses
+        - MacAddresses
         NicIds:
         - NicIds
         - NicIds
       properties:
+        Descriptions:
+          description: The descriptions of the NICs.
+          items:
+            type: string
+          type: array
+        IsSourceDestCheck:
+          description: Whether the source/destination checking is enabled (true) or
+            disabled (false).
+          type: boolean
+        LinkNicDeleteOnVmDeletion:
+          description: Whether the NICs are deleted when the VMs they are attached
+            to are terminated.
+          type: boolean
+        LinkNicDeviceNumbers:
+          description: The device numbers the NICs are attached to.
+          items:
+            type: integer
+          type: array
+        LinkNicLinkNicIds:
+          description: The attachment IDs of the NICs.
+          items:
+            type: string
+          type: array
+        LinkNicStates:
+          description: The states of the attachments.
+          items:
+            type: string
+          type: array
+        LinkNicVmAccountIds:
+          description: The account IDs of the owners of the VMs the NICs are attached
+            to.
+          items:
+            type: string
+          type: array
         LinkNicVmIds:
           description: The IDs of the VMs the NICs are attached to.
+          items:
+            type: string
+          type: array
+        LinkPublicIpAccountIds:
+          description: The account IDs of the owners of the EIPs associated with the
+            NICs.
+          items:
+            type: string
+          type: array
+        LinkPublicIpLinkPublicIpIds:
+          description: The association IDs returned when the EIPs were associated
+            with the FNIs.
+          items:
+            type: string
+          type: array
+        LinkPublicIpPublicIpIds:
+          description: The allocation IDs returned when the EIPs were allocated to
+            their accounts.
+          items:
+            type: string
+          type: array
+        LinkPublicIpPublicIps:
+          description: The EIPs associated with the NICs.
+          items:
+            type: string
+          type: array
+        MacAddresses:
+          description: The Media Access Control (MAC) addresses of the NICs.
+          items:
+            type: string
+          type: array
+        NetIds:
+          description: The IDs of the Nets where the NICs are located.
           items:
             type: string
           type: array
@@ -11456,13 +11246,69 @@ components:
           items:
             type: string
           type: array
+        PrivateDnsNames:
+          description: The private DNS names associated with the primary private IP
+            addresses.
+          items:
+            type: string
+          type: array
+        PrivateIpsLinkPublicIpAccountIds:
+          description: The account IDs of the owner of the EIPs associated with the
+            private IP addresses.
+          items:
+            type: string
+          type: array
+        PrivateIpsLinkPublicIpPublicIps:
+          description: The EIPs associated with the private IP addresses.
+          items:
+            type: string
+          type: array
+        PrivateIpsPrimaryIp:
+          description: The primary private IP addresses of the NICs.
+          type: boolean
         PrivateIpsPrivateIps:
           description: The private IP addresses of the NICs.
           items:
             type: string
           type: array
+        SecurityGroupIds:
+          description: The IDs of the security groups associated with the NICs.
+          items:
+            type: string
+          type: array
+        SecurityGroupNames:
+          description: The names of the security groups associated with the NICs.
+          items:
+            type: string
+          type: array
+        States:
+          description: The states of the NICs.
+          items:
+            type: string
+          type: array
         SubnetIds:
           description: The IDs of the Subnets for the NICs.
+          items:
+            type: string
+          type: array
+        SubregionNames:
+          description: The Subregions where the NICs are located.
+          items:
+            type: string
+          type: array
+        TagKeys:
+          description: The keys of the tags associated with the NICs.
+          items:
+            type: string
+          type: array
+        TagValues:
+          description: The values of the tags associated with the NICs.
+          items:
+            type: string
+          type: array
+        Tags:
+          description: 'The key/value combination of the tags associated with the
+            NICs, in the following format: "Filters":{"Tags":["TAGKEY=TAGVALUE"]}.'
           items:
             type: string
           type: array
@@ -11681,7 +11527,7 @@ components:
             type: string
           type: array
         LinkRouteTableMain:
-          description: If `true`, the route tables are the main ones for their Nets.
+          description: If true, the route tables are the main ones for their Nets.
           type: boolean
         LinkSubnetIds:
           description: The IDs of the Subnets involved in the associations.
@@ -11761,12 +11607,36 @@ components:
       additionalProperties: false
       description: One or more filters.
       example:
+        InboundRuleFromPortRanges:
+        - 0
+        - 0
+        InboundRuleProtocols:
+        - InboundRuleProtocols
+        - InboundRuleProtocols
+        InboundRuleSecurityGroupNames:
+        - InboundRuleSecurityGroupNames
+        - InboundRuleSecurityGroupNames
+        InboundRuleToPortRanges:
+        - 6
+        - 6
         AccountIds:
         - AccountIds
         - AccountIds
         NetIds:
         - NetIds
         - NetIds
+        OutboundRuleProtocols:
+        - OutboundRuleProtocols
+        - OutboundRuleProtocols
+        OutboundRuleSecurityGroupIds:
+        - OutboundRuleSecurityGroupIds
+        - OutboundRuleSecurityGroupIds
+        InboundRuleSecurityGroupIds:
+        - InboundRuleSecurityGroupIds
+        - InboundRuleSecurityGroupIds
+        OutboundRuleIpRanges:
+        - OutboundRuleIpRanges
+        - OutboundRuleIpRanges
         SecurityGroupNames:
         - SecurityGroupNames
         - SecurityGroupNames
@@ -11779,6 +11649,27 @@ components:
         TagValues:
         - TagValues
         - TagValues
+        InboundRuleIpRanges:
+        - InboundRuleIpRanges
+        - InboundRuleIpRanges
+        InboundRuleAccountIds:
+        - InboundRuleAccountIds
+        - InboundRuleAccountIds
+        Descriptions:
+        - Descriptions
+        - Descriptions
+        OutboundRuleSecurityGroupNames:
+        - OutboundRuleSecurityGroupNames
+        - OutboundRuleSecurityGroupNames
+        OutboundRuleFromPortRanges:
+        - 1
+        - 1
+        OutboundRuleToPortRanges:
+        - 5
+        - 5
+        OutboundRuleAccountIds:
+        - OutboundRuleAccountIds
+        - OutboundRuleAccountIds
         Tags:
         - Tags
         - Tags
@@ -11788,11 +11679,94 @@ components:
           items:
             type: string
           type: array
+        Descriptions:
+          description: The descriptions of the security groups.
+          items:
+            type: string
+          type: array
+        InboundRuleAccountIds:
+          description: The account IDs that have been granted permissions.
+          items:
+            type: string
+          type: array
+        InboundRuleFromPortRanges:
+          description: The beginnings of the port ranges for the TCP and UDP protocols,
+            or the ICMP type numbers.
+          items:
+            type: integer
+          type: array
+        InboundRuleIpRanges:
+          description: The IP ranges that have been granted permissions, in CIDR notation
+            (for example, 10.0.0.0/24).
+          items:
+            type: string
+          type: array
+        InboundRuleProtocols:
+          description: The IP protocols for the permissions (`tcp` \| `udp` \| `icmp`,
+            or a protocol number, or `-1` for all protocols).
+          items:
+            type: string
+          type: array
+        InboundRuleSecurityGroupIds:
+          description: The IDs of the security groups that have been granted permissions.
+          items:
+            type: string
+          type: array
+        InboundRuleSecurityGroupNames:
+          description: The names of the security groups that have been granted permissions.
+          items:
+            type: string
+          type: array
+        InboundRuleToPortRanges:
+          description: The ends of the port ranges for the TCP and UDP protocols,
+            or the ICMP codes.
+          items:
+            type: integer
+          type: array
         NetIds:
           description: The IDs of the Nets specified when the security groups were
             created.
           items:
             type: string
+          type: array
+        OutboundRuleAccountIds:
+          description: The account IDs that have been granted permissions.
+          items:
+            type: string
+          type: array
+        OutboundRuleFromPortRanges:
+          description: The beginnings of the port ranges for the TCP and UDP protocols,
+            or the ICMP type numbers.
+          items:
+            type: integer
+          type: array
+        OutboundRuleIpRanges:
+          description: The IP ranges that have been granted permissions, in CIDR notation
+            (for example, 10.0.0.0/24).
+          items:
+            type: string
+          type: array
+        OutboundRuleProtocols:
+          description: The IP protocols for the permissions (`tcp` \| `udp` \| `icmp`,
+            or a protocol number, or `-1` for all protocols).
+          items:
+            type: string
+          type: array
+        OutboundRuleSecurityGroupIds:
+          description: The IDs of the security groups that have been granted permissions.
+          items:
+            type: string
+          type: array
+        OutboundRuleSecurityGroupNames:
+          description: The names of the security groups that have been granted permissions.
+          items:
+            type: string
+          type: array
+        OutboundRuleToPortRanges:
+          description: The ends of the port ranges for the TCP and UDP protocols,
+            or the ICMP codes.
+          items:
+            type: integer
           type: array
         SecurityGroupIds:
           description: The IDs of the security groups.
@@ -11917,8 +11891,8 @@ components:
             type: string
           type: array
         PermissionsToCreateVolumeGlobalPermission:
-          description: If `true`, lists all public volumes. If `false`, lists all
-            private volumes.
+          description: If true, lists all public volumes. If false, lists all private
+            volumes.
           type: boolean
         Progresses:
           description: The progresses of the snapshots, as a percentage.
@@ -12491,10 +12465,10 @@ components:
             type: string
           type: array
         StaticRoutesOnly:
-          description: If `false`, the VPN connection uses dynamic routing with Border
-            Gateway Protocol (BGP). If `true`, routing is controlled using static
-            routes. For more information about how to create and delete static routes,
-            see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
+          description: If false, the VPN connection uses dynamic routing with Border
+            Gateway Protocol (BGP). If true, routing is controlled using static routes.
+            For more information about how to create and delete static routes, see
+            [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
           type: boolean
         TagKeys:
           description: The keys of the tags associated with the VPN connections.
@@ -12536,7 +12510,7 @@ components:
         SubregionName: SubregionName
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the fGPU is deleted when the VM is terminated.
+          description: If true, the fGPU is deleted when the VM is terminated.
           type: boolean
         FlexibleGpuId:
           description: The ID of the fGPU.
@@ -12591,60 +12565,6 @@ components:
         VRam:
           description: The amount of video RAM (VRAM) of the fGPU.
           type: integer
-      type: object
-    GenerateDataKeyRequest:
-      additionalProperties: false
-      example:
-        GeneratePlaintext: true
-        EncryptionContext:
-          key: EncryptionContext
-        Size: 0
-        DryRun: true
-        MasterKeyId: MasterKeyId
-      properties:
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        EncryptionContext:
-          additionalProperties:
-            description: EncryptionContext_Element
-            type: string
-          description: Information about the encryption context.
-          type: object
-        GeneratePlaintext:
-          description: If `true`, the data key is generated in plaintext and ciphertext.
-            If `false`, the data key is generated only in ciphertext.
-          type: boolean
-        MasterKeyId:
-          description: The ID of the master key used to generate the data key.
-          type: string
-        Size:
-          description: The size of the data key you want to generate, in bytes (between
-            1 and 1024).
-          type: integer
-      required:
-      - MasterKeyId
-      - Size
-      type: object
-    GenerateDataKeyResponse:
-      additionalProperties: false
-      example:
-        Ciphertext: Ciphertext
-        ResponseContext:
-          RequestId: RequestId
-        Plaintext: Plaintext
-      properties:
-        Ciphertext:
-          description: The encrypted data key, encoded in base64.
-          format: byte
-          type: string
-        Plaintext:
-          description: The decrypted data key, encoded in base64.
-          format: byte
-          type: string
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
       type: object
     HealthCheck:
       additionalProperties: false
@@ -12921,8 +12841,8 @@ components:
         VmId: VmId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FlexibleGpuId:
           description: The ID of the fGPU you want to attach.
@@ -12951,8 +12871,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         InternetServiceId:
           description: The ID of the Internet service you want to attach.
@@ -12986,7 +12906,7 @@ components:
         VmId: VmId
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the volume is deleted when the VM is terminated.
+          description: If true, the volume is deleted when the VM is terminated.
           type: boolean
         DeviceNumber:
           description: The device index for the NIC attachment (between 1 and 7, both
@@ -13016,7 +12936,7 @@ components:
         State: State
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the volume is deleted when the VM is terminated.
+          description: If true, the volume is deleted when the VM is terminated.
           type: boolean
         DeviceNumber:
           description: The device index for the NIC attachment (between 1 and 7, both
@@ -13043,8 +12963,8 @@ components:
             1 and 7, both included).
           type: integer
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NicId:
           description: The ID of the NIC you want to attach.
@@ -13079,7 +12999,7 @@ components:
         LinkNicId: LinkNicId
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the NIC is deleted when the VM is terminated.
+          description: If true, the NIC is deleted when the VM is terminated.
           type: boolean
         LinkNicId:
           description: The ID of the NIC attachment.
@@ -13097,12 +13017,12 @@ components:
         NicId: NicId
       properties:
         AllowRelink:
-          description: If `true`, allows an IP address that is already assigned to
-            another NIC in the same Subnet to be assigned to the NIC you specified.
+          description: If true, allows an IP address that is already assigned to another
+            NIC in the same Subnet to be assigned to the NIC you specified.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NicId:
           description: The ID of the NIC.
@@ -13187,14 +13107,14 @@ components:
       properties:
         AllowRelink:
           description: |-
-            - If `true`, allows the EIP to be associated with the VM or NIC that you specify even if it is already associated with another VM or NIC.<br />
-            - If `false`, prevents the EIP from being associated with the VM or NIC that you specify if it is already associated with another VM or NIC.<br /><br />
+            - If true, allows the EIP to be associated with the VM or NIC that you specify even if it is already associated with another VM or NIC.<br />
+            - If false, prevents the EIP from being associated with the VM or NIC that you specify if it is already associated with another VM or NIC.<br /><br />
 
-            (By default, `true` in the public Cloud, `false` in a Net.)
+            (By default, true in the public Cloud, false in a Net.)
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NicId:
           description: (Net only) The ID of the NIC. This parameter is required if
@@ -13246,7 +13166,7 @@ components:
           description: The ID of the association between the route table and the Subnet.
           type: string
         Main:
-          description: If `true`, the route table is the main one.
+          description: If true, the route table is the main one.
           type: boolean
         RouteTableId:
           description: The ID of the route table.
@@ -13263,8 +13183,8 @@ components:
         SubnetId: SubnetId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         RouteTableId:
           description: The ID of the route table.
@@ -13297,8 +13217,8 @@ components:
         VirtualGatewayId: VirtualGatewayId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net to which you want to attach the virtual gateway.
@@ -13336,8 +13256,8 @@ components:
           description: The name of the device.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmId:
           description: The ID of the VM you want to attach the volume to.
@@ -13370,7 +13290,7 @@ components:
         DeviceName: DeviceName
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the volume is deleted when the VM is terminated.
+          description: If true, the volume is deleted when the VM is terminated.
           type: boolean
         DeviceName:
           description: The name of the device.
@@ -13543,6 +13463,7 @@ components:
             an error is returned.
           type: integer
       required:
+      - ListenerRuleName
       - Priority
       type: object
     LoadBalancer:
@@ -13832,34 +13753,6 @@ components:
           format: date
           type: string
       type: object
-    MasterKey:
-      additionalProperties: false
-      description: Information about a master key.
-      example:
-        CreationDate: CreationDate
-        Description: Description
-        State: State
-        DeletionDate: DeletionDate
-        MasterKeyId: MasterKeyId
-      properties:
-        CreationDate:
-          description: The date and time of creation of the master key.
-          format: datetime
-          type: string
-        DeletionDate:
-          description: The date and time of scheduled deletion of the master key.
-          format: datetime
-          type: string
-        Description:
-          description: ' The description of the master key.'
-          type: string
-        MasterKeyId:
-          description: The ID of the master key.
-          type: string
-        State:
-          description: The state of the master key (`Enabled` \| `Disabled` \| `PendingDeletion`).
-          type: string
-      type: object
     NatService:
       additionalProperties: false
       description: Information about the NAT service.
@@ -14114,9 +14007,9 @@ components:
           description: The description of the NIC.
           type: string
         IsSourceDestChecked:
-          description: (Net only) If `true`, the source/destination check is enabled.
-            If `false`, it is disabled. This value must be `false` for a NAT VM to
-            perform network address translation (NAT) in a Net.
+          description: (Net only) If true, the source/destination check is enabled.
+            If false, it is disabled. This value must be false for a NAT VM to perform
+            network address translation (NAT) in a Net.
           type: boolean
         LinkNic:
           $ref: '#/components/schemas/LinkNic'
@@ -14181,8 +14074,8 @@ components:
         NicId: NicId
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the NIC is deleted when the VM is terminated. You
-            can specify `true` only if you create a NIC when creating a VM.
+          description: If true, the NIC is deleted when the VM is terminated. You
+            can specify true only if you create a NIC when creating a VM.
           type: boolean
         Description:
           description: The description of the NIC, if you are creating a NIC when
@@ -14270,9 +14163,9 @@ components:
           description: The description of the NIC.
           type: string
         IsSourceDestChecked:
-          description: (Net only) If `true`, the source/destination check is enabled.
-            If `false`, it is disabled. This value must be `false` for a NAT VM to
-            perform network address translation (NAT) in a Net.
+          description: (Net only) If true, the source/destination check is enabled.
+            If false, it is disabled. This value must be false for a NAT VM to perform
+            network address translation (NAT) in a Net.
           type: boolean
         LinkNic:
           $ref: '#/components/schemas/LinkNicLight'
@@ -14370,8 +14263,8 @@ components:
             type: string
           type: array
         GlobalPermission:
-          description: If `true`, the resource is public. If `false`, the resource
-            is private.
+          description: If true, the resource is public. If false, the resource is
+            private.
           type: boolean
       type: object
     PermissionsOnResourceCreation:
@@ -14423,8 +14316,8 @@ components:
         IsPrimary: true
       properties:
         IsPrimary:
-          description: If `true`, the IP address is the primary private IP address
-            of the NIC.
+          description: If true, the IP address is the primary private IP address of
+            the NIC.
           type: boolean
         LinkPublicIp:
           $ref: '#/components/schemas/LinkPublicIp'
@@ -14443,8 +14336,8 @@ components:
         IsPrimary: true
       properties:
         IsPrimary:
-          description: If `true`, the IP address is the primary private IP address
-            of the NIC.
+          description: If true, the IP address is the primary private IP address of
+            the NIC.
           type: boolean
         PrivateIp:
           description: The private IP address of the NIC.
@@ -14463,8 +14356,8 @@ components:
         IsPrimary: true
       properties:
         IsPrimary:
-          description: If `true`, the IP address is the primary private IP address
-            of the NIC.
+          description: If true, the IP address is the primary private IP address of
+            the NIC.
           type: boolean
         LinkPublicIp:
           $ref: '#/components/schemas/LinkPublicIpLightForVm'
@@ -14632,8 +14525,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersAccessKeys'
@@ -14669,8 +14562,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     ReadAccountsResponse:
@@ -14723,8 +14616,8 @@ components:
         VmId: VmId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmId:
           description: The ID of the VM.
@@ -14772,8 +14665,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersApiAccessRule'
@@ -14864,8 +14757,8 @@ components:
           QueryHeaderRaw: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersApiLog'
@@ -14946,8 +14839,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersCa'
@@ -15004,8 +14897,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersClientGateway'
@@ -15052,8 +14945,8 @@ components:
         VmId: VmId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmId:
           description: The ID of the VM.
@@ -15087,8 +14980,8 @@ components:
         ToDate: ToDate
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FromDate:
           description: The beginning of the time period, in ISO 8601 date-time format
@@ -15165,8 +15058,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersDhcpOptions'
@@ -15227,8 +15120,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersDirectLinkInterface'
@@ -15284,8 +15177,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersDirectLink'
@@ -15325,8 +15218,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     ReadFlexibleGpuCatalogResponse:
@@ -15385,8 +15278,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersFlexibleGpu'
@@ -15430,8 +15323,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersExportTask'
@@ -15553,8 +15446,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersImage'
@@ -15689,8 +15582,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersInternetService'
@@ -15739,8 +15632,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersKeypair'
@@ -15774,8 +15667,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersListenerRule'
@@ -15824,8 +15717,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerNames:
           description: One or more load balancer names.
@@ -15866,8 +15759,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersLoadBalancer'
@@ -16017,8 +15910,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     ReadLocationsResponse:
@@ -16036,53 +15929,6 @@ components:
           description: Information about one or more locations.
           items:
             $ref: '#/components/schemas/Location'
-          type: array
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
-    ReadMasterKeysRequest:
-      additionalProperties: false
-      example:
-        Filters:
-          States:
-          - States
-          - States
-          Descriptions:
-          - Descriptions
-          - Descriptions
-          MasterKeyIds:
-          - MasterKeyIds
-          - MasterKeyIds
-        DryRun: true
-      properties:
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        Filters:
-          $ref: '#/components/schemas/FiltersMasterKey'
-      type: object
-    ReadMasterKeysResponse:
-      additionalProperties: false
-      example:
-        MasterKeys:
-        - CreationDate: CreationDate
-          Description: Description
-          State: State
-          DeletionDate: DeletionDate
-          MasterKeyId: MasterKeyId
-        - CreationDate: CreationDate
-          Description: Description
-          State: State
-          DeletionDate: DeletionDate
-          MasterKeyId: MasterKeyId
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        MasterKeys:
-          description: Information about one or more master keys.
-          items:
-            $ref: '#/components/schemas/MasterKey'
           type: array
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
@@ -16115,8 +15961,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersNatService'
@@ -16177,8 +16023,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersService'
@@ -16236,8 +16082,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersNetAccessPoint'
@@ -16324,8 +16170,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersNetPeering'
@@ -16408,8 +16254,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersNet'
@@ -16459,17 +16305,83 @@ components:
           LinkNicVmIds:
           - LinkNicVmIds
           - LinkNicVmIds
+          LinkPublicIpPublicIpIds:
+          - LinkPublicIpPublicIpIds
+          - LinkPublicIpPublicIpIds
+          PrivateIpsPrimaryIp: true
+          LinkNicVmAccountIds:
+          - LinkNicVmAccountIds
+          - LinkNicVmAccountIds
           SubnetIds:
           - SubnetIds
           - SubnetIds
+          LinkPublicIpAccountIds:
+          - LinkPublicIpAccountIds
+          - LinkPublicIpAccountIds
+          TagValues:
+          - TagValues
+          - TagValues
+          States:
+          - States
+          - States
+          Descriptions:
+          - Descriptions
+          - Descriptions
+          LinkPublicIpLinkPublicIpIds:
+          - LinkPublicIpLinkPublicIpIds
+          - LinkPublicIpLinkPublicIpIds
+          SubregionNames:
+          - SubregionNames
+          - SubregionNames
+          LinkNicStates:
+          - LinkNicStates
+          - LinkNicStates
+          Tags:
+          - Tags
+          - Tags
+          NetIds:
+          - NetIds
+          - NetIds
+          LinkNicDeleteOnVmDeletion: true
+          PrivateIpsLinkPublicIpPublicIps:
+          - PrivateIpsLinkPublicIpPublicIps
+          - PrivateIpsLinkPublicIpPublicIps
+          SecurityGroupNames:
+          - SecurityGroupNames
+          - SecurityGroupNames
+          SecurityGroupIds:
+          - SecurityGroupIds
+          - SecurityGroupIds
+          LinkNicDeviceNumbers:
+          - 0
+          - 0
+          TagKeys:
+          - TagKeys
+          - TagKeys
+          IsSourceDestCheck: true
+          PrivateDnsNames:
+          - PrivateDnsNames
+          - PrivateDnsNames
+          LinkPublicIpPublicIps:
+          - LinkPublicIpPublicIps
+          - LinkPublicIpPublicIps
+          LinkNicLinkNicIds:
+          - LinkNicLinkNicIds
+          - LinkNicLinkNicIds
+          PrivateIpsLinkPublicIpAccountIds:
+          - PrivateIpsLinkPublicIpAccountIds
+          - PrivateIpsLinkPublicIpAccountIds
+          MacAddresses:
+          - MacAddresses
+          - MacAddresses
           NicIds:
           - NicIds
           - NicIds
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersNic'
@@ -16603,8 +16515,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersProductType'
@@ -16636,8 +16548,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     ReadPublicIpRangesResponse:
@@ -16698,8 +16610,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersPublicIp'
@@ -16762,8 +16674,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersQuota'
@@ -16821,8 +16733,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       type: object
     ReadRegionsResponse:
@@ -16900,8 +16812,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersRouteTable'
@@ -17015,8 +16927,8 @@ components:
           description: The ID of the access key.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - AccessKeyId
@@ -17043,12 +16955,36 @@ components:
       additionalProperties: false
       example:
         Filters:
+          InboundRuleFromPortRanges:
+          - 0
+          - 0
+          InboundRuleProtocols:
+          - InboundRuleProtocols
+          - InboundRuleProtocols
+          InboundRuleSecurityGroupNames:
+          - InboundRuleSecurityGroupNames
+          - InboundRuleSecurityGroupNames
+          InboundRuleToPortRanges:
+          - 6
+          - 6
           AccountIds:
           - AccountIds
           - AccountIds
           NetIds:
           - NetIds
           - NetIds
+          OutboundRuleProtocols:
+          - OutboundRuleProtocols
+          - OutboundRuleProtocols
+          OutboundRuleSecurityGroupIds:
+          - OutboundRuleSecurityGroupIds
+          - OutboundRuleSecurityGroupIds
+          InboundRuleSecurityGroupIds:
+          - InboundRuleSecurityGroupIds
+          - InboundRuleSecurityGroupIds
+          OutboundRuleIpRanges:
+          - OutboundRuleIpRanges
+          - OutboundRuleIpRanges
           SecurityGroupNames:
           - SecurityGroupNames
           - SecurityGroupNames
@@ -17061,14 +16997,35 @@ components:
           TagValues:
           - TagValues
           - TagValues
+          InboundRuleIpRanges:
+          - InboundRuleIpRanges
+          - InboundRuleIpRanges
+          InboundRuleAccountIds:
+          - InboundRuleAccountIds
+          - InboundRuleAccountIds
+          Descriptions:
+          - Descriptions
+          - Descriptions
+          OutboundRuleSecurityGroupNames:
+          - OutboundRuleSecurityGroupNames
+          - OutboundRuleSecurityGroupNames
+          OutboundRuleFromPortRanges:
+          - 1
+          - 1
+          OutboundRuleToPortRanges:
+          - 5
+          - 5
+          OutboundRuleAccountIds:
+          - OutboundRuleAccountIds
+          - OutboundRuleAccountIds
           Tags:
           - Tags
           - Tags
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersSecurityGroup'
@@ -17248,8 +17205,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersServerCertificate'
@@ -17289,8 +17246,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersExportTask'
@@ -17390,8 +17347,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersSnapshot'
@@ -17481,8 +17438,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersSubnet'
@@ -17536,8 +17493,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersSubregion'
@@ -17582,8 +17539,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersTag'
@@ -17642,8 +17599,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVirtualGateway'
@@ -17712,8 +17669,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVmType'
@@ -17762,8 +17719,8 @@ components:
             type: string
           type: array
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer.
@@ -17813,8 +17770,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVm'
@@ -18115,12 +18072,12 @@ components:
         DryRun: true
       properties:
         AllVms:
-          description: If `true`, includes the status of all VMs. By default or if
-            set to `false`, only includes the status of running VMs.
+          description: If true, includes the status of all VMs. By default or if set
+            to false, only includes the status of running VMs.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVmsState'
@@ -18214,8 +18171,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVolume'
@@ -18319,8 +18276,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersVpnConnection'
@@ -18387,8 +18344,8 @@ components:
         - VmIds
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmIds:
           description: One or more IDs of the VMs you want to reboot.
@@ -18438,8 +18395,8 @@ components:
             type: string
           type: array
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LoadBalancerName:
           description: The name of the load balancer.
@@ -18464,8 +18421,8 @@ components:
         NetPeeringId: NetPeeringId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetPeeringId:
           description: The ID of the Net peering connection you want to reject.
@@ -18490,8 +18447,8 @@ components:
         Password: Password
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Password:
           description: The new password for the account.
@@ -18909,8 +18866,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Email:
           description: The email address provided for the account.
@@ -19124,8 +19081,8 @@ components:
         - VmIds
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         VmIds:
           description: One or more IDs of VMs.
@@ -19180,8 +19137,8 @@ components:
         - VmIds
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ForceStop:
           description: Forces the VM to stop.
@@ -19240,7 +19197,7 @@ components:
             10.0.0.0/16).
           type: string
         MapPublicIpOnLaunch:
-          description: If `true`, a public IP address is assigned to the network interface
+          description: If true, a public IP address is assigned to the network interface
             cards (NICs) created in the specified Subnet.
           type: boolean
         NetId:
@@ -19302,39 +19259,6 @@ components:
           description: The value of the tag, between 0 and 255 characters.
           type: string
       type: object
-    UndeleteMasterKeyRequest:
-      additionalProperties: false
-      example:
-        DryRun: true
-        MasterKeyId: MasterKeyId
-      properties:
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        MasterKeyId:
-          description: The ID of the master key.
-          type: string
-      required:
-      - MasterKeyId
-      type: object
-    UndeleteMasterKeyResponse:
-      additionalProperties: false
-      example:
-        MasterKey:
-          CreationDate: CreationDate
-          Description: Description
-          State: State
-          DeletionDate: DeletionDate
-          MasterKeyId: MasterKeyId
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        MasterKey:
-          $ref: '#/components/schemas/MasterKey'
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
     UnlinkFlexibleGpuRequest:
       additionalProperties: false
       example:
@@ -19342,8 +19266,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FlexibleGpuId:
           description: The ID of the fGPU you want to detach from your VM.
@@ -19368,8 +19292,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         InternetServiceId:
           description: The ID of the Internet service you want to detach.
@@ -19398,8 +19322,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LinkNicId:
           description: The ID of the attachment operation.
@@ -19426,8 +19350,8 @@ components:
         NicId: NicId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NicId:
           description: The ID of the NIC.
@@ -19459,8 +19383,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LinkPublicIpId:
           description: (Required in a Net) The ID representing the association of
@@ -19487,8 +19411,8 @@ components:
         LinkRouteTableId: LinkRouteTableId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LinkRouteTableId:
           description: The ID of the association between the route table and the Subnet.
@@ -19513,8 +19437,8 @@ components:
         VirtualGatewayId: VirtualGatewayId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net from which you want to detach the virtual
@@ -19544,8 +19468,8 @@ components:
         ForceUnlink: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ForceUnlink:
           description: 'Forces the detachment of the volume in case of previous failure.
@@ -19577,8 +19501,8 @@ components:
           description: The ID of the access key.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         State:
           description: The new state for the access key (`ACTIVE` \| `INACTIVE`).
@@ -19631,8 +19555,8 @@ components:
           description: The new country of the account owner.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Email:
           description: The new email address for the account.
@@ -19721,8 +19645,8 @@ components:
           description: A new description for the API access rule.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         IpRanges:
           description: One or more IP ranges, in CIDR notation (for example, 192.0.2.0/16).
@@ -19769,8 +19693,8 @@ components:
           description: The description of the CA.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
       required:
       - CaId
@@ -19798,11 +19722,11 @@ components:
         DryRun: true
       properties:
         DeleteOnVmDeletion:
-          description: If `true`, the fGPU is deleted when the VM is terminated.
+          description: If true, the fGPU is deleted when the VM is terminated.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         FlexibleGpuId:
           description: The ID of the fGPU you want to modify.
@@ -19847,8 +19771,8 @@ components:
         ImageId: ImageId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         ImageId:
           description: The ID of the OMI you want to modify.
@@ -19925,8 +19849,8 @@ components:
         ListenerRuleName: ListenerRuleName
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         HostPattern:
           description: A host-name pattern for the rule, with a maximum length of
@@ -19993,8 +19917,8 @@ components:
         AccessLog:
           $ref: '#/components/schemas/AccessLog'
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         HealthCheck:
           $ref: '#/components/schemas/HealthCheck'
@@ -20093,49 +20017,6 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
-    UpdateMasterKeyRequest:
-      additionalProperties: false
-      example:
-        Description: Description
-        DryRun: true
-        Enabled: true
-        MasterKeyId: MasterKeyId
-      properties:
-        Description:
-          description: The new description for the master key, between 0 and 8192
-            Unicode characters.
-          type: string
-        DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
-          type: boolean
-        Enabled:
-          description: If `true`, the state of the master key becomes `Enabled`. If
-            `false`, the state of the master key becomes `Disabled`.
-          type: boolean
-        MasterKeyId:
-          description: The ID of the master key.
-          type: string
-      required:
-      - MasterKeyId
-      type: object
-    UpdateMasterKeyResponse:
-      additionalProperties: false
-      example:
-        MasterKey:
-          CreationDate: CreationDate
-          Description: Description
-          State: State
-          DeletionDate: DeletionDate
-          MasterKeyId: MasterKeyId
-        ResponseContext:
-          RequestId: RequestId
-      properties:
-        MasterKey:
-          $ref: '#/components/schemas/MasterKey'
-        ResponseContext:
-          $ref: '#/components/schemas/ResponseContext'
-      type: object
     UpdateNetAccessPointRequest:
       additionalProperties: false
       example:
@@ -20155,8 +20036,8 @@ components:
             type: string
           type: array
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetAccessPointId:
           description: The ID of the Net access point.
@@ -20206,8 +20087,8 @@ components:
             associate the default one).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         NetId:
           description: The ID of the Net.
@@ -20255,8 +20136,8 @@ components:
           description: A new description for the NIC.
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         LinkNic:
           $ref: '#/components/schemas/LinkNicToUpdate'
@@ -20346,12 +20227,12 @@ components:
         VirtualGatewayId: VirtualGatewayId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Enable:
-          description: If `true`, a virtual gateway can propagate routes to a specified
-            route table of a Net. If `false`, the propagation is disabled.
+          description: If true, a virtual gateway can propagate routes to a specified
+            route table of a Net. If false, the propagation is disabled.
           type: boolean
         RouteTableId:
           description: The ID of the route table.
@@ -20435,8 +20316,8 @@ components:
             (for example, 10.0.0.0/24).
           type: string
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         GatewayId:
           description: The ID of an Internet service or virtual gateway attached to
@@ -20524,8 +20405,8 @@ components:
         Name: Name
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Name:
           description: The name of the server certificate you want to modify.
@@ -20574,8 +20455,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         PermissionsToCreateVolume:
           $ref: '#/components/schemas/PermissionsOnResourceCreation'
@@ -20624,11 +20505,11 @@ components:
         SubnetId: SubnetId
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         MapPublicIpOnLaunch:
-          description: If `true`, a public IP address is assigned to the network interface
+          description: If true, a public IP address is assigned to the network interface
             cards (NICs) created in the specified Subnet.
           type: boolean
         SubnetId:
@@ -20698,20 +20579,20 @@ components:
             $ref: '#/components/schemas/BlockDeviceMappingVmUpdate'
           type: array
         BsuOptimized:
-          description: If `true`, the VM is optimized for BSU I/O.
+          description: If true, the VM is optimized for BSU I/O.
           type: boolean
         DeletionProtection:
-          description: If `true`, you cannot terminate the VM using Cockpit, the CLI
-            or the API. If `false`, you can.
+          description: If true, you cannot terminate the VM using Cockpit, the CLI
+            or the API. If false, you can.
           type: boolean
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         IsSourceDestChecked:
-          description: (Net only) If `true`, the source/destination check is enabled.
-            If `false`, it is disabled. This value must be `false` for a NAT VM to
-            perform network address translation (NAT) in a Net.
+          description: (Net only) If true, the source/destination check is enabled.
+            If false, it is disabled. This value must be false for a NAT VM to perform
+            network address translation (NAT) in a Net.
           type: boolean
         KeypairName:
           description: |-
@@ -20899,8 +20780,8 @@ components:
         DryRun: true
       properties:
         DryRun:
-          description: If `true`, checks whether you have the required permissions
-            to perform the action.
+          description: If true, checks whether you have the required permissions to
+            perform the action.
           type: boolean
         Size:
           description: The new size of the volume, in gibibytes (GiB). This value
@@ -21133,14 +21014,14 @@ components:
             $ref: '#/components/schemas/BlockDeviceMappingCreated'
           type: array
         BsuOptimized:
-          description: If `true`, the VM is optimized for BSU I/O.
+          description: If true, the VM is optimized for BSU I/O.
           type: boolean
         ClientToken:
           description: The idempotency token provided when launching the VM.
           type: string
         DeletionProtection:
-          description: If `true`, you cannot terminate the VM using Cockpit, the CLI
-            or the API. If `false`, you can.
+          description: If true, you cannot terminate the VM using Cockpit, the CLI
+            or the API. If false, you can.
           type: boolean
         Hypervisor:
           description: The hypervisor type of the VMs (`ovm` \| `xen`).
@@ -21149,9 +21030,9 @@ components:
           description: The ID of the OMI used to create the VM.
           type: string
         IsSourceDestChecked:
-          description: (Net only) If `true`, the source/destination check is enabled.
-            If `false`, it is disabled. This value must be `false` for a NAT VM to
-            perform network address translation (NAT) in a Net.
+          description: (Net only) If true, the source/destination check is enabled.
+            If false, it is disabled. This value must be false for a NAT VM to perform
+            network address translation (NAT) in a Net.
           type: boolean
         KeypairName:
           description: The name of the keypair used when launching the VM.
@@ -21439,10 +21320,10 @@ components:
             `deleting` \| `deleted`).
           type: string
         StaticRoutesOnly:
-          description: If `false`, the VPN connection uses dynamic routing with Border
-            Gateway Protocol (BGP). If `true`, routing is controlled using static
-            routes. For more information about how to create and delete static routes,
-            see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
+          description: If false, the VPN connection uses dynamic routing with Border
+            Gateway Protocol (BGP). If true, routing is controlled using static routes.
+            For more information about how to create and delete static routes, see
+            [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
           type: boolean
         Tags:
           description: One or more tags associated with the VPN connection.
@@ -21479,68 +21360,65 @@ components:
         QueryHeaderRaw: true
       properties:
         AccountId:
-          description: If set to `true`, the account ID is displayed in the logs.
+          description: If set to true, the account ID is displayed in the logs.
           type: boolean
         CallDuration:
-          description: If set to `true`, the duration of the call is displayed each
+          description: If set to true, the duration of the call is displayed each
             log.
           type: boolean
         QueryAccessKey:
-          description: If set to `true`, the API key used for the query is displayed
+          description: If set to true, the API key used for the query is displayed
             each log.
           type: boolean
         QueryApiName:
-          description: If set to `true`, the name of the API service used by the call
+          description: If set to true, the name of the API service used by the call
             is displayed in each log (`oapi` \| `fcu` \| `lbu` \| `directlink` \|
             `eim` \| `icu`).
           type: boolean
         QueryApiVersion:
-          description: If set to `true`, the version of the API service used by the
+          description: If set to true, the version of the API service used by the
             call is displayed in each log.
           type: boolean
         QueryCallName:
-          description: If set to `true`, the name of the call is displayed in each
-            log.
+          description: If set to true, the name of the call is displayed in each log.
           type: boolean
         QueryDate:
-          description: If set to `true`, the date of the call is displayed in each
-            log.
+          description: If set to true, the date of the call is displayed in each log.
           type: boolean
         QueryHeaderRaw:
-          description: If set to `true`, the query header RAW is displayed in each
-            log.
+          description: If set to true, the query header RAW is displayed in each log.
           type: boolean
         QueryHeaderSize:
-          description: If set to `true`, the query header size is displayed in each
+          description: If set to true, the query header size is displayed in each
             log.
           type: boolean
         QueryIpAddress:
-          description: If set to `true`, the IP address used to make to query is displayed
+          description: If set to true, the IP address used to make to query is displayed
             in each log.
           type: boolean
         QueryPayloadRaw:
-          description: If set to `true`, the query payload raw is displayed in each
+          description: If set to true, the query payload raw is displayed in each
             log.
           type: boolean
         QueryPayloadSize:
-          description: If set to `true`, the query payload size is displayed in each
+          description: If set to true, the query payload size is displayed in each
             log.
           type: boolean
         QueryUserAgent:
-          description: If set to `true`, the user agent used to make the HTTP request
+          description: If set to true, the user agent used to make the HTTP request
             is displayed in each log.
           type: boolean
         RequestId:
-          description: By default ot if set to `true`, the ID of the call is displayed
+          description: By default ot if set to true, the ID of the call is displayed
             in each log.
           type: boolean
         ResponseSize:
-          description: If set to `true`, the size of the response (in bytes) is displayed
+          description: If set to true, the size of the response (in bytes) is displayed
             in each log.
           type: boolean
         ResponseStatusCode:
-          description: If set to `true`, the HTTP code provided by the response is
-            displayed in each log.
+          description: If set to true, the HTTP code provided by the response is displayed
+            in each log.
           type: boolean
       type: object
   securitySchemes:
