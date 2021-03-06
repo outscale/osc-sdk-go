@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Default** | **bool** | If &#x60;true&#x60;, lists all default DHCP options set. If &#x60;false&#x60;, lists all non-default DHCP options set. | [optional] 
+**Default** | **bool** | If true, lists all default DHCP options set. If false, lists all non-default DHCP options set. | [optional] 
 **DhcpOptionsSetIds** | **[]string** | The IDs of the DHCP options sets. | [optional] 
 **DomainNameServers** | **[]string** | The domain name servers used for the DHCP options sets. | [optional] 
 **DomainNames** | **[]string** | The domain names used for the DHCP options sets. | [optional] 
