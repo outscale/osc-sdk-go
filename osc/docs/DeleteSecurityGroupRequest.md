@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **SecurityGroupId** | **string** | The ID of the security group you want to delete. | [optional] 
 **SecurityGroupName** | **string** | The name of the security group. | [optional] 
 

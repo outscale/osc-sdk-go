@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IsPrimary** | **bool** | If &#x60;true&#x60;, the IP address is the primary private IP address of the NIC. | [optional] 
+**IsPrimary** | **bool** | If true, the IP address is the primary private IP address of the NIC. | [optional] 
 **LinkPublicIp** | [**LinkPublicIp**](LinkPublicIp.md) |  | [optional] 
 **PrivateDnsName** | **string** | The name of the private DNS. | [optional] 
 **PrivateIp** | **string** | The private IP address of the NIC. | [optional] 

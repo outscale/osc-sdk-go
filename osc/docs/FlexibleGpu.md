@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | **bool** | If &#x60;true&#x60;, the fGPU is deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | **bool** | If true, the fGPU is deleted when the VM is terminated. | [optional] 
 **FlexibleGpuId** | **string** | The ID of the fGPU. | [optional] 
 **Generation** | **string** | The compatible processor generation. | [optional] 
 **ModelName** | **string** | The model of fGPU. For more information, see [About Flexible GPUs](https://wiki.outscale.net/display/EN/About+Flexible+GPUs). | [optional] 

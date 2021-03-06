@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | **string** | The account ID of the owner of the NIC. | [optional] 
 **Description** | **string** | The description of the NIC. | [optional] 
-**IsSourceDestChecked** | **bool** | (Net only) If &#x60;true&#x60;, the source/destination check is enabled. If &#x60;false&#x60;, it is disabled. This value must be &#x60;false&#x60; for a NAT VM to perform network address translation (NAT) in a Net. | [optional] 
+**IsSourceDestChecked** | **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. This value must be false for a NAT VM to perform network address translation (NAT) in a Net. | [optional] 
 **LinkNic** | [**LinkNicLight**](LinkNicLight.md) |  | [optional] 
 **LinkPublicIp** | [**LinkPublicIpLightForVm**](LinkPublicIpLightForVm.md) |  | [optional] 
 **MacAddress** | **string** | The Media Access Control (MAC) address of the NIC. | [optional] 
