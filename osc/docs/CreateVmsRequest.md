@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BlockDeviceMappings** | [**[]BlockDeviceMappingVmCreation**](BlockDeviceMappingVmCreation.md) | One or more block device mappings. | [optional] 
-**BootOnCreation** | **bool** | By default or if &#x60;true&#x60;, the VM is started on creation. If &#x60;false&#x60;, the VM is stopped on creation. | [optional] 
-**BsuOptimized** | **bool** | If &#x60;true&#x60;, the VM is created with optimized BSU I/O. | [optional] 
+**BootOnCreation** | **bool** | By default or if true, the VM is started on creation. If false, the VM is stopped on creation. | [optional] 
+**BsuOptimized** | **bool** | If true, the VM is created with optimized BSU I/O. | [optional] 
 **ClientToken** | **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
-**DeletionProtection** | **bool** | If &#x60;true&#x60;, you cannot terminate the VM using Cockpit, the CLI or the API. If &#x60;false&#x60;, you can. | [optional] 
-**DryRun** | **bool** | If &#x60;true&#x60;, checks whether you have the required permissions to perform the action. | [optional] 
+**DeletionProtection** | **bool** | If true, you cannot terminate the VM using Cockpit, the CLI or the API. If false, you can. | [optional] 
+**DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ImageId** | **string** | The ID of the OMI used to create the VM. You can find the list of OMIs by calling the [ReadImages](#readimages) method. | 
 **KeypairName** | **string** | The name of the keypair. | [optional] 
 **MaxVmsCount** | **int32** | The maximum number of VMs you want to create. If all the VMs cannot be created, the largest possible number of VMs above MinVmsCount is created. | [optional] 

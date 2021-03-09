@@ -1,3 +1,7 @@
+# 1.6.0
+
+ - SDK update for Outscale API v1.7.4
+
 # v1.5.5
 
 - autobuild: keep workflow errors for buggy builds only
