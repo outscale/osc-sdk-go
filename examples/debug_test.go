@@ -34,19 +34,23 @@ package osc_test
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	osc "github.com/outscale/osc-sdk-go/v2"
 )
 
 /* Debug example
-A quick example which show how to enable SDK debuging in case you have to see what's happening in requests.
+A quick example which show how to enable SDK debugging in case you have to see what's happening in requests.
 This examples just list existing volumes and shows HTTP details.
 */
 func ExampleDebug() {
+	// few things which might be useful for debugging
 	config := osc.NewConfiguration()
-
-	config.Debug = true // <-- may be useful
+	config.Debug = true
+	config.UserAgent = "osc-sdk-go-example/0.0.0"
+	// If you need to setup a specific HTTPClient for SSL client, check https://gist.github.com/michaljemala/d6f4e01c4834bf47a9c4
+	config.HTTPClient = new(http.Client)
 
 	client := osc.NewAPIClient(config)
 
