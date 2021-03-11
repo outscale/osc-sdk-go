@@ -52,7 +52,7 @@ test: reuse-test go-test
 
 .PHONY: reuse-test
 reuse-test:
-	docker run --volume $(PWD):/data fsfe/reuse:0.11.1 lint
+	docker run --rm --volume $(PWD):/data fsfe/reuse:0.11.1 lint
 
 .PHONY: go-test
 go-test:
