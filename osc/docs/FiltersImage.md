@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappingVolumeSizes** | **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
 **BlockDeviceMappingVolumeTypes** | **[]string** | The types of volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
 **Descriptions** | **[]string** | The descriptions of the OMIs, provided when they were created. | [optional] 
-**FileLocations** | **[]string** | The locations where the OMI files are stored on Object Storage Unit (OSU). | [optional] 
+**FileLocations** | **[]string** | The locations of the buckets where the OMI files are stored. | [optional] 
 **ImageIds** | **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | **[]string** | The names of the OMIs, provided when they were created. | [optional] 
 **PermissionsToLaunchAccountIds** | **[]string** | The account IDs of the users who have launch permissions for the OMIs. | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **States** | **[]string** | The states of the OMIs (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **TagKeys** | **[]string** | The keys of the tags associated with the OMIs. | [optional] 
 **TagValues** | **[]string** | The values of the tags associated with the OMIs. | [optional] 
-**Tags** | **[]string** | The key/value combination of the tags associated with the OMIs, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | **[]string** | The key/value combination of the tags associated with the OMIs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VirtualizationTypes** | **[]string** | The virtualization types (always &#x60;hvm&#x60;). | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
