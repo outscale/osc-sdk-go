@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **PublicIps** | **[]string** | The External IP addresses (EIPs). | [optional] 
 **TagKeys** | **[]string** | The keys of the tags associated with the EIPs. | [optional] 
 **TagValues** | **[]string** | The values of the tags associated with the EIPs. | [optional] 
-**Tags** | **[]string** | The key/value combination of the tags associated with the EIPs, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | **[]string** | The key/value combination of the tags associated with the EIPs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VmIds** | **[]string** | The IDs of the VMs. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
