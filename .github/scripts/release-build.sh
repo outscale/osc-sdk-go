@@ -34,5 +34,7 @@ make gen
 # setup git && commit
 git config user.name "Outscale Bot"
 git config user.email "opensource+bot@outscale.com"
-git add osc
+for f in osc v2; do
+    git add $f || true
+done
 git commit -asm "osc-sdk-go v$new_sdk_version"
