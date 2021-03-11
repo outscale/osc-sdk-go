@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DiskImageFormat** | **string** | The format of the export disk (&#x60;qcow2&#x60; \\| &#x60;raw&#x60;). | 
 **OsuApiKey** | Pointer to [**OsuApiKey**](OsuApiKey.md) |  | [optional] 
-**OsuBucket** | **string** | The name of the OSU bucket where you want to export the object. | 
+**OsuBucket** | **string** | The name of the OOS bucket where you want to export the object. | 
 **OsuManifestUrl** | Pointer to **string** | The URL of the manifest file. | [optional] 
-**OsuPrefix** | Pointer to **string** | The prefix for the key of the OSU object. | [optional] 
+**OsuPrefix** | Pointer to **string** | The prefix for the key of the OOS object. | [optional] 
 
 ## Methods
 

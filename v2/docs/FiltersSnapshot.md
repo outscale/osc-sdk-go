@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **States** | Pointer to **[]string** | The states of the snapshots (&#x60;in-queue&#x60; \\| &#x60;completed&#x60; \\| &#x60;error&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the snapshots. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the snapshots. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the snapshots, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the snapshots, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VolumeIds** | Pointer to **[]string** | The IDs of the volumes used to create the snapshots. | [optional] 
 **VolumeSizes** | Pointer to **[]int32** | The sizes of the volumes used to create the snapshots, in gibibytes (GiB). | [optional] 
 

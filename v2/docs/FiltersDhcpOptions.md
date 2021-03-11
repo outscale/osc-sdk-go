@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **NtpServers** | Pointer to **[]string** | The Network Time Protocol (NTP) servers used for the DHCP options sets. | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the DHCP options sets. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the DHCP options sets. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the DHCP options sets, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the DHCP options sets, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

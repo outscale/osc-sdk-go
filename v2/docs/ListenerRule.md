@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ListenerId** | Pointer to **int32** | The ID of the listener. | [optional] 
 **ListenerRuleId** | Pointer to **int32** | The ID of the listener rule. | [optional] 
 **ListenerRuleName** | Pointer to **string** | A human-readable name for the listener rule. | [optional] 
-**PathPattern** | Pointer to **string** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~\&quot;&#39;@:+?]. | [optional] 
+**PathPattern** | Pointer to **string** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~&amp;quot;&#39;@:+?]. | [optional] 
 **Priority** | Pointer to **int32** | The priority level of the listener rule, between &#x60;1&#x60; and &#x60;19999&#x60; both included. Each rule must have a unique priority level. Otherwise, an error is returned. | [optional] 
 **VmIds** | Pointer to **[]string** | The IDs of the backend VMs. | [optional] 
 

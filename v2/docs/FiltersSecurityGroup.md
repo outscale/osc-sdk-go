@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **SecurityGroupNames** | Pointer to **[]string** | The names of the security groups. | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the security groups. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the security groups. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the security groups, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the security groups, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

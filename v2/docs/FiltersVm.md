@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the VMs. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the VMs. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VMs, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VMs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VmIds** | Pointer to **[]string** | One or more IDs of VMs. | [optional] 
 
 ## Methods
