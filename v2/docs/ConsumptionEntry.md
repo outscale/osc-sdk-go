@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Category** | Pointer to **string** | The category of the resource (for example, &#x60;network&#x60;). | [optional] 
 **FromDate** | Pointer to **string** | The beginning of the time period. | [optional] 
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
-**Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-OSU&#x60; or &#x60;TinaOS-DirectLink&#x60;). | [optional] 
+**Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, or &#x60;TinaOS-OSU&#x60;). | [optional] 
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period. | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 

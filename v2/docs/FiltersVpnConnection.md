@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **StaticRoutesOnly** | Pointer to **bool** | If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the VPN connections. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the VPN connections. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VPN connections, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VPN connections, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VirtualGatewayIds** | Pointer to **[]string** | The IDs of the virtual gateways. | [optional] 
 **VpnConnectionIds** | Pointer to **[]string** | The IDs of the VPN connections. | [optional] 
 

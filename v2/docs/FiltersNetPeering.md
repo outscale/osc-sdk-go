@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **StateNames** | Pointer to **[]string** | The states of the Net peering connections (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Net peering connections. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the Net peering connections. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Net peering connections, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Net peering connections, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

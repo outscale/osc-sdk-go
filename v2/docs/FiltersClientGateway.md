@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **States** | Pointer to **[]string** | The states of the client gateways (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the client gateways. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the client gateways. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the client gateways, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the client gateways, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the 3DS OUTSCALE's API documentation.<br /><br />  The 3DS OUTSCALE API enables you to manage your resources in the 3DS OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the 3DS OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the 3DS OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
  *
  * API version: 1.7
  * Contact: support@outscale.com
@@ -23,11 +23,11 @@ type UpdateLoadBalancerRequest struct {
 	HealthCheck *HealthCheck `json:"HealthCheck,omitempty"`
 	// The name of the load balancer.
 	LoadBalancerName string `json:"LoadBalancerName"`
-	// The port on which the load balancer is listening (between `1` and `65535`, both included).
+	// The port on which the load balancer is listening (between `1` and `65535`, both included). This parameter is required if you want to update the server certificate.
 	LoadBalancerPort *int32 `json:"LoadBalancerPort,omitempty"`
-	// The list of policy names (must contain all the policies to be enabled).
+	// The name of the policy you want to enable for the listener.
 	PolicyNames *[]string `json:"PolicyNames,omitempty"`
-	// The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat).
+	// The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). If this parameter is specified, you must also specify the `LoadBalancerPort` parameter.
 	ServerCertificateId *string `json:"ServerCertificateId,omitempty"`
 }
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientGatewayConfiguration** | Pointer to **string** | The configuration to apply to the client gateway to establish the VPN connection, in XML format. | [optional] 
+**ClientGatewayConfiguration** | Pointer to **string** | Example configuration for the client gateway. | [optional] 
 **ClientGatewayId** | Pointer to **string** | The ID of the client gateway used on the client end of the connection. | [optional] 
 **ConnectionType** | Pointer to **string** | The type of VPN connection (always &#x60;ipsec.1&#x60;). | [optional] 
 **Routes** | Pointer to [**[]RouteLight**](RouteLight.md) | Information about one or more static routes associated with the VPN connection, if any. | [optional] 
 **State** | Pointer to **string** | The state of the VPN connection (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **StaticRoutesOnly** | Pointer to **bool** | If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VPN connection. | [optional] 
-**VirtualGatewayId** | Pointer to **string** | The ID of the virtual gateway used on the 3DS OUTSCALE end of the connection. | [optional] 
+**VirtualGatewayId** | Pointer to **string** | The ID of the virtual gateway used on the OUTSCALE end of the connection. | [optional] 
 **VpnConnectionId** | Pointer to **string** | The ID of the VPN connection. | [optional] 
 
 ## Methods

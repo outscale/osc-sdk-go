@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BgpKey** | Pointer to **string** | The BGP authentication key. | [optional] 
 **ClientPrivateIp** | Pointer to **string** | The IP address on the customer&#39;s side of the DirectLink interface. | [optional] 
 **DirectLinkInterfaceName** | **string** | The name of the DirectLink interface. | 
-**OutscalePrivateIp** | Pointer to **string** | The IP address on 3DS OUTSCALE&#39;s side of the DirectLink interface. | [optional] 
+**OutscalePrivateIp** | Pointer to **string** | The IP address on the OUTSCALE side of the DirectLink interface. | [optional] 
 **VirtualGatewayId** | **string** | The ID of the target virtual gateway. | 
 **Vlan** | **int32** | The VLAN number associated with the DirectLink interface. | 
 

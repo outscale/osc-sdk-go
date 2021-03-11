@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **LoadBalancerPort** | Pointer to **int32** | The port on which the load balancer is listening (between 1 and &#x60;65535&#x60;, both included). | [optional] 
 **LoadBalancerProtocol** | Pointer to **string** | The routing protocol (&#x60;HTTP&#x60; \\| &#x60;HTTPS&#x60; \\| &#x60;TCP&#x60; \\| &#x60;SSL&#x60; \\| &#x60;UDP&#x60;). | [optional] 
 **PolicyNames** | Pointer to **[]string** | The names of the policies. If there are no policies enabled, the list is empty. | [optional] 
-**ServerCertificateId** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). | [optional] 
+**ServerCertificateId** | Pointer to **string** | The OUTSCALE Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; OUTSCALE Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). | [optional] 
 
 ## Methods
 
