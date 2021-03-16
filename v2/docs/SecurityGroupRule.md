@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **IpProtocol** | Pointer to **string** | The IP protocol name (&#x60;tcp&#x60;, &#x60;udp&#x60;, &#x60;icmp&#x60;) or protocol number. By default, &#x60;-1&#x60;, which means all protocols. | [optional] 
 **IpRanges** | Pointer to **[]string** | One or more IP ranges for the security group rules, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
 **SecurityGroupsMembers** | Pointer to [**[]SecurityGroupsMember**](SecurityGroupsMember.md) | Information about one or more members of a security group. | [optional] 
-**ServiceIds** | Pointer to **[]string** | One or more service IDs to allow traffic from a Net to access the corresponding OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices). | [optional] 
+**ServiceIds** | Pointer to **[]string** | One or more service IDs to allow traffic from a Net to access the corresponding 3DS OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices). | [optional] 
 **ToPortRange** | Pointer to **int32** | The end of the port range for the TCP and UDP protocols, or an ICMP type number. | [optional] 
 
 ## Methods

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
 **Description** | Pointer to **string** | A description for the new OMI. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**FileLocation** | Pointer to **string** | The pre-signed URL of the OMI manifest file, or the full path to the OMI stored in a bucket. If you specify this parameter, a copy of the OMI is created in your account. | [optional] 
+**FileLocation** | Pointer to **string** | The pre-signed URL of the OMI manifest file, or the full path to the OMI stored in an OSU bucket. If you specify this parameter, a copy of the OMI is created in your account. | [optional] 
 **ImageName** | Pointer to **string** | A unique name for the new OMI.&lt;br /&gt; Constraints: 3-128 alphanumeric characters, underscores (_), spaces ( ), parentheses (()), slashes (/), periods (.), or dashes (-). | [optional] 
 **NoReboot** | Pointer to **bool** | If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not. | [optional] 
 **RootDeviceName** | Pointer to **string** | The name of the root device. | [optional] 
