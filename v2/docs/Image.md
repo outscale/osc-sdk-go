@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time at which the OMI was created. | [optional] 
 **Description** | Pointer to **string** | The description of the OMI. | [optional] 
-**FileLocation** | Pointer to **string** | The location of the bucket where the OMI files are stored. | [optional] 
+**FileLocation** | Pointer to **string** | The location where the OMI file is stored on Object Storage Unit (OSU). | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI. | [optional] 
 **ImageName** | Pointer to **string** | The name of the OMI. | [optional] 
 **ImageType** | Pointer to **string** | The type of the OMI. | [optional] 

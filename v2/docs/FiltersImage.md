@@ -13,11 +13,13 @@ Name | Type | Description | Notes
 **BlockDeviceMappingVolumeSizes** | Pointer to **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
 **BlockDeviceMappingVolumeTypes** | Pointer to **[]string** | The types of volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the OMIs, provided when they were created. | [optional] 
-**FileLocations** | Pointer to **[]string** | The locations of the buckets where the OMI files are stored. | [optional] 
+**FileLocations** | Pointer to **[]string** | The locations where the OMI files are stored on Object Storage Unit (OSU). | [optional] 
+**Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | Pointer to **[]string** | The names of the OMIs, provided when they were created. | [optional] 
 **PermissionsToLaunchAccountIds** | Pointer to **[]string** | The account IDs of the users who have launch permissions for the OMIs. | [optional] 
 **PermissionsToLaunchGlobalPermission** | Pointer to **bool** | If true, lists all public OMIs. If false, lists all private OMIs. | [optional] 
+**ProductCodes** | Pointer to **[]string** | The product code associated with the OMI (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
 **RootDeviceNames** | Pointer to **[]string** | The device names of the root devices (for example, &#x60;/dev/sda1&#x60;). | [optional] 
 **RootDeviceTypes** | Pointer to **[]string** | The types of root device used by the OMIs (always &#x60;bsu&#x60;). | [optional] 
 **States** | Pointer to **[]string** | The states of the OMIs (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
@@ -295,6 +297,31 @@ SetFileLocations sets FileLocations field to given value.
 
 HasFileLocations returns a boolean if a field has been set.
 
+### GetHypervisors
+
+`func (o *FiltersImage) GetHypervisors() []string`
+
+GetHypervisors returns the Hypervisors field if non-nil, zero value otherwise.
+
+### GetHypervisorsOk
+
+`func (o *FiltersImage) GetHypervisorsOk() (*[]string, bool)`
+
+GetHypervisorsOk returns a tuple with the Hypervisors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHypervisors
+
+`func (o *FiltersImage) SetHypervisors(v []string)`
+
+SetHypervisors sets Hypervisors field to given value.
+
+### HasHypervisors
+
+`func (o *FiltersImage) HasHypervisors() bool`
+
+HasHypervisors returns a boolean if a field has been set.
+
 ### GetImageIds
 
 `func (o *FiltersImage) GetImageIds() []string`
@@ -394,6 +421,31 @@ SetPermissionsToLaunchGlobalPermission sets PermissionsToLaunchGlobalPermission 
 `func (o *FiltersImage) HasPermissionsToLaunchGlobalPermission() bool`
 
 HasPermissionsToLaunchGlobalPermission returns a boolean if a field has been set.
+
+### GetProductCodes
+
+`func (o *FiltersImage) GetProductCodes() []string`
+
+GetProductCodes returns the ProductCodes field if non-nil, zero value otherwise.
+
+### GetProductCodesOk
+
+`func (o *FiltersImage) GetProductCodesOk() (*[]string, bool)`
+
+GetProductCodesOk returns a tuple with the ProductCodes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCodes
+
+`func (o *FiltersImage) SetProductCodes(v []string)`
+
+SetProductCodes sets ProductCodes field to given value.
+
+### HasProductCodes
+
+`func (o *FiltersImage) HasProductCodes() bool`
+
+HasProductCodes returns a boolean if a field has been set.
 
 ### GetRootDeviceNames
 

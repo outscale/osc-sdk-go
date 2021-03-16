@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Paths** | Pointer to **string** | The path to the server certificate. | [optional] 
+**Paths** | Pointer to **[]string** | The paths to the server certificates. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPaths
 
-`func (o *FiltersServerCertificate) GetPaths() string`
+`func (o *FiltersServerCertificate) GetPaths() []string`
 
 GetPaths returns the Paths field if non-nil, zero value otherwise.
 
 ### GetPathsOk
 
-`func (o *FiltersServerCertificate) GetPathsOk() (*string, bool)`
+`func (o *FiltersServerCertificate) GetPathsOk() (*[]string, bool)`
 
 GetPathsOk returns a tuple with the Paths field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaths
 
-`func (o *FiltersServerCertificate) SetPaths(v string)`
+`func (o *FiltersServerCertificate) SetPaths(v []string)`
 
 SetPaths sets Paths field to given value.
 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsEnabled** | Pointer to **bool** | If true, access logs are enabled for your load balancer. If false, they are not. If you set this to true in your request, the &#x60;OsuBucketName&#x60; parameter is required. | [optional] 
-**OsuBucketName** | Pointer to **string** | The name of the OOS bucket for the access logs. | [optional] 
-**OsuBucketPrefix** | Pointer to **string** | The path to the folder of the access logs in your OOS bucket (by default, the &#x60;root&#x60; level of your bucket). | [optional] 
-**PublicationInterval** | Pointer to **int32** | The time interval for the publication of access logs in the OOS bucket, in minutes. This value can be either 5 or 60 (by default, 60). | [optional] 
+**OsuBucketName** | Pointer to **string** | The name of the Object Storage Unit (OSU) bucket for the access logs. | [optional] 
+**OsuBucketPrefix** | Pointer to **string** | The path to the folder of the access logs in your Object Storage Unit (OSU) bucket (by default, the &#x60;root&#x60; level of your bucket). | [optional] 
+**PublicationInterval** | Pointer to **int32** | The time interval for the publication of access logs in the Object Storage Unit (OSU) bucket, in minutes. This value can be either 5 or 60 (by default, 60). | [optional] 
 
 ## Methods
 

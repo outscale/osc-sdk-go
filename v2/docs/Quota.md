@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | The account ID of the owner of the quotas. | [optional] 
 **Description** | Pointer to **string** | The description of the quota. | [optional] 
-**MaxValue** | Pointer to **int32** | The maximum value of the quota for the OUTSCALE user account (if there is no limit, &#x60;0&#x60;). | [optional] 
+**MaxValue** | Pointer to **int32** | The maximum value of the quota for the 3DS OUTSCALE user account (if there is no limit, &#x60;0&#x60;). | [optional] 
 **Name** | Pointer to **string** | The unique name of the quota. | [optional] 
 **QuotaCollection** | Pointer to **string** | The group name of the quota. | [optional] 
 **ShortDescription** | Pointer to **string** | The description of the quota. | [optional] 
-**UsedValue** | Pointer to **int32** | The limit value currently used by the OUTSCALE user account. | [optional] 
+**UsedValue** | Pointer to **int32** | The limit value currently used by the 3DS OUTSCALE user account. | [optional] 
 
 ## Methods
 
