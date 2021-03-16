@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **DirectLinkInterfaceName** | **string** | The name of the DirectLink interface. | [optional] 
 **InterfaceType** | **string** | The type of the DirectLink interface (always &#x60;private&#x60;). | [optional] 
 **Location** | **string** | The datacenter where the DirectLink interface is located. | [optional] 
-**OutscalePrivateIp** | **string** | The IP address on the OUTSCALE side of the DirectLink interface. | [optional] 
+**OutscalePrivateIp** | **string** | The IP address on 3DS OUTSCALE&#39;s side of the DirectLink interface. | [optional] 
 **State** | **string** | The state of the DirectLink interface (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60; \\| &#x60;confirming&#x60; \\| &#x60;rejected&#x60; \\| &#x60;expired&#x60;). | [optional] 
 **VirtualGatewayId** | **string** | The ID of the target virtual gateway. | [optional] 
 **Vlan** | **int32** | The VLAN number associated with the DirectLink interface. | [optional] 

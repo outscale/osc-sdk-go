@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreationMethod** | **string** | The method used to create the route. | [optional] 
 **DestinationIpRange** | **string** | The IP range used for the destination match, in CIDR notation (for example, 10.0.0.0/24). | [optional] 
-**DestinationServiceId** | **string** | The ID of the OUTSCALE service. | [optional] 
+**DestinationServiceId** | **string** | The ID of the 3DS OUTSCALE service. | [optional] 
 **GatewayId** | **string** | The ID of the Internet service or virtual gateway attached to the Net. | [optional] 
 **NatServiceId** | **string** | The ID of a NAT service attached to the Net. | [optional] 
 **NetAccessPointId** | **string** | The ID of the Net access point. | [optional] 
