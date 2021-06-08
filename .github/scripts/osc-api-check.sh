@@ -13,7 +13,7 @@ if [ -z "$GH_TOKEN" ]; then
     exit 1
 fi
 
-osc_api_last_release=$(curl -s -H "Authorization: token $GH_TOKEN" $github_url | jq ".[] | select(.prerelease == false) | select(.draft == false) | .tag_name" | sort -r | head -n 1 | cut -f 2 -d '"')
+osc_api_last_release=$(curl -s -H "Authorization: token $GH_TOKEN" $github_url | jq ".[] | select(.prerelease == false) | select(.draft == false) | .tag_name" | sort -r --version-sort | head -n 1 | cut -f 2 -d '"')
 local_api_version=$(cat $root/api_version)
 
 echo "last API version used: $local_api_version"
