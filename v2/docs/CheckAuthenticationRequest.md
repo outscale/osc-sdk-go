@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Login** | Pointer to **string** | The email address of the account. | [optional] 
-**Password** | Pointer to **string** | The password of the account. | [optional] 
+**Login** | **string** | The email address of the account. | 
+**Password** | **string** | The password of the account. | 
 
 ## Methods
 
 ### NewCheckAuthenticationRequest
 
-`func NewCheckAuthenticationRequest() *CheckAuthenticationRequest`
+`func NewCheckAuthenticationRequest(login string, password string, ) *CheckAuthenticationRequest`
 
 NewCheckAuthenticationRequest instantiates a new CheckAuthenticationRequest object
 This constructor will assign default values to properties that have it defined,
@@ -71,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetLogin sets Login field to given value.
 
-### HasLogin
-
-`func (o *CheckAuthenticationRequest) HasLogin() bool`
-
-HasLogin returns a boolean if a field has been set.
 
 ### GetPassword
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
-### HasPassword
-
-`func (o *CheckAuthenticationRequest) HasPassword() bool`
-
-HasPassword returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

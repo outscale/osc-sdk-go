@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | Pointer to **bool** | Set to true by default, which means that the volume is deleted when the VM is terminated. If set to false, the volume is not deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | Pointer to **bool** | If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM. | [optional] 
 **LinkDate** | Pointer to **string** | The time and date of attachment of the volume to the VM. | [optional] 
 **State** | Pointer to **string** | The state of the volume. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume. | [optional] 

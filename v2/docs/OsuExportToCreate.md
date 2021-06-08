@@ -1,4 +1,4 @@
-# OsuExport
+# OsuExportToCreate
 
 ## Properties
 
@@ -6,141 +6,141 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DiskImageFormat** | **string** | The format of the export disk (&#x60;qcow2&#x60; \\| &#x60;raw&#x60;). | 
 **OsuApiKey** | Pointer to [**OsuApiKey**](OsuApiKey.md) |  | [optional] 
-**OsuBucket** | **string** | The name of the OSU bucket where you want to export the object. | 
+**OsuBucket** | **string** | The name of the OOS bucket where you want to export the object. | 
 **OsuManifestUrl** | Pointer to **string** | The URL of the manifest file. | [optional] 
-**OsuPrefix** | Pointer to **string** | The prefix for the key of the OSU object. | [optional] 
+**OsuPrefix** | Pointer to **string** | The prefix for the key of the OOS object. | [optional] 
 
 ## Methods
 
-### NewOsuExport
+### NewOsuExportToCreate
 
-`func NewOsuExport(diskImageFormat string, osuBucket string, ) *OsuExport`
+`func NewOsuExportToCreate(diskImageFormat string, osuBucket string, ) *OsuExportToCreate`
 
-NewOsuExport instantiates a new OsuExport object
+NewOsuExportToCreate instantiates a new OsuExportToCreate object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewOsuExportWithDefaults
+### NewOsuExportToCreateWithDefaults
 
-`func NewOsuExportWithDefaults() *OsuExport`
+`func NewOsuExportToCreateWithDefaults() *OsuExportToCreate`
 
-NewOsuExportWithDefaults instantiates a new OsuExport object
+NewOsuExportToCreateWithDefaults instantiates a new OsuExportToCreate object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetDiskImageFormat
 
-`func (o *OsuExport) GetDiskImageFormat() string`
+`func (o *OsuExportToCreate) GetDiskImageFormat() string`
 
 GetDiskImageFormat returns the DiskImageFormat field if non-nil, zero value otherwise.
 
 ### GetDiskImageFormatOk
 
-`func (o *OsuExport) GetDiskImageFormatOk() (*string, bool)`
+`func (o *OsuExportToCreate) GetDiskImageFormatOk() (*string, bool)`
 
 GetDiskImageFormatOk returns a tuple with the DiskImageFormat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiskImageFormat
 
-`func (o *OsuExport) SetDiskImageFormat(v string)`
+`func (o *OsuExportToCreate) SetDiskImageFormat(v string)`
 
 SetDiskImageFormat sets DiskImageFormat field to given value.
 
 
 ### GetOsuApiKey
 
-`func (o *OsuExport) GetOsuApiKey() OsuApiKey`
+`func (o *OsuExportToCreate) GetOsuApiKey() OsuApiKey`
 
 GetOsuApiKey returns the OsuApiKey field if non-nil, zero value otherwise.
 
 ### GetOsuApiKeyOk
 
-`func (o *OsuExport) GetOsuApiKeyOk() (*OsuApiKey, bool)`
+`func (o *OsuExportToCreate) GetOsuApiKeyOk() (*OsuApiKey, bool)`
 
 GetOsuApiKeyOk returns a tuple with the OsuApiKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuApiKey
 
-`func (o *OsuExport) SetOsuApiKey(v OsuApiKey)`
+`func (o *OsuExportToCreate) SetOsuApiKey(v OsuApiKey)`
 
 SetOsuApiKey sets OsuApiKey field to given value.
 
 ### HasOsuApiKey
 
-`func (o *OsuExport) HasOsuApiKey() bool`
+`func (o *OsuExportToCreate) HasOsuApiKey() bool`
 
 HasOsuApiKey returns a boolean if a field has been set.
 
 ### GetOsuBucket
 
-`func (o *OsuExport) GetOsuBucket() string`
+`func (o *OsuExportToCreate) GetOsuBucket() string`
 
 GetOsuBucket returns the OsuBucket field if non-nil, zero value otherwise.
 
 ### GetOsuBucketOk
 
-`func (o *OsuExport) GetOsuBucketOk() (*string, bool)`
+`func (o *OsuExportToCreate) GetOsuBucketOk() (*string, bool)`
 
 GetOsuBucketOk returns a tuple with the OsuBucket field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuBucket
 
-`func (o *OsuExport) SetOsuBucket(v string)`
+`func (o *OsuExportToCreate) SetOsuBucket(v string)`
 
 SetOsuBucket sets OsuBucket field to given value.
 
 
 ### GetOsuManifestUrl
 
-`func (o *OsuExport) GetOsuManifestUrl() string`
+`func (o *OsuExportToCreate) GetOsuManifestUrl() string`
 
 GetOsuManifestUrl returns the OsuManifestUrl field if non-nil, zero value otherwise.
 
 ### GetOsuManifestUrlOk
 
-`func (o *OsuExport) GetOsuManifestUrlOk() (*string, bool)`
+`func (o *OsuExportToCreate) GetOsuManifestUrlOk() (*string, bool)`
 
 GetOsuManifestUrlOk returns a tuple with the OsuManifestUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuManifestUrl
 
-`func (o *OsuExport) SetOsuManifestUrl(v string)`
+`func (o *OsuExportToCreate) SetOsuManifestUrl(v string)`
 
 SetOsuManifestUrl sets OsuManifestUrl field to given value.
 
 ### HasOsuManifestUrl
 
-`func (o *OsuExport) HasOsuManifestUrl() bool`
+`func (o *OsuExportToCreate) HasOsuManifestUrl() bool`
 
 HasOsuManifestUrl returns a boolean if a field has been set.
 
 ### GetOsuPrefix
 
-`func (o *OsuExport) GetOsuPrefix() string`
+`func (o *OsuExportToCreate) GetOsuPrefix() string`
 
 GetOsuPrefix returns the OsuPrefix field if non-nil, zero value otherwise.
 
 ### GetOsuPrefixOk
 
-`func (o *OsuExport) GetOsuPrefixOk() (*string, bool)`
+`func (o *OsuExportToCreate) GetOsuPrefixOk() (*string, bool)`
 
 GetOsuPrefixOk returns a tuple with the OsuPrefix field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuPrefix
 
-`func (o *OsuExport) SetOsuPrefix(v string)`
+`func (o *OsuExportToCreate) SetOsuPrefix(v string)`
 
 SetOsuPrefix sets OsuPrefix field to given value.
 
 ### HasOsuPrefix
 
-`func (o *OsuExport) HasOsuPrefix() bool`
+`func (o *OsuExportToCreate) HasOsuPrefix() bool`
 
 HasOsuPrefix returns a boolean if a field has been set.
 

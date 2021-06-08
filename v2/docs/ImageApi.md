@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-    createImageExportTaskRequest := *openapiclient.NewCreateImageExportTaskRequest("ImageId_example", *openapiclient.NewOsuExport("DiskImageFormat_example", "OsuBucket_example")) // CreateImageExportTaskRequest |  (optional)
+    createImageExportTaskRequest := *openapiclient.NewCreateImageExportTaskRequest("ImageId_example", *openapiclient.NewOsuExportToCreate("DiskImageFormat_example", "OsuBucket_example")) // CreateImageExportTaskRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

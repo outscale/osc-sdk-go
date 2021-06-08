@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    checkAuthenticationRequest := *openapiclient.NewCheckAuthenticationRequest() // CheckAuthenticationRequest |  (optional)
+    checkAuthenticationRequest := *openapiclient.NewCheckAuthenticationRequest("Login_example", "Password_example") // CheckAuthenticationRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

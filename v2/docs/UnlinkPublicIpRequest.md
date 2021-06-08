@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the EIP with the VM or the NIC. | [optional] 
-**PublicIp** | Pointer to **string** | The External IP address. In the public Cloud, this parameter is required. | [optional] 
+**LinkPublicIpId** | Pointer to **string** | The ID representing the association of the EIP with the VM or the NIC. This parameter is required unless you use the &#x60;PublicIp&#x60; parameter. | [optional] 
+**PublicIp** | Pointer to **string** | The EIP. This parameter is required unless you use the &#x60;LinkPublicIpId&#x60; parameter. | [optional] 
 
 ## Methods
 

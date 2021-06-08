@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** | If the OMI export task fails, an error message appears. | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI to be exported. | [optional] 
-**OsuExport** | Pointer to [**OsuExport**](OsuExport.md) |  | [optional] 
+**OsuExport** | Pointer to [**OsuExportImageExportTask**](OsuExportImageExportTask.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the OMI export task, as a percentage. | [optional] 
 **State** | Pointer to **string** | The state of the OMI export task (&#x60;pending/queued&#x60; \\| &#x60;pending&#x60; \\| &#x60;completed&#x60; \\| &#x60;failed&#x60; \\| &#x60;cancelled&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the image export task. | [optional] 
@@ -83,20 +83,20 @@ HasImageId returns a boolean if a field has been set.
 
 ### GetOsuExport
 
-`func (o *ImageExportTask) GetOsuExport() OsuExport`
+`func (o *ImageExportTask) GetOsuExport() OsuExportImageExportTask`
 
 GetOsuExport returns the OsuExport field if non-nil, zero value otherwise.
 
 ### GetOsuExportOk
 
-`func (o *ImageExportTask) GetOsuExportOk() (*OsuExport, bool)`
+`func (o *ImageExportTask) GetOsuExportOk() (*OsuExportImageExportTask, bool)`
 
 GetOsuExportOk returns a tuple with the OsuExport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuExport
 
-`func (o *ImageExportTask) SetOsuExport(v OsuExport)`
+`func (o *ImageExportTask) SetOsuExport(v OsuExportImageExportTask)`
 
 SetOsuExport sets OsuExport field to given value.
 

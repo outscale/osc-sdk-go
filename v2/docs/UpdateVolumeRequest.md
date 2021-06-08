@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Size** | Pointer to **int32** | The new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. | [optional] 
+**Iops** | Pointer to **int32** | The new number of I/O operations per second (IOPS). This parameter can be specified only if you update an &#x60;io1&#x60; volume. The maximum number of IOPS allowed for &#x60;io1&#x60; volumes is &#x60;13000&#x60;. This modification is instantaneous on a cold volume, not on a hot one. | [optional] 
+**Size** | Pointer to **int32** | (cold volume only) The new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous. | [optional] 
 **VolumeId** | **string** | The ID of the volume you want to update. | 
+**VolumeType** | Pointer to **string** | (cold volume only) The new type of the volume (&#x60;standard&#x60; \\| &#x60;io1&#x60; \\| &#x60;gpu2&#x60;). This modification is instantaneous. If you update to an &#x60;io1&#x60;volume, you must also specify the &#x60;Iops&#x60; parameter. | [optional] 
 
 ## Methods
 
@@ -52,6 +54,31 @@ SetDryRun sets DryRun field to given value.
 
 HasDryRun returns a boolean if a field has been set.
 
+### GetIops
+
+`func (o *UpdateVolumeRequest) GetIops() int32`
+
+GetIops returns the Iops field if non-nil, zero value otherwise.
+
+### GetIopsOk
+
+`func (o *UpdateVolumeRequest) GetIopsOk() (*int32, bool)`
+
+GetIopsOk returns a tuple with the Iops field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIops
+
+`func (o *UpdateVolumeRequest) SetIops(v int32)`
+
+SetIops sets Iops field to given value.
+
+### HasIops
+
+`func (o *UpdateVolumeRequest) HasIops() bool`
+
+HasIops returns a boolean if a field has been set.
+
 ### GetSize
 
 `func (o *UpdateVolumeRequest) GetSize() int32`
@@ -96,6 +123,31 @@ and a boolean to check if the value has been set.
 
 SetVolumeId sets VolumeId field to given value.
 
+
+### GetVolumeType
+
+`func (o *UpdateVolumeRequest) GetVolumeType() string`
+
+GetVolumeType returns the VolumeType field if non-nil, zero value otherwise.
+
+### GetVolumeTypeOk
+
+`func (o *UpdateVolumeRequest) GetVolumeTypeOk() (*string, bool)`
+
+GetVolumeTypeOk returns a tuple with the VolumeType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVolumeType
+
+`func (o *UpdateVolumeRequest) SetVolumeType(v string)`
+
+SetVolumeType sets VolumeType field to given value.
+
+### HasVolumeType
+
+`func (o *UpdateVolumeRequest) HasVolumeType() bool`
+
+HasVolumeType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

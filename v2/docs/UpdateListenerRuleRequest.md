@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**HostPattern** | Pointer to **string** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?]. | [optional] 
+**HostPattern** | Pointer to **NullableString** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?]. | [optional] 
 **ListenerRuleName** | **string** | The name of the listener rule. | 
-**PathPattern** | Pointer to **string** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~&amp;quot;&#39;@:+?]. | [optional] 
+**PathPattern** | Pointer to **NullableString** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~&amp;quot;&#39;@:+?]. | [optional] 
 
 ## Methods
 
@@ -78,6 +78,16 @@ SetHostPattern sets HostPattern field to given value.
 
 HasHostPattern returns a boolean if a field has been set.
 
+### SetHostPatternNil
+
+`func (o *UpdateListenerRuleRequest) SetHostPatternNil(b bool)`
+
+ SetHostPatternNil sets the value for HostPattern to be an explicit nil
+
+### UnsetHostPattern
+`func (o *UpdateListenerRuleRequest) UnsetHostPattern()`
+
+UnsetHostPattern ensures that no value is present for HostPattern, not even an explicit nil
 ### GetListenerRuleName
 
 `func (o *UpdateListenerRuleRequest) GetListenerRuleName() string`
@@ -123,6 +133,16 @@ SetPathPattern sets PathPattern field to given value.
 
 HasPathPattern returns a boolean if a field has been set.
 
+### SetPathPatternNil
+
+`func (o *UpdateListenerRuleRequest) SetPathPatternNil(b bool)`
+
+ SetPathPatternNil sets the value for PathPattern to be an explicit nil
+
+### UnsetPathPattern
+`func (o *UpdateListenerRuleRequest) UnsetPathPattern()`
+
+UnsetPathPattern ensures that no value is present for PathPattern, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

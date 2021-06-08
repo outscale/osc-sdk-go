@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **HealthCheck** | Pointer to [**HealthCheck**](HealthCheck.md) |  | [optional] 
 **LoadBalancerName** | **string** | The name of the load balancer. | 
-**LoadBalancerPort** | Pointer to **int32** | The port on which the load balancer is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). | [optional] 
+**LoadBalancerPort** | Pointer to **int32** | The port on which the load balancer is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). This parameter is required if you want to update the server certificate. | [optional] 
 **PolicyNames** | Pointer to **[]string** | The name of the policy you want to enable for the listener. | [optional] 
-**ServerCertificateId** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). | [optional] 
+**SecurityGroups** | Pointer to **[]string** | (Net only) One or more IDs of security groups you want to assign to the load balancer. You need to specify the already assigned security groups that you want to keep along with the new ones you are assigning. If the list is empty, the default security group of the Net is assigned to the load balancer. | [optional] 
+**ServerCertificateId** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). If this parameter is specified, you must also specify the &#x60;LoadBalancerPort&#x60; parameter. | [optional] 
 
 ## Methods
 
@@ -175,6 +176,31 @@ SetPolicyNames sets PolicyNames field to given value.
 `func (o *UpdateLoadBalancerRequest) HasPolicyNames() bool`
 
 HasPolicyNames returns a boolean if a field has been set.
+
+### GetSecurityGroups
+
+`func (o *UpdateLoadBalancerRequest) GetSecurityGroups() []string`
+
+GetSecurityGroups returns the SecurityGroups field if non-nil, zero value otherwise.
+
+### GetSecurityGroupsOk
+
+`func (o *UpdateLoadBalancerRequest) GetSecurityGroupsOk() (*[]string, bool)`
+
+GetSecurityGroupsOk returns a tuple with the SecurityGroups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecurityGroups
+
+`func (o *UpdateLoadBalancerRequest) SetSecurityGroups(v []string)`
+
+SetSecurityGroups sets SecurityGroups field to given value.
+
+### HasSecurityGroups
+
+`func (o *UpdateLoadBalancerRequest) HasSecurityGroups() bool`
+
+HasSecurityGroups returns a boolean if a field has been set.
 
 ### GetServerCertificateId
 

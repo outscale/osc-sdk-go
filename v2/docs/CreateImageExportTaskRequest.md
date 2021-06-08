@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ImageId** | **string** | The ID of the OMI to export. | 
-**OsuExport** | [**OsuExport**](OsuExport.md) |  | 
+**OsuExport** | [**OsuExportToCreate**](OsuExportToCreate.md) |  | 
 
 ## Methods
 
 ### NewCreateImageExportTaskRequest
 
-`func NewCreateImageExportTaskRequest(imageId string, osuExport OsuExport, ) *CreateImageExportTaskRequest`
+`func NewCreateImageExportTaskRequest(imageId string, osuExport OsuExportToCreate, ) *CreateImageExportTaskRequest`
 
 NewCreateImageExportTaskRequest instantiates a new CreateImageExportTaskRequest object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetImageId sets ImageId field to given value.
 
 ### GetOsuExport
 
-`func (o *CreateImageExportTaskRequest) GetOsuExport() OsuExport`
+`func (o *CreateImageExportTaskRequest) GetOsuExport() OsuExportToCreate`
 
 GetOsuExport returns the OsuExport field if non-nil, zero value otherwise.
 
 ### GetOsuExportOk
 
-`func (o *CreateImageExportTaskRequest) GetOsuExportOk() (*OsuExport, bool)`
+`func (o *CreateImageExportTaskRequest) GetOsuExportOk() (*OsuExportToCreate, bool)`
 
 GetOsuExportOk returns a tuple with the OsuExport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuExport
 
-`func (o *CreateImageExportTaskRequest) SetOsuExport(v OsuExport)`
+`func (o *CreateImageExportTaskRequest) SetOsuExport(v OsuExportToCreate)`
 
 SetOsuExport sets OsuExport field to given value.
 

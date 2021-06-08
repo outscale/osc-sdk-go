@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | Pointer to **bool** | If true, the NIC is deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | Pointer to **bool** | By default or if set to false, the NIC is detached from the VM when the VM is terminated. If true, the NIC is deleted. | [optional] 
 **LinkNicId** | Pointer to **string** | The ID of the NIC attachment. | [optional] 
 
 ## Methods
