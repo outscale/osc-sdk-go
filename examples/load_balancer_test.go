@@ -34,7 +34,9 @@ package osc_test
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 
 	osc "github.com/outscale/osc-sdk-go/v2"
 )
@@ -53,7 +55,7 @@ func ExampleLoadBalancer() {
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
 		SecretKey: os.Getenv("OSC_SECRET_KEY"),
 	})
-	loadBalancerName := "OscSdkExample"
+	loadBalancerName := "OscSdkExample-" + RandomString(10)
 	loadBalancerSubRegion := "eu-west-2a"
 	read, httpRes, err := client.LoadBalancerApi.ReadLoadBalancers(ctx).ReadLoadBalancersRequest(osc.ReadLoadBalancersRequest{}).Execute()
 	if err != nil {
@@ -128,4 +130,15 @@ func ExampleLoadBalancer() {
 	}
 	fmt.Println("Load balancer journey is over")
 	// Output: Load balancer journey is over
+}
+
+func RandomString(n int) string {
+	rand.Seed(int64(time.Now().Nanosecond()))
+	var letters = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
+	var letters_len = len(letters)
+	r := make([]rune, n)
+	for i := range r {
+		r[i] = letters[rand.Intn(letters_len)]
+	}
+	return string(r)
 }
