@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreationDates** | Pointer to **[]string** | The dates and times at which the volumes were created. | [optional] 
-**LinkVolumeDeleteOnVmDeletion** | Pointer to **bool** | Indicates whether the volumes are deleted when terminating the VMs. | [optional] 
+**LinkVolumeDeleteOnVmDeletion** | Pointer to **bool** | Whether the volumes are deleted or not when terminating the VMs. | [optional] 
 **LinkVolumeDeviceNames** | Pointer to **[]string** | The VM device names. | [optional] 
 **LinkVolumeLinkDates** | Pointer to **[]string** | The dates and times at which the volumes were created. | [optional] 
 **LinkVolumeLinkStates** | Pointer to **[]string** | The attachment states of the volumes (&#x60;attaching&#x60; \\| &#x60;detaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detached&#x60;). | [optional] 

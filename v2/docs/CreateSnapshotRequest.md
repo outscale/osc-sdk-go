@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | A description for the snapshot. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**FileLocation** | Pointer to **string** | The pre-signed URL of the snapshot you want to import from the OSU bucket. | [optional] 
-**SnapshotSize** | Pointer to **int64** | The size of the snapshot created in your account, in bytes. This size must be exactly the same as the source snapshot one. | [optional] 
+**FileLocation** | Pointer to **string** | The pre-signed URL of the snapshot you want to import from the bucket. | [optional] 
+**SnapshotSize** | Pointer to **int64** | The size of the snapshot you want to create in your account, in bytes. This size must be greater than or equal to the size of the original, uncompressed snapshot. | [optional] 
 **SourceRegionName** | Pointer to **string** | The name of the source Region, which must be the same as the Region of your account. | [optional] 
 **SourceSnapshotId** | Pointer to **string** | The ID of the snapshot you want to copy. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume you want to create a snapshot of. | [optional] 

@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**OsuExport** | [**OsuExport**](OsuExport.md) |  | 
+**OsuExport** | [**OsuExportToCreate**](OsuExportToCreate.md) |  | 
 **SnapshotId** | **string** | The ID of the snapshot to export. | 
 
 ## Methods
 
 ### NewCreateSnapshotExportTaskRequest
 
-`func NewCreateSnapshotExportTaskRequest(osuExport OsuExport, snapshotId string, ) *CreateSnapshotExportTaskRequest`
+`func NewCreateSnapshotExportTaskRequest(osuExport OsuExportToCreate, snapshotId string, ) *CreateSnapshotExportTaskRequest`
 
 NewCreateSnapshotExportTaskRequest instantiates a new CreateSnapshotExportTaskRequest object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ HasDryRun returns a boolean if a field has been set.
 
 ### GetOsuExport
 
-`func (o *CreateSnapshotExportTaskRequest) GetOsuExport() OsuExport`
+`func (o *CreateSnapshotExportTaskRequest) GetOsuExport() OsuExportToCreate`
 
 GetOsuExport returns the OsuExport field if non-nil, zero value otherwise.
 
 ### GetOsuExportOk
 
-`func (o *CreateSnapshotExportTaskRequest) GetOsuExportOk() (*OsuExport, bool)`
+`func (o *CreateSnapshotExportTaskRequest) GetOsuExportOk() (*OsuExportToCreate, bool)`
 
 GetOsuExportOk returns a tuple with the OsuExport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuExport
 
-`func (o *CreateSnapshotExportTaskRequest) SetOsuExport(v OsuExport)`
+`func (o *CreateSnapshotExportTaskRequest) SetOsuExport(v OsuExportToCreate)`
 
 SetOsuExport sets OsuExport field to given value.
 

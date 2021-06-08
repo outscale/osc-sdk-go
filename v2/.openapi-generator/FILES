@@ -334,9 +334,13 @@ docs/NicApi.md
 docs/NicForVmCreation.md
 docs/NicLight.md
 docs/OsuApiKey.md
-docs/OsuExport.md
+docs/OsuExportImageExportTask.md
+docs/OsuExportSnapshotExportTask.md
+docs/OsuExportToCreate.md
 docs/PermissionsOnResource.md
 docs/PermissionsOnResourceCreation.md
+docs/Phase1Options.md
+docs/Phase2Options.md
 docs/Placement.md
 docs/PrivateIp.md
 docs/PrivateIpLight.md
@@ -557,6 +561,7 @@ docs/Volume.md
 docs/VolumeApi.md
 docs/VpnConnection.md
 docs/VpnConnectionApi.md
+docs/VpnOptions.md
 docs/With.md
 git_push.sh
 go.mod
@@ -828,9 +833,13 @@ model_nic.go
 model_nic_for_vm_creation.go
 model_nic_light.go
 model_osu_api_key.go
-model_osu_export.go
+model_osu_export_image_export_task.go
+model_osu_export_snapshot_export_task.go
+model_osu_export_to_create.go
 model_permissions_on_resource.go
 model_permissions_on_resource_creation.go
+model_phase1_options.go
+model_phase2_options.go
 model_placement.go
 model_private_ip.go
 model_private_ip_light.go
@@ -1033,6 +1042,7 @@ model_vm_states.go
 model_vm_type.go
 model_volume.go
 model_vpn_connection.go
+model_vpn_options.go
 model_with.go
 response.go
 utils.go

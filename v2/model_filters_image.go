@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the 3DS OUTSCALE's API documentation.<br /><br />  The 3DS OUTSCALE API enables you to manage your resources in the 3DS OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the 3DS OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the 3DS OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
  *
- * API version: 1.8
+ * API version: 1.10
  * Contact: support@outscale.com
  */
 
@@ -23,7 +23,7 @@ type FiltersImage struct {
 	AccountIds *[]string `json:"AccountIds,omitempty"`
 	// The architectures of the OMIs (`i386` \\| `x86_64`).
 	Architectures *[]string `json:"Architectures,omitempty"`
-	// Indicates whether the block device mapping is deleted when terminating the VM.
+	// Whether the volumes are deleted or not when terminating the VM.
 	BlockDeviceMappingDeleteOnVmDeletion *bool `json:"BlockDeviceMappingDeleteOnVmDeletion,omitempty"`
 	// The device names for the volumes.
 	BlockDeviceMappingDeviceNames *[]string `json:"BlockDeviceMappingDeviceNames,omitempty"`
@@ -35,7 +35,7 @@ type FiltersImage struct {
 	BlockDeviceMappingVolumeTypes *[]string `json:"BlockDeviceMappingVolumeTypes,omitempty"`
 	// The descriptions of the OMIs, provided when they were created.
 	Descriptions *[]string `json:"Descriptions,omitempty"`
-	// The locations where the OMI files are stored on Object Storage Unit (OSU).
+	// The locations of the buckets where the OMI files are stored.
 	FileLocations *[]string `json:"FileLocations,omitempty"`
 	// The hypervisor type of the OMI (always `xen`).
 	Hypervisors *[]string `json:"Hypervisors,omitempty"`

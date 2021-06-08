@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiKeyId** | Pointer to **string** | The API key of the OSU account that enables you to access the bucket. | [optional] 
-**SecretKey** | Pointer to **string** | The secret key of the OSU account that enables you to access the bucket. | [optional] 
+**ApiKeyId** | Pointer to **string** | The API key of the OOS account that enables you to access the bucket. | [optional] 
+**SecretKey** | Pointer to **string** | The secret key of the OOS account that enables you to access the bucket. | [optional] 
 
 ## Methods
 

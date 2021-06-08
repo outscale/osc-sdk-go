@@ -4,10 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AccountId** | Pointer to **string** | The ID of your TINA account. | [optional] 
 **Category** | Pointer to **string** | The category of the resource (for example, &#x60;network&#x60;). | [optional] 
 **FromDate** | Pointer to **string** | The beginning of the time period. | [optional] 
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
-**Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-OSU&#x60; or &#x60;TinaOS-DirectLink&#x60;). | [optional] 
+**PayingAccountId** | Pointer to **string** | The ID of the TINA account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
+**Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, or &#x60;TinaOS-OSU&#x60;). | [optional] 
+**SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period. | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 
@@ -31,6 +34,31 @@ will change when the set of required properties is changed
 NewConsumptionEntryWithDefaults instantiates a new ConsumptionEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAccountId
+
+`func (o *ConsumptionEntry) GetAccountId() string`
+
+GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+
+### GetAccountIdOk
+
+`func (o *ConsumptionEntry) GetAccountIdOk() (*string, bool)`
+
+GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountId
+
+`func (o *ConsumptionEntry) SetAccountId(v string)`
+
+SetAccountId sets AccountId field to given value.
+
+### HasAccountId
+
+`func (o *ConsumptionEntry) HasAccountId() bool`
+
+HasAccountId returns a boolean if a field has been set.
 
 ### GetCategory
 
@@ -107,6 +135,31 @@ SetOperation sets Operation field to given value.
 
 HasOperation returns a boolean if a field has been set.
 
+### GetPayingAccountId
+
+`func (o *ConsumptionEntry) GetPayingAccountId() string`
+
+GetPayingAccountId returns the PayingAccountId field if non-nil, zero value otherwise.
+
+### GetPayingAccountIdOk
+
+`func (o *ConsumptionEntry) GetPayingAccountIdOk() (*string, bool)`
+
+GetPayingAccountIdOk returns a tuple with the PayingAccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayingAccountId
+
+`func (o *ConsumptionEntry) SetPayingAccountId(v string)`
+
+SetPayingAccountId sets PayingAccountId field to given value.
+
+### HasPayingAccountId
+
+`func (o *ConsumptionEntry) HasPayingAccountId() bool`
+
+HasPayingAccountId returns a boolean if a field has been set.
+
 ### GetService
 
 `func (o *ConsumptionEntry) GetService() string`
@@ -131,6 +184,31 @@ SetService sets Service field to given value.
 `func (o *ConsumptionEntry) HasService() bool`
 
 HasService returns a boolean if a field has been set.
+
+### GetSubregionName
+
+`func (o *ConsumptionEntry) GetSubregionName() string`
+
+GetSubregionName returns the SubregionName field if non-nil, zero value otherwise.
+
+### GetSubregionNameOk
+
+`func (o *ConsumptionEntry) GetSubregionNameOk() (*string, bool)`
+
+GetSubregionNameOk returns a tuple with the SubregionName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubregionName
+
+`func (o *ConsumptionEntry) SetSubregionName(v string)`
+
+SetSubregionName sets SubregionName field to given value.
+
+### HasSubregionName
+
+`func (o *ConsumptionEntry) HasSubregionName() bool`
+
+HasSubregionName returns a boolean if a field has been set.
 
 ### GetTitle
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** | If the snapshot export task fails, an error message appears. | [optional] 
-**OsuExport** | Pointer to [**OsuExport**](OsuExport.md) |  | [optional] 
+**OsuExport** | Pointer to [**OsuExportSnapshotExportTask**](OsuExportSnapshotExportTask.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot export task, as a percentage. | [optional] 
 **SnapshotId** | Pointer to **string** | The ID of the snapshot to be exported. | [optional] 
 **State** | Pointer to **string** | The state of the snapshot export task (&#x60;pending&#x60; \\| &#x60;active&#x60; \\| &#x60;completed&#x60; \\| &#x60;failed&#x60;). | [optional] 
@@ -58,20 +58,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetOsuExport
 
-`func (o *SnapshotExportTask) GetOsuExport() OsuExport`
+`func (o *SnapshotExportTask) GetOsuExport() OsuExportSnapshotExportTask`
 
 GetOsuExport returns the OsuExport field if non-nil, zero value otherwise.
 
 ### GetOsuExportOk
 
-`func (o *SnapshotExportTask) GetOsuExportOk() (*OsuExport, bool)`
+`func (o *SnapshotExportTask) GetOsuExportOk() (*OsuExportSnapshotExportTask, bool)`
 
 GetOsuExportOk returns a tuple with the OsuExport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOsuExport
 
-`func (o *SnapshotExportTask) SetOsuExport(v OsuExport)`
+`func (o *SnapshotExportTask) SetOsuExport(v OsuExportSnapshotExportTask)`
 
 SetOsuExport sets OsuExport field to given value.
 
