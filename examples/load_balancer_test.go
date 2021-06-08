@@ -34,7 +34,9 @@ package osc_test
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 
 	"github.com/antihax/optional"
 	"github.com/outscale/osc-sdk-go/osc"
@@ -47,7 +49,7 @@ import (
 - Delete new load balancer
 */
 func ExampleLoadBalancer() {
-	loadBalancerName := "OscSdkExample"
+	loadBalancerName := "OscSdkExample-" + RandomString(10)
 	loadBalancerSubRegion := "eu-west-2a"
 	config := osc.NewConfiguration()
 	config.Debug = false
@@ -138,4 +140,15 @@ func ExampleLoadBalancer() {
 
 	fmt.Println("Load balancer journey is over")
 	// Output: Load balancer journey is over
+}
+
+func RandomString(n int) string {
+	rand.Seed(int64(time.Now().Nanosecond()))
+	var letters = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
+	var letters_len = len(letters)
+	r := make([]rune, n)
+	for i := range r {
+		r[i] = letters[rand.Intn(letters_len)]
+	}
+	return string(r)
 }
