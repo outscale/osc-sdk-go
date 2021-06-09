@@ -112,7 +112,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "OpenAPI-Generator/2.3.0/go",
+		UserAgent:     "OpenAPI-Generator/2.4.0/go",
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
@@ -125,6 +125,7 @@ func NewConfiguration() *Configuration {
 						EnumValues: []string{
 							"ap-northeast-1",
 							"cloudgouv-eu-west-1",
+							"cloudgouv-eu-west-2",
 							"eu-west-2",
 							"us-east-2",
 							"us-west-1",
