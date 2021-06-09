@@ -93,7 +93,7 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		BasePath:      "https://api.eu-west-2.outscale.com/api/v1",
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "OpenAPI-Generator/1.9.0/go",
+		UserAgent:     "OpenAPI-Generator/1.10.0/go",
 		Debug:         false,
 		Servers: []ServerConfiguration{
 			{
@@ -106,6 +106,7 @@ func NewConfiguration() *Configuration {
 						EnumValues: []string{
 							"ap-northeast-1",
 							"cloudgouv-eu-west-1",
+							"cloudgouv-eu-west-2",
 							"eu-west-2",
 							"us-east-2",
 							"us-west-1",

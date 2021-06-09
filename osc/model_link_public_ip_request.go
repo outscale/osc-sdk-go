@@ -20,9 +20,9 @@ type LinkPublicIpRequest struct {
 	NicId string `json:"NicId,omitempty"`
 	// (Net only) The primary or secondary private IP address of the specified NIC. By default, the primary private IP address.
 	PrivateIp string `json:"PrivateIp,omitempty"`
-	// The EIP. This parameter is required unless you use the `PublicIpId` parameter.
+	// The EIP. In the public Cloud, this parameter is required.
 	PublicIp string `json:"PublicIp,omitempty"`
-	// The allocation ID of the EIP. This parameter is required unless you use the `PublicIp` parameter.
+	// The allocation ID of the EIP. In a Net, this parameter is required.
 	PublicIpId string `json:"PublicIpId,omitempty"`
 	// The ID of the VM.<br /> - In the public Cloud, this parameter is required.<br /> - In a Net, this parameter is required if the VM has only one NIC. Otherwise, you need to specify the `NicId` parameter instead. You cannot specify both parameters at the same time.
 	VmId string `json:"VmId,omitempty"`
