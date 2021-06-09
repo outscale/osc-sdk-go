@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | **bool** | Set to true by default, which means that the volume is deleted when the VM is terminated. If set to false, the volume is not deleted when the VM is terminated. | [optional] 
+**DeleteOnVmDeletion** | **bool** | If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM. | [optional] 
 **LinkDate** | **string** | The time and date of attachment of the volume to the VM. | [optional] 
 **State** | **string** | The state of the volume. | [optional] 
 **VolumeId** | **string** | The ID of the volume. | [optional] 

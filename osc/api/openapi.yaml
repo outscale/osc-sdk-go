@@ -3,11 +3,11 @@ info:
   contact:
     email: support@outscale.com
   description: |-
-    Welcome to the 3DS OUTSCALE's API documentation.<br /><br />
+    Welcome to the OUTSCALE API documentation.<br /><br />
 
-    The 3DS OUTSCALE API enables you to manage your resources in the 3DS OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />
+    The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />
 
-    Note that the 3DS OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the 3DS OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />
+    Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />
 
     You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
   license:
@@ -15,31 +15,33 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.8"
+  version: "1.10"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
     region:
       default: eu-west-2
       enum:
+      - ap-northeast-1
       - cloudgouv-eu-west-1
-      - cloudgouv-eu-west-2
       - eu-west-2
       - us-east-2
       - us-west-1
-- url: https://api.{region}.outscale.hk/api/v1
+- url: https://api.{region}.outscale.jp/api/v1
   variables:
     region:
-      default: cn-southeast-1
+      default: ap-northeast-1
       enum:
-      - cn-southeast-1
+      - ap-northeast-1
 security:
 - ApiKeyAuth: []
 paths:
   /AcceptNetPeering:
     description: |-
       Accepts a Net peering connection request.<br />
-      To accept this request, you must be the owner of the peer Net. If you do not accept the request within 7 days, the state of the Net peering connection becomes `expired`.
+      To accept this request, you must be the owner of the peer Net. If you do not accept the request within 7 days, the state of the Net peering connection becomes `expired`.<br /><br />
+      **[NOTE]**<br />
+      A peering connection between two Nets works both ways. Therefore, when an A-to-B peering connection is accepted, any pending B-to-A peering connection is automatically rejected as redundant.
     post:
       operationId: AcceptNetPeering
       requestBody:
@@ -119,10 +121,10 @@ paths:
       - AccessKey
   /CreateAccount:
     description: |-
-      Creates a new 3DS OUTSCALE account.<br /><br />
+      Creates a new OUTSCALE account.<br /><br />
 
       **[NOTE]**<br />
-      * You need 3DS OUTSCALE credentials and the appropriate quotas to create a new account via API. To get quotas, you can send an email to sales@outscale.com.<br />
+      * You need OUTSCALE credentials and the appropriate quotas to create a new account via API. To get quotas, you can send an email to sales@outscale.com.<br />
       * If you want to pass a numeral value as a string instead of an integer, you must wrap your string in additional quotes (for example, `'&quot;92000&quot;'`).
     post:
       operationId: CreateAccount
@@ -282,15 +284,15 @@ paths:
       - FlexibleGpu
   /CreateImage:
     description: |-
-      Creates an Outscale machine image (OMI) from an existing virtual machine (VM) which is either running or stopped.<br />
+      Creates an OUTSCALE machine image (OMI) from an existing virtual machine (VM) which is either running or stopped.<br />
       This action also creates a snapshot of the root volume of the VM, as well as a snapshot of each Block Storage Unit (BSU) volume attached to the VM.<br /><br />
 
       You can also use this method to copy an OMI to your account, from an account in the same Region. To do so, the owner of the source OMI must share it with your account. For more information about how to share an OMI with another account in the same Region, see [UpdateImage](#updateimage).<br />
-      To copy an OMI between accounts in different Regions, the owner of the source OMI must first export it to an Object Storage Unit (OSU) bucket using the [CreateImageExportTask](#createimageexporttask) method, and then you need to create a copy of the image in your account.<br />
+      To copy an OMI between accounts in different Regions, the owner of the source OMI must first export it to an OUTSCALE Object Storage (OOS) bucket using the [CreateImageExportTask](#createimageexporttask) method, and then you need to create a copy of the image in your account.<br />
       The copy of the source OMI is independent and belongs to you.<br /><br />
 
       You can also use this method to register an OMI to finalize its creation process.<br />
-      You can register an OMI from a snapshot of a root device to create an OMI based on this snapshot. You can also register an OMI that has been exported to an OSU bucket to create a copy of it in your account. For more information about OMI export to an OSU bucket, see [CreateImageExportTask](#createimageexporttask).<br />
+      You can register an OMI from a snapshot of a root device to create an OMI based on this snapshot. You can also register an OMI that has been exported to an S3-compatible bucket to create a copy of it in your account. For more information about OMI export to an OOS bucket, see [CreateImageExportTask](#createimageexporttask).<br />
       You can register an OMI using a pre-signed URL of the manifest file of the OMI. You do not need any permission for this OMI, or the bucket in which it is contained. The manifest file is obsolete seven days after a completed export as it contains pre-signed URLs to the appropriate snapshots (pre-signed URLs are valid for only seven days).<br />
       Once the OMI is registered, you can launch a VM from this OMI. The copy of the source OMI is independent and belongs to you.
     post:
@@ -329,7 +331,7 @@ paths:
       - Image
   /CreateImageExportTask:
     description: |-
-      Exports an Outscale machine image (OMI) to an Object Storage Unit (OSU) bucket.<br />
+      Exports an Outscale machine image (OMI) to an OUTSCALE Object Storage (OOS) bucket.<br />
       This action enables you to copy an OMI between accounts in different Regions. To copy an OMI in the same Region, you can also use the [CreateImage](#createimage) method.<br />
       The copy of the OMI belongs to you and is independent from the source OMI.<br /><br />
 
@@ -629,7 +631,7 @@ paths:
       - Net
   /CreateNetAccessPoint:
     description: |-
-      Creates a Net access point to access a 3DS OUTSCALE service from this Net without using the Internet and External IP addresses.<br />
+      Creates a Net access point to access an OUTSCALE service from this Net without using the Internet and External IP addresses.<br />
       You specify the service using its name. For more information about the available services, see [ReadNetAccessPointServices](#readnetaccesspointservices).<br />
       To control the routing of traffic between the Net and the specified service, you can specify one or more route tables. Virtual machines placed in Subnets associated with the specified route table thus use the Net access point to access the service. When you specify a route table, a route is automatically added to it with the destination set to the prefix list ID of the service, and the target set to the ID of the access point.
     post:
@@ -654,7 +656,8 @@ paths:
       This action creates a Net peering connection that remains in the `pending-acceptance` state until it is accepted by the owner of the peer Net. If the owner of the peer Net does not accept the request within 7 days, the state of the Net peering connection becomes `expired`. For more information, see [AcceptNetPeering](#acceptnetpeering).<br /><br />
 
       **[NOTE]**<br />
-      The two Nets must not have overlapping IP ranges. Otherwise, the Net peering connection is in the `failed` state.
+      * The two Nets must not have overlapping IP ranges. Otherwise, the Net peering connection is in the `failed` state.
+      * A peering connection between two Nets works both ways. Therefore, you do not need to create a B-to-A connection if an A-to-B connection is created and accepted.
     post:
       operationId: CreateNetPeering
       requestBody:
@@ -900,7 +903,7 @@ paths:
       We recommend using a set of IP permissions to authorize outbound access to a destination security group. We also recommended this method to create a rule with a specific IP protocol and a specific port range.  In a set of IP permissions, we recommend to specify the the protocol.<br /><br />
 
       You can also add one or more ingress rules to a security group.<br />
-      In the public Cloud, this action allows one or more IP address ranges to access a security group for your account, or allows one or more security groups (source groups) to access a security group for your own 3DS OUTSCALE account or another one.<br />
+      In the public Cloud, this action allows one or more IP address ranges to access a security group for your account, or allows one or more security groups (source groups) to access a security group for your own OUTSCALE account or another one.<br />
       In a Net, this action allows one or more  IP address ranges to access a security group for your Net, or allows one or more other security groups (source groups) to access a security group for your Net. All the security groups must be for the same Net.<br /><br />
 
       **[NOTE]**<br />
@@ -972,7 +975,7 @@ paths:
       To do so, the owner of the source snapshot must share it with your account. For more information about how to share a snapshot with another account, see [UpdateSnapshot](#updatesnapshot).<br />
       The copy of the source snapshot is independent and belongs to you.<br /><br />
 
-      To copy a snapshot between accounts in different Regions, the owner of the source snapshot must export it to an Object Storage Unit (OSU) bucket using the [CreateSnapshotExportTask](#createsnapshotexporttask) method. You then need to import it from the OSU bucket to create a copy of this snapshot in your account.<br />
+      To copy a snapshot between accounts in different Regions, the owner of the source snapshot must export it to an OUTSCALE Object Storage (OOS) bucket using the [CreateSnapshotExportTask](#createsnapshotexporttask) method. You then need to import it from the bucket to create a copy of this snapshot in your account.<br />
       You can import a snapshot using a pre-signed URL. You do not need any permission for this snapshot, or the bucket in which it is contained. The pre-signed URL is valid for seven days (you can regenerate a new one if needed).
     post:
       operationId: CreateSnapshot
@@ -1010,8 +1013,8 @@ paths:
       - Snapshot
   /CreateSnapshotExportTask:
     description: |-
-      Exports a snapshot to an Object Storage Unit (OSU) bucket.<br />
-      This action enables you to create a backup of your snapshot or to copy it to another account. You, or other users you send a pre-signed URL to, can then download this snapshot from the OSU bucket using the [CreateSnapshot](#createsnapshot) method.<br />
+      Exports a snapshot to an OUTSCALE Object Storage (OOS) bucket.<br />
+      This action enables you to create a backup of your snapshot or to copy it to another account. You, or other users you send a pre-signed URL to, can then download this snapshot from the bucket using the [CreateSnapshot](#createsnapshot) method.<br />
       This procedure enables you to copy a snapshot between accounts within the same Region or in different Regions. To copy a snapshot within the same Region, you can also use the [CreateSnapshot](#createsnapshot) direct method. The copy of the source snapshot is independent and belongs to you.
     post:
       operationId: CreateSnapshotExportTask
@@ -1157,7 +1160,7 @@ paths:
   /CreateVms:
     description: |-
       Creates new virtual machines (VMs), and then launches them.<br />
-      This action enables you to create a specified number of VMs using an Outscale machine image (OMI) that you are allowed to use, and then to automatically launch them.<br />
+      This action enables you to create a specified number of VMs using an OUTSCALE machine image (OMI) that you are allowed to use, and then to automatically launch them.<br />
       The VMs remain in the `pending` state until they are created and ready to be used. Once automatically launched, they are in the `running` state.<br />
       To check the state of your VMs, call the [ReadVms](#readvms) method.<br />
       If not specified, the security group used by the service is the default one.<br />
@@ -1459,7 +1462,7 @@ paths:
       tags:
       - FlexibleGpu
   /DeleteImage:
-    description: Deletes an Outscale machine image (OMI) so that you cannot use it
+    description: Deletes an OUTSCALE machine image (OMI) so that you cannot use it
       anymore to launch virtual machines (VMs). However, you can still use VMs already
       launched from this OMI.
     post:
@@ -2068,7 +2071,7 @@ paths:
   /DeleteSnapshot:
     description: |-
       Deletes a specified snapshot.<br />
-      You cannot delete a snapshot that is currently used by an Outscale machine image (OMI). To do so, you first need to delete the corresponding OMI. For more information, see the [DeleteImage](#deleteimage) method.
+      You cannot delete a snapshot that is currently used by an OUTSCALE machine image (OMI). To do so, you first need to delete the corresponding OMI. For more information, see the [DeleteImage](#deleteimage) method.
     post:
       operationId: DeleteSnapshot
       requestBody:
@@ -2606,7 +2609,7 @@ paths:
       - Volume
   /ReadAccessKeys:
     description: |-
-      Returns information about the access key IDs of a specified user.<br />
+      Gets information about the access key IDs of a specified user.<br />
       If the user does not have any access key ID, this action returns an empty list.
     post:
       operationId: ReadAccessKeys
@@ -2644,7 +2647,7 @@ paths:
       - Account
   /ReadAdminPassword:
     description: |-
-      Retrieves the administrator password for a Windows running virtual machine (VM).<br />
+      Gets the administrator password for a Windows running virtual machine (VM).<br />
       The administrator password is encrypted using the keypair you specified when launching the VM.<br /><br />
 
       **[NOTE]**<br />
@@ -2684,7 +2687,7 @@ paths:
       tags:
       - Vm
   /ReadApiAccessRules:
-    description: Describes one or more API access rules.
+    description: Lists one or more API access rules.
     post:
       operationId: ReadApiAccessRules
       requestBody:
@@ -2702,8 +2705,8 @@ paths:
       tags:
       - ApiAccessRule
   /ReadApiLogs:
-    description: Retrieves your API logs. Only the logs of the calls made during the
-      last 30 days can be retrieved through this method. You can use filters to retrieve
+    description: Gets your API logs. Only the logs of the calls made during the last
+      30 days can be retrieved through this method. You can use filters to retrieve
       specific logs. You can also specify the information to be displayed in the logs.
     post:
       operationId: ReadApiLogs
@@ -2722,8 +2725,8 @@ paths:
       tags:
       - ApiLog
   /ReadCas:
-    description: Returns information about one or more of your Client Certificate
-      Authorities (CAs).
+    description: Gets information about one or more of your Client Certificate Authorities
+      (CAs).
     post:
       operationId: ReadCas
       requestBody:
@@ -2742,7 +2745,7 @@ paths:
       - Ca
   /ReadClientGateways:
     description: |-
-      Describes one or more of your client gateways.<br /><br />
+      Lists one or more of your client gateways.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -2804,7 +2807,7 @@ paths:
       - Vm
   /ReadConsumptionAccount:
     description: |-
-      Displays information about the consumption of your account for each billable resource within the specified time period.<br /><br />
+      Gets information about the consumption of your account for each billable resource within the specified time period.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `Throttling` error message is returned.
@@ -2826,7 +2829,7 @@ paths:
       - Account
   /ReadDhcpOptions:
     description: |-
-      Retrieves information about the content of one or more DHCP options sets.<br /><br />
+      Gets information about the content of one or more DHCP options sets.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -2959,7 +2962,7 @@ paths:
       - Image
   /ReadImages:
     description: |-
-      Lists one or more Outscale machine images (OMIs) you can use.<br /><br />
+      Lists one or more OUTSCALE machine images (OMIs) you can use.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -3079,7 +3082,7 @@ paths:
       tags:
       - Keypair
   /ReadListenerRules:
-    description: Describes one or more listener rules. By default, this action returns
+    description: Lists one or more listener rules. By default, this action returns
       the full list of listener rules for the account.
     post:
       operationId: ReadListenerRules
@@ -3099,7 +3102,7 @@ paths:
       - Listener
   /ReadLoadBalancerTags:
     description: |-
-      Describes the tags associated with one or more specified load balancers.<br /><br />
+      Lists the tags associated with one or more specified load balancers.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `Throttling` error message is returned.
@@ -3206,7 +3209,7 @@ paths:
       - NatService
   /ReadNetAccessPointServices:
     description: |-
-      Describes 3DS OUTSCALE services available to create Net access points.<br />
+      Lists OUTSCALE services available to create Net access points.<br />
       For more information, see [CreateNetAccessPoint](#createnetaccesspoint).<br /><br />
 
       **[NOTE]**<br />
@@ -3230,7 +3233,7 @@ paths:
       - NetAccessPoint
   /ReadNetAccessPoints:
     description: |-
-      Describes one or more Net access points.<br /><br />
+      Lists one or more Net access points.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -3373,7 +3376,7 @@ paths:
       - Nic
   /ReadProductTypes:
     description: |-
-      Describes one or more product types.<br /><br />
+      Lists one or more product types.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -3395,9 +3398,9 @@ paths:
       tags:
       - ProductType
   /ReadPublicIpRanges:
-    description: Returns the public IPv4 addresses in CIDR notation for the Region
-      specified in the endpoint of the request. For more information, see [Regions,
-      Endpoints and Availability Zones Reference](https://wiki.outscale.net/display/EN/Regions%2C+Endpoints+and+Availability+Zones+Reference).
+    description: Gets the public IPv4 addresses in CIDR notation for the Region specified
+      in the endpoint of the request. For more information, see [Regions, Endpoints
+      and Availability Zones Reference](https://wiki.outscale.net/display/EN/Regions%2C+Endpoints+and+Availability+Zones+Reference).
     post:
       operationId: ReadPublicIpRanges
       requestBody:
@@ -3458,7 +3461,7 @@ paths:
       - PublicIp
   /ReadQuotas:
     description: |-
-      Describes one or more of your quotas.<br /><br />
+      Lists one or more of your quotas.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -3479,7 +3482,7 @@ paths:
       tags:
       - Quota
   /ReadRegions:
-    description: Describes one or more Regions of the 3DS OUTSCALE Cloud.
+    description: Lists one or more Regions of the OUTSCALE Cloud.
     post:
       operationId: ReadRegions
       requestBody:
@@ -3598,7 +3601,7 @@ paths:
       tags:
       - SecurityGroup
   /ReadServerCertificates:
-    description: List your server certificates.
+    description: Lists your server certificates.
     post:
       operationId: ReadServerCertificates
       requestBody:
@@ -3971,7 +3974,7 @@ paths:
       - Volume
   /ReadVpnConnections:
     description: |-
-      Describes one or more VPN connections.<br /><br />
+      Lists one or more VPN connections.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -4584,7 +4587,7 @@ paths:
       - FlexibleGpu
   /UpdateImage:
     description: |-
-      Modifies the specified attribute of an Outscale machine image (OMI).<br />
+      Modifies the specified attribute of an OUTSCALE machine image (OMI).<br />
       You can specify only one attribute at a time. You can modify the permissions to access the OMI by adding or removing account IDs or groups. You can share an OMI with a user that is in the same Region. The user can create a copy of the OMI you shared, obtaining all the rights for the copy of the OMI. For more information, see [CreateImage](#createimage).
     post:
       operationId: UpdateImage
@@ -4922,9 +4925,10 @@ paths:
       You can modify only one attribute at a time. You can modify the `IsSourceDestChecked` attribute only if the VM is in a Net.<br />
       You must stop the VM before modifying the following attributes:<br /><br />
 
-      * `VmType`<br />
+      * `BsuOptimized`<br />
+      * `Performance`<br />
       * `UserData`<br />
-      * `BsuOptimized`
+      * `VmType`
     post:
       operationId: UpdateVm
       requestBody:
@@ -4961,10 +4965,10 @@ paths:
       - Vm
   /UpdateVolume:
     description: |-
-      Modifies the specified attribute of a volume. The volume must not currently be attached to a virtual machine (VM).<br /><br />
+      Modifies the specified attributes of a volume. Cold volumes are volumes that are attached to stopped VMs or that are detached. Hot volumes are volumes that are attached to running VMs.<br /><br />
 
       **[NOTE]**<br />
-      When resizing a volume, the response displays the previous size of the volume because there is a delay between the execution of the call and the effective modification.
+      When the modification is not instantaneous, the response displays the previous value. You can use the [ReadVolumes](#readvolumes) method to see the new value.
     post:
       operationId: UpdateVolume
       requestBody:
@@ -5145,17 +5149,16 @@ components:
             parameter is required.
           type: boolean
         OsuBucketName:
-          description: The name of the Object Storage Unit (OSU) bucket for the access
-            logs.
+          description: The name of the OOS bucket for the access logs.
           type: string
         OsuBucketPrefix:
-          description: The path to the folder of the access logs in your Object Storage
-            Unit (OSU) bucket (by default, the `root` level of your bucket).
+          description: The path to the folder of the access logs in your OOS bucket
+            (by default, the `root` level of your bucket).
           type: string
         PublicationInterval:
           description: The time interval for the publication of access logs in the
-            Object Storage Unit (OSU) bucket, in minutes. This value can be either
-            5 or 60 (by default, 60).
+            OOS bucket, in minutes. This value can be either 5 or 60 (by default,
+            60).
           type: integer
       type: object
     Account:
@@ -5401,9 +5404,8 @@ components:
         LinkDate: 2000-01-23
       properties:
         DeleteOnVmDeletion:
-          description: Set to true by default, which means that the volume is deleted
-            when the VM is terminated. If set to false, the volume is not deleted
-            when the VM is terminated.
+          description: If true, the volume is deleted when terminating the VM. If
+            false, the volume is not deleted when terminating the VM.
           type: boolean
         LinkDate:
           description: The time and date of attachment of the volume to the VM.
@@ -5427,9 +5429,8 @@ components:
         VolumeSize: 6
       properties:
         DeleteOnVmDeletion:
-          description: Set to true by default, which means that the volume is deleted
-            when the VM is terminated. If set to false, the volume is not deleted
-            when the VM is terminated.
+          description: By default or if set to true, the volume is deleted when terminating
+            the VM. If false, the volume is not deleted when terminating the VM.
           type: boolean
         Iops:
           description: The number of I/O operations per second (IOPS). This parameter
@@ -5459,7 +5460,8 @@ components:
         DeleteOnVmDeletion: true
       properties:
         DeleteOnVmDeletion:
-          description: If true, the volume is deleted when the VM is terminated.
+          description: If set to true, the volume is deleted when terminating the
+            VM. If set to false, the volume is not deleted when terminating the VM.
           type: boolean
         VolumeId:
           description: The ID of the volume.
@@ -5500,6 +5502,9 @@ components:
         Password:
           description: The password of the account.
           type: string
+      required:
+      - Login
+      - Password
       type: object
     CheckAuthenticationResponse:
       additionalProperties: false
@@ -5556,6 +5561,7 @@ components:
         period.
       example:
         Type: Type
+        AccountId: AccountId
         Category: Category
         Value: 0.8008281904610115
         Service: Service
@@ -5563,7 +5569,12 @@ components:
         FromDate: FromDate
         ToDate: ToDate
         Operation: Operation
+        PayingAccountId: PayingAccountId
+        SubregionName: SubregionName
       properties:
+        AccountId:
+          description: The ID of your TINA account.
+          type: string
         Category:
           description: The category of the resource (for example, `network`).
           type: string
@@ -5574,9 +5585,16 @@ components:
           description: The API call that triggered the resource consumption (for example,
             `RunInstances` or `CreateVolume`).
           type: string
+        PayingAccountId:
+          description: The ID of the TINA account which is billed for your consumption.
+            It can be different from your account in the `AccountId` parameter.
+          type: string
         Service:
-          description: The service of the API call (`TinaOS-FCU`, `TinaOS-LBU`, `TinaOS-OSU`
-            or `TinaOS-DirectLink`).
+          description: The service of the API call (`TinaOS-FCU`, `TinaOS-LBU`, `TinaOS-DirectLink`,
+            `TinaOS-OOS`, or `TinaOS-OSU`).
+          type: string
+        SubregionName:
+          description: The name of the Subregion.
           type: string
         Title:
           description: A description of the consumed resource.
@@ -6104,7 +6122,7 @@ components:
           description: The ID of the OMI to export.
           type: string
         OsuExport:
-          $ref: '#/components/schemas/OsuExport'
+          $ref: '#/components/schemas/OsuExportToCreate'
       required:
       - ImageId
       - OsuExport
@@ -6120,9 +6138,6 @@ components:
           ImageId: ImageId
           OsuExport:
             OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -6187,8 +6202,8 @@ components:
           type: boolean
         FileLocation:
           description: The pre-signed URL of the OMI manifest file, or the full path
-            to the OMI stored in an OSU bucket. If you specify this parameter, a copy
-            of the OMI is created in your account.
+            to the OMI stored in a bucket. If you specify this parameter, a copy of
+            the OMI is created in your account.
           type: string
         ImageName:
           description: |-
@@ -7675,7 +7690,7 @@ components:
             perform the action.
           type: boolean
         OsuExport:
-          $ref: '#/components/schemas/OsuExport'
+          $ref: '#/components/schemas/OsuExportToCreate'
         SnapshotId:
           description: The ID of the snapshot to export.
           type: string
@@ -7695,10 +7710,6 @@ components:
           TaskId: TaskId
           State: State
           OsuExport:
-            OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -7733,11 +7744,12 @@ components:
           type: boolean
         FileLocation:
           description: The pre-signed URL of the snapshot you want to import from
-            the OSU bucket.
+            the bucket.
           type: string
         SnapshotSize:
-          description: The size of the snapshot created in your account, in bytes.
-            This size must be exactly the same as the source snapshot one.
+          description: The size of the snapshot you want to create in your account,
+            in bytes. This size must be greater than or equal to the size of the original,
+            uncompressed snapshot.
           format: int64
           type: integer
         SourceRegionName:
@@ -8474,6 +8486,38 @@ components:
           ConnectionType: ConnectionType
           ClientGatewayId: ClientGatewayId
           State: State
+          VpnOptions:
+            Phase1Options:
+              DpdTimeoutSeconds: 0
+              StartupAction: StartupAction
+              Phase1IntegrityAlgorithms:
+              - Phase1IntegrityAlgorithms
+              - Phase1IntegrityAlgorithms
+              Phase1LifetimeSeconds: 1
+              Phase1EncryptionAlgorithms:
+              - Phase1EncryptionAlgorithms
+              - Phase1EncryptionAlgorithms
+              DpdTimeoutAction: DpdTimeoutAction
+              ReplayWindowSize: 5
+              IkeVersions:
+              - IkeVersions
+              - IkeVersions
+              Phase1DhGroupNumbers:
+              - 6
+              - 6
+            TunnelInsideIpRange: TunnelInsideIpRange
+            Phase2Options:
+              Phase2EncryptionAlgorithms:
+              - Phase2EncryptionAlgorithms
+              - Phase2EncryptionAlgorithms
+              Phase2DhGroupNumbers:
+              - 5
+              - 5
+              Phase2LifetimeSeconds: 2
+              Phase2IntegrityAlgorithms:
+              - Phase2IntegrityAlgorithms
+              - Phase2IntegrityAlgorithms
+              PreSharedKey: PreSharedKey
           ClientGatewayConfiguration: ClientGatewayConfiguration
           Routes:
           - RouteType: RouteType
@@ -9980,7 +10024,7 @@ components:
           description: The name of the DirectLink interface.
           type: string
         OutscalePrivateIp:
-          description: The IP address on 3DS OUTSCALE's side of the DirectLink interface.
+          description: The IP address on the OUTSCALE side of the DirectLink interface.
           type: string
         VirtualGatewayId:
           description: The ID of the target virtual gateway.
@@ -10041,7 +10085,7 @@ components:
           description: The datacenter where the DirectLink interface is located.
           type: string
         OutscalePrivateIp:
-          description: The IP address on 3DS OUTSCALE's side of the DirectLink interface.
+          description: The IP address on the OUTSCALE side of the DirectLink interface.
           type: string
         State:
           description: The state of the DirectLink interface (`pending` \| `available`
@@ -10592,8 +10636,8 @@ components:
             type: string
           type: array
         BlockDeviceMappingDeleteOnVmDeletion:
-          description: Indicates whether the block device mapping is deleted when
-            terminating the VM.
+          description: Whether the volumes are deleted or not when terminating the
+            VM.
           type: boolean
         BlockDeviceMappingDeviceNames:
           description: The device names for the volumes.
@@ -10621,8 +10665,7 @@ components:
             type: string
           type: array
         FileLocations:
-          description: The locations where the OMI files are stored on Object Storage
-            Unit (OSU).
+          description: The locations of the buckets where the OMI files are stored.
           items:
             type: string
           type: array
@@ -12383,8 +12426,8 @@ components:
             type: string
           type: array
         LinkVolumeDeleteOnVmDeletion:
-          description: Indicates whether the volumes are deleted when terminating
-            the VMs.
+          description: Whether the volumes are deleted or not when terminating the
+            VMs.
           type: boolean
         LinkVolumeDeviceNames:
           description: The VM device names.
@@ -12642,14 +12685,14 @@ components:
             the VM as healthy (between `2` and `10` both included).
           type: integer
         Path:
-          description: The path for HTTP or HTTPS requests.
+          description: If you use the HTTP or HTTPS protocols, the ping path.
           type: string
         Port:
           description: The port number (between `1` and `65535`, both included).
           type: integer
         Protocol:
           description: The protocol for the URL of the VM (`HTTP` \| `HTTPS` \| `TCP`
-            \| `SSL` \| `UDP`).
+            \| `SSL`).
           type: string
         Timeout:
           description: The maximum waiting time for a response before considering
@@ -12739,8 +12782,7 @@ components:
           description: The description of the OMI.
           type: string
         FileLocation:
-          description: The location where the OMI file is stored on Object Storage
-            Unit (OSU).
+          description: The location of the bucket where the OMI files are stored.
           type: string
         ImageId:
           description: The ID of the OMI.
@@ -12787,9 +12829,6 @@ components:
         ImageId: ImageId
         OsuExport:
           OsuManifestUrl: OsuManifestUrl
-          OsuApiKey:
-            SecretKey: SecretKey
-            ApiKeyId: ApiKeyId
           OsuBucket: OsuBucket
           OsuPrefix: OsuPrefix
           DiskImageFormat: DiskImageFormat
@@ -12806,7 +12845,7 @@ components:
           description: The ID of the OMI to be exported.
           type: string
         OsuExport:
-          $ref: '#/components/schemas/OsuExport'
+          $ref: '#/components/schemas/OsuExportImageExportTask'
         Progress:
           description: The progress of the OMI export task, as a percentage.
           type: integer
@@ -12860,9 +12899,8 @@ components:
         KeypairName: KeypairName
       properties:
         KeypairFingerprint:
-          description: |-
-            If you create a keypair, the SHA-1 digest of the DER encoded private key.<br />
-            If you import a keypair, the MD5 public key fingerprint as specified in section 4 of RFC 4716.
+          description: The MD5 public key fingerprint as specified in section 4 of
+            RFC 4716.
           type: string
         KeypairName:
           description: The name of the keypair.
@@ -12877,9 +12915,8 @@ components:
         KeypairName: KeypairName
       properties:
         KeypairFingerprint:
-          description: |-
-            If you create a keypair, the SHA-1 digest of the DER encoded private key.<br />
-            If you import a keypair, the MD5 public key fingerprint as specified in section 4 of RFC 4716.
+          description: The MD5 public key fingerprint as specified in section 4 of
+            RFC 4716.
           type: string
         KeypairName:
           description: The name of the keypair.
@@ -12961,7 +12998,7 @@ components:
         VmId: VmId
       properties:
         DeleteOnVmDeletion:
-          description: If true, the volume is deleted when the VM is terminated.
+          description: If true, the NIC is deleted when the VM is terminated.
           type: boolean
         DeviceNumber:
           description: The device index for the NIC attachment (between 1 and 7, both
@@ -12991,7 +13028,7 @@ components:
         State: State
       properties:
         DeleteOnVmDeletion:
-          description: If true, the volume is deleted when the VM is terminated.
+          description: If true, the NIC is deleted when the VM is terminated.
           type: boolean
         DeviceNumber:
           description: The device index for the NIC attachment (between 1 and 7, both
@@ -13054,7 +13091,8 @@ components:
         LinkNicId: LinkNicId
       properties:
         DeleteOnVmDeletion:
-          description: If true, the NIC is deleted when the VM is terminated.
+          description: By default or if set to false, the NIC is detached from the
+            VM when the VM is terminated. If true, the NIC is deleted.
           type: boolean
         LinkNicId:
           description: The ID of the NIC attachment.
@@ -13182,10 +13220,12 @@ components:
             specified NIC. By default, the primary private IP address.
           type: string
         PublicIp:
-          description: The EIP. In the public Cloud, this parameter is required.
+          description: The EIP. This parameter is required unless you use the `PublicIpId`
+            parameter.
           type: string
         PublicIpId:
-          description: The allocation ID of the EIP. In a Net, this parameter is required.
+          description: The allocation ID of the EIP. This parameter is required unless
+            you use the `PublicIp` parameter.
           type: string
         VmId:
           description: |-
@@ -13345,7 +13385,8 @@ components:
         DeviceName: DeviceName
       properties:
         DeleteOnVmDeletion:
-          description: If true, the volume is deleted when the VM is terminated.
+          description: If true, the volume is deleted when terminating the VM. If
+            false, the volume is not deleted when terminating the VM.
           type: boolean
         DeviceName:
           description: The name of the device.
@@ -13380,15 +13421,14 @@ components:
           type: integer
         BackendProtocol:
           description: The protocol for routing traffic to back-end VMs (`HTTP` \|
-            `HTTPS` \| `TCP` \| `SSL` \| `UDP`).
+            `HTTPS` \| `TCP` \| `SSL`).
           type: string
         LoadBalancerPort:
           description: The port on which the load balancer is listening (between 1
             and `65535`, both included).
           type: integer
         LoadBalancerProtocol:
-          description: The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL` \|
-            `UDP`).
+          description: The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL`).
           type: string
         PolicyNames:
           description: The names of the policies. If there are no policies enabled,
@@ -13397,8 +13437,8 @@ components:
             type: string
           type: array
         ServerCertificateId:
-          description: The Outscale Resource Name (ORN) of the server certificate.
-            For more information, see [Resource Identifiers > Outscale Resource Names
+          description: The OUTSCALE Resource Name (ORN) of the server certificate.
+            For more information, see [Resource Identifiers > OUTSCALE Resource Names
             (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat).
           type: string
       type: object
@@ -13418,19 +13458,18 @@ components:
           type: integer
         BackendProtocol:
           description: The protocol for routing traffic to back-end VMs (`HTTP` \|
-            `HTTPS` \| `TCP` \| `SSL` \| `UDP`).
+            `HTTPS` \| `TCP` \| `SSL`).
           type: string
         LoadBalancerPort:
           description: The port on which the load balancer is listening (between `1`
             and `65535`, both included).
           type: integer
         LoadBalancerProtocol:
-          description: The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL` \|
-            `UDP`).
+          description: The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL`).
           type: string
         ServerCertificateId:
-          description: The Outscale Resource Name (ORN) of the server certificate.
-            For more information, see [Resource Identifiers > Outscale Resource Names
+          description: The OUTSCALE Resource Name (ORN) of the server certificate.
+            For more information, see [Resource Identifiers > OUTSCALE Resource Names
             (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat).
           type: string
       required:
@@ -14129,8 +14168,9 @@ components:
         NicId: NicId
       properties:
         DeleteOnVmDeletion:
-          description: If true, the NIC is deleted when the VM is terminated. You
-            can specify true only if you create a NIC when creating a VM.
+          description: By default or if set to true, the NIC is deleted when the VM
+            is terminated. You can specify this parameter only for a new NIC. To modify
+            this value for an existing NIC, see [UpdateNic](#updatenic).
           type: boolean
         Description:
           description: The description of the NIC, if you are creating a NIC when
@@ -14258,23 +14298,71 @@ components:
       type: object
     OsuApiKey:
       additionalProperties: false
-      description: Information about the OSU API key.
+      description: Information about the OOS API key.
       example:
         SecretKey: SecretKey
         ApiKeyId: ApiKeyId
       properties:
         ApiKeyId:
-          description: The API key of the OSU account that enables you to access the
+          description: The API key of the OOS account that enables you to access the
             bucket.
           type: string
         SecretKey:
-          description: The secret key of the OSU account that enables you to access
+          description: The secret key of the OOS account that enables you to access
             the bucket.
           type: string
       type: object
-    OsuExport:
+    OsuExportImageExportTask:
       additionalProperties: false
-      description: Information about the OSU export.
+      description: Information about the OMI export task.
+      example:
+        OsuManifestUrl: OsuManifestUrl
+        OsuBucket: OsuBucket
+        OsuPrefix: OsuPrefix
+        DiskImageFormat: DiskImageFormat
+      properties:
+        DiskImageFormat:
+          description: The format of the export disk (`qcow2` \| `raw`).
+          type: string
+        OsuBucket:
+          description: The name of the OOS bucket the OMI is exported to.
+          type: string
+        OsuManifestUrl:
+          description: The URL of the manifest file.
+          type: string
+        OsuPrefix:
+          description: The prefix for the key of the OOS object corresponding to the
+            image.
+          type: string
+      required:
+      - DiskImageFormat
+      - OsuBucket
+      type: object
+    OsuExportSnapshotExportTask:
+      additionalProperties: false
+      description: Information about the snapshot export task.
+      example:
+        OsuBucket: OsuBucket
+        OsuPrefix: OsuPrefix
+        DiskImageFormat: DiskImageFormat
+      properties:
+        DiskImageFormat:
+          description: The format of the export disk (`qcow2` \| `raw`).
+          type: string
+        OsuBucket:
+          description: The name of the OOS bucket the snapshot is exported to.
+          type: string
+        OsuPrefix:
+          description: The prefix for the key of the OOS object corresponding to the
+            snapshot.
+          type: string
+      required:
+      - DiskImageFormat
+      - OsuBucket
+      type: object
+    OsuExportToCreate:
+      additionalProperties: false
+      description: Information about the OOS export task to create.
       example:
         OsuManifestUrl: OsuManifestUrl
         OsuApiKey:
@@ -14290,13 +14378,13 @@ components:
         OsuApiKey:
           $ref: '#/components/schemas/OsuApiKey'
         OsuBucket:
-          description: The name of the OSU bucket where you want to export the object.
+          description: The name of the OOS bucket where you want to export the object.
           type: string
         OsuManifestUrl:
           description: The URL of the manifest file.
           type: string
         OsuPrefix:
-          description: The prefix for the key of the OSU object.
+          description: The prefix for the key of the OOS object.
           type: string
       required:
       - DiskImageFormat
@@ -14341,6 +14429,116 @@ components:
           $ref: '#/components/schemas/PermissionsOnResource'
         Removals:
           $ref: '#/components/schemas/PermissionsOnResource'
+      type: object
+    Phase1Options:
+      additionalProperties: false
+      description: 'Information about Phase 1 of the Internet Key Exchange (IKE) negotiation.
+        When Phase 1 finishes successfully, peers proceed to Phase 2 negotiations. '
+      example:
+        DpdTimeoutSeconds: 0
+        StartupAction: StartupAction
+        Phase1IntegrityAlgorithms:
+        - Phase1IntegrityAlgorithms
+        - Phase1IntegrityAlgorithms
+        Phase1LifetimeSeconds: 1
+        Phase1EncryptionAlgorithms:
+        - Phase1EncryptionAlgorithms
+        - Phase1EncryptionAlgorithms
+        DpdTimeoutAction: DpdTimeoutAction
+        ReplayWindowSize: 5
+        IkeVersions:
+        - IkeVersions
+        - IkeVersions
+        Phase1DhGroupNumbers:
+        - 6
+        - 6
+      properties:
+        DpdTimeoutAction:
+          description: The action to carry out after a Dead Peer Detection (DPD) timeout
+            occurs.
+          type: string
+        DpdTimeoutSeconds:
+          description: The maximum waiting time for a Dead Peer Detection (DPD) response
+            before considering the peer as dead, in seconds.
+          type: integer
+        IkeVersions:
+          description: The Internet Key Exchange (IKE) versions allowed for the VPN
+            tunnel.
+          items:
+            type: string
+          type: array
+        Phase1DhGroupNumbers:
+          description: The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel
+            for phase 1.
+          items:
+            type: integer
+          type: array
+        Phase1EncryptionAlgorithms:
+          description: The encryption algorithms allowed for the VPN tunnel for phase
+            1.
+          items:
+            type: string
+          type: array
+        Phase1IntegrityAlgorithms:
+          description: The integrity algorithms allowed for the VPN tunnel for phase
+            1.
+          items:
+            type: string
+          type: array
+        Phase1LifetimeSeconds:
+          description: The lifetime for phase 1 of the IKE negotiation process, in
+            seconds.
+          type: integer
+        ReplayWindowSize:
+          description: The number of packets in an IKE replay window.
+          type: integer
+        StartupAction:
+          description: The action to carry out when establishing tunnels for a VPN
+            connection.
+          type: string
+      type: object
+    Phase2Options:
+      additionalProperties: false
+      description: 'Information about Phase 2 of the Internet Key Exchange (IKE) negotiation. '
+      example:
+        Phase2EncryptionAlgorithms:
+        - Phase2EncryptionAlgorithms
+        - Phase2EncryptionAlgorithms
+        Phase2DhGroupNumbers:
+        - 5
+        - 5
+        Phase2LifetimeSeconds: 2
+        Phase2IntegrityAlgorithms:
+        - Phase2IntegrityAlgorithms
+        - Phase2IntegrityAlgorithms
+        PreSharedKey: PreSharedKey
+      properties:
+        Phase2DhGroupNumbers:
+          description: The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel
+            for phase 2.
+          items:
+            type: integer
+          type: array
+        Phase2EncryptionAlgorithms:
+          description: The encryption algorithms allowed for the VPN tunnel for phase
+            2.
+          items:
+            type: string
+          type: array
+        Phase2IntegrityAlgorithms:
+          description: The integrity algorithms allowed for the VPN tunnel for phase
+            2.
+          items:
+            type: string
+          type: array
+        Phase2LifetimeSeconds:
+          description: The lifetime for phase 2 of the Internet Key Exchange (IKE)
+            negociation process, in seconds.
+          type: integer
+        PreSharedKey:
+          description: The pre-shared key to establish the initial authentication
+            between the client gateway and the virtual gateway.
+          type: string
       type: object
     Placement:
       additionalProperties: false
@@ -14520,7 +14718,7 @@ components:
           description: The description of the quota.
           type: string
         MaxValue:
-          description: The maximum value of the quota for the 3DS OUTSCALE user account
+          description: The maximum value of the quota for the OUTSCALE user account
             (if there is no limit, `0`).
           type: integer
         Name:
@@ -14533,7 +14731,7 @@ components:
           description: The description of the quota.
           type: string
         UsedValue:
-          description: The limit value currently used by the 3DS OUTSCALE user account.
+          description: The limit value currently used by the OUTSCALE user account.
           type: integer
       type: object
     QuotaTypes:
@@ -15059,6 +15257,7 @@ components:
           RequestId: RequestId
         ConsumptionEntries:
         - Type: Type
+          AccountId: AccountId
           Category: Category
           Value: 0.8008281904610115
           Service: Service
@@ -15066,7 +15265,10 @@ components:
           FromDate: FromDate
           ToDate: ToDate
           Operation: Operation
+          PayingAccountId: PayingAccountId
+          SubregionName: SubregionName
         - Type: Type
+          AccountId: AccountId
           Category: Category
           Value: 0.8008281904610115
           Service: Service
@@ -15074,6 +15276,8 @@ components:
           FromDate: FromDate
           ToDate: ToDate
           Operation: Operation
+          PayingAccountId: PayingAccountId
+          SubregionName: SubregionName
       properties:
         ConsumptionEntries:
           description: Information about the resources consumed during the specified
@@ -15397,9 +15601,6 @@ components:
           ImageId: ImageId
           OsuExport:
             OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -15415,9 +15616,6 @@ components:
           ImageId: ImageId
           OsuExport:
             OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -17327,10 +17525,6 @@ components:
           TaskId: TaskId
           State: State
           OsuExport:
-            OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -17345,10 +17539,6 @@ components:
           TaskId: TaskId
           State: State
           OsuExport:
-            OsuManifestUrl: OsuManifestUrl
-            OsuApiKey:
-              SecretKey: SecretKey
-              ApiKeyId: ApiKeyId
             OsuBucket: OsuBucket
             OsuPrefix: OsuPrefix
             DiskImageFormat: DiskImageFormat
@@ -18366,6 +18556,38 @@ components:
         - ConnectionType: ConnectionType
           ClientGatewayId: ClientGatewayId
           State: State
+          VpnOptions:
+            Phase1Options:
+              DpdTimeoutSeconds: 0
+              StartupAction: StartupAction
+              Phase1IntegrityAlgorithms:
+              - Phase1IntegrityAlgorithms
+              - Phase1IntegrityAlgorithms
+              Phase1LifetimeSeconds: 1
+              Phase1EncryptionAlgorithms:
+              - Phase1EncryptionAlgorithms
+              - Phase1EncryptionAlgorithms
+              DpdTimeoutAction: DpdTimeoutAction
+              ReplayWindowSize: 5
+              IkeVersions:
+              - IkeVersions
+              - IkeVersions
+              Phase1DhGroupNumbers:
+              - 6
+              - 6
+            TunnelInsideIpRange: TunnelInsideIpRange
+            Phase2Options:
+              Phase2EncryptionAlgorithms:
+              - Phase2EncryptionAlgorithms
+              - Phase2EncryptionAlgorithms
+              Phase2DhGroupNumbers:
+              - 5
+              - 5
+              Phase2LifetimeSeconds: 2
+              Phase2IntegrityAlgorithms:
+              - Phase2IntegrityAlgorithms
+              - Phase2IntegrityAlgorithms
+              PreSharedKey: PreSharedKey
           ClientGatewayConfiguration: ClientGatewayConfiguration
           Routes:
           - RouteType: RouteType
@@ -18385,6 +18607,38 @@ components:
         - ConnectionType: ConnectionType
           ClientGatewayId: ClientGatewayId
           State: State
+          VpnOptions:
+            Phase1Options:
+              DpdTimeoutSeconds: 0
+              StartupAction: StartupAction
+              Phase1IntegrityAlgorithms:
+              - Phase1IntegrityAlgorithms
+              - Phase1IntegrityAlgorithms
+              Phase1LifetimeSeconds: 1
+              Phase1EncryptionAlgorithms:
+              - Phase1EncryptionAlgorithms
+              - Phase1EncryptionAlgorithms
+              DpdTimeoutAction: DpdTimeoutAction
+              ReplayWindowSize: 5
+              IkeVersions:
+              - IkeVersions
+              - IkeVersions
+              Phase1DhGroupNumbers:
+              - 6
+              - 6
+            TunnelInsideIpRange: TunnelInsideIpRange
+            Phase2Options:
+              Phase2EncryptionAlgorithms:
+              - Phase2EncryptionAlgorithms
+              - Phase2EncryptionAlgorithms
+              Phase2DhGroupNumbers:
+              - 5
+              - 5
+              Phase2LifetimeSeconds: 2
+              Phase2IntegrityAlgorithms:
+              - Phase2IntegrityAlgorithms
+              - Phase2IntegrityAlgorithms
+              PreSharedKey: PreSharedKey
           ClientGatewayConfiguration: ClientGatewayConfiguration
           Routes:
           - RouteType: RouteType
@@ -18606,7 +18860,7 @@ components:
             (for example, 10.0.0.0/24).
           type: string
         DestinationServiceId:
-          description: The ID of the 3DS OUTSCALE service.
+          description: The ID of the OUTSCALE service.
           type: string
         GatewayId:
           description: The ID of the Internet service or virtual gateway attached
@@ -18907,7 +19161,7 @@ components:
           type: array
         ServiceIds:
           description: One or more service IDs to allow traffic from a Net to access
-            the corresponding 3DS OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices).
+            the corresponding OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices).
           items:
             type: string
           type: array
@@ -19075,10 +19329,6 @@ components:
         TaskId: TaskId
         State: State
         OsuExport:
-          OsuManifestUrl: OsuManifestUrl
-          OsuApiKey:
-            SecretKey: SecretKey
-            ApiKeyId: ApiKeyId
           OsuBucket: OsuBucket
           OsuPrefix: OsuPrefix
           DiskImageFormat: DiskImageFormat
@@ -19092,7 +19342,7 @@ components:
           description: If the snapshot export task fails, an error message appears.
           type: string
         OsuExport:
-          $ref: '#/components/schemas/OsuExport'
+          $ref: '#/components/schemas/OsuExportSnapshotExportTask'
         Progress:
           description: The progress of the snapshot export task, as a percentage.
           type: integer
@@ -19462,12 +19712,12 @@ components:
             perform the action.
           type: boolean
         LinkPublicIpId:
-          description: (Required in a Net) The ID representing the association of
-            the EIP with the VM or the NIC.
+          description: The ID representing the association of the EIP with the VM
+            or the NIC. This parameter is required unless you use the `PublicIp` parameter.
           type: string
         PublicIp:
-          description: The External IP address. In the public Cloud, this parameter
-            is required.
+          description: The EIP. This parameter is required unless you use the `LinkPublicIpId`
+            parameter.
           type: string
       type: object
     UnlinkPublicIpResponse:
@@ -19931,6 +20181,7 @@ components:
           description: A host-name pattern for the rule, with a maximum length of
             128 characters. This host-name pattern supports maximum three wildcards,
             and must not contain any special characters except [-.?].
+          nullable: true
           type: string
         ListenerRuleName:
           description: The name of the listener rule.
@@ -19939,6 +20190,7 @@ components:
           description: A path pattern for the rule, with a maximum length of 128 characters.
             This path pattern supports maximum three wildcards, and must not contain
             any special characters except [_-.$/~&quot;'@:+?].
+          nullable: true
           type: string
       required:
       - ListenerRuleName
@@ -19977,6 +20229,9 @@ components:
         - PolicyNames
         - PolicyNames
         LoadBalancerName: LoadBalancerName
+        SecurityGroups:
+        - SecurityGroups
+        - SecurityGroups
         DryRun: true
         HealthCheck:
           Path: Path
@@ -20002,10 +20257,20 @@ components:
           type: string
         LoadBalancerPort:
           description: The port on which the load balancer is listening (between `1`
-            and `65535`, both included).
+            and `65535`, both included). This parameter is required if you want to
+            update the server certificate.
           type: integer
         PolicyNames:
           description: The name of the policy you want to enable for the listener.
+          items:
+            type: string
+          type: array
+        SecurityGroups:
+          description: (Net only) One or more IDs of security groups you want to assign
+            to the load balancer. You need to specify the already assigned security
+            groups that you want to keep along with the new ones you are assigning.
+            If the list is empty, the default security group of the Net is assigned
+            to the load balancer.
           items:
             type: string
           type: array
@@ -20013,6 +20278,8 @@ components:
           description: The Outscale Resource Name (ORN) of the server certificate.
             For more information, see [Resource Identifiers > Outscale Resource Names
             (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat).
+            If this parameter is specified, you must also specify the `LoadBalancerPort`
+            parameter.
           type: string
       required:
       - LoadBalancerName
@@ -20850,19 +21117,33 @@ components:
       additionalProperties: false
       example:
         VolumeId: VolumeId
-        Size: 0
+        VolumeType: VolumeType
+        Size: 6
         DryRun: true
+        Iops: 0
       properties:
         DryRun:
           description: If true, checks whether you have the required permissions to
             perform the action.
           type: boolean
+        Iops:
+          description: The new number of I/O operations per second (IOPS). This parameter
+            can be specified only if you update an `io1` volume. The maximum number
+            of IOPS allowed for `io1` volumes is `13000`. This modification is instantaneous
+            on a cold volume, not on a hot one.
+          type: integer
         Size:
-          description: The new size of the volume, in gibibytes (GiB). This value
-            must be equal to or greater than the current size of the volume.
+          description: (cold volume only) The new size of the volume, in gibibytes
+            (GiB). This value must be equal to or greater than the current size of
+            the volume. This modification is not instantaneous.
           type: integer
         VolumeId:
           description: The ID of the volume you want to update.
+          type: string
+        VolumeType:
+          description: (cold volume only) The new type of the volume (`standard` \|
+            `io1` \| `gpu2`). This modification is instantaneous. If you update to
+            an `io1`volume, you must also specify the `Iops` parameter.
           type: string
       required:
       - VolumeId
@@ -21355,6 +21636,38 @@ components:
         ConnectionType: ConnectionType
         ClientGatewayId: ClientGatewayId
         State: State
+        VpnOptions:
+          Phase1Options:
+            DpdTimeoutSeconds: 0
+            StartupAction: StartupAction
+            Phase1IntegrityAlgorithms:
+            - Phase1IntegrityAlgorithms
+            - Phase1IntegrityAlgorithms
+            Phase1LifetimeSeconds: 1
+            Phase1EncryptionAlgorithms:
+            - Phase1EncryptionAlgorithms
+            - Phase1EncryptionAlgorithms
+            DpdTimeoutAction: DpdTimeoutAction
+            ReplayWindowSize: 5
+            IkeVersions:
+            - IkeVersions
+            - IkeVersions
+            Phase1DhGroupNumbers:
+            - 6
+            - 6
+          TunnelInsideIpRange: TunnelInsideIpRange
+          Phase2Options:
+            Phase2EncryptionAlgorithms:
+            - Phase2EncryptionAlgorithms
+            - Phase2EncryptionAlgorithms
+            Phase2DhGroupNumbers:
+            - 5
+            - 5
+            Phase2LifetimeSeconds: 2
+            Phase2IntegrityAlgorithms:
+            - Phase2IntegrityAlgorithms
+            - Phase2IntegrityAlgorithms
+            PreSharedKey: PreSharedKey
         ClientGatewayConfiguration: ClientGatewayConfiguration
         Routes:
         - RouteType: RouteType
@@ -21373,8 +21686,7 @@ components:
           Key: Key
       properties:
         ClientGatewayConfiguration:
-          description: The configuration to apply to the client gateway to establish
-            the VPN connection, in XML format.
+          description: Example configuration for the client gateway.
           type: string
         ClientGatewayId:
           description: The ID of the client gateway used on the client end of the
@@ -21405,11 +21717,57 @@ components:
             $ref: '#/components/schemas/ResourceTag'
           type: array
         VirtualGatewayId:
-          description: The ID of the virtual gateway used on the 3DS OUTSCALE end
-            of the connection.
+          description: The ID of the virtual gateway used on the OUTSCALE end of the
+            connection.
           type: string
         VpnConnectionId:
           description: The ID of the VPN connection.
+          type: string
+        VpnOptions:
+          $ref: '#/components/schemas/VpnOptions'
+      type: object
+    VpnOptions:
+      additionalProperties: false
+      description: Information about the VPN options.
+      example:
+        Phase1Options:
+          DpdTimeoutSeconds: 0
+          StartupAction: StartupAction
+          Phase1IntegrityAlgorithms:
+          - Phase1IntegrityAlgorithms
+          - Phase1IntegrityAlgorithms
+          Phase1LifetimeSeconds: 1
+          Phase1EncryptionAlgorithms:
+          - Phase1EncryptionAlgorithms
+          - Phase1EncryptionAlgorithms
+          DpdTimeoutAction: DpdTimeoutAction
+          ReplayWindowSize: 5
+          IkeVersions:
+          - IkeVersions
+          - IkeVersions
+          Phase1DhGroupNumbers:
+          - 6
+          - 6
+        TunnelInsideIpRange: TunnelInsideIpRange
+        Phase2Options:
+          Phase2EncryptionAlgorithms:
+          - Phase2EncryptionAlgorithms
+          - Phase2EncryptionAlgorithms
+          Phase2DhGroupNumbers:
+          - 5
+          - 5
+          Phase2LifetimeSeconds: 2
+          Phase2IntegrityAlgorithms:
+          - Phase2IntegrityAlgorithms
+          - Phase2IntegrityAlgorithms
+          PreSharedKey: PreSharedKey
+      properties:
+        Phase1Options:
+          $ref: '#/components/schemas/Phase1Options'
+        Phase2Options:
+          $ref: '#/components/schemas/Phase2Options'
+        TunnelInsideIpRange:
+          description: The IP range for the tunnel in your VPN connection.
           type: string
       type: object
     With:

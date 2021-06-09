@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | **string** | If the snapshot export task fails, an error message appears. | [optional] 
-**OsuExport** | [**OsuExport**](OsuExport.md) |  | [optional] 
+**OsuExport** | [**OsuExportSnapshotExportTask**](OsuExportSnapshotExportTask.md) |  | [optional] 
 **Progress** | **int32** | The progress of the snapshot export task, as a percentage. | [optional] 
 **SnapshotId** | **string** | The ID of the snapshot to be exported. | [optional] 
 **State** | **string** | The state of the snapshot export task (&#x60;pending&#x60; \\| &#x60;active&#x60; \\| &#x60;completed&#x60; \\| &#x60;failed&#x60;). | [optional] 
