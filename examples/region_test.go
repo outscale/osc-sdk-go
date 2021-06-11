@@ -39,12 +39,10 @@ import (
 	osc "github.com/outscale/osc-sdk-go/v2"
 )
 
-/* Debug example
-A quick example which show how to enable SDK debugging in case you have to see what's happening in requests.
-This examples just list existing volumes and shows HTTP details.
+/* Region example
+   This example show how to change your query context to an other endpoint/region.
 */
 func ExampleRegion() {
-	// few things which might be useful for debugging
 	config := osc.NewConfiguration()
 	client := osc.NewAPIClient(config)
 	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
