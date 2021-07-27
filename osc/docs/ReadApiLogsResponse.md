@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Logs** | [**[]Log**](Log.md) | Information displayed in one or more API logs. | [optional] 
+**Logs** | [**[]Log**](Log.md) | Information about one or more logs. | [optional] 
 **NextPageToken** | **string** | The token to request the next page of results. | [optional] 
 **ResponseContext** | [**ResponseContext**](ResponseContext.md) |  | [optional] 
 

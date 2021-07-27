@@ -16,8 +16,8 @@ Name | Type | Description | Notes
 **NetId** | **string** | The ID of the Net for the load balancer. | [optional] 
 **SecurityGroups** | **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
-**Subnets** | **[]string** | The IDs of the Subnets for the load balancer. | [optional] 
-**SubregionNames** | **[]string** | One or more names of Subregions for the load balancer. | [optional] 
+**Subnets** | **[]string** | The ID of the Subnet in which the load balancer was created. | [optional] 
+**SubregionNames** | **[]string** | The ID of the Subregion in which the load balancer was created. | [optional] 
 **Tags** | [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the load balancer. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
