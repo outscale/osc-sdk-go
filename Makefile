@@ -31,6 +31,7 @@ osc-generate: osc-api/outscale.yaml
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
+	cd osc-api && git apply ../.osc-api-patches/*
 
 .PHONY: go-modules-update
 go.sum-udpate:

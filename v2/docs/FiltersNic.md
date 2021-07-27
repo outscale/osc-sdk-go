@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **LinkNicVmAccountIds** | Pointer to **[]string** | The account IDs of the owners of the VMs the NICs are attached to. | [optional] 
 **LinkNicVmIds** | Pointer to **[]string** | The IDs of the VMs the NICs are attached to. | [optional] 
 **LinkPublicIpAccountIds** | Pointer to **[]string** | The account IDs of the owners of the EIPs associated with the NICs. | [optional] 
-**LinkPublicIpLinkPublicIpIds** | Pointer to **[]string** | The association IDs returned when the EIPs were associated with the FNIs. | [optional] 
+**LinkPublicIpLinkPublicIpIds** | Pointer to **[]string** | The association IDs returned when the EIPs were associated with the NICs. | [optional] 
 **LinkPublicIpPublicIpIds** | Pointer to **[]string** | The allocation IDs returned when the EIPs were allocated to their accounts. | [optional] 
 **LinkPublicIpPublicIps** | Pointer to **[]string** | The EIPs associated with the NICs. | [optional] 
 **MacAddresses** | Pointer to **[]string** | The Media Access Control (MAC) addresses of the NICs. | [optional] 

@@ -16,8 +16,8 @@ Name | Type | Description | Notes
 **NetId** | Pointer to **string** | The ID of the Net for the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | Pointer to [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
-**Subnets** | Pointer to **[]string** | The IDs of the Subnets for the load balancer. | [optional] 
-**SubregionNames** | Pointer to **[]string** | One or more names of Subregions for the load balancer. | [optional] 
+**Subnets** | Pointer to **[]string** | The ID of the Subnet in which the load balancer was created. | [optional] 
+**SubregionNames** | Pointer to **[]string** | The ID of the Subregion in which the load balancer was created. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the load balancer. | [optional] 
 
 ## Methods

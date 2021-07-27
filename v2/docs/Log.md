@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID. | [optional] 
-**CallDuration** | Pointer to **int32** | The duration of the call (in milliseconds). | [optional] 
-**QueryAccessKey** | Pointer to **string** | The API key used for the query. | [optional] 
-**QueryApiName** | Pointer to **string** | The name of the API service used by the call. | [optional] 
-**QueryApiVersion** | Pointer to **string** | The version of the API service used by the call. | [optional] 
-**QueryCallName** | Pointer to **string** | The name of the call. | [optional] 
-**QueryDate** | Pointer to **string** | The date of the query, in ISO 8601 format. | [optional] 
-**QueryHeaderRaw** | Pointer to **string** | The query header raw. | [optional] 
-**QueryHeaderSize** | Pointer to **int32** | The query header size. | [optional] 
-**QueryIpAddress** | Pointer to **string** | The IP address used for the query. | [optional] 
-**QueryPayloadRaw** | Pointer to **string** | The query payload raw. | [optional] 
-**QueryPayloadSize** | Pointer to **int32** | The query payload size. | [optional] 
-**QueryUserAgent** | Pointer to **string** | The user agent used for the HTTP request. | [optional] 
-**RequestId** | Pointer to **string** | The ID provided in the response. | [optional] 
-**ResponseSize** | Pointer to **int32** | The size of the response (in bytes). | [optional] 
-**ResponseStatusCode** | Pointer to **int32** | The HTTP code provided in the response. | [optional] 
+**AccountId** | Pointer to **string** | The account ID of the logged call. | [optional] 
+**CallDuration** | Pointer to **int32** | The duration of the logged call, in microseconds. | [optional] 
+**QueryAccessKey** | Pointer to **string** | The access key used for the logged call. | [optional] 
+**QueryApiName** | Pointer to **string** | The name of the API used by the logged call (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
+**QueryApiVersion** | Pointer to **string** | The version of the API used by the logged call. | [optional] 
+**QueryCallName** | Pointer to **string** | The name of the logged call. | [optional] 
+**QueryDate** | Pointer to **string** | The date of the logged call, in ISO 8601 format. | [optional] 
+**QueryHeaderRaw** | Pointer to **string** | The raw header of the HTTP request of the logged call. | [optional] 
+**QueryHeaderSize** | Pointer to **int32** | The size of the raw header of the HTTP request of the logged call, in bytes. | [optional] 
+**QueryIpAddress** | Pointer to **string** | The IP address used for the logged call. | [optional] 
+**QueryPayloadRaw** | Pointer to **string** | The raw payload of the HTTP request of the logged call. | [optional] 
+**QueryPayloadSize** | Pointer to **int32** | The size of the raw payload of the HTTP request of the logged call, in bytes. | [optional] 
+**QueryUserAgent** | Pointer to **string** | The user agent of the HTTP request of the logged call. | [optional] 
+**RequestId** | Pointer to **string** | The request ID provided in the response of the logged call. | [optional] 
+**ResponseSize** | Pointer to **int32** | The size of the response of the logged call, in bytes. | [optional] 
+**ResponseStatusCode** | Pointer to **int32** | The HTTP status code of the response of the logged call. | [optional] 
 
 ## Methods
 

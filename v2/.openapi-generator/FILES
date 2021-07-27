@@ -5,6 +5,7 @@ README.md
 api/openapi.yaml
 api_access_key.go
 api_account.go
+api_api_access_policy.go
 api_api_access_rule.go
 api_api_log.go
 api_ca.go
@@ -54,6 +55,8 @@ docs/AccessKeySecretKey.md
 docs/AccessLog.md
 docs/Account.md
 docs/AccountApi.md
+docs/ApiAccessPolicy.md
+docs/ApiAccessPolicyApi.md
 docs/ApiAccessRule.md
 docs/ApiAccessRuleApi.md
 docs/ApiLogApi.md
@@ -359,6 +362,7 @@ docs/ReadAccountsRequest.md
 docs/ReadAccountsResponse.md
 docs/ReadAdminPasswordRequest.md
 docs/ReadAdminPasswordResponse.md
+docs/ReadApiAccessPolicyResponse.md
 docs/ReadApiAccessRulesRequest.md
 docs/ReadApiAccessRulesResponse.md
 docs/ReadApiLogsRequest.md
@@ -518,6 +522,8 @@ docs/UpdateAccessKeyRequest.md
 docs/UpdateAccessKeyResponse.md
 docs/UpdateAccountRequest.md
 docs/UpdateAccountResponse.md
+docs/UpdateApiAccessPolicyRequest.md
+docs/UpdateApiAccessPolicyResponse.md
 docs/UpdateApiAccessRuleRequest.md
 docs/UpdateApiAccessRuleResponse.md
 docs/UpdateCaRequest.md
@@ -573,6 +579,7 @@ model_access_key.go
 model_access_key_secret_key.go
 model_access_log.go
 model_account.go
+model_api_access_policy.go
 model_api_access_rule.go
 model_application_sticky_cookie_policy.go
 model_backend_vm_health.go
@@ -855,6 +862,7 @@ model_read_accounts_request.go
 model_read_accounts_response.go
 model_read_admin_password_request.go
 model_read_admin_password_response.go
+model_read_api_access_policy_response.go
 model_read_api_access_rules_request.go
 model_read_api_access_rules_response.go
 model_read_api_logs_request.go
@@ -1003,6 +1011,8 @@ model_update_access_key_request.go
 model_update_access_key_response.go
 model_update_account_request.go
 model_update_account_response.go
+model_update_api_access_policy_request.go
+model_update_api_access_policy_response.go
 model_update_api_access_rule_request.go
 model_update_api_access_rule_response.go
 model_update_ca_request.go
