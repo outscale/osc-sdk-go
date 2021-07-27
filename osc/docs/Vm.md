@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
 **BsuOptimized** | **bool** | If true, the VM is optimized for BSU I/O. | [optional] 
 **ClientToken** | **string** | The idempotency token provided when launching the VM. | [optional] 
+**CreationDate** | **string** | The date and time at which the VM was created. | [optional] 
 **DeletionProtection** | **bool** | If true, you cannot terminate the VM using Cockpit, the CLI or the API. If false, you can. | [optional] 
 **Hypervisor** | **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;xen&#x60;). | [optional] 
 **ImageId** | **string** | The ID of the OMI used to create the VM. | [optional] 
