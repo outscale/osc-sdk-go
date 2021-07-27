@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CookieExpirationPeriod** | Pointer to **int32** | The lifetime of the cookie, in seconds. If not specified, the default value of this parameter is 1, which means that the sticky session lasts for the duration of the browser session. | [optional] 
 **CookieName** | Pointer to **string** | The name of the application cookie used for stickiness. This parameter is required if you create a stickiness policy based on an application-generated cookie. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LoadBalancerName** | **string** | The name of the load balancer for which you want to create a policy. | 
@@ -28,6 +29,31 @@ will change when the set of required properties is changed
 NewCreateLoadBalancerPolicyRequestWithDefaults instantiates a new CreateLoadBalancerPolicyRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCookieExpirationPeriod
+
+`func (o *CreateLoadBalancerPolicyRequest) GetCookieExpirationPeriod() int32`
+
+GetCookieExpirationPeriod returns the CookieExpirationPeriod field if non-nil, zero value otherwise.
+
+### GetCookieExpirationPeriodOk
+
+`func (o *CreateLoadBalancerPolicyRequest) GetCookieExpirationPeriodOk() (*int32, bool)`
+
+GetCookieExpirationPeriodOk returns a tuple with the CookieExpirationPeriod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCookieExpirationPeriod
+
+`func (o *CreateLoadBalancerPolicyRequest) SetCookieExpirationPeriod(v int32)`
+
+SetCookieExpirationPeriod sets CookieExpirationPeriod field to given value.
+
+### HasCookieExpirationPeriod
+
+`func (o *CreateLoadBalancerPolicyRequest) HasCookieExpirationPeriod() bool`
+
+HasCookieExpirationPeriod returns a boolean if a field has been set.
 
 ### GetCookieName
 

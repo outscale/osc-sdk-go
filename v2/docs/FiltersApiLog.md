@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**QueryAccessKeys** | Pointer to **[]string** | One or more API keys used for the query. | [optional] 
-**QueryApiNames** | Pointer to **[]string** | The name of one or more API services used for the query. | [optional] 
-**QueryCallNames** | Pointer to **[]string** | The name of one or more calls. | [optional] 
-**QueryDateAfter** | Pointer to **string** | The logs of the queries made after the date you specify, in ISO 8601 format (for example, &#x60;2017-06-14&#x60;). | [optional] 
-**QueryDateBefore** | Pointer to **string** | The logs of the queries made before the date you specify, in ISO 8601 format (for example, &#x60;2017-06-14&#x60;). | [optional] 
-**QueryIpAddresses** | Pointer to **[]string** | One or more IP addresses used for the query. | [optional] 
-**QueryUserAgents** | Pointer to **[]string** | One or more user agents used for the HTTP request. | [optional] 
-**RequestIds** | Pointer to **[]string** | One or more request IDs. | [optional] 
-**ResponseStatusCodes** | Pointer to **[]int32** | One or more HTTP codes provided by the responses. | [optional] 
+**QueryAccessKeys** | Pointer to **[]string** | The access keys used for the logged calls. | [optional] 
+**QueryApiNames** | Pointer to **[]string** | The names of the APIs of the logged calls (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
+**QueryCallNames** | Pointer to **[]string** | The names of the logged calls. | [optional] 
+**QueryDateAfter** | Pointer to **string** | The date after which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-14&#x60;). By default, this date is set to 2 days ago. | [optional] 
+**QueryDateBefore** | Pointer to **string** | The date before which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-30&#x60;). By default, this date is set to now. | [optional] 
+**QueryIpAddresses** | Pointer to **[]string** | The IP addresses used for the logged calls. | [optional] 
+**QueryUserAgents** | Pointer to **[]string** | The user agents of the HTTP requests of the logged calls. | [optional] 
+**RequestIds** | Pointer to **[]string** | The request IDs provided in the responses of the logged calls. | [optional] 
+**ResponseStatusCodes** | Pointer to **[]int32** | The HTTP status codes of the logged calls. | [optional] 
 
 ## Methods
 

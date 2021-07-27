@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CookieExpirationPeriod** | Pointer to **int32** | The time period, in seconds, after which the cookie should be considered stale.&lt;br /&gt; If &#x60;1&#x60;, the stickiness session lasts for the duration of the browser session. | [optional] 
 **PolicyName** | Pointer to **string** | The name of the stickiness policy. | [optional] 
 
 ## Methods
@@ -24,6 +25,31 @@ will change when the set of required properties is changed
 NewLoadBalancerStickyCookiePolicyWithDefaults instantiates a new LoadBalancerStickyCookiePolicy object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCookieExpirationPeriod
+
+`func (o *LoadBalancerStickyCookiePolicy) GetCookieExpirationPeriod() int32`
+
+GetCookieExpirationPeriod returns the CookieExpirationPeriod field if non-nil, zero value otherwise.
+
+### GetCookieExpirationPeriodOk
+
+`func (o *LoadBalancerStickyCookiePolicy) GetCookieExpirationPeriodOk() (*int32, bool)`
+
+GetCookieExpirationPeriodOk returns a tuple with the CookieExpirationPeriod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCookieExpirationPeriod
+
+`func (o *LoadBalancerStickyCookiePolicy) SetCookieExpirationPeriod(v int32)`
+
+SetCookieExpirationPeriod sets CookieExpirationPeriod field to given value.
+
+### HasCookieExpirationPeriod
+
+`func (o *LoadBalancerStickyCookiePolicy) HasCookieExpirationPeriod() bool`
+
+HasCookieExpirationPeriod returns a boolean if a field has been set.
 
 ### GetPolicyName
 

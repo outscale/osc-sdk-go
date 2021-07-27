@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Logs** | Pointer to [**[]Log**](Log.md) | Information displayed in one or more API logs. | [optional] 
+**Logs** | Pointer to [**[]Log**](Log.md) | Information about one or more logs. | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 

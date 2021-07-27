@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
 **BsuOptimized** | Pointer to **bool** | If true, the VM is optimized for BSU I/O. | [optional] 
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time at which the VM was created. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot terminate the VM using Cockpit, the CLI or the API. If false, you can. | [optional] 
 **Hypervisor** | Pointer to **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;xen&#x60;). | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI used to create the VM. | [optional] 
@@ -155,6 +156,31 @@ SetClientToken sets ClientToken field to given value.
 `func (o *Vm) HasClientToken() bool`
 
 HasClientToken returns a boolean if a field has been set.
+
+### GetCreationDate
+
+`func (o *Vm) GetCreationDate() string`
+
+GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
+
+### GetCreationDateOk
+
+`func (o *Vm) GetCreationDateOk() (*string, bool)`
+
+GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreationDate
+
+`func (o *Vm) SetCreationDate(v string)`
+
+SetCreationDate sets CreationDate field to given value.
+
+### HasCreationDate
+
+`func (o *Vm) HasCreationDate() bool`
+
+HasCreationDate returns a boolean if a field has been set.
 
 ### GetDeletionProtection
 

@@ -15,7 +15,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.10"
+  version: "1.14"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -117,6 +117,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateAccessKeyResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - AccessKey
   /CreateAccount:
@@ -163,6 +166,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateApiAccessRuleResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - ApiAccessRule
   /CreateCa:
@@ -181,6 +187,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateCaResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - Ca
   /CreateClientGateway:
@@ -462,7 +471,8 @@ paths:
     description: |-
       Creates a load balancer.<br />
       The load balancer is created with a unique Domain Name Service (DNS) name. It receives the incoming traffic and routes it to its registered virtual machines (VMs).<br />
-      By default, this action creates an Internet-facing load balancer, resolving to public IP addresses. To create an internal load balancer in a Net, resolving to private IP addresses, use the `LoadBalancerType` parameter.
+      By default, this action creates an Internet-facing load balancer, resolving to public IP addresses. To create an internal load balancer in a Net, resolving to private IP addresses, use the `LoadBalancerType` parameter.<br />
+      You must specify either the `Subnets` or the `SubregionNames` parameters.
     post:
       operationId: CreateLoadBalancer
       requestBody:
@@ -731,7 +741,7 @@ paths:
   /CreatePublicIp:
     description: |-
       Acquires an External IP address (EIP) for your account.<br />
-      An EIP is a static IP address designed for dynamic Cloud computing. It can be used for virtual machines (VMs) in the public Cloud (`standard`) or in a Net, for a network interface card (NIC), or for a NAT service.
+      An EIP is a static IP address designed for dynamic Cloud computing. It can be associated with a virtual machine (VM) in the public Cloud or in a Net, a network interface card (NIC), a NAT service.
     post:
       operationId: CreatePublicIp
       requestBody:
@@ -1298,6 +1308,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteAccessKeyResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - AccessKey
   /DeleteApiAccessRule:
@@ -1320,6 +1333,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteApiAccessRuleResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - ApiAccessRule
   /DeleteCa:
@@ -1338,6 +1354,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteCaResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - Ca
   /DeleteClientGateway:
@@ -2625,6 +2644,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReadAccessKeysResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - AccessKey
   /ReadAccounts:
@@ -2686,6 +2708,40 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Vm
+  /ReadApiAccessPolicy:
+    description: Gets information about the API access policy of your account.
+    post:
+      operationId: ReadApiAccessPolicy
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadApiAccessPolicyResponse'
+          description: The HTTP 200 response (OK).
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 400 response (Bad Request).
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 401 response (Unauthorized).
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 500 response (Internal Server Error).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
+      tags:
+      - ApiAccessPolicy
   /ReadApiAccessRules:
     description: Lists one or more API access rules.
     post:
@@ -2702,12 +2758,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReadApiAccessRulesResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - ApiAccessRule
   /ReadApiLogs:
-    description: Gets your API logs. Only the logs of the calls made during the last
-      30 days can be retrieved through this method. You can use filters to retrieve
-      specific logs. You can also specify the information to be displayed in the logs.
+    description: Lists the logs of the API calls you have performed with this account.
+      Past logs are accessible for up to 30 days. For more information, see [About
+      OUTSCALE Monitoring Services (OMS)](https://wiki.outscale.net/pages/viewpage.action?pageId=49023581).
     post:
       operationId: ReadApiLogs
       requestBody:
@@ -2741,6 +2800,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReadCasResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - Ca
   /ReadClientGateways:
@@ -3421,7 +3483,7 @@ paths:
   /ReadPublicIps:
     description: |-
       Lists one or more External IP addresses (EIPs) allocated to your account.<br />
-      By default, this action returns information about all your EIPs: available, associated with a virtual machine (VM) or network interface card (NIC), or used for a NAT service.<br /><br />
+      By default, this action returns information about all your EIPs: available or associated with a virtual machine (VM), a network interface card (NIC) or a NAT service.<br /><br />
 
       **[NOTE]**<br />
       If you exceed the number of identical requests allowed for a configured time period, the `RequestLimitExceeded` error message is returned.
@@ -3557,6 +3619,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReadSecretAccessKeyResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - AccessKey
   /ReadSecurityGroups:
@@ -4035,7 +4100,7 @@ paths:
   /RegisterVmsInLoadBalancer:
     description: |-
       Registers one or more virtual machines (VMs) with a specified load balancer.<br />
-      The VMs must be running in the same network as the load balancer (in the public Cloud or in the same Net). It may take a little time for a VM to be registered with the load balancer. Once the VM is registered with a load balancer, it receives traffic and requests from this load balancer and is called a back-end VM.
+      The VMs can be in different Subnets and different Subregions than the load balancer, as long as the VMs and load balancers are all in the public Cloud or all in the same Net. It may take a little time for a VM to be registered with the load balancer. Once the VM is registered with a load balancer, it receives traffic and requests from this load balancer and is called a back-end VM.
     post:
       operationId: RegisterVmsInLoadBalancer
       requestBody:
@@ -4356,7 +4421,7 @@ paths:
       Disassociates an External IP address (EIP) from the virtual machine (VM) or network interface card (NIC) it is associated with.<br /><br />
 
       **[NOTE]**<br />
-      To disassociate a Public IP from a NAT service, you need to delete the NAT service. For more information, see the [DeleteNatGateway](#deletenatgateway) method.
+      To disassociate the EIP from a NAT service, you need to delete the NAT service. For more information, see the [DeleteNatService](#deletenatservice) method.
     post:
       operationId: UnlinkPublicIp
       requestBody:
@@ -4508,6 +4573,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateAccessKeyResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - AccessKey
   /UpdateAccount:
@@ -4528,6 +4596,49 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - Account
+  /UpdateApiAccessPolicy:
+    description: |-
+      Updates the API access policy of your account.<br /><br />
+
+      **[NOTE]**<br />
+      Only one API access policy can be associated with your account.
+    post:
+      operationId: UpdateApiAccessPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApiAccessPolicyRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateApiAccessPolicyResponse'
+          description: The HTTP 200 response (OK).
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 400 response (Bad Request).
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 401 response (Unauthorized).
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The HTTP 500 response (Internal Server Error).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
+      tags:
+      - ApiAccessPolicy
   /UpdateApiAccessRule:
     description: "Modifies a specified API access rule.<br /><br />\n\n**[NOTE]**<br\
       \ /> \nThe new rule you specify fully replaces the old rule. Therefore, for\
@@ -4546,6 +4657,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateApiAccessRuleResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - ApiAccessRule
   /UpdateCa:
@@ -4565,6 +4679,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateCaResponse'
           description: The HTTP 200 response (OK).
+      security:
+      - ApiKeyAuthSec: []
+      - BasicAuth: []
       tags:
       - Ca
   /UpdateFlexibleGpu:
@@ -5222,6 +5339,25 @@ components:
         ZipCode:
           description: The ZIP code of the city.
           type: string
+      type: object
+    ApiAccessPolicy:
+      additionalProperties: false
+      description: Information about the API access policy.
+      example:
+        RequireTrustedEnv: true
+        MaxAccessKeyExpirationSeconds: 0
+      properties:
+        MaxAccessKeyExpirationSeconds:
+          description: The maximum possible lifetime for your access keys, in seconds.
+            If `0`, your access keys can have unlimited lifetimes.
+          format: int64
+          type: integer
+        RequireTrustedEnv:
+          description: If true, a trusted session is activated, allowing you to bypass
+            Certificate Authorities (CAs) enforcement. For more information, see the
+            `ApiKeyAuth` authentication scheme in the [Authentication](#authentication)
+            section.
+          type: boolean
       type: object
     ApiAccessRule:
       additionalProperties: false
@@ -6503,8 +6639,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -6519,12 +6657,18 @@ components:
     CreateLoadBalancerPolicyRequest:
       additionalProperties: false
       example:
+        CookieExpirationPeriod: 0
         LoadBalancerName: LoadBalancerName
         PolicyType: PolicyType
         PolicyName: PolicyName
         DryRun: true
         CookieName: CookieName
       properties:
+        CookieExpirationPeriod:
+          description: The lifetime of the cookie, in seconds. If not specified, the
+            default value of this parameter is 1, which means that the sticky session
+            lasts for the duration of the browser session.
+          type: integer
         CookieName:
           description: The name of the application cookie used for stickiness. This
             parameter is required if you create a stickiness policy based on an application-generated
@@ -6612,8 +6756,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -6682,16 +6828,17 @@ components:
             type: string
           type: array
         Subnets:
-          description: One or more IDs of Subnets in your Net that you want to attach
-            to the load balancer.
+          description: (Net only) The ID of the Subnet in which you want to create
+            the load balancer. Regardless of this Subnet, the load balancer can distribute
+            traffic to all Subnets. This parameter is required in a Net.
           items:
             type: string
           type: array
         SubregionNames:
-          description: One or more names of Subregions (currently, only one Subregion
-            is supported). This parameter is not required if you create a load balancer
-            in a Net. To create an internal load balancer, use the `LoadBalancerType`
-            parameter.
+          description: (public Cloud only) The Subregion in which you want to create
+            the load balancer. Regardless of this Subregion, the load balancer can
+            distribute traffic to all Subregions. This parameter is required in the
+            public Cloud.
           items:
             type: string
           type: array
@@ -6765,8 +6912,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -7038,8 +7187,7 @@ components:
           type: boolean
         PrivateIps:
           description: |-
-            The primary private IP address for the NIC.<br /><br />
-
+            The primary private IP address for the NIC.<br />
             This IP address must be within the IP address range of the Subnet that you specify with the `SubnetId` attribute.<br />
             If you do not specify this attribute, a random private IP address is selected within the IP address range of the Subnet.
           items:
@@ -7497,8 +7645,9 @@ components:
             or an ICMP type number.
           type: integer
         IpProtocol:
-          description: The IP protocol name (`tcp`, `udp`, `icmp`) or protocol number.
-            By default, `-1`, which means all protocols.
+          description: The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all
+            protocols). By default, `-1`. In a Net, this can also be an IP protocol
+            number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
           type: string
         IpRange:
           description: The IP range for the security group rule, in CIDR notation
@@ -8100,7 +8249,8 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vms:
-        - SecurityGroups:
+        - CreationDate: CreationDate
+          SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
           - SecurityGroupName: SecurityGroupName
@@ -8232,7 +8382,8 @@ components:
           VmId: VmId
           ClientToken: ClientToken
           Performance: Performance
-        - SecurityGroups:
+        - CreationDate: CreationDate
+          SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
           - SecurityGroupName: SecurityGroupName
@@ -8985,8 +9136,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -9081,8 +9234,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -9496,8 +9651,9 @@ components:
             or an ICMP type number.
           type: integer
         IpProtocol:
-          description: The IP protocol name (`tcp`, `udp`, `icmp`) or protocol number.
-            By default, `-1`, which means all protocols.
+          description: The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all
+            protocols). By default, `-1`. In a Net, this can also be an IP protocol
+            number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
           type: string
         IpRange:
           description: The IP range for the security group rule, in CIDR notation
@@ -10220,47 +10376,50 @@ components:
         - QueryApiNames
       properties:
         QueryAccessKeys:
-          description: One or more API keys used for the query.
+          description: The access keys used for the logged calls.
           items:
             type: string
           type: array
         QueryApiNames:
-          description: The name of one or more API services used for the query.
+          description: The names of the APIs of the logged calls (always `oapi` for
+            the OUTSCALE API).
           items:
             type: string
           type: array
         QueryCallNames:
-          description: The name of one or more calls.
+          description: The names of the logged calls.
           items:
             type: string
           type: array
         QueryDateAfter:
-          description: The logs of the queries made after the date you specify, in
-            ISO 8601 format (for example, `2017-06-14`).
+          description: The date after which you want to retrieve logged calls, in
+            ISO 8601 format (for example, `2020-06-14`). By default, this date is
+            set to 2 days ago.
           format: date
           type: string
         QueryDateBefore:
-          description: The logs of the queries made before the date you specify, in
-            ISO 8601 format (for example, `2017-06-14`).
+          description: The date before which you want to retrieve logged calls, in
+            ISO 8601 format (for example, `2020-06-30`). By default, this date is
+            set to now.
           format: date
           type: string
         QueryIpAddresses:
-          description: One or more IP addresses used for the query.
+          description: The IP addresses used for the logged calls.
           items:
             type: string
           type: array
         QueryUserAgents:
-          description: One or more user agents used for the HTTP request.
+          description: The user agents of the HTTP requests of the logged calls.
           items:
             type: string
           type: array
         RequestIds:
-          description: One or more request IDs.
+          description: The request IDs provided in the responses of the logged calls.
           items:
             type: string
           type: array
         ResponseStatusCodes:
-          description: One or more HTTP codes provided by the responses.
+          description: The HTTP status codes of the logged calls.
           items:
             type: integer
           type: array
@@ -11276,7 +11435,7 @@ components:
           type: array
         LinkPublicIpLinkPublicIpIds:
           description: The association IDs returned when the EIPs were associated
-            with the FNIs.
+            with the NICs.
           items:
             type: string
           type: array
@@ -13199,11 +13358,11 @@ components:
         NicId: NicId
       properties:
         AllowRelink:
-          description: |-
-            - If true, allows the EIP to be associated with the VM or NIC that you specify even if it is already associated with another VM or NIC.<br />
-            - If false, prevents the EIP from being associated with the VM or NIC that you specify if it is already associated with another VM or NIC.<br /><br />
-
-            (By default, true in the public Cloud, false in a Net.)
+          description: If true, allows the EIP to be associated with the VM or NIC
+            that you specify even if it is already associated with another VM or NIC.
+            If false, prevents the EIP from being associated with the VM or NIC that
+            you specify if it is already associated with another VM or NIC. (By default,
+            true in the public Cloud, false in a Net.)
           type: boolean
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -13619,8 +13778,10 @@ components:
         - SubregionNames
         - SubregionNames
         LoadBalancerStickyCookiePolicies:
-        - PolicyName: PolicyName
-        - PolicyName: PolicyName
+        - CookieExpirationPeriod: 3
+          PolicyName: PolicyName
+        - CookieExpirationPeriod: 3
+          PolicyName: PolicyName
         Tags:
         - Value: Value
           Key: Key
@@ -13675,12 +13836,12 @@ components:
         SourceSecurityGroup:
           $ref: '#/components/schemas/SourceSecurityGroup'
         Subnets:
-          description: The IDs of the Subnets for the load balancer.
+          description: The ID of the Subnet in which the load balancer was created.
           items:
             type: string
           type: array
         SubregionNames:
-          description: One or more names of Subregions for the load balancer.
+          description: The ID of the Subregion in which the load balancer was created.
           items:
             type: string
           type: array
@@ -13712,8 +13873,14 @@ components:
       additionalProperties: false
       description: Information about the stickiness policy.
       example:
+        CookieExpirationPeriod: 3
         PolicyName: PolicyName
       properties:
+        CookieExpirationPeriod:
+          description: |-
+            The time period, in seconds, after which the cookie should be considered stale.<br />
+            If `1`, the stickiness session lasts for the duration of the browser session.
+          type: integer
         PolicyName:
           description: The name of the stickiness policy.
           type: string
@@ -13774,53 +13941,56 @@ components:
         QueryHeaderRaw: QueryHeaderRaw
       properties:
         AccountId:
-          description: The account ID.
+          description: The account ID of the logged call.
           type: string
         CallDuration:
-          description: The duration of the call (in milliseconds).
+          description: The duration of the logged call, in microseconds.
           type: integer
         QueryAccessKey:
-          description: The API key used for the query.
+          description: The access key used for the logged call.
           type: string
         QueryApiName:
-          description: The name of the API service used by the call.
+          description: The name of the API used by the logged call (always `oapi`
+            for the OUTSCALE API).
           type: string
         QueryApiVersion:
-          description: The version of the API service used by the call.
+          description: The version of the API used by the logged call.
           type: string
         QueryCallName:
-          description: The name of the call.
+          description: The name of the logged call.
           type: string
         QueryDate:
-          description: The date of the query, in ISO 8601 format.
+          description: The date of the logged call, in ISO 8601 format.
           format: date
           type: string
         QueryHeaderRaw:
-          description: The query header raw.
+          description: The raw header of the HTTP request of the logged call.
           type: string
         QueryHeaderSize:
-          description: The query header size.
+          description: The size of the raw header of the HTTP request of the logged
+            call, in bytes.
           type: integer
         QueryIpAddress:
-          description: The IP address used for the query.
+          description: The IP address used for the logged call.
           type: string
         QueryPayloadRaw:
-          description: The query payload raw.
+          description: The raw payload of the HTTP request of the logged call.
           type: string
         QueryPayloadSize:
-          description: The query payload size.
+          description: The size of the raw payload of the HTTP request of the logged
+            call, in bytes.
           type: integer
         QueryUserAgent:
-          description: The user agent used for the HTTP request.
+          description: The user agent of the HTTP request of the logged call.
           type: string
         RequestId:
-          description: The ID provided in the response.
+          description: The request ID provided in the response of the logged call.
           type: string
         ResponseSize:
-          description: The size of the response (in bytes).
+          description: The size of the response of the logged call, in bytes.
           type: integer
         ResponseStatusCode:
-          description: The HTTP code provided in the response.
+          description: The HTTP status code of the response of the logged call.
           type: integer
       type: object
     MaintenanceEvent:
@@ -14896,6 +15066,20 @@ components:
           description: The ID of the VM.
           type: string
       type: object
+    ReadApiAccessPolicyResponse:
+      additionalProperties: false
+      example:
+        ApiAccessPolicy:
+          RequireTrustedEnv: true
+          MaxAccessKeyExpirationSeconds: 0
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ApiAccessPolicy:
+          $ref: '#/components/schemas/ApiAccessPolicy'
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
     ReadApiAccessRulesRequest:
       additionalProperties: false
       example:
@@ -15019,8 +15203,8 @@ components:
           description: The token to request the next page of results.
           type: string
         ResultsPerPage:
-          description: The maximum number of items returned in a single page. By default,
-            100.
+          description: The maximum number of logs returned in a single response (between
+            `1`and `1000`, both included). By default, `100`.
           type: integer
         With:
           $ref: '#/components/schemas/With'
@@ -15066,7 +15250,7 @@ components:
           QueryHeaderRaw: QueryHeaderRaw
       properties:
         Logs:
-          description: Information displayed in one or more API logs.
+          description: Information about one or more logs.
           items:
             $ref: '#/components/schemas/Log'
           type: array
@@ -16085,8 +16269,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -16147,8 +16333,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -18035,7 +18223,8 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vms:
-        - SecurityGroups:
+        - CreationDate: CreationDate
+          SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
           - SecurityGroupName: SecurityGroupName
@@ -18167,7 +18356,8 @@ components:
           VmId: VmId
           ClientToken: ClientToken
           Performance: Performance
-        - SecurityGroups:
+        - CreationDate: CreationDate
+          SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
           - SecurityGroupName: SecurityGroupName
@@ -19145,8 +19335,9 @@ components:
             or an ICMP type number.
           type: integer
         IpProtocol:
-          description: The IP protocol name (`tcp`, `udp`, `icmp`) or protocol number.
-            By default, `-1`, which means all protocols.
+          description: The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all
+            protocols). By default, `-1`. In a Net, this can also be an IP protocol
+            number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
           type: string
         IpRanges:
           description: One or more IP ranges for the security group rules, in CIDR
@@ -19937,6 +20128,48 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
+    UpdateApiAccessPolicyRequest:
+      additionalProperties: false
+      example:
+        RequireTrustedEnv: true
+        MaxAccessKeyExpirationSeconds: 0
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        MaxAccessKeyExpirationSeconds:
+          description: The maximum possible lifetime for your access keys, in seconds
+            (between `0` and `3153600000`, both included). By default or if set to
+            `O`, your access keys can have unlimited lifetimes. Otherwise, all your
+            access keys must have an expiration date. This value must be greater than
+            the remaining lifetime of each access key of your account.
+          format: int64
+          type: integer
+        RequireTrustedEnv:
+          description: If true, a trusted session is activated, provided that you
+            specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater
+            than `0`.
+          type: boolean
+      required:
+      - MaxAccessKeyExpirationSeconds
+      - RequireTrustedEnv
+      type: object
+    UpdateApiAccessPolicyResponse:
+      additionalProperties: false
+      example:
+        ApiAccessPolicy:
+          RequireTrustedEnv: true
+          MaxAccessKeyExpirationSeconds: 0
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ApiAccessPolicy:
+          $ref: '#/components/schemas/ApiAccessPolicy'
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
     UpdateApiAccessRuleRequest:
       additionalProperties: false
       example:
@@ -20345,8 +20578,10 @@ components:
           - SubregionNames
           - SubregionNames
           LoadBalancerStickyCookiePolicies:
-          - PolicyName: PolicyName
-          - PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
+          - CookieExpirationPeriod: 3
+            PolicyName: PolicyName
           Tags:
           - Value: Value
             Key: Key
@@ -20975,6 +21210,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vm:
+          CreationDate: CreationDate
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -21142,8 +21378,8 @@ components:
           type: string
         VolumeType:
           description: (cold volume only) The new type of the volume (`standard` \|
-            `io1` \| `gpu2`). This modification is instantaneous. If you update to
-            an `io1`volume, you must also specify the `Iops` parameter.
+            `io1` \| `gp2`). This modification is instantaneous. If you update to
+            an `io1` volume, you must also specify the `Iops` parameter.
           type: string
       required:
       - VolumeId
@@ -21227,6 +21463,7 @@ components:
       additionalProperties: false
       description: Information about the VM.
       example:
+        CreationDate: CreationDate
         SecurityGroups:
         - SecurityGroupName: SecurityGroupName
           SecurityGroupId: SecurityGroupId
@@ -21373,6 +21610,10 @@ components:
           type: boolean
         ClientToken:
           description: The idempotency token provided when launching the VM.
+          type: string
+        CreationDate:
+          description: The date and time at which the VM was created.
+          format: datetime
           type: string
         DeletionProtection:
           description: If true, you cannot terminate the VM using Cockpit, the CLI
@@ -21772,7 +22013,8 @@ components:
       type: object
     With:
       additionalProperties: false
-      description: The information to be displayed in the API logs to retrieve.
+      description: The information to display in each returned log. If this parameter
+        is not specified, all available fields are considered as true.
       example:
         QueryAccessKey: true
         QueryApiName: true
@@ -21792,71 +22034,74 @@ components:
         QueryHeaderRaw: true
       properties:
         AccountId:
-          description: If set to true, the account ID is displayed in the logs.
+          description: By default or if set to true, the account ID is displayed.
           type: boolean
         CallDuration:
-          description: If set to true, the duration of the call is displayed each
-            log.
+          description: If set to true, the duration of the call is displayed.
           type: boolean
         QueryAccessKey:
-          description: If set to true, the API key used for the query is displayed
-            each log.
+          description: If set to true, the access key is displayed.
           type: boolean
         QueryApiName:
-          description: If set to true, the name of the API service used by the call
-            is displayed in each log (`oapi` \| `fcu` \| `lbu` \| `directlink` \|
-            `eim` \| `icu`).
+          description: If set to true, the name of the API is displayed.
           type: boolean
         QueryApiVersion:
-          description: If set to true, the version of the API service used by the
-            call is displayed in each log.
+          description: If set to true, the version of the API is displayed.
           type: boolean
         QueryCallName:
-          description: If set to true, the name of the call is displayed in each log.
+          description: If set to true, the name of the call is displayed.
           type: boolean
         QueryDate:
-          description: If set to true, the date of the call is displayed in each log.
+          description: If set to true, the date of the call is displayed.
           type: boolean
         QueryHeaderRaw:
-          description: If set to true, the query header RAW is displayed in each log.
+          description: If set to true, the raw header of the HTTP request is displayed.
           type: boolean
         QueryHeaderSize:
-          description: If set to true, the query header size is displayed in each
-            log.
+          description: If set to true, the size of the raw header of the HTTP request
+            is displayed.
           type: boolean
         QueryIpAddress:
-          description: If set to true, the IP address used to make to query is displayed
-            in each log.
+          description: If set to true, the IP address is displayed.
           type: boolean
         QueryPayloadRaw:
-          description: If set to true, the query payload raw is displayed in each
-            log.
+          description: If set to true, the raw payload of the HTTP request is displayed.
           type: boolean
         QueryPayloadSize:
-          description: If set to true, the query payload size is displayed in each
-            log.
+          description: If set to true, the size of the raw payload of the HTTP request
+            is displayed.
           type: boolean
         QueryUserAgent:
-          description: If set to true, the user agent used to make the HTTP request
-            is displayed in each log.
+          description: If set to true, the user agent of the HTTP request is displayed.
           type: boolean
         RequestId:
-          description: By default ot if set to true, the ID of the call is displayed
-            in each log.
+          description: By default ot if set to true, the request ID is displayed.
           type: boolean
         ResponseSize:
-          description: If set to true, the size of the response (in bytes) is displayed
-            in each log.
+          description: If set to true, the size of the response is displayed.
           type: boolean
         ResponseStatusCode:
-          description: If set to true, the HTTP code provided by the response is displayed
-            in each log.
+          description: If set to true, the HTTP status code of the response is displayed.
           type: boolean
       type: object
   securitySchemes:
     ApiKeyAuth:
-      description: Signatures of API Requests based on the Hash-based Message Authentication
-        Code (HMAC) protocol, [more information](https://wiki.outscale.net/display/EN/About+Signatures+of+API+Requests).
+      description: |-
+        With this authentication scheme, you must use an access key to sign your API requests. For more information, see [About Signatures of API Requests](https://wiki.outscale.net/display/EN/About+Signatures+of+API+Requests).<br />
+        In addition to your access key, you can configure API access rules with Certificate Authorities (CAs), requiring you to provide a certificate to perform actions. In that case, you can bypass systematically providing a certificate by activating a trusted session. For more information, see the [UpdateApiAccessPolicy](#updateapiaccesspolicy) method and [About Your API Access Policy](https://wiki.outscale.net/display/EN/About+Your+API+Access+Policy).
       in: header
       name: Authorization
       type: apiKey
+    ApiKeyAuthSec:
+      description: |-
+        With this authentication scheme, you must use an access key to sign your API requests. For more information, see [About Signatures of API Requests](https://wiki.outscale.net/display/EN/About+Signatures+of+API+Requests).<br />
+        In addition to your access key, if you have configured API access rules with a Certificate Authority (CA), you cannot bypass systematically providing a certificate even if you activate a trusted session. For more information, see [About Your API Access Policy](https://wiki.outscale.net/display/EN/About+Your+API+Access+Policy).
+      in: header
+      name: Authorization
+      type: apiKey
+    BasicAuth:
+      description: |-
+        With this authentication scheme, you must specify an authentication field in the header of your API request, containing the following information: `Authorization: Basic XXXX`, where `XXXX` is your `email:password` encoded in Base64.<br />
+        In addition to your email and password combination, if you have configured API access rules with a Certificate Authority (CA), you cannot bypass systematically providing a certificate even if you activate a trusted session. For more information, see [About Your API Access Policy](https://wiki.outscale.net/display/EN/About+Your+API+Access+Policy).
+      scheme: basic
+      type: http

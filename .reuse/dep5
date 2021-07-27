@@ -7,6 +7,6 @@ Files: *.md
 Copyright: 2019 Outscale SAS <support@outscale.com>
 License: CC-BY-4.0
 
-Files: Makefile sdk_version api_version *.go .git* v2/* *.yml *.yaml .patch/*.patch *.sum *.mod
+Files: Makefile sdk_version api_version *.go .git* v2/* *.yml *.yaml .patch/*.patch *.sum *.mod *.patch
 Copyright: 2019 Outscale SAS <support@outscale.com>
 License: BSD-3-Clause
