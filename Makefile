@@ -15,7 +15,7 @@ help:
 .PHONY: gen
 gen: clean v2
 
-v2: osc-generate update-examples go-modules-update gofmt
+v2: osc-generate update-examples gofmt
 
 .PNONY: openapi-generator-help
 openapi-generator-help:
@@ -28,16 +28,12 @@ osc-generate: osc-api/outscale.yaml
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk v2
+	# keep dependencies as-is, should be updated by dependabot
+	git checkout v2/go.mod v2/go.sum
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
 	cd osc-api && git apply ../.osc-api-patches/*
-
-.PHONY: go-modules-update
-go.sum-udpate:
-	go get -u ./...
-	go mod tidy
-	cd v2 && go get -u ./... && go mod tidy
 
 .PHONY: clean
 clean:
