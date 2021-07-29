@@ -8,8 +8,8 @@ github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/jmespath/go-jmespath v0.3.0 h1:OS12ieG61fsCg5+qLJ+SsW9NicxNkg3b25OyT2yCeUc=
 github.com/jmespath/go-jmespath v0.3.0/go.mod h1:9QtRXoHjLGCJ5IBSaohpXITPlowMeeYCZ7fLUTSywik=
-github.com/outscale/osc-sdk-go/v2 v2.0.0-beta.4 h1:obL0ix2crpJSVRPuznSirOjRCTVp3FVPDAQ2UZd5Qhw=
-github.com/outscale/osc-sdk-go/v2 v2.0.0-beta.4/go.mod h1:ErlOZe3hawZx+XM7eEYHlcjDWGknFTTfHkS2N6LBsT8=
+github.com/outscale/osc-sdk-go/v2 v2.4.0 h1:E0QsBtMQVu23MMnMKEGc7qXYW30/KlFzw5lQ48iu07Q=
+github.com/outscale/osc-sdk-go/v2 v2.4.0/go.mod h1:ErlOZe3hawZx+XM7eEYHlcjDWGknFTTfHkS2N6LBsT8=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
