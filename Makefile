@@ -13,7 +13,7 @@ help:
 .PHONY: gen
 gen: clean osc
 
-osc: osc-generate update-examples update-build gofmt
+osc: osc-generate update-examples gofmt
 
 .PNONY: openapi-generator-help
 openapi-generator-help:
@@ -26,6 +26,8 @@ osc-generate: osc-api/outscale.yaml
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk osc
+	# keep dependencies as-is, should be updated by dependabot
+	git checkout osc/go.mod osc/go.sum
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
@@ -38,10 +40,6 @@ clean:
 .PHONY: update-examples
 update-examples:
 	@find $(PWD)/examples/ -type f -name "*.go" -exec ln -sr {} osc/ \;
-
-# make sure that go.mod and go.sum are updated as well
-.PHONY: update-build
-	cd osc && go build
 
 .PHONY: test
 test: reuse-test go-test
