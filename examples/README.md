@@ -5,7 +5,7 @@ In order to run examples, you will need to setup your credentials (eu-west-2 reg
 ```bash
 export OSC_ACCESS_KEY=<ACCESS_KEY>
 export OSC_SECRET_KEY=<SECRET_KEY>
-cd osc/
+cd v2/
 go test -run Volume
 go test -run Keypair
 ...
