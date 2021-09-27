@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **KeypairName** | **string** | The name of the keypair.&lt;br /&gt; To complete the replacement, manually replace the old public key with the new public key in the ~/.ssh/authorized_keys file located in the VM. Restart the VM to apply the change. | [optional] 
 **Performance** | **string** | The performance of the VM (&#x60;medium&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] 
 **SecurityGroupIds** | **[]string** | One or more IDs of security groups for the VM. | [optional] 
-**UserData** | **string** | The Base64-encoded MIME user data. | [optional] 
+**UserData** | **string** | The Base64-encoded MIME user data, limited to 500 kibibytes (KiB). | [optional] 
 **VmId** | **string** | The ID of the VM. | 
 **VmInitiatedShutdownBehavior** | **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
 **VmType** | **string** | The type of VM. For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
