@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security group for the VMs. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more names of security groups for the VMs. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet in which you want to create the VM. | [optional] 
-**UserData** | Pointer to **string** | Data or script used to add a specific configuration to the VM. It must be base64-encoded. | [optional] 
+**UserData** | Pointer to **string** | Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). | [optional] 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
 **VmType** | Pointer to **string** | The type of VM (&#x60;t2.small&#x60; by default).&lt;br /&gt; For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
 
