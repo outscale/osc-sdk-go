@@ -23,8 +23,8 @@ openapi-generator-help:
 osc-generate: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.1 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.1 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk osc
 	rm osc/go.mod
 	rm osc/go.sum
