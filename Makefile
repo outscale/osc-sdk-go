@@ -26,8 +26,8 @@ osc-generate: osc-api/outscale.yaml
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk osc
-	# keep dependencies as-is, should be updated by dependabot
-	git checkout osc/go.mod osc/go.sum
+	rm osc/go.mod
+	rm osc/go.sum
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)

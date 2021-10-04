@@ -7,8 +7,3 @@ updates:
     target-branch: "v1"
     schedule:
       interval: "daily"
-  - package-ecosystem: "gomod"
-    directory: "/osc"
-    target-branch: "v1"
-    schedule:
-      interval: "daily"
