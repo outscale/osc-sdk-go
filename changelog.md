@@ -1,3 +1,11 @@
+# 1.11.2
+
+ - Add workaround for missing BsuToCreate.DeleteOnVmDeletion value
+
+# 1.11.1
+
+ - Go module fix
+
 # 1.11.0
 
  - SDK update for Outscale API v1.15.0
