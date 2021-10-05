@@ -13,7 +13,7 @@ package osc
 // BsuToCreate Information about the BSU volume to create.
 type BsuToCreate struct {
 	// By default or if set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
-	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 	// The number of I/O operations per second (IOPS). This parameter must be specified only if you create an `io1` volume. The maximum number of IOPS allowed for `io1` volumes is `13000`.
 	Iops int32 `json:"Iops,omitempty"`
 	// The ID of the snapshot used to create the volume.

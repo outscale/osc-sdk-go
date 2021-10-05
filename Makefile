@@ -28,6 +28,7 @@ osc-generate: osc-api/outscale.yaml
 	mv .sdk osc
 	rm osc/go.mod
 	rm osc/go.sum
+	cd osc && git apply ../.osc-patches/*
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
