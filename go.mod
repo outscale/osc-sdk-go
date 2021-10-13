@@ -7,6 +7,7 @@ require (
 )
 
 require (
+	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
