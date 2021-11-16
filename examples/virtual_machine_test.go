@@ -72,7 +72,7 @@ func ExampleVirtualMachine() {
 	creationOpts := osc.CreateVmsOpts{
 		CreateVmsRequest: optional.NewInterface(
 			osc.CreateVmsRequest{
-				ImageId:     "ami-b0d57010",
+				ImageId:     "ami-4779e795",
 				Performance: "standard",
 				VmType:      "tinav4.c1r1p1",
 			}),
