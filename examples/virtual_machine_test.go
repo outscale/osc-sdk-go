@@ -76,7 +76,7 @@ func ExampleVm() {
 	}
 
 	println("Creating a single vm")
-	imageId := "ami-19c942b5"
+	imageId := "ami-4779e795"
 	vmType := "tinav4.c1r1p1"
 	createOpt := osc.CreateVmsRequest{
 		ImageId: imageId,
