@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaintenanceEventCodes** | **[]string** | The code for the scheduled event (&#x60;system-reboot&#x60; | &#x60;system-maintenance&#x60;). | [optional] 
+**MaintenanceEventCodes** | **[]string** | The code for the scheduled event (&#x60;system-reboot&#x60; \\| &#x60;system-maintenance&#x60;). | [optional] 
 **MaintenanceEventDescriptions** | **[]string** | The description of the scheduled event. | [optional] 
 **MaintenanceEventsNotAfter** | **[]string** | The latest time the event can end. | [optional] 
 **MaintenanceEventsNotBefore** | **[]string** | The earliest time the event can start. | [optional] 

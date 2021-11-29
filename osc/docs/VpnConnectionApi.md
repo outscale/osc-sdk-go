@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteVpnConnection**](VpnConnectionApi.md#DeleteVpnConnection) | **Post** /DeleteVpnConnection | 
 [**DeleteVpnConnectionRoute**](VpnConnectionApi.md#DeleteVpnConnectionRoute) | **Post** /DeleteVpnConnectionRoute | 
 [**ReadVpnConnections**](VpnConnectionApi.md#ReadVpnConnections) | **Post** /ReadVpnConnections | 
+[**UpdateVpnConnection**](VpnConnectionApi.md#UpdateVpnConnection) | **Post** /UpdateVpnConnection | 
 
 
 
@@ -202,6 +203,47 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadVpnConnectionsResponse**](ReadVpnConnectionsResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateVpnConnection
+
+> UpdateVpnConnectionResponse UpdateVpnConnection(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***UpdateVpnConnectionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a UpdateVpnConnectionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateVpnConnectionRequest** | [**optional.Interface of UpdateVpnConnectionRequest**](UpdateVpnConnectionRequest.md)|  | 
+
+### Return type
+
+[**UpdateVpnConnectionResponse**](UpdateVpnConnectionResponse.md)
 
 ### Authorization
 
