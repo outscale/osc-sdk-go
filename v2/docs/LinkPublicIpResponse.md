@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkPublicIpId** | Pointer to **string** | (Net only) The ID representing the association of the EIP with the VM or the NIC. | [optional] 
+**LinkPublicIpId** | Pointer to **string** | (Net only) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods

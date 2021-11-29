@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the EIP with the VM or the NIC. | [optional] 
+**LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
 **PublicDnsName** | Pointer to **string** | The name of the public DNS. | [optional] 
-**PublicIp** | Pointer to **string** | The External IP address (EIP) associated with the NIC. | [optional] 
-**PublicIpAccountId** | Pointer to **string** | The account ID of the owner of the EIP. | [optional] 
-**PublicIpId** | Pointer to **string** | The allocation ID of the EIP. | [optional] 
+**PublicIp** | Pointer to **string** | The public IP associated with the NIC. | [optional] 
+**PublicIpAccountId** | Pointer to **string** | The account ID of the owner of the public IP. | [optional] 
+**PublicIpId** | Pointer to **string** | The allocation ID of the public IP. | [optional] 
 
 ## Methods
 

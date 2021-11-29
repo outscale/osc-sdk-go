@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteVpnConnection**](VpnConnectionApi.md#DeleteVpnConnection) | **Post** /DeleteVpnConnection | 
 [**DeleteVpnConnectionRoute**](VpnConnectionApi.md#DeleteVpnConnectionRoute) | **Post** /DeleteVpnConnectionRoute | 
 [**ReadVpnConnections**](VpnConnectionApi.md#ReadVpnConnections) | **Post** /ReadVpnConnections | 
+[**UpdateVpnConnection**](VpnConnectionApi.md#UpdateVpnConnection) | **Post** /UpdateVpnConnection | 
 
 
 
@@ -317,6 +318,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadVpnConnectionsResponse**](ReadVpnConnectionsResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateVpnConnection
+
+> UpdateVpnConnectionResponse UpdateVpnConnection(ctx).UpdateVpnConnectionRequest(updateVpnConnectionRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    updateVpnConnectionRequest := *openapiclient.NewUpdateVpnConnectionRequest("VpnConnectionId_example") // UpdateVpnConnectionRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VpnConnectionApi.UpdateVpnConnection(context.Background()).UpdateVpnConnectionRequest(updateVpnConnectionRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VpnConnectionApi.UpdateVpnConnection``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateVpnConnection`: UpdateVpnConnectionResponse
+    fmt.Fprintf(os.Stdout, "Response from `VpnConnectionApi.UpdateVpnConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateVpnConnectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateVpnConnectionRequest** | [**UpdateVpnConnectionRequest**](UpdateVpnConnectionRequest.md) |  | 
+
+### Return type
+
+[**UpdateVpnConnectionResponse**](UpdateVpnConnectionResponse.md)
 
 ### Authorization
 

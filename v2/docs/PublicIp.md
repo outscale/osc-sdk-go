@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the EIP with the VM or the NIC. | [optional] 
+**LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
 **NicAccountId** | Pointer to **string** | The account ID of the owner of the NIC. | [optional] 
-**NicId** | Pointer to **string** | The ID of the NIC the EIP is associated with (if any). | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP address associated with the EIP. | [optional] 
-**PublicIp** | Pointer to **string** | The External IP address (EIP) associated with the NAT service. | [optional] 
-**PublicIpId** | Pointer to **string** | The allocation ID of the EIP associated with the NAT service. | [optional] 
-**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the EIP. | [optional] 
-**VmId** | Pointer to **string** | The ID of the VM the External IP (EIP) is associated with (if any). | [optional] 
+**NicId** | Pointer to **string** | The ID of the NIC the public IP is associated with (if any). | [optional] 
+**PrivateIp** | Pointer to **string** | The private IP address associated with the public IP. | [optional] 
+**PublicIp** | Pointer to **string** | The public IP. | [optional] 
+**PublicIpId** | Pointer to **string** | The allocation ID of the public IP. | [optional] 
+**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the public IP. | [optional] 
+**VmId** | Pointer to **string** | The ID of the VM the public IP is associated with (if any). | [optional] 
 
 ## Methods
 

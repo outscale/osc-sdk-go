@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PublicIp** | Pointer to **string** | The External IP address (EIP) associated with the NAT service. | [optional] 
-**PublicIpId** | Pointer to **string** | The allocation ID of the EIP associated with the NAT service. | [optional] 
+**PublicIp** | Pointer to **string** | The public IP associated with the NAT service. | [optional] 
+**PublicIpId** | Pointer to **string** | The allocation ID of the public IP associated with the NAT service. | [optional] 
 
 ## Methods
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## ReadApiAccessPolicy
 
-> ReadApiAccessPolicyResponse ReadApiAccessPolicy(ctx).Execute()
+> ReadApiAccessPolicyResponse ReadApiAccessPolicy(ctx).ReadApiAccessPolicyRequest(readApiAccessPolicyRequest).Execute()
 
 
 
@@ -28,10 +28,11 @@ import (
 )
 
 func main() {
+    readApiAccessPolicyRequest := *openapiclient.NewReadApiAccessPolicyRequest() // ReadApiAccessPolicyRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApiAccessPolicyApi.ReadApiAccessPolicy(context.Background()).Execute()
+    resp, r, err := api_client.ApiAccessPolicyApi.ReadApiAccessPolicy(context.Background()).ReadApiAccessPolicyRequest(readApiAccessPolicyRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApiAccessPolicyApi.ReadApiAccessPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -43,12 +44,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiReadApiAccessPolicyRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readApiAccessPolicyRequest** | [**ReadApiAccessPolicyRequest**](ReadApiAccessPolicyRequest.md) |  | 
 
 ### Return type
 
@@ -60,7 +65,7 @@ Other parameters are passed through a pointer to a apiReadApiAccessPolicyRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AvailableIpsCount** | Pointer to **int32** | The number of available IP addresses in the Subnets. | [optional] 
 **IpRange** | Pointer to **string** | The IP range in the Subnet, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
-**MapPublicIpOnLaunch** | Pointer to **bool** | If true, a public IP address is assigned to the network interface cards (NICs) created in the specified Subnet. | [optional] 
+**MapPublicIpOnLaunch** | Pointer to **bool** | If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net in which the Subnet is. | [optional] 
 **State** | Pointer to **string** | The state of the Subnet (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 

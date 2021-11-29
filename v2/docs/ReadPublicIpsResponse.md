@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PublicIps** | Pointer to [**[]PublicIp**](PublicIp.md) | Information about one or more EIPs. | [optional] 
+**PublicIps** | Pointer to [**[]PublicIp**](PublicIp.md) | Information about one or more public IPs. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods

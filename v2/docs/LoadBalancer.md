@@ -12,8 +12,9 @@ Name | Type | Description | Notes
 **Listeners** | Pointer to [**[]Listener**](Listener.md) | The listeners for the load balancer. | [optional] 
 **LoadBalancerName** | Pointer to **string** | The name of the load balancer. | [optional] 
 **LoadBalancerStickyCookiePolicies** | Pointer to [**[]LoadBalancerStickyCookiePolicy**](LoadBalancerStickyCookiePolicy.md) | The policies defined for the load balancer. | [optional] 
-**LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP address.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP address. | [optional] 
+**LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP address. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net for the load balancer. | [optional] 
+**PublicIp** | Pointer to **string** | (internet-facing only) The public IP associated with the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | Pointer to [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
 **Subnets** | Pointer to **[]string** | The ID of the Subnet in which the load balancer was created. | [optional] 
@@ -288,6 +289,31 @@ SetNetId sets NetId field to given value.
 `func (o *LoadBalancer) HasNetId() bool`
 
 HasNetId returns a boolean if a field has been set.
+
+### GetPublicIp
+
+`func (o *LoadBalancer) GetPublicIp() string`
+
+GetPublicIp returns the PublicIp field if non-nil, zero value otherwise.
+
+### GetPublicIpOk
+
+`func (o *LoadBalancer) GetPublicIpOk() (*string, bool)`
+
+GetPublicIpOk returns a tuple with the PublicIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicIp
+
+`func (o *LoadBalancer) SetPublicIp(v string)`
+
+SetPublicIp sets PublicIp field to given value.
+
+### HasPublicIp
+
+`func (o *LoadBalancer) HasPublicIp() bool`
+
+HasPublicIp returns a boolean if a field has been set.
 
 ### GetSecurityGroups
 

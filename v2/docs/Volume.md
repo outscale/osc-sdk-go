@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CreationDate** | Pointer to **string** | The date and time of creation of the volume. | [optional] 
 **Iops** | Pointer to **int32** | The number of I/O operations per second (IOPS):&lt;br /&gt; - For &#x60;io1&#x60; volumes, the number of provisioned IOPS&lt;br /&gt; - For &#x60;gp2&#x60; volumes, the baseline performance of the volume | [optional] 
 **LinkedVolumes** | Pointer to [**[]LinkedVolume**](LinkedVolume.md) | Information about your volume attachment. | [optional] 
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). | [optional] 
@@ -32,6 +33,31 @@ will change when the set of required properties is changed
 NewVolumeWithDefaults instantiates a new Volume object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreationDate
+
+`func (o *Volume) GetCreationDate() string`
+
+GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
+
+### GetCreationDateOk
+
+`func (o *Volume) GetCreationDateOk() (*string, bool)`
+
+GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreationDate
+
+`func (o *Volume) SetCreationDate(v string)`
+
+SetCreationDate sets CreationDate field to given value.
+
+### HasCreationDate
+
+`func (o *Volume) HasCreationDate() bool`
+
+HasCreationDate returns a boolean if a field has been set.
 
 ### GetIops
 

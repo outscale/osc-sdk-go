@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Listeners** | [**[]ListenerForCreation**](ListenerForCreation.md) | One or more listeners to create. | 
 **LoadBalancerName** | **string** | The unique name of the load balancer (32 alphanumeric or hyphen characters maximum, but cannot start or end with a hyphen). | 
 **LoadBalancerType** | Pointer to **string** | The type of load balancer: &#x60;internet-facing&#x60; or &#x60;internal&#x60;. Use this parameter only for load balancers in a Net. | [optional] 
+**PublicIp** | Pointer to **string** | (internet-facing only) The public IP you want to associate with the load balancer. If not specified, a public IP owned by 3DS OUTSCALE is associated. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | (Net only) One or more IDs of security groups you want to assign to the load balancer. If not specified, the default security group of the Net is assigned to the load balancer. | [optional] 
 **Subnets** | Pointer to **[]string** | (Net only) The ID of the Subnet in which you want to create the load balancer. Regardless of this Subnet, the load balancer can distribute traffic to all Subnets. This parameter is required in a Net. | [optional] 
 **SubregionNames** | Pointer to **[]string** | (public Cloud only) The Subregion in which you want to create the load balancer. Regardless of this Subregion, the load balancer can distribute traffic to all Subregions. This parameter is required in the public Cloud. | [optional] 
@@ -121,6 +122,31 @@ SetLoadBalancerType sets LoadBalancerType field to given value.
 `func (o *CreateLoadBalancerRequest) HasLoadBalancerType() bool`
 
 HasLoadBalancerType returns a boolean if a field has been set.
+
+### GetPublicIp
+
+`func (o *CreateLoadBalancerRequest) GetPublicIp() string`
+
+GetPublicIp returns the PublicIp field if non-nil, zero value otherwise.
+
+### GetPublicIpOk
+
+`func (o *CreateLoadBalancerRequest) GetPublicIpOk() (*string, bool)`
+
+GetPublicIpOk returns a tuple with the PublicIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicIp
+
+`func (o *CreateLoadBalancerRequest) SetPublicIp(v string)`
+
+SetPublicIp sets PublicIp field to given value.
+
+### HasPublicIp
+
+`func (o *CreateLoadBalancerRequest) HasPublicIp() bool`
+
+HasPublicIp returns a boolean if a field has been set.
 
 ### GetSecurityGroups
 
