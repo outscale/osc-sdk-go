@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAlias** | **string** | The account alias of the owner of the snapshot. | [optional] 
 **AccountId** | **string** | The account ID of the owner of the snapshot. | [optional] 
+**CreationDate** | **string** | The date and time of creation of the snapshot. | [optional] 
 **Description** | **string** | The description of the snapshot. | [optional] 
 **PermissionsToCreateVolume** | [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
 **Progress** | **int32** | The progress of the snapshot, as a percentage. | [optional] 

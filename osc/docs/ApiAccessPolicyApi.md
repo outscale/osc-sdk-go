@@ -11,13 +11,26 @@ Method | HTTP request | Description
 
 ## ReadApiAccessPolicy
 
-> ReadApiAccessPolicyResponse ReadApiAccessPolicy(ctx, )
+> ReadApiAccessPolicyResponse ReadApiAccessPolicy(ctx, optional)
 
 
 
 ### Required Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ReadApiAccessPolicyOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ReadApiAccessPolicyOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readApiAccessPolicyRequest** | [**optional.Interface of ReadApiAccessPolicyRequest**](ReadApiAccessPolicyRequest.md)|  | 
 
 ### Return type
 
@@ -29,7 +42,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

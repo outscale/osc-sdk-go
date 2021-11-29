@@ -1,3 +1,7 @@
+# 1.12.0
+
+- SDK update for Outscale API v1.16.0
+
 # 1.11.2
 
  - Add workaround for missing BsuToCreate.DeleteOnVmDeletion value
