@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkPublicIpIds** | Pointer to **[]string** | The IDs representing the associations of EIPs with VMs or NICs. | [optional] 
+**LinkPublicIpIds** | Pointer to **[]string** | The IDs representing the associations of public IPs with VMs or NICs. | [optional] 
 **NicAccountIds** | Pointer to **[]string** | The account IDs of the owners of the NICs. | [optional] 
 **NicIds** | Pointer to **[]string** | The IDs of the NICs. | [optional] 
-**Placements** | Pointer to **[]string** | Whether the EIPs are for use in the public Cloud or in a Net. | [optional] 
-**PrivateIps** | Pointer to **[]string** | The private IP addresses associated with the EIPs. | [optional] 
-**PublicIpIds** | Pointer to **[]string** | The IDs of the External IP addresses (EIPs). | [optional] 
-**PublicIps** | Pointer to **[]string** | The External IP addresses (EIPs). | [optional] 
-**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the EIPs. | [optional] 
-**TagValues** | Pointer to **[]string** | The values of the tags associated with the EIPs. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the EIPs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
+**Placements** | Pointer to **[]string** | Whether the public IPs are for use in the public Cloud or in a Net. | [optional] 
+**PrivateIps** | Pointer to **[]string** | The private IP addresses associated with the public IPs. | [optional] 
+**PublicIpIds** | Pointer to **[]string** | The IDs of the public IPs. | [optional] 
+**PublicIps** | Pointer to **[]string** | The public IPs. | [optional] 
+**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the public IPs. | [optional] 
+**TagValues** | Pointer to **[]string** | The values of the tags associated with the public IPs. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the public IPs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VmIds** | Pointer to **[]string** | The IDs of the VMs. | [optional] 
 
 ## Methods

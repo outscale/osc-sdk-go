@@ -362,6 +362,7 @@ docs/ReadAccountsRequest.md
 docs/ReadAccountsResponse.md
 docs/ReadAdminPasswordRequest.md
 docs/ReadAdminPasswordResponse.md
+docs/ReadApiAccessPolicyRequest.md
 docs/ReadApiAccessPolicyResponse.md
 docs/ReadApiAccessRulesRequest.md
 docs/ReadApiAccessRulesResponse.md
@@ -556,6 +557,8 @@ docs/UpdateVmRequest.md
 docs/UpdateVmResponse.md
 docs/UpdateVolumeRequest.md
 docs/UpdateVolumeResponse.md
+docs/UpdateVpnConnectionRequest.md
+docs/UpdateVpnConnectionResponse.md
 docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
 docs/Vm.md
@@ -862,6 +865,7 @@ model_read_accounts_request.go
 model_read_accounts_response.go
 model_read_admin_password_request.go
 model_read_admin_password_response.go
+model_read_api_access_policy_request.go
 model_read_api_access_policy_response.go
 model_read_api_access_rules_request.go
 model_read_api_access_rules_response.go
@@ -1045,6 +1049,8 @@ model_update_vm_request.go
 model_update_vm_response.go
 model_update_volume_request.go
 model_update_volume_response.go
+model_update_vpn_connection_request.go
+model_update_vpn_connection_response.go
 model_virtual_gateway.go
 model_vm.go
 model_vm_state.go

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaintenanceEventCodes** | Pointer to **[]string** | The code for the scheduled event (&#x60;system-reboot&#x60; | &#x60;system-maintenance&#x60;). | [optional] 
+**MaintenanceEventCodes** | Pointer to **[]string** | The code for the scheduled event (&#x60;system-reboot&#x60; \\| &#x60;system-maintenance&#x60;). | [optional] 
 **MaintenanceEventDescriptions** | Pointer to **[]string** | The description of the scheduled event. | [optional] 
 **MaintenanceEventsNotAfter** | Pointer to **[]string** | The latest time the event can end. | [optional] 
 **MaintenanceEventsNotBefore** | Pointer to **[]string** | The earliest time the event can start. | [optional] 

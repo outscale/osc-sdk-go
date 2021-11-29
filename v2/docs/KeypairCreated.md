@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **KeypairFingerprint** | Pointer to **string** | The MD5 public key fingerprint as specified in section 4 of RFC 4716. | [optional] 
 **KeypairName** | Pointer to **string** | The name of the keypair. | [optional] 
-**PrivateKey** | Pointer to **string** | The private key. | [optional] 
+**PrivateKey** | Pointer to **string** | The private key. When saving the private key in a .rsa file, replace the &#x60;\\n&#x60; escape sequences with line breaks. | [optional] 
 
 ## Methods
 

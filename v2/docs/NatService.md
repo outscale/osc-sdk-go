@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NatServiceId** | Pointer to **string** | The ID of the NAT service. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net in which the NAT service is. | [optional] 
-**PublicIps** | Pointer to [**[]PublicIpLight**](PublicIpLight.md) | Information about the External IP address or addresses (EIPs) associated with the NAT service. | [optional] 
+**PublicIps** | Pointer to [**[]PublicIpLight**](PublicIpLight.md) | Information about the public IP or IPs associated with the NAT service. | [optional] 
 **State** | Pointer to **string** | The state of the NAT service (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet in which the NAT service is. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the NAT service. | [optional] 

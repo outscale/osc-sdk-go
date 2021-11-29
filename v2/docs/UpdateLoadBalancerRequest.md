@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LoadBalancerName** | **string** | The name of the load balancer. | 
 **LoadBalancerPort** | Pointer to **int32** | The port on which the load balancer is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). This parameter is required if you want to update the server certificate. | [optional] 
 **PolicyNames** | Pointer to **[]string** | The name of the policy you want to enable for the listener. | [optional] 
+**PublicIp** | Pointer to **string** | (internet-facing only) The public IP you want to associate with the load balancer. The former public IP of the load balancer is then disassociated. If you specify an empty string and the former public IP belonged to you, it is disassociated and replaced by a public IP owned by 3DS OUTSCALE. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | (Net only) One or more IDs of security groups you want to assign to the load balancer. You need to specify the already assigned security groups that you want to keep along with the new ones you are assigning. If the list is empty, the default security group of the Net is assigned to the load balancer. | [optional] 
 **ServerCertificateId** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://wiki.outscale.net/display/EN/Resource+Identifiers#ResourceIdentifiers-ORNFormat). If this parameter is specified, you must also specify the &#x60;LoadBalancerPort&#x60; parameter. | [optional] 
 
@@ -176,6 +177,31 @@ SetPolicyNames sets PolicyNames field to given value.
 `func (o *UpdateLoadBalancerRequest) HasPolicyNames() bool`
 
 HasPolicyNames returns a boolean if a field has been set.
+
+### GetPublicIp
+
+`func (o *UpdateLoadBalancerRequest) GetPublicIp() string`
+
+GetPublicIp returns the PublicIp field if non-nil, zero value otherwise.
+
+### GetPublicIpOk
+
+`func (o *UpdateLoadBalancerRequest) GetPublicIpOk() (*string, bool)`
+
+GetPublicIpOk returns a tuple with the PublicIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicIp
+
+`func (o *UpdateLoadBalancerRequest) SetPublicIp(v string)`
+
+SetPublicIp sets PublicIp field to given value.
+
+### HasPublicIp
+
+`func (o *UpdateLoadBalancerRequest) HasPublicIp() bool`
+
+HasPublicIp returns a boolean if a field has been set.
 
 ### GetSecurityGroups
 
