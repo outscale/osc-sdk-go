@@ -68,7 +68,7 @@ func ExampleKeypair() {
 	}
 
 	println("Creating a new keypair")
-	keypairName := "osc-sdk-go-example"
+	keypairName := "osc-sdk-go-example-" + RandomString(7)
 	creationOpts := osc.CreateKeypairOpts{
 		CreateKeypairRequest: optional.NewInterface(
 			osc.CreateKeypairRequest{
