@@ -70,7 +70,7 @@ func ExampleKeypair() {
 	}
 
 	println("Creating a new keypair")
-	keypairName := "osc-sdk-go-example"
+	keypairName := "osc-sdk-go-example-" + RandomString(7)
 	createOpt := osc.CreateKeypairRequest{KeypairName: keypairName}
 	creation, httpRes, err := client.KeypairApi.CreateKeypair(ctx).CreateKeypairRequest(createOpt).Execute()
 	if err != nil {
