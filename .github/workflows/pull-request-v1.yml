@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [ v1 ]
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   reuse-test:
     runs-on: ubuntu-20.04
@@ -35,4 +39,18 @@ jobs:
           go-version: 1.15
       - name: SDK re-generation test
         run: make regen-test
-
+  dependabot-auto-merge:
+    needs: [reuse-test, examples-test, regeneration-test]
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Auto-merge
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
