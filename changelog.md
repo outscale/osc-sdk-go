@@ -1,3 +1,7 @@
+# 1.13.0
+
+ - SDK update for Outscale API v1.16.0
+
 # 1.12.0
 
 - SDK update for Outscale API v1.16.0
