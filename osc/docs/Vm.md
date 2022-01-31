@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **Performance** | **string** | The performance of the VM (&#x60;medium&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] 
 **Placement** | [**Placement**](Placement.md) |  | [optional] 
 **PrivateDnsName** | **string** | The name of the private DNS. | [optional] 
-**PrivateIp** | **string** | The primary private IP address of the VM. | [optional] 
+**PrivateIp** | **string** | The primary private IP of the VM. | [optional] 
 **ProductCodes** | **[]string** | The product code associated with the OMI used to create the VM (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
 **PublicDnsName** | **string** | The name of the public DNS. | [optional] 
 **PublicIp** | **string** | The public IP of the VM. | [optional] 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **UserData** | **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | **string** | The ID of the VM. | [optional] 
 **VmInitiatedShutdownBehavior** | **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 
-**VmType** | **string** | The type of VM. For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
+**VmType** | **string** | The type of VM. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

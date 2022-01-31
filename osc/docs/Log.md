@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **QueryDate** | **string** | The date of the logged call, in ISO 8601 format. | [optional] 
 **QueryHeaderRaw** | **string** | The raw header of the HTTP request of the logged call. | [optional] 
 **QueryHeaderSize** | **int32** | The size of the raw header of the HTTP request of the logged call, in bytes. | [optional] 
-**QueryIpAddress** | **string** | The IP address used for the logged call. | [optional] 
+**QueryIpAddress** | **string** | The IP used for the logged call. | [optional] 
 **QueryPayloadRaw** | **string** | The raw payload of the HTTP request of the logged call. | [optional] 
 **QueryPayloadSize** | **int32** | The size of the raw payload of the HTTP request of the logged call, in bytes. | [optional] 
 **QueryUserAgent** | **string** | The user agent of the HTTP request of the logged call. | [optional] 
