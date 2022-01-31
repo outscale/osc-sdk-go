@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DeleteOnVmDeletion** | Pointer to **bool** | If true, the fGPU is deleted when the VM is terminated. | [optional] 
 **FlexibleGpuId** | Pointer to **string** | The ID of the fGPU. | [optional] 
 **Generation** | Pointer to **string** | The compatible processor generation. | [optional] 
-**ModelName** | Pointer to **string** | The model of fGPU. For more information, see [About Flexible GPUs](https://wiki.outscale.net/display/EN/About+Flexible+GPUs). | [optional] 
+**ModelName** | Pointer to **string** | The model of fGPU. For more information, see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html). | [optional] 
 **State** | Pointer to **string** | The state of the fGPU (&#x60;allocated&#x60; \\| &#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The Subregion where the fGPU is located. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM the fGPU is attached to, if any. | [optional] 

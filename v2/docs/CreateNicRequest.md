@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | A description for the NIC. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**PrivateIps** | Pointer to [**[]PrivateIpLight**](PrivateIpLight.md) | The primary private IP address for the NIC.&lt;br /&gt; This IP address must be within the IP address range of the Subnet that you specify with the &#x60;SubnetId&#x60; attribute.&lt;br /&gt; If you do not specify this attribute, a random private IP address is selected within the IP address range of the Subnet. | [optional] 
+**PrivateIps** | Pointer to [**[]PrivateIpLight**](PrivateIpLight.md) | The primary private IP for the NIC.&lt;br /&gt; This IP must be within the IP range of the Subnet that you specify with the &#x60;SubnetId&#x60; attribute.&lt;br /&gt; If you do not specify this attribute, a random private IP is selected within the IP range of the Subnet. | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security groups for the NIC. | [optional] 
 **SubnetId** | **string** | The ID of the Subnet in which you want to create the NIC. | 
 

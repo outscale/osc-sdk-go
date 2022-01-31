@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowRelink** | Pointer to **bool** | If true, allows the public IP to be associated with the VM or NIC that you specify even if it is already associated with another VM or NIC. If false, prevents the public IP from being associated with the VM or NIC that you specify if it is already associated with another VM or NIC. (By default, true in the public Cloud, false in a Net.) | [optional] 
+**AllowRelink** | Pointer to **bool** | If true, allows the public IP to be associated with the VM or NIC that you specify even if it is already associated with another VM or NIC. If false, prevents the EIP from being associated with the VM or NIC that you specify if it is already associated with another VM or NIC. (By default, true in the public Cloud, false in a Net.) | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NicId** | Pointer to **string** | (Net only) The ID of the NIC. This parameter is required if the VM has more than one NIC attached. Otherwise, you need to specify the &#x60;VmId&#x60; parameter instead. You cannot specify both parameters at the same time. | [optional] 
-**PrivateIp** | Pointer to **string** | (Net only) The primary or secondary private IP address of the specified NIC. By default, the primary private IP address. | [optional] 
+**PrivateIp** | Pointer to **string** | (Net only) The primary or secondary private IP of the specified NIC. By default, the primary private IP. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP. This parameter is required unless you use the &#x60;PublicIpId&#x60; parameter. | [optional] 
 **PublicIpId** | Pointer to **string** | The allocation ID of the public IP. This parameter is required unless you use the &#x60;PublicIp&#x60; parameter. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM.&lt;br /&gt; - In the public Cloud, this parameter is required.&lt;br /&gt; - In a Net, this parameter is required if the VM has only one NIC. Otherwise, you need to specify the &#x60;NicId&#x60; parameter instead. You cannot specify both parameters at the same time. | [optional] 

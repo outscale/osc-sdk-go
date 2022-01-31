@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). The maximum allowed size for a volume is 14901 GiB. This parameter is required if the volume is not created from a snapshot (&#x60;SnapshotId&#x60; unspecified).  | [optional] 
 **SnapshotId** | Pointer to **string** | The ID of the snapshot from which you want to create the volume. | [optional] 
 **SubregionName** | **string** | The Subregion in which you want to create the volume. | 
-**VolumeType** | Pointer to **string** | The type of volume you want to create (&#x60;io1&#x60; \\| &#x60;gp2&#x60; \\| &#x60;standard&#x60;). If not specified, a &#x60;standard&#x60; volume is created.&lt;br /&gt; For more information about volume types, see [Volume Types and IOPS](https://wiki.outscale.net/display/EN/About+Volumes#AboutVolumes-VolumeTypesVolumeTypesandIOPS). | [optional] 
+**VolumeType** | Pointer to **string** | The type of volume you want to create (&#x60;io1&#x60; \\| &#x60;gp2&#x60; \\| &#x60;standard&#x60;). If not specified, a &#x60;standard&#x60; volume is created.&lt;br /&gt; For more information about volume types, see [About Volumes &gt; Volume Types and IOPS](https://docs.outscale.com/en/userguide/About-Volumes.html#_volume_types_and_iops). | [optional] 
 
 ## Methods
 

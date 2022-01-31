@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **QueryDate** | Pointer to **bool** | If set to true, the date of the call is displayed. | [optional] 
 **QueryHeaderRaw** | Pointer to **bool** | If set to true, the raw header of the HTTP request is displayed. | [optional] 
 **QueryHeaderSize** | Pointer to **bool** | If set to true, the size of the raw header of the HTTP request is displayed. | [optional] 
-**QueryIpAddress** | Pointer to **bool** | If set to true, the IP address is displayed. | [optional] 
+**QueryIpAddress** | Pointer to **bool** | If set to true, the IP is displayed. | [optional] 
 **QueryPayloadRaw** | Pointer to **bool** | If set to true, the raw payload of the HTTP request is displayed. | [optional] 
 **QueryPayloadSize** | Pointer to **bool** | If set to true, the size of the raw payload of the HTTP request is displayed. | [optional] 
 **QueryUserAgent** | Pointer to **bool** | If set to true, the user agent of the HTTP request is displayed. | [optional] 

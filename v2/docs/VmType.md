@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BsuOptimized** | Pointer to **bool** | Indicates whether the VM is optimized for BSU I/O. | [optional] 
-**MaxPrivateIps** | Pointer to **int32** | The maximum number of private IP addresses per network interface card (NIC). | [optional] 
+**MaxPrivateIps** | Pointer to **int32** | The maximum number of private IPs per network interface card (NIC). | [optional] 
 **MemorySize** | Pointer to **float32** | The amount of memory, in gibibytes. | [optional] 
 **VcoreCount** | Pointer to **int32** | The number of vCores. | [optional] 
 **VmTypeName** | Pointer to **string** | The name of the VM type. | [optional] 

@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data, limited to 500 kibibytes (KiB). | [optional] 
 **VmId** | **string** | The ID of the VM. | 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
-**VmType** | Pointer to **string** | The type of VM. For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
+**VmType** | Pointer to **string** | The type of VM. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 
 
 ## Methods
 

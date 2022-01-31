@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.16
+ * API version: 1.17
  * Contact: support@outscale.com
  */
 
@@ -23,9 +23,9 @@ type DhcpOptionsSet struct {
 	DhcpOptionsSetId *string `json:"DhcpOptionsSetId,omitempty"`
 	// The domain name.
 	DomainName *string `json:"DomainName,omitempty"`
-	// One or more IP addresses for the domain name servers.
+	// One or more IPs for the domain name servers.
 	DomainNameServers *[]string `json:"DomainNameServers,omitempty"`
-	// One or more IP addresses for the NTP servers.
+	// One or more IPs for the NTP servers.
 	NtpServers *[]string `json:"NtpServers,omitempty"`
 	// One or more tags associated with the DHCP options set.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`

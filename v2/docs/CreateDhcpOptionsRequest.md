@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DomainName** | Pointer to **string** | Specify a domain name (for example, MyCompany.com). You can specify only one domain name. | [optional] 
-**DomainNameServers** | Pointer to **[]string** | The IP addresses of domain name servers. If no IP addresses are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. | [optional] 
+**DomainNameServers** | Pointer to **[]string** | The IPs of domain name servers. If no IPs are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**NtpServers** | Pointer to **[]string** | The IP addresses of the Network Time Protocol (NTP) servers. | [optional] 
+**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers. | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IsPrimary** | Pointer to **bool** | If true, the IP address is the primary private IP address of the NIC. | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP address of the NIC. | [optional] 
+**IsPrimary** | Pointer to **bool** | If true, the IP is the primary private IP of the NIC. | [optional] 
+**PrivateIp** | Pointer to **string** | The private IP of the NIC. | [optional] 
 
 ## Methods
 

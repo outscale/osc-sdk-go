@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **QueryAccessKeys** | Pointer to **[]string** | The access keys used for the logged calls. | [optional] 
 **QueryApiNames** | Pointer to **[]string** | The names of the APIs of the logged calls (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
 **QueryCallNames** | Pointer to **[]string** | The names of the logged calls. | [optional] 
-**QueryIpAddresses** | Pointer to **[]string** | The IP addresses used for the logged calls. | [optional] 
+**QueryIpAddresses** | Pointer to **[]string** | The IPs used for the logged calls. | [optional] 
 **QueryUserAgents** | Pointer to **[]string** | The user agents of the HTTP requests of the logged calls. | [optional] 
 **RequestIds** | Pointer to **[]string** | The request IDs provided in the responses of the logged calls. | [optional] 
 **ResponseStatusCodes** | Pointer to **[]int32** | The HTTP status codes of the logged calls. | [optional] 
