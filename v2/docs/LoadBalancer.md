@@ -6,13 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessLog** | Pointer to [**AccessLog**](AccessLog.md) |  | [optional] 
 **ApplicationStickyCookiePolicies** | Pointer to [**[]ApplicationStickyCookiePolicy**](ApplicationStickyCookiePolicy.md) | The stickiness policies defined for the load balancer. | [optional] 
+**BackendIps** | Pointer to **[]string** | One or more public IPs of back-end VMs. | [optional] 
 **BackendVmIds** | Pointer to **[]string** | One or more IDs of back-end VMs for the load balancer. | [optional] 
 **DnsName** | Pointer to **string** | The DNS name of the load balancer. | [optional] 
 **HealthCheck** | Pointer to [**HealthCheck**](HealthCheck.md) |  | [optional] 
 **Listeners** | Pointer to [**[]Listener**](Listener.md) | The listeners for the load balancer. | [optional] 
 **LoadBalancerName** | Pointer to **string** | The name of the load balancer. | [optional] 
 **LoadBalancerStickyCookiePolicies** | Pointer to [**[]LoadBalancerStickyCookiePolicy**](LoadBalancerStickyCookiePolicy.md) | The policies defined for the load balancer. | [optional] 
-**LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP address. | [optional] 
+**LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net for the load balancer. | [optional] 
 **PublicIp** | Pointer to **string** | (internet-facing only) The public IP associated with the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
@@ -89,6 +90,31 @@ SetApplicationStickyCookiePolicies sets ApplicationStickyCookiePolicies field to
 `func (o *LoadBalancer) HasApplicationStickyCookiePolicies() bool`
 
 HasApplicationStickyCookiePolicies returns a boolean if a field has been set.
+
+### GetBackendIps
+
+`func (o *LoadBalancer) GetBackendIps() []string`
+
+GetBackendIps returns the BackendIps field if non-nil, zero value otherwise.
+
+### GetBackendIpsOk
+
+`func (o *LoadBalancer) GetBackendIpsOk() (*[]string, bool)`
+
+GetBackendIpsOk returns a tuple with the BackendIps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackendIps
+
+`func (o *LoadBalancer) SetBackendIps(v []string)`
+
+SetBackendIps sets BackendIps field to given value.
+
+### HasBackendIps
+
+`func (o *LoadBalancer) HasBackendIps() bool`
+
+HasBackendIps returns a boolean if a field has been set.
 
 ### GetBackendVmIds
 

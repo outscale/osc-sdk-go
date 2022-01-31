@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.16
+ * API version: 1.17
  * Contact: support@outscale.com
  */
 
@@ -33,7 +33,7 @@ type Nic struct {
 	NicId *string `json:"NicId,omitempty"`
 	// The name of the private DNS.
 	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
-	// The private IP addresses of the NIC.
+	// The private IPs of the NIC.
 	PrivateIps *[]PrivateIp `json:"PrivateIps,omitempty"`
 	// One or more IDs of security groups for the NIC.
 	SecurityGroups *[]SecurityGroupLight `json:"SecurityGroups,omitempty"`

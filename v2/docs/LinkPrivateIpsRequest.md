@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowRelink** | Pointer to **bool** | If true, allows an IP address that is already assigned to another NIC in the same Subnet to be assigned to the NIC you specified. | [optional] 
+**AllowRelink** | Pointer to **bool** | If true, allows an IP that is already assigned to another NIC in the same Subnet to be assigned to the NIC you specified. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NicId** | **string** | The ID of the NIC. | 
-**PrivateIps** | Pointer to **[]string** | The secondary private IP address or addresses you want to assign to the NIC within the IP address range of the Subnet. | [optional] 
-**SecondaryPrivateIpCount** | Pointer to **int32** | The number of secondary private IP addresses to assign to the NIC. | [optional] 
+**PrivateIps** | Pointer to **[]string** | The secondary private IP or IPs you want to assign to the NIC within the IP range of the Subnet. | [optional] 
+**SecondaryPrivateIpCount** | Pointer to **int32** | The number of secondary private IPs to assign to the NIC. | [optional] 
 
 ## Methods
 

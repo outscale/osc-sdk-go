@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Default** | Pointer to **bool** | If true, the DHCP options set is a default one. If false, it is not. | [optional] 
 **DhcpOptionsSetId** | Pointer to **string** | The ID of the DHCP options set. | [optional] 
 **DomainName** | Pointer to **string** | The domain name. | [optional] 
-**DomainNameServers** | Pointer to **[]string** | One or more IP addresses for the domain name servers. | [optional] 
-**NtpServers** | Pointer to **[]string** | One or more IP addresses for the NTP servers. | [optional] 
+**DomainNameServers** | Pointer to **[]string** | One or more IPs for the domain name servers. | [optional] 
+**NtpServers** | Pointer to **[]string** | One or more IPs for the NTP servers. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the DHCP options set. | [optional] 
 
 ## Methods

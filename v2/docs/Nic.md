@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **NetId** | Pointer to **string** | The ID of the Net for the NIC. | [optional] 
 **NicId** | Pointer to **string** | The ID of the NIC. | [optional] 
 **PrivateDnsName** | Pointer to **string** | The name of the private DNS. | [optional] 
-**PrivateIps** | Pointer to [**[]PrivateIp**](PrivateIp.md) | The private IP addresses of the NIC. | [optional] 
+**PrivateIps** | Pointer to [**[]PrivateIp**](PrivateIp.md) | The private IPs of the NIC. | [optional] 
 **SecurityGroups** | Pointer to [**[]SecurityGroupLight**](SecurityGroupLight.md) | One or more IDs of security groups for the NIC. | [optional] 
 **State** | Pointer to **string** | The state of the NIC (&#x60;available&#x60; \\| &#x60;attaching&#x60; \\| &#x60;in-use&#x60; \\| &#x60;detaching&#x60;). | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 

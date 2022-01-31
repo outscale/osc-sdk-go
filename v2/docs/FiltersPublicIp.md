@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **NicAccountIds** | Pointer to **[]string** | The account IDs of the owners of the NICs. | [optional] 
 **NicIds** | Pointer to **[]string** | The IDs of the NICs. | [optional] 
 **Placements** | Pointer to **[]string** | Whether the public IPs are for use in the public Cloud or in a Net. | [optional] 
-**PrivateIps** | Pointer to **[]string** | The private IP addresses associated with the public IPs. | [optional] 
+**PrivateIps** | Pointer to **[]string** | The private IPs associated with the public IPs. | [optional] 
 **PublicIpIds** | Pointer to **[]string** | The IDs of the public IPs. | [optional] 
 **PublicIps** | Pointer to **[]string** | The public IPs. | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the public IPs. | [optional] 

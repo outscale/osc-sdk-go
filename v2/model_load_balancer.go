@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://wiki.outscale.net/display/EN/3DS+OUTSCALE+APIs+Reference).<br /><br />  You can also manage your resources using the [Cockpit](https://wiki.outscale.net/display/EN/About+Cockpit) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.16
+ * API version: 1.17
  * Contact: support@outscale.com
  */
 
@@ -20,6 +20,8 @@ type LoadBalancer struct {
 	AccessLog *AccessLog `json:"AccessLog,omitempty"`
 	// The stickiness policies defined for the load balancer.
 	ApplicationStickyCookiePolicies *[]ApplicationStickyCookiePolicy `json:"ApplicationStickyCookiePolicies,omitempty"`
+	// One or more public IPs of back-end VMs.
+	BackendIps *[]string `json:"BackendIps,omitempty"`
 	// One or more IDs of back-end VMs for the load balancer.
 	BackendVmIds *[]string `json:"BackendVmIds,omitempty"`
 	// The DNS name of the load balancer.
@@ -31,7 +33,7 @@ type LoadBalancer struct {
 	LoadBalancerName *string `json:"LoadBalancerName,omitempty"`
 	// The policies defined for the load balancer.
 	LoadBalancerStickyCookiePolicies *[]LoadBalancerStickyCookiePolicy `json:"LoadBalancerStickyCookiePolicies,omitempty"`
-	// The type of load balancer. Valid only for load balancers in a Net.<br /> If `LoadBalancerType` is `internet-facing`, the load balancer has a public DNS name that resolves to a public IP.<br /> If `LoadBalancerType` is `internal`, the load balancer has a public DNS name that resolves to a private IP address.
+	// The type of load balancer. Valid only for load balancers in a Net.<br /> If `LoadBalancerType` is `internet-facing`, the load balancer has a public DNS name that resolves to a public IP.<br /> If `LoadBalancerType` is `internal`, the load balancer has a public DNS name that resolves to a private IP.
 	LoadBalancerType *string `json:"LoadBalancerType,omitempty"`
 	// The ID of the Net for the load balancer.
 	NetId *string `json:"NetId,omitempty"`
@@ -127,6 +129,38 @@ func (o *LoadBalancer) HasApplicationStickyCookiePolicies() bool {
 // SetApplicationStickyCookiePolicies gets a reference to the given []ApplicationStickyCookiePolicy and assigns it to the ApplicationStickyCookiePolicies field.
 func (o *LoadBalancer) SetApplicationStickyCookiePolicies(v []ApplicationStickyCookiePolicy) {
 	o.ApplicationStickyCookiePolicies = &v
+}
+
+// GetBackendIps returns the BackendIps field value if set, zero value otherwise.
+func (o *LoadBalancer) GetBackendIps() []string {
+	if o == nil || o.BackendIps == nil {
+		var ret []string
+		return ret
+	}
+	return *o.BackendIps
+}
+
+// GetBackendIpsOk returns a tuple with the BackendIps field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoadBalancer) GetBackendIpsOk() (*[]string, bool) {
+	if o == nil || o.BackendIps == nil {
+		return nil, false
+	}
+	return o.BackendIps, true
+}
+
+// HasBackendIps returns a boolean if a field has been set.
+func (o *LoadBalancer) HasBackendIps() bool {
+	if o != nil && o.BackendIps != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBackendIps gets a reference to the given []string and assigns it to the BackendIps field.
+func (o *LoadBalancer) SetBackendIps(v []string) {
+	o.BackendIps = &v
 }
 
 // GetBackendVmIds returns the BackendVmIds field value if set, zero value otherwise.
@@ -584,6 +618,9 @@ func (o LoadBalancer) MarshalJSON() ([]byte, error) {
 	}
 	if o.ApplicationStickyCookiePolicies != nil {
 		toSerialize["ApplicationStickyCookiePolicies"] = o.ApplicationStickyCookiePolicies
+	}
+	if o.BackendIps != nil {
+		toSerialize["BackendIps"] = o.BackendIps
 	}
 	if o.BackendVmIds != nil {
 		toSerialize["BackendVmIds"] = o.BackendVmIds

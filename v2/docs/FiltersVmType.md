@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **BsuOptimized** | Pointer to **bool** | Indicates whether the VM is optimized for BSU I/O. | [optional] 
 **MemorySizes** | Pointer to **[]float32** | The amounts of memory, in gibibytes (GiB). | [optional] 
 **VcoreCounts** | Pointer to **[]int32** | The numbers of vCores. | [optional] 
-**VmTypeNames** | Pointer to **[]string** | The names of the VM types. For more information, see [Instance Types](https://wiki.outscale.net/display/EN/Instance+Types). | [optional] 
+**VmTypeNames** | Pointer to **[]string** | The names of the VM types. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 
 **VolumeCounts** | Pointer to **[]int32** | The maximum number of ephemeral storage disks. | [optional] 
 **VolumeSizes** | Pointer to **[]int32** | The size of one ephemeral storage disk, in gibibytes (GiB). | [optional] 
 

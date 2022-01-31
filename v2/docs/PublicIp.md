@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
 **NicAccountId** | Pointer to **string** | The account ID of the owner of the NIC. | [optional] 
 **NicId** | Pointer to **string** | The ID of the NIC the public IP is associated with (if any). | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP address associated with the public IP. | [optional] 
+**PrivateIp** | Pointer to **string** | The private IP associated with the public IP. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP. | [optional] 
 **PublicIpId** | Pointer to **string** | The allocation ID of the public IP. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the public IP. | [optional] 
