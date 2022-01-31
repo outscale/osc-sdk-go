@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **QueryDate** | **bool** | If set to true, the date of the call is displayed. | [optional] 
 **QueryHeaderRaw** | **bool** | If set to true, the raw header of the HTTP request is displayed. | [optional] 
 **QueryHeaderSize** | **bool** | If set to true, the size of the raw header of the HTTP request is displayed. | [optional] 
-**QueryIpAddress** | **bool** | If set to true, the IP address is displayed. | [optional] 
+**QueryIpAddress** | **bool** | If set to true, the IP is displayed. | [optional] 
 **QueryPayloadRaw** | **bool** | If set to true, the raw payload of the HTTP request is displayed. | [optional] 
 **QueryPayloadSize** | **bool** | If set to true, the size of the raw payload of the HTTP request is displayed. | [optional] 
 **QueryUserAgent** | **bool** | If set to true, the user agent of the HTTP request is displayed. | [optional] 

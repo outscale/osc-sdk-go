@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **NetId** | **string** | The ID of the Net for the NIC. | [optional] 
 **NicId** | **string** | The ID of the NIC. | [optional] 
 **PrivateDnsName** | **string** | The name of the private DNS. | [optional] 
-**PrivateIps** | [**[]PrivateIpLightForVm**](PrivateIpLightForVm.md) | The private IP address or addresses of the NIC. | [optional] 
+**PrivateIps** | [**[]PrivateIpLightForVm**](PrivateIpLightForVm.md) | The private IP or IPs of the NIC. | [optional] 
 **SecurityGroups** | [**[]SecurityGroupLight**](SecurityGroupLight.md) | One or more IDs of security groups for the NIC. | [optional] 
 **State** | **string** | The state of the NIC (&#x60;available&#x60; \\| &#x60;attaching&#x60; \\| &#x60;in-use&#x60; \\| &#x60;detaching&#x60;). | [optional] 
 **SubnetId** | **string** | The ID of the Subnet for the NIC. | [optional] 
