@@ -74,7 +74,7 @@ func ExampleSecurityGroup() {
 	}
 
 	println("Creating a single security group")
-	securityGroupName := "OscSdkExample"
+	securityGroupName := "OscSdkExample-" + RandomString(10)
 	createOpt := osc.CreateSecurityGroupRequest{
 		SecurityGroupName: securityGroupName,
 		Description:       "Security Group test with osc-sdk-go",
