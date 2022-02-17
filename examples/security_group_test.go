@@ -71,7 +71,7 @@ func ExampleSecurityGroup() {
 	creationOpts := osc.CreateSecurityGroupOpts{
 		CreateSecurityGroupRequest: optional.NewInterface(
 			osc.CreateSecurityGroupRequest{
-				SecurityGroupName: "osc-sdk-go-example",
+				SecurityGroupName: "osc-sdk-go-example-" + RandomString(10),
 				Description:       "osc-sdk-go security group example",
 			}),
 	}
