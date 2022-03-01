@@ -2,7 +2,7 @@ API_VERSION=$(shell cat api_version)
 SDK_VERSION=$(shell cat sdk_version)
 USER_ID=$(shell id -u)
 GROUP_ID=$(shell id -g)
-OPENAPI_GEN_VERSION=:v5.0.1
+OPENAPI_IMG=openapitools/openapi-generator-cli:v5.0.1
 
 all: help
 
@@ -19,16 +19,16 @@ v2: osc-generate update-examples gofmt
 
 .PNONY: openapi-generator-help
 openapi-generator-help:
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) config-help -g go
+	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) config-help -g go
 
 .PHONY: osc-generate
 osc-generate: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	# Set default user agent including sdk version using reproductible sed.
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) sed -i "s/ *UserAgent:.*/                UserAgent:     \"osc-sdk-go\/$(SDK_VERSION)\",/" /sdk/.sdk/configuration.go
-	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
+	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) sed -i "s/ *UserAgent:.*/                UserAgent:     \"osc-sdk-go\/$(SDK_VERSION)\",/" /sdk/.sdk/configuration.go
+	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk v2
 	# keep dependencies as-is, should be updated by dependabot
 	git checkout v2/go.mod v2/go.sum
