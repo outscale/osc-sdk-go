@@ -24,6 +24,8 @@ osc-generate: osc-api/outscale.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	# Set default user agent including sdk version using reproductible sed.
+	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli$(OPENAPI_GEN_VERSION) sed -i "s/ *UserAgent:.*/                UserAgent:     \"osc-sdk-go\/$(SDK_VERSION)\",/" /sdk/.sdk/configuration.go
 	docker run -v $(PWD):/sdk --rm openapitools/openapi-generator-cli:v4.3.0 chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk osc
 	rm osc/go.mod
