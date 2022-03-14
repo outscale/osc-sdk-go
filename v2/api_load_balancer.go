@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.17
+ * API version: 1.18
  * Contact: support@outscale.com
  */
 
@@ -637,6 +637,128 @@ func (a *LoadBalancerApiService) DeregisterVmsInLoadBalancerExecute(r ApiDeregis
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiLinkLoadBalancerBackendMachinesRequest struct {
+	ctx                                    _context.Context
+	ApiService                             *LoadBalancerApiService
+	linkLoadBalancerBackendMachinesRequest *LinkLoadBalancerBackendMachinesRequest
+}
+
+func (r ApiLinkLoadBalancerBackendMachinesRequest) LinkLoadBalancerBackendMachinesRequest(linkLoadBalancerBackendMachinesRequest LinkLoadBalancerBackendMachinesRequest) ApiLinkLoadBalancerBackendMachinesRequest {
+	r.linkLoadBalancerBackendMachinesRequest = &linkLoadBalancerBackendMachinesRequest
+	return r
+}
+
+func (r ApiLinkLoadBalancerBackendMachinesRequest) Execute() (LinkLoadBalancerBackendMachinesResponse, *_nethttp.Response, error) {
+	return r.ApiService.LinkLoadBalancerBackendMachinesExecute(r)
+}
+
+/*
+ * LinkLoadBalancerBackendMachines Method for LinkLoadBalancerBackendMachines
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiLinkLoadBalancerBackendMachinesRequest
+ */
+func (a *LoadBalancerApiService) LinkLoadBalancerBackendMachines(ctx _context.Context) ApiLinkLoadBalancerBackendMachinesRequest {
+	return ApiLinkLoadBalancerBackendMachinesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return LinkLoadBalancerBackendMachinesResponse
+ */
+func (a *LoadBalancerApiService) LinkLoadBalancerBackendMachinesExecute(r ApiLinkLoadBalancerBackendMachinesRequest) (LinkLoadBalancerBackendMachinesResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  LinkLoadBalancerBackendMachinesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancerApiService.LinkLoadBalancerBackendMachines")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/LinkLoadBalancerBackendMachines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.linkLoadBalancerBackendMachinesRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiReadLoadBalancerTagsRequest struct {
 	ctx                         _context.Context
 	ApiService                  *LoadBalancerApiService
@@ -1074,6 +1196,128 @@ func (a *LoadBalancerApiService) RegisterVmsInLoadBalancerExecute(r ApiRegisterV
 	}
 	// body params
 	localVarPostBody = r.registerVmsInLoadBalancerRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUnlinkLoadBalancerBackendMachinesRequest struct {
+	ctx                                      _context.Context
+	ApiService                               *LoadBalancerApiService
+	unlinkLoadBalancerBackendMachinesRequest *UnlinkLoadBalancerBackendMachinesRequest
+}
+
+func (r ApiUnlinkLoadBalancerBackendMachinesRequest) UnlinkLoadBalancerBackendMachinesRequest(unlinkLoadBalancerBackendMachinesRequest UnlinkLoadBalancerBackendMachinesRequest) ApiUnlinkLoadBalancerBackendMachinesRequest {
+	r.unlinkLoadBalancerBackendMachinesRequest = &unlinkLoadBalancerBackendMachinesRequest
+	return r
+}
+
+func (r ApiUnlinkLoadBalancerBackendMachinesRequest) Execute() (UnlinkLoadBalancerBackendMachinesResponse, *_nethttp.Response, error) {
+	return r.ApiService.UnlinkLoadBalancerBackendMachinesExecute(r)
+}
+
+/*
+ * UnlinkLoadBalancerBackendMachines Method for UnlinkLoadBalancerBackendMachines
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiUnlinkLoadBalancerBackendMachinesRequest
+ */
+func (a *LoadBalancerApiService) UnlinkLoadBalancerBackendMachines(ctx _context.Context) ApiUnlinkLoadBalancerBackendMachinesRequest {
+	return ApiUnlinkLoadBalancerBackendMachinesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return UnlinkLoadBalancerBackendMachinesResponse
+ */
+func (a *LoadBalancerApiService) UnlinkLoadBalancerBackendMachinesExecute(r ApiUnlinkLoadBalancerBackendMachinesRequest) (UnlinkLoadBalancerBackendMachinesResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  UnlinkLoadBalancerBackendMachinesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancerApiService.UnlinkLoadBalancerBackendMachines")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/UnlinkLoadBalancerBackendMachines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.unlinkLoadBalancerBackendMachinesRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

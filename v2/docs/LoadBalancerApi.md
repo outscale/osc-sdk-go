@@ -9,10 +9,12 @@ Method | HTTP request | Description
 [**DeleteLoadBalancer**](LoadBalancerApi.md#DeleteLoadBalancer) | **Post** /DeleteLoadBalancer | 
 [**DeleteLoadBalancerTags**](LoadBalancerApi.md#DeleteLoadBalancerTags) | **Post** /DeleteLoadBalancerTags | 
 [**DeregisterVmsInLoadBalancer**](LoadBalancerApi.md#DeregisterVmsInLoadBalancer) | **Post** /DeregisterVmsInLoadBalancer | 
+[**LinkLoadBalancerBackendMachines**](LoadBalancerApi.md#LinkLoadBalancerBackendMachines) | **Post** /LinkLoadBalancerBackendMachines | 
 [**ReadLoadBalancerTags**](LoadBalancerApi.md#ReadLoadBalancerTags) | **Post** /ReadLoadBalancerTags | 
 [**ReadLoadBalancers**](LoadBalancerApi.md#ReadLoadBalancers) | **Post** /ReadLoadBalancers | 
 [**ReadVmsHealth**](LoadBalancerApi.md#ReadVmsHealth) | **Post** /ReadVmsHealth | 
 [**RegisterVmsInLoadBalancer**](LoadBalancerApi.md#RegisterVmsInLoadBalancer) | **Post** /RegisterVmsInLoadBalancer | 
+[**UnlinkLoadBalancerBackendMachines**](LoadBalancerApi.md#UnlinkLoadBalancerBackendMachines) | **Post** /UnlinkLoadBalancerBackendMachines | 
 [**UpdateLoadBalancer**](LoadBalancerApi.md#UpdateLoadBalancer) | **Post** /UpdateLoadBalancer | 
 
 
@@ -337,6 +339,70 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## LinkLoadBalancerBackendMachines
+
+> LinkLoadBalancerBackendMachinesResponse LinkLoadBalancerBackendMachines(ctx).LinkLoadBalancerBackendMachinesRequest(linkLoadBalancerBackendMachinesRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkLoadBalancerBackendMachinesRequest := *openapiclient.NewLinkLoadBalancerBackendMachinesRequest("LoadBalancerName_example") // LinkLoadBalancerBackendMachinesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LoadBalancerApi.LinkLoadBalancerBackendMachines(context.Background()).LinkLoadBalancerBackendMachinesRequest(linkLoadBalancerBackendMachinesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancerApi.LinkLoadBalancerBackendMachines``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkLoadBalancerBackendMachines`: LinkLoadBalancerBackendMachinesResponse
+    fmt.Fprintf(os.Stdout, "Response from `LoadBalancerApi.LinkLoadBalancerBackendMachines`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkLoadBalancerBackendMachinesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **linkLoadBalancerBackendMachinesRequest** | [**LinkLoadBalancerBackendMachinesRequest**](LinkLoadBalancerBackendMachinesRequest.md) |  | 
+
+### Return type
+
+[**LinkLoadBalancerBackendMachinesResponse**](LinkLoadBalancerBackendMachinesResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ReadLoadBalancerTags
 
 > ReadLoadBalancerTagsResponse ReadLoadBalancerTags(ctx).ReadLoadBalancerTagsRequest(readLoadBalancerTagsRequest).Execute()
@@ -578,6 +644,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RegisterVmsInLoadBalancerResponse**](RegisterVmsInLoadBalancerResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnlinkLoadBalancerBackendMachines
+
+> UnlinkLoadBalancerBackendMachinesResponse UnlinkLoadBalancerBackendMachines(ctx).UnlinkLoadBalancerBackendMachinesRequest(unlinkLoadBalancerBackendMachinesRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkLoadBalancerBackendMachinesRequest := *openapiclient.NewUnlinkLoadBalancerBackendMachinesRequest("LoadBalancerName_example") // UnlinkLoadBalancerBackendMachinesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LoadBalancerApi.UnlinkLoadBalancerBackendMachines(context.Background()).UnlinkLoadBalancerBackendMachinesRequest(unlinkLoadBalancerBackendMachinesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancerApi.UnlinkLoadBalancerBackendMachines``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkLoadBalancerBackendMachines`: UnlinkLoadBalancerBackendMachinesResponse
+    fmt.Fprintf(os.Stdout, "Response from `LoadBalancerApi.UnlinkLoadBalancerBackendMachines`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkLoadBalancerBackendMachinesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **unlinkLoadBalancerBackendMachinesRequest** | [**UnlinkLoadBalancerBackendMachinesRequest**](UnlinkLoadBalancerBackendMachinesRequest.md) |  | 
+
+### Return type
+
+[**UnlinkLoadBalancerBackendMachinesResponse**](UnlinkLoadBalancerBackendMachinesResponse.md)
 
 ### Authorization
 

@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **QueryAccessKeys** | Pointer to **[]string** | The access keys used for the logged calls. | [optional] 
 **QueryApiNames** | Pointer to **[]string** | The names of the APIs of the logged calls (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
 **QueryCallNames** | Pointer to **[]string** | The names of the logged calls. | [optional] 
+**QueryDateAfter** | Pointer to **string** | The date after which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-14&#x60;). By default, this date is set to 48 hours before the &#x60;QueryDateBefore&#x60; parameter value. | [optional] 
+**QueryDateBefore** | Pointer to **string** | The date before which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-30&#x60;). By default, this date is set to now, or 48 hours after the &#x60;QueryDateAfter&#x60; parameter value. | [optional] 
 **QueryIpAddresses** | Pointer to **[]string** | The IPs used for the logged calls. | [optional] 
 **QueryUserAgents** | Pointer to **[]string** | The user agents of the HTTP requests of the logged calls. | [optional] 
 **RequestIds** | Pointer to **[]string** | The request IDs provided in the responses of the logged calls. | [optional] 
@@ -105,6 +107,56 @@ SetQueryCallNames sets QueryCallNames field to given value.
 `func (o *FiltersApiLog) HasQueryCallNames() bool`
 
 HasQueryCallNames returns a boolean if a field has been set.
+
+### GetQueryDateAfter
+
+`func (o *FiltersApiLog) GetQueryDateAfter() string`
+
+GetQueryDateAfter returns the QueryDateAfter field if non-nil, zero value otherwise.
+
+### GetQueryDateAfterOk
+
+`func (o *FiltersApiLog) GetQueryDateAfterOk() (*string, bool)`
+
+GetQueryDateAfterOk returns a tuple with the QueryDateAfter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryDateAfter
+
+`func (o *FiltersApiLog) SetQueryDateAfter(v string)`
+
+SetQueryDateAfter sets QueryDateAfter field to given value.
+
+### HasQueryDateAfter
+
+`func (o *FiltersApiLog) HasQueryDateAfter() bool`
+
+HasQueryDateAfter returns a boolean if a field has been set.
+
+### GetQueryDateBefore
+
+`func (o *FiltersApiLog) GetQueryDateBefore() string`
+
+GetQueryDateBefore returns the QueryDateBefore field if non-nil, zero value otherwise.
+
+### GetQueryDateBeforeOk
+
+`func (o *FiltersApiLog) GetQueryDateBeforeOk() (*string, bool)`
+
+GetQueryDateBeforeOk returns a tuple with the QueryDateBefore field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryDateBefore
+
+`func (o *FiltersApiLog) SetQueryDateBefore(v string)`
+
+SetQueryDateBefore sets QueryDateBefore field to given value.
+
+### HasQueryDateBefore
+
+`func (o *FiltersApiLog) HasQueryDateBefore() bool`
+
+HasQueryDateBefore returns a boolean if a field has been set.
 
 ### GetQueryIpAddresses
 
