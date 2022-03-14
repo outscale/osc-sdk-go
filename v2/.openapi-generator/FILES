@@ -288,6 +288,8 @@ docs/LinkFlexibleGpuRequest.md
 docs/LinkFlexibleGpuResponse.md
 docs/LinkInternetServiceRequest.md
 docs/LinkInternetServiceResponse.md
+docs/LinkLoadBalancerBackendMachinesRequest.md
+docs/LinkLoadBalancerBackendMachinesResponse.md
 docs/LinkNic.md
 docs/LinkNicLight.md
 docs/LinkNicRequest.md
@@ -507,6 +509,8 @@ docs/UnlinkFlexibleGpuRequest.md
 docs/UnlinkFlexibleGpuResponse.md
 docs/UnlinkInternetServiceRequest.md
 docs/UnlinkInternetServiceResponse.md
+docs/UnlinkLoadBalancerBackendMachinesRequest.md
+docs/UnlinkLoadBalancerBackendMachinesResponse.md
 docs/UnlinkNicRequest.md
 docs/UnlinkNicResponse.md
 docs/UnlinkPrivateIpsRequest.md
@@ -803,6 +807,8 @@ model_link_flexible_gpu_request.go
 model_link_flexible_gpu_response.go
 model_link_internet_service_request.go
 model_link_internet_service_response.go
+model_link_load_balancer_backend_machines_request.go
+model_link_load_balancer_backend_machines_response.go
 model_link_nic.go
 model_link_nic_light.go
 model_link_nic_request.go
@@ -999,6 +1005,8 @@ model_unlink_flexible_gpu_request.go
 model_unlink_flexible_gpu_response.go
 model_unlink_internet_service_request.go
 model_unlink_internet_service_response.go
+model_unlink_load_balancer_backend_machines_request.go
+model_unlink_load_balancer_backend_machines_response.go
 model_unlink_nic_request.go
 model_unlink_nic_response.go
 model_unlink_private_ips_request.go
