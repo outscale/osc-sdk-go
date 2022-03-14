@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CaPem** | **string** | The CA in PEM format. | 
+**CaPem** | **string** | The CA in PEM format. It must be a single-line string, containing literal line breaks (&#x60;\\n&#x60;). | 
 **Description** | **string** | The description of the CA. | [optional] 
 **DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 

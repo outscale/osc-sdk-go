@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BgpAsn** | **int32** | An Autonomous System Number (ASN) used by the Border Gateway Protocol (BGP) to find the path to your client gateway through the Internet. | 
+**BgpAsn** | **int32** | The Autonomous System Number (ASN) used by the Border Gateway Protocol (BGP) to find the path to your client gateway through the Internet. This number must be between 1 and 4294967295. | 
 **ConnectionType** | **string** | The communication protocol used to establish tunnel with your client gateway (only &#x60;ipsec.1&#x60; is supported). | 
 **DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **PublicIp** | **string** | The public fixed IPv4 address of your client gateway. | 

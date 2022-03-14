@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BgpAsn** | **int32** | An Autonomous System Number (ASN) used by the Border Gateway Protocol (BGP) to find the path to your client gateway through the Internet. | [optional] 
+**BgpAsn** | **int32** | The Autonomous System Number (ASN) used by the Border Gateway Protocol (BGP) to find the path to your client gateway through the Internet. | [optional] 
 **ClientGatewayId** | **string** | The ID of the client gateway. | [optional] 
 **ConnectionType** | **string** | The type of communication tunnel used by the client gateway (only &#x60;ipsec.1&#x60; is supported). | [optional] 
 **PublicIp** | **string** | The public IPv4 address of the client gateway (must be a fixed address into a NATed network). | [optional] 
