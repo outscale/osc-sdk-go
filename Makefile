@@ -54,7 +54,7 @@ reuse-test:
 
 .PHONY: go-test
 go-test:
-	cd osc && go test .
+	cd osc && go test . > /dev/null
 
 # try to regen, should not have any difference
 .PHONY: regen-test
