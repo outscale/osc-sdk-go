@@ -51,7 +51,7 @@ func ExampleRegion() {
 	})
 	// check for v2/configuration.go for all endpoints and regions
 	ctx = context.WithValue(ctx, osc.ContextServerIndex, 0)
-	ctx = context.WithValue(ctx, osc.ContextServerVariables, map[string]string{"region": "eu-west-2"})
+	ctx = context.WithValue(ctx, osc.ContextServerVariables, map[string]string{"region": os.Getenv("OSC_REGION")})
 
 	_, httpRes, err := client.VolumeApi.ReadVolumes(ctx).ReadVolumesRequest(osc.ReadVolumesRequest{}).Execute()
 	if err != nil {
