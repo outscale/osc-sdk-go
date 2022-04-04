@@ -54,6 +54,7 @@ reuse-test:
 
 .PHONY: go-test
 go-test:
+	bash .github/scripts/check-creds-settings.sh
 	cd osc && go test . > /dev/null
 
 # try to regen, should not have any difference
