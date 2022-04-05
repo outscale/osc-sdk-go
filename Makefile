@@ -32,6 +32,7 @@ osc-generate: osc-api/outscale.yaml
 	mv .sdk v2
 	# keep dependencies as-is, should be updated by dependabot
 	git checkout v2/go.mod v2/go.sum
+	cd v2 && git apply ../.osc-patches/*
 
 osc-api/outscale.yaml:
 	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
