@@ -1,0 +1,286 @@
+From 9c767013752489bf5c351a749b18a07a3f152c3f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=B4me=20Jutteau?= <jerome.jutteau@outscale.com>
+Date: Tue, 5 Apr 2022 14:25:42 +0200
+Subject: [PATCH] config: add helper to load standard configuration file
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jérôme Jutteau <jerome.jutteau@outscale.com>
+---
+ v2/config_file.go      | 126 ++++++++++++++++++++++++++++++++++++++++
+ v2/config_file_test.go | 129 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 255 insertions(+)
+ create mode 100644 v2/config_file.go
+ create mode 100644 v2/config_file_test.go
+
+diff --git a/v2/config_file.go b/v2/config_file.go
+new file mode 100644
+index 00000000..a0ca79f0
+--- /dev/null
++++ b/v2/config_file.go
+@@ -0,0 +1,126 @@
++package osc
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io/ioutil"
++	"os"
++	"path"
++)
++
++type ConfigFile struct {
++	profiles map[string]Profile
++}
++
++type Profile struct {
++	AccessKey       string   `json:"access_key"`
++	SecretKey       string   `json:"secret_key"`
++	X509ClientCert  string   `json:"x509_client_cert"`
++	X509_client_key string   `json:"x509_client_key"`
++	Protocol        string   `json:"protocol"`
++	Method          string   `json:"method"`
++	Region          string   `json:"region"`
++	Endpoints       Endpoint `json:"endpoints"`
++}
++
++type Endpoint struct {
++	API string `json:"api"`
++	FCU string `json:"fcu"`
++	LBU string `json:"lbu"`
++	EIM string `json:"eim"`
++	ICU string `json:"icu"`
++	OOS string `json:"oos"`
++}
++
++func NewConfigFile() *ConfigFile {
++	return &ConfigFile{
++		profiles: make(map[string]Profile),
++	}
++}
++
++func defaultConfigPath() (string, error) {
++	home, err := os.UserHomeDir()
++	if err != nil {
++		return "", err
++	}
++	return path.Join(home, ".osc", "config.json"), nil
++}
++
++func LoadDefaultConfigFile() (*ConfigFile, error) {
++	configPath, err := defaultConfigPath()
++	if err != nil {
++		return nil, err
++	}
++	return LoadConfigFile(&configPath)
++}
++
++func LoadConfigFile(path *string) (*ConfigFile, error) {
++	if path == nil || len(*path) == 0 {
++		return nil, errors.New("no path provided")
++	}
++	config_json, err := ioutil.ReadFile(*path)
++	if err != nil {
++		return nil, err
++	}
++	configFile := NewConfigFile()
++	if err := json.Unmarshal(config_json, &configFile.profiles); err != nil {
++		return nil, err
++	}
++	return configFile, nil
++}
++
++func (configFile *ConfigFile) Configuration(profileName string) (*Configuration, error) {
++	profile, ok := configFile.profiles[profileName]
++	if !ok {
++		return nil, errors.New("profile not found for creating Context, did you load config file?")
++	}
++	var url string
++	if len(profile.Endpoints.API) > 0 {
++		if len(profile.Protocol) > 0 {
++			url = fmt.Sprintf("%s://%s", profile.Protocol, profile.Endpoints.API)
++		} else {
++			url = fmt.Sprintf("https://%s", profile.Endpoints.API)
++		}
++	} else {
++		url = "https://api.{region}.outscale.com/api/v1"
++	}
++
++	var region string
++	if len(profile.Region) > 0 {
++		region = profile.Region
++	} else {
++		region = "eu-west-2"
++	}
++
++	config := NewConfiguration()
++	config.Servers = ServerConfigurations{
++		{
++			URL:         url,
++			Description: "Loaded from profile",
++			Variables: map[string]ServerVariable{
++				"region": ServerVariable{
++					Description:  "Loaded from profile",
++					DefaultValue: region,
++					EnumValues:   []string{region},
++				},
++			},
++		},
++	}
++	return config, nil
++}
++
++func (configFile *ConfigFile) Context(ctx context.Context, profileName string) (context.Context, error) {
++	profile, ok := configFile.profiles[profileName]
++	if !ok {
++		return nil, errors.New("profile not found for creating Context, did you load config file?")
++	}
++	if len(profile.AccessKey) > 0 && len(profile.SecretKey) > 0 {
++		ctx = context.WithValue(ctx, ContextAWSv4, AWSv4{
++			AccessKey: profile.AccessKey,
++			SecretKey: profile.SecretKey,
++		})
++	}
++	return ctx, nil
++}
+diff --git a/v2/config_file_test.go b/v2/config_file_test.go
+new file mode 100644
+index 00000000..8a03e8c0
+--- /dev/null
++++ b/v2/config_file_test.go
+@@ -0,0 +1,129 @@
++package osc
++
++import (
++	"context"
++	"fmt"
++	"os"
++	"testing"
++)
++
++func TestBasicConfigFileWithValidEndpoint1(t *testing.T) {
++	ak := os.Getenv("OSC_ACCESS_KEY")
++	sk := os.Getenv("OSC_SECRET_KEY")
++	region := os.Getenv("OSC_REGION")
++	content := fmt.Sprintf(`{
++	"SomeProfile": {
++		"access_key": "%s",
++		"secret_key": "%s",
++		"protocol": "https",
++		"method": "post",
++		"region": "bad-region-that-should-not-impact",
++		"endpoints": {
++			"api": "api.%s.outscale.com/api/v1"
++		}
++	}}`, ak, sk, region)
++	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidEndpoint1"
++	if err := testDumpToFile(configPath, content); err != nil {
++		t.Fatalf("Error: %s", err.Error())
++	}
++	defer os.Remove(configPath)
++	testApiOk(t, configPath)
++}
++
++func TestBasicConfigFileWithValidEndpoint2(t *testing.T) {
++	ak := os.Getenv("OSC_ACCESS_KEY")
++	sk := os.Getenv("OSC_SECRET_KEY")
++	region := os.Getenv("OSC_REGION")
++	content := fmt.Sprintf(`{
++		"SomeProfile": {
++			"access_key": "%s",
++			"secret_key": "%s",
++			"endpoints": {
++				"api": "api.%s.outscale.com/api/v1"
++			}
++		}}`, ak, sk, region)
++	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidEndpoint2"
++	if err := testDumpToFile(configPath, content); err != nil {
++		t.Fatalf("Error: %s", err.Error())
++	}
++	defer os.Remove(configPath)
++	testApiOk(t, configPath)
++}
++
++func TestBasicConfigFileWithValidRegion2(t *testing.T) {
++	ak := os.Getenv("OSC_ACCESS_KEY")
++	sk := os.Getenv("OSC_SECRET_KEY")
++	region := os.Getenv("OSC_REGION")
++	content := fmt.Sprintf(`{
++		"SomeProfile": {
++			"access_key": "%s",
++			"secret_key": "%s",
++			"region": "%s"
++		}}`, ak, sk, region)
++	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidRegion2"
++	if err := testDumpToFile(configPath, content); err != nil {
++		t.Fatalf("Error: %s", err.Error())
++	}
++	defer os.Remove(configPath)
++	testApiOk(t, configPath)
++}
++
++func testDumpToFile(path string, content string) error {
++	jsonFile, err := os.Create(path)
++	if err != nil {
++		return err
++	}
++	defer jsonFile.Close()
++	if _, err := jsonFile.WriteString(content); err != nil {
++		return err
++	}
++	return nil
++}
++
++func testApiOk(t *testing.T, configPath string) {
++	configFile, err := LoadConfigFile(&configPath)
++	if err != nil {
++		t.Fatalf("Cannot load configuration file: %s", err.Error())
++	}
++	_, err = configFile.Configuration("non-existant")
++	if err == nil {
++		t.Fatal("profile 'non-existant' should not exist")
++	}
++	config, err := configFile.Configuration("SomeProfile")
++	if err != nil {
++		t.Errorf("profile 'SomeProfile' should exist (ConfigFromProfileEndpoint()): %s", err.Error())
++	}
++	_, err = configFile.Context(context.Background(), "non-existant")
++	if err == nil {
++		t.Fatal("profile 'non-existant' should not exist (Context())")
++	}
++	ctx, err := configFile.Context(context.Background(), "SomeProfile")
++	if err != nil {
++		t.Fatalf("profile 'SomeProfile' should exist (Context()): %s", err.Error())
++	}
++	client := NewAPIClient(config)
++	_, _, err = client.SubregionApi.ReadSubregions(ctx).ReadSubregionsRequest(ReadSubregionsRequest{}).Execute()
++	if err != nil {
++		t.Fatalf("Cannot call ReadSubregions: %s", err.Error())
++	}
++}
++
++func TestBadConfigFile1(t *testing.T) {
++	content := `{
++		"SomeProfile": {
++			Garbage
++		}}`
++	configPath := "/tmp/osc-sdk-go-TestBadConfigFile2"
++	if err := testDumpToFile(configPath, content); err != nil {
++		t.Fatalf("Error: %s", err.Error())
++	}
++	defer os.Remove(configPath)
++	testBadConfigFile(t, configPath)
++}
++
++func testBadConfigFile(t *testing.T, configPath string) {
++	_, err := LoadConfigFile(&configPath)
++	if err == nil {
++		t.Fatal("Config file should not have loaded")
++	}
++}
+-- 
+2.35.1
+
