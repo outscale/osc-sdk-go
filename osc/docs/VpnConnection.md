@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **State** | **string** | The state of the VPN connection (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **StaticRoutesOnly** | **bool** | If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 
 **Tags** | [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VPN connection. | [optional] 
+**VgwTelemetries** | [**[]VgwTelemetry**](VgwTelemetry.md) | Information about the current state of one or more of the VPN tunnels. | [optional] 
 **VirtualGatewayId** | **string** | The ID of the virtual gateway used on the OUTSCALE end of the connection. | [optional] 
 **VpnConnectionId** | **string** | The ID of the VPN connection. | [optional] 
 **VpnOptions** | [**VpnOptions**](VpnOptions.md) |  | [optional] 

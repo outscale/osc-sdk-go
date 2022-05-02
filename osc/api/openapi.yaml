@@ -15,7 +15,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.18"
+  version: "1.19"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -124,10 +124,10 @@ paths:
       - AccessKey
   /CreateAccount:
     description: |-
-      Creates a new OUTSCALE account.<br /><br />
+      Creates an OUTSCALE account.<br /><br />
 
       **[NOTE]**<br />
-      * You need OUTSCALE credentials and the appropriate quotas to create a new account via API. To get quotas, you can send an email to sales@outscale.com.<br />
+      * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales@outscale.com.<br />
       * If you want to pass a numeral value as a string instead of an integer, you must wrap your string in additional quotes (for example, `'&quot;92000&quot;'`).
     post:
       operationId: CreateAccount
@@ -221,8 +221,8 @@ paths:
       tags:
       - ClientGateway
   /CreateDhcpOptions:
-    description: Creates a new set of DHCP options, that you can then associate with
-      a Net using the [UpdateNet](#updatenet) method.
+    description: Creates a set of DHCP options, that you can then associate with a
+      Net using the [UpdateNet](#updatenet) method.
     post:
       operationId: CreateDhcpOptions
       requestBody:
@@ -240,8 +240,8 @@ paths:
       tags:
       - DhcpOption
   /CreateDirectLink:
-    description: Creates a new DirectLink between a customer network and a specified
-      DirectLink location.
+    description: Creates a DirectLink between a customer network and a specified DirectLink
+      location.
     post:
       operationId: CreateDirectLink
       requestBody:
@@ -413,7 +413,7 @@ paths:
       This action returns the private key that you need to save. The public key is stored by 3DS OUTSCALE.<br /><br />
 
       You can also import a public key in one of the following formats: 1024-bit RSA, 2048-bit RSA, 4096-bit RSA, ECDSA and Ed25519.<br />
-      This action imports the public key of a keypair created by a third-party tool and uses it to create a new 2048-bit RSA keypair. The private key is never provided to 3DS OUTSCALE.
+      This action imports the public key of a keypair created by a third-party tool and uses it to create a 2048-bit RSA keypair. The private key is never provided to 3DS OUTSCALE.
     post:
       operationId: CreateKeypair
       requestBody:
@@ -1176,7 +1176,7 @@ paths:
       - VirtualGateway
   /CreateVms:
     description: |-
-      Creates new virtual machines (VMs), and then launches them.<br />
+      Creates virtual machines (VMs), and then launches them.<br />
       This action enables you to create a specified number of VMs using an OUTSCALE machine image (OMI) that you are allowed to use, and then to automatically launch them.<br />
       The VMs remain in the `pending` state until they are created and ready to be used. Once automatically launched, they are in the `running` state.<br />
       To check the state of your VMs, call the [ReadVms](#readvms) method.<br />
@@ -1219,7 +1219,7 @@ paths:
   /CreateVolume:
     description: |-
       Creates a Block Storage Unit (BSU) volume in a specified Region.<br />
-      BSU volumes can be attached to a virtual machine (VM) in the same Subregion. You can create a new empty volume or restore a volume from an existing snapshot.<br />
+      BSU volumes can be attached to a virtual machine (VM) in the same Subregion. You can create an empty volume or restore a volume from an existing snapshot.<br />
       You can create the following volume types: Enterprise (`io1`) for provisioned IOPS SSD volumes, Performance (`gp2`) for general purpose SSD volumes, or Magnetic (`standard`) volumes.
     post:
       operationId: CreateVolume
@@ -2445,7 +2445,7 @@ paths:
   /LinkNic:
     description: |-
       Attaches a network interface card (NIC) to a virtual machine (VM).<br />
-      The interface and the VM must be in the same Subregion. The VM can be either `running` or `stopped`. The NIC must be in the `available` state.
+      The interface and the VM must be in the same Subregion. The VM can be either `running` or `stopped`. The NIC must be in the `available` state. For more information, see [Attaching an FNI to an Instance](https://docs.outscale.com/en/userguide/Attaching-an-FNI-to-an-Instance.html).
     post:
       operationId: LinkNic
       requestBody:
@@ -2843,6 +2843,25 @@ paths:
       - BasicAuth: []
       tags:
       - Ca
+  /ReadCatalog:
+    description: Returns the price list of OUTSCALE products and services for the
+      current Region.
+    post:
+      operationId: ReadCatalog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadCatalogRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadCatalogResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - Catalog
   /ReadClientGateways:
     description: |-
       Lists one or more of your client gateways.<br /><br />
@@ -3497,6 +3516,27 @@ paths:
       security: []
       tags:
       - ProductType
+  /ReadPublicCatalog:
+    description: Returns the price list of OUTSCALE products and services for the
+      Region specified in the endpoint of the request. For more information, see [Regions,
+      Endpoints and Availability Zones Reference](https://docs.outscale.com/en/userguide/Regions-Endpoints-and-Availability-Zones-Reference.html).
+    post:
+      operationId: ReadPublicCatalog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadPublicCatalogRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadPublicCatalogResponse'
+          description: The HTTP 200 response (OK).
+      security: []
+      tags:
+      - PublicCatalog
   /ReadPublicIpRanges:
     description: Gets the public IPv4 addresses in CIDR notation for the Region specified
       in the endpoint of the request. For more information, see [Regions, Endpoints
@@ -5102,7 +5142,6 @@ paths:
       You can modify only one attribute at a time. You can modify the `IsSourceDestChecked` attribute only if the VM is in a Net.<br />
       You must stop the VM before modifying the following attributes:<br /><br />
 
-      * `BsuOptimized`<br />
       * `Performance`<br />
       * `UserData`<br />
       * `VmType`
@@ -5390,6 +5429,9 @@ components:
         VatNumber: VatNumber
         CompanyName: CompanyName
         MobileNumber: MobileNumber
+        AdditionalEmails:
+        - AdditionalEmails
+        - AdditionalEmails
         Country: Country
         PhoneNumber: PhoneNumber
         LastName: LastName
@@ -5397,6 +5439,13 @@ components:
         AccountId:
           description: The ID of the account.
           type: string
+        AdditionalEmails:
+          description: One or more additional email addresses for the account. These
+            addresses are used for notifications only.
+          items:
+            pattern: ^.+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$
+            type: string
+          type: array
         City:
           description: The city of the account owner.
           type: string
@@ -5410,7 +5459,8 @@ components:
           description: The ID of the customer.
           type: string
         Email:
-          description: The email address for the account.
+          description: The main email address for the account. This address is used
+            for your credentials and for notifications.
           type: string
         FirstName:
           description: The first name of the account owner.
@@ -5570,7 +5620,9 @@ components:
         Bsu:
           $ref: '#/components/schemas/BsuToCreate'
         DeviceName:
-          description: The name of the device.
+          description: The device name for the volume. For a root device, you must
+            use `/dev/sda1`. For other volumes, you must use `/dev/sdX` or `/dev/xvdX`
+            (where `X` is a letter between `b` and `z`).
           type: string
         VirtualDeviceName:
           description: The name of the virtual device (ephemeralN).
@@ -5593,7 +5645,9 @@ components:
         Bsu:
           $ref: '#/components/schemas/BsuToCreate'
         DeviceName:
-          description: The name of the device.
+          description: The device name for the volume. For a root device, you must
+            use `/dev/sda1`. For other volumes, you must use `/dev/sdX` or `/dev/xvdX`
+            (where `X` is a letter between `b` and `z`).
           type: string
         NoDevice:
           description: Removes the device which is included in the block device mapping
@@ -5617,7 +5671,9 @@ components:
         Bsu:
           $ref: '#/components/schemas/BsuToUpdateVm'
         DeviceName:
-          description: The name of the device.
+          description: The device name for the volume. For a root device, you must
+            use `/dev/sda1`. For other volumes, you must use `/dev/sdX` or `/dev/xvdX`
+            (where `X` is a letter between `b` and `z`).
           type: string
         NoDevice:
           description: Removes the device which is included in the block device mapping
@@ -5717,6 +5773,77 @@ components:
         Description:
           description: The description of the CA.
           type: string
+      type: object
+    Catalog:
+      additionalProperties: false
+      description: Information about our catalog of prices.
+      example:
+        Entries:
+        - Type: Type
+          UnitPrice: 0.8008282
+          Category: Category
+          Service: Service
+          Title: Title
+          Flags: Flags
+          Operation: Operation
+          SubregionName: SubregionName
+        - Type: Type
+          UnitPrice: 0.8008282
+          Category: Category
+          Service: Service
+          Title: Title
+          Flags: Flags
+          Operation: Operation
+          SubregionName: SubregionName
+      properties:
+        Entries:
+          description: One or more catalog entries.
+          items:
+            $ref: '#/components/schemas/CatalogEntry'
+          type: array
+      type: object
+    CatalogEntry:
+      additionalProperties: false
+      description: Information about the catalog entry.
+      example:
+        Type: Type
+        UnitPrice: 0.8008282
+        Category: Category
+        Service: Service
+        Title: Title
+        Flags: Flags
+        Operation: Operation
+        SubregionName: SubregionName
+      properties:
+        Category:
+          description: The category of the catalog entry (for example, `network`).
+          type: string
+        Flags:
+          description: When returned and equal to `PER_MONTH`, the price of the catalog
+            entry is calculated on a monthly basis.
+          type: string
+        Operation:
+          description: The API call associated with the catalog entry (for example,
+            `CreateVms` or `RunInstances`).
+          type: string
+        Service:
+          description: The service associated with the catalog entry (`TinaOS-FCU`,
+            `TinaOS-LBU`, `TinaOS-DirectLink`, or `TinaOS-OOS`).
+          type: string
+        SubregionName:
+          description: The Subregion associated with the catalog entry.
+          type: string
+        Title:
+          description: The description of the catalog entry.
+          type: string
+        Type:
+          description: The type of resource associated with the catalog entry.
+          type: string
+        UnitPrice:
+          description: The unit price of the catalog entry, in the currency of the
+            catalog of the Region where the API method was used.
+          format: float
+          type: number
       type: object
     CheckAuthenticationRequest:
       additionalProperties: false
@@ -5894,10 +6021,22 @@ components:
         VatNumber: VatNumber
         CompanyName: CompanyName
         MobileNumber: MobileNumber
+        AdditionalEmails:
+        - AdditionalEmails
+        - AdditionalEmails
         Country: Country
         PhoneNumber: PhoneNumber
         LastName: LastName
       properties:
+        AdditionalEmails:
+          description: One or more additional email addresses for the account. These
+            addresses are used for notifications only. If you already have a list
+            of additional emails registered, you cannot add to it, only replace it.
+            To remove all registered additional emails, specify an empty list.
+          items:
+            pattern: ^.+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$
+            type: string
+          type: array
         City:
           description: The city of the account owner.
           type: string
@@ -5915,7 +6054,8 @@ components:
             perform the action.
           type: boolean
         Email:
-          description: The email address for the account.
+          description: The main email address for the account. This address is used
+            for your credentials and notifications.
           type: string
         FirstName:
           description: The first name of the account owner.
@@ -5966,6 +6106,9 @@ components:
           VatNumber: VatNumber
           CompanyName: CompanyName
           MobileNumber: MobileNumber
+          AdditionalEmails:
+          - AdditionalEmails
+          - AdditionalEmails
           Country: Country
           PhoneNumber: PhoneNumber
           LastName: LastName
@@ -6139,12 +6282,15 @@ components:
         - DomainNameServers
       properties:
         DomainName:
-          description: Specify a domain name (for example, MyCompany.com). You can
-            specify only one domain name.
+          description: 'Specify a domain name (for example, MyCompany.com). You can
+            specify only one domain name. You must specify at least one of the following
+            parameters: `DomainName`, `DomainNameServers` or `NtpServers`.'
           type: string
         DomainNameServers:
-          description: The IPs of domain name servers. If no IPs are specified, the
-            `OutscaleProvidedDNS` value is set by default.
+          description: 'The IPs of domain name servers. If no IPs are specified, the
+            `OutscaleProvidedDNS` value is set by default. You must specify at least
+            one of the following parameters: `DomainName`, `DomainNameServers` or
+            `NtpServers`.'
           items:
             type: string
           type: array
@@ -6153,7 +6299,9 @@ components:
             perform the action.
           type: boolean
         NtpServers:
-          description: The IPs of the Network Time Protocol (NTP) servers.
+          description: 'The IPs of the Network Time Protocol (NTP) servers. You must
+            specify at least one of the following parameters: `DomainName`, `DomainNameServers`
+            or `NtpServers`.'
           items:
             type: string
           type: array
@@ -6422,7 +6570,8 @@ components:
         SourceImageId: SourceImageId
       properties:
         Architecture:
-          description: The architecture of the OMI (by default, `i386`).
+          description: The architecture of the OMI (by default, `i386` if you specified
+            the `FileLocation` or `RootDeviceName` parameter).
           type: string
         BlockDeviceMappings:
           description: One or more block device mappings.
@@ -6437,9 +6586,10 @@ components:
             perform the action.
           type: boolean
         FileLocation:
-          description: The pre-signed URL of the OMI manifest file, or the full path
+          description: 'The pre-signed URL of the OMI manifest file, or the full path
             to the OMI stored in a bucket. If you specify this parameter, a copy of
-            the OMI is created in your account.
+            the OMI is created in your account. You must specify only one of the following
+            parameters: `FileLocation`, `RootDeviceName`, `SourceImageId` or `VmId`.'
           type: string
         ImageName:
           description: |-
@@ -6451,17 +6601,23 @@ components:
             reboots. If true, the VM does not.
           type: boolean
         RootDeviceName:
-          description: The name of the root device.
+          description: 'The name of the root device. You must specify only one of
+            the following parameters: `FileLocation`, `RootDeviceName`, `SourceImageId`
+            or `VmId`.'
           type: string
         SourceImageId:
-          description: The ID of the OMI you want to copy.
+          description: 'The ID of the OMI you want to copy. You must specify only
+            one of the following parameters: `FileLocation`, `RootDeviceName`, `SourceImageId`
+            or `VmId`.'
           type: string
         SourceRegionName:
           description: The name of the source Region, which must be the same as the
             Region of your account.
           type: string
         VmId:
-          description: The ID of the VM from which you want to create the OMI.
+          description: 'The ID of the VM from which you want to create the OMI. You
+            must specify only one of the following parameters: `FileLocation`, `RootDeviceName`,
+            `SourceImageId` or `VmId`.'
           type: string
       type: object
     CreateImageResponse:
@@ -7760,19 +7916,26 @@ components:
           type: string
         FromPortRange:
           description: The beginning of the port range for the TCP and UDP protocols,
-            or an ICMP type number.
+            or an ICMP type number. If you specify this parameter, you cannot specify
+            the `Rules` parameter and its subparameters.
           type: integer
         IpProtocol:
           description: The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all
             protocols). By default, `-1`. In a Net, this can also be an IP protocol
             number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
+            If you specify this parameter, you cannot specify the `Rules` parameter
+            and its subparameters.
           type: string
         IpRange:
           description: The IP range for the security group rule, in CIDR notation
-            (for example, 10.0.0.0/16).
+            (for example, 10.0.0.0/16). If you specify this parameter, you cannot
+            specify the `Rules` parameter and its subparameters.
           type: string
         Rules:
-          description: Information about the security group rule to create.
+          description: 'Information about the security group rule to create. If you
+            specify this parent parameter and its subparameters, you cannot specify
+            the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`,
+            and `ToPortRange`.'
           items:
             $ref: '#/components/schemas/SecurityGroupRule'
           type: array
@@ -7790,7 +7953,8 @@ components:
           type: string
         ToPortRange:
           description: The end of the port range for the TCP and UDP protocols, or
-            an ICMP type number.
+            an ICMP type number. If you specify this parameter, you cannot specify
+            the `Rules` parameter and its subparameters.
           type: integer
       required:
       - Flow
@@ -8281,7 +8445,8 @@ components:
             the VM is stopped on creation.
           type: boolean
         BsuOptimized:
-          description: If true, the VM is created with optimized BSU I/O.
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
           type: boolean
         ClientToken:
           description: A unique identifier which enables you to manage the idempotency.
@@ -8311,7 +8476,8 @@ components:
             of VMs cannot be created, no VMs are created.
           type: integer
         Nics:
-          description: One or more NICs. If you specify this parameter, you must define
+          description: One or more NICs. If you specify this parameter, you must not
+            specify the `SubnetId` and `SubregionName` parameters. You also must define
             one NIC as the primary network interface of the VM with `0` as its device
             number.
           items:
@@ -8343,7 +8509,8 @@ components:
             type: string
           type: array
         SubnetId:
-          description: The ID of the Subnet in which you want to create the VM.
+          description: The ID of the Subnet in which you want to create the VM. If
+            you specify this parameter, you must not specify the `Nics` parameter.
           type: string
         UserData:
           description: Data or script used to add a specific configuration to the
@@ -8759,12 +8926,12 @@ components:
           State: State
           VpnOptions:
             Phase1Options:
-              DpdTimeoutSeconds: 0
+              DpdTimeoutSeconds: 6
               StartupAction: StartupAction
               Phase1IntegrityAlgorithms:
               - Phase1IntegrityAlgorithms
               - Phase1IntegrityAlgorithms
-              Phase1LifetimeSeconds: 1
+              Phase1LifetimeSeconds: 5
               Phase1EncryptionAlgorithms:
               - Phase1EncryptionAlgorithms
               - Phase1EncryptionAlgorithms
@@ -8774,17 +8941,17 @@ components:
               - IkeVersions
               - IkeVersions
               Phase1DhGroupNumbers:
-              - 6
-              - 6
+              - 1
+              - 1
             TunnelInsideIpRange: TunnelInsideIpRange
             Phase2Options:
               Phase2EncryptionAlgorithms:
               - Phase2EncryptionAlgorithms
               - Phase2EncryptionAlgorithms
               Phase2DhGroupNumbers:
-              - 5
-              - 5
-              Phase2LifetimeSeconds: 2
+              - 2
+              - 2
+              Phase2LifetimeSeconds: 7
               Phase2IntegrityAlgorithms:
               - Phase2IntegrityAlgorithms
               - Phase2IntegrityAlgorithms
@@ -8805,6 +8972,17 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          VgwTelemetries:
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -10988,7 +11166,7 @@ components:
             type: string
           type: array
         RootDeviceNames:
-          description: The device names of the root devices (for example, `/dev/sda1`).
+          description: The name of the root device. This value must be /dev/sda1.
           items:
             type: string
           type: array
@@ -12565,7 +12743,8 @@ components:
         - VmTypeNames
       properties:
         BsuOptimized:
-          description: Indicates whether the VM is optimized for BSU I/O.
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
           type: boolean
         MemorySizes:
           description: The amounts of memory, in gibibytes (GiB).
@@ -13422,8 +13601,8 @@ components:
         LinkNicId: LinkNicId
       properties:
         DeleteOnVmDeletion:
-          description: By default or if set to false, the NIC is detached from the
-            VM when the VM is terminated. If true, the NIC is deleted.
+          description: If true, the NIC is deleted when the VM is terminated. If false,
+            the NIC is detached from the VM.
           type: boolean
         LinkNicId:
           description: The ID of the NIC attachment.
@@ -14522,9 +14701,9 @@ components:
         NicId: NicId
       properties:
         DeleteOnVmDeletion:
-          description: By default or if set to true, the NIC is deleted when the VM
-            is terminated. You can specify this parameter only for a new NIC. To modify
-            this value for an existing NIC, see [UpdateNic](#updatenic).
+          description: If true, the NIC is deleted when the VM is terminated. You
+            can specify this parameter only for a new NIC. To modify this value for
+            an existing NIC, see [UpdateNic](#updatenic).
           type: boolean
         Description:
           description: The description of the NIC, if you are creating a NIC when
@@ -14552,14 +14731,15 @@ components:
             than one private IP in the `PrivateIps` parameter.
           type: integer
         SecurityGroupIds:
-          description: One or more IDs of security groups for the NIC, if you acreate
+          description: One or more IDs of security groups for the NIC, if you create
             a NIC when creating a VM.
           items:
             type: string
           type: array
         SubnetId:
           description: The ID of the Subnet for the NIC, if you create a NIC when
-            creating a VM.
+            creating a VM. This parameter is required if you create a NIC when creating
+            the VM.
           type: string
       type: object
     NicLight:
@@ -14789,12 +14969,12 @@ components:
       description: 'Information about Phase 1 of the Internet Key Exchange (IKE) negotiation.
         When Phase 1 finishes successfully, peers proceed to Phase 2 negotiations. '
       example:
-        DpdTimeoutSeconds: 0
+        DpdTimeoutSeconds: 6
         StartupAction: StartupAction
         Phase1IntegrityAlgorithms:
         - Phase1IntegrityAlgorithms
         - Phase1IntegrityAlgorithms
-        Phase1LifetimeSeconds: 1
+        Phase1LifetimeSeconds: 5
         Phase1EncryptionAlgorithms:
         - Phase1EncryptionAlgorithms
         - Phase1EncryptionAlgorithms
@@ -14804,8 +14984,8 @@ components:
         - IkeVersions
         - IkeVersions
         Phase1DhGroupNumbers:
-        - 6
-        - 6
+        - 1
+        - 1
       properties:
         DpdTimeoutAction:
           description: The action to carry out after a Dead Peer Detection (DPD) timeout
@@ -14859,9 +15039,9 @@ components:
         - Phase2EncryptionAlgorithms
         - Phase2EncryptionAlgorithms
         Phase2DhGroupNumbers:
-        - 5
-        - 5
-        Phase2LifetimeSeconds: 2
+        - 2
+        - 2
+        Phase2LifetimeSeconds: 7
         Phase2IntegrityAlgorithms:
         - Phase2IntegrityAlgorithms
         - Phase2IntegrityAlgorithms
@@ -14903,7 +15083,8 @@ components:
         SubregionName: SubregionName
       properties:
         SubregionName:
-          description: The name of the Subregion.
+          description: The name of the Subregion. If you specify this parameter, you
+            must not specify the `Nics` parameter.
           type: string
         Tenancy:
           description: The tenancy of the VM (`default` \| `dedicated`).
@@ -15188,6 +15369,9 @@ components:
           VatNumber: VatNumber
           CompanyName: CompanyName
           MobileNumber: MobileNumber
+          AdditionalEmails:
+          - AdditionalEmails
+          - AdditionalEmails
           Country: Country
           PhoneNumber: PhoneNumber
           LastName: LastName
@@ -15202,6 +15386,9 @@ components:
           VatNumber: VatNumber
           CompanyName: CompanyName
           MobileNumber: MobileNumber
+          AdditionalEmails:
+          - AdditionalEmails
+          - AdditionalEmails
           Country: Country
           PhoneNumber: PhoneNumber
           LastName: LastName
@@ -15492,6 +15679,45 @@ components:
           items:
             $ref: '#/components/schemas/Ca'
           type: array
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
+    ReadCatalogRequest:
+      additionalProperties: false
+      example:
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+      type: object
+    ReadCatalogResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+        Catalog:
+          Entries:
+          - Type: Type
+            UnitPrice: 0.8008282
+            Category: Category
+            Service: Service
+            Title: Title
+            Flags: Flags
+            Operation: Operation
+            SubregionName: SubregionName
+          - Type: Type
+            UnitPrice: 0.8008282
+            Category: Category
+            Service: Service
+            Title: Title
+            Flags: Flags
+            Operation: Operation
+            SubregionName: SubregionName
+      properties:
+        Catalog:
+          $ref: '#/components/schemas/Catalog'
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
@@ -17186,6 +17412,45 @@ components:
           items:
             $ref: '#/components/schemas/ProductType'
           type: array
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
+    ReadPublicCatalogRequest:
+      additionalProperties: false
+      example:
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+      type: object
+    ReadPublicCatalogResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+        Catalog:
+          Entries:
+          - Type: Type
+            UnitPrice: 0.8008282
+            Category: Category
+            Service: Service
+            Title: Title
+            Flags: Flags
+            Operation: Operation
+            SubregionName: SubregionName
+          - Type: Type
+            UnitPrice: 0.8008282
+            Category: Category
+            Service: Service
+            Title: Title
+            Flags: Flags
+            Operation: Operation
+            SubregionName: SubregionName
+      properties:
+        Catalog:
+          $ref: '#/components/schemas/Catalog'
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
@@ -18952,12 +19217,12 @@ components:
           State: State
           VpnOptions:
             Phase1Options:
-              DpdTimeoutSeconds: 0
+              DpdTimeoutSeconds: 6
               StartupAction: StartupAction
               Phase1IntegrityAlgorithms:
               - Phase1IntegrityAlgorithms
               - Phase1IntegrityAlgorithms
-              Phase1LifetimeSeconds: 1
+              Phase1LifetimeSeconds: 5
               Phase1EncryptionAlgorithms:
               - Phase1EncryptionAlgorithms
               - Phase1EncryptionAlgorithms
@@ -18967,17 +19232,17 @@ components:
               - IkeVersions
               - IkeVersions
               Phase1DhGroupNumbers:
-              - 6
-              - 6
+              - 1
+              - 1
             TunnelInsideIpRange: TunnelInsideIpRange
             Phase2Options:
               Phase2EncryptionAlgorithms:
               - Phase2EncryptionAlgorithms
               - Phase2EncryptionAlgorithms
               Phase2DhGroupNumbers:
-              - 5
-              - 5
-              Phase2LifetimeSeconds: 2
+              - 2
+              - 2
+              Phase2LifetimeSeconds: 7
               Phase2IntegrityAlgorithms:
               - Phase2IntegrityAlgorithms
               - Phase2IntegrityAlgorithms
@@ -18998,17 +19263,28 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          VgwTelemetries:
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
         - ConnectionType: ConnectionType
           ClientGatewayId: ClientGatewayId
           State: State
           VpnOptions:
             Phase1Options:
-              DpdTimeoutSeconds: 0
+              DpdTimeoutSeconds: 6
               StartupAction: StartupAction
               Phase1IntegrityAlgorithms:
               - Phase1IntegrityAlgorithms
               - Phase1IntegrityAlgorithms
-              Phase1LifetimeSeconds: 1
+              Phase1LifetimeSeconds: 5
               Phase1EncryptionAlgorithms:
               - Phase1EncryptionAlgorithms
               - Phase1EncryptionAlgorithms
@@ -19018,17 +19294,17 @@ components:
               - IkeVersions
               - IkeVersions
               Phase1DhGroupNumbers:
-              - 6
-              - 6
+              - 1
+              - 1
             TunnelInsideIpRange: TunnelInsideIpRange
             Phase2Options:
               Phase2EncryptionAlgorithms:
               - Phase2EncryptionAlgorithms
               - Phase2EncryptionAlgorithms
               Phase2DhGroupNumbers:
-              - 5
-              - 5
-              Phase2LifetimeSeconds: 2
+              - 2
+              - 2
+              Phase2LifetimeSeconds: 7
               Phase2IntegrityAlgorithms:
               - Phase2IntegrityAlgorithms
               - Phase2IntegrityAlgorithms
@@ -19049,6 +19325,17 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          VgwTelemetries:
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
       properties:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
@@ -20317,10 +20604,22 @@ components:
         VatNumber: VatNumber
         CompanyName: CompanyName
         MobileNumber: MobileNumber
+        AdditionalEmails:
+        - AdditionalEmails
+        - AdditionalEmails
         Country: Country
         PhoneNumber: PhoneNumber
         LastName: LastName
       properties:
+        AdditionalEmails:
+          description: One or more additional email addresses for the account. These
+            addresses are used for notifications only. If you already have a list
+            of additional emails registered, you cannot add to it, only replace it.
+            To remove all registered additional emails, specify an empty list.
+          items:
+            pattern: ^.+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$
+            type: string
+          type: array
         City:
           description: The new city of the account owner.
           type: string
@@ -20335,7 +20634,8 @@ components:
             perform the action.
           type: boolean
         Email:
-          description: The new email address for the account.
+          description: The main email address for the account. This address is used
+            for your credentials and notifications.
           type: string
         FirstName:
           description: The new first name of the account owner.
@@ -20377,6 +20677,9 @@ components:
           VatNumber: VatNumber
           CompanyName: CompanyName
           MobileNumber: MobileNumber
+          AdditionalEmails:
+          - AdditionalEmails
+          - AdditionalEmails
           Country: Country
           PhoneNumber: PhoneNumber
           LastName: LastName
@@ -20401,10 +20704,11 @@ components:
           type: boolean
         MaxAccessKeyExpirationSeconds:
           description: The maximum possible lifetime for your access keys, in seconds
-            (between `0` and `3153600000`, both included). By default or if set to
-            `O`, your access keys can have unlimited lifetimes. Otherwise, all your
-            access keys must have an expiration date. This value must be greater than
-            the remaining lifetime of each access key of your account.
+            (between `0` and `3153600000`, both included). If set to `O`, your access
+            keys can have unlimited lifetimes, but a trusted session cannot be activated.
+            Otherwise, all your access keys must have an expiration date. This value
+            must be greater than the remaining lifetime of each access key of your
+            account.
           format: int64
           type: integer
         RequireTrustedEnv:
@@ -21428,7 +21732,8 @@ components:
             $ref: '#/components/schemas/BlockDeviceMappingVmUpdate'
           type: array
         BsuOptimized:
-          description: If true, the VM is optimized for BSU I/O.
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
           type: boolean
         DeletionProtection:
           description: If true, you cannot terminate the VM using Cockpit, the CLI
@@ -21468,8 +21773,8 @@ components:
           description: The ID of the VM.
           type: string
         VmInitiatedShutdownBehavior:
-          description: The VM behavior when you stop it. By default or if set to `stop`,
-            the VM stops. If set to `restart`, the VM stops then automatically restarts.
+          description: The VM behavior when you stop it. If set to `stop`, the VM
+            stops. If set to `restart`, the VM stops then automatically restarts.
             If set to `terminate`, the VM stops and is terminated.
           type: string
         VmType:
@@ -21700,12 +22005,12 @@ components:
         ClientGatewayId: ClientGatewayId
         VpnOptions:
           Phase1Options:
-            DpdTimeoutSeconds: 0
+            DpdTimeoutSeconds: 6
             StartupAction: StartupAction
             Phase1IntegrityAlgorithms:
             - Phase1IntegrityAlgorithms
             - Phase1IntegrityAlgorithms
-            Phase1LifetimeSeconds: 1
+            Phase1LifetimeSeconds: 5
             Phase1EncryptionAlgorithms:
             - Phase1EncryptionAlgorithms
             - Phase1EncryptionAlgorithms
@@ -21715,17 +22020,17 @@ components:
             - IkeVersions
             - IkeVersions
             Phase1DhGroupNumbers:
-            - 6
-            - 6
+            - 1
+            - 1
           TunnelInsideIpRange: TunnelInsideIpRange
           Phase2Options:
             Phase2EncryptionAlgorithms:
             - Phase2EncryptionAlgorithms
             - Phase2EncryptionAlgorithms
             Phase2DhGroupNumbers:
-            - 5
-            - 5
-            Phase2LifetimeSeconds: 2
+            - 2
+            - 2
+            Phase2LifetimeSeconds: 7
             Phase2IntegrityAlgorithms:
             - Phase2IntegrityAlgorithms
             - Phase2IntegrityAlgorithms
@@ -21761,12 +22066,12 @@ components:
           State: State
           VpnOptions:
             Phase1Options:
-              DpdTimeoutSeconds: 0
+              DpdTimeoutSeconds: 6
               StartupAction: StartupAction
               Phase1IntegrityAlgorithms:
               - Phase1IntegrityAlgorithms
               - Phase1IntegrityAlgorithms
-              Phase1LifetimeSeconds: 1
+              Phase1LifetimeSeconds: 5
               Phase1EncryptionAlgorithms:
               - Phase1EncryptionAlgorithms
               - Phase1EncryptionAlgorithms
@@ -21776,17 +22081,17 @@ components:
               - IkeVersions
               - IkeVersions
               Phase1DhGroupNumbers:
-              - 6
-              - 6
+              - 1
+              - 1
             TunnelInsideIpRange: TunnelInsideIpRange
             Phase2Options:
               Phase2EncryptionAlgorithms:
               - Phase2EncryptionAlgorithms
               - Phase2EncryptionAlgorithms
               Phase2DhGroupNumbers:
-              - 5
-              - 5
-              Phase2LifetimeSeconds: 2
+              - 2
+              - 2
+              Phase2LifetimeSeconds: 7
               Phase2IntegrityAlgorithms:
               - Phase2IntegrityAlgorithms
               - Phase2IntegrityAlgorithms
@@ -21807,6 +22112,17 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          VgwTelemetries:
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
+          - OutsideIpAddress: OutsideIpAddress
+            LastStateChangeDate: LastStateChangeDate
+            State: State
+            AcceptedRouteCount: 0
+            StateDescription: StateDescription
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -21814,6 +22130,34 @@ components:
           $ref: '#/components/schemas/ResponseContext'
         VpnConnection:
           $ref: '#/components/schemas/VpnConnection'
+      type: object
+    VgwTelemetry:
+      additionalProperties: false
+      description: Information about the current state of a VPN tunnel.
+      example:
+        OutsideIpAddress: OutsideIpAddress
+        LastStateChangeDate: LastStateChangeDate
+        State: State
+        AcceptedRouteCount: 0
+        StateDescription: StateDescription
+      properties:
+        AcceptedRouteCount:
+          description: The number of routes accepted through BGP (Border Gateway Protocol)
+            route exchanges.
+          type: integer
+        LastStateChangeDate:
+          description: The date and time (UTC) of the latest state update.
+          format: datetime
+          type: string
+        OutsideIpAddress:
+          description: The IP on the OUTSCALE side of the tunnel.
+          type: string
+        State:
+          description: The state of the IPSEC tunnel (`UP` \| `DOWN`).
+          type: string
+        StateDescription:
+          description: A description of the current state of the tunnel.
+          type: string
       type: object
     VirtualGateway:
       additionalProperties: false
@@ -22002,7 +22346,8 @@ components:
             $ref: '#/components/schemas/BlockDeviceMappingCreated'
           type: array
         BsuOptimized:
-          description: If true, the VM is optimized for BSU I/O.
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
           type: boolean
         ClientToken:
           description: The idempotency token provided when launching the VM.
@@ -22073,7 +22418,7 @@ components:
           description: The reservation ID of the VM.
           type: string
         RootDeviceName:
-          description: The name of the root device for the VM (for example, /dev/vda1).
+          description: The name of the root device for the VM (for example, `/dev/vda1`).
           type: string
         RootDeviceType:
           description: The type of root device used by the VM (always `bsu`).
@@ -22105,8 +22450,8 @@ components:
           description: The ID of the VM.
           type: string
         VmInitiatedShutdownBehavior:
-          description: The VM behavior when you stop it. By default or if set to `stop`,
-            the VM stops. If set to `restart`, the VM stops then automatically restarts.
+          description: The VM behavior when you stop it. If set to `stop`, the VM
+            stops. If set to `restart`, the VM stops then automatically restarts.
             If set to `terminate`, the VM stops and is deleted.
           type: string
         VmType:
@@ -22179,7 +22524,8 @@ components:
         BsuOptimized: true
       properties:
         BsuOptimized:
-          description: Indicates whether the VM is optimized for BSU I/O.
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
           type: boolean
         MaxPrivateIps:
           description: The maximum number of private IPs per network interface card
@@ -22280,12 +22626,12 @@ components:
         State: State
         VpnOptions:
           Phase1Options:
-            DpdTimeoutSeconds: 0
+            DpdTimeoutSeconds: 6
             StartupAction: StartupAction
             Phase1IntegrityAlgorithms:
             - Phase1IntegrityAlgorithms
             - Phase1IntegrityAlgorithms
-            Phase1LifetimeSeconds: 1
+            Phase1LifetimeSeconds: 5
             Phase1EncryptionAlgorithms:
             - Phase1EncryptionAlgorithms
             - Phase1EncryptionAlgorithms
@@ -22295,17 +22641,17 @@ components:
             - IkeVersions
             - IkeVersions
             Phase1DhGroupNumbers:
-            - 6
-            - 6
+            - 1
+            - 1
           TunnelInsideIpRange: TunnelInsideIpRange
           Phase2Options:
             Phase2EncryptionAlgorithms:
             - Phase2EncryptionAlgorithms
             - Phase2EncryptionAlgorithms
             Phase2DhGroupNumbers:
-            - 5
-            - 5
-            Phase2LifetimeSeconds: 2
+            - 2
+            - 2
+            Phase2LifetimeSeconds: 7
             Phase2IntegrityAlgorithms:
             - Phase2IntegrityAlgorithms
             - Phase2IntegrityAlgorithms
@@ -22326,6 +22672,17 @@ components:
           Key: Key
         - Value: Value
           Key: Key
+        VgwTelemetries:
+        - OutsideIpAddress: OutsideIpAddress
+          LastStateChangeDate: LastStateChangeDate
+          State: State
+          AcceptedRouteCount: 0
+          StateDescription: StateDescription
+        - OutsideIpAddress: OutsideIpAddress
+          LastStateChangeDate: LastStateChangeDate
+          State: State
+          AcceptedRouteCount: 0
+          StateDescription: StateDescription
       properties:
         ClientGatewayConfiguration:
           description: Example configuration for the client gateway.
@@ -22358,6 +22715,12 @@ components:
           items:
             $ref: '#/components/schemas/ResourceTag'
           type: array
+        VgwTelemetries:
+          description: Information about the current state of one or more of the VPN
+            tunnels.
+          items:
+            $ref: '#/components/schemas/VgwTelemetry'
+          type: array
         VirtualGatewayId:
           description: The ID of the virtual gateway used on the OUTSCALE end of the
             connection.
@@ -22373,12 +22736,12 @@ components:
       description: Information about the VPN options.
       example:
         Phase1Options:
-          DpdTimeoutSeconds: 0
+          DpdTimeoutSeconds: 6
           StartupAction: StartupAction
           Phase1IntegrityAlgorithms:
           - Phase1IntegrityAlgorithms
           - Phase1IntegrityAlgorithms
-          Phase1LifetimeSeconds: 1
+          Phase1LifetimeSeconds: 5
           Phase1EncryptionAlgorithms:
           - Phase1EncryptionAlgorithms
           - Phase1EncryptionAlgorithms
@@ -22388,17 +22751,17 @@ components:
           - IkeVersions
           - IkeVersions
           Phase1DhGroupNumbers:
-          - 6
-          - 6
+          - 1
+          - 1
         TunnelInsideIpRange: TunnelInsideIpRange
         Phase2Options:
           Phase2EncryptionAlgorithms:
           - Phase2EncryptionAlgorithms
           - Phase2EncryptionAlgorithms
           Phase2DhGroupNumbers:
-          - 5
-          - 5
-          Phase2LifetimeSeconds: 2
+          - 2
+          - 2
+          Phase2LifetimeSeconds: 7
           Phase2IntegrityAlgorithms:
           - Phase2IntegrityAlgorithms
           - Phase2IntegrityAlgorithms
@@ -22416,7 +22779,9 @@ components:
     With:
       additionalProperties: false
       description: The information to display in each returned log. If this parameter
-        is not specified, all available fields are considered as true.
+        is not specified, all available response elements are displayed. If this parameter
+        is specified, by default `AccountId` and `RequestId` are also included in
+        the response, unless you explicitly specify them as false.
       example:
         QueryAccessKey: true
         QueryApiName: true
@@ -22477,7 +22842,7 @@ components:
           description: If set to true, the user agent of the HTTP request is displayed.
           type: boolean
         RequestId:
-          description: By default ot if set to true, the request ID is displayed.
+          description: By default or if set to true, the request ID is displayed.
           type: boolean
         ResponseSize:
           description: If set to true, the size of the response is displayed.
