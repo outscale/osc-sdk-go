@@ -5,11 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | The ID of the account. | [optional] 
+**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications only. | [optional] 
 **City** | Pointer to **string** | The city of the account owner. | [optional] 
 **CompanyName** | Pointer to **string** | The name of the company for the account. | [optional] 
 **Country** | Pointer to **string** | The country of the account owner. | [optional] 
 **CustomerId** | Pointer to **string** | The ID of the customer. | [optional] 
-**Email** | Pointer to **string** | The email address for the account. | [optional] 
+**Email** | Pointer to **string** | The main email address for the account. This address is used for your credentials and for notifications. | [optional] 
 **FirstName** | Pointer to **string** | The first name of the account owner. | [optional] 
 **JobTitle** | Pointer to **string** | The job title of the account owner. | [optional] 
 **LastName** | Pointer to **string** | The last name of the account owner. | [optional] 
@@ -62,6 +63,31 @@ SetAccountId sets AccountId field to given value.
 `func (o *Account) HasAccountId() bool`
 
 HasAccountId returns a boolean if a field has been set.
+
+### GetAdditionalEmails
+
+`func (o *Account) GetAdditionalEmails() []string`
+
+GetAdditionalEmails returns the AdditionalEmails field if non-nil, zero value otherwise.
+
+### GetAdditionalEmailsOk
+
+`func (o *Account) GetAdditionalEmailsOk() (*[]string, bool)`
+
+GetAdditionalEmailsOk returns a tuple with the AdditionalEmails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdditionalEmails
+
+`func (o *Account) SetAdditionalEmails(v []string)`
+
+SetAdditionalEmails sets AdditionalEmails field to given value.
+
+### HasAdditionalEmails
+
+`func (o *Account) HasAdditionalEmails() bool`
+
+HasAdditionalEmails returns a boolean if a field has been set.
 
 ### GetCity
 

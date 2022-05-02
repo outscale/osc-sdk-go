@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Architecture** | Pointer to **string** | The architecture of the VM (&#x60;i386&#x60; \\| &#x60;x86_64&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
-**BsuOptimized** | Pointer to **bool** | If true, the VM is optimized for BSU I/O. | [optional] 
+**BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time at which the VM was created. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot terminate the VM using Cockpit, the CLI or the API. If false, you can. | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **PublicDnsName** | Pointer to **string** | The name of the public DNS. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP of the VM. | [optional] 
 **ReservationId** | Pointer to **string** | The reservation ID of the VM. | [optional] 
-**RootDeviceName** | Pointer to **string** | The name of the root device for the VM (for example, /dev/vda1). | [optional] 
+**RootDeviceName** | Pointer to **string** | The name of the root device for the VM (for example, &#x60;/dev/vda1&#x60;). | [optional] 
 **RootDeviceType** | Pointer to **string** | The type of root device used by the VM (always &#x60;bsu&#x60;). | [optional] 
 **SecurityGroups** | Pointer to [**[]SecurityGroupLight**](SecurityGroupLight.md) | One or more security groups associated with the VM. | [optional] 
 **State** | Pointer to **string** | The state of the VM (&#x60;pending&#x60; \\| &#x60;running&#x60; \\| &#x60;stopping&#x60; \\| &#x60;stopped&#x60; \\| &#x60;shutting-down&#x60; \\| &#x60;terminated&#x60; \\| &#x60;quarantine&#x60;). | [optional] 
@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VM. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
-**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. By default or if set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 
+**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 
 **VmType** | Pointer to **string** | The type of VM. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 
 
 ## Methods

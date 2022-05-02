@@ -9,6 +9,7 @@ api_api_access_policy.go
 api_api_access_rule.go
 api_api_log.go
 api_ca.go
+api_catalog.go
 api_client_gateway.go
 api_dhcp_option.go
 api_direct_link.go
@@ -27,6 +28,7 @@ api_net_access_point.go
 api_net_peering.go
 api_nic.go
 api_product_type.go
+api_public_catalog.go
 api_public_ip.go
 api_quota.go
 api_region.go
@@ -71,6 +73,9 @@ docs/BsuToCreate.md
 docs/BsuToUpdateVm.md
 docs/Ca.md
 docs/CaApi.md
+docs/Catalog.md
+docs/CatalogApi.md
+docs/CatalogEntry.md
 docs/CheckAuthenticationRequest.md
 docs/CheckAuthenticationResponse.md
 docs/ClientGateway.md
@@ -352,6 +357,7 @@ docs/PrivateIpLight.md
 docs/PrivateIpLightForVm.md
 docs/ProductType.md
 docs/ProductTypeApi.md
+docs/PublicCatalogApi.md
 docs/PublicIp.md
 docs/PublicIpApi.md
 docs/PublicIpLight.md
@@ -372,6 +378,8 @@ docs/ReadApiLogsRequest.md
 docs/ReadApiLogsResponse.md
 docs/ReadCasRequest.md
 docs/ReadCasResponse.md
+docs/ReadCatalogRequest.md
+docs/ReadCatalogResponse.md
 docs/ReadClientGatewaysRequest.md
 docs/ReadClientGatewaysResponse.md
 docs/ReadConsoleOutputRequest.md
@@ -418,6 +426,8 @@ docs/ReadNicsRequest.md
 docs/ReadNicsResponse.md
 docs/ReadProductTypesRequest.md
 docs/ReadProductTypesResponse.md
+docs/ReadPublicCatalogRequest.md
+docs/ReadPublicCatalogResponse.md
 docs/ReadPublicIpRangesRequest.md
 docs/ReadPublicIpRangesResponse.md
 docs/ReadPublicIpsRequest.md
@@ -563,6 +573,7 @@ docs/UpdateVolumeRequest.md
 docs/UpdateVolumeResponse.md
 docs/UpdateVpnConnectionRequest.md
 docs/UpdateVpnConnectionResponse.md
+docs/VgwTelemetry.md
 docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
 docs/Vm.md
@@ -598,6 +609,8 @@ model_bsu_created.go
 model_bsu_to_create.go
 model_bsu_to_update_vm.go
 model_ca.go
+model_catalog.go
+model_catalog_entry.go
 model_check_authentication_request.go
 model_check_authentication_response.go
 model_client_gateway.go
@@ -879,6 +892,8 @@ model_read_api_logs_request.go
 model_read_api_logs_response.go
 model_read_cas_request.go
 model_read_cas_response.go
+model_read_catalog_request.go
+model_read_catalog_response.go
 model_read_client_gateways_request.go
 model_read_client_gateways_response.go
 model_read_console_output_request.go
@@ -925,6 +940,8 @@ model_read_nics_request.go
 model_read_nics_response.go
 model_read_product_types_request.go
 model_read_product_types_response.go
+model_read_public_catalog_request.go
+model_read_public_catalog_response.go
 model_read_public_ip_ranges_request.go
 model_read_public_ip_ranges_response.go
 model_read_public_ips_request.go
@@ -1059,6 +1076,7 @@ model_update_volume_request.go
 model_update_volume_response.go
 model_update_vpn_connection_request.go
 model_update_vpn_connection_response.go
+model_vgw_telemetry.go
 model_virtual_gateway.go
 model_vm.go
 model_vm_state.go

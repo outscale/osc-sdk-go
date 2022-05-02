@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -17,6 +17,8 @@ import (
 
 // UpdateAccountRequest struct for UpdateAccountRequest
 type UpdateAccountRequest struct {
+	// One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
+	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty"`
 	// The new city of the account owner.
 	City *string `json:"City,omitempty"`
 	// The new name of the company for the account.
@@ -25,7 +27,7 @@ type UpdateAccountRequest struct {
 	Country *string `json:"Country,omitempty"`
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
-	// The new email address for the account.
+	// The main email address for the account. This address is used for your credentials and notifications.
 	Email *string `json:"Email,omitempty"`
 	// The new first name of the account owner.
 	FirstName *string `json:"FirstName,omitempty"`
@@ -60,6 +62,38 @@ func NewUpdateAccountRequest() *UpdateAccountRequest {
 func NewUpdateAccountRequestWithDefaults() *UpdateAccountRequest {
 	this := UpdateAccountRequest{}
 	return &this
+}
+
+// GetAdditionalEmails returns the AdditionalEmails field value if set, zero value otherwise.
+func (o *UpdateAccountRequest) GetAdditionalEmails() []string {
+	if o == nil || o.AdditionalEmails == nil {
+		var ret []string
+		return ret
+	}
+	return *o.AdditionalEmails
+}
+
+// GetAdditionalEmailsOk returns a tuple with the AdditionalEmails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateAccountRequest) GetAdditionalEmailsOk() (*[]string, bool) {
+	if o == nil || o.AdditionalEmails == nil {
+		return nil, false
+	}
+	return o.AdditionalEmails, true
+}
+
+// HasAdditionalEmails returns a boolean if a field has been set.
+func (o *UpdateAccountRequest) HasAdditionalEmails() bool {
+	if o != nil && o.AdditionalEmails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAdditionalEmails gets a reference to the given []string and assigns it to the AdditionalEmails field.
+func (o *UpdateAccountRequest) SetAdditionalEmails(v []string) {
+	o.AdditionalEmails = &v
 }
 
 // GetCity returns the City field value if set, zero value otherwise.
@@ -480,6 +514,9 @@ func (o *UpdateAccountRequest) SetZipCode(v string) {
 
 func (o UpdateAccountRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AdditionalEmails != nil {
+		toSerialize["AdditionalEmails"] = o.AdditionalEmails
+	}
 	if o.City != nil {
 		toSerialize["City"] = o.City
 	}

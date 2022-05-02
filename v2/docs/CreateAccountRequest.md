@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list. | [optional] 
 **City** | **string** | The city of the account owner. | 
 **CompanyName** | **string** | The name of the company for the account. | 
 **Country** | **string** | The country of the account owner. | 
 **CustomerId** | **string** | The ID of the customer. It must be 8 digits. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Email** | **string** | The email address for the account. | 
+**Email** | **string** | The main email address for the account. This address is used for your credentials and notifications. | 
 **FirstName** | **string** | The first name of the account owner. | 
 **JobTitle** | Pointer to **string** | The job title of the account owner. | [optional] 
 **LastName** | **string** | The last name of the account owner. | 
@@ -37,6 +38,31 @@ will change when the set of required properties is changed
 NewCreateAccountRequestWithDefaults instantiates a new CreateAccountRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAdditionalEmails
+
+`func (o *CreateAccountRequest) GetAdditionalEmails() []string`
+
+GetAdditionalEmails returns the AdditionalEmails field if non-nil, zero value otherwise.
+
+### GetAdditionalEmailsOk
+
+`func (o *CreateAccountRequest) GetAdditionalEmailsOk() (*[]string, bool)`
+
+GetAdditionalEmailsOk returns a tuple with the AdditionalEmails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdditionalEmails
+
+`func (o *CreateAccountRequest) SetAdditionalEmails(v []string)`
+
+SetAdditionalEmails sets AdditionalEmails field to given value.
+
+### HasAdditionalEmails
+
+`func (o *CreateAccountRequest) HasAdditionalEmails() bool`
+
+HasAdditionalEmails returns a boolean if a field has been set.
 
 ### GetCity
 

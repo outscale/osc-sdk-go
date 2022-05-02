@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -21,7 +21,7 @@ type Vm struct {
 	Architecture *string `json:"Architecture,omitempty"`
 	// The block device mapping of the VM.
 	BlockDeviceMappings *[]BlockDeviceMappingCreated `json:"BlockDeviceMappings,omitempty"`
-	// If true, the VM is optimized for BSU I/O.
+	// This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
 	// The idempotency token provided when launching the VM.
 	ClientToken *string `json:"ClientToken,omitempty"`
@@ -60,7 +60,7 @@ type Vm struct {
 	PublicIp *string `json:"PublicIp,omitempty"`
 	// The reservation ID of the VM.
 	ReservationId *string `json:"ReservationId,omitempty"`
-	// The name of the root device for the VM (for example, /dev/vda1).
+	// The name of the root device for the VM (for example, `/dev/vda1`).
 	RootDeviceName *string `json:"RootDeviceName,omitempty"`
 	// The type of root device used by the VM (always `bsu`).
 	RootDeviceType *string `json:"RootDeviceType,omitempty"`
@@ -78,7 +78,7 @@ type Vm struct {
 	UserData *string `json:"UserData,omitempty"`
 	// The ID of the VM.
 	VmId *string `json:"VmId,omitempty"`
-	// The VM behavior when you stop it. By default or if set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted.
+	// The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted.
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 	// The type of VM. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html).
 	VmType *string `json:"VmType,omitempty"`

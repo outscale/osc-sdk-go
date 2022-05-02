@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -31,6 +31,8 @@ type VpnConnection struct {
 	StaticRoutesOnly *bool `json:"StaticRoutesOnly,omitempty"`
 	// One or more tags associated with the VPN connection.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	// Information about the current state of one or more of the VPN tunnels.
+	VgwTelemetries *[]VgwTelemetry `json:"VgwTelemetries,omitempty"`
 	// The ID of the virtual gateway used on the OUTSCALE end of the connection.
 	VirtualGatewayId *string `json:"VirtualGatewayId,omitempty"`
 	// The ID of the VPN connection.
@@ -279,6 +281,38 @@ func (o *VpnConnection) SetTags(v []ResourceTag) {
 	o.Tags = &v
 }
 
+// GetVgwTelemetries returns the VgwTelemetries field value if set, zero value otherwise.
+func (o *VpnConnection) GetVgwTelemetries() []VgwTelemetry {
+	if o == nil || o.VgwTelemetries == nil {
+		var ret []VgwTelemetry
+		return ret
+	}
+	return *o.VgwTelemetries
+}
+
+// GetVgwTelemetriesOk returns a tuple with the VgwTelemetries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VpnConnection) GetVgwTelemetriesOk() (*[]VgwTelemetry, bool) {
+	if o == nil || o.VgwTelemetries == nil {
+		return nil, false
+	}
+	return o.VgwTelemetries, true
+}
+
+// HasVgwTelemetries returns a boolean if a field has been set.
+func (o *VpnConnection) HasVgwTelemetries() bool {
+	if o != nil && o.VgwTelemetries != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVgwTelemetries gets a reference to the given []VgwTelemetry and assigns it to the VgwTelemetries field.
+func (o *VpnConnection) SetVgwTelemetries(v []VgwTelemetry) {
+	o.VgwTelemetries = &v
+}
+
 // GetVirtualGatewayId returns the VirtualGatewayId field value if set, zero value otherwise.
 func (o *VpnConnection) GetVirtualGatewayId() string {
 	if o == nil || o.VirtualGatewayId == nil {
@@ -397,6 +431,9 @@ func (o VpnConnection) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["Tags"] = o.Tags
+	}
+	if o.VgwTelemetries != nil {
+		toSerialize["VgwTelemetries"] = o.VgwTelemetries
 	}
 	if o.VirtualGatewayId != nil {
 		toSerialize["VirtualGatewayId"] = o.VirtualGatewayId

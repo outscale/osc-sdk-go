@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -21,7 +21,7 @@ type CreateVmsRequest struct {
 	BlockDeviceMappings *[]BlockDeviceMappingVmCreation `json:"BlockDeviceMappings,omitempty"`
 	// By default or if true, the VM is started on creation. If false, the VM is stopped on creation.
 	BootOnCreation *bool `json:"BootOnCreation,omitempty"`
-	// If true, the VM is created with optimized BSU I/O.
+	// This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
 	// A unique identifier which enables you to manage the idempotency.
 	ClientToken *string `json:"ClientToken,omitempty"`
@@ -37,7 +37,7 @@ type CreateVmsRequest struct {
 	MaxVmsCount *int32 `json:"MaxVmsCount,omitempty"`
 	// The minimum number of VMs you want to create. If this number of VMs cannot be created, no VMs are created.
 	MinVmsCount *int32 `json:"MinVmsCount,omitempty"`
-	// One or more NICs. If you specify this parameter, you must define one NIC as the primary network interface of the VM with `0` as its device number.
+	// One or more NICs. If you specify this parameter, you must not specify the `SubnetId` and `SubregionName` parameters. You also must define one NIC as the primary network interface of the VM with `0` as its device number.
 	Nics *[]NicForVmCreation `json:"Nics,omitempty"`
 	// The performance of the VM (`medium` \\| `high` \\|  `highest`).
 	Performance *string    `json:"Performance,omitempty"`
@@ -48,7 +48,7 @@ type CreateVmsRequest struct {
 	SecurityGroupIds *[]string `json:"SecurityGroupIds,omitempty"`
 	// One or more names of security groups for the VMs.
 	SecurityGroups *[]string `json:"SecurityGroups,omitempty"`
-	// The ID of the Subnet in which you want to create the VM.
+	// The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the `Nics` parameter.
 	SubnetId *string `json:"SubnetId,omitempty"`
 	// Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB).
 	UserData *string `json:"UserData,omitempty"`
