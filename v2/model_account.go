@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -19,6 +19,8 @@ import (
 type Account struct {
 	// The ID of the account.
 	AccountId *string `json:"AccountId,omitempty"`
+	// One or more additional email addresses for the account. These addresses are used for notifications only.
+	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty"`
 	// The city of the account owner.
 	City *string `json:"City,omitempty"`
 	// The name of the company for the account.
@@ -27,7 +29,7 @@ type Account struct {
 	Country *string `json:"Country,omitempty"`
 	// The ID of the customer.
 	CustomerId *string `json:"CustomerId,omitempty"`
-	// The email address for the account.
+	// The main email address for the account. This address is used for your credentials and for notifications.
 	Email *string `json:"Email,omitempty"`
 	// The first name of the account owner.
 	FirstName *string `json:"FirstName,omitempty"`
@@ -94,6 +96,38 @@ func (o *Account) HasAccountId() bool {
 // SetAccountId gets a reference to the given string and assigns it to the AccountId field.
 func (o *Account) SetAccountId(v string) {
 	o.AccountId = &v
+}
+
+// GetAdditionalEmails returns the AdditionalEmails field value if set, zero value otherwise.
+func (o *Account) GetAdditionalEmails() []string {
+	if o == nil || o.AdditionalEmails == nil {
+		var ret []string
+		return ret
+	}
+	return *o.AdditionalEmails
+}
+
+// GetAdditionalEmailsOk returns a tuple with the AdditionalEmails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetAdditionalEmailsOk() (*[]string, bool) {
+	if o == nil || o.AdditionalEmails == nil {
+		return nil, false
+	}
+	return o.AdditionalEmails, true
+}
+
+// HasAdditionalEmails returns a boolean if a field has been set.
+func (o *Account) HasAdditionalEmails() bool {
+	if o != nil && o.AdditionalEmails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAdditionalEmails gets a reference to the given []string and assigns it to the AdditionalEmails field.
+func (o *Account) SetAdditionalEmails(v []string) {
+	o.AdditionalEmails = &v
 }
 
 // GetCity returns the City field value if set, zero value otherwise.
@@ -516,6 +550,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AccountId != nil {
 		toSerialize["AccountId"] = o.AccountId
+	}
+	if o.AdditionalEmails != nil {
+		toSerialize["AdditionalEmails"] = o.AdditionalEmails
 	}
 	if o.City != nil {
 		toSerialize["City"] = o.City

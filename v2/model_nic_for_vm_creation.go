@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.18
+ * API version: 1.19
  * Contact: support@outscale.com
  */
 
@@ -17,7 +17,7 @@ import (
 
 // NicForVmCreation Information about the network interface card (NIC) when creating a virtual machine (VM).
 type NicForVmCreation struct {
-	// By default or if set to true, the NIC is deleted when the VM is terminated. You can specify this parameter only for a new NIC. To modify this value for an existing NIC, see [UpdateNic](#updatenic).
+	// If true, the NIC is deleted when the VM is terminated. You can specify this parameter only for a new NIC. To modify this value for an existing NIC, see [UpdateNic](#updatenic).
 	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
 	// The description of the NIC, if you are creating a NIC when creating the VM.
 	Description *string `json:"Description,omitempty"`
@@ -29,9 +29,9 @@ type NicForVmCreation struct {
 	PrivateIps *[]PrivateIpLight `json:"PrivateIps,omitempty"`
 	// The number of secondary private IPs, if you create a NIC when creating a VM. This parameter cannot be specified if you specified more than one private IP in the `PrivateIps` parameter.
 	SecondaryPrivateIpCount *int32 `json:"SecondaryPrivateIpCount,omitempty"`
-	// One or more IDs of security groups for the NIC, if you acreate a NIC when creating a VM.
+	// One or more IDs of security groups for the NIC, if you create a NIC when creating a VM.
 	SecurityGroupIds *[]string `json:"SecurityGroupIds,omitempty"`
-	// The ID of the Subnet for the NIC, if you create a NIC when creating a VM.
+	// The ID of the Subnet for the NIC, if you create a NIC when creating a VM. This parameter is required if you create a NIC when creating the VM.
 	SubnetId *string `json:"SubnetId,omitempty"`
 }
 

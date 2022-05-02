@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **QueryPayloadRaw** | Pointer to **bool** | If set to true, the raw payload of the HTTP request is displayed. | [optional] 
 **QueryPayloadSize** | Pointer to **bool** | If set to true, the size of the raw payload of the HTTP request is displayed. | [optional] 
 **QueryUserAgent** | Pointer to **bool** | If set to true, the user agent of the HTTP request is displayed. | [optional] 
-**RequestId** | Pointer to **bool** | By default ot if set to true, the request ID is displayed. | [optional] 
+**RequestId** | Pointer to **bool** | By default or if set to true, the request ID is displayed. | [optional] 
 **ResponseSize** | Pointer to **bool** | If set to true, the size of the response is displayed. | [optional] 
 **ResponseStatusCode** | Pointer to **bool** | If set to true, the HTTP status code of the response is displayed. | [optional] 
 

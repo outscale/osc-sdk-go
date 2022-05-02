@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bsu** | Pointer to [**BsuToUpdateVm**](BsuToUpdateVm.md) |  | [optional] 
-**DeviceName** | Pointer to **string** | The name of the device. | [optional] 
+**DeviceName** | Pointer to **string** | The device name for the volume. For a root device, you must use &#x60;/dev/sda1&#x60;. For other volumes, you must use &#x60;/dev/sdX&#x60; or &#x60;/dev/xvdX&#x60; (where &#x60;X&#x60; is a letter between &#x60;b&#x60; and &#x60;z&#x60;). | [optional] 
 **NoDevice** | Pointer to **string** | Removes the device which is included in the block device mapping of the OMI. | [optional] 
 **VirtualDeviceName** | Pointer to **string** | The name of the virtual device (ephemeralN). | [optional] 
 

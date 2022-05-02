@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **string** | The state of the VPN connection (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **StaticRoutesOnly** | Pointer to **bool** | If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VPN connection. | [optional] 
+**VgwTelemetries** | Pointer to [**[]VgwTelemetry**](VgwTelemetry.md) | Information about the current state of one or more of the VPN tunnels. | [optional] 
 **VirtualGatewayId** | Pointer to **string** | The ID of the virtual gateway used on the OUTSCALE end of the connection. | [optional] 
 **VpnConnectionId** | Pointer to **string** | The ID of the VPN connection. | [optional] 
 **VpnOptions** | Pointer to [**VpnOptions**](VpnOptions.md) |  | [optional] 
@@ -208,6 +209,31 @@ SetTags sets Tags field to given value.
 `func (o *VpnConnection) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetVgwTelemetries
+
+`func (o *VpnConnection) GetVgwTelemetries() []VgwTelemetry`
+
+GetVgwTelemetries returns the VgwTelemetries field if non-nil, zero value otherwise.
+
+### GetVgwTelemetriesOk
+
+`func (o *VpnConnection) GetVgwTelemetriesOk() (*[]VgwTelemetry, bool)`
+
+GetVgwTelemetriesOk returns a tuple with the VgwTelemetries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVgwTelemetries
+
+`func (o *VpnConnection) SetVgwTelemetries(v []VgwTelemetry)`
+
+SetVgwTelemetries sets VgwTelemetries field to given value.
+
+### HasVgwTelemetries
+
+`func (o *VpnConnection) HasVgwTelemetries() bool`
+
+HasVgwTelemetries returns a boolean if a field has been set.
 
 ### GetVirtualGatewayId
 

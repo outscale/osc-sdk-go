@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BsuOptimized** | Pointer to **bool** | Indicates whether the VM is optimized for BSU I/O. | [optional] 
+**BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **MemorySizes** | Pointer to **[]float32** | The amounts of memory, in gibibytes (GiB). | [optional] 
 **VcoreCounts** | Pointer to **[]int32** | The numbers of vCores. | [optional] 
 **VmTypeNames** | Pointer to **[]string** | The names of the VM types. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 

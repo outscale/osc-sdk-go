@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DomainName** | Pointer to **string** | Specify a domain name (for example, MyCompany.com). You can specify only one domain name. | [optional] 
-**DomainNameServers** | Pointer to **[]string** | The IPs of domain name servers. If no IPs are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. | [optional] 
+**DomainName** | Pointer to **string** | Specify a domain name (for example, MyCompany.com). You can specify only one domain name. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
+**DomainNameServers** | Pointer to **[]string** | The IPs of domain name servers. If no IPs are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers. | [optional] 
+**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
 
 ## Methods
 
