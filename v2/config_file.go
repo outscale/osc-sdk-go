@@ -71,8 +71,18 @@ func LoadConfigFile(path *string) (*ConfigFile, error) {
 	return configFile, nil
 }
 
+func profile(profileName string) string {
+	if profileName == "" {
+		profileName = os.Getenv("OSC_PROFILE")
+	}
+	if profileName == "" {
+		profileName = "default"
+	}
+	return profileName
+}
+
 func (configFile *ConfigFile) Configuration(profileName string) (*Configuration, error) {
-	profile, ok := configFile.profiles[profileName]
+	profile, ok := configFile.profiles[profile(profileName)]
 	if !ok {
 		return nil, errors.New("profile not found for creating Context, did you load config file?")
 	}
