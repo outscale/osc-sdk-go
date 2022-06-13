@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllVms** | Pointer to **bool** | If true, includes the status of all VMs. By default or if set to false, only includes the status of running VMs. | [optional] 
+**AllVms** | Pointer to **bool** | If true, includes the status of all VMs. By default or if set to false, only includes the status of running VMs. | [optional] [default to false]
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersVmsState**](FiltersVmsState.md) |  | [optional] 
 

@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DomainName** | Pointer to **string** | Specify a domain name (for example, MyCompany.com). You can specify only one domain name. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
-**DomainNameServers** | Pointer to **[]string** | The IPs of domain name servers. If no IPs are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
+**DomainName** | Pointer to **string** | Specify a domain name (for example, &#x60;MyCompany.com&#x60;). You can specify only one domain name. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60;, &#x60;LogServers&#x60;, or &#x60;NtpServers&#x60;. | [optional] 
+**DomainNameServers** | Pointer to **[]string** | The IPs of domain name servers. If no IPs are specified, the &#x60;OutscaleProvidedDNS&#x60; value is set by default. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60;, &#x60;LogServers&#x60;, or &#x60;NtpServers&#x60;. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60; or &#x60;NtpServers&#x60;. | [optional] 
+**LogServers** | Pointer to **[]string** | The IPs of the log servers. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60;, &#x60;LogServers&#x60;, or &#x60;NtpServers&#x60;. | [optional] 
+**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers. You must specify at least one of the following parameters: &#x60;DomainName&#x60;, &#x60;DomainNameServers&#x60;, &#x60;LogServers&#x60;, or &#x60;NtpServers&#x60;. | [optional] 
 
 ## Methods
 
@@ -102,6 +103,31 @@ SetDryRun sets DryRun field to given value.
 `func (o *CreateDhcpOptionsRequest) HasDryRun() bool`
 
 HasDryRun returns a boolean if a field has been set.
+
+### GetLogServers
+
+`func (o *CreateDhcpOptionsRequest) GetLogServers() []string`
+
+GetLogServers returns the LogServers field if non-nil, zero value otherwise.
+
+### GetLogServersOk
+
+`func (o *CreateDhcpOptionsRequest) GetLogServersOk() (*[]string, bool)`
+
+GetLogServersOk returns a tuple with the LogServers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogServers
+
+`func (o *CreateDhcpOptionsRequest) SetLogServers(v []string)`
+
+SetLogServers sets LogServers field to given value.
+
+### HasLogServers
+
+`func (o *CreateDhcpOptionsRequest) HasLogServers() bool`
+
+HasLogServers returns a boolean if a field has been set.
 
 ### GetNtpServers
 

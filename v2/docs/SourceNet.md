@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | The account ID of the owner of the source Net. | [optional] 
-**IpRange** | Pointer to **string** | The IP range for the source Net, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
+**IpRange** | Pointer to **string** | The IP range for the source Net, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **NetId** | Pointer to **string** | The ID of the source Net. | [optional] 
 
 ## Methods

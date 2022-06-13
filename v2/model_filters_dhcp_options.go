@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -21,11 +21,13 @@ type FiltersDhcpOptions struct {
 	Default *bool `json:"Default,omitempty"`
 	// The IDs of the DHCP options sets.
 	DhcpOptionsSetIds *[]string `json:"DhcpOptionsSetIds,omitempty"`
-	// The domain name servers used for the DHCP options sets.
+	// The IPs of the domain name servers used for the DHCP options sets.
 	DomainNameServers *[]string `json:"DomainNameServers,omitempty"`
 	// The domain names used for the DHCP options sets.
 	DomainNames *[]string `json:"DomainNames,omitempty"`
-	// The Network Time Protocol (NTP) servers used for the DHCP options sets.
+	// The IPs of the log servers used for the DHCP options sets.
+	LogServers *[]string `json:"LogServers,omitempty"`
+	// The IPs of the Network Time Protocol (NTP) servers used for the DHCP options sets.
 	NtpServers *[]string `json:"NtpServers,omitempty"`
 	// The keys of the tags associated with the DHCP options sets.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -180,6 +182,38 @@ func (o *FiltersDhcpOptions) SetDomainNames(v []string) {
 	o.DomainNames = &v
 }
 
+// GetLogServers returns the LogServers field value if set, zero value otherwise.
+func (o *FiltersDhcpOptions) GetLogServers() []string {
+	if o == nil || o.LogServers == nil {
+		var ret []string
+		return ret
+	}
+	return *o.LogServers
+}
+
+// GetLogServersOk returns a tuple with the LogServers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FiltersDhcpOptions) GetLogServersOk() (*[]string, bool) {
+	if o == nil || o.LogServers == nil {
+		return nil, false
+	}
+	return o.LogServers, true
+}
+
+// HasLogServers returns a boolean if a field has been set.
+func (o *FiltersDhcpOptions) HasLogServers() bool {
+	if o != nil && o.LogServers != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLogServers gets a reference to the given []string and assigns it to the LogServers field.
+func (o *FiltersDhcpOptions) SetLogServers(v []string) {
+	o.LogServers = &v
+}
+
 // GetNtpServers returns the NtpServers field value if set, zero value otherwise.
 func (o *FiltersDhcpOptions) GetNtpServers() []string {
 	if o == nil || o.NtpServers == nil {
@@ -321,6 +355,9 @@ func (o FiltersDhcpOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.DomainNames != nil {
 		toSerialize["DomainNames"] = o.DomainNames
+	}
+	if o.LogServers != nil {
+		toSerialize["LogServers"] = o.LogServers
 	}
 	if o.NtpServers != nil {
 		toSerialize["NtpServers"] = o.NtpServers

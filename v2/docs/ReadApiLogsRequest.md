@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersApiLog**](FiltersApiLog.md) |  | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. | [optional] 
-**ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60;and &#x60;1000&#x60;, both included). By default, &#x60;100&#x60;. | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60;and &#x60;1000&#x60;, both included). By default, &#x60;100&#x60;. | [optional] [default to 100]
 **With** | Pointer to [**With**](With.md) |  | [optional] 
 
 ## Methods

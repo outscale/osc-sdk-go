@@ -543,6 +543,8 @@ docs/UpdateApiAccessRuleRequest.md
 docs/UpdateApiAccessRuleResponse.md
 docs/UpdateCaRequest.md
 docs/UpdateCaResponse.md
+docs/UpdateDirectLinkInterfaceRequest.md
+docs/UpdateDirectLinkInterfaceResponse.md
 docs/UpdateFlexibleGpuRequest.md
 docs/UpdateFlexibleGpuResponse.md
 docs/UpdateImageRequest.md
@@ -1046,6 +1048,8 @@ model_update_api_access_rule_request.go
 model_update_api_access_rule_response.go
 model_update_ca_request.go
 model_update_ca_response.go
+model_update_direct_link_interface_request.go
+model_update_direct_link_interface_response.go
 model_update_flexible_gpu_request.go
 model_update_flexible_gpu_response.go
 model_update_image_request.go

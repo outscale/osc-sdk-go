@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -17,13 +17,15 @@ import (
 
 // CreateDhcpOptionsRequest struct for CreateDhcpOptionsRequest
 type CreateDhcpOptionsRequest struct {
-	// Specify a domain name (for example, MyCompany.com). You can specify only one domain name. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers` or `NtpServers`.
+	// Specify a domain name (for example, `MyCompany.com`). You can specify only one domain name. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers`, `LogServers`, or `NtpServers`.
 	DomainName *string `json:"DomainName,omitempty"`
-	// The IPs of domain name servers. If no IPs are specified, the `OutscaleProvidedDNS` value is set by default. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers` or `NtpServers`.
+	// The IPs of domain name servers. If no IPs are specified, the `OutscaleProvidedDNS` value is set by default. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers`, `LogServers`, or `NtpServers`.
 	DomainNameServers *[]string `json:"DomainNameServers,omitempty"`
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
-	// The IPs of the Network Time Protocol (NTP) servers. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers` or `NtpServers`.
+	// The IPs of the log servers. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers`, `LogServers`, or `NtpServers`.
+	LogServers *[]string `json:"LogServers,omitempty"`
+	// The IPs of the Network Time Protocol (NTP) servers. You must specify at least one of the following parameters: `DomainName`, `DomainNameServers`, `LogServers`, or `NtpServers`.
 	NtpServers *[]string `json:"NtpServers,omitempty"`
 }
 
@@ -140,6 +142,38 @@ func (o *CreateDhcpOptionsRequest) SetDryRun(v bool) {
 	o.DryRun = &v
 }
 
+// GetLogServers returns the LogServers field value if set, zero value otherwise.
+func (o *CreateDhcpOptionsRequest) GetLogServers() []string {
+	if o == nil || o.LogServers == nil {
+		var ret []string
+		return ret
+	}
+	return *o.LogServers
+}
+
+// GetLogServersOk returns a tuple with the LogServers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateDhcpOptionsRequest) GetLogServersOk() (*[]string, bool) {
+	if o == nil || o.LogServers == nil {
+		return nil, false
+	}
+	return o.LogServers, true
+}
+
+// HasLogServers returns a boolean if a field has been set.
+func (o *CreateDhcpOptionsRequest) HasLogServers() bool {
+	if o != nil && o.LogServers != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLogServers gets a reference to the given []string and assigns it to the LogServers field.
+func (o *CreateDhcpOptionsRequest) SetLogServers(v []string) {
+	o.LogServers = &v
+}
+
 // GetNtpServers returns the NtpServers field value if set, zero value otherwise.
 func (o *CreateDhcpOptionsRequest) GetNtpServers() []string {
 	if o == nil || o.NtpServers == nil {
@@ -182,6 +216,9 @@ func (o CreateDhcpOptionsRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.DryRun != nil {
 		toSerialize["DryRun"] = o.DryRun
+	}
+	if o.LogServers != nil {
+		toSerialize["LogServers"] = o.LogServers
 	}
 	if o.NtpServers != nil {
 		toSerialize["NtpServers"] = o.NtpServers

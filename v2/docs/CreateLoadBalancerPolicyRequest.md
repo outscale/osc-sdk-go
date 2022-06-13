@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CookieExpirationPeriod** | Pointer to **int32** | The lifetime of the cookie, in seconds. If not specified, the default value of this parameter is 1, which means that the sticky session lasts for the duration of the browser session. | [optional] 
+**CookieExpirationPeriod** | Pointer to **int32** | The lifetime of the cookie, in seconds. If not specified, the default value of this parameter is &#x60;1&#x60;, which means that the sticky session lasts for the duration of the browser session. | [optional] 
 **CookieName** | Pointer to **string** | The name of the application cookie used for stickiness. This parameter is required if you create a stickiness policy based on an application-generated cookie. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LoadBalancerName** | **string** | The name of the load balancer for which you want to create a policy. | 

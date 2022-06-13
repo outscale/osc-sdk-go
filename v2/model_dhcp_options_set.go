@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -25,6 +25,8 @@ type DhcpOptionsSet struct {
 	DomainName *string `json:"DomainName,omitempty"`
 	// One or more IPs for the domain name servers.
 	DomainNameServers *[]string `json:"DomainNameServers,omitempty"`
+	// One or more IPs for the log servers.
+	LogServers *[]string `json:"LogServers,omitempty"`
 	// One or more IPs for the NTP servers.
 	NtpServers *[]string `json:"NtpServers,omitempty"`
 	// One or more tags associated with the DHCP options set.
@@ -176,6 +178,38 @@ func (o *DhcpOptionsSet) SetDomainNameServers(v []string) {
 	o.DomainNameServers = &v
 }
 
+// GetLogServers returns the LogServers field value if set, zero value otherwise.
+func (o *DhcpOptionsSet) GetLogServers() []string {
+	if o == nil || o.LogServers == nil {
+		var ret []string
+		return ret
+	}
+	return *o.LogServers
+}
+
+// GetLogServersOk returns a tuple with the LogServers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DhcpOptionsSet) GetLogServersOk() (*[]string, bool) {
+	if o == nil || o.LogServers == nil {
+		return nil, false
+	}
+	return o.LogServers, true
+}
+
+// HasLogServers returns a boolean if a field has been set.
+func (o *DhcpOptionsSet) HasLogServers() bool {
+	if o != nil && o.LogServers != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLogServers gets a reference to the given []string and assigns it to the LogServers field.
+func (o *DhcpOptionsSet) SetLogServers(v []string) {
+	o.LogServers = &v
+}
+
 // GetNtpServers returns the NtpServers field value if set, zero value otherwise.
 func (o *DhcpOptionsSet) GetNtpServers() []string {
 	if o == nil || o.NtpServers == nil {
@@ -253,6 +287,9 @@ func (o DhcpOptionsSet) MarshalJSON() ([]byte, error) {
 	}
 	if o.DomainNameServers != nil {
 		toSerialize["DomainNameServers"] = o.DomainNameServers
+	}
+	if o.LogServers != nil {
+		toSerialize["LogServers"] = o.LogServers
 	}
 	if o.NtpServers != nil {
 		toSerialize["NtpServers"] = o.NtpServers
