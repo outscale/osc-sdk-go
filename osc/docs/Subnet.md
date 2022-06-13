@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AvailableIpsCount** | **int32** | The number of available IPs in the Subnets. | [optional] 
-**IpRange** | **string** | The IP range in the Subnet, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
+**IpRange** | **string** | The IP range in the Subnet, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **MapPublicIpOnLaunch** | **bool** | If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet. | [optional] 
 **NetId** | **string** | The ID of the Net in which the Subnet is. | [optional] 
 **State** | **string** | The state of the Subnet (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 

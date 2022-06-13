@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccepterNetAccountIds** | **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
-**AccepterNetIpRanges** | **[]string** | The IP ranges of the peer Nets, in CIDR notation (for example, 10.0.0.0/24). | [optional] 
+**AccepterNetIpRanges** | **[]string** | The IP ranges of the peer Nets, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **AccepterNetNetIds** | **[]string** | The IDs of the peer Nets. | [optional] 
 **NetPeeringIds** | **[]string** | The IDs of the Net peering connections. | [optional] 
 **SourceNetAccountIds** | **[]string** | The account IDs of the owners of the peer Nets. | [optional] 

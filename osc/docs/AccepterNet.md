@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | **string** | The account ID of the owner of the accepter Net. | [optional] 
-**IpRange** | **string** | The IP range for the accepter Net, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
+**IpRange** | **string** | The IP range for the accepter Net, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **NetId** | **string** | The ID of the accepter Net. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
