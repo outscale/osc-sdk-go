@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ExpirationDate** | Pointer to **string** | The date at which the server certificate expires. | [optional] 
 **Id** | Pointer to **string** | The ID of the server certificate. | [optional] 
 **Name** | Pointer to **string** | The name of the server certificate. | [optional] 
+**Orn** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns). | [optional] 
 **Path** | Pointer to **string** | The path to the server certificate. | [optional] 
 **UploadDate** | Pointer to **string** | The date at which the server certificate has been uploaded. | [optional] 
 
@@ -103,6 +104,31 @@ SetName sets Name field to given value.
 `func (o *ServerCertificate) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetOrn
+
+`func (o *ServerCertificate) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *ServerCertificate) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *ServerCertificate) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
+### HasOrn
+
+`func (o *ServerCertificate) HasOrn() bool`
+
+HasOrn returns a boolean if a field has been set.
 
 ### GetPath
 

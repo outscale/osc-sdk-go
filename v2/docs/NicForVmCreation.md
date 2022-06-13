@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DeleteOnVmDeletion** | Pointer to **bool** | If true, the NIC is deleted when the VM is terminated. You can specify this parameter only for a new NIC. To modify this value for an existing NIC, see [UpdateNic](#updatenic). | [optional] 
 **Description** | Pointer to **string** | The description of the NIC, if you are creating a NIC when creating the VM. | [optional] 
-**DeviceNumber** | Pointer to **int32** | The index of the VM device for the NIC attachment (between 0 and 7, both included). This parameter is required if you create a NIC when creating the VM. | [optional] 
+**DeviceNumber** | Pointer to **int32** | The index of the VM device for the NIC attachment (between &#x60;0&#x60; and &#x60;7&#x60;, both included). This parameter is required if you create a NIC when creating the VM. | [optional] 
 **NicId** | Pointer to **string** | The ID of the NIC, if you are attaching an existing NIC when creating a VM. | [optional] 
 **PrivateIps** | Pointer to [**[]PrivateIpLight**](PrivateIpLight.md) | One or more private IPs to assign to the NIC, if you create a NIC when creating a VM. Only one private IP can be the primary private IP. | [optional] 
 **SecondaryPrivateIpCount** | Pointer to **int32** | The number of secondary private IPs, if you create a NIC when creating a VM. This parameter cannot be specified if you specified more than one private IP in the &#x60;PrivateIps&#x60; parameter. | [optional] 

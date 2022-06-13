@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreationMethod** | Pointer to **string** | The method used to create the route. | [optional] 
-**DestinationIpRange** | Pointer to **string** | The IP range used for the destination match, in CIDR notation (for example, 10.0.0.0/24). | [optional] 
+**DestinationIpRange** | Pointer to **string** | The IP range used for the destination match, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **DestinationServiceId** | Pointer to **string** | The ID of the OUTSCALE service. | [optional] 
 **GatewayId** | Pointer to **string** | The ID of the Internet service or virtual gateway attached to the Net. | [optional] 
 **NatServiceId** | Pointer to **string** | The ID of a NAT service attached to the Net. | [optional] 

@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -15,39 +15,39 @@ import (
 	"encoding/json"
 )
 
-// With The information to display in each returned log. If this parameter is not specified, all available response elements are displayed. If this parameter is specified, by default `AccountId` and `RequestId` are also included in the response, unless you explicitly specify them as false.
+// With The information to display in each returned log.
 type With struct {
 	// By default or if set to true, the account ID is displayed.
 	AccountId *bool `json:"AccountId,omitempty"`
-	// If set to true, the duration of the call is displayed.
+	// By default or if set to true, the duration of the call is displayed.
 	CallDuration *bool `json:"CallDuration,omitempty"`
-	// If set to true, the access key is displayed.
+	// By default or if set to true, the access key is displayed.
 	QueryAccessKey *bool `json:"QueryAccessKey,omitempty"`
-	// If set to true, the name of the API is displayed.
+	// By default or if set to true, the name of the API is displayed.
 	QueryApiName *bool `json:"QueryApiName,omitempty"`
-	// If set to true, the version of the API is displayed.
+	// By default or if set to true, the version of the API is displayed.
 	QueryApiVersion *bool `json:"QueryApiVersion,omitempty"`
-	// If set to true, the name of the call is displayed.
+	// By default or if set to true, the name of the call is displayed.
 	QueryCallName *bool `json:"QueryCallName,omitempty"`
-	// If set to true, the date of the call is displayed.
+	// By default or if set to true, the date of the call is displayed.
 	QueryDate *bool `json:"QueryDate,omitempty"`
-	// If set to true, the raw header of the HTTP request is displayed.
+	// By default or if set to true, the raw header of the HTTP request is displayed.
 	QueryHeaderRaw *bool `json:"QueryHeaderRaw,omitempty"`
-	// If set to true, the size of the raw header of the HTTP request is displayed.
+	// By default or if set to true, the size of the raw header of the HTTP request is displayed.
 	QueryHeaderSize *bool `json:"QueryHeaderSize,omitempty"`
-	// If set to true, the IP is displayed.
+	// By default or if set to true, the IP is displayed.
 	QueryIpAddress *bool `json:"QueryIpAddress,omitempty"`
-	// If set to true, the raw payload of the HTTP request is displayed.
+	// By default or if set to true, the raw payload of the HTTP request is displayed.
 	QueryPayloadRaw *bool `json:"QueryPayloadRaw,omitempty"`
-	// If set to true, the size of the raw payload of the HTTP request is displayed.
+	// By default or if set to true, the size of the raw payload of the HTTP request is displayed.
 	QueryPayloadSize *bool `json:"QueryPayloadSize,omitempty"`
-	// If set to true, the user agent of the HTTP request is displayed.
+	// By default or if set to true, the user agent of the HTTP request is displayed.
 	QueryUserAgent *bool `json:"QueryUserAgent,omitempty"`
 	// By default or if set to true, the request ID is displayed.
 	RequestId *bool `json:"RequestId,omitempty"`
-	// If set to true, the size of the response is displayed.
+	// By default or if set to true, the size of the response is displayed.
 	ResponseSize *bool `json:"ResponseSize,omitempty"`
-	// If set to true, the HTTP status code of the response is displayed.
+	// By default or if set to true, the HTTP status code of the response is displayed.
 	ResponseStatusCode *bool `json:"ResponseStatusCode,omitempty"`
 }
 
@@ -57,6 +57,38 @@ type With struct {
 // will change when the set of required properties is changed
 func NewWith() *With {
 	this := With{}
+	var accountId bool = true
+	this.AccountId = &accountId
+	var callDuration bool = true
+	this.CallDuration = &callDuration
+	var queryAccessKey bool = true
+	this.QueryAccessKey = &queryAccessKey
+	var queryApiName bool = true
+	this.QueryApiName = &queryApiName
+	var queryApiVersion bool = true
+	this.QueryApiVersion = &queryApiVersion
+	var queryCallName bool = true
+	this.QueryCallName = &queryCallName
+	var queryDate bool = true
+	this.QueryDate = &queryDate
+	var queryHeaderRaw bool = true
+	this.QueryHeaderRaw = &queryHeaderRaw
+	var queryHeaderSize bool = true
+	this.QueryHeaderSize = &queryHeaderSize
+	var queryIpAddress bool = true
+	this.QueryIpAddress = &queryIpAddress
+	var queryPayloadRaw bool = true
+	this.QueryPayloadRaw = &queryPayloadRaw
+	var queryPayloadSize bool = true
+	this.QueryPayloadSize = &queryPayloadSize
+	var queryUserAgent bool = true
+	this.QueryUserAgent = &queryUserAgent
+	var requestId bool = true
+	this.RequestId = &requestId
+	var responseSize bool = true
+	this.ResponseSize = &responseSize
+	var responseStatusCode bool = true
+	this.ResponseStatusCode = &responseStatusCode
 	return &this
 }
 
@@ -65,6 +97,38 @@ func NewWith() *With {
 // but it doesn't guarantee that properties required by API are set
 func NewWithWithDefaults() *With {
 	this := With{}
+	var accountId bool = true
+	this.AccountId = &accountId
+	var callDuration bool = true
+	this.CallDuration = &callDuration
+	var queryAccessKey bool = true
+	this.QueryAccessKey = &queryAccessKey
+	var queryApiName bool = true
+	this.QueryApiName = &queryApiName
+	var queryApiVersion bool = true
+	this.QueryApiVersion = &queryApiVersion
+	var queryCallName bool = true
+	this.QueryCallName = &queryCallName
+	var queryDate bool = true
+	this.QueryDate = &queryDate
+	var queryHeaderRaw bool = true
+	this.QueryHeaderRaw = &queryHeaderRaw
+	var queryHeaderSize bool = true
+	this.QueryHeaderSize = &queryHeaderSize
+	var queryIpAddress bool = true
+	this.QueryIpAddress = &queryIpAddress
+	var queryPayloadRaw bool = true
+	this.QueryPayloadRaw = &queryPayloadRaw
+	var queryPayloadSize bool = true
+	this.QueryPayloadSize = &queryPayloadSize
+	var queryUserAgent bool = true
+	this.QueryUserAgent = &queryUserAgent
+	var requestId bool = true
+	this.RequestId = &requestId
+	var responseSize bool = true
+	this.ResponseSize = &responseSize
+	var responseStatusCode bool = true
+	this.ResponseStatusCode = &responseStatusCode
 	return &this
 }
 

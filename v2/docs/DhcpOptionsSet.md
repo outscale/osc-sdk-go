@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DhcpOptionsSetId** | Pointer to **string** | The ID of the DHCP options set. | [optional] 
 **DomainName** | Pointer to **string** | The domain name. | [optional] 
 **DomainNameServers** | Pointer to **[]string** | One or more IPs for the domain name servers. | [optional] 
+**LogServers** | Pointer to **[]string** | One or more IPs for the log servers. | [optional] 
 **NtpServers** | Pointer to **[]string** | One or more IPs for the NTP servers. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the DHCP options set. | [optional] 
 
@@ -129,6 +130,31 @@ SetDomainNameServers sets DomainNameServers field to given value.
 `func (o *DhcpOptionsSet) HasDomainNameServers() bool`
 
 HasDomainNameServers returns a boolean if a field has been set.
+
+### GetLogServers
+
+`func (o *DhcpOptionsSet) GetLogServers() []string`
+
+GetLogServers returns the LogServers field if non-nil, zero value otherwise.
+
+### GetLogServersOk
+
+`func (o *DhcpOptionsSet) GetLogServersOk() (*[]string, bool)`
+
+GetLogServersOk returns a tuple with the LogServers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogServers
+
+`func (o *DhcpOptionsSet) SetLogServers(v []string)`
+
+SetLogServers sets LogServers field to given value.
+
+### HasLogServers
+
+`func (o *DhcpOptionsSet) HasLogServers() bool`
+
+HasLogServers returns a boolean if a field has been set.
 
 ### GetNtpServers
 

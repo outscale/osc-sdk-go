@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**LocationCode** | Pointer to **string** | The location code of the Subregion. | [optional] 
 **RegionName** | Pointer to **string** | The name of the Region containing the Subregion. | [optional] 
 **State** | Pointer to **string** | The state of the Subregion (&#x60;available&#x60; \\| &#x60;information&#x60; \\| &#x60;impaired&#x60; \\| &#x60;unavailable&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 
@@ -26,6 +27,31 @@ will change when the set of required properties is changed
 NewSubregionWithDefaults instantiates a new Subregion object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetLocationCode
+
+`func (o *Subregion) GetLocationCode() string`
+
+GetLocationCode returns the LocationCode field if non-nil, zero value otherwise.
+
+### GetLocationCodeOk
+
+`func (o *Subregion) GetLocationCodeOk() (*string, bool)`
+
+GetLocationCodeOk returns a tuple with the LocationCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLocationCode
+
+`func (o *Subregion) SetLocationCode(v string)`
+
+SetLocationCode sets LocationCode field to given value.
+
+### HasLocationCode
+
+`func (o *Subregion) HasLocationCode() bool`
+
+HasLocationCode returns a boolean if a field has been set.
 
 ### GetRegionName
 

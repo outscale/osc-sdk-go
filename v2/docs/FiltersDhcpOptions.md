@@ -6,9 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Default** | Pointer to **bool** | If true, lists all default DHCP options set. If false, lists all non-default DHCP options set. | [optional] 
 **DhcpOptionsSetIds** | Pointer to **[]string** | The IDs of the DHCP options sets. | [optional] 
-**DomainNameServers** | Pointer to **[]string** | The domain name servers used for the DHCP options sets. | [optional] 
+**DomainNameServers** | Pointer to **[]string** | The IPs of the domain name servers used for the DHCP options sets. | [optional] 
 **DomainNames** | Pointer to **[]string** | The domain names used for the DHCP options sets. | [optional] 
-**NtpServers** | Pointer to **[]string** | The Network Time Protocol (NTP) servers used for the DHCP options sets. | [optional] 
+**LogServers** | Pointer to **[]string** | The IPs of the log servers used for the DHCP options sets. | [optional] 
+**NtpServers** | Pointer to **[]string** | The IPs of the Network Time Protocol (NTP) servers used for the DHCP options sets. | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the DHCP options sets. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the DHCP options sets. | [optional] 
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the DHCP options sets, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
@@ -131,6 +132,31 @@ SetDomainNames sets DomainNames field to given value.
 `func (o *FiltersDhcpOptions) HasDomainNames() bool`
 
 HasDomainNames returns a boolean if a field has been set.
+
+### GetLogServers
+
+`func (o *FiltersDhcpOptions) GetLogServers() []string`
+
+GetLogServers returns the LogServers field if non-nil, zero value otherwise.
+
+### GetLogServersOk
+
+`func (o *FiltersDhcpOptions) GetLogServersOk() (*[]string, bool)`
+
+GetLogServersOk returns a tuple with the LogServers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogServers
+
+`func (o *FiltersDhcpOptions) SetLogServers(v []string)`
+
+SetLogServers sets LogServers field to given value.
+
+### HasLogServers
+
+`func (o *FiltersDhcpOptions) HasLogServers() bool`
+
+HasLogServers returns a boolean if a field has been set.
 
 ### GetNtpServers
 

@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -21,6 +21,8 @@ type ReadConsumptionAccountRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 	// The beginning of the time period, in ISO 8601 date-time format (for example, `2017-06-14` or `2017-06-14T00:00:00Z`).
 	FromDate string `json:"FromDate"`
+	// By default or if true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account). If false, returns only the consumption of the specific account that sends this request.
+	Overall *bool `json:"Overall,omitempty"`
 	// The end of the time period, in ISO 8601 date-time format (for example, `2017-06-30` or `2017-06-30T00:00:00Z`).
 	ToDate string `json:"ToDate"`
 }
@@ -32,6 +34,8 @@ type ReadConsumptionAccountRequest struct {
 func NewReadConsumptionAccountRequest(fromDate string, toDate string) *ReadConsumptionAccountRequest {
 	this := ReadConsumptionAccountRequest{}
 	this.FromDate = fromDate
+	var overall bool = true
+	this.Overall = &overall
 	this.ToDate = toDate
 	return &this
 }
@@ -41,6 +45,8 @@ func NewReadConsumptionAccountRequest(fromDate string, toDate string) *ReadConsu
 // but it doesn't guarantee that properties required by API are set
 func NewReadConsumptionAccountRequestWithDefaults() *ReadConsumptionAccountRequest {
 	this := ReadConsumptionAccountRequest{}
+	var overall bool = true
+	this.Overall = &overall
 	return &this
 }
 
@@ -100,6 +106,38 @@ func (o *ReadConsumptionAccountRequest) SetFromDate(v string) {
 	o.FromDate = v
 }
 
+// GetOverall returns the Overall field value if set, zero value otherwise.
+func (o *ReadConsumptionAccountRequest) GetOverall() bool {
+	if o == nil || o.Overall == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Overall
+}
+
+// GetOverallOk returns a tuple with the Overall field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReadConsumptionAccountRequest) GetOverallOk() (*bool, bool) {
+	if o == nil || o.Overall == nil {
+		return nil, false
+	}
+	return o.Overall, true
+}
+
+// HasOverall returns a boolean if a field has been set.
+func (o *ReadConsumptionAccountRequest) HasOverall() bool {
+	if o != nil && o.Overall != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOverall gets a reference to the given bool and assigns it to the Overall field.
+func (o *ReadConsumptionAccountRequest) SetOverall(v bool) {
+	o.Overall = &v
+}
+
 // GetToDate returns the ToDate field value
 func (o *ReadConsumptionAccountRequest) GetToDate() string {
 	if o == nil {
@@ -131,6 +169,9 @@ func (o ReadConsumptionAccountRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["FromDate"] = o.FromDate
+	}
+	if o.Overall != nil {
+		toSerialize["Overall"] = o.Overall
 	}
 	if true {
 		toSerialize["ToDate"] = o.ToDate

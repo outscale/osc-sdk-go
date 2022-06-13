@@ -1,9 +1,9 @@
 /*
  * 3DS OUTSCALE API
  *
- * Welcome to the OUTSCALE API documentation.<br /><br />  The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br />  Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but some resources have different names in AWS than in the OUTSCALE API. You can find a list of the differences [here](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html).<br /><br />  You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
+ * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.19
+ * API version: 1.20
  * Contact: support@outscale.com
  */
 
@@ -35,6 +35,8 @@ type DirectLinkInterfaces struct {
 	InterfaceType *string `json:"InterfaceType,omitempty"`
 	// The datacenter where the DirectLink interface is located.
 	Location *string `json:"Location,omitempty"`
+	// The maximum transmission unit (MTU) of the DirectLink interface, in bytes (by default, `1500`).
+	Mtu *int32 `json:"Mtu,omitempty"`
 	// The IP on the OUTSCALE side of the DirectLink interface.
 	OutscalePrivateIp *string `json:"OutscalePrivateIp,omitempty"`
 	// The state of the DirectLink interface (`pending` \\| `available` \\| `deleting` \\| `deleted` \\| `confirming` \\| `rejected` \\| `expired`).
@@ -350,6 +352,38 @@ func (o *DirectLinkInterfaces) SetLocation(v string) {
 	o.Location = &v
 }
 
+// GetMtu returns the Mtu field value if set, zero value otherwise.
+func (o *DirectLinkInterfaces) GetMtu() int32 {
+	if o == nil || o.Mtu == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Mtu
+}
+
+// GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DirectLinkInterfaces) GetMtuOk() (*int32, bool) {
+	if o == nil || o.Mtu == nil {
+		return nil, false
+	}
+	return o.Mtu, true
+}
+
+// HasMtu returns a boolean if a field has been set.
+func (o *DirectLinkInterfaces) HasMtu() bool {
+	if o != nil && o.Mtu != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *DirectLinkInterfaces) SetMtu(v int32) {
+	o.Mtu = &v
+}
+
 // GetOutscalePrivateIp returns the OutscalePrivateIp field value if set, zero value otherwise.
 func (o *DirectLinkInterfaces) GetOutscalePrivateIp() string {
 	if o == nil || o.OutscalePrivateIp == nil {
@@ -506,6 +540,9 @@ func (o DirectLinkInterfaces) MarshalJSON() ([]byte, error) {
 	}
 	if o.Location != nil {
 		toSerialize["Location"] = o.Location
+	}
+	if o.Mtu != nil {
+		toSerialize["Mtu"] = o.Mtu
 	}
 	if o.OutscalePrivateIp != nil {
 		toSerialize["OutscalePrivateIp"] = o.OutscalePrivateIp

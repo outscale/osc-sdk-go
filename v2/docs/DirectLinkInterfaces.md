@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **DirectLinkInterfaceName** | Pointer to **string** | The name of the DirectLink interface. | [optional] 
 **InterfaceType** | Pointer to **string** | The type of the DirectLink interface (always &#x60;private&#x60;). | [optional] 
 **Location** | Pointer to **string** | The datacenter where the DirectLink interface is located. | [optional] 
+**Mtu** | Pointer to **int32** | The maximum transmission unit (MTU) of the DirectLink interface, in bytes (by default, &#x60;1500&#x60;). | [optional] 
 **OutscalePrivateIp** | Pointer to **string** | The IP on the OUTSCALE side of the DirectLink interface. | [optional] 
 **State** | Pointer to **string** | The state of the DirectLink interface (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60; \\| &#x60;confirming&#x60; \\| &#x60;rejected&#x60; \\| &#x60;expired&#x60;). | [optional] 
 **VirtualGatewayId** | Pointer to **string** | The ID of the target virtual gateway. | [optional] 
@@ -261,6 +262,31 @@ SetLocation sets Location field to given value.
 `func (o *DirectLinkInterfaces) HasLocation() bool`
 
 HasLocation returns a boolean if a field has been set.
+
+### GetMtu
+
+`func (o *DirectLinkInterfaces) GetMtu() int32`
+
+GetMtu returns the Mtu field if non-nil, zero value otherwise.
+
+### GetMtuOk
+
+`func (o *DirectLinkInterfaces) GetMtuOk() (*int32, bool)`
+
+GetMtuOk returns a tuple with the Mtu field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMtu
+
+`func (o *DirectLinkInterfaces) SetMtu(v int32)`
+
+SetMtu sets Mtu field to given value.
+
+### HasMtu
+
+`func (o *DirectLinkInterfaces) HasMtu() bool`
+
+HasMtu returns a boolean if a field has been set.
 
 ### GetOutscalePrivateIp
 

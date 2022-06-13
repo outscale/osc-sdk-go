@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **SecurityGroupAccountIdToLink** | Pointer to **string** | The account ID of the owner of the security group for which you want to create a rule. | [optional] 
 **SecurityGroupId** | **string** | The ID of the security group for which you want to create a rule. | 
 **SecurityGroupNameToLink** | Pointer to **string** | The ID of the source security group. If you are in the Public Cloud, you can also specify the name of the source security group. | [optional] 
-**ToPortRange** | Pointer to **int32** | The end of the port range for the TCP and UDP protocols, or an ICMP type number. If you specify this parameter, you cannot specify the &#x60;Rules&#x60; parameter and its subparameters. | [optional] 
+**ToPortRange** | Pointer to **int32** | The end of the port range for the TCP and UDP protocols, or an ICMP code number. If you specify this parameter, you cannot specify the &#x60;Rules&#x60; parameter and its subparameters. | [optional] 
 
 ## Methods
 
