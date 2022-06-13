@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DhcpOptionsSetIds** | **[]string** | The IDs of the DHCP options sets. | [optional] 
-**IpRanges** | **[]string** | The IP ranges for the Nets, in CIDR notation (for example, 10.0.0.0/16). | [optional] 
+**IpRanges** | **[]string** | The IP ranges for the Nets, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **IsDefault** | **bool** | If true, the Net used is the default one. | [optional] 
 **NetIds** | **[]string** | The IDs of the Nets. | [optional] 
 **States** | **[]string** | The states of the Nets (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 

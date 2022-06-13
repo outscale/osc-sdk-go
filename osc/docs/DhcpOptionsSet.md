@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DhcpOptionsSetId** | **string** | The ID of the DHCP options set. | [optional] 
 **DomainName** | **string** | The domain name. | [optional] 
 **DomainNameServers** | **[]string** | One or more IPs for the domain name servers. | [optional] 
+**LogServers** | **[]string** | One or more IPs for the log servers. | [optional] 
 **NtpServers** | **[]string** | One or more IPs for the NTP servers. | [optional] 
 **Tags** | [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the DHCP options set. | [optional] 
 

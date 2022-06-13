@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**IpRange** | **string** | The IP range in the Subnet, in CIDR notation (for example, 10.0.0.0/16). | 
+**IpRange** | **string** | The IP range in the Subnet, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | 
 **NetId** | **string** | The ID of the Net for which you want to create a Subnet. | 
 **SubregionName** | **string** | The name of the Subregion in which you want to create the Subnet. | [optional] 
 

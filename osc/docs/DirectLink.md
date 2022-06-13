@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | **string** | The account ID of the owner of the DirectLink. | [optional] 
 **Bandwidth** | **string** | The physical link bandwidth (either 1 Gbps or 10 Gbps). | [optional] 
-**DirectLinkId** | **string** | The ID of the DirectLink (for example, dxcon-xxxxxxxx). | [optional] 
+**DirectLinkId** | **string** | The ID of the DirectLink (for example, &#x60;dxcon-xxxxxxxx&#x60;). | [optional] 
 **DirectLinkName** | **string** | The name of the DirectLink. | [optional] 
 **Location** | **string** | The datacenter where the DirectLink is located. | [optional] 
 **RegionName** | **string** | The Region in which the DirectLink has been created. | [optional] 

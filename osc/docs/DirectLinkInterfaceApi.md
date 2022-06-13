@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateDirectLinkInterface**](DirectLinkInterfaceApi.md#CreateDirectLinkInterface) | **Post** /CreateDirectLinkInterface | 
 [**DeleteDirectLinkInterface**](DirectLinkInterfaceApi.md#DeleteDirectLinkInterface) | **Post** /DeleteDirectLinkInterface | 
 [**ReadDirectLinkInterfaces**](DirectLinkInterfaceApi.md#ReadDirectLinkInterfaces) | **Post** /ReadDirectLinkInterfaces | 
+[**UpdateDirectLinkInterface**](DirectLinkInterfaceApi.md#UpdateDirectLinkInterface) | **Post** /UpdateDirectLinkInterface | 
 
 
 
@@ -118,6 +119,47 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadDirectLinkInterfacesResponse**](ReadDirectLinkInterfacesResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateDirectLinkInterface
+
+> UpdateDirectLinkInterfaceResponse UpdateDirectLinkInterface(ctx, optional)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***UpdateDirectLinkInterfaceOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a UpdateDirectLinkInterfaceOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateDirectLinkInterfaceRequest** | [**optional.Interface of UpdateDirectLinkInterfaceRequest**](UpdateDirectLinkInterfaceRequest.md)|  | 
+
+### Return type
+
+[**UpdateDirectLinkInterfaceResponse**](UpdateDirectLinkInterfaceResponse.md)
 
 ### Authorization
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**LocationCode** | **string** | The location code of the Subregion. | [optional] 
 **RegionName** | **string** | The name of the Region containing the Subregion. | [optional] 
 **State** | **string** | The state of the Subregion (&#x60;available&#x60; \\| &#x60;information&#x60; \\| &#x60;impaired&#x60; \\| &#x60;unavailable&#x60;). | [optional] 
 **SubregionName** | **string** | The name of the Subregion. | [optional] 

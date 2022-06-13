@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteOnVmDeletion** | **bool** | By default or if set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM. | [optional] 
+**DeleteOnVmDeletion** | **bool** | By default or if set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM. | [optional] [default to true]
 **Iops** | **int32** | The number of I/O operations per second (IOPS). This parameter must be specified only if you create an &#x60;io1&#x60; volume. The maximum number of IOPS allowed for &#x60;io1&#x60; volumes is &#x60;13000&#x60;. | [optional] 
 **SnapshotId** | **string** | The ID of the snapshot used to create the volume. | [optional] 
 **VolumeSize** | **int32** | The size of the volume, in gibibytes (GiB).&lt;br /&gt; If you specify a snapshot ID, the volume size must be at least equal to the snapshot size.&lt;br /&gt; If you specify a snapshot ID but no volume size, the volume is created with a size similar to the snapshot one. | [optional] 
