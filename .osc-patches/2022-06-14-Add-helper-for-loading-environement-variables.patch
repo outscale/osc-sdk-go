@@ -1,0 +1,226 @@
+From 333d606fd1c90e70f14281fa32c18be8d68feb37 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=B4me=20Jutteau?= <jerome.jutteau@outscale.com>
+Date: Tue, 14 Jun 2022 14:42:10 +0200
+Subject: [PATCH] Add helper for loading environement variables
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jérôme Jutteau <jerome.jutteau@outscale.com>
+---
+ v2/config_env.go      | 114 ++++++++++++++++++++++++++++++++++++++++++
+ v2/config_env_test.go |  81 ++++++++++++++++++++++++++++++
+ 2 files changed, 195 insertions(+)
+ create mode 100644 v2/config_env.go
+ create mode 100644 v2/config_env_test.go
+
+diff --git a/v2/config_env.go b/v2/config_env.go
+new file mode 100644
+index 00000000..f41fe3ff
+--- /dev/null
++++ b/v2/config_env.go
+@@ -0,0 +1,114 @@
++package osc
++
++import (
++	"context"
++	"errors"
++	"os"
++)
++
++type ConfigEnv struct {
++	AccessKey           *string
++	SecretKey           *string
++	OutscaleApiEndpoint *string
++	ProfileName         *string
++	Region              *string
++}
++
++func NewConfigEnv() *ConfigEnv {
++	var configEnv ConfigEnv
++	if value, present := os.LookupEnv("OSC_ACCESS_KEY"); present {
++		configEnv.AccessKey = &value
++	}
++	if value, present := os.LookupEnv("OSC_SECRET_KEY"); present {
++		configEnv.SecretKey = &value
++	}
++	if value, present := os.LookupEnv("OSC_ENDPOINT_API"); present {
++		configEnv.OutscaleApiEndpoint = &value
++	}
++	if value, present := os.LookupEnv("OSC_PROFILE"); present {
++		configEnv.ProfileName = &value
++	}
++	if value, present := os.LookupEnv("OSC_REGION"); present {
++		configEnv.Region = &value
++	}
++	return &configEnv
++}
++
++func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
++	var config *Configuration
++
++	if configEnv.ProfileName != nil {
++		configFile, err := LoadDefaultConfigFile()
++		if err != nil {
++			return nil, err
++		}
++		config, err = configFile.Configuration(*configEnv.ProfileName)
++		if err != nil {
++			return nil, err
++		}
++	} else {
++		config = NewConfiguration()
++		default_region := "eu-west-2"
++		config.Servers = ServerConfigurations{
++			{
++				URL:         "https://api.{region}.outscale.com/api/v1",
++				Description: "Loaded from profile",
++				Variables: map[string]ServerVariable{
++					"region": ServerVariable{
++						Description:  "Loaded from env variables",
++						DefaultValue: default_region,
++						EnumValues:   []string{default_region},
++					},
++				},
++			},
++		}
++	}
++
++	// Overload with remaining environement variable values
++	if configEnv.OutscaleApiEndpoint != nil {
++		config.Servers[0].URL = *configEnv.OutscaleApiEndpoint
++	}
++
++	if configEnv.Region != nil && len(config.Servers) > 0 {
++		config.Servers[0].Variables["region"] = ServerVariable{
++			Description:  "Loaded from env variables",
++			DefaultValue: *configEnv.Region,
++			EnumValues:   []string{*configEnv.Region},
++		}
++	}
++	return config, nil
++}
++
++func (configEnv *ConfigEnv) Context(ctx context.Context) (context.Context, error) {
++	var accessKey *string
++	var secretKey *string
++
++	if configEnv.ProfileName != nil {
++		configFile, err := LoadDefaultConfigFile()
++		if err != nil {
++			return nil, err
++		}
++		profile, ok := configFile.profiles[*configEnv.ProfileName]
++		if !ok {
++			return nil, errors.New("profile not found for creating Context, did you load config file?")
++		}
++		accessKey = &profile.AccessKey
++		secretKey = &profile.SecretKey
++	}
++	// Overload with environement variable values
++	if configEnv.AccessKey != nil {
++		accessKey = configEnv.AccessKey
++	}
++	if configEnv.SecretKey != nil {
++		secretKey = configEnv.SecretKey
++	}
++
++	if accessKey == nil || len(*accessKey) == 0 || secretKey == nil || len(*secretKey) == 0 {
++		return ctx, nil
++	}
++	ctx = context.WithValue(ctx, ContextAWSv4, AWSv4{
++		AccessKey: *accessKey,
++		SecretKey: *secretKey,
++	})
++	return ctx, nil
++}
+diff --git a/v2/config_env_test.go b/v2/config_env_test.go
+new file mode 100644
+index 00000000..30611ea6
+--- /dev/null
++++ b/v2/config_env_test.go
+@@ -0,0 +1,81 @@
++package osc
++
++import (
++	"context"
++	"fmt"
++	"os"
++	"path"
++	"testing"
++)
++
++func TestEnvVariablesAkSk(t *testing.T) {
++	configEnv := NewConfigEnv()
++	config, err := configEnv.Configuration()
++	if err != nil {
++		t.Fatalf("Cannot create configutation: %s", err.Error())
++	}
++	ctx, err := configEnv.Context(context.Background())
++	if err != nil {
++		t.Fatalf("Cannot create context for making a query: %s", err.Error())
++	}
++	testConfAndContextOk(t, config, &ctx)
++}
++
++func TestEnvVariablesWithProfile(t *testing.T) {
++	if err := os.Setenv("OSC_PROFILE", "SomeProfile"); err != nil {
++		t.Fatalf("Cannot set OSC_PROFILE: %s", err.Error())
++	}
++	ak := os.Getenv("OSC_ACCESS_KEY")
++	sk := os.Getenv("OSC_SECRET_KEY")
++	region := os.Getenv("OSC_REGION")
++	os.Unsetenv("OSC_ACCESS_KEY")
++	os.Unsetenv("OSC_SECRET_KEY")
++	os.Unsetenv("OSC_REGION")
++	defer os.Setenv("OSC_ACCESS_KEY", ak)
++	defer os.Setenv("OSC_SECRET_KEY", sk)
++	defer os.Setenv("OSC_REGION", region)
++
++	home, err := os.UserHomeDir()
++	if err != nil {
++		t.Fatalf("Cannot get user home dir: %s", err.Error())
++	}
++	configFolderPath := path.Join(home, ".osc")
++	configPath := path.Join(configFolderPath, "config.json")
++
++	os.RemoveAll(configFolderPath)
++	if err := os.Mkdir(configFolderPath, os.ModePerm); err != nil {
++		t.Fatalf("Cannot create .osc folder: %s", err.Error())
++	}
++	defer os.RemoveAll(configFolderPath)
++
++	content := fmt.Sprintf(`{
++		"SomeProfile": {
++			"access_key": "%s",
++			"secret_key": "%s",
++			"endpoints": {
++				"api": "api.%s.outscale.com/api/v1"
++			}
++		}}`, ak, sk, region)
++	if err := testDumpToFile(configPath, content); err != nil {
++		t.Fatalf("Error: %s", err.Error())
++	}
++
++	configEnv := NewConfigEnv()
++	config, err := configEnv.Configuration()
++	if err != nil {
++		t.Fatalf("Cannot create configutation: %s", err.Error())
++	}
++	ctx, err := configEnv.Context(context.Background())
++	if err != nil {
++		t.Fatalf("Cannot create context for making a query: %s", err.Error())
++	}
++	testConfAndContextOk(t, config, &ctx)
++}
++
++func testConfAndContextOk(t *testing.T, config *Configuration, ctx *context.Context) {
++	client := NewAPIClient(config)
++	_, _, err := client.SubregionApi.ReadSubregions(*ctx).ReadSubregionsRequest(ReadSubregionsRequest{}).Execute()
++	if err != nil {
++		t.Fatalf("Cannot call ReadSubregions: %s", err.Error())
++	}
++}
+-- 
+2.36.1
+
