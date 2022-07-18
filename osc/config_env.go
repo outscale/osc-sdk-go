@@ -33,11 +33,13 @@ import (
 )
 
 type ConfigEnv struct {
-	AccessKey           *string
-	SecretKey           *string
-	OutscaleApiEndpoint *string
-	ProfileName         *string
-	Region              *string
+	AccessKey		*string
+	SecretKey		*string
+	X509certPath		*string
+	X509keyPath		*string
+	OutscaleApiEndpoint	*string
+	ProfileName		*string
+	Region			*string
 }
 
 func NewConfigEnv() *ConfigEnv {
@@ -56,6 +58,12 @@ func NewConfigEnv() *ConfigEnv {
 	}
 	if value, present := os.LookupEnv("OSC_REGION"); present {
 		configEnv.Region = &value
+	}
+	if value, present := os.LookupEnv("OSC_X509_CLIENT_CERT"); present {
+		configEnv.X509certPath = &value
+	}
+	if value, present := os.LookupEnv("OSC_X509_CLIENT_KEY"); present {
+		configEnv.X509keyPath = &value
 	}
 	return &configEnv
 }
