@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **IsSourceDestChecked** | Pointer to **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. This value must be false for a NAT VM to perform network address translation (NAT) in a Net. | [optional] 
 **KeypairName** | Pointer to **string** | The name of the keypair used when launching the VM. | [optional] 
 **LaunchNumber** | Pointer to **int32** | The number for the VM when launching a group of several VMs (for example, &#x60;0&#x60;, &#x60;1&#x60;, &#x60;2&#x60;, and so on). | [optional] 
+**NestedVirtualization** | Pointer to **bool** | If true, nested virtualization is enabled. If false, it is disabled. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net in which the VM is running. | [optional] 
 **Nics** | Pointer to [**[]NicLight**](NicLight.md) | (Net only) The network interface cards (NICs) the VMs are attached to. | [optional] 
 **OsFamily** | Pointer to **string** | Indicates the operating system (OS) of the VM. | [optional] 
@@ -331,6 +332,31 @@ SetLaunchNumber sets LaunchNumber field to given value.
 `func (o *Vm) HasLaunchNumber() bool`
 
 HasLaunchNumber returns a boolean if a field has been set.
+
+### GetNestedVirtualization
+
+`func (o *Vm) GetNestedVirtualization() bool`
+
+GetNestedVirtualization returns the NestedVirtualization field if non-nil, zero value otherwise.
+
+### GetNestedVirtualizationOk
+
+`func (o *Vm) GetNestedVirtualizationOk() (*bool, bool)`
+
+GetNestedVirtualizationOk returns a tuple with the NestedVirtualization field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNestedVirtualization
+
+`func (o *Vm) SetNestedVirtualization(v bool)`
+
+SetNestedVirtualization sets NestedVirtualization field to given value.
+
+### HasNestedVirtualization
+
+`func (o *Vm) HasNestedVirtualization() bool`
+
+HasNestedVirtualization returns a boolean if a field has been set.
 
 ### GetNetId
 
