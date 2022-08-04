@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.20
+ * API version: 1.21
  * Contact: support@outscale.com
  */
 
@@ -29,6 +29,8 @@ type UpdateLoadBalancerRequest struct {
 	PolicyNames *[]string `json:"PolicyNames,omitempty"`
 	// (internet-facing only) The public IP you want to associate with the load balancer. The former public IP of the load balancer is then disassociated. If you specify an empty string and the former public IP belonged to you, it is disassociated and replaced by a public IP owned by 3DS OUTSCALE.
 	PublicIp *string `json:"PublicIp,omitempty"`
+	// If true, secure cookies are enabled for the load balancer.
+	SecuredCookies *bool `json:"SecuredCookies,omitempty"`
 	// (Net only) One or more IDs of security groups you want to assign to the load balancer. You need to specify the already assigned security groups that you want to keep along with the new ones you are assigning. If the list is empty, the default security group of the Net is assigned to the load balancer.
 	SecurityGroups *[]string `json:"SecurityGroups,omitempty"`
 	// The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > Outscale Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns). If this parameter is specified, you must also specify the `LoadBalancerPort` parameter.
@@ -269,6 +271,38 @@ func (o *UpdateLoadBalancerRequest) SetPublicIp(v string) {
 	o.PublicIp = &v
 }
 
+// GetSecuredCookies returns the SecuredCookies field value if set, zero value otherwise.
+func (o *UpdateLoadBalancerRequest) GetSecuredCookies() bool {
+	if o == nil || o.SecuredCookies == nil {
+		var ret bool
+		return ret
+	}
+	return *o.SecuredCookies
+}
+
+// GetSecuredCookiesOk returns a tuple with the SecuredCookies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateLoadBalancerRequest) GetSecuredCookiesOk() (*bool, bool) {
+	if o == nil || o.SecuredCookies == nil {
+		return nil, false
+	}
+	return o.SecuredCookies, true
+}
+
+// HasSecuredCookies returns a boolean if a field has been set.
+func (o *UpdateLoadBalancerRequest) HasSecuredCookies() bool {
+	if o != nil && o.SecuredCookies != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecuredCookies gets a reference to the given bool and assigns it to the SecuredCookies field.
+func (o *UpdateLoadBalancerRequest) SetSecuredCookies(v bool) {
+	o.SecuredCookies = &v
+}
+
 // GetSecurityGroups returns the SecurityGroups field value if set, zero value otherwise.
 func (o *UpdateLoadBalancerRequest) GetSecurityGroups() []string {
 	if o == nil || o.SecurityGroups == nil {
@@ -355,6 +389,9 @@ func (o UpdateLoadBalancerRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.PublicIp != nil {
 		toSerialize["PublicIp"] = o.PublicIp
+	}
+	if o.SecuredCookies != nil {
+		toSerialize["SecuredCookies"] = o.SecuredCookies
 	}
 	if o.SecurityGroups != nil {
 		toSerialize["SecurityGroups"] = o.SecurityGroups

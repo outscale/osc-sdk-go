@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **IpRange** | Pointer to **string** | The IP range in the Subnet, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **MapPublicIpOnLaunch** | Pointer to **bool** | If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net in which the Subnet is. | [optional] 
-**State** | Pointer to **string** | The state of the Subnet (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 
+**State** | Pointer to **string** | The state of the Subnet (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion in which the Subnet is located. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the Subnet. | [optional] 

@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.
  *
- * API version: 1.20
+ * API version: 1.21
  * Contact: support@outscale.com
  */
 
@@ -37,9 +37,11 @@ type CreateVmsRequest struct {
 	MaxVmsCount *int32 `json:"MaxVmsCount,omitempty"`
 	// The minimum number of VMs you want to create. If this number of VMs cannot be created, no VMs are created.
 	MinVmsCount *int32 `json:"MinVmsCount,omitempty"`
+	// (dedicated tenancy only) If true, nested virtualization is enabled. If false, it is disabled.
+	NestedVirtualization *bool `json:"NestedVirtualization,omitempty"`
 	// One or more NICs. If you specify this parameter, you must not specify the `SubnetId` and `SubregionName` parameters. You also must define one NIC as the primary network interface of the VM with `0` as its device number.
 	Nics *[]NicForVmCreation `json:"Nics,omitempty"`
-	// The performance of the VM (`medium` \\| `high` \\|  `highest`).
+	// The performance of the VM (`medium` \\| `high` \\|  `highest`). By default, `high`. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
 	Performance *string    `json:"Performance,omitempty"`
 	Placement   *Placement `json:"Placement,omitempty"`
 	// One or more private IPs of the VM.
@@ -54,7 +56,7 @@ type CreateVmsRequest struct {
 	UserData *string `json:"UserData,omitempty"`
 	// The VM behavior when you stop it. By default or if set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
-	// The type of VM (`t2.small` by default).<br /> For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html).
+	// The type of VM. You can specify a TINA type (in the `tinavW.cXrYpZ` or `tinavW.cXrY` format), or an AWS type (for example, `t2.small`, which is the default value).<br /> If you specify an AWS type, it is converted in the background to its corresponding TINA type, but the AWS type is still returned. If the specified or converted TINA type includes a performance flag, this performance flag is applied regardless of the value you may have provided in the `Performance` parameter. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html).
 	VmType *string `json:"VmType,omitempty"`
 }
 
@@ -67,6 +69,8 @@ func NewCreateVmsRequest(imageId string) *CreateVmsRequest {
 	var bootOnCreation bool = true
 	this.BootOnCreation = &bootOnCreation
 	this.ImageId = imageId
+	var nestedVirtualization bool = false
+	this.NestedVirtualization = &nestedVirtualization
 	var performance string = "high"
 	this.Performance = &performance
 	var vmInitiatedShutdownBehavior string = "stop"
@@ -81,6 +85,8 @@ func NewCreateVmsRequestWithDefaults() *CreateVmsRequest {
 	this := CreateVmsRequest{}
 	var bootOnCreation bool = true
 	this.BootOnCreation = &bootOnCreation
+	var nestedVirtualization bool = false
+	this.NestedVirtualization = &nestedVirtualization
 	var performance string = "high"
 	this.Performance = &performance
 	var vmInitiatedShutdownBehavior string = "stop"
@@ -398,6 +404,38 @@ func (o *CreateVmsRequest) HasMinVmsCount() bool {
 // SetMinVmsCount gets a reference to the given int32 and assigns it to the MinVmsCount field.
 func (o *CreateVmsRequest) SetMinVmsCount(v int32) {
 	o.MinVmsCount = &v
+}
+
+// GetNestedVirtualization returns the NestedVirtualization field value if set, zero value otherwise.
+func (o *CreateVmsRequest) GetNestedVirtualization() bool {
+	if o == nil || o.NestedVirtualization == nil {
+		var ret bool
+		return ret
+	}
+	return *o.NestedVirtualization
+}
+
+// GetNestedVirtualizationOk returns a tuple with the NestedVirtualization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateVmsRequest) GetNestedVirtualizationOk() (*bool, bool) {
+	if o == nil || o.NestedVirtualization == nil {
+		return nil, false
+	}
+	return o.NestedVirtualization, true
+}
+
+// HasNestedVirtualization returns a boolean if a field has been set.
+func (o *CreateVmsRequest) HasNestedVirtualization() bool {
+	if o != nil && o.NestedVirtualization != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNestedVirtualization gets a reference to the given bool and assigns it to the NestedVirtualization field.
+func (o *CreateVmsRequest) SetNestedVirtualization(v bool) {
+	o.NestedVirtualization = &v
 }
 
 // GetNics returns the Nics field value if set, zero value otherwise.
@@ -751,6 +789,9 @@ func (o CreateVmsRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.MinVmsCount != nil {
 		toSerialize["MinVmsCount"] = o.MinVmsCount
+	}
+	if o.NestedVirtualization != nil {
+		toSerialize["NestedVirtualization"] = o.NestedVirtualization
 	}
 	if o.Nics != nil {
 		toSerialize["Nics"] = o.Nics

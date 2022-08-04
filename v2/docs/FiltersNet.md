@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **IpRanges** | Pointer to **[]string** | The IP ranges for the Nets, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **IsDefault** | Pointer to **bool** | If true, the Net used is the default one. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets. | [optional] 
-**States** | Pointer to **[]string** | The states of the Nets (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 
+**States** | Pointer to **[]string** | The states of the Nets (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Nets. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the Nets. | [optional] 
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Nets, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 

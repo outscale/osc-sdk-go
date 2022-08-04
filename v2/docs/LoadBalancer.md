@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net for the load balancer. | [optional] 
 **PublicIp** | Pointer to **string** | (internet-facing only) The public IP associated with the load balancer. | [optional] 
+**SecuredCookies** | Pointer to **bool** | Whether secure cookies are enabled for the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | Pointer to [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
 **Subnets** | Pointer to **[]string** | The ID of the Subnet in which the load balancer was created. | [optional] 
@@ -340,6 +341,31 @@ SetPublicIp sets PublicIp field to given value.
 `func (o *LoadBalancer) HasPublicIp() bool`
 
 HasPublicIp returns a boolean if a field has been set.
+
+### GetSecuredCookies
+
+`func (o *LoadBalancer) GetSecuredCookies() bool`
+
+GetSecuredCookies returns the SecuredCookies field if non-nil, zero value otherwise.
+
+### GetSecuredCookiesOk
+
+`func (o *LoadBalancer) GetSecuredCookiesOk() (*bool, bool)`
+
+GetSecuredCookiesOk returns a tuple with the SecuredCookies field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecuredCookies
+
+`func (o *LoadBalancer) SetSecuredCookies(v bool)`
+
+SetSecuredCookies sets SecuredCookies field to given value.
+
+### HasSecuredCookies
+
+`func (o *LoadBalancer) HasSecuredCookies() bool`
+
+HasSecuredCookies returns a boolean if a field has been set.
 
 ### GetSecurityGroups
 

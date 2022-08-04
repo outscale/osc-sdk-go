@@ -13,7 +13,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.20"
+  version: "1.21"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -410,8 +410,8 @@ paths:
       Creates a 2048-bit RSA keypair with a specified name.<br />
       This action returns the private key that you need to save. The public key is stored by 3DS OUTSCALE.<br /><br />
 
-      You can also import a public key in one of the following formats: 1024-bit RSA, 2048-bit RSA, 4096-bit RSA, ECDSA and Ed25519.<br />
-      This action imports the public key of a keypair created by a third-party tool and uses it to create a 2048-bit RSA keypair. The private key is never provided to 3DS OUTSCALE.
+      You can also import a public key. The following types of key can be imported: RSA (minimum 2048 bits, recommended 4096 bits), ECDSA (minimum and recommended 256 bits), and Ed25519. The following formats can be used: PEM, PKCS8, RFC4716, and OpenSSH.<br />
+      This action imports the public key of a keypair created by a third-party tool and uses it to create a keypair. The private key is never provided to 3DS OUTSCALE.
     post:
       operationId: CreateKeypair
       requestBody:
@@ -5156,6 +5156,7 @@ paths:
     description: |-
       Modifies the specified attributes of a virtual machine (VM).<br />
       You must stop the VM before modifying the following attributes:<br />
+      * `NestedVirtualization`<br />
       * `Performance`<br />
       * `UserData`<br />
       * `VmType`
@@ -6924,6 +6925,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -7045,6 +7047,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -7211,6 +7214,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -8467,6 +8471,7 @@ components:
         MinVmsCount: 6
         ClientToken: ClientToken
         Performance: high
+        NestedVirtualization: false
       properties:
         BlockDeviceMappings:
           description: One or more block device mappings.
@@ -8509,6 +8514,11 @@ components:
           description: The minimum number of VMs you want to create. If this number
             of VMs cannot be created, no VMs are created.
           type: integer
+        NestedVirtualization:
+          default: false
+          description: (dedicated tenancy only) If true, nested virtualization is
+            enabled. If false, it is disabled.
+          type: boolean
         Nics:
           description: One or more NICs. If you specify this parameter, you must not
             specify the `SubnetId` and `SubregionName` parameters. You also must define
@@ -8520,6 +8530,8 @@ components:
         Performance:
           default: high
           description: The performance of the VM (`medium` \| `high` \|  `highest`).
+            By default, `high`. This parameter is ignored if you specify a performance
+            flag directly in the `VmType` parameter.
           enum:
           - medium
           - high
@@ -8558,8 +8570,8 @@ components:
           type: string
         VmType:
           description: |-
-            The type of VM (`t2.small` by default).<br />
-            For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html).
+            The type of VM. You can specify a TINA type (in the `tinavW.cXrYpZ` or `tinavW.cXrY` format), or an AWS type (for example, `t2.small`, which is the default value).<br />
+            If you specify an AWS type, it is converted in the background to its corresponding TINA type, but the AWS type is still returned. If the specified or converted TINA type includes a performance flag, this performance flag is applied regardless of the value you may have provided in the `Performance` parameter. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html).
           type: string
       required:
       - ImageId
@@ -8610,6 +8622,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          NestedVirtualization: true
           ProductCodes:
           - ProductCodes
           - ProductCodes
@@ -8743,6 +8756,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          NestedVirtualization: true
           ProductCodes:
           - ProductCodes
           - ProductCodes
@@ -9466,6 +9480,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -9568,6 +9583,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -11477,7 +11493,7 @@ components:
             type: string
           type: array
         States:
-          description: The states of the Nets (`pending` \| `available`).
+          description: The states of the Nets (`pending` \| `available` \| `deleted`).
           items:
             type: string
           type: array
@@ -12574,7 +12590,7 @@ components:
             type: string
           type: array
         States:
-          description: The states of the Subnets (`pending` \| `available`).
+          description: The states of the Subnets (`pending` \| `available` \| `deleted`).
           items:
             type: string
           type: array
@@ -14182,6 +14198,7 @@ components:
         Subnets:
         - Subnets
         - Subnets
+        SecuredCookies: true
         SubregionNames:
         - SubregionNames
         - SubregionNames
@@ -14247,6 +14264,9 @@ components:
           description: (internet-facing only) The public IP associated with the load
             balancer.
           type: string
+        SecuredCookies:
+          description: Whether secure cookies are enabled for the load balancer.
+          type: boolean
         SecurityGroups:
           description: One or more IDs of security groups for the load balancers.
             Valid only for load balancers in a Net.
@@ -14507,7 +14527,7 @@ components:
           description: The ID of the Net.
           type: string
         State:
-          description: The state of the Net (`pending` \| `available`).
+          description: The state of the Net (`pending` \| `available` \| `deleted`).
           type: string
         Tags:
           description: One or more tags associated with the Net.
@@ -16762,6 +16782,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -16830,6 +16851,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -18812,6 +18834,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          NestedVirtualization: true
           ProductCodes:
           - ProductCodes
           - ProductCodes
@@ -18945,6 +18968,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          NestedVirtualization: true
           ProductCodes:
           - ProductCodes
           - ProductCodes
@@ -20305,7 +20329,7 @@ components:
           description: The ID of the Net in which the Subnet is.
           type: string
         State:
-          description: The state of the Subnet (`pending` \| `available`).
+          description: The state of the Subnet (`pending` \| `available` \| `deleted`).
           type: string
         SubnetId:
           description: The ID of the Subnet.
@@ -20944,9 +20968,8 @@ components:
             perform the action.
           type: boolean
         Mtu:
-          default: 1500
           description: The maximum transmission unit (MTU) of the DirectLink interface,
-            in bytes (between `1500` and `9001`, both included).
+            in bytes (either `1500` or `9000`).
           maximum: 9001
           minimum: 1500
           type: integer
@@ -21173,6 +21196,7 @@ components:
         SecurityGroups:
         - SecurityGroups
         - SecurityGroups
+        SecuredCookies: true
         PublicIp: PublicIp
         DryRun: true
         HealthCheck:
@@ -21214,6 +21238,9 @@ components:
             belonged to you, it is disassociated and replaced by a public IP owned
             by 3DS OUTSCALE.
           type: string
+        SecuredCookies:
+          description: If true, secure cookies are enabled for the load balancer.
+          type: boolean
         SecurityGroups:
           description: (Net only) One or more IDs of security groups you want to assign
             to the load balancer. You need to specify the already assigned security
@@ -21291,6 +21318,7 @@ components:
           Subnets:
           - Subnets
           - Subnets
+          SecuredCookies: true
           SubregionNames:
           - SubregionNames
           - SubregionNames
@@ -21845,7 +21873,6 @@ components:
       additionalProperties: false
       example:
         VmInitiatedShutdownBehavior: VmInitiatedShutdownBehavior
-        IsSourceDestChecked: true
         UserData: UserData
         BlockDeviceMappings:
         - Bsu:
@@ -21861,15 +21888,17 @@ components:
           VirtualDeviceName: VirtualDeviceName
           DeviceName: DeviceName
         DryRun: true
-        VmType: VmType
-        VmId: VmId
         DeletionProtection: true
-        Performance: medium
         SecurityGroupIds:
         - SecurityGroupIds
         - SecurityGroupIds
         KeypairName: KeypairName
         BsuOptimized: true
+        IsSourceDestChecked: true
+        VmType: VmType
+        VmId: VmId
+        Performance: medium
+        NestedVirtualization: true
       properties:
         BlockDeviceMappings:
           description: One or more block device mappings of the VM.
@@ -21898,6 +21927,10 @@ components:
             The name of the keypair.<br />
             To complete the replacement, manually replace the old public key with the new public key in the ~/.ssh/authorized_keys file located in the VM. Restart the VM to apply the change.
           type: string
+        NestedVirtualization:
+          description: (dedicated tenancy only) If true, nested virtualization is
+            enabled. If false, it is disabled.
+          type: boolean
         Performance:
           description: The performance of the VM (`medium` \| `high` \|  `highest`).
           enum:
@@ -21974,6 +22007,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
+          NestedVirtualization: true
           ProductCodes:
           - ProductCodes
           - ProductCodes
@@ -22388,6 +22422,7 @@ components:
           Key: Key
         - Value: Value
           Key: Key
+        NestedVirtualization: true
         ProductCodes:
         - ProductCodes
         - ProductCodes
@@ -22523,6 +22558,10 @@ components:
           description: The number for the VM when launching a group of several VMs
             (for example, `0`, `1`, `2`, and so on).
           type: integer
+        NestedVirtualization:
+          description: If true, nested virtualization is enabled. If false, it is
+            disabled.
+          type: boolean
         NetId:
           description: The ID of the Net in which the VM is running.
           type: string
