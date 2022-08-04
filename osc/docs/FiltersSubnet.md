@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AvailableIpsCounts** | **[]int32** | The number of available IPs. | [optional] 
 **IpRanges** | **[]string** | The IP ranges in the Subnets, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **NetIds** | **[]string** | The IDs of the Nets in which the Subnets are. | [optional] 
-**States** | **[]string** | The states of the Subnets (&#x60;pending&#x60; \\| &#x60;available&#x60;). | [optional] 
+**States** | **[]string** | The states of the Subnets (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **SubnetIds** | **[]string** | The IDs of the Subnets. | [optional] 
 **SubregionNames** | **[]string** | The names of the Subregions in which the Subnets are located. | [optional] 
 **TagKeys** | **[]string** | The keys of the tags associated with the Subnets. | [optional] 
