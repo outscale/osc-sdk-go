@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **IsSourceDestChecked** | **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. This value must be false for a NAT VM to perform network address translation (NAT) in a Net. | [optional] 
 **KeypairName** | **string** | The name of the keypair used when launching the VM. | [optional] 
 **LaunchNumber** | **int32** | The number for the VM when launching a group of several VMs (for example, &#x60;0&#x60;, &#x60;1&#x60;, &#x60;2&#x60;, and so on). | [optional] 
+**NestedVirtualization** | **bool** | If true, nested virtualization is enabled. If false, it is disabled. | [optional] 
 **NetId** | **string** | The ID of the Net in which the VM is running. | [optional] 
 **Nics** | [**[]NicLight**](NicLight.md) | (Net only) The network interface cards (NICs) the VMs are attached to. | [optional] 
 **OsFamily** | **string** | Indicates the operating system (OS) of the VM. | [optional] 

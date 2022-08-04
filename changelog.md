@@ -1,3 +1,7 @@
+# 1.18.0
+
+ - SDK update for Outscale API v1.21.0
+
 # 1.17.0
 
  - Add helper to load of environment variables
