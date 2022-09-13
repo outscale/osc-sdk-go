@@ -12,6 +12,8 @@ type ConfigEnv struct {
 	OutscaleApiEndpoint *string
 	ProfileName         *string
 	Region              *string
+	X509ClientCert	    *string
+	X509ClientKey       *string
 }
 
 func NewConfigEnv() *ConfigEnv {
@@ -31,13 +33,22 @@ func NewConfigEnv() *ConfigEnv {
 	if value, present := os.LookupEnv("OSC_REGION"); present {
 		configEnv.Region = &value
 	}
+	if value, present := os.LookupEnv("OSC_X509_CLIENT_CERT"); present {
+                configEnv.X509ClientCert = &value
+        }
+	if value, present := os.LookupEnv("OSC_X509_CLIENT_KEY"); present {
+                configEnv.X509ClientKey = &value
+        }
 	return &configEnv
 }
 
 func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
 	var config *Configuration
 
-	if configEnv.ProfileName != nil {
+	if configEnv.AccessKey != nil && configEnv.SecretKey != nil {
+		if configEnv.ProfileName != nil {
+			*configEnv.ProfileName = "Default"
+		}
 		configFile, err := LoadDefaultConfigFile()
 		if err != nil {
 			return nil, err
@@ -83,7 +94,10 @@ func (configEnv *ConfigEnv) Context(ctx context.Context) (context.Context, error
 	var accessKey *string
 	var secretKey *string
 
-	if configEnv.ProfileName != nil {
+	if configEnv.AccessKey != nil && configEnv.SecretKey != nil {
+                if configEnv.ProfileName != nil {
+                        *configEnv.ProfileName = "Default"
+                }
 		configFile, err := LoadDefaultConfigFile()
 		if err != nil {
 			return nil, err
