@@ -1,0 +1,62 @@
+From cacedd4e791ffb2a13e33454f83096a44b0584d3 Mon Sep 17 00:00:00 2001
+From: outscale_hmi <hanen.mizouni@outscale.com>
+Date: Thu, 22 Sep 2022 11:11:01 +0000
+Subject: [PATCH] add parameters to configEnv
+
+Signed-off-by: outscale_hmi <hanen.mizouni@outscale.com>
+---
+ v2/config_env.go | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/v2/config_env.go b/v2/config_env.go
+index f41fe3ff..5294ad4e 100644
+--- a/v2/config_env.go
++++ b/v2/config_env.go
+@@ -12,6 +12,8 @@ type ConfigEnv struct {
+ 	OutscaleApiEndpoint *string
+ 	ProfileName         *string
+ 	Region              *string
++	X509ClientCert      *string
++	X509ClientKey       *string
+ }
+ 
+ func NewConfigEnv() *ConfigEnv {
+@@ -31,13 +33,22 @@ func NewConfigEnv() *ConfigEnv {
+ 	if value, present := os.LookupEnv("OSC_REGION"); present {
+ 		configEnv.Region = &value
+ 	}
++	if value, present := os.LookupEnv("OSC_X509_CLIENT_CERT"); present {
++		configEnv.X509ClientCert = &value
++	}
++	if value, present := os.LookupEnv("OSC_X509_CLIENT_KEY"); present {
++		configEnv.X509ClientKey = &value
++	}
+ 	return &configEnv
+ }
+ 
+ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
+ 	var config *Configuration
+ 
+-	if configEnv.ProfileName != nil {
++	if configEnv.AccessKey == nil && configEnv.SecretKey == nil {
++		if configEnv.ProfileName != nil {
++			*configEnv.ProfileName = "Default"
++		}
+ 		configFile, err := LoadDefaultConfigFile()
+ 		if err != nil {
+ 			return nil, err
+@@ -83,7 +94,10 @@ func (configEnv *ConfigEnv) Context(ctx context.Context) (context.Context, error
+ 	var accessKey *string
+ 	var secretKey *string
+ 
+-	if configEnv.ProfileName != nil {
++	if configEnv.AccessKey == nil && configEnv.SecretKey == nil {
++		if configEnv.ProfileName != nil {
++			*configEnv.ProfileName = "Default"
++		}
+ 		configFile, err := LoadDefaultConfigFile()
+ 		if err != nil {
+ 			return nil, err
+-- 
+2.25.1
+
