@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **NetAccessPointId** | **string** | The ID of the Net access point. | [optional] 
 **NetPeeringId** | **string** | The ID of the Net peering connection. | [optional] 
 **NicId** | **string** | The ID of the NIC. | [optional] 
-**State** | **string** | The state of a route in the route table (&#x60;active&#x60; \\| &#x60;blackhole&#x60;). The &#x60;blackhole&#x60; state indicates that the target of the route is not available. | [optional] 
+**State** | **string** | The state of a route in the route table (always &#x60;active&#x60;).  | [optional] 
 **VmAccountId** | **string** | The account ID of the owner of the VM. | [optional] 
 **VmId** | **string** | The ID of a VM specified in a route in the table. | [optional] 
 

@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **RouteGatewayIds** | **[]string** | The IDs of the gateways specified in routes in the tables. | [optional] 
 **RouteNatServiceIds** | **[]string** | The IDs of the NAT services specified in routes in the tables. | [optional] 
 **RouteNetPeeringIds** | **[]string** | The IDs of the Net peering connections specified in routes in the tables. | [optional] 
-**RouteStates** | **[]string** | The states of routes in the route tables (&#x60;active&#x60; \\| &#x60;blackhole&#x60;). The &#x60;blackhole&#x60; state indicates that the target of the route is not available. | [optional] 
+**RouteStates** | **[]string** | The states of routes in the route tables (always &#x60;active&#x60;). | [optional] 
 **RouteTableIds** | **[]string** | The IDs of the route tables. | [optional] 
 **RouteVmIds** | **[]string** | The IDs of the VMs specified in routes in the tables. | [optional] 
 **TagKeys** | **[]string** | The keys of the tags associated with the route tables. | [optional] 
