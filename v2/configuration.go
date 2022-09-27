@@ -112,7 +112,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "osc-sdk-go/2.12.0",
+		UserAgent:     "osc-sdk-go/2.13.0",
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
