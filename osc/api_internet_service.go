@@ -33,9 +33,10 @@ type CreateInternetServiceOpts struct {
 
 /*
 CreateInternetService Method for CreateInternetService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateInternetServiceOpts - Optional Parameters:
- * @param "CreateInternetServiceRequest" (optional.Interface of CreateInternetServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateInternetServiceOpts - Optional Parameters:
+  - @param "CreateInternetServiceRequest" (optional.Interface of CreateInternetServiceRequest) -
+
 @return CreateInternetServiceResponse
 */
 func (a *InternetServiceApiService) CreateInternetService(ctx _context.Context, localVarOptionals *CreateInternetServiceOpts) (CreateInternetServiceResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteInternetServiceOpts struct {
 
 /*
 DeleteInternetService Method for DeleteInternetService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteInternetServiceOpts - Optional Parameters:
- * @param "DeleteInternetServiceRequest" (optional.Interface of DeleteInternetServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteInternetServiceOpts - Optional Parameters:
+  - @param "DeleteInternetServiceRequest" (optional.Interface of DeleteInternetServiceRequest) -
+
 @return DeleteInternetServiceResponse
 */
 func (a *InternetServiceApiService) DeleteInternetService(ctx _context.Context, localVarOptionals *DeleteInternetServiceOpts) (DeleteInternetServiceResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type LinkInternetServiceOpts struct {
 
 /*
 LinkInternetService Method for LinkInternetService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkInternetServiceOpts - Optional Parameters:
- * @param "LinkInternetServiceRequest" (optional.Interface of LinkInternetServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkInternetServiceOpts - Optional Parameters:
+  - @param "LinkInternetServiceRequest" (optional.Interface of LinkInternetServiceRequest) -
+
 @return LinkInternetServiceResponse
 */
 func (a *InternetServiceApiService) LinkInternetService(ctx _context.Context, localVarOptionals *LinkInternetServiceOpts) (LinkInternetServiceResponse, *_nethttp.Response, error) {
@@ -456,9 +459,10 @@ type ReadInternetServicesOpts struct {
 
 /*
 ReadInternetServices Method for ReadInternetServices
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadInternetServicesOpts - Optional Parameters:
- * @param "ReadInternetServicesRequest" (optional.Interface of ReadInternetServicesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadInternetServicesOpts - Optional Parameters:
+  - @param "ReadInternetServicesRequest" (optional.Interface of ReadInternetServicesRequest) -
+
 @return ReadInternetServicesResponse
 */
 func (a *InternetServiceApiService) ReadInternetServices(ctx _context.Context, localVarOptionals *ReadInternetServicesOpts) (ReadInternetServicesResponse, *_nethttp.Response, error) {
@@ -597,9 +601,10 @@ type UnlinkInternetServiceOpts struct {
 
 /*
 UnlinkInternetService Method for UnlinkInternetService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkInternetServiceOpts - Optional Parameters:
- * @param "UnlinkInternetServiceRequest" (optional.Interface of UnlinkInternetServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkInternetServiceOpts - Optional Parameters:
+  - @param "UnlinkInternetServiceRequest" (optional.Interface of UnlinkInternetServiceRequest) -
+
 @return UnlinkInternetServiceResponse
 */
 func (a *InternetServiceApiService) UnlinkInternetService(ctx _context.Context, localVarOptionals *UnlinkInternetServiceOpts) (UnlinkInternetServiceResponse, *_nethttp.Response, error) {

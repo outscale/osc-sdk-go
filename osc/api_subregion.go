@@ -33,9 +33,10 @@ type ReadSubregionsOpts struct {
 
 /*
 ReadSubregions Method for ReadSubregions
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadSubregionsOpts - Optional Parameters:
- * @param "ReadSubregionsRequest" (optional.Interface of ReadSubregionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadSubregionsOpts - Optional Parameters:
+  - @param "ReadSubregionsRequest" (optional.Interface of ReadSubregionsRequest) -
+
 @return ReadSubregionsResponse
 */
 func (a *SubregionApiService) ReadSubregions(ctx _context.Context, localVarOptionals *ReadSubregionsOpts) (ReadSubregionsResponse, *_nethttp.Response, error) {

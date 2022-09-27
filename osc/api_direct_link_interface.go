@@ -33,9 +33,10 @@ type CreateDirectLinkInterfaceOpts struct {
 
 /*
 CreateDirectLinkInterface Method for CreateDirectLinkInterface
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateDirectLinkInterfaceOpts - Optional Parameters:
- * @param "CreateDirectLinkInterfaceRequest" (optional.Interface of CreateDirectLinkInterfaceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateDirectLinkInterfaceOpts - Optional Parameters:
+  - @param "CreateDirectLinkInterfaceRequest" (optional.Interface of CreateDirectLinkInterfaceRequest) -
+
 @return CreateDirectLinkInterfaceResponse
 */
 func (a *DirectLinkInterfaceApiService) CreateDirectLinkInterface(ctx _context.Context, localVarOptionals *CreateDirectLinkInterfaceOpts) (CreateDirectLinkInterfaceResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteDirectLinkInterfaceOpts struct {
 
 /*
 DeleteDirectLinkInterface Method for DeleteDirectLinkInterface
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteDirectLinkInterfaceOpts - Optional Parameters:
- * @param "DeleteDirectLinkInterfaceRequest" (optional.Interface of DeleteDirectLinkInterfaceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteDirectLinkInterfaceOpts - Optional Parameters:
+  - @param "DeleteDirectLinkInterfaceRequest" (optional.Interface of DeleteDirectLinkInterfaceRequest) -
+
 @return DeleteDirectLinkInterfaceResponse
 */
 func (a *DirectLinkInterfaceApiService) DeleteDirectLinkInterface(ctx _context.Context, localVarOptionals *DeleteDirectLinkInterfaceOpts) (DeleteDirectLinkInterfaceResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadDirectLinkInterfacesOpts struct {
 
 /*
 ReadDirectLinkInterfaces Method for ReadDirectLinkInterfaces
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadDirectLinkInterfacesOpts - Optional Parameters:
- * @param "ReadDirectLinkInterfacesRequest" (optional.Interface of ReadDirectLinkInterfacesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadDirectLinkInterfacesOpts - Optional Parameters:
+  - @param "ReadDirectLinkInterfacesRequest" (optional.Interface of ReadDirectLinkInterfacesRequest) -
+
 @return ReadDirectLinkInterfacesResponse
 */
 func (a *DirectLinkInterfaceApiService) ReadDirectLinkInterfaces(ctx _context.Context, localVarOptionals *ReadDirectLinkInterfacesOpts) (ReadDirectLinkInterfacesResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type UpdateDirectLinkInterfaceOpts struct {
 
 /*
 UpdateDirectLinkInterface Method for UpdateDirectLinkInterface
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateDirectLinkInterfaceOpts - Optional Parameters:
- * @param "UpdateDirectLinkInterfaceRequest" (optional.Interface of UpdateDirectLinkInterfaceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateDirectLinkInterfaceOpts - Optional Parameters:
+  - @param "UpdateDirectLinkInterfaceRequest" (optional.Interface of UpdateDirectLinkInterfaceRequest) -
+
 @return UpdateDirectLinkInterfaceResponse
 */
 func (a *DirectLinkInterfaceApiService) UpdateDirectLinkInterface(ctx _context.Context, localVarOptionals *UpdateDirectLinkInterfaceOpts) (UpdateDirectLinkInterfaceResponse, *_nethttp.Response, error) {

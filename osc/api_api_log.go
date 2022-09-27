@@ -33,9 +33,10 @@ type ReadApiLogsOpts struct {
 
 /*
 ReadApiLogs Method for ReadApiLogs
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadApiLogsOpts - Optional Parameters:
- * @param "ReadApiLogsRequest" (optional.Interface of ReadApiLogsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadApiLogsOpts - Optional Parameters:
+  - @param "ReadApiLogsRequest" (optional.Interface of ReadApiLogsRequest) -
+
 @return ReadApiLogsResponse
 */
 func (a *ApiLogApiService) ReadApiLogs(ctx _context.Context, localVarOptionals *ReadApiLogsOpts) (ReadApiLogsResponse, *_nethttp.Response, error) {

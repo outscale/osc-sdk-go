@@ -33,9 +33,10 @@ type CreateSecurityGroupOpts struct {
 
 /*
 CreateSecurityGroup Method for CreateSecurityGroup
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateSecurityGroupOpts - Optional Parameters:
- * @param "CreateSecurityGroupRequest" (optional.Interface of CreateSecurityGroupRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateSecurityGroupOpts - Optional Parameters:
+  - @param "CreateSecurityGroupRequest" (optional.Interface of CreateSecurityGroupRequest) -
+
 @return CreateSecurityGroupResponse
 */
 func (a *SecurityGroupApiService) CreateSecurityGroup(ctx _context.Context, localVarOptionals *CreateSecurityGroupOpts) (CreateSecurityGroupResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteSecurityGroupOpts struct {
 
 /*
 DeleteSecurityGroup Method for DeleteSecurityGroup
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteSecurityGroupOpts - Optional Parameters:
- * @param "DeleteSecurityGroupRequest" (optional.Interface of DeleteSecurityGroupRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteSecurityGroupOpts - Optional Parameters:
+  - @param "DeleteSecurityGroupRequest" (optional.Interface of DeleteSecurityGroupRequest) -
+
 @return DeleteSecurityGroupResponse
 */
 func (a *SecurityGroupApiService) DeleteSecurityGroup(ctx _context.Context, localVarOptionals *DeleteSecurityGroupOpts) (DeleteSecurityGroupResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type ReadSecurityGroupsOpts struct {
 
 /*
 ReadSecurityGroups Method for ReadSecurityGroups
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadSecurityGroupsOpts - Optional Parameters:
- * @param "ReadSecurityGroupsRequest" (optional.Interface of ReadSecurityGroupsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadSecurityGroupsOpts - Optional Parameters:
+  - @param "ReadSecurityGroupsRequest" (optional.Interface of ReadSecurityGroupsRequest) -
+
 @return ReadSecurityGroupsResponse
 */
 func (a *SecurityGroupApiService) ReadSecurityGroups(ctx _context.Context, localVarOptionals *ReadSecurityGroupsOpts) (ReadSecurityGroupsResponse, *_nethttp.Response, error) {

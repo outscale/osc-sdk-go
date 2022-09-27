@@ -33,9 +33,10 @@ type AcceptNetPeeringOpts struct {
 
 /*
 AcceptNetPeering Method for AcceptNetPeering
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *AcceptNetPeeringOpts - Optional Parameters:
- * @param "AcceptNetPeeringRequest" (optional.Interface of AcceptNetPeeringRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *AcceptNetPeeringOpts - Optional Parameters:
+  - @param "AcceptNetPeeringRequest" (optional.Interface of AcceptNetPeeringRequest) -
+
 @return AcceptNetPeeringResponse
 */
 func (a *NetPeeringApiService) AcceptNetPeering(ctx _context.Context, localVarOptionals *AcceptNetPeeringOpts) (AcceptNetPeeringResponse, *_nethttp.Response, error) {
@@ -184,9 +185,10 @@ type CreateNetPeeringOpts struct {
 
 /*
 CreateNetPeering Method for CreateNetPeering
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateNetPeeringOpts - Optional Parameters:
- * @param "CreateNetPeeringRequest" (optional.Interface of CreateNetPeeringRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateNetPeeringOpts - Optional Parameters:
+  - @param "CreateNetPeeringRequest" (optional.Interface of CreateNetPeeringRequest) -
+
 @return CreateNetPeeringResponse
 */
 func (a *NetPeeringApiService) CreateNetPeering(ctx _context.Context, localVarOptionals *CreateNetPeeringOpts) (CreateNetPeeringResponse, *_nethttp.Response, error) {
@@ -325,9 +327,10 @@ type DeleteNetPeeringOpts struct {
 
 /*
 DeleteNetPeering Method for DeleteNetPeering
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteNetPeeringOpts - Optional Parameters:
- * @param "DeleteNetPeeringRequest" (optional.Interface of DeleteNetPeeringRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteNetPeeringOpts - Optional Parameters:
+  - @param "DeleteNetPeeringRequest" (optional.Interface of DeleteNetPeeringRequest) -
+
 @return DeleteNetPeeringResponse
 */
 func (a *NetPeeringApiService) DeleteNetPeering(ctx _context.Context, localVarOptionals *DeleteNetPeeringOpts) (DeleteNetPeeringResponse, *_nethttp.Response, error) {
@@ -476,9 +479,10 @@ type ReadNetPeeringsOpts struct {
 
 /*
 ReadNetPeerings Method for ReadNetPeerings
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNetPeeringsOpts - Optional Parameters:
- * @param "ReadNetPeeringsRequest" (optional.Interface of ReadNetPeeringsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNetPeeringsOpts - Optional Parameters:
+  - @param "ReadNetPeeringsRequest" (optional.Interface of ReadNetPeeringsRequest) -
+
 @return ReadNetPeeringsResponse
 */
 func (a *NetPeeringApiService) ReadNetPeerings(ctx _context.Context, localVarOptionals *ReadNetPeeringsOpts) (ReadNetPeeringsResponse, *_nethttp.Response, error) {
@@ -617,9 +621,10 @@ type RejectNetPeeringOpts struct {
 
 /*
 RejectNetPeering Method for RejectNetPeering
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *RejectNetPeeringOpts - Optional Parameters:
- * @param "RejectNetPeeringRequest" (optional.Interface of RejectNetPeeringRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *RejectNetPeeringOpts - Optional Parameters:
+  - @param "RejectNetPeeringRequest" (optional.Interface of RejectNetPeeringRequest) -
+
 @return RejectNetPeeringResponse
 */
 func (a *NetPeeringApiService) RejectNetPeering(ctx _context.Context, localVarOptionals *RejectNetPeeringOpts) (RejectNetPeeringResponse, *_nethttp.Response, error) {

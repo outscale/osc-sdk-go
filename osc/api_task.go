@@ -33,9 +33,10 @@ type DeleteExportTaskOpts struct {
 
 /*
 DeleteExportTask Method for DeleteExportTask
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteExportTaskOpts - Optional Parameters:
- * @param "DeleteExportTaskRequest" (optional.Interface of DeleteExportTaskRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteExportTaskOpts - Optional Parameters:
+  - @param "DeleteExportTaskRequest" (optional.Interface of DeleteExportTaskRequest) -
+
 @return DeleteExportTaskResponse
 */
 func (a *TaskApiService) DeleteExportTask(ctx _context.Context, localVarOptionals *DeleteExportTaskOpts) (DeleteExportTaskResponse, *_nethttp.Response, error) {

@@ -33,9 +33,10 @@ type CreateCaOpts struct {
 
 /*
 CreateCa Method for CreateCa
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateCaOpts - Optional Parameters:
- * @param "CreateCaRequest" (optional.Interface of CreateCaRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateCaOpts - Optional Parameters:
+  - @param "CreateCaRequest" (optional.Interface of CreateCaRequest) -
+
 @return CreateCaResponse
 */
 func (a *CaApiService) CreateCa(ctx _context.Context, localVarOptionals *CreateCaOpts) (CreateCaResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteCaOpts struct {
 
 /*
 DeleteCa Method for DeleteCa
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteCaOpts - Optional Parameters:
- * @param "DeleteCaRequest" (optional.Interface of DeleteCaRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteCaOpts - Optional Parameters:
+  - @param "DeleteCaRequest" (optional.Interface of DeleteCaRequest) -
+
 @return DeleteCaResponse
 */
 func (a *CaApiService) DeleteCa(ctx _context.Context, localVarOptionals *DeleteCaOpts) (DeleteCaResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadCasOpts struct {
 
 /*
 ReadCas Method for ReadCas
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadCasOpts - Optional Parameters:
- * @param "ReadCasRequest" (optional.Interface of ReadCasRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadCasOpts - Optional Parameters:
+  - @param "ReadCasRequest" (optional.Interface of ReadCasRequest) -
+
 @return ReadCasResponse
 */
 func (a *CaApiService) ReadCas(ctx _context.Context, localVarOptionals *ReadCasOpts) (ReadCasResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type UpdateCaOpts struct {
 
 /*
 UpdateCa Method for UpdateCa
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateCaOpts - Optional Parameters:
- * @param "UpdateCaRequest" (optional.Interface of UpdateCaRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateCaOpts - Optional Parameters:
+  - @param "UpdateCaRequest" (optional.Interface of UpdateCaRequest) -
+
 @return UpdateCaResponse
 */
 func (a *CaApiService) UpdateCa(ctx _context.Context, localVarOptionals *UpdateCaOpts) (UpdateCaResponse, *_nethttp.Response, error) {

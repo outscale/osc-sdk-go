@@ -33,9 +33,10 @@ type CreateKeypairOpts struct {
 
 /*
 CreateKeypair Method for CreateKeypair
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateKeypairOpts - Optional Parameters:
- * @param "CreateKeypairRequest" (optional.Interface of CreateKeypairRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateKeypairOpts - Optional Parameters:
+  - @param "CreateKeypairRequest" (optional.Interface of CreateKeypairRequest) -
+
 @return CreateKeypairResponse
 */
 func (a *KeypairApiService) CreateKeypair(ctx _context.Context, localVarOptionals *CreateKeypairOpts) (CreateKeypairResponse, *_nethttp.Response, error) {
@@ -184,9 +185,10 @@ type DeleteKeypairOpts struct {
 
 /*
 DeleteKeypair Method for DeleteKeypair
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteKeypairOpts - Optional Parameters:
- * @param "DeleteKeypairRequest" (optional.Interface of DeleteKeypairRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteKeypairOpts - Optional Parameters:
+  - @param "DeleteKeypairRequest" (optional.Interface of DeleteKeypairRequest) -
+
 @return DeleteKeypairResponse
 */
 func (a *KeypairApiService) DeleteKeypair(ctx _context.Context, localVarOptionals *DeleteKeypairOpts) (DeleteKeypairResponse, *_nethttp.Response, error) {
@@ -325,9 +327,10 @@ type ReadKeypairsOpts struct {
 
 /*
 ReadKeypairs Method for ReadKeypairs
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadKeypairsOpts - Optional Parameters:
- * @param "ReadKeypairsRequest" (optional.Interface of ReadKeypairsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadKeypairsOpts - Optional Parameters:
+  - @param "ReadKeypairsRequest" (optional.Interface of ReadKeypairsRequest) -
+
 @return ReadKeypairsResponse
 */
 func (a *KeypairApiService) ReadKeypairs(ctx _context.Context, localVarOptionals *ReadKeypairsOpts) (ReadKeypairsResponse, *_nethttp.Response, error) {

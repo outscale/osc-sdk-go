@@ -33,9 +33,10 @@ type ReadLocationsOpts struct {
 
 /*
 ReadLocations Method for ReadLocations
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadLocationsOpts - Optional Parameters:
- * @param "ReadLocationsRequest" (optional.Interface of ReadLocationsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadLocationsOpts - Optional Parameters:
+  - @param "ReadLocationsRequest" (optional.Interface of ReadLocationsRequest) -
+
 @return ReadLocationsResponse
 */
 func (a *LocationApiService) ReadLocations(ctx _context.Context, localVarOptionals *ReadLocationsOpts) (ReadLocationsResponse, *_nethttp.Response, error) {

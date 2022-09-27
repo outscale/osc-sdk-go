@@ -33,9 +33,10 @@ type CreateLoadBalancerPolicyOpts struct {
 
 /*
 CreateLoadBalancerPolicy Method for CreateLoadBalancerPolicy
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateLoadBalancerPolicyOpts - Optional Parameters:
- * @param "CreateLoadBalancerPolicyRequest" (optional.Interface of CreateLoadBalancerPolicyRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateLoadBalancerPolicyOpts - Optional Parameters:
+  - @param "CreateLoadBalancerPolicyRequest" (optional.Interface of CreateLoadBalancerPolicyRequest) -
+
 @return CreateLoadBalancerPolicyResponse
 */
 func (a *LoadBalancerPolicyApiService) CreateLoadBalancerPolicy(ctx _context.Context, localVarOptionals *CreateLoadBalancerPolicyOpts) (CreateLoadBalancerPolicyResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteLoadBalancerPolicyOpts struct {
 
 /*
 DeleteLoadBalancerPolicy Method for DeleteLoadBalancerPolicy
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteLoadBalancerPolicyOpts - Optional Parameters:
- * @param "DeleteLoadBalancerPolicyRequest" (optional.Interface of DeleteLoadBalancerPolicyRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteLoadBalancerPolicyOpts - Optional Parameters:
+  - @param "DeleteLoadBalancerPolicyRequest" (optional.Interface of DeleteLoadBalancerPolicyRequest) -
+
 @return DeleteLoadBalancerPolicyResponse
 */
 func (a *LoadBalancerPolicyApiService) DeleteLoadBalancerPolicy(ctx _context.Context, localVarOptionals *DeleteLoadBalancerPolicyOpts) (DeleteLoadBalancerPolicyResponse, *_nethttp.Response, error) {

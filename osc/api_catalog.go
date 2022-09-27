@@ -33,9 +33,10 @@ type ReadCatalogOpts struct {
 
 /*
 ReadCatalog Method for ReadCatalog
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadCatalogOpts - Optional Parameters:
- * @param "ReadCatalogRequest" (optional.Interface of ReadCatalogRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadCatalogOpts - Optional Parameters:
+  - @param "ReadCatalogRequest" (optional.Interface of ReadCatalogRequest) -
+
 @return ReadCatalogResponse
 */
 func (a *CatalogApiService) ReadCatalog(ctx _context.Context, localVarOptionals *ReadCatalogOpts) (ReadCatalogResponse, *_nethttp.Response, error) {

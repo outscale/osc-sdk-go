@@ -33,9 +33,10 @@ type CreateClientGatewayOpts struct {
 
 /*
 CreateClientGateway Method for CreateClientGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateClientGatewayOpts - Optional Parameters:
- * @param "CreateClientGatewayRequest" (optional.Interface of CreateClientGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateClientGatewayOpts - Optional Parameters:
+  - @param "CreateClientGatewayRequest" (optional.Interface of CreateClientGatewayRequest) -
+
 @return CreateClientGatewayResponse
 */
 func (a *ClientGatewayApiService) CreateClientGateway(ctx _context.Context, localVarOptionals *CreateClientGatewayOpts) (CreateClientGatewayResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteClientGatewayOpts struct {
 
 /*
 DeleteClientGateway Method for DeleteClientGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteClientGatewayOpts - Optional Parameters:
- * @param "DeleteClientGatewayRequest" (optional.Interface of DeleteClientGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteClientGatewayOpts - Optional Parameters:
+  - @param "DeleteClientGatewayRequest" (optional.Interface of DeleteClientGatewayRequest) -
+
 @return DeleteClientGatewayResponse
 */
 func (a *ClientGatewayApiService) DeleteClientGateway(ctx _context.Context, localVarOptionals *DeleteClientGatewayOpts) (DeleteClientGatewayResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadClientGatewaysOpts struct {
 
 /*
 ReadClientGateways Method for ReadClientGateways
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadClientGatewaysOpts - Optional Parameters:
- * @param "ReadClientGatewaysRequest" (optional.Interface of ReadClientGatewaysRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadClientGatewaysOpts - Optional Parameters:
+  - @param "ReadClientGatewaysRequest" (optional.Interface of ReadClientGatewaysRequest) -
+
 @return ReadClientGatewaysResponse
 */
 func (a *ClientGatewayApiService) ReadClientGateways(ctx _context.Context, localVarOptionals *ReadClientGatewaysOpts) (ReadClientGatewaysResponse, *_nethttp.Response, error) {

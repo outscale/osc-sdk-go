@@ -33,9 +33,10 @@ type ReadQuotasOpts struct {
 
 /*
 ReadQuotas Method for ReadQuotas
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadQuotasOpts - Optional Parameters:
- * @param "ReadQuotasRequest" (optional.Interface of ReadQuotasRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadQuotasOpts - Optional Parameters:
+  - @param "ReadQuotasRequest" (optional.Interface of ReadQuotasRequest) -
+
 @return ReadQuotasResponse
 */
 func (a *QuotaApiService) ReadQuotas(ctx _context.Context, localVarOptionals *ReadQuotasOpts) (ReadQuotasResponse, *_nethttp.Response, error) {

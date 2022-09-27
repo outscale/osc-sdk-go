@@ -33,9 +33,10 @@ type CreateVpnConnectionOpts struct {
 
 /*
 CreateVpnConnection Method for CreateVpnConnection
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateVpnConnectionOpts - Optional Parameters:
- * @param "CreateVpnConnectionRequest" (optional.Interface of CreateVpnConnectionRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateVpnConnectionOpts - Optional Parameters:
+  - @param "CreateVpnConnectionRequest" (optional.Interface of CreateVpnConnectionRequest) -
+
 @return CreateVpnConnectionResponse
 */
 func (a *VpnConnectionApiService) CreateVpnConnection(ctx _context.Context, localVarOptionals *CreateVpnConnectionOpts) (CreateVpnConnectionResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type CreateVpnConnectionRouteOpts struct {
 
 /*
 CreateVpnConnectionRoute Method for CreateVpnConnectionRoute
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateVpnConnectionRouteOpts - Optional Parameters:
- * @param "CreateVpnConnectionRouteRequest" (optional.Interface of CreateVpnConnectionRouteRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateVpnConnectionRouteOpts - Optional Parameters:
+  - @param "CreateVpnConnectionRouteRequest" (optional.Interface of CreateVpnConnectionRouteRequest) -
+
 @return CreateVpnConnectionRouteResponse
 */
 func (a *VpnConnectionApiService) CreateVpnConnectionRoute(ctx _context.Context, localVarOptionals *CreateVpnConnectionRouteOpts) (CreateVpnConnectionRouteResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type DeleteVpnConnectionOpts struct {
 
 /*
 DeleteVpnConnection Method for DeleteVpnConnection
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteVpnConnectionOpts - Optional Parameters:
- * @param "DeleteVpnConnectionRequest" (optional.Interface of DeleteVpnConnectionRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteVpnConnectionOpts - Optional Parameters:
+  - @param "DeleteVpnConnectionRequest" (optional.Interface of DeleteVpnConnectionRequest) -
+
 @return DeleteVpnConnectionResponse
 */
 func (a *VpnConnectionApiService) DeleteVpnConnection(ctx _context.Context, localVarOptionals *DeleteVpnConnectionOpts) (DeleteVpnConnectionResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type DeleteVpnConnectionRouteOpts struct {
 
 /*
 DeleteVpnConnectionRoute Method for DeleteVpnConnectionRoute
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteVpnConnectionRouteOpts - Optional Parameters:
- * @param "DeleteVpnConnectionRouteRequest" (optional.Interface of DeleteVpnConnectionRouteRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteVpnConnectionRouteOpts - Optional Parameters:
+  - @param "DeleteVpnConnectionRouteRequest" (optional.Interface of DeleteVpnConnectionRouteRequest) -
+
 @return DeleteVpnConnectionRouteResponse
 */
 func (a *VpnConnectionApiService) DeleteVpnConnectionRoute(ctx _context.Context, localVarOptionals *DeleteVpnConnectionRouteOpts) (DeleteVpnConnectionRouteResponse, *_nethttp.Response, error) {
@@ -477,9 +481,10 @@ type ReadVpnConnectionsOpts struct {
 
 /*
 ReadVpnConnections Method for ReadVpnConnections
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadVpnConnectionsOpts - Optional Parameters:
- * @param "ReadVpnConnectionsRequest" (optional.Interface of ReadVpnConnectionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadVpnConnectionsOpts - Optional Parameters:
+  - @param "ReadVpnConnectionsRequest" (optional.Interface of ReadVpnConnectionsRequest) -
+
 @return ReadVpnConnectionsResponse
 */
 func (a *VpnConnectionApiService) ReadVpnConnections(ctx _context.Context, localVarOptionals *ReadVpnConnectionsOpts) (ReadVpnConnectionsResponse, *_nethttp.Response, error) {
@@ -588,9 +593,10 @@ type UpdateVpnConnectionOpts struct {
 
 /*
 UpdateVpnConnection Method for UpdateVpnConnection
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateVpnConnectionOpts - Optional Parameters:
- * @param "UpdateVpnConnectionRequest" (optional.Interface of UpdateVpnConnectionRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateVpnConnectionOpts - Optional Parameters:
+  - @param "UpdateVpnConnectionRequest" (optional.Interface of UpdateVpnConnectionRequest) -
+
 @return UpdateVpnConnectionResponse
 */
 func (a *VpnConnectionApiService) UpdateVpnConnection(ctx _context.Context, localVarOptionals *UpdateVpnConnectionOpts) (UpdateVpnConnectionResponse, *_nethttp.Response, error) {

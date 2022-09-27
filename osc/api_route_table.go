@@ -33,9 +33,10 @@ type CreateRouteTableOpts struct {
 
 /*
 CreateRouteTable Method for CreateRouteTable
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateRouteTableOpts - Optional Parameters:
- * @param "CreateRouteTableRequest" (optional.Interface of CreateRouteTableRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateRouteTableOpts - Optional Parameters:
+  - @param "CreateRouteTableRequest" (optional.Interface of CreateRouteTableRequest) -
+
 @return CreateRouteTableResponse
 */
 func (a *RouteTableApiService) CreateRouteTable(ctx _context.Context, localVarOptionals *CreateRouteTableOpts) (CreateRouteTableResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteRouteTableOpts struct {
 
 /*
 DeleteRouteTable Method for DeleteRouteTable
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteRouteTableOpts - Optional Parameters:
- * @param "DeleteRouteTableRequest" (optional.Interface of DeleteRouteTableRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteRouteTableOpts - Optional Parameters:
+  - @param "DeleteRouteTableRequest" (optional.Interface of DeleteRouteTableRequest) -
+
 @return DeleteRouteTableResponse
 */
 func (a *RouteTableApiService) DeleteRouteTable(ctx _context.Context, localVarOptionals *DeleteRouteTableOpts) (DeleteRouteTableResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type LinkRouteTableOpts struct {
 
 /*
 LinkRouteTable Method for LinkRouteTable
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkRouteTableOpts - Optional Parameters:
- * @param "LinkRouteTableRequest" (optional.Interface of LinkRouteTableRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkRouteTableOpts - Optional Parameters:
+  - @param "LinkRouteTableRequest" (optional.Interface of LinkRouteTableRequest) -
+
 @return LinkRouteTableResponse
 */
 func (a *RouteTableApiService) LinkRouteTable(ctx _context.Context, localVarOptionals *LinkRouteTableOpts) (LinkRouteTableResponse, *_nethttp.Response, error) {
@@ -456,9 +459,10 @@ type ReadRouteTablesOpts struct {
 
 /*
 ReadRouteTables Method for ReadRouteTables
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadRouteTablesOpts - Optional Parameters:
- * @param "ReadRouteTablesRequest" (optional.Interface of ReadRouteTablesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadRouteTablesOpts - Optional Parameters:
+  - @param "ReadRouteTablesRequest" (optional.Interface of ReadRouteTablesRequest) -
+
 @return ReadRouteTablesResponse
 */
 func (a *RouteTableApiService) ReadRouteTables(ctx _context.Context, localVarOptionals *ReadRouteTablesOpts) (ReadRouteTablesResponse, *_nethttp.Response, error) {
@@ -597,9 +601,10 @@ type UnlinkRouteTableOpts struct {
 
 /*
 UnlinkRouteTable Method for UnlinkRouteTable
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkRouteTableOpts - Optional Parameters:
- * @param "UnlinkRouteTableRequest" (optional.Interface of UnlinkRouteTableRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkRouteTableOpts - Optional Parameters:
+  - @param "UnlinkRouteTableRequest" (optional.Interface of UnlinkRouteTableRequest) -
+
 @return UnlinkRouteTableResponse
 */
 func (a *RouteTableApiService) UnlinkRouteTable(ctx _context.Context, localVarOptionals *UnlinkRouteTableOpts) (UnlinkRouteTableResponse, *_nethttp.Response, error) {

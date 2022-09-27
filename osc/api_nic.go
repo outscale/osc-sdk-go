@@ -33,9 +33,10 @@ type CreateNicOpts struct {
 
 /*
 CreateNic Method for CreateNic
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateNicOpts - Optional Parameters:
- * @param "CreateNicRequest" (optional.Interface of CreateNicRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateNicOpts - Optional Parameters:
+  - @param "CreateNicRequest" (optional.Interface of CreateNicRequest) -
+
 @return CreateNicResponse
 */
 func (a *NicApiService) CreateNic(ctx _context.Context, localVarOptionals *CreateNicOpts) (CreateNicResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteNicOpts struct {
 
 /*
 DeleteNic Method for DeleteNic
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteNicOpts - Optional Parameters:
- * @param "DeleteNicRequest" (optional.Interface of DeleteNicRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteNicOpts - Optional Parameters:
+  - @param "DeleteNicRequest" (optional.Interface of DeleteNicRequest) -
+
 @return DeleteNicResponse
 */
 func (a *NicApiService) DeleteNic(ctx _context.Context, localVarOptionals *DeleteNicOpts) (DeleteNicResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type LinkNicOpts struct {
 
 /*
 LinkNic Method for LinkNic
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkNicOpts - Optional Parameters:
- * @param "LinkNicRequest" (optional.Interface of LinkNicRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkNicOpts - Optional Parameters:
+  - @param "LinkNicRequest" (optional.Interface of LinkNicRequest) -
+
 @return LinkNicResponse
 */
 func (a *NicApiService) LinkNic(ctx _context.Context, localVarOptionals *LinkNicOpts) (LinkNicResponse, *_nethttp.Response, error) {
@@ -456,9 +459,10 @@ type LinkPrivateIpsOpts struct {
 
 /*
 LinkPrivateIps Method for LinkPrivateIps
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkPrivateIpsOpts - Optional Parameters:
- * @param "LinkPrivateIpsRequest" (optional.Interface of LinkPrivateIpsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkPrivateIpsOpts - Optional Parameters:
+  - @param "LinkPrivateIpsRequest" (optional.Interface of LinkPrivateIpsRequest) -
+
 @return LinkPrivateIpsResponse
 */
 func (a *NicApiService) LinkPrivateIps(ctx _context.Context, localVarOptionals *LinkPrivateIpsOpts) (LinkPrivateIpsResponse, *_nethttp.Response, error) {
@@ -597,9 +601,10 @@ type ReadNicsOpts struct {
 
 /*
 ReadNics Method for ReadNics
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNicsOpts - Optional Parameters:
- * @param "ReadNicsRequest" (optional.Interface of ReadNicsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNicsOpts - Optional Parameters:
+  - @param "ReadNicsRequest" (optional.Interface of ReadNicsRequest) -
+
 @return ReadNicsResponse
 */
 func (a *NicApiService) ReadNics(ctx _context.Context, localVarOptionals *ReadNicsOpts) (ReadNicsResponse, *_nethttp.Response, error) {
@@ -738,9 +743,10 @@ type UnlinkNicOpts struct {
 
 /*
 UnlinkNic Method for UnlinkNic
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkNicOpts - Optional Parameters:
- * @param "UnlinkNicRequest" (optional.Interface of UnlinkNicRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkNicOpts - Optional Parameters:
+  - @param "UnlinkNicRequest" (optional.Interface of UnlinkNicRequest) -
+
 @return UnlinkNicResponse
 */
 func (a *NicApiService) UnlinkNic(ctx _context.Context, localVarOptionals *UnlinkNicOpts) (UnlinkNicResponse, *_nethttp.Response, error) {
@@ -879,9 +885,10 @@ type UnlinkPrivateIpsOpts struct {
 
 /*
 UnlinkPrivateIps Method for UnlinkPrivateIps
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkPrivateIpsOpts - Optional Parameters:
- * @param "UnlinkPrivateIpsRequest" (optional.Interface of UnlinkPrivateIpsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkPrivateIpsOpts - Optional Parameters:
+  - @param "UnlinkPrivateIpsRequest" (optional.Interface of UnlinkPrivateIpsRequest) -
+
 @return UnlinkPrivateIpsResponse
 */
 func (a *NicApiService) UnlinkPrivateIps(ctx _context.Context, localVarOptionals *UnlinkPrivateIpsOpts) (UnlinkPrivateIpsResponse, *_nethttp.Response, error) {
@@ -1020,9 +1027,10 @@ type UpdateNicOpts struct {
 
 /*
 UpdateNic Method for UpdateNic
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateNicOpts - Optional Parameters:
- * @param "UpdateNicRequest" (optional.Interface of UpdateNicRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateNicOpts - Optional Parameters:
+  - @param "UpdateNicRequest" (optional.Interface of UpdateNicRequest) -
+
 @return UpdateNicResponse
 */
 func (a *NicApiService) UpdateNic(ctx _context.Context, localVarOptionals *UpdateNicOpts) (UpdateNicResponse, *_nethttp.Response, error) {

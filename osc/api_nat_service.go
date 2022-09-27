@@ -33,9 +33,10 @@ type CreateNatServiceOpts struct {
 
 /*
 CreateNatService Method for CreateNatService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateNatServiceOpts - Optional Parameters:
- * @param "CreateNatServiceRequest" (optional.Interface of CreateNatServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateNatServiceOpts - Optional Parameters:
+  - @param "CreateNatServiceRequest" (optional.Interface of CreateNatServiceRequest) -
+
 @return CreateNatServiceResponse
 */
 func (a *NatServiceApiService) CreateNatService(ctx _context.Context, localVarOptionals *CreateNatServiceOpts) (CreateNatServiceResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteNatServiceOpts struct {
 
 /*
 DeleteNatService Method for DeleteNatService
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteNatServiceOpts - Optional Parameters:
- * @param "DeleteNatServiceRequest" (optional.Interface of DeleteNatServiceRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteNatServiceOpts - Optional Parameters:
+  - @param "DeleteNatServiceRequest" (optional.Interface of DeleteNatServiceRequest) -
+
 @return DeleteNatServiceResponse
 */
 func (a *NatServiceApiService) DeleteNatService(ctx _context.Context, localVarOptionals *DeleteNatServiceOpts) (DeleteNatServiceResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type ReadNatServicesOpts struct {
 
 /*
 ReadNatServices Method for ReadNatServices
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNatServicesOpts - Optional Parameters:
- * @param "ReadNatServicesRequest" (optional.Interface of ReadNatServicesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNatServicesOpts - Optional Parameters:
+  - @param "ReadNatServicesRequest" (optional.Interface of ReadNatServicesRequest) -
+
 @return ReadNatServicesResponse
 */
 func (a *NatServiceApiService) ReadNatServices(ctx _context.Context, localVarOptionals *ReadNatServicesOpts) (ReadNatServicesResponse, *_nethttp.Response, error) {

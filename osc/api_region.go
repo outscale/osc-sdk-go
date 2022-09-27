@@ -33,9 +33,10 @@ type ReadRegionsOpts struct {
 
 /*
 ReadRegions Method for ReadRegions
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadRegionsOpts - Optional Parameters:
- * @param "ReadRegionsRequest" (optional.Interface of ReadRegionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadRegionsOpts - Optional Parameters:
+  - @param "ReadRegionsRequest" (optional.Interface of ReadRegionsRequest) -
+
 @return ReadRegionsResponse
 */
 func (a *RegionApiService) ReadRegions(ctx _context.Context, localVarOptionals *ReadRegionsOpts) (ReadRegionsResponse, *_nethttp.Response, error) {

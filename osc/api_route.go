@@ -33,9 +33,10 @@ type CreateRouteOpts struct {
 
 /*
 CreateRoute Method for CreateRoute
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateRouteOpts - Optional Parameters:
- * @param "CreateRouteRequest" (optional.Interface of CreateRouteRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateRouteOpts - Optional Parameters:
+  - @param "CreateRouteRequest" (optional.Interface of CreateRouteRequest) -
+
 @return CreateRouteResponse
 */
 func (a *RouteApiService) CreateRoute(ctx _context.Context, localVarOptionals *CreateRouteOpts) (CreateRouteResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteRouteOpts struct {
 
 /*
 DeleteRoute Method for DeleteRoute
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteRouteOpts - Optional Parameters:
- * @param "DeleteRouteRequest" (optional.Interface of DeleteRouteRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteRouteOpts - Optional Parameters:
+  - @param "DeleteRouteRequest" (optional.Interface of DeleteRouteRequest) -
+
 @return DeleteRouteResponse
 */
 func (a *RouteApiService) DeleteRoute(ctx _context.Context, localVarOptionals *DeleteRouteOpts) (DeleteRouteResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type UpdateRouteOpts struct {
 
 /*
 UpdateRoute Method for UpdateRoute
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateRouteOpts - Optional Parameters:
- * @param "UpdateRouteRequest" (optional.Interface of UpdateRouteRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateRouteOpts - Optional Parameters:
+  - @param "UpdateRouteRequest" (optional.Interface of UpdateRouteRequest) -
+
 @return UpdateRouteResponse
 */
 func (a *RouteApiService) UpdateRoute(ctx _context.Context, localVarOptionals *UpdateRouteOpts) (UpdateRouteResponse, *_nethttp.Response, error) {

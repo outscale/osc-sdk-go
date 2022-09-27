@@ -33,9 +33,10 @@ type CreateServerCertificateOpts struct {
 
 /*
 CreateServerCertificate Method for CreateServerCertificate
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateServerCertificateOpts - Optional Parameters:
- * @param "CreateServerCertificateRequest" (optional.Interface of CreateServerCertificateRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateServerCertificateOpts - Optional Parameters:
+  - @param "CreateServerCertificateRequest" (optional.Interface of CreateServerCertificateRequest) -
+
 @return CreateServerCertificateResponse
 */
 func (a *ServerCertificateApiService) CreateServerCertificate(ctx _context.Context, localVarOptionals *CreateServerCertificateOpts) (CreateServerCertificateResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteServerCertificateOpts struct {
 
 /*
 DeleteServerCertificate Method for DeleteServerCertificate
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteServerCertificateOpts - Optional Parameters:
- * @param "DeleteServerCertificateRequest" (optional.Interface of DeleteServerCertificateRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteServerCertificateOpts - Optional Parameters:
+  - @param "DeleteServerCertificateRequest" (optional.Interface of DeleteServerCertificateRequest) -
+
 @return DeleteServerCertificateResponse
 */
 func (a *ServerCertificateApiService) DeleteServerCertificate(ctx _context.Context, localVarOptionals *DeleteServerCertificateOpts) (DeleteServerCertificateResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadServerCertificatesOpts struct {
 
 /*
 ReadServerCertificates Method for ReadServerCertificates
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadServerCertificatesOpts - Optional Parameters:
- * @param "ReadServerCertificatesRequest" (optional.Interface of ReadServerCertificatesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadServerCertificatesOpts - Optional Parameters:
+  - @param "ReadServerCertificatesRequest" (optional.Interface of ReadServerCertificatesRequest) -
+
 @return ReadServerCertificatesResponse
 */
 func (a *ServerCertificateApiService) ReadServerCertificates(ctx _context.Context, localVarOptionals *ReadServerCertificatesOpts) (ReadServerCertificatesResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type UpdateServerCertificateOpts struct {
 
 /*
 UpdateServerCertificate Method for UpdateServerCertificate
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateServerCertificateOpts - Optional Parameters:
- * @param "UpdateServerCertificateRequest" (optional.Interface of UpdateServerCertificateRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateServerCertificateOpts - Optional Parameters:
+  - @param "UpdateServerCertificateRequest" (optional.Interface of UpdateServerCertificateRequest) -
+
 @return UpdateServerCertificateResponse
 */
 func (a *ServerCertificateApiService) UpdateServerCertificate(ctx _context.Context, localVarOptionals *UpdateServerCertificateOpts) (UpdateServerCertificateResponse, *_nethttp.Response, error) {
