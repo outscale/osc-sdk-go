@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NetPeerings** | Pointer to [**[]NetPeering**](NetPeering.md) | Information about one or more Net peering connections. | [optional] 
+**NetPeerings** | Pointer to [**[]NetPeering**](NetPeering.md) | Information about one or more Net peerings. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods

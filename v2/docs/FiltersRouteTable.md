@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **RouteDestinationServiceIds** | Pointer to **[]string** | The service IDs specified in routes in the tables. | [optional] 
 **RouteGatewayIds** | Pointer to **[]string** | The IDs of the gateways specified in routes in the tables. | [optional] 
 **RouteNatServiceIds** | Pointer to **[]string** | The IDs of the NAT services specified in routes in the tables. | [optional] 
-**RouteNetPeeringIds** | Pointer to **[]string** | The IDs of the Net peering connections specified in routes in the tables. | [optional] 
+**RouteNetPeeringIds** | Pointer to **[]string** | The IDs of the Net peerings specified in routes in the tables. | [optional] 
 **RouteStates** | Pointer to **[]string** | The states of routes in the route tables (always &#x60;active&#x60;). | [optional] 
 **RouteTableIds** | Pointer to **[]string** | The IDs of the route tables. | [optional] 
 **RouteVmIds** | Pointer to **[]string** | The IDs of the VMs specified in routes in the tables. | [optional] 

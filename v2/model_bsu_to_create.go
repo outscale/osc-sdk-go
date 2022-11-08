@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.22
+ * API version: 1.23
  * Contact: support@outscale.com
  */
 
@@ -19,7 +19,7 @@ import (
 type BsuToCreate struct {
 	// By default or if set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
 	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
-	// The number of I/O operations per second (IOPS). This parameter must be specified only if you create an `io1` volume. The maximum number of IOPS allowed for `io1` volumes is `13000`.
+	// The number of I/O operations per second (IOPS). This parameter must be specified only if you create an `io1` volume. The maximum number of IOPS allowed for `io1` volumes is `13000` with a maximum performance ratio of 300 IOPS per gibibyte.
 	Iops *int32 `json:"Iops,omitempty"`
 	// The ID of the snapshot used to create the volume.
 	SnapshotId *string `json:"SnapshotId,omitempty"`

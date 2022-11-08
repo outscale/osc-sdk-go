@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | Pointer to **string** | Additional information about the state of the Net peering connection. | [optional] 
-**Name** | Pointer to **string** | The state of the Net peering connection (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
+**Message** | Pointer to **string** | Additional information about the state of the Net peering. | [optional] 
+**Name** | Pointer to **string** | The state of the Net peering (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 
 ## Methods
 

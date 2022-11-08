@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccepterNet** | Pointer to [**AccepterNet**](AccepterNet.md) |  | [optional] 
-**NetPeeringId** | Pointer to **string** | The ID of the Net peering connection. | [optional] 
+**NetPeeringId** | Pointer to **string** | The ID of the Net peering. | [optional] 
 **SourceNet** | Pointer to [**SourceNet**](SourceNet.md) |  | [optional] 
 **State** | Pointer to [**NetPeeringState**](NetPeeringState.md) |  | [optional] 
-**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the Net peering connection. | [optional] 
+**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the Net peering. | [optional] 
 
 ## Methods
 

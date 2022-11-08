@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.22
+ * API version: 1.23
  * Contact: support@outscale.com
  */
 
@@ -23,7 +23,7 @@ type FiltersNetPeering struct {
 	AccepterNetIpRanges *[]string `json:"AccepterNetIpRanges,omitempty"`
 	// The IDs of the peer Nets.
 	AccepterNetNetIds *[]string `json:"AccepterNetNetIds,omitempty"`
-	// The IDs of the Net peering connections.
+	// The IDs of the Net peerings.
 	NetPeeringIds *[]string `json:"NetPeeringIds,omitempty"`
 	// The account IDs of the owners of the peer Nets.
 	SourceNetAccountIds *[]string `json:"SourceNetAccountIds,omitempty"`
@@ -31,15 +31,15 @@ type FiltersNetPeering struct {
 	SourceNetIpRanges *[]string `json:"SourceNetIpRanges,omitempty"`
 	// The IDs of the peer Nets.
 	SourceNetNetIds *[]string `json:"SourceNetNetIds,omitempty"`
-	// Additional information about the states of the Net peering connections.
+	// Additional information about the states of the Net peerings.
 	StateMessages *[]string `json:"StateMessages,omitempty"`
-	// The states of the Net peering connections (`pending-acceptance` \\| `active` \\| `rejected` \\| `failed` \\| `expired` \\| `deleted`).
+	// The states of the Net peerings (`pending-acceptance` \\| `active` \\| `rejected` \\| `failed` \\| `expired` \\| `deleted`).
 	StateNames *[]string `json:"StateNames,omitempty"`
-	// The keys of the tags associated with the Net peering connections.
+	// The keys of the tags associated with the Net peerings.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
-	// The values of the tags associated with the Net peering connections.
+	// The values of the tags associated with the Net peerings.
 	TagValues *[]string `json:"TagValues,omitempty"`
-	// The key/value combination of the tags associated with the Net peering connections, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
+	// The key/value combination of the tags associated with the Net peerings, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
 	Tags *[]string `json:"Tags,omitempty"`
 }
 
