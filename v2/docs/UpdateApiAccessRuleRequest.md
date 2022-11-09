@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Cns** | Pointer to **[]string** | One or more Client Certificate Common Names (CNs). | [optional] 
 **Description** | Pointer to **string** | A new description for the API access rule. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**IpRanges** | Pointer to **[]string** | One or more IP ranges, in CIDR notation (for example, &#x60;192.0.2.0/16&#x60;). | [optional] 
+**IpRanges** | Pointer to **[]string** | One or more IP addresses or CIDR blocks (for example, &#x60;192.0.2.0/16&#x60;). | [optional] 
 
 ## Methods
 

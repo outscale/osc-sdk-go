@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **GatewayId** | Pointer to **string** | The ID of an Internet service or virtual gateway attached to your Net. | [optional] 
 **NatServiceId** | Pointer to **string** | The ID of a NAT service. | [optional] 
-**NetPeeringId** | Pointer to **string** | The ID of a Net peering connection. | [optional] 
+**NetPeeringId** | Pointer to **string** | The ID of a Net peering. | [optional] 
 **NicId** | Pointer to **string** | The ID of a NIC. | [optional] 
 **RouteTableId** | **string** | The ID of the route table for which you want to create a route. | 
 **VmId** | Pointer to **string** | The ID of a NAT VM in your Net (attached to exactly one NIC). | [optional] 
