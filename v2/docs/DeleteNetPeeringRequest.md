@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**NetPeeringId** | **string** | The ID of the Net peering connection you want to delete. | 
+**NetPeeringId** | **string** | The ID of the Net peering you want to delete. | 
 
 ## Methods
 

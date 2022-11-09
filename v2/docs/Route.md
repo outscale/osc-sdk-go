@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **GatewayId** | Pointer to **string** | The ID of the Internet service or virtual gateway attached to the Net. | [optional] 
 **NatServiceId** | Pointer to **string** | The ID of a NAT service attached to the Net. | [optional] 
 **NetAccessPointId** | Pointer to **string** | The ID of the Net access point. | [optional] 
-**NetPeeringId** | Pointer to **string** | The ID of the Net peering connection. | [optional] 
+**NetPeeringId** | Pointer to **string** | The ID of the Net peering. | [optional] 
 **NicId** | Pointer to **string** | The ID of the NIC. | [optional] 
 **State** | Pointer to **string** | The state of a route in the route table (always &#x60;active&#x60;).  | [optional] 
 **VmAccountId** | Pointer to **string** | The account ID of the owner of the VM. | [optional] 

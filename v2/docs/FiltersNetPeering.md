@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **AccepterNetAccountIds** | Pointer to **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **AccepterNetIpRanges** | Pointer to **[]string** | The IP ranges of the peer Nets, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **AccepterNetNetIds** | Pointer to **[]string** | The IDs of the peer Nets. | [optional] 
-**NetPeeringIds** | Pointer to **[]string** | The IDs of the Net peering connections. | [optional] 
+**NetPeeringIds** | Pointer to **[]string** | The IDs of the Net peerings. | [optional] 
 **SourceNetAccountIds** | Pointer to **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **SourceNetIpRanges** | Pointer to **[]string** | The IP ranges of the peer Nets. | [optional] 
 **SourceNetNetIds** | Pointer to **[]string** | The IDs of the peer Nets. | [optional] 
-**StateMessages** | Pointer to **[]string** | Additional information about the states of the Net peering connections. | [optional] 
-**StateNames** | Pointer to **[]string** | The states of the Net peering connections (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
-**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Net peering connections. | [optional] 
-**TagValues** | Pointer to **[]string** | The values of the tags associated with the Net peering connections. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Net peering connections, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
+**StateMessages** | Pointer to **[]string** | Additional information about the states of the Net peerings. | [optional] 
+**StateNames** | Pointer to **[]string** | The states of the Net peerings (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
+**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Net peerings. | [optional] 
+**TagValues** | Pointer to **[]string** | The values of the tags associated with the Net peerings. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Net peerings, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

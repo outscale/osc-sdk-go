@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CaIds** | Pointer to **[]string** | One or more IDs of Client Certificate Authorities (CAs). | [optional] 
 **Cns** | Pointer to **[]string** | One or more Client Certificate Common Names (CNs). | [optional] 
 **Descriptions** | Pointer to **[]string** | One or more descriptions of API access rules. | [optional] 
-**IpRanges** | Pointer to **[]string** | One or more IP ranges, in CIDR notation (for example, &#x60;192.0.2.0/16&#x60;). | [optional] 
+**IpRanges** | Pointer to **[]string** | One or more IP addresses or CIDR blocks (for example, &#x60;192.0.2.0/16&#x60;). | [optional] 
 
 ## Methods
 
