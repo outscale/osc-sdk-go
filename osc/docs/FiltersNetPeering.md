@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **AccepterNetAccountIds** | **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **AccepterNetIpRanges** | **[]string** | The IP ranges of the peer Nets, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **AccepterNetNetIds** | **[]string** | The IDs of the peer Nets. | [optional] 
-**NetPeeringIds** | **[]string** | The IDs of the Net peering connections. | [optional] 
+**NetPeeringIds** | **[]string** | The IDs of the Net peerings. | [optional] 
 **SourceNetAccountIds** | **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **SourceNetIpRanges** | **[]string** | The IP ranges of the peer Nets. | [optional] 
 **SourceNetNetIds** | **[]string** | The IDs of the peer Nets. | [optional] 
-**StateMessages** | **[]string** | Additional information about the states of the Net peering connections. | [optional] 
-**StateNames** | **[]string** | The states of the Net peering connections (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
-**TagKeys** | **[]string** | The keys of the tags associated with the Net peering connections. | [optional] 
-**TagValues** | **[]string** | The values of the tags associated with the Net peering connections. | [optional] 
-**Tags** | **[]string** | The key/value combination of the tags associated with the Net peering connections, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
+**StateMessages** | **[]string** | Additional information about the states of the Net peerings. | [optional] 
+**StateNames** | **[]string** | The states of the Net peerings (&#x60;pending-acceptance&#x60; \\| &#x60;active&#x60; \\| &#x60;rejected&#x60; \\| &#x60;failed&#x60; \\| &#x60;expired&#x60; \\| &#x60;deleted&#x60;). | [optional] 
+**TagKeys** | **[]string** | The keys of the tags associated with the Net peerings. | [optional] 
+**TagValues** | **[]string** | The values of the tags associated with the Net peerings. | [optional] 
+**Tags** | **[]string** | The key/value combination of the tags associated with the Net peerings, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
