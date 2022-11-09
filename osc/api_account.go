@@ -33,9 +33,10 @@ type CheckAuthenticationOpts struct {
 
 /*
 CheckAuthentication Method for CheckAuthentication
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CheckAuthenticationOpts - Optional Parameters:
- * @param "CheckAuthenticationRequest" (optional.Interface of CheckAuthenticationRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CheckAuthenticationOpts - Optional Parameters:
+  - @param "CheckAuthenticationRequest" (optional.Interface of CheckAuthenticationRequest) -
+
 @return CheckAuthenticationResponse
 */
 func (a *AccountApiService) CheckAuthentication(ctx _context.Context, localVarOptionals *CheckAuthenticationOpts) (CheckAuthenticationResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type CreateAccountOpts struct {
 
 /*
 CreateAccount Method for CreateAccount
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateAccountOpts - Optional Parameters:
- * @param "CreateAccountRequest" (optional.Interface of CreateAccountRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateAccountOpts - Optional Parameters:
+  - @param "CreateAccountRequest" (optional.Interface of CreateAccountRequest) -
+
 @return CreateAccountResponse
 */
 func (a *AccountApiService) CreateAccount(ctx _context.Context, localVarOptionals *CreateAccountOpts) (CreateAccountResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadAccountsOpts struct {
 
 /*
 ReadAccounts Method for ReadAccounts
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadAccountsOpts - Optional Parameters:
- * @param "ReadAccountsRequest" (optional.Interface of ReadAccountsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadAccountsOpts - Optional Parameters:
+  - @param "ReadAccountsRequest" (optional.Interface of ReadAccountsRequest) -
+
 @return ReadAccountsResponse
 */
 func (a *AccountApiService) ReadAccounts(ctx _context.Context, localVarOptionals *ReadAccountsOpts) (ReadAccountsResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type ReadConsumptionAccountOpts struct {
 
 /*
 ReadConsumptionAccount Method for ReadConsumptionAccount
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadConsumptionAccountOpts - Optional Parameters:
- * @param "ReadConsumptionAccountRequest" (optional.Interface of ReadConsumptionAccountRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadConsumptionAccountOpts - Optional Parameters:
+  - @param "ReadConsumptionAccountRequest" (optional.Interface of ReadConsumptionAccountRequest) -
+
 @return ReadConsumptionAccountResponse
 */
 func (a *AccountApiService) ReadConsumptionAccount(ctx _context.Context, localVarOptionals *ReadConsumptionAccountOpts) (ReadConsumptionAccountResponse, *_nethttp.Response, error) {
@@ -477,9 +481,10 @@ type ResetAccountPasswordOpts struct {
 
 /*
 ResetAccountPassword Method for ResetAccountPassword
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ResetAccountPasswordOpts - Optional Parameters:
- * @param "ResetAccountPasswordRequest" (optional.Interface of ResetAccountPasswordRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ResetAccountPasswordOpts - Optional Parameters:
+  - @param "ResetAccountPasswordRequest" (optional.Interface of ResetAccountPasswordRequest) -
+
 @return ResetAccountPasswordResponse
 */
 func (a *AccountApiService) ResetAccountPassword(ctx _context.Context, localVarOptionals *ResetAccountPasswordOpts) (ResetAccountPasswordResponse, *_nethttp.Response, error) {
@@ -576,9 +581,10 @@ type SendResetPasswordEmailOpts struct {
 
 /*
 SendResetPasswordEmail Method for SendResetPasswordEmail
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *SendResetPasswordEmailOpts - Optional Parameters:
- * @param "SendResetPasswordEmailRequest" (optional.Interface of SendResetPasswordEmailRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *SendResetPasswordEmailOpts - Optional Parameters:
+  - @param "SendResetPasswordEmailRequest" (optional.Interface of SendResetPasswordEmailRequest) -
+
 @return SendResetPasswordEmailResponse
 */
 func (a *AccountApiService) SendResetPasswordEmail(ctx _context.Context, localVarOptionals *SendResetPasswordEmailOpts) (SendResetPasswordEmailResponse, *_nethttp.Response, error) {
@@ -675,9 +681,10 @@ type UpdateAccountOpts struct {
 
 /*
 UpdateAccount Method for UpdateAccount
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateAccountOpts - Optional Parameters:
- * @param "UpdateAccountRequest" (optional.Interface of UpdateAccountRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateAccountOpts - Optional Parameters:
+  - @param "UpdateAccountRequest" (optional.Interface of UpdateAccountRequest) -
+
 @return UpdateAccountResponse
 */
 func (a *AccountApiService) UpdateAccount(ctx _context.Context, localVarOptionals *UpdateAccountOpts) (UpdateAccountResponse, *_nethttp.Response, error) {

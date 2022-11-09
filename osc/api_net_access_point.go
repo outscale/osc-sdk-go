@@ -33,9 +33,10 @@ type CreateNetAccessPointOpts struct {
 
 /*
 CreateNetAccessPoint Method for CreateNetAccessPoint
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateNetAccessPointOpts - Optional Parameters:
- * @param "CreateNetAccessPointRequest" (optional.Interface of CreateNetAccessPointRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateNetAccessPointOpts - Optional Parameters:
+  - @param "CreateNetAccessPointRequest" (optional.Interface of CreateNetAccessPointRequest) -
+
 @return CreateNetAccessPointResponse
 */
 func (a *NetAccessPointApiService) CreateNetAccessPoint(ctx _context.Context, localVarOptionals *CreateNetAccessPointOpts) (CreateNetAccessPointResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteNetAccessPointOpts struct {
 
 /*
 DeleteNetAccessPoint Method for DeleteNetAccessPoint
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteNetAccessPointOpts - Optional Parameters:
- * @param "DeleteNetAccessPointRequest" (optional.Interface of DeleteNetAccessPointRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteNetAccessPointOpts - Optional Parameters:
+  - @param "DeleteNetAccessPointRequest" (optional.Interface of DeleteNetAccessPointRequest) -
+
 @return DeleteNetAccessPointResponse
 */
 func (a *NetAccessPointApiService) DeleteNetAccessPoint(ctx _context.Context, localVarOptionals *DeleteNetAccessPointOpts) (DeleteNetAccessPointResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadNetAccessPointServicesOpts struct {
 
 /*
 ReadNetAccessPointServices Method for ReadNetAccessPointServices
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNetAccessPointServicesOpts - Optional Parameters:
- * @param "ReadNetAccessPointServicesRequest" (optional.Interface of ReadNetAccessPointServicesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNetAccessPointServicesOpts - Optional Parameters:
+  - @param "ReadNetAccessPointServicesRequest" (optional.Interface of ReadNetAccessPointServicesRequest) -
+
 @return ReadNetAccessPointServicesResponse
 */
 func (a *NetAccessPointApiService) ReadNetAccessPointServices(ctx _context.Context, localVarOptionals *ReadNetAccessPointServicesOpts) (ReadNetAccessPointServicesResponse, *_nethttp.Response, error) {
@@ -354,9 +357,10 @@ type ReadNetAccessPointsOpts struct {
 
 /*
 ReadNetAccessPoints Method for ReadNetAccessPoints
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNetAccessPointsOpts - Optional Parameters:
- * @param "ReadNetAccessPointsRequest" (optional.Interface of ReadNetAccessPointsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNetAccessPointsOpts - Optional Parameters:
+  - @param "ReadNetAccessPointsRequest" (optional.Interface of ReadNetAccessPointsRequest) -
+
 @return ReadNetAccessPointsResponse
 */
 func (a *NetAccessPointApiService) ReadNetAccessPoints(ctx _context.Context, localVarOptionals *ReadNetAccessPointsOpts) (ReadNetAccessPointsResponse, *_nethttp.Response, error) {
@@ -465,9 +469,10 @@ type UpdateNetAccessPointOpts struct {
 
 /*
 UpdateNetAccessPoint Method for UpdateNetAccessPoint
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateNetAccessPointOpts - Optional Parameters:
- * @param "UpdateNetAccessPointRequest" (optional.Interface of UpdateNetAccessPointRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateNetAccessPointOpts - Optional Parameters:
+  - @param "UpdateNetAccessPointRequest" (optional.Interface of UpdateNetAccessPointRequest) -
+
 @return UpdateNetAccessPointResponse
 */
 func (a *NetAccessPointApiService) UpdateNetAccessPoint(ctx _context.Context, localVarOptionals *UpdateNetAccessPointOpts) (UpdateNetAccessPointResponse, *_nethttp.Response, error) {

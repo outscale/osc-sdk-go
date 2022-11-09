@@ -33,9 +33,10 @@ type ReadApiAccessPolicyOpts struct {
 
 /*
 ReadApiAccessPolicy Method for ReadApiAccessPolicy
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadApiAccessPolicyOpts - Optional Parameters:
- * @param "ReadApiAccessPolicyRequest" (optional.Interface of ReadApiAccessPolicyRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadApiAccessPolicyOpts - Optional Parameters:
+  - @param "ReadApiAccessPolicyRequest" (optional.Interface of ReadApiAccessPolicyRequest) -
+
 @return ReadApiAccessPolicyResponse
 */
 func (a *ApiAccessPolicyApiService) ReadApiAccessPolicy(ctx _context.Context, localVarOptionals *ReadApiAccessPolicyOpts) (ReadApiAccessPolicyResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type UpdateApiAccessPolicyOpts struct {
 
 /*
 UpdateApiAccessPolicy Method for UpdateApiAccessPolicy
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateApiAccessPolicyOpts - Optional Parameters:
- * @param "UpdateApiAccessPolicyRequest" (optional.Interface of UpdateApiAccessPolicyRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateApiAccessPolicyOpts - Optional Parameters:
+  - @param "UpdateApiAccessPolicyRequest" (optional.Interface of UpdateApiAccessPolicyRequest) -
+
 @return UpdateApiAccessPolicyResponse
 */
 func (a *ApiAccessPolicyApiService) UpdateApiAccessPolicy(ctx _context.Context, localVarOptionals *UpdateApiAccessPolicyOpts) (UpdateApiAccessPolicyResponse, *_nethttp.Response, error) {

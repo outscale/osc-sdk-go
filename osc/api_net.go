@@ -33,9 +33,10 @@ type CreateNetOpts struct {
 
 /*
 CreateNet Method for CreateNet
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateNetOpts - Optional Parameters:
- * @param "CreateNetRequest" (optional.Interface of CreateNetRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateNetOpts - Optional Parameters:
+  - @param "CreateNetRequest" (optional.Interface of CreateNetRequest) -
+
 @return CreateNetResponse
 */
 func (a *NetApiService) CreateNet(ctx _context.Context, localVarOptionals *CreateNetOpts) (CreateNetResponse, *_nethttp.Response, error) {
@@ -184,9 +185,10 @@ type DeleteNetOpts struct {
 
 /*
 DeleteNet Method for DeleteNet
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteNetOpts - Optional Parameters:
- * @param "DeleteNetRequest" (optional.Interface of DeleteNetRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteNetOpts - Optional Parameters:
+  - @param "DeleteNetRequest" (optional.Interface of DeleteNetRequest) -
+
 @return DeleteNetResponse
 */
 func (a *NetApiService) DeleteNet(ctx _context.Context, localVarOptionals *DeleteNetOpts) (DeleteNetResponse, *_nethttp.Response, error) {
@@ -325,9 +327,10 @@ type ReadNetsOpts struct {
 
 /*
 ReadNets Method for ReadNets
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadNetsOpts - Optional Parameters:
- * @param "ReadNetsRequest" (optional.Interface of ReadNetsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadNetsOpts - Optional Parameters:
+  - @param "ReadNetsRequest" (optional.Interface of ReadNetsRequest) -
+
 @return ReadNetsResponse
 */
 func (a *NetApiService) ReadNets(ctx _context.Context, localVarOptionals *ReadNetsOpts) (ReadNetsResponse, *_nethttp.Response, error) {
@@ -466,9 +469,10 @@ type UpdateNetOpts struct {
 
 /*
 UpdateNet Method for UpdateNet
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateNetOpts - Optional Parameters:
- * @param "UpdateNetRequest" (optional.Interface of UpdateNetRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateNetOpts - Optional Parameters:
+  - @param "UpdateNetRequest" (optional.Interface of UpdateNetRequest) -
+
 @return UpdateNetResponse
 */
 func (a *NetApiService) UpdateNet(ctx _context.Context, localVarOptionals *UpdateNetOpts) (UpdateNetResponse, *_nethttp.Response, error) {
