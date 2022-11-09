@@ -33,9 +33,10 @@ type CreateDirectLinkOpts struct {
 
 /*
 CreateDirectLink Method for CreateDirectLink
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateDirectLinkOpts - Optional Parameters:
- * @param "CreateDirectLinkRequest" (optional.Interface of CreateDirectLinkRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateDirectLinkOpts - Optional Parameters:
+  - @param "CreateDirectLinkRequest" (optional.Interface of CreateDirectLinkRequest) -
+
 @return CreateDirectLinkResponse
 */
 func (a *DirectLinkApiService) CreateDirectLink(ctx _context.Context, localVarOptionals *CreateDirectLinkOpts) (CreateDirectLinkResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteDirectLinkOpts struct {
 
 /*
 DeleteDirectLink Method for DeleteDirectLink
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteDirectLinkOpts - Optional Parameters:
- * @param "DeleteDirectLinkRequest" (optional.Interface of DeleteDirectLinkRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteDirectLinkOpts - Optional Parameters:
+  - @param "DeleteDirectLinkRequest" (optional.Interface of DeleteDirectLinkRequest) -
+
 @return DeleteDirectLinkResponse
 */
 func (a *DirectLinkApiService) DeleteDirectLink(ctx _context.Context, localVarOptionals *DeleteDirectLinkOpts) (DeleteDirectLinkResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadDirectLinksOpts struct {
 
 /*
 ReadDirectLinks Method for ReadDirectLinks
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadDirectLinksOpts - Optional Parameters:
- * @param "ReadDirectLinksRequest" (optional.Interface of ReadDirectLinksRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadDirectLinksOpts - Optional Parameters:
+  - @param "ReadDirectLinksRequest" (optional.Interface of ReadDirectLinksRequest) -
+
 @return ReadDirectLinksResponse
 */
 func (a *DirectLinkApiService) ReadDirectLinks(ctx _context.Context, localVarOptionals *ReadDirectLinksOpts) (ReadDirectLinksResponse, *_nethttp.Response, error) {

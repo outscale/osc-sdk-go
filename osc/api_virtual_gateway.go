@@ -33,9 +33,10 @@ type CreateVirtualGatewayOpts struct {
 
 /*
 CreateVirtualGateway Method for CreateVirtualGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateVirtualGatewayOpts - Optional Parameters:
- * @param "CreateVirtualGatewayRequest" (optional.Interface of CreateVirtualGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateVirtualGatewayOpts - Optional Parameters:
+  - @param "CreateVirtualGatewayRequest" (optional.Interface of CreateVirtualGatewayRequest) -
+
 @return CreateVirtualGatewayResponse
 */
 func (a *VirtualGatewayApiService) CreateVirtualGateway(ctx _context.Context, localVarOptionals *CreateVirtualGatewayOpts) (CreateVirtualGatewayResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteVirtualGatewayOpts struct {
 
 /*
 DeleteVirtualGateway Method for DeleteVirtualGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteVirtualGatewayOpts - Optional Parameters:
- * @param "DeleteVirtualGatewayRequest" (optional.Interface of DeleteVirtualGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteVirtualGatewayOpts - Optional Parameters:
+  - @param "DeleteVirtualGatewayRequest" (optional.Interface of DeleteVirtualGatewayRequest) -
+
 @return DeleteVirtualGatewayResponse
 */
 func (a *VirtualGatewayApiService) DeleteVirtualGateway(ctx _context.Context, localVarOptionals *DeleteVirtualGatewayOpts) (DeleteVirtualGatewayResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type LinkVirtualGatewayOpts struct {
 
 /*
 LinkVirtualGateway Method for LinkVirtualGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkVirtualGatewayOpts - Optional Parameters:
- * @param "LinkVirtualGatewayRequest" (optional.Interface of LinkVirtualGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkVirtualGatewayOpts - Optional Parameters:
+  - @param "LinkVirtualGatewayRequest" (optional.Interface of LinkVirtualGatewayRequest) -
+
 @return LinkVirtualGatewayResponse
 */
 func (a *VirtualGatewayApiService) LinkVirtualGateway(ctx _context.Context, localVarOptionals *LinkVirtualGatewayOpts) (LinkVirtualGatewayResponse, *_nethttp.Response, error) {
@@ -366,9 +369,10 @@ type ReadVirtualGatewaysOpts struct {
 
 /*
 ReadVirtualGateways Method for ReadVirtualGateways
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadVirtualGatewaysOpts - Optional Parameters:
- * @param "ReadVirtualGatewaysRequest" (optional.Interface of ReadVirtualGatewaysRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadVirtualGatewaysOpts - Optional Parameters:
+  - @param "ReadVirtualGatewaysRequest" (optional.Interface of ReadVirtualGatewaysRequest) -
+
 @return ReadVirtualGatewaysResponse
 */
 func (a *VirtualGatewayApiService) ReadVirtualGateways(ctx _context.Context, localVarOptionals *ReadVirtualGatewaysOpts) (ReadVirtualGatewaysResponse, *_nethttp.Response, error) {
@@ -477,9 +481,10 @@ type UnlinkVirtualGatewayOpts struct {
 
 /*
 UnlinkVirtualGateway Method for UnlinkVirtualGateway
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkVirtualGatewayOpts - Optional Parameters:
- * @param "UnlinkVirtualGatewayRequest" (optional.Interface of UnlinkVirtualGatewayRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkVirtualGatewayOpts - Optional Parameters:
+  - @param "UnlinkVirtualGatewayRequest" (optional.Interface of UnlinkVirtualGatewayRequest) -
+
 @return UnlinkVirtualGatewayResponse
 */
 func (a *VirtualGatewayApiService) UnlinkVirtualGateway(ctx _context.Context, localVarOptionals *UnlinkVirtualGatewayOpts) (UnlinkVirtualGatewayResponse, *_nethttp.Response, error) {
@@ -588,9 +593,10 @@ type UpdateRoutePropagationOpts struct {
 
 /*
 UpdateRoutePropagation Method for UpdateRoutePropagation
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UpdateRoutePropagationOpts - Optional Parameters:
- * @param "UpdateRoutePropagationRequest" (optional.Interface of UpdateRoutePropagationRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UpdateRoutePropagationOpts - Optional Parameters:
+  - @param "UpdateRoutePropagationRequest" (optional.Interface of UpdateRoutePropagationRequest) -
+
 @return UpdateRoutePropagationResponse
 */
 func (a *VirtualGatewayApiService) UpdateRoutePropagation(ctx _context.Context, localVarOptionals *UpdateRoutePropagationOpts) (UpdateRoutePropagationResponse, *_nethttp.Response, error) {

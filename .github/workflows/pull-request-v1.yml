@@ -23,7 +23,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19
       - name: Go tests
         env:
           OSC_ACCESS_KEY: ${{ secrets.OSC_ACCESS_KEY }}
@@ -37,7 +37,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19
       - name: SDK re-generation test
         run: make regen-test
   dependabot-auto-merge:

@@ -33,9 +33,10 @@ type CreateDhcpOptionsOpts struct {
 
 /*
 CreateDhcpOptions Method for CreateDhcpOptions
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateDhcpOptionsOpts - Optional Parameters:
- * @param "CreateDhcpOptionsRequest" (optional.Interface of CreateDhcpOptionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateDhcpOptionsOpts - Optional Parameters:
+  - @param "CreateDhcpOptionsRequest" (optional.Interface of CreateDhcpOptionsRequest) -
+
 @return CreateDhcpOptionsResponse
 */
 func (a *DhcpOptionApiService) CreateDhcpOptions(ctx _context.Context, localVarOptionals *CreateDhcpOptionsOpts) (CreateDhcpOptionsResponse, *_nethttp.Response, error) {
@@ -144,9 +145,10 @@ type DeleteDhcpOptionsOpts struct {
 
 /*
 DeleteDhcpOptions Method for DeleteDhcpOptions
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteDhcpOptionsOpts - Optional Parameters:
- * @param "DeleteDhcpOptionsRequest" (optional.Interface of DeleteDhcpOptionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteDhcpOptionsOpts - Optional Parameters:
+  - @param "DeleteDhcpOptionsRequest" (optional.Interface of DeleteDhcpOptionsRequest) -
+
 @return DeleteDhcpOptionsResponse
 */
 func (a *DhcpOptionApiService) DeleteDhcpOptions(ctx _context.Context, localVarOptionals *DeleteDhcpOptionsOpts) (DeleteDhcpOptionsResponse, *_nethttp.Response, error) {
@@ -255,9 +257,10 @@ type ReadDhcpOptionsOpts struct {
 
 /*
 ReadDhcpOptions Method for ReadDhcpOptions
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadDhcpOptionsOpts - Optional Parameters:
- * @param "ReadDhcpOptionsRequest" (optional.Interface of ReadDhcpOptionsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadDhcpOptionsOpts - Optional Parameters:
+  - @param "ReadDhcpOptionsRequest" (optional.Interface of ReadDhcpOptionsRequest) -
+
 @return ReadDhcpOptionsResponse
 */
 func (a *DhcpOptionApiService) ReadDhcpOptions(ctx _context.Context, localVarOptionals *ReadDhcpOptionsOpts) (ReadDhcpOptionsResponse, *_nethttp.Response, error) {

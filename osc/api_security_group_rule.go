@@ -33,9 +33,10 @@ type CreateSecurityGroupRuleOpts struct {
 
 /*
 CreateSecurityGroupRule Method for CreateSecurityGroupRule
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateSecurityGroupRuleOpts - Optional Parameters:
- * @param "CreateSecurityGroupRuleRequest" (optional.Interface of CreateSecurityGroupRuleRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateSecurityGroupRuleOpts - Optional Parameters:
+  - @param "CreateSecurityGroupRuleRequest" (optional.Interface of CreateSecurityGroupRuleRequest) -
+
 @return CreateSecurityGroupRuleResponse
 */
 func (a *SecurityGroupRuleApiService) CreateSecurityGroupRule(ctx _context.Context, localVarOptionals *CreateSecurityGroupRuleOpts) (CreateSecurityGroupRuleResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeleteSecurityGroupRuleOpts struct {
 
 /*
 DeleteSecurityGroupRule Method for DeleteSecurityGroupRule
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeleteSecurityGroupRuleOpts - Optional Parameters:
- * @param "DeleteSecurityGroupRuleRequest" (optional.Interface of DeleteSecurityGroupRuleRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeleteSecurityGroupRuleOpts - Optional Parameters:
+  - @param "DeleteSecurityGroupRuleRequest" (optional.Interface of DeleteSecurityGroupRuleRequest) -
+
 @return DeleteSecurityGroupRuleResponse
 */
 func (a *SecurityGroupRuleApiService) DeleteSecurityGroupRule(ctx _context.Context, localVarOptionals *DeleteSecurityGroupRuleOpts) (DeleteSecurityGroupRuleResponse, *_nethttp.Response, error) {

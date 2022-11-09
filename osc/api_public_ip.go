@@ -33,9 +33,10 @@ type CreatePublicIpOpts struct {
 
 /*
 CreatePublicIp Method for CreatePublicIp
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreatePublicIpOpts - Optional Parameters:
- * @param "CreatePublicIpRequest" (optional.Interface of CreatePublicIpRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreatePublicIpOpts - Optional Parameters:
+  - @param "CreatePublicIpRequest" (optional.Interface of CreatePublicIpRequest) -
+
 @return CreatePublicIpResponse
 */
 func (a *PublicIpApiService) CreatePublicIp(ctx _context.Context, localVarOptionals *CreatePublicIpOpts) (CreatePublicIpResponse, *_nethttp.Response, error) {
@@ -174,9 +175,10 @@ type DeletePublicIpOpts struct {
 
 /*
 DeletePublicIp Method for DeletePublicIp
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DeletePublicIpOpts - Optional Parameters:
- * @param "DeletePublicIpRequest" (optional.Interface of DeletePublicIpRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *DeletePublicIpOpts - Optional Parameters:
+  - @param "DeletePublicIpRequest" (optional.Interface of DeletePublicIpRequest) -
+
 @return DeletePublicIpResponse
 */
 func (a *PublicIpApiService) DeletePublicIp(ctx _context.Context, localVarOptionals *DeletePublicIpOpts) (DeletePublicIpResponse, *_nethttp.Response, error) {
@@ -315,9 +317,10 @@ type LinkPublicIpOpts struct {
 
 /*
 LinkPublicIp Method for LinkPublicIp
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LinkPublicIpOpts - Optional Parameters:
- * @param "LinkPublicIpRequest" (optional.Interface of LinkPublicIpRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *LinkPublicIpOpts - Optional Parameters:
+  - @param "LinkPublicIpRequest" (optional.Interface of LinkPublicIpRequest) -
+
 @return LinkPublicIpResponse
 */
 func (a *PublicIpApiService) LinkPublicIp(ctx _context.Context, localVarOptionals *LinkPublicIpOpts) (LinkPublicIpResponse, *_nethttp.Response, error) {
@@ -456,9 +459,10 @@ type ReadPublicIpRangesOpts struct {
 
 /*
 ReadPublicIpRanges Method for ReadPublicIpRanges
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadPublicIpRangesOpts - Optional Parameters:
- * @param "ReadPublicIpRangesRequest" (optional.Interface of ReadPublicIpRangesRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadPublicIpRangesOpts - Optional Parameters:
+  - @param "ReadPublicIpRangesRequest" (optional.Interface of ReadPublicIpRangesRequest) -
+
 @return ReadPublicIpRangesResponse
 */
 func (a *PublicIpApiService) ReadPublicIpRanges(ctx _context.Context, localVarOptionals *ReadPublicIpRangesOpts) (ReadPublicIpRangesResponse, *_nethttp.Response, error) {
@@ -555,9 +559,10 @@ type ReadPublicIpsOpts struct {
 
 /*
 ReadPublicIps Method for ReadPublicIps
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ReadPublicIpsOpts - Optional Parameters:
- * @param "ReadPublicIpsRequest" (optional.Interface of ReadPublicIpsRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ReadPublicIpsOpts - Optional Parameters:
+  - @param "ReadPublicIpsRequest" (optional.Interface of ReadPublicIpsRequest) -
+
 @return ReadPublicIpsResponse
 */
 func (a *PublicIpApiService) ReadPublicIps(ctx _context.Context, localVarOptionals *ReadPublicIpsOpts) (ReadPublicIpsResponse, *_nethttp.Response, error) {
@@ -696,9 +701,10 @@ type UnlinkPublicIpOpts struct {
 
 /*
 UnlinkPublicIp Method for UnlinkPublicIp
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *UnlinkPublicIpOpts - Optional Parameters:
- * @param "UnlinkPublicIpRequest" (optional.Interface of UnlinkPublicIpRequest) -
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *UnlinkPublicIpOpts - Optional Parameters:
+  - @param "UnlinkPublicIpRequest" (optional.Interface of UnlinkPublicIpRequest) -
+
 @return UnlinkPublicIpResponse
 */
 func (a *PublicIpApiService) UnlinkPublicIp(ctx _context.Context, localVarOptionals *UnlinkPublicIpOpts) (UnlinkPublicIpResponse, *_nethttp.Response, error) {
