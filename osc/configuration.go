@@ -93,7 +93,7 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		BasePath:      "https://api.eu-west-2.outscale.com/api/v1",
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "osc-sdk-go/1.19.0",
+		UserAgent:     "osc-sdk-go/1.20.0",
 		Debug:         false,
 		Servers: []ServerConfiguration{
 			{
