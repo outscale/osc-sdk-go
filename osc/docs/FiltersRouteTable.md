@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **RouteDestinationServiceIds** | **[]string** | The service IDs specified in routes in the tables. | [optional] 
 **RouteGatewayIds** | **[]string** | The IDs of the gateways specified in routes in the tables. | [optional] 
 **RouteNatServiceIds** | **[]string** | The IDs of the NAT services specified in routes in the tables. | [optional] 
-**RouteNetPeeringIds** | **[]string** | The IDs of the Net peering connections specified in routes in the tables. | [optional] 
+**RouteNetPeeringIds** | **[]string** | The IDs of the Net peerings specified in routes in the tables. | [optional] 
 **RouteStates** | **[]string** | The states of routes in the route tables (always &#x60;active&#x60;). | [optional] 
 **RouteTableIds** | **[]string** | The IDs of the route tables. | [optional] 
 **RouteVmIds** | **[]string** | The IDs of the VMs specified in routes in the tables. | [optional] 
