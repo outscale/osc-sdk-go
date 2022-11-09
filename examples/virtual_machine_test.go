@@ -74,16 +74,15 @@ func ExampleVirtualMachine() {
 	creationOpts := osc.CreateVmsOpts{
 		CreateVmsRequest: optional.NewInterface(
 			osc.CreateVmsRequest{
-				ImageId:     "ami-37b14bc1",
-				Performance: "medium",
-				VmType:      "tinav4.c1r1p1",
+				ImageId: "ami-68ed4301",
+				VmType:  "tinav4.c1r1p1",
 			}),
 	}
 	creation, httpRes, err := client.VmApi.CreateVms(auth, &creationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating virtual machine ")
 		if httpRes != nil {
-			fmt.Fprintln(os.Stderr, httpRes.Status)
+			fmt.Fprintln(os.Stderr, httpRes.Status, creation)
 		}
 		os.Exit(1)
 	}
