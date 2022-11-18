@@ -34,10 +34,13 @@ package osc
 
 import (
 	"context"
+	"crypto/tls"
+	b64 "encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path"
 )
@@ -47,14 +50,16 @@ type ConfigFile struct {
 }
 
 type Profile struct {
-	AccessKey       string   `json:"access_key"`
-	SecretKey       string   `json:"secret_key"`
-	X509ClientCert  string   `json:"x509_client_cert"`
-	X509_client_key string   `json:"x509_client_key"`
-	Protocol        string   `json:"protocol"`
-	Method          string   `json:"method"`
-	Region          string   `json:"region"`
-	Endpoints       Endpoint `json:"endpoints"`
+	AccessKey         string   `json:"access_key"`
+	SecretKey         string   `json:"secret_key"`
+	X509ClientCert    string   `json:"x509_client_cert"`
+	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
+	X509ClientKey     string   `json:"x509_client_key"`
+	X509ClientKeyB64  string   `json:"x509_client_key_b64"`
+	Protocol          string   `json:"protocol"`
+	Method            string   `json:"method"`
+	Region            string   `json:"region"`
+	Endpoints         Endpoint `json:"endpoints"`
 }
 
 type Endpoint struct {
@@ -152,5 +157,64 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 			},
 		},
 	}
+
+	tlsConfigured := false
+	if len(profile.X509ClientCert) > 0 && len(profile.X509ClientKey) > 0 {
+		tlsConfigured = true
+		cert, err := tls.LoadX509KeyPair(profile.X509ClientCert, profile.X509ClientKey)
+		if err != nil {
+			return nil, errors.New("error while loading client certificate and key")
+		}
+
+		tlsconfig := &tls.Config{
+			InsecureSkipVerify: false,
+			Certificates:       []tls.Certificate{cert},
+		}
+
+		httpClient := &http.Client{
+			Transport: &http.Transport{
+				TLSClientConfig: tlsconfig,
+				Proxy:           http.ProxyFromEnvironment,
+			},
+		}
+
+		config.HTTPClient = httpClient
+	}
+
+	if len(profile.X509ClientCertB64) > 0 && len(profile.X509ClientKeyB64) > 0 {
+		if tlsConfigured {
+			return nil, errors.New("cannot configure client certificate with both file and base64")
+		}
+
+		clientCertificate, err := b64.StdEncoding.DecodeString(profile.X509ClientCertB64)
+		if err != nil {
+			return nil, errors.New("error while decoding client certificate from base64")
+		}
+
+		clientKey, err := b64.StdEncoding.DecodeString(profile.X509ClientKeyB64)
+		if err != nil {
+			return nil, errors.New("error while decoding client key from base64")
+		}
+
+		cert, err := tls.X509KeyPair(clientCertificate, clientKey)
+		if err != nil {
+			return nil, errors.New("error while loading client certificate and key")
+		}
+
+		tlsconfig := &tls.Config{
+			InsecureSkipVerify: false,
+			Certificates:       []tls.Certificate{cert},
+		}
+
+		httpClient := &http.Client{
+			Transport: &http.Transport{
+				TLSClientConfig: tlsconfig,
+				Proxy:           http.ProxyFromEnvironment,
+			},
+		}
+
+		config.HTTPClient = httpClient
+	}
+
 	return config, nil
 }
