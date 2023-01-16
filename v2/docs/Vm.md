@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time at which the VM was created. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time of creation of the VM. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot delete the VM unless you change this parameter back to false. | [optional] 
 **Hypervisor** | Pointer to **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;xen&#x60;). | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI used to create the VM. | [optional] 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Logs** | Pointer to [**[]Log**](Log.md) | Information about one or more logs. | [optional] 
-**NextPageToken** | Pointer to **string** | The token to request the next page of results. | [optional] 
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
