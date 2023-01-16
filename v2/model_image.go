@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.23
+ * API version: 1.24
  * Contact: support@outscale.com
  */
 
@@ -25,7 +25,7 @@ type Image struct {
 	Architecture *string `json:"Architecture,omitempty"`
 	// One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
-	// The date and time at which the OMI was created.
+	// The date and time of creation of the OMI.
 	CreationDate *string `json:"CreationDate,omitempty"`
 	// The description of the OMI.
 	Description *string `json:"Description,omitempty"`

@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.23
+ * API version: 1.24
  * Contact: support@outscale.com
  */
 
@@ -17,9 +17,9 @@ import (
 
 // CreateServerCertificateRequest struct for CreateServerCertificateRequest
 type CreateServerCertificateRequest struct {
-	// The PEM-encoded X509 certificate.
+	// The PEM-encoded X509 certificate.<br />With OSC CLI, use the following syntax to make sure your CA file is correctly parsed: `--CaPem=&quot;$(cat FILENAME)&quot;`.
 	Body string `json:"Body"`
-	// The PEM-encoded intermediate certification authorities.
+	// The PEM-encoded intermediate certification authorities.<br />With OSC CLI, use the following syntax to make sure your CA file is correctly parsed: `--CaPem=&quot;$(cat FILENAME)&quot;`.
 	Chain *string `json:"Chain,omitempty"`
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
@@ -27,7 +27,7 @@ type CreateServerCertificateRequest struct {
 	Name string `json:"Name"`
 	// The path to the server certificate, set to a slash (/) if not specified.
 	Path *string `json:"Path,omitempty"`
-	// The PEM-encoded private key matching the certificate.
+	// The PEM-encoded private key matching the certificate.<br />With OSC CLI, use the following syntax to make sure your CA file is correctly parsed: `--CaPem=&quot;$(cat FILENAME)&quot;`.
 	PrivateKey string `json:"PrivateKey"`
 }
 
