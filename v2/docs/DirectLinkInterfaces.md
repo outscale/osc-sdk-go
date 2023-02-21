@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **DirectLinkInterfaceName** | Pointer to **string** | The name of the DirectLink interface. | [optional] 
 **InterfaceType** | Pointer to **string** | The type of the DirectLink interface (always &#x60;private&#x60;). | [optional] 
 **Location** | Pointer to **string** | The datacenter where the DirectLink interface is located. | [optional] 
-**Mtu** | Pointer to **int32** | The maximum transmission unit (MTU) of the DirectLink interface, in bytes (by default, &#x60;1500&#x60;). | [optional] 
+**Mtu** | Pointer to **int32** | The maximum transmission unit (MTU) of the DirectLink interface, in bytes (always &#x60;1500&#x60;). | [optional] 
 **OutscalePrivateIp** | Pointer to **string** | The IP on the OUTSCALE side of the DirectLink interface. | [optional] 
 **State** | Pointer to **string** | The state of the DirectLink interface (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60; \\| &#x60;confirming&#x60; \\| &#x60;rejected&#x60; \\| &#x60;expired&#x60;). | [optional] 
 **VirtualGatewayId** | Pointer to **string** | The ID of the target virtual gateway. | [optional] 

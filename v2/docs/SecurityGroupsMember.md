@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of a user. | [optional] 
-**SecurityGroupId** | Pointer to **string** | The ID of the security group. | [optional] 
-**SecurityGroupName** | Pointer to **string** | The name of the security group. | [optional] 
+**AccountId** | Pointer to **string** | The account ID that owns the source or destination security group. | [optional] 
+**SecurityGroupId** | Pointer to **string** | The ID of a source or destination security group that you want to link to the security group of the rule. | [optional] 
+**SecurityGroupName** | Pointer to **string** | (Public Cloud only) The name of a source or destination security group that you want to link to the security group of the rule. | [optional] 
 
 ## Methods
 
