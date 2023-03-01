@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.24
+ * API version: 1.25
  * Contact: support@outscale.com
  */
 
@@ -15,13 +15,13 @@ import (
 	"encoding/json"
 )
 
-// SecurityGroupsMember Information about the member of a security group.
+// SecurityGroupsMember Information about a source or destination security group.
 type SecurityGroupsMember struct {
-	// The account ID of a user.
+	// The account ID that owns the source or destination security group.
 	AccountId *string `json:"AccountId,omitempty"`
-	// The ID of the security group.
+	// The ID of a source or destination security group that you want to link to the security group of the rule.
 	SecurityGroupId *string `json:"SecurityGroupId,omitempty"`
-	// The name of the security group.
+	// (Public Cloud only) The name of a source or destination security group that you want to link to the security group of the rule.
 	SecurityGroupName *string `json:"SecurityGroupName,omitempty"`
 }
 
