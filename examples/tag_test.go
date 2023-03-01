@@ -41,12 +41,18 @@ import (
 
 /* Example of adding tags on a resource (e.g. a Net) */
 func ExampleTag() {
-	config := osc.NewConfiguration()
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 	client := osc.NewAPIClient(config)
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
 
 	println("Creating a new Net")
 	netCreationOpt := osc.CreateNetRequest{IpRange: "10.0.0.0/16"}
