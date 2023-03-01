@@ -50,13 +50,20 @@ import (
 - Delete Security Group
 */
 func ExampleSecurityGroup() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 
-	read, httpRes, err := client.SecurityGroupApi.ReadSecurityGroups(auth, nil)
+	read, httpRes, err := client.SecurityGroupApi.ReadSecurityGroups(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading security groups")
 		if httpRes != nil {
@@ -77,7 +84,7 @@ func ExampleSecurityGroup() {
 				Description:       "osc-sdk-go security group example",
 			}),
 	}
-	creation, httpRes, err := client.SecurityGroupApi.CreateSecurityGroup(auth, &creationOpts)
+	creation, httpRes, err := client.SecurityGroupApi.CreateSecurityGroup(ctx, &creationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating security group ")
 		if httpRes != nil {
@@ -100,7 +107,7 @@ func ExampleSecurityGroup() {
 				ToPortRange:     22,
 			}),
 	}
-	_, httpRes, err = client.SecurityGroupRuleApi.CreateSecurityGroupRule(auth, &ruleAddOpts)
+	_, httpRes, err = client.SecurityGroupRuleApi.CreateSecurityGroupRule(ctx, &ruleAddOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating security group rule")
 		if httpRes != nil {
@@ -119,7 +126,7 @@ func ExampleSecurityGroup() {
 				},
 			}),
 	}
-	read, httpRes, err = client.SecurityGroupApi.ReadSecurityGroups(auth, &readOpts)
+	read, httpRes, err = client.SecurityGroupApi.ReadSecurityGroups(ctx, &readOpts)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading security groups")
 		if httpRes != nil {
@@ -143,7 +150,7 @@ func ExampleSecurityGroup() {
 				ToPortRange:     22,
 			}),
 	}
-	_, httpRes, err = client.SecurityGroupRuleApi.DeleteSecurityGroupRule(auth, &ruleDelOpts)
+	_, httpRes, err = client.SecurityGroupRuleApi.DeleteSecurityGroupRule(ctx, &ruleDelOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting security group rule")
 		if httpRes != nil {
@@ -160,7 +167,7 @@ func ExampleSecurityGroup() {
 				SecurityGroupId: sgID,
 			}),
 	}
-	_, httpRes, err = client.SecurityGroupApi.DeleteSecurityGroup(auth, &deletionOpts)
+	_, httpRes, err = client.SecurityGroupApi.DeleteSecurityGroup(ctx, &deletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting security group ")
 		if httpRes != nil {
