@@ -50,15 +50,20 @@ import (
 - Delete load balancer
 */
 func ExampleLoadBalancer() {
-	config := osc.NewConfiguration()
-	config.Debug = false
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 	client := osc.NewAPIClient(config)
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
 	loadBalancerName := "OscSdkExample-" + RandomString(10)
-	loadBalancerSubRegion := "eu-west-2a"
+	loadBalancerSubRegion := fmt.Sprintf("%sa", os.Getenv("OSC_REGION"))
 	read, httpRes, err := client.LoadBalancerApi.ReadLoadBalancers(ctx).ReadLoadBalancersRequest(osc.ReadLoadBalancersRequest{}).Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading load balancers")
