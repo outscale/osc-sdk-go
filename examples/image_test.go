@@ -41,13 +41,23 @@ import (
 
 /* Image Example: list machine images and get details */
 func ExampleImage() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
 
-	read, httpRes, err := client.ImageApi.ReadImages(auth, nil)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+
+	config.Debug = true
+	client := osc.NewAPIClient(config)
+
+	read, httpRes, err := client.ImageApi.ReadImages(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading images")
 		if httpRes != nil {
