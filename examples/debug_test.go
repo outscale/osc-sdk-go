@@ -34,8 +34,9 @@ package osc_test
 import (
 	"context"
 	"fmt"
-	"github.com/outscale/osc-sdk-go/osc"
 	"os"
+
+	"github.com/outscale/osc-sdk-go/osc"
 )
 
 /*
@@ -45,17 +46,24 @@ A quick example which show how to enable SDK debuging in case you have to see wh
 This examples just list existing volumes and shows HTTP details.
 */
 func ExampleDebug() {
-	config := osc.NewConfiguration()
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	fmt.Fprintf(os.Stderr, "BasePath: %s\n", config.BasePath)
 
-	config.Debug = true // <-- may be useful
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
 
+	config.Debug = true
 	client := osc.NewAPIClient(config)
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
 
-	read, httpRes, err := client.VolumeApi.ReadVolumes(auth, nil)
+	read, httpRes, err := client.VolumeApi.ReadVolumes(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading volumes")
 		if httpRes != nil {
