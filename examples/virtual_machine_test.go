@@ -49,13 +49,18 @@ Note that to access a virtual machine, you will also need at least to provide a 
 */
 
 func ExampleVm() {
-	config := osc.NewConfiguration()
-	config.Debug = false
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 	client := osc.NewAPIClient(config)
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
 	read, httpRes, err := client.VmApi.ReadVms(ctx).ReadVmsRequest(osc.ReadVmsRequest{}).Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading vms ")
@@ -76,7 +81,7 @@ func ExampleVm() {
 	}
 
 	println("Creating a single vm")
-	imageId := "ami-68ed4301"
+	imageId := os.Getenv("OMI_ID")
 	vmType := "tinav4.c1r1p1"
 	createOpt := osc.CreateVmsRequest{
 		ImageId: imageId,
