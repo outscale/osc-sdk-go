@@ -48,18 +48,23 @@ This examples just list existing volumes and shows HTTP details.
 */
 func ExampleDebug() {
 	// few things which might be useful for debugging
-	config := osc.NewConfiguration()
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
 	config.Debug = true
 	config.UserAgent = "osc-sdk-go-example/0.0.0"
 	// If you need to setup a specific HTTPClient for SSL client, check https://gist.github.com/michaljemala/d6f4e01c4834bf47a9c4
 	config.HTTPClient = new(http.Client)
 
 	client := osc.NewAPIClient(config)
-
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 
 	volumes, httpRes, err := client.VolumeApi.ReadVolumes(ctx).ReadVolumesRequest(osc.ReadVolumesRequest{}).Execute()
 	if err != nil {
