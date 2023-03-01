@@ -48,15 +48,18 @@ import (
 - Delete keypair
 */
 func ExampleKeypair() {
-	config := osc.NewConfiguration()
-	config.Debug = false
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 	client := osc.NewAPIClient(config)
-
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
-
 	read, httpRes, err := client.KeypairApi.ReadKeypairs(ctx).ReadKeypairsRequest(osc.ReadKeypairsRequest{}).Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading keypairs")
