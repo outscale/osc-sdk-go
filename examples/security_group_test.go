@@ -49,13 +49,18 @@ import (
 - Delete Security Group
 */
 func ExampleSecurityGroup() {
-	config := osc.NewConfiguration()
-	config.Debug = false
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init configuration from env variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot init context from env variables")
+		os.Exit(1)
+	}
 	client := osc.NewAPIClient(config)
-	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
 	read, httpRes, err := client.SecurityGroupApi.ReadSecurityGroups(ctx).ReadSecurityGroupsRequest(osc.ReadSecurityGroupsRequest{}).Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading security groups")
