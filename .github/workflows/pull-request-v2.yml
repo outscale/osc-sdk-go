@@ -29,6 +29,7 @@ jobs:
           OSC_ACCESS_KEY: ${{ secrets.OSC_ACCESS_KEY }}
           OSC_SECRET_KEY: ${{ secrets.OSC_SECRET_KEY }}
           OSC_REGION: ${{ secrets.OSC_REGION }}
+          OMI_ID: ${{ secrets.OMI_ID }}
         run: make go-test
   regeneration-test:
     runs-on: ubuntu-20.04
