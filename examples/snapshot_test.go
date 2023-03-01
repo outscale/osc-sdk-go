@@ -48,13 +48,20 @@ import (
 - Delete new snapshot
 */
 func ExampleSnapshot() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 
-	read, httpRes, err := client.SnapshotApi.ReadSnapshots(auth, nil)
+	read, httpRes, err := client.SnapshotApi.ReadSnapshots(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading snapshots")
 		if httpRes != nil {
