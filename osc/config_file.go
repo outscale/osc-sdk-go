@@ -139,6 +139,7 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 	}
 
 	config := NewConfiguration()
+	config.BasePath = fmt.Sprintf("https://api.%s.outscale.com/api/v1", region)
 	config.Servers = []ServerConfiguration{
 		{
 			Url:         url,

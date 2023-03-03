@@ -1,0 +1,38 @@
+From d9039cddadd92d851831912529e1545c5883e5cb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=B4me=20Jutteau?= <jerome.jutteau@outscale.com>
+Date: Wed, 1 Mar 2023 12:39:48 +0100
+Subject: [PATCH 2/2] Fix config env BasePath
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jérôme Jutteau <jerome.jutteau@outscale.com>
+---
+ osc/config_env.go | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/osc/config_env.go b/osc/config_env.go
+index 9fcd634f..1d4af8ce 100644
+--- a/osc/config_env.go
++++ b/osc/config_env.go
+@@ -29,6 +29,7 @@ package osc
+ import (
+ 	"context"
+ 	"errors"
++	"fmt"
+ 	"os"
+ )
+ 
+@@ -74,6 +75,9 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
+ 		}
+ 	} else {
+ 		config = NewConfiguration()
++		if configEnv.Region != nil {
++			config.BasePath = fmt.Sprintf("https://api.%s.outscale.com/api/v1", *configEnv.Region)
++		}
+ 		default_region := "eu-west-2"
+ 		config.Servers = []ServerConfiguration{
+ 			{
+-- 
+2.38.1
+

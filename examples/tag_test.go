@@ -49,11 +49,18 @@ Example of adding tags on a resource (e.g. a virtual volume)
  5. delete volume
 */
 func ExampleTag() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 
 	println("Creating 10GB GP2 volume")
 	volumeCreationOpts := osc.CreateVolumeOpts{
@@ -61,10 +68,10 @@ func ExampleTag() {
 			osc.CreateVolumeRequest{
 				Size:          10,
 				VolumeType:    "gp2",
-				SubregionName: "eu-west-2a",
+				SubregionName: fmt.Sprintf("%sa", os.Getenv("OSC_REGION")),
 			}),
 	}
-	volumeCreation, httpRes, err := client.VolumeApi.CreateVolume(auth, &volumeCreationOpts)
+	volumeCreation, httpRes, err := client.VolumeApi.CreateVolume(ctx, &volumeCreationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating volume ")
 		if httpRes != nil {
@@ -86,7 +93,7 @@ func ExampleTag() {
 			},
 		),
 	}
-	_, httpRes, err = client.TagApi.CreateTags(auth, &tagCreationOpts)
+	_, httpRes, err = client.TagApi.CreateTags(ctx, &tagCreationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating tags ")
 		if httpRes != nil {
@@ -105,7 +112,7 @@ func ExampleTag() {
 				},
 			}),
 	}
-	read, httpRes, err := client.TagApi.ReadTags(auth, &readOpts)
+	read, httpRes, err := client.TagApi.ReadTags(ctx, &readOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while reading tags ")
 		if httpRes != nil {
@@ -129,7 +136,7 @@ func ExampleTag() {
 			},
 		),
 	}
-	_, httpRes, err = client.TagApi.DeleteTags(auth, &tagDeletionOpts)
+	_, httpRes, err = client.TagApi.DeleteTags(ctx, &tagDeletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while removing tag ")
 		if httpRes != nil {
@@ -146,7 +153,7 @@ func ExampleTag() {
 				VolumeId: volumeCreation.Volume.VolumeId,
 			}),
 	}
-	_, httpRes, err = client.VolumeApi.DeleteVolume(auth, &deletionOpts)
+	_, httpRes, err = client.VolumeApi.DeleteVolume(ctx, &deletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting volume ")
 		if httpRes != nil {

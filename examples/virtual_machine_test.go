@@ -51,13 +51,20 @@ import (
 Note that to access a virtual machine, you will also need at least to provide a security group with appropriate rules (e.g. TCP port 22) and a keypair at creation.
 */
 func ExampleVirtualMachine() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 
-	read, httpRes, err := client.VmApi.ReadVms(auth, nil)
+	read, httpRes, err := client.VmApi.ReadVms(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading virtual machines ")
 		if httpRes != nil {
@@ -74,11 +81,11 @@ func ExampleVirtualMachine() {
 	creationOpts := osc.CreateVmsOpts{
 		CreateVmsRequest: optional.NewInterface(
 			osc.CreateVmsRequest{
-				ImageId: "ami-68ed4301",
+				ImageId: os.Getenv("OMI_ID"),
 				VmType:  "tinav4.c1r1p1",
 			}),
 	}
-	creation, httpRes, err := client.VmApi.CreateVms(auth, &creationOpts)
+	creation, httpRes, err := client.VmApi.CreateVms(ctx, &creationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating virtual machine ")
 		if httpRes != nil {
@@ -98,7 +105,7 @@ func ExampleVirtualMachine() {
 				},
 			}),
 	}
-	read, httpRes, err = client.VmApi.ReadVms(auth, &readOpts)
+	read, httpRes, err = client.VmApi.ReadVms(ctx, &readOpts)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading virtual machines")
 		if httpRes != nil {
@@ -124,7 +131,7 @@ func ExampleVirtualMachine() {
 				VmIds: []string{VMID},
 			}),
 	}
-	_, httpRes, err = client.VmApi.DeleteVms(auth, &deletionOpts)
+	_, httpRes, err = client.VmApi.DeleteVms(ctx, &deletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting virtual machine ")
 		if httpRes != nil {

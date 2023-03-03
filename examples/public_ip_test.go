@@ -34,9 +34,10 @@ package osc_test
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/antihax/optional"
 	"github.com/outscale/osc-sdk-go/osc"
-	"os"
 )
 
 /*
@@ -48,13 +49,20 @@ import (
 - Delete Public IP
 */
 func ExamplePublicIp() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 
-	read, httpRes, err := client.PublicIpApi.ReadPublicIps(auth, nil)
+	read, httpRes, err := client.PublicIpApi.ReadPublicIps(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading public ips")
 		if httpRes != nil {
@@ -70,7 +78,7 @@ func ExamplePublicIp() {
 
 	println("Creating new Public Ip")
 	creationOpts := osc.CreatePublicIpOpts{}
-	creation, httpRes, err := client.PublicIpApi.CreatePublicIp(auth, &creationOpts)
+	creation, httpRes, err := client.PublicIpApi.CreatePublicIp(ctx, &creationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating Public IP ")
 		if httpRes != nil {
@@ -90,7 +98,7 @@ func ExamplePublicIp() {
 				},
 			}),
 	}
-	read, httpRes, err = client.PublicIpApi.ReadPublicIps(auth, &readOpts)
+	read, httpRes, err = client.PublicIpApi.ReadPublicIps(ctx, &readOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while reading public ip ")
 		if httpRes != nil {
@@ -110,7 +118,7 @@ func ExamplePublicIp() {
 				PublicIpId: creation.PublicIp.PublicIpId,
 			}),
 	}
-	_, httpRes, err = client.PublicIpApi.DeletePublicIp(auth, &deletionOpts)
+	_, httpRes, err = client.PublicIpApi.DeletePublicIp(ctx, &deletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting public ip ")
 		if httpRes != nil {

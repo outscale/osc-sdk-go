@@ -29,6 +29,7 @@ package osc
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -74,6 +75,9 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
 		}
 	} else {
 		config = NewConfiguration()
+		if configEnv.Region != nil {
+			config.BasePath = fmt.Sprintf("https://api.%s.outscale.com/api/v1", *configEnv.Region)
+		}
 		default_region := "eu-west-2"
 		config.Servers = []ServerConfiguration{
 			{

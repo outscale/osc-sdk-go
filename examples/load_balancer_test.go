@@ -51,17 +51,24 @@ import (
 - Delete new load balancer
 */
 func ExampleLoadBalancer() {
-	loadBalancerName := "OscSdkExample-" + RandomString(10)
-	loadBalancerSubRegion := "eu-west-2a"
-	config := osc.NewConfiguration()
-	config.Debug = false
-	client := osc.NewAPIClient(config)
-	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
-		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
-		SecretKey: os.Getenv("OSC_SECRET_KEY"),
-	})
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
 
-	read, httpRes, err := client.LoadBalancerApi.ReadLoadBalancers(auth, nil)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot load configuration from environement variables")
+		os.Exit(1)
+	}
+	ctx, err := configEnv.Context(context.Background())
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Cannot set context from environement variables")
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
+
+	loadBalancerName := "OscSdkExample-" + RandomString(10)
+	loadBalancerSubRegion := fmt.Sprintf("%sa", os.Getenv("OSC_REGION"))
+
+	read, httpRes, err := client.LoadBalancerApi.ReadLoadBalancers(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading load balancers")
 		if httpRes != nil {
@@ -91,7 +98,7 @@ func ExampleLoadBalancer() {
 				SubregionNames:   []string{loadBalancerSubRegion},
 			}),
 	}
-	creation, httpRes, err := client.LoadBalancerApi.CreateLoadBalancer(auth, &creationOpts)
+	creation, httpRes, err := client.LoadBalancerApi.CreateLoadBalancer(ctx, &creationOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while creating load balancer ")
 		if httpRes != nil {
@@ -110,7 +117,7 @@ func ExampleLoadBalancer() {
 				},
 			}),
 	}
-	read, httpRes, err = client.LoadBalancerApi.ReadLoadBalancers(auth, &readOpts)
+	read, httpRes, err = client.LoadBalancerApi.ReadLoadBalancers(ctx, &readOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while reading load balancers ")
 		if httpRes != nil {
@@ -130,7 +137,7 @@ func ExampleLoadBalancer() {
 				LoadBalancerName: creation.LoadBalancer.LoadBalancerName,
 			}),
 	}
-	_, httpRes, err = client.LoadBalancerApi.DeleteLoadBalancer(auth, &deletionOpts)
+	_, httpRes, err = client.LoadBalancerApi.DeleteLoadBalancer(ctx, &deletionOpts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting load balancer ")
 		if httpRes != nil {
