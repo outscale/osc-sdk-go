@@ -1,0 +1,228 @@
+diff --git a/outscale.yaml b/outscale.yaml
+index 1016bea..ce8c03c 100644
+--- a/outscale.yaml
++++ b/outscale.yaml
+@@ -43,15 +43,15 @@ components:
+           type: string
+         CreationDate:
+           description: The date and time (UTC) of creation of the access key.
+-          format: date-time
++          format: datetime
+           type: string
+         ExpirationDate:
+           description: The date (UTC) at which the access key expires.
+-          format: date-time
++          format: datetime
+           type: string
+         LastModificationDate:
+           description: The date and time (UTC) of the last modification of the access key.
+-          format: date-time
++          format: datetime
+           type: string
+         State:
+           description: The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
+@@ -66,15 +66,15 @@ components:
+           type: string
+         CreationDate:
+           description: The date and time (UTC) of creation of the access key.
+-          format: date-time
++          format: datetime
+           type: string
+         ExpirationDate:
+           description: The date and time (UTC) at which the access key expires.
+-          format: date-time
++          format: datetime
+           type: string
+         LastModificationDate:
+           description: The date and time (UTC) of the last modification of the access key.
+-          format: date-time
++          format: datetime
+           type: string
+         SecretKey:
+           description: The access key that enables you to send requests.
+@@ -285,7 +285,7 @@ components:
+           type: boolean
+         LinkDate:
+           description: The date and time of attachment of the volume to the VM, in ISO 8601 date-time format.
+-          format: date-time
++          format: date
+           type: string
+         State:
+           description: The state of the volume.
+@@ -469,7 +469,7 @@ components:
+           type: string
+         FromDate:
+           description: The beginning of the time period, in ISO 8601 date-time format.
+-          format: date-time
++          format: datetime
+           type: string
+         Operation:
+           description: The API call that triggered the resource consumption (for example, `RunInstances` or `CreateVolume`).
+@@ -488,7 +488,7 @@ components:
+           type: string
+         ToDate:
+           description: The end of the time period, in ISO 8601 date-time format.
+-          format: date-time
++          format: datetime
+           type: string
+         Type:
+           description: The type of resource, depending on the API call.
+@@ -506,11 +506,8 @@ components:
+           type: boolean
+         ExpirationDate:
+           description: The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`, or `2020-06-14`). To remove an existing expiration date, use the method without specifying this parameter.
+-          oneOf:
+-          - format: date-time
+-            type: string
+-          - format: date
+-            type: string
++          format: datetime
++          type: string
+       type: object
+     CreateAccessKeyResponse:
+       additionalProperties: false
+@@ -2846,18 +2843,12 @@ components:
+           type: array
+         QueryDateAfter:
+           description: The date and time, or the date, after which you want to retrieve logged calls, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z` or `2020-06-14`). By default, this date is set to 48 hours before the `QueryDateBefore` parameter value.
+-          oneOf:
+-          - format: date-time
+-            type: string
+-          - format: date
+-            type: string
++          format: date
++          type: string
+         QueryDateBefore:
+           description: The date and time, or the date, before which you want to retrieve logged calls, in ISO 8601 format (for example, `2020-06-30T00:00:00.000Z` or `2020-06-14`). By default, this date is set to now, or 48 hours after the `QueryDateAfter` parameter value.
+-          oneOf:
+-          - format: date-time
+-            type: string
+-          - format: date
+-            type: string
++          format: date
++          type: string
+         QueryIpAddresses:
+           description: The IPs used for the logged calls.
+           items:
+@@ -4351,7 +4342,7 @@ components:
+         CreationDates:
+           description: The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
+           items:
+-            format: date-time
++            format: date
+             type: string
+           type: array
+         LinkVolumeDeleteOnVmDeletion:
+@@ -4365,7 +4356,7 @@ components:
+         LinkVolumeLinkDates:
+           description: The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
+           items:
+-            format: date-time
++            format: date
+             type: string
+           type: array
+         LinkVolumeLinkStates:
+@@ -4583,7 +4574,7 @@ components:
+           type: array
+         CreationDate:
+           description: The date and time of creation of the OMI, in ISO 8601 date-time format.
+-          format: date-time
++          format: date
+           type: string
+         Description:
+           description: The description of the OMI.
+@@ -5317,7 +5308,7 @@ components:
+           type: string
+         QueryDate:
+           description: The date and time of the logged call, in ISO 8601 date-time format.
+-          format: date-time
++          format: date
+           type: string
+         QueryHeaderRaw:
+           description: The raw header of the HTTP request of the logged call.
+@@ -6171,22 +6162,16 @@ components:
+           type: boolean
+         FromDate:
+           description: The beginning of the time period, in ISO 8601 date format (for example, `2020-06-14`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-14T00:00:00.000Z`).
+-          oneOf:
+-          - format: date
+-            type: string
+-          - format: date-time
+-            type: string
++          format: datetime
++          type: string
+         Overall:
+           default: false
+           description: By default or if false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
+           type: boolean
+         ToDate:
+           description: The end of the time period, in ISO 8601 date format (for example, `2020-06-30`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-30T00:00:00.000Z`).
+-          oneOf:
+-          - format: date
+-            type: string
+-          - format: date-time
+-            type: string
++          format: datetime
++          type: string
+       required:
+       - FromDate
+       - ToDate
+@@ -7489,7 +7474,7 @@ components:
+           type: string
+         CreationDate:
+           description: The date and time of creation of the snapshot.
+-          format: date-time
++          format: datetime
+           type: string
+         Description:
+           description: The description of the snapshot.
+@@ -7901,11 +7886,8 @@ components:
+           type: boolean
+         ExpirationDate:
+           description: The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z` or `2020-06-14`). If not specified, the access key is set to not expire.
+-          oneOf:
+-          - format: date-time
+-            type: string
+-          - format: date
+-            type: string
++          format: datetime
++          type: string
+         State:
+           description: The new state for the access key (`ACTIVE` \| `INACTIVE`). When set to `ACTIVE`, the access key is enabled and can be used to send requests. When set to `INACTIVE`, the access key is disabled.
+           type: string
+@@ -8630,7 +8612,7 @@ components:
+           type: integer
+         LastStateChangeDate:
+           description: The date and time (UTC) of the latest state update.
+-          format: date-time
++          format: datetime
+           type: string
+         OutsideIpAddress:
+           description: The IP on the OUTSCALE side of the tunnel.
+@@ -8686,7 +8668,7 @@ components:
+           type: string
+         CreationDate:
+           description: The date and time of creation of the VM.
+-          format: date-time
++          format: datetime
+           type: string
+         DeletionProtection:
+           description: If true, you cannot delete the VM unless you change this parameter back to false.
+@@ -8789,7 +8771,7 @@ components:
+       properties:
+         CreationDate:
+           description: The date and time of creation of the VM group.
+-          format: date-time
++          format: datetime
+           type: string
+         Description:
+           description: The description of the VM group.
+@@ -8960,7 +8942,7 @@ components:
+       properties:
+         CreationDate:
+           description: The date and time of creation of the volume.
+-          format: date-time
++          format: datetime
+           type: string
+         Iops:
+           description: 'The number of I/O operations per second (IOPS):<br />

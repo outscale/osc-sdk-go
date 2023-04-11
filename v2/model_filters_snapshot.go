@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // FiltersSnapshot One or more filters.
@@ -23,6 +24,8 @@ type FiltersSnapshot struct {
 	AccountIds *[]string `json:"AccountIds,omitempty"`
 	// The descriptions of the snapshots.
 	Descriptions *[]string `json:"Descriptions,omitempty"`
+	// The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
+	FromCreationDate *time.Time `json:"FromCreationDate,omitempty"`
 	// The account IDs of one or more users who have permissions to create volumes.
 	PermissionsToCreateVolumeAccountIds *[]string `json:"PermissionsToCreateVolumeAccountIds,omitempty"`
 	// If true, lists all public volumes. If false, lists all private volumes.
@@ -39,6 +42,8 @@ type FiltersSnapshot struct {
 	TagValues *[]string `json:"TagValues,omitempty"`
 	// The key/value combination of the tags associated with the snapshots, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
 	Tags *[]string `json:"Tags,omitempty"`
+	// The end of the time period, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
+	ToCreationDate *time.Time `json:"ToCreationDate,omitempty"`
 	// The IDs of the volumes used to create the snapshots.
 	VolumeIds *[]string `json:"VolumeIds,omitempty"`
 	// The sizes of the volumes used to create the snapshots, in gibibytes (GiB).
@@ -156,6 +161,38 @@ func (o *FiltersSnapshot) HasDescriptions() bool {
 // SetDescriptions gets a reference to the given []string and assigns it to the Descriptions field.
 func (o *FiltersSnapshot) SetDescriptions(v []string) {
 	o.Descriptions = &v
+}
+
+// GetFromCreationDate returns the FromCreationDate field value if set, zero value otherwise.
+func (o *FiltersSnapshot) GetFromCreationDate() time.Time {
+	if o == nil || o.FromCreationDate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.FromCreationDate
+}
+
+// GetFromCreationDateOk returns a tuple with the FromCreationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FiltersSnapshot) GetFromCreationDateOk() (*time.Time, bool) {
+	if o == nil || o.FromCreationDate == nil {
+		return nil, false
+	}
+	return o.FromCreationDate, true
+}
+
+// HasFromCreationDate returns a boolean if a field has been set.
+func (o *FiltersSnapshot) HasFromCreationDate() bool {
+	if o != nil && o.FromCreationDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFromCreationDate gets a reference to the given time.Time and assigns it to the FromCreationDate field.
+func (o *FiltersSnapshot) SetFromCreationDate(v time.Time) {
+	o.FromCreationDate = &v
 }
 
 // GetPermissionsToCreateVolumeAccountIds returns the PermissionsToCreateVolumeAccountIds field value if set, zero value otherwise.
@@ -414,6 +451,38 @@ func (o *FiltersSnapshot) SetTags(v []string) {
 	o.Tags = &v
 }
 
+// GetToCreationDate returns the ToCreationDate field value if set, zero value otherwise.
+func (o *FiltersSnapshot) GetToCreationDate() time.Time {
+	if o == nil || o.ToCreationDate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ToCreationDate
+}
+
+// GetToCreationDateOk returns a tuple with the ToCreationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FiltersSnapshot) GetToCreationDateOk() (*time.Time, bool) {
+	if o == nil || o.ToCreationDate == nil {
+		return nil, false
+	}
+	return o.ToCreationDate, true
+}
+
+// HasToCreationDate returns a boolean if a field has been set.
+func (o *FiltersSnapshot) HasToCreationDate() bool {
+	if o != nil && o.ToCreationDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetToCreationDate gets a reference to the given time.Time and assigns it to the ToCreationDate field.
+func (o *FiltersSnapshot) SetToCreationDate(v time.Time) {
+	o.ToCreationDate = &v
+}
+
 // GetVolumeIds returns the VolumeIds field value if set, zero value otherwise.
 func (o *FiltersSnapshot) GetVolumeIds() []string {
 	if o == nil || o.VolumeIds == nil {
@@ -489,6 +558,9 @@ func (o FiltersSnapshot) MarshalJSON() ([]byte, error) {
 	if o.Descriptions != nil {
 		toSerialize["Descriptions"] = o.Descriptions
 	}
+	if o.FromCreationDate != nil {
+		toSerialize["FromCreationDate"] = o.FromCreationDate
+	}
 	if o.PermissionsToCreateVolumeAccountIds != nil {
 		toSerialize["PermissionsToCreateVolumeAccountIds"] = o.PermissionsToCreateVolumeAccountIds
 	}
@@ -512,6 +584,9 @@ func (o FiltersSnapshot) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["Tags"] = o.Tags
+	}
+	if o.ToCreationDate != nil {
+		toSerialize["ToCreationDate"] = o.ToCreationDate
 	}
 	if o.VolumeIds != nil {
 		toSerialize["VolumeIds"] = o.VolumeIds

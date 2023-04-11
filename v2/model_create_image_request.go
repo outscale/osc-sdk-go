@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -31,6 +31,8 @@ type CreateImageRequest struct {
 	ImageName *string `json:"ImageName,omitempty"`
 	// If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not.
 	NoReboot *bool `json:"NoReboot,omitempty"`
+	// The product codes associated with the OMI.
+	ProductCodes *[]string `json:"ProductCodes,omitempty"`
 	// The name of the root device. You must specify only one of the following parameters: `FileLocation`, `RootDeviceName`, `SourceImageId` or `VmId`.
 	RootDeviceName *string `json:"RootDeviceName,omitempty"`
 	// The ID of the OMI you want to copy. You must specify only one of the following parameters: `FileLocation`, `RootDeviceName`, `SourceImageId` or `VmId`.
@@ -282,6 +284,38 @@ func (o *CreateImageRequest) SetNoReboot(v bool) {
 	o.NoReboot = &v
 }
 
+// GetProductCodes returns the ProductCodes field value if set, zero value otherwise.
+func (o *CreateImageRequest) GetProductCodes() []string {
+	if o == nil || o.ProductCodes == nil {
+		var ret []string
+		return ret
+	}
+	return *o.ProductCodes
+}
+
+// GetProductCodesOk returns a tuple with the ProductCodes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateImageRequest) GetProductCodesOk() (*[]string, bool) {
+	if o == nil || o.ProductCodes == nil {
+		return nil, false
+	}
+	return o.ProductCodes, true
+}
+
+// HasProductCodes returns a boolean if a field has been set.
+func (o *CreateImageRequest) HasProductCodes() bool {
+	if o != nil && o.ProductCodes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProductCodes gets a reference to the given []string and assigns it to the ProductCodes field.
+func (o *CreateImageRequest) SetProductCodes(v []string) {
+	o.ProductCodes = &v
+}
+
 // GetRootDeviceName returns the RootDeviceName field value if set, zero value otherwise.
 func (o *CreateImageRequest) GetRootDeviceName() string {
 	if o == nil || o.RootDeviceName == nil {
@@ -432,6 +466,9 @@ func (o CreateImageRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.NoReboot != nil {
 		toSerialize["NoReboot"] = o.NoReboot
+	}
+	if o.ProductCodes != nil {
+		toSerialize["ProductCodes"] = o.ProductCodes
 	}
 	if o.RootDeviceName != nil {
 		toSerialize["RootDeviceName"] = o.RootDeviceName
