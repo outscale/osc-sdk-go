@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Placement** | [**Placement**](Placement.md) |  | [optional] 
 **PrivateDnsName** | **string** | The name of the private DNS. | [optional] 
 **PrivateIp** | **string** | The primary private IP of the VM. | [optional] 
-**ProductCodes** | **[]string** | The product code associated with the OMI used to create the VM (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
+**ProductCodes** | **[]string** | The product codes associated with the OMI used to create the VM. | [optional] 
 **PublicDnsName** | **string** | The name of the public DNS. | [optional] 
 **PublicIp** | **string** | The public IP of the VM. | [optional] 
 **ReservationId** | **string** | The reservation ID of the VM. | [optional] 

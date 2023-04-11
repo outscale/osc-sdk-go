@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **QueryApiName** | **string** | The name of the API used by the logged call (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
 **QueryApiVersion** | **string** | The version of the API used by the logged call. | [optional] 
 **QueryCallName** | **string** | The name of the logged call. | [optional] 
-**QueryDate** | **string** | The date of the logged call, in ISO 8601 format. | [optional] 
+**QueryDate** | **string** | The date and time of the logged call, in ISO 8601 date-time format. | [optional] 
 **QueryHeaderRaw** | **string** | The raw header of the HTTP request of the logged call. | [optional] 
 **QueryHeaderSize** | **int32** | The size of the raw header of the HTTP request of the logged call, in bytes. | [optional] 
 **QueryIpAddress** | **string** | The IP used for the logged call. | [optional] 
