@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDates** | **[]string** | The dates and times of creation of the volumes. | [optional] 
+**CreationDates** | [**[]time.Time**](time.Time.md) | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **LinkVolumeDeleteOnVmDeletion** | **bool** | Whether the volumes are deleted or not when terminating the VMs. | [optional] 
 **LinkVolumeDeviceNames** | **[]string** | The VM device names. | [optional] 
-**LinkVolumeLinkDates** | **[]string** | The dates and times of creation of the volumes. | [optional] 
+**LinkVolumeLinkDates** | [**[]time.Time**](time.Time.md) | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **LinkVolumeLinkStates** | **[]string** | The attachment states of the volumes (&#x60;attaching&#x60; \\| &#x60;detaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detached&#x60;). | [optional] 
 **LinkVolumeVmIds** | **[]string** | One or more IDs of VMs. | [optional] 
 **SnapshotIds** | **[]string** | The snapshots from which the volumes were created. | [optional] 

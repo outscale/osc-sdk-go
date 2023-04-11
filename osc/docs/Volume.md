@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | **string** | The date and time of creation of the volume. | [optional] 
+**CreationDate** | [**time.Time**](time.Time.md) | The date and time of creation of the volume. | [optional] 
 **Iops** | **int32** | The number of I/O operations per second (IOPS):&lt;br /&gt; - For &#x60;io1&#x60; volumes, the number of provisioned IOPS&lt;br /&gt; - For &#x60;gp2&#x60; volumes, the baseline performance of the volume | [optional] 
 **LinkedVolumes** | [**[]LinkedVolume**](LinkedVolume.md) | Information about your volume attachment. | [optional] 
 **Size** | **int32** | The size of the volume, in gibibytes (GiB). | [optional] 
