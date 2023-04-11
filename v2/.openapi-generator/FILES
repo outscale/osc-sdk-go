@@ -44,6 +44,8 @@ api_tag.go
 api_task.go
 api_virtual_gateway.go
 api_vm.go
+api_vm_group.go
+api_vm_template.go
 api_volume.go
 api_vpn_connection.go
 client.go
@@ -76,6 +78,7 @@ docs/CaApi.md
 docs/Catalog.md
 docs/CatalogApi.md
 docs/CatalogEntry.md
+docs/Catalogs.md
 docs/CheckAuthenticationRequest.md
 docs/CheckAuthenticationResponse.md
 docs/ClientGateway.md
@@ -149,6 +152,10 @@ docs/CreateTagsRequest.md
 docs/CreateTagsResponse.md
 docs/CreateVirtualGatewayRequest.md
 docs/CreateVirtualGatewayResponse.md
+docs/CreateVmGroupRequest.md
+docs/CreateVmGroupResponse.md
+docs/CreateVmTemplateRequest.md
+docs/CreateVmTemplateResponse.md
 docs/CreateVmsRequest.md
 docs/CreateVmsResponse.md
 docs/CreateVolumeRequest.md
@@ -221,6 +228,10 @@ docs/DeleteTagsRequest.md
 docs/DeleteTagsResponse.md
 docs/DeleteVirtualGatewayRequest.md
 docs/DeleteVirtualGatewayResponse.md
+docs/DeleteVmGroupRequest.md
+docs/DeleteVmGroupResponse.md
+docs/DeleteVmTemplateRequest.md
+docs/DeleteVmTemplateResponse.md
 docs/DeleteVmsRequest.md
 docs/DeleteVmsResponse.md
 docs/DeleteVolumeRequest.md
@@ -244,6 +255,7 @@ docs/FiltersAccessKeys.md
 docs/FiltersApiAccessRule.md
 docs/FiltersApiLog.md
 docs/FiltersCa.md
+docs/FiltersCatalogs.md
 docs/FiltersClientGateway.md
 docs/FiltersDhcpOptions.md
 docs/FiltersDirectLink.md
@@ -273,6 +285,8 @@ docs/FiltersSubregion.md
 docs/FiltersTag.md
 docs/FiltersVirtualGateway.md
 docs/FiltersVm.md
+docs/FiltersVmGroup.md
+docs/FiltersVmTemplate.md
 docs/FiltersVmType.md
 docs/FiltersVmsState.md
 docs/FiltersVolume.md
@@ -380,6 +394,8 @@ docs/ReadCasRequest.md
 docs/ReadCasResponse.md
 docs/ReadCatalogRequest.md
 docs/ReadCatalogResponse.md
+docs/ReadCatalogsRequest.md
+docs/ReadCatalogsResponse.md
 docs/ReadClientGatewaysRequest.md
 docs/ReadClientGatewaysResponse.md
 docs/ReadConsoleOutputRequest.md
@@ -456,6 +472,10 @@ docs/ReadTagsRequest.md
 docs/ReadTagsResponse.md
 docs/ReadVirtualGatewaysRequest.md
 docs/ReadVirtualGatewaysResponse.md
+docs/ReadVmGroupsRequest.md
+docs/ReadVmGroupsResponse.md
+docs/ReadVmTemplatesRequest.md
+docs/ReadVmTemplatesResponse.md
 docs/ReadVmTypesRequest.md
 docs/ReadVmTypesResponse.md
 docs/ReadVmsHealthRequest.md
@@ -487,6 +507,10 @@ docs/RouteLight.md
 docs/RoutePropagatingVirtualGateway.md
 docs/RouteTable.md
 docs/RouteTableApi.md
+docs/ScaleDownVmGroupRequest.md
+docs/ScaleDownVmGroupResponse.md
+docs/ScaleUpVmGroupRequest.md
+docs/ScaleUpVmGroupResponse.md
 docs/SecurityGroup.md
 docs/SecurityGroupApi.md
 docs/SecurityGroupLight.md
@@ -569,8 +593,12 @@ docs/UpdateSnapshotRequest.md
 docs/UpdateSnapshotResponse.md
 docs/UpdateSubnetRequest.md
 docs/UpdateSubnetResponse.md
+docs/UpdateVmGroupRequest.md
+docs/UpdateVmGroupResponse.md
 docs/UpdateVmRequest.md
 docs/UpdateVmResponse.md
+docs/UpdateVmTemplateRequest.md
+docs/UpdateVmTemplateResponse.md
 docs/UpdateVolumeRequest.md
 docs/UpdateVolumeResponse.md
 docs/UpdateVpnConnectionRequest.md
@@ -580,8 +608,12 @@ docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
 docs/Vm.md
 docs/VmApi.md
+docs/VmGroup.md
+docs/VmGroupApi.md
 docs/VmState.md
 docs/VmStates.md
+docs/VmTemplate.md
+docs/VmTemplateApi.md
 docs/VmType.md
 docs/Volume.md
 docs/VolumeApi.md
@@ -613,6 +645,7 @@ model_bsu_to_update_vm.go
 model_ca.go
 model_catalog.go
 model_catalog_entry.go
+model_catalogs.go
 model_check_authentication_request.go
 model_check_authentication_response.go
 model_client_gateway.go
@@ -685,6 +718,10 @@ model_create_tags_request.go
 model_create_tags_response.go
 model_create_virtual_gateway_request.go
 model_create_virtual_gateway_response.go
+model_create_vm_group_request.go
+model_create_vm_group_response.go
+model_create_vm_template_request.go
+model_create_vm_template_response.go
 model_create_vms_request.go
 model_create_vms_response.go
 model_create_volume_request.go
@@ -757,6 +794,10 @@ model_delete_tags_request.go
 model_delete_tags_response.go
 model_delete_virtual_gateway_request.go
 model_delete_virtual_gateway_response.go
+model_delete_vm_group_request.go
+model_delete_vm_group_response.go
+model_delete_vm_template_request.go
+model_delete_vm_template_response.go
 model_delete_vms_request.go
 model_delete_vms_response.go
 model_delete_volume_request.go
@@ -777,6 +818,7 @@ model_filters_access_keys.go
 model_filters_api_access_rule.go
 model_filters_api_log.go
 model_filters_ca.go
+model_filters_catalogs.go
 model_filters_client_gateway.go
 model_filters_dhcp_options.go
 model_filters_direct_link.go
@@ -806,6 +848,8 @@ model_filters_subregion.go
 model_filters_tag.go
 model_filters_virtual_gateway.go
 model_filters_vm.go
+model_filters_vm_group.go
+model_filters_vm_template.go
 model_filters_vm_type.go
 model_filters_vms_state.go
 model_filters_volume.go
@@ -896,6 +940,8 @@ model_read_cas_request.go
 model_read_cas_response.go
 model_read_catalog_request.go
 model_read_catalog_response.go
+model_read_catalogs_request.go
+model_read_catalogs_response.go
 model_read_client_gateways_request.go
 model_read_client_gateways_response.go
 model_read_console_output_request.go
@@ -972,6 +1018,10 @@ model_read_tags_request.go
 model_read_tags_response.go
 model_read_virtual_gateways_request.go
 model_read_virtual_gateways_response.go
+model_read_vm_groups_request.go
+model_read_vm_groups_response.go
+model_read_vm_templates_request.go
+model_read_vm_templates_response.go
 model_read_vm_types_request.go
 model_read_vm_types_response.go
 model_read_vms_health_request.go
@@ -1000,6 +1050,10 @@ model_route.go
 model_route_light.go
 model_route_propagating_virtual_gateway.go
 model_route_table.go
+model_scale_down_vm_group_request.go
+model_scale_down_vm_group_response.go
+model_scale_up_vm_group_request.go
+model_scale_up_vm_group_response.go
 model_security_group.go
 model_security_group_light.go
 model_security_group_rule.go
@@ -1074,8 +1128,12 @@ model_update_snapshot_request.go
 model_update_snapshot_response.go
 model_update_subnet_request.go
 model_update_subnet_response.go
+model_update_vm_group_request.go
+model_update_vm_group_response.go
 model_update_vm_request.go
 model_update_vm_response.go
+model_update_vm_template_request.go
+model_update_vm_template_response.go
 model_update_volume_request.go
 model_update_volume_response.go
 model_update_vpn_connection_request.go
@@ -1083,8 +1141,10 @@ model_update_vpn_connection_response.go
 model_vgw_telemetry.go
 model_virtual_gateway.go
 model_vm.go
+model_vm_group.go
 model_vm_state.go
 model_vm_states.go
+model_vm_template.go
 model_vm_type.go
 model_volume.go
 model_vpn_connection.go

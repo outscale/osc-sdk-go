@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Image Information about the OMI.
@@ -25,8 +26,8 @@ type Image struct {
 	Architecture *string `json:"Architecture,omitempty"`
 	// One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
-	// The date and time of creation of the OMI.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	// The date and time of creation of the OMI, in ISO 8601 date-time format.
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 	// The description of the OMI.
 	Description *string `json:"Description,omitempty"`
 	// The location of the bucket where the OMI files are stored.
@@ -38,7 +39,7 @@ type Image struct {
 	// The type of the OMI.
 	ImageType           *string                `json:"ImageType,omitempty"`
 	PermissionsToLaunch *PermissionsOnResource `json:"PermissionsToLaunch,omitempty"`
-	// The product code associated with the OMI (`0001` Linux/Unix \\| `0002` Windows \\| `0004` Linux/Oracle \\| `0005` Windows 10).
+	// The product codes associated with the OMI.
 	ProductCodes *[]string `json:"ProductCodes,omitempty"`
 	// The name of the root device.
 	RootDeviceName *string `json:"RootDeviceName,omitempty"`
@@ -197,9 +198,9 @@ func (o *Image) SetBlockDeviceMappings(v []BlockDeviceMappingImage) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *Image) GetCreationDate() string {
+func (o *Image) GetCreationDate() time.Time {
 	if o == nil || o.CreationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -207,7 +208,7 @@ func (o *Image) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Image) GetCreationDateOk() (*string, bool) {
+func (o *Image) GetCreationDateOk() (*time.Time, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -223,8 +224,8 @@ func (o *Image) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *Image) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *Image) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 

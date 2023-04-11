@@ -225,7 +225,7 @@ import (
 )
 
 func main() {
-    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest("FromDate_example", "ToDate_example") // ReadConsumptionAccountRequest |  (optional)
+    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest("TODO", "TODO") // ReadConsumptionAccountRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

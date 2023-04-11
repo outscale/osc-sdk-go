@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**ExpirationDate** | Pointer to **string** | The date and time at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2017-06-14&#x60; or &#x60;2017-06-14T00:00:00Z&#x60;). To remove an existing expiration date, use the method without specifying this parameter. | [optional] 
+**ExpirationDate** | Pointer to [**OneOfDateTimedate**](oneOf&lt;DateTime,date&gt;.md) | The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;, or &#x60;2020-06-14&#x60;). To remove an existing expiration date, use the method without specifying this parameter. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasDryRun returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
-`func (o *CreateAccessKeyRequest) GetExpirationDate() string`
+`func (o *CreateAccessKeyRequest) GetExpirationDate() OneOfDateTimedate`
 
 GetExpirationDate returns the ExpirationDate field if non-nil, zero value otherwise.
 
 ### GetExpirationDateOk
 
-`func (o *CreateAccessKeyRequest) GetExpirationDateOk() (*string, bool)`
+`func (o *CreateAccessKeyRequest) GetExpirationDateOk() (*OneOfDateTimedate, bool)`
 
 GetExpirationDateOk returns a tuple with the ExpirationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpirationDate
 
-`func (o *CreateAccessKeyRequest) SetExpirationDate(v string)`
+`func (o *CreateAccessKeyRequest) SetExpirationDate(v OneOfDateTimedate)`
 
 SetExpirationDate sets ExpirationDate field to given value.
 

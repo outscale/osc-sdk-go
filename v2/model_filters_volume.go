@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -13,18 +13,19 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // FiltersVolume One or more filters.
 type FiltersVolume struct {
-	// The dates and times of creation of the volumes.
-	CreationDates *[]string `json:"CreationDates,omitempty"`
+	// The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
+	CreationDates *[]time.Time `json:"CreationDates,omitempty"`
 	// Whether the volumes are deleted or not when terminating the VMs.
 	LinkVolumeDeleteOnVmDeletion *bool `json:"LinkVolumeDeleteOnVmDeletion,omitempty"`
 	// The VM device names.
 	LinkVolumeDeviceNames *[]string `json:"LinkVolumeDeviceNames,omitempty"`
-	// The dates and times of creation of the volumes.
-	LinkVolumeLinkDates *[]string `json:"LinkVolumeLinkDates,omitempty"`
+	// The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
+	LinkVolumeLinkDates *[]time.Time `json:"LinkVolumeLinkDates,omitempty"`
 	// The attachment states of the volumes (`attaching` \\| `detaching` \\| `attached` \\| `detached`).
 	LinkVolumeLinkStates *[]string `json:"LinkVolumeLinkStates,omitempty"`
 	// One or more IDs of VMs.
@@ -67,9 +68,9 @@ func NewFiltersVolumeWithDefaults() *FiltersVolume {
 }
 
 // GetCreationDates returns the CreationDates field value if set, zero value otherwise.
-func (o *FiltersVolume) GetCreationDates() []string {
+func (o *FiltersVolume) GetCreationDates() []time.Time {
 	if o == nil || o.CreationDates == nil {
-		var ret []string
+		var ret []time.Time
 		return ret
 	}
 	return *o.CreationDates
@@ -77,7 +78,7 @@ func (o *FiltersVolume) GetCreationDates() []string {
 
 // GetCreationDatesOk returns a tuple with the CreationDates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FiltersVolume) GetCreationDatesOk() (*[]string, bool) {
+func (o *FiltersVolume) GetCreationDatesOk() (*[]time.Time, bool) {
 	if o == nil || o.CreationDates == nil {
 		return nil, false
 	}
@@ -93,8 +94,8 @@ func (o *FiltersVolume) HasCreationDates() bool {
 	return false
 }
 
-// SetCreationDates gets a reference to the given []string and assigns it to the CreationDates field.
-func (o *FiltersVolume) SetCreationDates(v []string) {
+// SetCreationDates gets a reference to the given []time.Time and assigns it to the CreationDates field.
+func (o *FiltersVolume) SetCreationDates(v []time.Time) {
 	o.CreationDates = &v
 }
 
@@ -163,9 +164,9 @@ func (o *FiltersVolume) SetLinkVolumeDeviceNames(v []string) {
 }
 
 // GetLinkVolumeLinkDates returns the LinkVolumeLinkDates field value if set, zero value otherwise.
-func (o *FiltersVolume) GetLinkVolumeLinkDates() []string {
+func (o *FiltersVolume) GetLinkVolumeLinkDates() []time.Time {
 	if o == nil || o.LinkVolumeLinkDates == nil {
-		var ret []string
+		var ret []time.Time
 		return ret
 	}
 	return *o.LinkVolumeLinkDates
@@ -173,7 +174,7 @@ func (o *FiltersVolume) GetLinkVolumeLinkDates() []string {
 
 // GetLinkVolumeLinkDatesOk returns a tuple with the LinkVolumeLinkDates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FiltersVolume) GetLinkVolumeLinkDatesOk() (*[]string, bool) {
+func (o *FiltersVolume) GetLinkVolumeLinkDatesOk() (*[]time.Time, bool) {
 	if o == nil || o.LinkVolumeLinkDates == nil {
 		return nil, false
 	}
@@ -189,8 +190,8 @@ func (o *FiltersVolume) HasLinkVolumeLinkDates() bool {
 	return false
 }
 
-// SetLinkVolumeLinkDates gets a reference to the given []string and assigns it to the LinkVolumeLinkDates field.
-func (o *FiltersVolume) SetLinkVolumeLinkDates(v []string) {
+// SetLinkVolumeLinkDates gets a reference to the given []time.Time and assigns it to the LinkVolumeLinkDates field.
+func (o *FiltersVolume) SetLinkVolumeLinkDates(v []time.Time) {
 	o.LinkVolumeLinkDates = &v
 }
 

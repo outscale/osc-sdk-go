@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** | The account ID of the owner of the OMI. | [optional] 
 **Architecture** | Pointer to **string** | The architecture of the OMI (by default, &#x60;i386&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time of creation of the OMI. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the OMI, in ISO 8601 date-time format. | [optional] 
 **Description** | Pointer to **string** | The description of the OMI. | [optional] 
 **FileLocation** | Pointer to **string** | The location of the bucket where the OMI files are stored. | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI. | [optional] 
 **ImageName** | Pointer to **string** | The name of the OMI. | [optional] 
 **ImageType** | Pointer to **string** | The type of the OMI. | [optional] 
 **PermissionsToLaunch** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
-**ProductCodes** | Pointer to **[]string** | The product code associated with the OMI (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
+**ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
 **RootDeviceName** | Pointer to **string** | The name of the root device. | [optional] 
 **RootDeviceType** | Pointer to **string** | The type of root device used by the OMI (always &#x60;bsu&#x60;). | [optional] 
 **State** | Pointer to **string** | The state of the OMI (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
@@ -143,20 +143,20 @@ HasBlockDeviceMappings returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *Image) GetCreationDate() string`
+`func (o *Image) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Image) GetCreationDateOk() (*string, bool)`
+`func (o *Image) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Image) SetCreationDate(v string)`
+`func (o *Image) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

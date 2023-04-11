@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // AccessKeySecretKey Information about the access key.
@@ -20,11 +21,11 @@ type AccessKeySecretKey struct {
 	// The ID of the access key.
 	AccessKeyId *string `json:"AccessKeyId,omitempty"`
 	// The date and time (UTC) of creation of the access key.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 	// The date and time (UTC) at which the access key expires.
-	ExpirationDate *string `json:"ExpirationDate,omitempty"`
+	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
 	// The date and time (UTC) of the last modification of the access key.
-	LastModificationDate *string `json:"LastModificationDate,omitempty"`
+	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
 	// The access key that enables you to send requests.
 	SecretKey *string `json:"SecretKey,omitempty"`
 	// The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
@@ -81,9 +82,9 @@ func (o *AccessKeySecretKey) SetAccessKeyId(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *AccessKeySecretKey) GetCreationDate() string {
+func (o *AccessKeySecretKey) GetCreationDate() time.Time {
 	if o == nil || o.CreationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -91,7 +92,7 @@ func (o *AccessKeySecretKey) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessKeySecretKey) GetCreationDateOk() (*string, bool) {
+func (o *AccessKeySecretKey) GetCreationDateOk() (*time.Time, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -107,15 +108,15 @@ func (o *AccessKeySecretKey) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *AccessKeySecretKey) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *AccessKeySecretKey) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.
-func (o *AccessKeySecretKey) GetExpirationDate() string {
+func (o *AccessKeySecretKey) GetExpirationDate() time.Time {
 	if o == nil || o.ExpirationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.ExpirationDate
@@ -123,7 +124,7 @@ func (o *AccessKeySecretKey) GetExpirationDate() string {
 
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessKeySecretKey) GetExpirationDateOk() (*string, bool) {
+func (o *AccessKeySecretKey) GetExpirationDateOk() (*time.Time, bool) {
 	if o == nil || o.ExpirationDate == nil {
 		return nil, false
 	}
@@ -139,15 +140,15 @@ func (o *AccessKeySecretKey) HasExpirationDate() bool {
 	return false
 }
 
-// SetExpirationDate gets a reference to the given string and assigns it to the ExpirationDate field.
-func (o *AccessKeySecretKey) SetExpirationDate(v string) {
+// SetExpirationDate gets a reference to the given time.Time and assigns it to the ExpirationDate field.
+func (o *AccessKeySecretKey) SetExpirationDate(v time.Time) {
 	o.ExpirationDate = &v
 }
 
 // GetLastModificationDate returns the LastModificationDate field value if set, zero value otherwise.
-func (o *AccessKeySecretKey) GetLastModificationDate() string {
+func (o *AccessKeySecretKey) GetLastModificationDate() time.Time {
 	if o == nil || o.LastModificationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.LastModificationDate
@@ -155,7 +156,7 @@ func (o *AccessKeySecretKey) GetLastModificationDate() string {
 
 // GetLastModificationDateOk returns a tuple with the LastModificationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessKeySecretKey) GetLastModificationDateOk() (*string, bool) {
+func (o *AccessKeySecretKey) GetLastModificationDateOk() (*time.Time, bool) {
 	if o == nil || o.LastModificationDate == nil {
 		return nil, false
 	}
@@ -171,8 +172,8 @@ func (o *AccessKeySecretKey) HasLastModificationDate() bool {
 	return false
 }
 
-// SetLastModificationDate gets a reference to the given string and assigns it to the LastModificationDate field.
-func (o *AccessKeySecretKey) SetLastModificationDate(v string) {
+// SetLastModificationDate gets a reference to the given time.Time and assigns it to the LastModificationDate field.
+func (o *AccessKeySecretKey) SetLastModificationDate(v time.Time) {
 	o.LastModificationDate = &v
 }
 

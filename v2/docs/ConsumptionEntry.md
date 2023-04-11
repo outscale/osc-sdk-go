@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | The ID of your TINA account. | [optional] 
 **Category** | Pointer to **string** | The category of the resource (for example, &#x60;network&#x60;). | [optional] 
-**FromDate** | Pointer to **string** | The beginning of the time period. | [optional] 
+**FromDate** | Pointer to **time.Time** | The beginning of the time period, in ISO 8601 date-time format. | [optional] 
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
 **PayingAccountId** | Pointer to **string** | The ID of the TINA account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
 **Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, or &#x60;TinaOS-OSU&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
-**ToDate** | Pointer to **string** | The end of the time period. | [optional] 
+**ToDate** | Pointer to **time.Time** | The end of the time period, in ISO 8601 date-time format. | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 
 **Value** | Pointer to **float64** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
 
@@ -87,20 +87,20 @@ HasCategory returns a boolean if a field has been set.
 
 ### GetFromDate
 
-`func (o *ConsumptionEntry) GetFromDate() string`
+`func (o *ConsumptionEntry) GetFromDate() time.Time`
 
 GetFromDate returns the FromDate field if non-nil, zero value otherwise.
 
 ### GetFromDateOk
 
-`func (o *ConsumptionEntry) GetFromDateOk() (*string, bool)`
+`func (o *ConsumptionEntry) GetFromDateOk() (*time.Time, bool)`
 
 GetFromDateOk returns a tuple with the FromDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFromDate
 
-`func (o *ConsumptionEntry) SetFromDate(v string)`
+`func (o *ConsumptionEntry) SetFromDate(v time.Time)`
 
 SetFromDate sets FromDate field to given value.
 
@@ -237,20 +237,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetToDate
 
-`func (o *ConsumptionEntry) GetToDate() string`
+`func (o *ConsumptionEntry) GetToDate() time.Time`
 
 GetToDate returns the ToDate field if non-nil, zero value otherwise.
 
 ### GetToDateOk
 
-`func (o *ConsumptionEntry) GetToDateOk() (*string, bool)`
+`func (o *ConsumptionEntry) GetToDateOk() (*time.Time, bool)`
 
 GetToDateOk returns a tuple with the ToDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetToDate
 
-`func (o *ConsumptionEntry) SetToDate(v string)`
+`func (o *ConsumptionEntry) SetToDate(v time.Time)`
 
 SetToDate sets ToDate field to given value.
 

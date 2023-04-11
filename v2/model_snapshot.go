@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Snapshot Information about the snapshot.
@@ -22,7 +23,7 @@ type Snapshot struct {
 	// The account ID of the owner of the snapshot.
 	AccountId *string `json:"AccountId,omitempty"`
 	// The date and time of creation of the snapshot.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 	// The description of the snapshot.
 	Description               *string                `json:"Description,omitempty"`
 	PermissionsToCreateVolume *PermissionsOnResource `json:"PermissionsToCreateVolume,omitempty"`
@@ -122,9 +123,9 @@ func (o *Snapshot) SetAccountId(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *Snapshot) GetCreationDate() string {
+func (o *Snapshot) GetCreationDate() time.Time {
 	if o == nil || o.CreationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -132,7 +133,7 @@ func (o *Snapshot) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Snapshot) GetCreationDateOk() (*string, bool) {
+func (o *Snapshot) GetCreationDateOk() (*time.Time, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -148,8 +149,8 @@ func (o *Snapshot) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *Snapshot) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *Snapshot) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 

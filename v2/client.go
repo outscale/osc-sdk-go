@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -43,7 +43,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the 3DS OUTSCALE API API v1.25
+// APIClient manages communication with the 3DS OUTSCALE API API v1.26
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -133,6 +133,10 @@ type APIClient struct {
 
 	VmApi *VmApiService
 
+	VmGroupApi *VmGroupApiService
+
+	VmTemplateApi *VmTemplateApiService
+
 	VolumeApi *VolumeApiService
 
 	VpnConnectionApi *VpnConnectionApiService
@@ -195,6 +199,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TaskApi = (*TaskApiService)(&c.common)
 	c.VirtualGatewayApi = (*VirtualGatewayApiService)(&c.common)
 	c.VmApi = (*VmApiService)(&c.common)
+	c.VmGroupApi = (*VmGroupApiService)(&c.common)
+	c.VmTemplateApi = (*VmTemplateApiService)(&c.common)
 	c.VolumeApi = (*VolumeApiService)(&c.common)
 	c.VpnConnectionApi = (*VpnConnectionApiService)(&c.common)
 

@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.25
+ * API version: 1.26
  * Contact: support@outscale.com
  */
 
@@ -19,19 +19,19 @@ import (
 type ReadConsumptionAccountRequest struct {
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
-	// The beginning of the time period, in ISO 8601 date-time format (for example, `2017-06-14` or `2017-06-14T00:00:00Z`).
-	FromDate string `json:"FromDate"`
+	// The beginning of the time period, in ISO 8601 date format (for example, `2020-06-14`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-14T00:00:00.000Z`).
+	FromDate OneOfdateDateTime `json:"FromDate"`
 	// By default or if false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
 	Overall *bool `json:"Overall,omitempty"`
-	// The end of the time period, in ISO 8601 date-time format (for example, `2017-06-30` or `2017-06-30T00:00:00Z`).
-	ToDate string `json:"ToDate"`
+	// The end of the time period, in ISO 8601 date format (for example, `2020-06-30`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-30T00:00:00.000Z`).
+	ToDate OneOfdateDateTime `json:"ToDate"`
 }
 
 // NewReadConsumptionAccountRequest instantiates a new ReadConsumptionAccountRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReadConsumptionAccountRequest(fromDate string, toDate string) *ReadConsumptionAccountRequest {
+func NewReadConsumptionAccountRequest(fromDate OneOfdateDateTime, toDate OneOfdateDateTime) *ReadConsumptionAccountRequest {
 	this := ReadConsumptionAccountRequest{}
 	this.FromDate = fromDate
 	var overall bool = false
@@ -83,9 +83,9 @@ func (o *ReadConsumptionAccountRequest) SetDryRun(v bool) {
 }
 
 // GetFromDate returns the FromDate field value
-func (o *ReadConsumptionAccountRequest) GetFromDate() string {
+func (o *ReadConsumptionAccountRequest) GetFromDate() OneOfdateDateTime {
 	if o == nil {
-		var ret string
+		var ret OneOfdateDateTime
 		return ret
 	}
 
@@ -94,7 +94,7 @@ func (o *ReadConsumptionAccountRequest) GetFromDate() string {
 
 // GetFromDateOk returns a tuple with the FromDate field value
 // and a boolean to check if the value has been set.
-func (o *ReadConsumptionAccountRequest) GetFromDateOk() (*string, bool) {
+func (o *ReadConsumptionAccountRequest) GetFromDateOk() (*OneOfdateDateTime, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *ReadConsumptionAccountRequest) GetFromDateOk() (*string, bool) {
 }
 
 // SetFromDate sets field value
-func (o *ReadConsumptionAccountRequest) SetFromDate(v string) {
+func (o *ReadConsumptionAccountRequest) SetFromDate(v OneOfdateDateTime) {
 	o.FromDate = v
 }
 
@@ -139,9 +139,9 @@ func (o *ReadConsumptionAccountRequest) SetOverall(v bool) {
 }
 
 // GetToDate returns the ToDate field value
-func (o *ReadConsumptionAccountRequest) GetToDate() string {
+func (o *ReadConsumptionAccountRequest) GetToDate() OneOfdateDateTime {
 	if o == nil {
-		var ret string
+		var ret OneOfdateDateTime
 		return ret
 	}
 
@@ -150,7 +150,7 @@ func (o *ReadConsumptionAccountRequest) GetToDate() string {
 
 // GetToDateOk returns a tuple with the ToDate field value
 // and a boolean to check if the value has been set.
-func (o *ReadConsumptionAccountRequest) GetToDateOk() (*string, bool) {
+func (o *ReadConsumptionAccountRequest) GetToDateOk() (*OneOfdateDateTime, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,7 +158,7 @@ func (o *ReadConsumptionAccountRequest) GetToDateOk() (*string, bool) {
 }
 
 // SetToDate sets field value
-func (o *ReadConsumptionAccountRequest) SetToDate(v string) {
+func (o *ReadConsumptionAccountRequest) SetToDate(v OneOfdateDateTime) {
 	o.ToDate = v
 }
 

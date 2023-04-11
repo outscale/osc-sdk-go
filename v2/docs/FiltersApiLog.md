@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **QueryAccessKeys** | Pointer to **[]string** | The access keys used for the logged calls. | [optional] 
 **QueryApiNames** | Pointer to **[]string** | The names of the APIs of the logged calls (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
 **QueryCallNames** | Pointer to **[]string** | The names of the logged calls. | [optional] 
-**QueryDateAfter** | Pointer to **string** | The date after which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-14&#x60;). By default, this date is set to 48 hours before the &#x60;QueryDateBefore&#x60; parameter value. | [optional] 
-**QueryDateBefore** | Pointer to **string** | The date before which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-30&#x60;). By default, this date is set to now, or 48 hours after the &#x60;QueryDateAfter&#x60; parameter value. | [optional] 
+**QueryDateAfter** | Pointer to [**OneOfDateTimedate**](oneOf&lt;DateTime,date&gt;.md) | The date and time, or the date, after which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60; or &#x60;2020-06-14&#x60;). By default, this date is set to 48 hours before the &#x60;QueryDateBefore&#x60; parameter value. | [optional] 
+**QueryDateBefore** | Pointer to [**OneOfDateTimedate**](oneOf&lt;DateTime,date&gt;.md) | The date and time, or the date, before which you want to retrieve logged calls, in ISO 8601 format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60; or &#x60;2020-06-14&#x60;). By default, this date is set to now, or 48 hours after the &#x60;QueryDateAfter&#x60; parameter value. | [optional] 
 **QueryIpAddresses** | Pointer to **[]string** | The IPs used for the logged calls. | [optional] 
 **QueryUserAgents** | Pointer to **[]string** | The user agents of the HTTP requests of the logged calls. | [optional] 
 **RequestIds** | Pointer to **[]string** | The request IDs provided in the responses of the logged calls. | [optional] 
@@ -110,20 +110,20 @@ HasQueryCallNames returns a boolean if a field has been set.
 
 ### GetQueryDateAfter
 
-`func (o *FiltersApiLog) GetQueryDateAfter() string`
+`func (o *FiltersApiLog) GetQueryDateAfter() OneOfDateTimedate`
 
 GetQueryDateAfter returns the QueryDateAfter field if non-nil, zero value otherwise.
 
 ### GetQueryDateAfterOk
 
-`func (o *FiltersApiLog) GetQueryDateAfterOk() (*string, bool)`
+`func (o *FiltersApiLog) GetQueryDateAfterOk() (*OneOfDateTimedate, bool)`
 
 GetQueryDateAfterOk returns a tuple with the QueryDateAfter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryDateAfter
 
-`func (o *FiltersApiLog) SetQueryDateAfter(v string)`
+`func (o *FiltersApiLog) SetQueryDateAfter(v OneOfDateTimedate)`
 
 SetQueryDateAfter sets QueryDateAfter field to given value.
 
@@ -135,20 +135,20 @@ HasQueryDateAfter returns a boolean if a field has been set.
 
 ### GetQueryDateBefore
 
-`func (o *FiltersApiLog) GetQueryDateBefore() string`
+`func (o *FiltersApiLog) GetQueryDateBefore() OneOfDateTimedate`
 
 GetQueryDateBefore returns the QueryDateBefore field if non-nil, zero value otherwise.
 
 ### GetQueryDateBeforeOk
 
-`func (o *FiltersApiLog) GetQueryDateBeforeOk() (*string, bool)`
+`func (o *FiltersApiLog) GetQueryDateBeforeOk() (*OneOfDateTimedate, bool)`
 
 GetQueryDateBeforeOk returns a tuple with the QueryDateBefore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryDateBefore
 
-`func (o *FiltersApiLog) SetQueryDateBefore(v string)`
+`func (o *FiltersApiLog) SetQueryDateBefore(v OneOfDateTimedate)`
 
 SetQueryDateBefore sets QueryDateBefore field to given value.
 

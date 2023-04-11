@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time of creation of the VM. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the VM. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot delete the VM unless you change this parameter back to false. | [optional] 
 **Hypervisor** | Pointer to **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;xen&#x60;). | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI used to create the VM. | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **PrivateDnsName** | Pointer to **string** | The name of the private DNS. | [optional] 
 **PrivateIp** | Pointer to **string** | The primary private IP of the VM. | [optional] 
-**ProductCodes** | Pointer to **[]string** | The product code associated with the OMI used to create the VM (&#x60;0001&#x60; Linux/Unix \\| &#x60;0002&#x60; Windows \\| &#x60;0004&#x60; Linux/Oracle \\| &#x60;0005&#x60; Windows 10). | [optional] 
+**ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI used to create the VM. | [optional] 
 **PublicDnsName** | Pointer to **string** | The name of the public DNS. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP of the VM. | [optional] 
 **ReservationId** | Pointer to **string** | The reservation ID of the VM. | [optional] 
@@ -160,20 +160,20 @@ HasClientToken returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *Vm) GetCreationDate() string`
+`func (o *Vm) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Vm) GetCreationDateOk() (*string, bool)`
+`func (o *Vm) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Vm) SetCreationDate(v string)`
+`func (o *Vm) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

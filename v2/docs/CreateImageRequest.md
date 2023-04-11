@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **FileLocation** | Pointer to **string** | The pre-signed URL of the OMI manifest file, or the full path to the OMI stored in a bucket. If you specify this parameter, a copy of the OMI is created in your account. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
 **ImageName** | Pointer to **string** | A unique name for the new OMI.&lt;br /&gt; Constraints: 3-128 alphanumeric characters, underscores (_), spaces ( ), parentheses (()), slashes (/), periods (.), or dashes (-). | [optional] 
 **NoReboot** | Pointer to **bool** | If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not. | [optional] 
+**ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
 **RootDeviceName** | Pointer to **string** | The name of the root device. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
 **SourceImageId** | Pointer to **string** | The ID of the OMI you want to copy. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
 **SourceRegionName** | Pointer to **string** | The name of the source Region, which must be the same as the Region of your account. | [optional] 
@@ -209,6 +210,31 @@ SetNoReboot sets NoReboot field to given value.
 `func (o *CreateImageRequest) HasNoReboot() bool`
 
 HasNoReboot returns a boolean if a field has been set.
+
+### GetProductCodes
+
+`func (o *CreateImageRequest) GetProductCodes() []string`
+
+GetProductCodes returns the ProductCodes field if non-nil, zero value otherwise.
+
+### GetProductCodesOk
+
+`func (o *CreateImageRequest) GetProductCodesOk() (*[]string, bool)`
+
+GetProductCodesOk returns a tuple with the ProductCodes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCodes
+
+`func (o *CreateImageRequest) SetProductCodes(v []string)`
+
+SetProductCodes sets ProductCodes field to given value.
+
+### HasProductCodes
+
+`func (o *CreateImageRequest) HasProductCodes() bool`
+
+HasProductCodes returns a boolean if a field has been set.
 
 ### GetRootDeviceName
 
