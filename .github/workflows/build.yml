@@ -17,7 +17,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19
       - name: Write Outscale API version to use
         run: echo "${{ github.event.inputs.api_version }}" > api_version
       - name: check for release duplicate
@@ -45,7 +45,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19
       - name: Write Outscale API version to use
         run: echo "${{ github.event.inputs.api_version }}" > api_version
       - name: check for release duplicate
