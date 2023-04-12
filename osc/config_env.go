@@ -29,6 +29,7 @@ package osc
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -74,34 +75,17 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
 		}
 	} else {
 		config = NewConfiguration()
-		default_region := "eu-west-2"
-		config.Servers = []ServerConfiguration{
-			{
-				Url:         "https://api.{region}.outscale.com/api/v1",
-				Description: "Loaded from profile",
-				Variables: map[string]ServerVariable{
-					"region": ServerVariable{
-						Description:  "Loaded from env variables",
-						DefaultValue: default_region,
-						EnumValues:   []string{default_region},
-					},
-				},
-			},
-		}
+	}
+
+	if configEnv.Region != nil {
+		config.BasePath = fmt.Sprintf("https://api.%s.outscale.com/api/v1", *configEnv.Region)
 	}
 
 	// Overload with remaining environement variable values
 	if configEnv.OutscaleApiEndpoint != nil {
-		config.Servers[0].Url = *configEnv.OutscaleApiEndpoint
+		config.BasePath = fmt.Sprintf("https://%s", *configEnv.OutscaleApiEndpoint)
 	}
 
-	if configEnv.Region != nil && len(config.Servers) > 0 {
-		config.Servers[0].Variables["region"] = ServerVariable{
-			Description:  "Loaded from env variables",
-			DefaultValue: *configEnv.Region,
-			EnumValues:   []string{*configEnv.Region},
-		}
-	}
 	return config, nil
 }
 
