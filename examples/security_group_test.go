@@ -50,7 +50,13 @@ import (
 - Delete Security Group
 */
 func ExampleSecurityGroup() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot create configuration: %s\n", err.Error())
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
 		SecretKey: os.Getenv("OSC_SECRET_KEY"),

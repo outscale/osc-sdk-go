@@ -48,7 +48,13 @@ import (
 - Delete new volume
 */
 func ExampleVolume() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot create configuration: %s\n", err.Error())
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
 		SecretKey: os.Getenv("OSC_SECRET_KEY"),
@@ -73,7 +79,7 @@ func ExampleVolume() {
 			osc.CreateVolumeRequest{
 				Size:          10,
 				VolumeType:    "gp2",
-				SubregionName: "eu-west-2a",
+				SubregionName: fmt.Sprintf("%sa", *configEnv.Region),
 			}),
 	}
 	creation, httpRes, err := client.VolumeApi.CreateVolume(auth, &creationOpts)
