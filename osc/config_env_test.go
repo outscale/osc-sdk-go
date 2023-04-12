@@ -48,6 +48,7 @@ func TestEnvVariablesAkSk(t *testing.T) {
 }
 
 func TestEnvVariablesWithProfile(t *testing.T) {
+	profile := os.Getenv("OSC_PROFILE")
 	if err := os.Setenv("OSC_PROFILE", "SomeProfile"); err != nil {
 		t.Fatalf("Cannot set OSC_PROFILE: %s", err.Error())
 	}
@@ -60,6 +61,11 @@ func TestEnvVariablesWithProfile(t *testing.T) {
 	defer os.Setenv("OSC_ACCESS_KEY", ak)
 	defer os.Setenv("OSC_SECRET_KEY", sk)
 	defer os.Setenv("OSC_REGION", region)
+	if profile != "" {
+		defer os.Setenv("OSC_PROFILE", profile)
+	} else {
+		defer os.Unsetenv("OSC_PROFILE")
+	}
 
 	home, err := os.UserHomeDir()
 	if err != nil {
