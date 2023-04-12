@@ -52,8 +52,17 @@ import (
 */
 func ExampleLoadBalancer() {
 	loadBalancerName := "OscSdkExample-" + RandomString(10)
-	loadBalancerSubRegion := "eu-west-2a"
-	config := osc.NewConfiguration()
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot create configuration: %s\n", err.Error())
+		os.Exit(1)
+	}
+	if configEnv.Region == nil {
+		fmt.Fprintln(os.Stderr, "The region is not specified using OSC_REGION")
+		os.Exit(1)
+	}
+	loadBalancerSubRegion := fmt.Sprintf("%sa", *configEnv.Region)
 	config.Debug = false
 	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{

@@ -45,7 +45,12 @@ A quick example which show how to enable SDK debuging in case you have to see wh
 This examples just list existing volumes and shows HTTP details.
 */
 func ExampleDebug() {
-	config := osc.NewConfiguration()
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot create configuration: %s\n", err.Error())
+		os.Exit(1)
+	}
 
 	config.Debug = true // <-- may be useful
 

@@ -51,7 +51,13 @@ import (
 Note that to access a virtual machine, you will also need at least to provide a security group with appropriate rules (e.g. TCP port 22) and a keypair at creation.
 */
 func ExampleVirtualMachine() {
-	client := osc.NewAPIClient(osc.NewConfiguration())
+	configEnv := osc.NewConfigEnv()
+	config, err := configEnv.Configuration()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot create configuration: %s\n", err.Error())
+		os.Exit(1)
+	}
+	client := osc.NewAPIClient(config)
 	auth := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
 		SecretKey: os.Getenv("OSC_SECRET_KEY"),
@@ -74,7 +80,7 @@ func ExampleVirtualMachine() {
 	creationOpts := osc.CreateVmsOpts{
 		CreateVmsRequest: optional.NewInterface(
 			osc.CreateVmsRequest{
-				ImageId: "ami-68ed4301",
+				ImageId: os.Getenv("OMI_ID"),
 				VmType:  "tinav4.c1r1p1",
 			}),
 	}
