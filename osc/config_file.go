@@ -120,16 +120,6 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 	if !ok {
 		return nil, errors.New("profile not found for creating Context, did you load config file?")
 	}
-	var url string
-	if len(profile.Endpoints.API) > 0 {
-		if len(profile.Protocol) > 0 {
-			url = fmt.Sprintf("%s://%s", profile.Protocol, profile.Endpoints.API)
-		} else {
-			url = fmt.Sprintf("https://%s", profile.Endpoints.API)
-		}
-	} else {
-		url = "https://api.{region}.outscale.com/api/v1"
-	}
 
 	var region string
 	if len(profile.Region) > 0 {
@@ -138,19 +128,18 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 		region = "eu-west-2"
 	}
 
-	config := NewConfiguration()
-	config.Servers = []ServerConfiguration{
-		{
-			Url:         url,
-			Description: "Loaded from profile",
-			Variables: map[string]ServerVariable{
-				"region": ServerVariable{
-					Description:  "Loaded from profile",
-					DefaultValue: region,
-					EnumValues:   []string{region},
-				},
-			},
-		},
+	var url string
+	if len(profile.Endpoints.API) > 0 {
+		if len(profile.Protocol) > 0 {
+			url = fmt.Sprintf("%s://%s", profile.Protocol, profile.Endpoints.API)
+		} else {
+			url = fmt.Sprintf("https://%s", profile.Endpoints.API)
+		}
+	} else {
+		url = fmt.Sprintf("https://api.%s.outscale.com/api/v1", region)
 	}
+
+	config := NewConfiguration()
+	config.BasePath = url
 	return config, nil
 }
