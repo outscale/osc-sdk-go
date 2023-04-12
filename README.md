@@ -2,6 +2,10 @@
 
 Welcome to Outscale SDK for [golang](https://golang.org/).
 
+# WARNING
+
+v1.x branch is now end-of-life, please checkout more recent major version.
+
 ## How to use the SDK ?
 
 Simply grab go module:
