@@ -35,8 +35,7 @@ osc-generate: osc-api/outscale.yaml
 	cd v2 && git apply ../.osc-patches/*
 
 osc-api/outscale.yaml:
-	git clone https://github.com/outscale/osc-api.git && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
-	cd osc-api && git apply ../.osc-api-patches/outscale-yaml.patch
+	git clone https://github.com/outscale/osc-api-deploy.git && cd osc-api-deploy && git checkout -b $(API_VERSION) $(API_VERSION)
 
 .PHONY: clean
 clean:
