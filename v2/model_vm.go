@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Vm Information about the VM.
@@ -26,7 +27,7 @@ type Vm struct {
 	// The idempotency token provided when launching the VM.
 	ClientToken *string `json:"ClientToken,omitempty"`
 	// The date and time of creation of the VM.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 	// If true, you cannot delete the VM unless you change this parameter back to false.
 	DeletionProtection *bool `json:"DeletionProtection,omitempty"`
 	// The hypervisor type of the VMs (`ovm` \\| `xen`).
@@ -232,9 +233,9 @@ func (o *Vm) SetClientToken(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *Vm) GetCreationDate() string {
+func (o *Vm) GetCreationDate() time.Time {
 	if o == nil || o.CreationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -242,7 +243,7 @@ func (o *Vm) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Vm) GetCreationDateOk() (*string, bool) {
+func (o *Vm) GetCreationDateOk() (*time.Time, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -258,8 +259,8 @@ func (o *Vm) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *Vm) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *Vm) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 

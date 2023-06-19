@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **QueryApiName** | Pointer to **string** | The name of the API used by the logged call (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 
 **QueryApiVersion** | Pointer to **string** | The version of the API used by the logged call. | [optional] 
 **QueryCallName** | Pointer to **string** | The name of the logged call. | [optional] 
-**QueryDate** | Pointer to **string** | The date and time of the logged call, in ISO 8601 date-time format. | [optional] 
+**QueryDate** | Pointer to **time.Time** | The date and time of the logged call, in ISO 8601 date-time format. | [optional] 
 **QueryHeaderRaw** | Pointer to **string** | The raw header of the HTTP request of the logged call. | [optional] 
 **QueryHeaderSize** | Pointer to **int32** | The size of the raw header of the HTTP request of the logged call, in bytes. | [optional] 
 **QueryIpAddress** | Pointer to **string** | The IP used for the logged call. | [optional] 
@@ -192,20 +192,20 @@ HasQueryCallName returns a boolean if a field has been set.
 
 ### GetQueryDate
 
-`func (o *Log) GetQueryDate() string`
+`func (o *Log) GetQueryDate() time.Time`
 
 GetQueryDate returns the QueryDate field if non-nil, zero value otherwise.
 
 ### GetQueryDateOk
 
-`func (o *Log) GetQueryDateOk() (*string, bool)`
+`func (o *Log) GetQueryDateOk() (*time.Time, bool)`
 
 GetQueryDateOk returns a tuple with the QueryDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryDate
 
-`func (o *Log) SetQueryDate(v string)`
+`func (o *Log) SetQueryDate(v time.Time)`
 
 SetQueryDate sets QueryDate field to given value.
 

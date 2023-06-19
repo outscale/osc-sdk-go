@@ -221,11 +221,12 @@ import (
     "context"
     "fmt"
     "os"
+    "time"
     openapiclient "./openapi"
 )
 
 func main() {
-    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest("FromDate_example", "ToDate_example") // ReadConsumptionAccountRequest |  (optional)
+    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest(time.Now(), time.Now()) // ReadConsumptionAccountRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

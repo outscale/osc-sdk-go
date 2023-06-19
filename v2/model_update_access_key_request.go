@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // UpdateAccessKeyRequest struct for UpdateAccessKeyRequest
@@ -22,9 +23,11 @@ type UpdateAccessKeyRequest struct {
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 	// The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z` or `2020-06-14`). If not specified, the access key is set to not expire.
-	ExpirationDate *string `json:"ExpirationDate,omitempty"`
+	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
 	// The new state for the access key (`ACTIVE` \\| `INACTIVE`). When set to `ACTIVE`, the access key is enabled and can be used to send requests. When set to `INACTIVE`, the access key is disabled.
 	State string `json:"State"`
+	// The name of the EIM the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root account).
+	UserName *string `json:"UserName,omitempty"`
 }
 
 // NewUpdateAccessKeyRequest instantiates a new UpdateAccessKeyRequest object
@@ -103,9 +106,9 @@ func (o *UpdateAccessKeyRequest) SetDryRun(v bool) {
 }
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.
-func (o *UpdateAccessKeyRequest) GetExpirationDate() string {
+func (o *UpdateAccessKeyRequest) GetExpirationDate() time.Time {
 	if o == nil || o.ExpirationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.ExpirationDate
@@ -113,7 +116,7 @@ func (o *UpdateAccessKeyRequest) GetExpirationDate() string {
 
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateAccessKeyRequest) GetExpirationDateOk() (*string, bool) {
+func (o *UpdateAccessKeyRequest) GetExpirationDateOk() (*time.Time, bool) {
 	if o == nil || o.ExpirationDate == nil {
 		return nil, false
 	}
@@ -129,8 +132,8 @@ func (o *UpdateAccessKeyRequest) HasExpirationDate() bool {
 	return false
 }
 
-// SetExpirationDate gets a reference to the given string and assigns it to the ExpirationDate field.
-func (o *UpdateAccessKeyRequest) SetExpirationDate(v string) {
+// SetExpirationDate gets a reference to the given time.Time and assigns it to the ExpirationDate field.
+func (o *UpdateAccessKeyRequest) SetExpirationDate(v time.Time) {
 	o.ExpirationDate = &v
 }
 
@@ -158,6 +161,38 @@ func (o *UpdateAccessKeyRequest) SetState(v string) {
 	o.State = v
 }
 
+// GetUserName returns the UserName field value if set, zero value otherwise.
+func (o *UpdateAccessKeyRequest) GetUserName() string {
+	if o == nil || o.UserName == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserName
+}
+
+// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateAccessKeyRequest) GetUserNameOk() (*string, bool) {
+	if o == nil || o.UserName == nil {
+		return nil, false
+	}
+	return o.UserName, true
+}
+
+// HasUserName returns a boolean if a field has been set.
+func (o *UpdateAccessKeyRequest) HasUserName() bool {
+	if o != nil && o.UserName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserName gets a reference to the given string and assigns it to the UserName field.
+func (o *UpdateAccessKeyRequest) SetUserName(v string) {
+	o.UserName = &v
+}
+
 func (o UpdateAccessKeyRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -171,6 +206,9 @@ func (o UpdateAccessKeyRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["State"] = o.State
+	}
+	if o.UserName != nil {
+		toSerialize["UserName"] = o.UserName
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **string** | The date and time of creation of the VM group. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the VM group. | [optional] 
 **Description** | Pointer to **string** | The description of the VM group. | [optional] 
 **PositioningStrategy** | Pointer to **string** | The positioning strategy of the VMs on hypervisors. By default, or if set to &#x60;no-strategy&#x60;, TINA determines the most adequate position for the VMs. If set to &#x60;attract&#x60;, the VMs are deployed on the same hypervisor, which improves network performance. If set to &#x60;repulse&#x60;, the VMs are deployed on a different hypervisor, which improves fault tolerance. | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security groups for the VM group. | [optional] 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDate
 
-`func (o *VmGroup) GetCreationDate() string`
+`func (o *VmGroup) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *VmGroup) GetCreationDateOk() (*string, bool)`
+`func (o *VmGroup) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *VmGroup) SetCreationDate(v string)`
+`func (o *VmGroup) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

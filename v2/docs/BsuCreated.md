@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DeleteOnVmDeletion** | Pointer to **bool** | If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM. | [optional] 
-**LinkDate** | Pointer to **string** | The date and time of attachment of the volume to the VM, in ISO 8601 date-time format. | [optional] 
+**LinkDate** | Pointer to **time.Time** | The date and time of attachment of the volume to the VM, in ISO 8601 date-time format. | [optional] 
 **State** | Pointer to **string** | The state of the volume. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume. | [optional] 
 
@@ -55,20 +55,20 @@ HasDeleteOnVmDeletion returns a boolean if a field has been set.
 
 ### GetLinkDate
 
-`func (o *BsuCreated) GetLinkDate() string`
+`func (o *BsuCreated) GetLinkDate() time.Time`
 
 GetLinkDate returns the LinkDate field if non-nil, zero value otherwise.
 
 ### GetLinkDateOk
 
-`func (o *BsuCreated) GetLinkDateOk() (*string, bool)`
+`func (o *BsuCreated) GetLinkDateOk() (*time.Time, bool)`
 
 GetLinkDateOk returns a tuple with the LinkDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinkDate
 
-`func (o *BsuCreated) SetLinkDate(v string)`
+`func (o *BsuCreated) SetLinkDate(v time.Time)`
 
 SetLinkDate sets LinkDate field to given value.
 

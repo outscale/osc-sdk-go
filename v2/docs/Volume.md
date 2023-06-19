@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **string** | The date and time of creation of the volume. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the volume. | [optional] 
 **Iops** | Pointer to **int32** | The number of I/O operations per second (IOPS):&lt;br /&gt; - For &#x60;io1&#x60; volumes, the number of provisioned IOPS&lt;br /&gt; - For &#x60;gp2&#x60; volumes, the baseline performance of the volume | [optional] 
 **LinkedVolumes** | Pointer to [**[]LinkedVolume**](LinkedVolume.md) | Information about your volume attachment. | [optional] 
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). | [optional] 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDate
 
-`func (o *Volume) GetCreationDate() string`
+`func (o *Volume) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Volume) GetCreationDateOk() (*string, bool)`
+`func (o *Volume) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Volume) SetCreationDate(v string)`
+`func (o *Volume) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

@@ -14,7 +14,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.26"
+  version: "1.27"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -100,8 +100,8 @@ paths:
       tags:
       - Account
   /CreateAccessKey:
-    description: Creates an access key for your account. The new key is automatically
-      set to `ACTIVE`.
+    description: Creates an access key for either your root account or an EIM user.
+      The new key is automatically set to `ACTIVE`.
     post:
       operationId: CreateAccessKey
       requestBody:
@@ -1143,6 +1143,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /CreateUser:
+    description: Creates an EIM user for your account.
+    post:
+      operationId: CreateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /CreateVirtualGateway:
     description: |-
       Creates a virtual gateway.<br />
@@ -1350,7 +1368,7 @@ paths:
       - VpnConnection
   /DeleteAccessKey:
     description: |-
-      Deletes the specified access key of your account.<br /><br />
+      Deletes the specified access key of either your root account or an EIM user.<br /><br />
 
       **[NOTE]**<br />
       To protect against brute force attacks, the number of requests allowed for this method in a given time period is limited.
@@ -2264,6 +2282,25 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /DeleteUser:
+    description: Deletes a specified EIM user. The EIM user must not belong to any
+      group and have any key, signing certificate or attached policy.
+    post:
+      operationId: DeleteUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /DeleteVirtualGateway:
     description: |-
       Deletes a specified virtual gateway.<br />
@@ -2775,7 +2812,7 @@ paths:
       tags:
       - Volume
   /ReadAccessKeys:
-    description: Lists the access key IDs of your account.
+    description: Lists the access key IDs of either your root account or an EIM user.
     post:
       operationId: ReadAccessKeys
       requestBody:
@@ -3817,7 +3854,7 @@ paths:
       tags:
       - RouteTable
   /ReadSecretAccessKey:
-    description: Lists information about the specified access key of your account,
+    description: Lists information about the specified access key of your root account,
       including its secret key.
     post:
       operationId: ReadSecretAccessKey
@@ -4063,6 +4100,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /ReadUsers:
+    description: Lists all EIM users that have a specified path.<br />
+    post:
+      operationId: ReadUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadUsersRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadUsersResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /ReadVirtualGateways:
     description: |-
       Lists one or more virtual gateways.<br /><br />
@@ -4933,7 +4988,7 @@ paths:
       - Volume
   /UpdateAccessKey:
     description: |-
-      Modifies the attributes of the specified access key of your account.<br /><br />
+      Modifies the attributes of the specified access key of either your root account or an EIM user.<br /><br />
 
       **[NOTE]**<br />
       To protect against brute force attacks, the number of requests allowed for this method in a given time period is limited.
@@ -5437,6 +5492,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Subnet
+  /UpdateUser:
+    description: Modifies the name and/or the path of a specified EIM user.
+    post:
+      operationId: UpdateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /UpdateVm:
     description: |-
       Modifies the specified attributes of a virtual machine (VM).<br />
@@ -5688,27 +5761,27 @@ components:
       additionalProperties: false
       description: Information about the access key.
       example:
-        CreationDate: CreationDate
-        ExpirationDate: ExpirationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
+        ExpirationDate: 2000-01-23T04:56:07.000+00:00
         AccessKeyId: AccessKeyId
         State: State
-        LastModificationDate: LastModificationDate
+        LastModificationDate: 2000-01-23T04:56:07.000+00:00
       properties:
         AccessKeyId:
           description: The ID of the access key.
           type: string
         CreationDate:
           description: The date and time (UTC) of creation of the access key.
-          format: datetime
+          format: date-time
           type: string
         ExpirationDate:
           description: The date (UTC) at which the access key expires.
-          format: datetime
+          format: date-time
           type: string
         LastModificationDate:
           description: The date and time (UTC) of the last modification of the access
             key.
-          format: datetime
+          format: date-time
           type: string
         State:
           description: The state of the access key (`ACTIVE` if the key is valid for
@@ -5719,28 +5792,28 @@ components:
       additionalProperties: false
       description: Information about the access key.
       example:
-        CreationDate: CreationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         SecretKey: SecretKey
-        ExpirationDate: ExpirationDate
+        ExpirationDate: 2000-01-23T04:56:07.000+00:00
         AccessKeyId: AccessKeyId
         State: State
-        LastModificationDate: LastModificationDate
+        LastModificationDate: 2000-01-23T04:56:07.000+00:00
       properties:
         AccessKeyId:
           description: The ID of the access key.
           type: string
         CreationDate:
           description: The date and time (UTC) of creation of the access key.
-          format: datetime
+          format: date-time
           type: string
         ExpirationDate:
           description: The date and time (UTC) at which the access key expires.
-          format: datetime
+          format: date-time
           type: string
         LastModificationDate:
           description: The date and time (UTC) of the last modification of the access
             key.
-          format: datetime
+          format: date-time
           type: string
         SecretKey:
           description: The access key that enables you to send requests.
@@ -5957,7 +6030,7 @@ components:
           VolumeId: VolumeId
           DeleteOnVmDeletion: true
           State: State
-          LinkDate: 2000-01-23
+          LinkDate: 2000-01-23T04:56:07.000+00:00
         DeviceName: DeviceName
       properties:
         Bsu:
@@ -6056,7 +6129,7 @@ components:
         VolumeId: VolumeId
         DeleteOnVmDeletion: true
         State: State
-        LinkDate: 2000-01-23
+        LinkDate: 2000-01-23T04:56:07.000+00:00
       properties:
         DeleteOnVmDeletion:
           description: If true, the volume is deleted when terminating the VM. If
@@ -6065,7 +6138,7 @@ components:
         LinkDate:
           description: The date and time of attachment of the volume to the VM, in
             ISO 8601 date-time format.
-          format: date
+          format: date-time
           type: string
         State:
           description: The state of the volume.
@@ -6340,8 +6413,8 @@ components:
         Value: 0.8008281904610115
         Service: Service
         Title: Title
-        FromDate: FromDate
-        ToDate: ToDate
+        FromDate: 2000-01-23T04:56:07.000+00:00
+        ToDate: 2000-01-23T04:56:07.000+00:00
         Operation: Operation
         PayingAccountId: PayingAccountId
         SubregionName: SubregionName
@@ -6354,7 +6427,7 @@ components:
           type: string
         FromDate:
           description: The beginning of the time period, in ISO 8601 date-time format.
-          format: datetime
+          format: date-time
           type: string
         Operation:
           description: The API call that triggered the resource consumption (for example,
@@ -6376,7 +6449,7 @@ components:
           type: string
         ToDate:
           description: The end of the time period, in ISO 8601 date-time format.
-          format: datetime
+          format: date-time
           type: string
         Type:
           description: The type of resource, depending on the API call.
@@ -6390,7 +6463,8 @@ components:
     CreateAccessKeyRequest:
       additionalProperties: false
       example:
-        ExpirationDate: ExpirationDate
+        UserName: UserName
+        ExpirationDate: 2000-01-23T04:56:07.000+00:00
         DryRun: true
       properties:
         DryRun:
@@ -6402,7 +6476,12 @@ components:
             key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`,
             or `2020-06-14`). To remove an existing expiration date, use the method
             without specifying this parameter.
-          format: datetime
+          format: date-time
+          type: string
+        UserName:
+          description: The name of the EIM user that owns the key to be created. If
+            you do not specify a user name, this action creates an access key for
+            the user who sends the request (which can be the root account).
           type: string
       type: object
     CreateAccessKeyResponse:
@@ -6411,12 +6490,12 @@ components:
         ResponseContext:
           RequestId: RequestId
         AccessKey:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SecretKey: SecretKey
-          ExpirationDate: ExpirationDate
+          ExpirationDate: 2000-01-23T04:56:07.000+00:00
           AccessKeyId: AccessKeyId
           State: State
-          LastModificationDate: LastModificationDate
+          LastModificationDate: 2000-01-23T04:56:07.000+00:00
       properties:
         AccessKey:
           $ref: '#/components/schemas/AccessKeySecretKey'
@@ -7069,7 +7148,7 @@ components:
           ProductCodes:
           - ProductCodes
           - ProductCodes
-          CreationDate: 2000-01-23
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           PermissionsToLaunch:
             AccountIds:
             - AccountIds
@@ -8651,7 +8730,7 @@ components:
       additionalProperties: false
       example:
         Snapshot:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           Progress: 0
           VolumeId: VolumeId
@@ -8768,6 +8847,41 @@ components:
       properties:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
+      type: object
+    CreateUserRequest:
+      additionalProperties: false
+      example:
+        Path: Path
+        UserName: UserName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        Path:
+          description: The path to the EIM user you want to create (by default, `/`).
+          type: string
+        UserName:
+          description: The name of the EIM user you want to create.
+          type: string
+      required:
+      - UserName
+      type: object
+    CreateUserResponse:
+      additionalProperties: false
+      example:
+        User:
+          Path: Path
+          UserName: UserName
+          UserId: UserId
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        User:
+          $ref: '#/components/schemas/User'
       type: object
     CreateVirtualGatewayRequest:
       additionalProperties: false
@@ -8887,7 +9001,7 @@ components:
         VmGroup:
           VmGroupId: VmGroupId
           VmGroupName: VmGroupName
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           Description: Description
           VmCount: 0
           PositioningStrategy: attract
@@ -9190,7 +9304,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vms:
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -9206,13 +9320,13 @@ components:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           - Bsu:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           LaunchNumber: 0
           SubnetId: SubnetId
@@ -9324,7 +9438,7 @@ components:
           VmId: VmId
           ClientToken: ClientToken
           Performance: Performance
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -9340,13 +9454,13 @@ components:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           - Bsu:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           LaunchNumber: 0
           SubnetId: SubnetId
@@ -9510,7 +9624,7 @@ components:
       additionalProperties: false
       example:
         Volume:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           VolumeId: VolumeId
           VolumeType: VolumeType
@@ -9632,12 +9746,12 @@ components:
             Key: Key
           VgwTelemetries:
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
@@ -9683,6 +9797,7 @@ components:
     DeleteAccessKeyRequest:
       additionalProperties: false
       example:
+        UserName: UserName
         AccessKeyId: AccessKeyId
         DryRun: true
       properties:
@@ -9693,6 +9808,11 @@ components:
           description: If true, checks whether you have the required permissions to
             perform the action.
           type: boolean
+        UserName:
+          description: The name of the EIM user the access key you want to delete
+            is associated with. By default, the user who sends the request (which
+            can be the root account).
+          type: string
       required:
       - AccessKeyId
       type: object
@@ -10853,6 +10973,31 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
+    DeleteUserRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        UserName:
+          description: The name of the EIM user you want to delete.
+          type: string
+      required:
+      - UserName
+      type: object
+    DeleteUserResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
     DeleteVirtualGatewayRequest:
       additionalProperties: false
       example:
@@ -11390,8 +11535,8 @@ components:
         ResponseStatusCodes:
         - 0
         - 0
-        QueryDateAfter: 2000-01-23
-        QueryDateBefore: 2000-01-23
+        QueryDateAfter: 2000-01-23T04:56:07.000+00:00
+        QueryDateBefore: 2000-01-23T04:56:07.000+00:00
         QueryIpAddresses:
         - QueryIpAddresses
         - QueryIpAddresses
@@ -11426,14 +11571,14 @@ components:
             logged calls, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`
             or `2020-06-14`). By default, this date is set to 48 hours before the
             `QueryDateBefore` parameter value.
-          format: date
+          format: date-time
           type: string
         QueryDateBefore:
           description: The date and time, or the date, before which you want to retrieve
             logged calls, in ISO 8601 format (for example, `2020-06-30T00:00:00.000Z`
             or `2020-06-14`). By default, this date is set to now, or 48 hours after
             the `QueryDateAfter` parameter value.
-          format: date
+          format: date-time
           type: string
         QueryIpAddresses:
           description: The IPs used for the logged calls.
@@ -13805,8 +13950,8 @@ components:
         - 0
         - 0
         CreationDates:
-        - 2000-01-23
-        - 2000-01-23
+        - 2000-01-23T04:56:07.000+00:00
+        - 2000-01-23T04:56:07.000+00:00
         LinkVolumeDeleteOnVmDeletion: true
         LinkVolumeVmIds:
         - LinkVolumeVmIds
@@ -13836,8 +13981,8 @@ components:
         - SubregionNames
         - SubregionNames
         LinkVolumeLinkDates:
-        - 2000-01-23
-        - 2000-01-23
+        - 2000-01-23T04:56:07.000+00:00
+        - 2000-01-23T04:56:07.000+00:00
         VolumeStates:
         - VolumeStates
         - VolumeStates
@@ -13849,7 +13994,7 @@ components:
           description: The dates and times of creation of the volumes, in ISO 8601
             date-time format (for example, `2020-06-30T00:00:00.000Z`).
           items:
-            format: date
+            format: date-time
             type: string
           type: array
         LinkVolumeDeleteOnVmDeletion:
@@ -13865,7 +14010,7 @@ components:
           description: The dates and times of creation of the volumes, in ISO 8601
             date-time format (for example, `2020-06-30T00:00:00.000Z`).
           items:
-            format: date
+            format: date-time
             type: string
           type: array
         LinkVolumeLinkStates:
@@ -14145,7 +14290,7 @@ components:
         ProductCodes:
         - ProductCodes
         - ProductCodes
-        CreationDate: 2000-01-23
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         PermissionsToLaunch:
           AccountIds:
           - AccountIds
@@ -14205,7 +14350,7 @@ components:
         CreationDate:
           description: The date and time of creation of the OMI, in ISO 8601 date-time
             format.
-          format: date
+          format: date-time
           type: string
         Description:
           description: The description of the OMI.
@@ -15255,7 +15400,7 @@ components:
       example:
         QueryAccessKey: QueryAccessKey
         QueryApiName: QueryApiName
-        QueryDate: 2000-01-23
+        QueryDate: 2000-01-23T04:56:07.000+00:00
         AccountId: AccountId
         QueryPayloadSize: 1
         RequestId: RequestId
@@ -15292,7 +15437,7 @@ components:
         QueryDate:
           description: The date and time of the logged call, in ISO 8601 date-time
             format.
-          format: date
+          format: date-time
           type: string
         QueryHeaderRaw:
           description: The raw header of the HTTP request of the logged call.
@@ -16279,6 +16424,7 @@ components:
           AccessKeyIds:
           - AccessKeyIds
           - AccessKeyIds
+        UserName: UserName
         DryRun: true
       properties:
         DryRun:
@@ -16287,21 +16433,25 @@ components:
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersAccessKeys'
+        UserName:
+          description: The name of the EIM user. By default, the user who sends the
+            request (which can be the root account).
+          type: string
       type: object
     ReadAccessKeysResponse:
       additionalProperties: false
       example:
         AccessKeys:
-        - CreationDate: CreationDate
-          ExpirationDate: ExpirationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
+          ExpirationDate: 2000-01-23T04:56:07.000+00:00
           AccessKeyId: AccessKeyId
           State: State
-          LastModificationDate: LastModificationDate
-        - CreationDate: CreationDate
-          ExpirationDate: ExpirationDate
+          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
+          ExpirationDate: 2000-01-23T04:56:07.000+00:00
           AccessKeyId: AccessKeyId
           State: State
-          LastModificationDate: LastModificationDate
+          LastModificationDate: 2000-01-23T04:56:07.000+00:00
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -16508,8 +16658,8 @@ components:
           ResponseStatusCodes:
           - 0
           - 0
-          QueryDateAfter: 2000-01-23
-          QueryDateBefore: 2000-01-23
+          QueryDateAfter: 2000-01-23T04:56:07.000+00:00
+          QueryDateBefore: 2000-01-23T04:56:07.000+00:00
           QueryIpAddresses:
           - QueryIpAddresses
           - QueryIpAddresses
@@ -16570,7 +16720,7 @@ components:
         Logs:
         - QueryAccessKey: QueryAccessKey
           QueryApiName: QueryApiName
-          QueryDate: 2000-01-23
+          QueryDate: 2000-01-23T04:56:07.000+00:00
           AccountId: AccountId
           QueryPayloadSize: 1
           RequestId: RequestId
@@ -16586,7 +16736,7 @@ components:
           QueryHeaderRaw: QueryHeaderRaw
         - QueryAccessKey: QueryAccessKey
           QueryApiName: QueryApiName
-          QueryDate: 2000-01-23
+          QueryDate: 2000-01-23T04:56:07.000+00:00
           AccountId: AccountId
           QueryPayloadSize: 1
           RequestId: RequestId
@@ -16879,8 +17029,8 @@ components:
       example:
         Overall: false
         DryRun: true
-        FromDate: FromDate
-        ToDate: ToDate
+        FromDate: 2000-01-23
+        ToDate: 2000-01-23
       properties:
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -16890,7 +17040,7 @@ components:
           description: The beginning of the time period, in ISO 8601 date format (for
             example, `2020-06-14`). The date-time format is also accepted, but only
             with a time set to midnight (for example, `2020-06-14T00:00:00.000Z`).
-          format: datetime
+          format: date
           type: string
         Overall:
           default: false
@@ -16904,7 +17054,7 @@ components:
           description: The end of the time period, in ISO 8601 date format (for example,
             `2020-06-30`). The date-time format is also accepted, but only with a
             time set to midnight (for example, `2020-06-30T00:00:00.000Z`).
-          format: datetime
+          format: date
           type: string
       required:
       - FromDate
@@ -16922,8 +17072,8 @@ components:
           Value: 0.8008281904610115
           Service: Service
           Title: Title
-          FromDate: FromDate
-          ToDate: ToDate
+          FromDate: 2000-01-23T04:56:07.000+00:00
+          ToDate: 2000-01-23T04:56:07.000+00:00
           Operation: Operation
           PayingAccountId: PayingAccountId
           SubregionName: SubregionName
@@ -16933,8 +17083,8 @@ components:
           Value: 0.8008281904610115
           Service: Service
           Title: Title
-          FromDate: FromDate
-          ToDate: ToDate
+          FromDate: 2000-01-23T04:56:07.000+00:00
+          ToDate: 2000-01-23T04:56:07.000+00:00
           Operation: Operation
           PayingAccountId: PayingAccountId
           SubregionName: SubregionName
@@ -17389,7 +17539,7 @@ components:
         - ProductCodes:
           - ProductCodes
           - ProductCodes
-          CreationDate: 2000-01-23
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           PermissionsToLaunch:
             AccountIds:
             - AccountIds
@@ -17434,7 +17584,7 @@ components:
         - ProductCodes:
           - ProductCodes
           - ProductCodes
-          CreationDate: 2000-01-23
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           PermissionsToLaunch:
             AccountIds:
             - AccountIds
@@ -18922,12 +19072,12 @@ components:
         ResponseContext:
           RequestId: RequestId
         AccessKey:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SecretKey: SecretKey
-          ExpirationDate: ExpirationDate
+          ExpirationDate: 2000-01-23T04:56:07.000+00:00
           AccessKeyId: AccessKeyId
           State: State
-          LastModificationDate: LastModificationDate
+          LastModificationDate: 2000-01-23T04:56:07.000+00:00
       properties:
         AccessKey:
           $ref: '#/components/schemas/AccessKeySecretKey'
@@ -19340,7 +19490,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         Snapshots:
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           Progress: 0
           VolumeId: VolumeId
@@ -19359,7 +19509,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           Progress: 0
           VolumeId: VolumeId
@@ -19553,6 +19703,37 @@ components:
             $ref: '#/components/schemas/Tag'
           type: array
       type: object
+    ReadUsersRequest:
+      additionalProperties: false
+      example:
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+      type: object
+    ReadUsersResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+        Users:
+        - Path: Path
+          UserName: UserName
+          UserId: UserId
+        - Path: Path
+          UserName: UserName
+          UserId: UserId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        Users:
+          description: A list of EIM users.
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      type: object
     ReadVirtualGatewaysRequest:
       additionalProperties: false
       example:
@@ -19680,7 +19861,7 @@ components:
         VmGroups:
         - VmGroupId: VmGroupId
           VmGroupName: VmGroupName
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           Description: Description
           VmCount: 0
           PositioningStrategy: attract
@@ -19700,7 +19881,7 @@ components:
           - VmIds
         - VmGroupId: VmGroupId
           VmGroupName: VmGroupName
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           Description: Description
           VmCount: 0
           PositioningStrategy: attract
@@ -19959,7 +20140,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vms:
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -19975,13 +20156,13 @@ components:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           - Bsu:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           LaunchNumber: 0
           SubnetId: SubnetId
@@ -20093,7 +20274,7 @@ components:
           VmId: VmId
           ClientToken: ClientToken
           Performance: Performance
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -20109,13 +20290,13 @@ components:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           - Bsu:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           LaunchNumber: 0
           SubnetId: SubnetId
@@ -20323,8 +20504,8 @@ components:
           - 0
           - 0
           CreationDates:
-          - 2000-01-23
-          - 2000-01-23
+          - 2000-01-23T04:56:07.000+00:00
+          - 2000-01-23T04:56:07.000+00:00
           LinkVolumeDeleteOnVmDeletion: true
           LinkVolumeVmIds:
           - LinkVolumeVmIds
@@ -20354,8 +20535,8 @@ components:
           - SubregionNames
           - SubregionNames
           LinkVolumeLinkDates:
-          - 2000-01-23
-          - 2000-01-23
+          - 2000-01-23T04:56:07.000+00:00
+          - 2000-01-23T04:56:07.000+00:00
           VolumeStates:
           - VolumeStates
           - VolumeStates
@@ -20375,7 +20556,7 @@ components:
       additionalProperties: false
       example:
         Volumes:
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           VolumeId: VolumeId
           VolumeType: VolumeType
@@ -20399,7 +20580,7 @@ components:
           - Value: Value
             Key: Key
           SubregionName: SubregionName
-        - CreationDate: CreationDate
+        - CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           VolumeId: VolumeId
           VolumeType: VolumeType
@@ -20537,12 +20718,12 @@ components:
             Key: Key
           VgwTelemetries:
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
@@ -20599,12 +20780,12 @@ components:
             Key: Key
           VgwTelemetries:
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
@@ -21290,7 +21471,7 @@ components:
       additionalProperties: false
       description: Information about the snapshot.
       example:
-        CreationDate: CreationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         SnapshotId: SnapshotId
         Progress: 0
         VolumeId: VolumeId
@@ -21318,7 +21499,7 @@ components:
           type: string
         CreationDate:
           description: The date and time of creation of the snapshot.
-          format: datetime
+          format: date-time
           type: string
         Description:
           description: The description of the snapshot.
@@ -21892,7 +22073,8 @@ components:
     UpdateAccessKeyRequest:
       additionalProperties: false
       example:
-        ExpirationDate: ExpirationDate
+        UserName: UserName
+        ExpirationDate: 2000-01-23T04:56:07.000+00:00
         AccessKeyId: AccessKeyId
         State: State
         DryRun: true
@@ -21908,12 +22090,17 @@ components:
           description: The date and time, or the date, at which you want the access
             key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`
             or `2020-06-14`). If not specified, the access key is set to not expire.
-          format: datetime
+          format: date-time
           type: string
         State:
           description: The new state for the access key (`ACTIVE` \| `INACTIVE`).
             When set to `ACTIVE`, the access key is enabled and can be used to send
             requests. When set to `INACTIVE`, the access key is disabled.
+          type: string
+        UserName:
+          description: The name of the EIM the access key you want to modify is associated
+            with. If you do not specify a user name, this action modifies the access
+            key of the user who sends the request (which can be the root account).
           type: string
       required:
       - AccessKeyId
@@ -21925,11 +22112,11 @@ components:
         ResponseContext:
           RequestId: RequestId
         AccessKey:
-          CreationDate: CreationDate
-          ExpirationDate: ExpirationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
+          ExpirationDate: 2000-01-23T04:56:07.000+00:00
           AccessKeyId: AccessKeyId
           State: State
-          LastModificationDate: LastModificationDate
+          LastModificationDate: 2000-01-23T04:56:07.000+00:00
       properties:
         AccessKey:
           $ref: '#/components/schemas/AccessKey'
@@ -22309,7 +22496,7 @@ components:
           ProductCodes:
           - ProductCodes
           - ProductCodes
-          CreationDate: 2000-01-23
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           PermissionsToLaunch:
             AccountIds:
             - AccountIds
@@ -23024,7 +23211,7 @@ components:
       additionalProperties: false
       example:
         Snapshot:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           Progress: 0
           VolumeId: VolumeId
@@ -23097,6 +23284,45 @@ components:
         Subnet:
           $ref: '#/components/schemas/Subnet'
       type: object
+    UpdateUserRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        NewPath: NewPath
+        DryRun: true
+        NewUserName: NewUserName
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        NewPath:
+          description: A new path for the EIM user.
+          type: string
+        NewUserName:
+          description: A new name for the EIM user.
+          type: string
+        UserName:
+          description: The name of the EIM user you want to modify.
+          type: string
+      required:
+      - UserName
+      type: object
+    UpdateUserResponse:
+      additionalProperties: false
+      example:
+        User:
+          Path: Path
+          UserName: UserName
+          UserId: UserId
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        User:
+          $ref: '#/components/schemas/User'
+      type: object
     UpdateVmGroupRequest:
       additionalProperties: false
       example:
@@ -23143,7 +23369,7 @@ components:
         VmGroup:
           VmGroupId: VmGroupId
           VmGroupName: VmGroupName
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           Description: Description
           VmCount: 0
           PositioningStrategy: attract
@@ -23265,7 +23491,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         Vm:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SecurityGroups:
           - SecurityGroupName: SecurityGroupName
             SecurityGroupId: SecurityGroupId
@@ -23281,13 +23507,13 @@ components:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           - Bsu:
               VolumeId: VolumeId
               DeleteOnVmDeletion: true
               State: State
-              LinkDate: 2000-01-23
+              LinkDate: 2000-01-23T04:56:07.000+00:00
             DeviceName: DeviceName
           LaunchNumber: 0
           SubnetId: SubnetId
@@ -23506,7 +23732,7 @@ components:
       additionalProperties: false
       example:
         Volume:
-          CreationDate: CreationDate
+          CreationDate: 2000-01-23T04:56:07.000+00:00
           SnapshotId: SnapshotId
           VolumeId: VolumeId
           VolumeType: VolumeType
@@ -23653,12 +23879,12 @@ components:
             Key: Key
           VgwTelemetries:
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
           - OutsideIpAddress: OutsideIpAddress
-            LastStateChangeDate: LastStateChangeDate
+            LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
             State: State
             AcceptedRouteCount: 0
             StateDescription: StateDescription
@@ -23670,12 +23896,30 @@ components:
         VpnConnection:
           $ref: '#/components/schemas/VpnConnection'
       type: object
+    User:
+      additionalProperties: false
+      description: Information about the EIM user.
+      example:
+        Path: Path
+        UserName: UserName
+        UserId: UserId
+      properties:
+        Path:
+          description: The path to the EIM user.
+          type: string
+        UserId:
+          description: ' The ID of the EIM user.'
+          type: string
+        UserName:
+          description: The name of the EIM user.
+          type: string
+      type: object
     VgwTelemetry:
       additionalProperties: false
       description: Information about the current state of a VPN tunnel.
       example:
         OutsideIpAddress: OutsideIpAddress
-        LastStateChangeDate: LastStateChangeDate
+        LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
         State: State
         AcceptedRouteCount: 0
         StateDescription: StateDescription
@@ -23686,7 +23930,7 @@ components:
           type: integer
         LastStateChangeDate:
           description: The date and time (UTC) of the latest state update.
-          format: datetime
+          format: date-time
           type: string
         OutsideIpAddress:
           description: The IP on the OUTSCALE side of the tunnel.
@@ -23742,7 +23986,7 @@ components:
       additionalProperties: false
       description: Information about the VM.
       example:
-        CreationDate: CreationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         SecurityGroups:
         - SecurityGroupName: SecurityGroupName
           SecurityGroupId: SecurityGroupId
@@ -23758,13 +24002,13 @@ components:
             VolumeId: VolumeId
             DeleteOnVmDeletion: true
             State: State
-            LinkDate: 2000-01-23
+            LinkDate: 2000-01-23T04:56:07.000+00:00
           DeviceName: DeviceName
         - Bsu:
             VolumeId: VolumeId
             DeleteOnVmDeletion: true
             State: State
-            LinkDate: 2000-01-23
+            LinkDate: 2000-01-23T04:56:07.000+00:00
           DeviceName: DeviceName
         LaunchNumber: 0
         SubnetId: SubnetId
@@ -23894,7 +24138,7 @@ components:
           type: string
         CreationDate:
           description: The date and time of creation of the VM.
-          format: datetime
+          format: date-time
           type: string
         DeletionProtection:
           description: If true, you cannot delete the VM unless you change this parameter
@@ -24007,7 +24251,7 @@ components:
       example:
         VmGroupId: VmGroupId
         VmGroupName: VmGroupName
-        CreationDate: CreationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         Description: Description
         VmCount: 0
         PositioningStrategy: attract
@@ -24028,7 +24272,7 @@ components:
       properties:
         CreationDate:
           description: The date and time of creation of the VM group.
-          format: datetime
+          format: date-time
           type: string
         Description:
           description: The description of the VM group.
@@ -24248,7 +24492,7 @@ components:
       additionalProperties: false
       description: Information about the volume.
       example:
-        CreationDate: CreationDate
+        CreationDate: 2000-01-23T04:56:07.000+00:00
         SnapshotId: SnapshotId
         VolumeId: VolumeId
         VolumeType: VolumeType
@@ -24275,7 +24519,7 @@ components:
       properties:
         CreationDate:
           description: The date and time of creation of the volume.
-          format: datetime
+          format: date-time
           type: string
         Iops:
           description: |-
@@ -24370,12 +24614,12 @@ components:
           Key: Key
         VgwTelemetries:
         - OutsideIpAddress: OutsideIpAddress
-          LastStateChangeDate: LastStateChangeDate
+          LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
           State: State
           AcceptedRouteCount: 0
           StateDescription: StateDescription
         - OutsideIpAddress: OutsideIpAddress
-          LastStateChangeDate: LastStateChangeDate
+          LastStateChangeDate: 2000-01-23T04:56:07.000+00:00
           State: State
           AcceptedRouteCount: 0
           StateDescription: StateDescription

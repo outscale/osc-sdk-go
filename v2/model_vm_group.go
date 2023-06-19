@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,12 +13,13 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // VmGroup Information about the VM group.
 type VmGroup struct {
 	// The date and time of creation of the VM group.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 	// The description of the VM group.
 	Description *string `json:"Description,omitempty"`
 	// The positioning strategy of the VMs on hypervisors. By default, or if set to `no-strategy`, TINA determines the most adequate position for the VMs. If set to `attract`, the VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, the VMs are deployed on a different hypervisor, which improves fault tolerance.
@@ -61,9 +62,9 @@ func NewVmGroupWithDefaults() *VmGroup {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *VmGroup) GetCreationDate() string {
+func (o *VmGroup) GetCreationDate() time.Time {
 	if o == nil || o.CreationDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -71,7 +72,7 @@ func (o *VmGroup) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VmGroup) GetCreationDateOk() (*string, bool) {
+func (o *VmGroup) GetCreationDateOk() (*time.Time, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -87,8 +88,8 @@ func (o *VmGroup) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *VmGroup) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *VmGroup) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 

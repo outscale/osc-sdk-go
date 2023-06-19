@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Log Information about the log.
@@ -30,7 +31,7 @@ type Log struct {
 	// The name of the logged call.
 	QueryCallName *string `json:"QueryCallName,omitempty"`
 	// The date and time of the logged call, in ISO 8601 date-time format.
-	QueryDate *string `json:"QueryDate,omitempty"`
+	QueryDate *time.Time `json:"QueryDate,omitempty"`
 	// The raw header of the HTTP request of the logged call.
 	QueryHeaderRaw *string `json:"QueryHeaderRaw,omitempty"`
 	// The size of the raw header of the HTTP request of the logged call, in bytes.
@@ -261,9 +262,9 @@ func (o *Log) SetQueryCallName(v string) {
 }
 
 // GetQueryDate returns the QueryDate field value if set, zero value otherwise.
-func (o *Log) GetQueryDate() string {
+func (o *Log) GetQueryDate() time.Time {
 	if o == nil || o.QueryDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.QueryDate
@@ -271,7 +272,7 @@ func (o *Log) GetQueryDate() string {
 
 // GetQueryDateOk returns a tuple with the QueryDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Log) GetQueryDateOk() (*string, bool) {
+func (o *Log) GetQueryDateOk() (*time.Time, bool) {
 	if o == nil || o.QueryDate == nil {
 		return nil, false
 	}
@@ -287,8 +288,8 @@ func (o *Log) HasQueryDate() bool {
 	return false
 }
 
-// SetQueryDate gets a reference to the given string and assigns it to the QueryDate field.
-func (o *Log) SetQueryDate(v string) {
+// SetQueryDate gets a reference to the given time.Time and assigns it to the QueryDate field.
+func (o *Log) SetQueryDate(v time.Time) {
 	o.QueryDate = &v
 }
 

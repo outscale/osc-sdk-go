@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // BsuCreated Information about the created BSU volume.
@@ -20,7 +21,7 @@ type BsuCreated struct {
 	// If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
 	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
 	// The date and time of attachment of the volume to the VM, in ISO 8601 date-time format.
-	LinkDate *string `json:"LinkDate,omitempty"`
+	LinkDate *time.Time `json:"LinkDate,omitempty"`
 	// The state of the volume.
 	State *string `json:"State,omitempty"`
 	// The ID of the volume.
@@ -77,9 +78,9 @@ func (o *BsuCreated) SetDeleteOnVmDeletion(v bool) {
 }
 
 // GetLinkDate returns the LinkDate field value if set, zero value otherwise.
-func (o *BsuCreated) GetLinkDate() string {
+func (o *BsuCreated) GetLinkDate() time.Time {
 	if o == nil || o.LinkDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.LinkDate
@@ -87,7 +88,7 @@ func (o *BsuCreated) GetLinkDate() string {
 
 // GetLinkDateOk returns a tuple with the LinkDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BsuCreated) GetLinkDateOk() (*string, bool) {
+func (o *BsuCreated) GetLinkDateOk() (*time.Time, bool) {
 	if o == nil || o.LinkDate == nil {
 		return nil, false
 	}
@@ -103,8 +104,8 @@ func (o *BsuCreated) HasLinkDate() bool {
 	return false
 }
 
-// SetLinkDate gets a reference to the given string and assigns it to the LinkDate field.
-func (o *BsuCreated) SetLinkDate(v string) {
+// SetLinkDate gets a reference to the given time.Time and assigns it to the LinkDate field.
+func (o *BsuCreated) SetLinkDate(v time.Time) {
 	o.LinkDate = &v
 }
 
