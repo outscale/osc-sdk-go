@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**ExpirationDate** | Pointer to **string** | The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;, or &#x60;2020-06-14&#x60;). To remove an existing expiration date, use the method without specifying this parameter. | [optional] 
+**ExpirationDate** | Pointer to **time.Time** | The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;, or &#x60;2020-06-14&#x60;). To remove an existing expiration date, use the method without specifying this parameter. | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user that owns the key to be created. If you do not specify a user name, this action creates an access key for the user who sends the request (which can be the root account). | [optional] 
 
 ## Methods
 
@@ -53,20 +54,20 @@ HasDryRun returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
-`func (o *CreateAccessKeyRequest) GetExpirationDate() string`
+`func (o *CreateAccessKeyRequest) GetExpirationDate() time.Time`
 
 GetExpirationDate returns the ExpirationDate field if non-nil, zero value otherwise.
 
 ### GetExpirationDateOk
 
-`func (o *CreateAccessKeyRequest) GetExpirationDateOk() (*string, bool)`
+`func (o *CreateAccessKeyRequest) GetExpirationDateOk() (*time.Time, bool)`
 
 GetExpirationDateOk returns a tuple with the ExpirationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpirationDate
 
-`func (o *CreateAccessKeyRequest) SetExpirationDate(v string)`
+`func (o *CreateAccessKeyRequest) SetExpirationDate(v time.Time)`
 
 SetExpirationDate sets ExpirationDate field to given value.
 
@@ -75,6 +76,31 @@ SetExpirationDate sets ExpirationDate field to given value.
 `func (o *CreateAccessKeyRequest) HasExpirationDate() bool`
 
 HasExpirationDate returns a boolean if a field has been set.
+
+### GetUserName
+
+`func (o *CreateAccessKeyRequest) GetUserName() string`
+
+GetUserName returns the UserName field if non-nil, zero value otherwise.
+
+### GetUserNameOk
+
+`func (o *CreateAccessKeyRequest) GetUserNameOk() (*string, bool)`
+
+GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserName
+
+`func (o *CreateAccessKeyRequest) SetUserName(v string)`
+
+SetUserName sets UserName field to given value.
+
+### HasUserName
+
+`func (o *CreateAccessKeyRequest) HasUserName() bool`
+
+HasUserName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

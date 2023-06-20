@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDates** | Pointer to **[]string** | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
+**CreationDates** | Pointer to [**[]time.Time**](time.Time.md) | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **LinkVolumeDeleteOnVmDeletion** | Pointer to **bool** | Whether the volumes are deleted or not when terminating the VMs. | [optional] 
 **LinkVolumeDeviceNames** | Pointer to **[]string** | The VM device names. | [optional] 
-**LinkVolumeLinkDates** | Pointer to **[]string** | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
+**LinkVolumeLinkDates** | Pointer to [**[]time.Time**](time.Time.md) | The dates and times of creation of the volumes, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **LinkVolumeLinkStates** | Pointer to **[]string** | The attachment states of the volumes (&#x60;attaching&#x60; \\| &#x60;detaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detached&#x60;). | [optional] 
 **LinkVolumeVmIds** | Pointer to **[]string** | One or more IDs of VMs. | [optional] 
 **SnapshotIds** | Pointer to **[]string** | The snapshots from which the volumes were created. | [optional] 
@@ -41,20 +41,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDates
 
-`func (o *FiltersVolume) GetCreationDates() []string`
+`func (o *FiltersVolume) GetCreationDates() []time.Time`
 
 GetCreationDates returns the CreationDates field if non-nil, zero value otherwise.
 
 ### GetCreationDatesOk
 
-`func (o *FiltersVolume) GetCreationDatesOk() (*[]string, bool)`
+`func (o *FiltersVolume) GetCreationDatesOk() (*[]time.Time, bool)`
 
 GetCreationDatesOk returns a tuple with the CreationDates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDates
 
-`func (o *FiltersVolume) SetCreationDates(v []string)`
+`func (o *FiltersVolume) SetCreationDates(v []time.Time)`
 
 SetCreationDates sets CreationDates field to given value.
 
@@ -116,20 +116,20 @@ HasLinkVolumeDeviceNames returns a boolean if a field has been set.
 
 ### GetLinkVolumeLinkDates
 
-`func (o *FiltersVolume) GetLinkVolumeLinkDates() []string`
+`func (o *FiltersVolume) GetLinkVolumeLinkDates() []time.Time`
 
 GetLinkVolumeLinkDates returns the LinkVolumeLinkDates field if non-nil, zero value otherwise.
 
 ### GetLinkVolumeLinkDatesOk
 
-`func (o *FiltersVolume) GetLinkVolumeLinkDatesOk() (*[]string, bool)`
+`func (o *FiltersVolume) GetLinkVolumeLinkDatesOk() (*[]time.Time, bool)`
 
 GetLinkVolumeLinkDatesOk returns a tuple with the LinkVolumeLinkDates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinkVolumeLinkDates
 
-`func (o *FiltersVolume) SetLinkVolumeLinkDates(v []string)`
+`func (o *FiltersVolume) SetLinkVolumeLinkDates(v []time.Time)`
 
 SetLinkVolumeLinkDates sets LinkVolumeLinkDates field to given value.
 

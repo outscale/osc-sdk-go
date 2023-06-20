@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // ConsumptionEntry Information about the resources consumed during the specified time period.
@@ -22,7 +23,7 @@ type ConsumptionEntry struct {
 	// The category of the resource (for example, `network`).
 	Category *string `json:"Category,omitempty"`
 	// The beginning of the time period, in ISO 8601 date-time format.
-	FromDate *string `json:"FromDate,omitempty"`
+	FromDate *time.Time `json:"FromDate,omitempty"`
 	// The API call that triggered the resource consumption (for example, `RunInstances` or `CreateVolume`).
 	Operation *string `json:"Operation,omitempty"`
 	// The ID of the TINA account which is billed for your consumption. It can be different from your account in the `AccountId` parameter.
@@ -34,7 +35,7 @@ type ConsumptionEntry struct {
 	// A description of the consumed resource.
 	Title *string `json:"Title,omitempty"`
 	// The end of the time period, in ISO 8601 date-time format.
-	ToDate *string `json:"ToDate,omitempty"`
+	ToDate *time.Time `json:"ToDate,omitempty"`
 	// The type of resource, depending on the API call.
 	Type *string `json:"Type,omitempty"`
 	// The consumed amount for the resource. The unit depends on the resource type. For more information, see the `Title` element.
@@ -123,9 +124,9 @@ func (o *ConsumptionEntry) SetCategory(v string) {
 }
 
 // GetFromDate returns the FromDate field value if set, zero value otherwise.
-func (o *ConsumptionEntry) GetFromDate() string {
+func (o *ConsumptionEntry) GetFromDate() time.Time {
 	if o == nil || o.FromDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.FromDate
@@ -133,7 +134,7 @@ func (o *ConsumptionEntry) GetFromDate() string {
 
 // GetFromDateOk returns a tuple with the FromDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumptionEntry) GetFromDateOk() (*string, bool) {
+func (o *ConsumptionEntry) GetFromDateOk() (*time.Time, bool) {
 	if o == nil || o.FromDate == nil {
 		return nil, false
 	}
@@ -149,8 +150,8 @@ func (o *ConsumptionEntry) HasFromDate() bool {
 	return false
 }
 
-// SetFromDate gets a reference to the given string and assigns it to the FromDate field.
-func (o *ConsumptionEntry) SetFromDate(v string) {
+// SetFromDate gets a reference to the given time.Time and assigns it to the FromDate field.
+func (o *ConsumptionEntry) SetFromDate(v time.Time) {
 	o.FromDate = &v
 }
 
@@ -315,9 +316,9 @@ func (o *ConsumptionEntry) SetTitle(v string) {
 }
 
 // GetToDate returns the ToDate field value if set, zero value otherwise.
-func (o *ConsumptionEntry) GetToDate() string {
+func (o *ConsumptionEntry) GetToDate() time.Time {
 	if o == nil || o.ToDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.ToDate
@@ -325,7 +326,7 @@ func (o *ConsumptionEntry) GetToDate() string {
 
 // GetToDateOk returns a tuple with the ToDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumptionEntry) GetToDateOk() (*string, bool) {
+func (o *ConsumptionEntry) GetToDateOk() (*time.Time, bool) {
 	if o == nil || o.ToDate == nil {
 		return nil, false
 	}
@@ -341,8 +342,8 @@ func (o *ConsumptionEntry) HasToDate() bool {
 	return false
 }
 
-// SetToDate gets a reference to the given string and assigns it to the ToDate field.
-func (o *ConsumptionEntry) SetToDate(v string) {
+// SetToDate gets a reference to the given time.Time and assigns it to the ToDate field.
+func (o *ConsumptionEntry) SetToDate(v time.Time) {
 	o.ToDate = &v
 }
 
