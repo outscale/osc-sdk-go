@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** | The account ID of the owner of the OMI. | [optional] 
 **Architecture** | Pointer to **string** | The architecture of the OMI (by default, &#x60;i386&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time of creation of the OMI, in ISO 8601 date-time format. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the OMI, in ISO 8601 date-time format. | [optional] 
 **Description** | Pointer to **string** | The description of the OMI. | [optional] 
 **FileLocation** | Pointer to **string** | The location of the bucket where the OMI files are stored. | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI. | [optional] 
@@ -143,20 +143,20 @@ HasBlockDeviceMappings returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *Image) GetCreationDate() string`
+`func (o *Image) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Image) GetCreationDateOk() (*string, bool)`
+`func (o *Image) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Image) SetCreationDate(v string)`
+`func (o *Image) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

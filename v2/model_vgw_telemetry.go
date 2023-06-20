@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -13,6 +13,7 @@ package osc
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // VgwTelemetry Information about the current state of a VPN tunnel.
@@ -20,7 +21,7 @@ type VgwTelemetry struct {
 	// The number of routes accepted through BGP (Border Gateway Protocol) route exchanges.
 	AcceptedRouteCount *int32 `json:"AcceptedRouteCount,omitempty"`
 	// The date and time (UTC) of the latest state update.
-	LastStateChangeDate *string `json:"LastStateChangeDate,omitempty"`
+	LastStateChangeDate *time.Time `json:"LastStateChangeDate,omitempty"`
 	// The IP on the OUTSCALE side of the tunnel.
 	OutsideIpAddress *string `json:"OutsideIpAddress,omitempty"`
 	// The state of the IPSEC tunnel (`UP` \\| `DOWN`).
@@ -79,9 +80,9 @@ func (o *VgwTelemetry) SetAcceptedRouteCount(v int32) {
 }
 
 // GetLastStateChangeDate returns the LastStateChangeDate field value if set, zero value otherwise.
-func (o *VgwTelemetry) GetLastStateChangeDate() string {
+func (o *VgwTelemetry) GetLastStateChangeDate() time.Time {
 	if o == nil || o.LastStateChangeDate == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 	return *o.LastStateChangeDate
@@ -89,7 +90,7 @@ func (o *VgwTelemetry) GetLastStateChangeDate() string {
 
 // GetLastStateChangeDateOk returns a tuple with the LastStateChangeDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VgwTelemetry) GetLastStateChangeDateOk() (*string, bool) {
+func (o *VgwTelemetry) GetLastStateChangeDateOk() (*time.Time, bool) {
 	if o == nil || o.LastStateChangeDate == nil {
 		return nil, false
 	}
@@ -105,8 +106,8 @@ func (o *VgwTelemetry) HasLastStateChangeDate() bool {
 	return false
 }
 
-// SetLastStateChangeDate gets a reference to the given string and assigns it to the LastStateChangeDate field.
-func (o *VgwTelemetry) SetLastStateChangeDate(v string) {
+// SetLastStateChangeDate gets a reference to the given time.Time and assigns it to the LastStateChangeDate field.
+func (o *VgwTelemetry) SetLastStateChangeDate(v time.Time) {
 	o.LastStateChangeDate = &v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AcceptedRouteCount** | Pointer to **int32** | The number of routes accepted through BGP (Border Gateway Protocol) route exchanges. | [optional] 
-**LastStateChangeDate** | Pointer to **string** | The date and time (UTC) of the latest state update. | [optional] 
+**LastStateChangeDate** | Pointer to **time.Time** | The date and time (UTC) of the latest state update. | [optional] 
 **OutsideIpAddress** | Pointer to **string** | The IP on the OUTSCALE side of the tunnel. | [optional] 
 **State** | Pointer to **string** | The state of the IPSEC tunnel (&#x60;UP&#x60; \\| &#x60;DOWN&#x60;). | [optional] 
 **StateDescription** | Pointer to **string** | A description of the current state of the tunnel. | [optional] 
@@ -56,20 +56,20 @@ HasAcceptedRouteCount returns a boolean if a field has been set.
 
 ### GetLastStateChangeDate
 
-`func (o *VgwTelemetry) GetLastStateChangeDate() string`
+`func (o *VgwTelemetry) GetLastStateChangeDate() time.Time`
 
 GetLastStateChangeDate returns the LastStateChangeDate field if non-nil, zero value otherwise.
 
 ### GetLastStateChangeDateOk
 
-`func (o *VgwTelemetry) GetLastStateChangeDateOk() (*string, bool)`
+`func (o *VgwTelemetry) GetLastStateChangeDateOk() (*time.Time, bool)`
 
 GetLastStateChangeDateOk returns a tuple with the LastStateChangeDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastStateChangeDate
 
-`func (o *VgwTelemetry) SetLastStateChangeDate(v string)`
+`func (o *VgwTelemetry) SetLastStateChangeDate(v time.Time)`
 
 SetLastStateChangeDate sets LastStateChangeDate field to given value.
 

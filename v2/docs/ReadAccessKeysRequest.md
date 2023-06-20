@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersAccessKeys**](FiltersAccessKeys.md) |  | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user. By default, the user who sends the request (which can be the root account). | [optional] 
 
 ## Methods
 
@@ -75,6 +76,31 @@ SetFilters sets Filters field to given value.
 `func (o *ReadAccessKeysRequest) HasFilters() bool`
 
 HasFilters returns a boolean if a field has been set.
+
+### GetUserName
+
+`func (o *ReadAccessKeysRequest) GetUserName() string`
+
+GetUserName returns the UserName field if non-nil, zero value otherwise.
+
+### GetUserNameOk
+
+`func (o *ReadAccessKeysRequest) GetUserNameOk() (*string, bool)`
+
+GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserName
+
+`func (o *ReadAccessKeysRequest) SetUserName(v string)`
+
+SetUserName sets UserName field to given value.
+
+### HasUserName
+
+`func (o *ReadAccessKeysRequest) HasUserName() bool`
+
+HasUserName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

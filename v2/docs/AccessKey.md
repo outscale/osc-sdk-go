@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessKeyId** | Pointer to **string** | The ID of the access key. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the access key. | [optional] 
-**ExpirationDate** | Pointer to **string** | The date (UTC) at which the access key expires. | [optional] 
-**LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the access key. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the access key. | [optional] 
+**ExpirationDate** | Pointer to **time.Time** | The date (UTC) at which the access key expires. | [optional] 
+**LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) of the last modification of the access key. | [optional] 
 **State** | Pointer to **string** | The state of the access key (&#x60;ACTIVE&#x60; if the key is valid for API calls, or &#x60;INACTIVE&#x60; if not). | [optional] 
 
 ## Methods
@@ -56,20 +56,20 @@ HasAccessKeyId returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *AccessKey) GetCreationDate() string`
+`func (o *AccessKey) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *AccessKey) GetCreationDateOk() (*string, bool)`
+`func (o *AccessKey) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *AccessKey) SetCreationDate(v string)`
+`func (o *AccessKey) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 
@@ -81,20 +81,20 @@ HasCreationDate returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
-`func (o *AccessKey) GetExpirationDate() string`
+`func (o *AccessKey) GetExpirationDate() time.Time`
 
 GetExpirationDate returns the ExpirationDate field if non-nil, zero value otherwise.
 
 ### GetExpirationDateOk
 
-`func (o *AccessKey) GetExpirationDateOk() (*string, bool)`
+`func (o *AccessKey) GetExpirationDateOk() (*time.Time, bool)`
 
 GetExpirationDateOk returns a tuple with the ExpirationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpirationDate
 
-`func (o *AccessKey) SetExpirationDate(v string)`
+`func (o *AccessKey) SetExpirationDate(v time.Time)`
 
 SetExpirationDate sets ExpirationDate field to given value.
 
@@ -106,20 +106,20 @@ HasExpirationDate returns a boolean if a field has been set.
 
 ### GetLastModificationDate
 
-`func (o *AccessKey) GetLastModificationDate() string`
+`func (o *AccessKey) GetLastModificationDate() time.Time`
 
 GetLastModificationDate returns the LastModificationDate field if non-nil, zero value otherwise.
 
 ### GetLastModificationDateOk
 
-`func (o *AccessKey) GetLastModificationDateOk() (*string, bool)`
+`func (o *AccessKey) GetLastModificationDateOk() (*time.Time, bool)`
 
 GetLastModificationDateOk returns a tuple with the LastModificationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModificationDate
 
-`func (o *AccessKey) SetLastModificationDate(v string)`
+`func (o *AccessKey) SetLastModificationDate(v time.Time)`
 
 SetLastModificationDate sets LastModificationDate field to given value.
 

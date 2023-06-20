@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAlias** | Pointer to **string** | The account alias of the owner of the snapshot. | [optional] 
 **AccountId** | Pointer to **string** | The account ID of the owner of the snapshot. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time of creation of the snapshot. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time of creation of the snapshot. | [optional] 
 **Description** | Pointer to **string** | The description of the snapshot. | [optional] 
 **PermissionsToCreateVolume** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot, as a percentage. | [optional] 
@@ -87,20 +87,20 @@ HasAccountId returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *Snapshot) GetCreationDate() string`
+`func (o *Snapshot) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Snapshot) GetCreationDateOk() (*string, bool)`
+`func (o *Snapshot) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Snapshot) SetCreationDate(v string)`
+`func (o *Snapshot) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 
