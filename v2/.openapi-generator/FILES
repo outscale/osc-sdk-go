@@ -42,6 +42,7 @@ api_subnet.go
 api_subregion.go
 api_tag.go
 api_task.go
+api_user.go
 api_virtual_gateway.go
 api_vm.go
 api_vm_group.go
@@ -150,6 +151,8 @@ docs/CreateSubnetRequest.md
 docs/CreateSubnetResponse.md
 docs/CreateTagsRequest.md
 docs/CreateTagsResponse.md
+docs/CreateUserRequest.md
+docs/CreateUserResponse.md
 docs/CreateVirtualGatewayRequest.md
 docs/CreateVirtualGatewayResponse.md
 docs/CreateVmGroupRequest.md
@@ -226,6 +229,8 @@ docs/DeleteSubnetRequest.md
 docs/DeleteSubnetResponse.md
 docs/DeleteTagsRequest.md
 docs/DeleteTagsResponse.md
+docs/DeleteUserRequest.md
+docs/DeleteUserResponse.md
 docs/DeleteVirtualGatewayRequest.md
 docs/DeleteVirtualGatewayResponse.md
 docs/DeleteVmGroupRequest.md
@@ -470,6 +475,8 @@ docs/ReadSubregionsRequest.md
 docs/ReadSubregionsResponse.md
 docs/ReadTagsRequest.md
 docs/ReadTagsResponse.md
+docs/ReadUsersRequest.md
+docs/ReadUsersResponse.md
 docs/ReadVirtualGatewaysRequest.md
 docs/ReadVirtualGatewaysResponse.md
 docs/ReadVmGroupsRequest.md
@@ -593,6 +600,8 @@ docs/UpdateSnapshotRequest.md
 docs/UpdateSnapshotResponse.md
 docs/UpdateSubnetRequest.md
 docs/UpdateSubnetResponse.md
+docs/UpdateUserRequest.md
+docs/UpdateUserResponse.md
 docs/UpdateVmGroupRequest.md
 docs/UpdateVmGroupResponse.md
 docs/UpdateVmRequest.md
@@ -603,6 +612,8 @@ docs/UpdateVolumeRequest.md
 docs/UpdateVolumeResponse.md
 docs/UpdateVpnConnectionRequest.md
 docs/UpdateVpnConnectionResponse.md
+docs/User.md
+docs/UserApi.md
 docs/VgwTelemetry.md
 docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
@@ -716,6 +727,8 @@ model_create_subnet_request.go
 model_create_subnet_response.go
 model_create_tags_request.go
 model_create_tags_response.go
+model_create_user_request.go
+model_create_user_response.go
 model_create_virtual_gateway_request.go
 model_create_virtual_gateway_response.go
 model_create_vm_group_request.go
@@ -792,6 +805,8 @@ model_delete_subnet_request.go
 model_delete_subnet_response.go
 model_delete_tags_request.go
 model_delete_tags_response.go
+model_delete_user_request.go
+model_delete_user_response.go
 model_delete_virtual_gateway_request.go
 model_delete_virtual_gateway_response.go
 model_delete_vm_group_request.go
@@ -1016,6 +1031,8 @@ model_read_subregions_request.go
 model_read_subregions_response.go
 model_read_tags_request.go
 model_read_tags_response.go
+model_read_users_request.go
+model_read_users_response.go
 model_read_virtual_gateways_request.go
 model_read_virtual_gateways_response.go
 model_read_vm_groups_request.go
@@ -1128,6 +1145,8 @@ model_update_snapshot_request.go
 model_update_snapshot_response.go
 model_update_subnet_request.go
 model_update_subnet_response.go
+model_update_user_request.go
+model_update_user_response.go
 model_update_vm_group_request.go
 model_update_vm_group_response.go
 model_update_vm_request.go
@@ -1138,6 +1157,7 @@ model_update_volume_request.go
 model_update_volume_response.go
 model_update_vpn_connection_request.go
 model_update_vpn_connection_response.go
+model_user.go
 model_vgw_telemetry.go
 model_virtual_gateway.go
 model_vm.go

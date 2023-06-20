@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> You can learn more about errors returned by the API in the dedicated [errors page](api/errors).<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/OUTSCALE-APIs-Reference.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of the OUTSCALE API is also available in this [GitHub repository](https://github.com/outscale/osc-api).
  *
- * API version: 1.26
+ * API version: 1.27
  * Contact: support@outscale.com
  */
 
@@ -21,6 +21,8 @@ type DeleteAccessKeyRequest struct {
 	AccessKeyId string `json:"AccessKeyId"`
 	// If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
+	// The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root account).
+	UserName *string `json:"UserName,omitempty"`
 }
 
 // NewDeleteAccessKeyRequest instantiates a new DeleteAccessKeyRequest object
@@ -97,6 +99,38 @@ func (o *DeleteAccessKeyRequest) SetDryRun(v bool) {
 	o.DryRun = &v
 }
 
+// GetUserName returns the UserName field value if set, zero value otherwise.
+func (o *DeleteAccessKeyRequest) GetUserName() string {
+	if o == nil || o.UserName == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserName
+}
+
+// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeleteAccessKeyRequest) GetUserNameOk() (*string, bool) {
+	if o == nil || o.UserName == nil {
+		return nil, false
+	}
+	return o.UserName, true
+}
+
+// HasUserName returns a boolean if a field has been set.
+func (o *DeleteAccessKeyRequest) HasUserName() bool {
+	if o != nil && o.UserName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserName gets a reference to the given string and assigns it to the UserName field.
+func (o *DeleteAccessKeyRequest) SetUserName(v string) {
+	o.UserName = &v
+}
+
 func (o DeleteAccessKeyRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -104,6 +138,9 @@ func (o DeleteAccessKeyRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.DryRun != nil {
 		toSerialize["DryRun"] = o.DryRun
+	}
+	if o.UserName != nil {
+		toSerialize["UserName"] = o.UserName
 	}
 	return json.Marshal(toSerialize)
 }
