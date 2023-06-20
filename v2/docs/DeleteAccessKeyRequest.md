@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessKeyId** | **string** | The ID of the access key you want to delete. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root account). | [optional] 
 
 ## Methods
 
@@ -70,6 +71,31 @@ SetDryRun sets DryRun field to given value.
 `func (o *DeleteAccessKeyRequest) HasDryRun() bool`
 
 HasDryRun returns a boolean if a field has been set.
+
+### GetUserName
+
+`func (o *DeleteAccessKeyRequest) GetUserName() string`
+
+GetUserName returns the UserName field if non-nil, zero value otherwise.
+
+### GetUserNameOk
+
+`func (o *DeleteAccessKeyRequest) GetUserNameOk() (*string, bool)`
+
+GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserName
+
+`func (o *DeleteAccessKeyRequest) SetUserName(v string)`
+
+SetUserName sets UserName field to given value.
+
+### HasUserName
+
+`func (o *DeleteAccessKeyRequest) HasUserName() bool`
+
+HasUserName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

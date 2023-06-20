@@ -14,7 +14,7 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: "1.26"
+  version: "1.27"
 servers:
 - url: https://api.{region}.outscale.com/api/v1
   variables:
@@ -100,8 +100,8 @@ paths:
       tags:
       - Account
   /CreateAccessKey:
-    description: Creates an access key for your account. The new key is automatically
-      set to `ACTIVE`.
+    description: Creates an access key for either your root account or an EIM user.
+      The new key is automatically set to `ACTIVE`.
     post:
       operationId: CreateAccessKey
       requestBody:
@@ -1143,6 +1143,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /CreateUser:
+    description: Creates an EIM user for your account.
+    post:
+      operationId: CreateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /CreateVirtualGateway:
     description: |-
       Creates a virtual gateway.<br />
@@ -1350,7 +1368,7 @@ paths:
       - VpnConnection
   /DeleteAccessKey:
     description: |-
-      Deletes the specified access key of your account.<br /><br />
+      Deletes the specified access key of either your root account or an EIM user.<br /><br />
 
       **[NOTE]**<br />
       To protect against brute force attacks, the number of requests allowed for this method in a given time period is limited.
@@ -2264,6 +2282,25 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /DeleteUser:
+    description: Deletes a specified EIM user. The EIM user must not belong to any
+      group and have any key, signing certificate or attached policy.
+    post:
+      operationId: DeleteUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /DeleteVirtualGateway:
     description: |-
       Deletes a specified virtual gateway.<br />
@@ -2775,7 +2812,7 @@ paths:
       tags:
       - Volume
   /ReadAccessKeys:
-    description: Lists the access key IDs of your account.
+    description: Lists the access key IDs of either your root account or an EIM user.
     post:
       operationId: ReadAccessKeys
       requestBody:
@@ -3817,7 +3854,7 @@ paths:
       tags:
       - RouteTable
   /ReadSecretAccessKey:
-    description: Lists information about the specified access key of your account,
+    description: Lists information about the specified access key of your root account,
       including its secret key.
     post:
       operationId: ReadSecretAccessKey
@@ -4063,6 +4100,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Tag
+  /ReadUsers:
+    description: Lists all EIM users that have a specified path.<br />
+    post:
+      operationId: ReadUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadUsersRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadUsersResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /ReadVirtualGateways:
     description: |-
       Lists one or more virtual gateways.<br /><br />
@@ -4933,7 +4988,7 @@ paths:
       - Volume
   /UpdateAccessKey:
     description: |-
-      Modifies the attributes of the specified access key of your account.<br /><br />
+      Modifies the attributes of the specified access key of either your root account or an EIM user.<br /><br />
 
       **[NOTE]**<br />
       To protect against brute force attacks, the number of requests allowed for this method in a given time period is limited.
@@ -5437,6 +5492,24 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Subnet
+  /UpdateUser:
+    description: Modifies the name and/or the path of a specified EIM user.
+    post:
+      operationId: UpdateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - User
   /UpdateVm:
     description: |-
       Modifies the specified attributes of a virtual machine (VM).<br />
@@ -6390,6 +6463,7 @@ components:
     CreateAccessKeyRequest:
       additionalProperties: false
       example:
+        UserName: UserName
         ExpirationDate: ExpirationDate
         DryRun: true
       properties:
@@ -6403,6 +6477,11 @@ components:
             or `2020-06-14`). To remove an existing expiration date, use the method
             without specifying this parameter.
           format: datetime
+          type: string
+        UserName:
+          description: The name of the EIM user that owns the key to be created. If
+            you do not specify a user name, this action creates an access key for
+            the user who sends the request (which can be the root account).
           type: string
       type: object
     CreateAccessKeyResponse:
@@ -8769,6 +8848,41 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
+    CreateUserRequest:
+      additionalProperties: false
+      example:
+        Path: Path
+        UserName: UserName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        Path:
+          description: The path to the EIM user you want to create (by default, `/`).
+          type: string
+        UserName:
+          description: The name of the EIM user you want to create.
+          type: string
+      required:
+      - UserName
+      type: object
+    CreateUserResponse:
+      additionalProperties: false
+      example:
+        User:
+          Path: Path
+          UserName: UserName
+          UserId: UserId
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        User:
+          $ref: '#/components/schemas/User'
+      type: object
     CreateVirtualGatewayRequest:
       additionalProperties: false
       example:
@@ -9683,6 +9797,7 @@ components:
     DeleteAccessKeyRequest:
       additionalProperties: false
       example:
+        UserName: UserName
         AccessKeyId: AccessKeyId
         DryRun: true
       properties:
@@ -9693,6 +9808,11 @@ components:
           description: If true, checks whether you have the required permissions to
             perform the action.
           type: boolean
+        UserName:
+          description: The name of the EIM user the access key you want to delete
+            is associated with. By default, the user who sends the request (which
+            can be the root account).
+          type: string
       required:
       - AccessKeyId
       type: object
@@ -10845,6 +10965,31 @@ components:
       - Tags
       type: object
     DeleteTagsResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
+    DeleteUserRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        UserName:
+          description: The name of the EIM user you want to delete.
+          type: string
+      required:
+      - UserName
+      type: object
+    DeleteUserResponse:
       additionalProperties: false
       example:
         ResponseContext:
@@ -13805,8 +13950,8 @@ components:
         - 0
         - 0
         CreationDates:
-        - 2000-01-23
-        - 2000-01-23
+        - 2000-01-23T04:56:07.000+00:00
+        - 2000-01-23T04:56:07.000+00:00
         LinkVolumeDeleteOnVmDeletion: true
         LinkVolumeVmIds:
         - LinkVolumeVmIds
@@ -13836,8 +13981,8 @@ components:
         - SubregionNames
         - SubregionNames
         LinkVolumeLinkDates:
-        - 2000-01-23
-        - 2000-01-23
+        - 2000-01-23T04:56:07.000+00:00
+        - 2000-01-23T04:56:07.000+00:00
         VolumeStates:
         - VolumeStates
         - VolumeStates
@@ -13849,7 +13994,7 @@ components:
           description: The dates and times of creation of the volumes, in ISO 8601
             date-time format (for example, `2020-06-30T00:00:00.000Z`).
           items:
-            format: date
+            format: date-time
             type: string
           type: array
         LinkVolumeDeleteOnVmDeletion:
@@ -13865,7 +14010,7 @@ components:
           description: The dates and times of creation of the volumes, in ISO 8601
             date-time format (for example, `2020-06-30T00:00:00.000Z`).
           items:
-            format: date
+            format: date-time
             type: string
           type: array
         LinkVolumeLinkStates:
@@ -16279,6 +16424,7 @@ components:
           AccessKeyIds:
           - AccessKeyIds
           - AccessKeyIds
+        UserName: UserName
         DryRun: true
       properties:
         DryRun:
@@ -16287,6 +16433,10 @@ components:
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersAccessKeys'
+        UserName:
+          description: The name of the EIM user. By default, the user who sends the
+            request (which can be the root account).
+          type: string
       type: object
     ReadAccessKeysResponse:
       additionalProperties: false
@@ -19553,6 +19703,37 @@ components:
             $ref: '#/components/schemas/Tag'
           type: array
       type: object
+    ReadUsersRequest:
+      additionalProperties: false
+      example:
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+      type: object
+    ReadUsersResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+        Users:
+        - Path: Path
+          UserName: UserName
+          UserId: UserId
+        - Path: Path
+          UserName: UserName
+          UserId: UserId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        Users:
+          description: A list of EIM users.
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      type: object
     ReadVirtualGatewaysRequest:
       additionalProperties: false
       example:
@@ -20323,8 +20504,8 @@ components:
           - 0
           - 0
           CreationDates:
-          - 2000-01-23
-          - 2000-01-23
+          - 2000-01-23T04:56:07.000+00:00
+          - 2000-01-23T04:56:07.000+00:00
           LinkVolumeDeleteOnVmDeletion: true
           LinkVolumeVmIds:
           - LinkVolumeVmIds
@@ -20354,8 +20535,8 @@ components:
           - SubregionNames
           - SubregionNames
           LinkVolumeLinkDates:
-          - 2000-01-23
-          - 2000-01-23
+          - 2000-01-23T04:56:07.000+00:00
+          - 2000-01-23T04:56:07.000+00:00
           VolumeStates:
           - VolumeStates
           - VolumeStates
@@ -21892,6 +22073,7 @@ components:
     UpdateAccessKeyRequest:
       additionalProperties: false
       example:
+        UserName: UserName
         ExpirationDate: ExpirationDate
         AccessKeyId: AccessKeyId
         State: State
@@ -21914,6 +22096,11 @@ components:
           description: The new state for the access key (`ACTIVE` \| `INACTIVE`).
             When set to `ACTIVE`, the access key is enabled and can be used to send
             requests. When set to `INACTIVE`, the access key is disabled.
+          type: string
+        UserName:
+          description: The name of the EIM the access key you want to modify is associated
+            with. If you do not specify a user name, this action modifies the access
+            key of the user who sends the request (which can be the root account).
           type: string
       required:
       - AccessKeyId
@@ -23097,6 +23284,45 @@ components:
         Subnet:
           $ref: '#/components/schemas/Subnet'
       type: object
+    UpdateUserRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        NewPath: NewPath
+        DryRun: true
+        NewUserName: NewUserName
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        NewPath:
+          description: A new path for the EIM user.
+          type: string
+        NewUserName:
+          description: A new name for the EIM user.
+          type: string
+        UserName:
+          description: The name of the EIM user you want to modify.
+          type: string
+      required:
+      - UserName
+      type: object
+    UpdateUserResponse:
+      additionalProperties: false
+      example:
+        User:
+          Path: Path
+          UserName: UserName
+          UserId: UserId
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        User:
+          $ref: '#/components/schemas/User'
+      type: object
     UpdateVmGroupRequest:
       additionalProperties: false
       example:
@@ -23669,6 +23895,24 @@ components:
           $ref: '#/components/schemas/ResponseContext'
         VpnConnection:
           $ref: '#/components/schemas/VpnConnection'
+      type: object
+    User:
+      additionalProperties: false
+      description: Information about the EIM user.
+      example:
+        Path: Path
+        UserName: UserName
+        UserId: UserId
+      properties:
+        Path:
+          description: The path to the EIM user.
+          type: string
+        UserId:
+          description: ' The ID of the EIM user.'
+          type: string
+        UserName:
+          description: The name of the EIM user.
+          type: string
       type: object
     VgwTelemetry:
       additionalProperties: false
