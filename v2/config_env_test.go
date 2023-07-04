@@ -34,6 +34,10 @@ func TestEnvVariablesWithProfile(t *testing.T) {
 	defer os.Setenv("OSC_ACCESS_KEY", ak)
 	defer os.Setenv("OSC_SECRET_KEY", sk)
 	defer os.Setenv("OSC_REGION", region)
+	endpoint, endpoint_found := os.LookupEnv("OSC_ENDPOINT_API")
+	if !endpoint_found {
+		endpoint = fmt.Sprintf("api.%s.outscale.com/api/v1", region)
+	}
 
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -53,9 +57,9 @@ func TestEnvVariablesWithProfile(t *testing.T) {
 			"access_key": "%s",
 			"secret_key": "%s",
 			"endpoints": {
-				"api": "api.%s.outscale.com/api/v1"
+				"api": "%s"
 			}
-		}}`, ak, sk, region)
+		}}`, ak, sk, endpoint)
 	if err := testDumpToFile(configPath, content); err != nil {
 		t.Fatalf("Error: %s", err.Error())
 	}

@@ -81,12 +81,17 @@ func createConfigurationFile(configPath string) {
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
+	endpoint_api := ""
+	if value, present := os.LookupEnv("OSC_ENDPOINT_API"); present {
+		endpoint_api = value
+	}
 	content := fmt.Sprintf(`{
 	"default": {
 		"access_key": "%s",
 		"secret_key": "%s",
+		"endpoints": {"api": "%s"},
 		"region": "%s"
-	}}`, ak, sk, region)
+	}}`, ak, sk, endpoint_api, region)
 	jsonFile, _ := os.Create(configPath)
 	defer jsonFile.Close()
 	jsonFile.WriteString(content)
