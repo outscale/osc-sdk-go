@@ -11,17 +11,26 @@ func TestBasicConfigFileWithValidEndpoint1(t *testing.T) {
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
+	endpoint_api := fmt.Sprintf("api.%s.outscale.com/api/v1", region)
+	if value, present := os.LookupEnv("OSC_ENDPOINT_API_NOPROTO"); present {
+		endpoint_api = value
+	}
+	protocol := "https"
+	if value, present := os.LookupEnv("OSC_PROTOCOL"); present {
+		protocol = value
+	}
+
 	content := fmt.Sprintf(`{
 	"SomeProfile": {
 		"access_key": "%s",
 		"secret_key": "%s",
-		"protocol": "https",
+		"protocol": "%s",
 		"method": "post",
 		"region": "bad-region-that-should-not-impact",
 		"endpoints": {
-			"api": "api.%s.outscale.com/api/v1"
+			"api": "%s"
 		}
-	}}`, ak, sk, region)
+	}}`, ak, sk, protocol, endpoint_api)
 	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidEndpoint1"
 	if err := testDumpToFile(configPath, content); err != nil {
 		t.Fatalf("Error: %s", err.Error())
@@ -34,14 +43,18 @@ func TestBasicConfigFileWithValidEndpoint2(t *testing.T) {
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
+	endpoint_api := fmt.Sprintf("api.%s.outscale.com/api/v1", region)
+	if value, present := os.LookupEnv("OSC_ENDPOINT_API"); present {
+		endpoint_api = value
+	}
 	content := fmt.Sprintf(`{
 		"SomeProfile": {
 			"access_key": "%s",
 			"secret_key": "%s",
 			"endpoints": {
-				"api": "api.%s.outscale.com/api/v1"
+				"api": "%s"
 			}
-		}}`, ak, sk, region)
+		}}`, ak, sk, endpoint_api)
 	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidEndpoint2"
 	if err := testDumpToFile(configPath, content); err != nil {
 		t.Fatalf("Error: %s", err.Error())
@@ -54,12 +67,16 @@ func TestBasicConfigFileWithValidRegion2(t *testing.T) {
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
+	endpoint_api := fmt.Sprintf("api.%s.outscale.com/api/v1", region)
+	if value, present := os.LookupEnv("OSC_ENDPOINT_API"); present {
+		endpoint_api = value
+	}
 	content := fmt.Sprintf(`{
 		"SomeProfile": {
 			"access_key": "%s",
 			"secret_key": "%s",
-			"region": "%s"
-		}}`, ak, sk, region)
+			"endpoints": {"api": "%s"}
+		}}`, ak, sk, endpoint_api)
 	configPath := "/tmp/osc-sdk-go-TestBasicConfigFileWithValidRegion2"
 	if err := testDumpToFile(configPath, content); err != nil {
 		t.Fatalf("Error: %s", err.Error())
