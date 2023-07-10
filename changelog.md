@@ -1,3 +1,7 @@
+# 2.18.1
+
+ - no need to check region 
+
 # 2.18.0
 
  - SDK update for Outscale API v1.27.0
