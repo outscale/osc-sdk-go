@@ -1,0 +1,32 @@
+From 4328a7be2977086bfbd5ec4b23cd16b21517e5a7 Mon Sep 17 00:00:00 2001
+From: "vincent.baer" <vincent.baer@outscale.com>
+Date: Mon, 10 Jul 2023 07:42:50 +0000
+Subject: [PATCH] Add no-need-check
+
+---
+ v2/configuration.go | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/v2/configuration.go b/v2/configuration.go
+index 5519cd65..4d91a01b 100644
+--- a/v2/configuration.go
++++ b/v2/configuration.go
+@@ -167,15 +167,6 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
+ 	// go through variables and replace placeholders
+ 	for name, variable := range server.Variables {
+ 		if value, ok := variables[name]; ok {
+-			found := bool(len(variable.EnumValues) == 0)
+-			for _, enumValue := range variable.EnumValues {
+-				if value == enumValue {
+-					found = true
+-				}
+-			}
+-			if !found {
+-				return "", fmt.Errorf("The variable %s in the server URL has invalid value %v. Must be %v", name, value, variable.EnumValues)
+-			}
+ 			url = strings.Replace(url, "{"+name+"}", value, -1)
+ 		} else {
+ 			url = strings.Replace(url, "{"+name+"}", variable.DefaultValue, -1)
+-- 
+2.25.1
+
