@@ -128,6 +128,7 @@ func NewConfiguration() *Configuration {
 							"eu-west-2",
 							"us-east-2",
 							"us-west-1",
+							"da-1",
 						},
 					},
 				},
