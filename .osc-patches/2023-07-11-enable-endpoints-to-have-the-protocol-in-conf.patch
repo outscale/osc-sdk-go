@@ -1,0 +1,37 @@
+From a37fcabdfb85a4cf243b4014d0b13bcbd5863d89 Mon Sep 17 00:00:00 2001
+From: Matthias Gatto <matthias.gatto@outscale.com>
+Date: Tue, 11 Jul 2023 18:24:33 +0200
+Subject: [PATCH 3/3] enable endpoints to have the protocol in conf
+
+Signed-off-by: Matthias Gatto <matthias.gatto@outscale.com>
+---
+ v2/config_file.go | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/v2/config_file.go b/v2/config_file.go
+index 774879f7..601af3b7 100644
+--- a/v2/config_file.go
++++ b/v2/config_file.go
+@@ -11,6 +11,7 @@ import (
+ 	"net/http"
+ 	"os"
+ 	"path"
++	"strings"
+ )
+ 
+ type ConfigFile struct {
+@@ -83,7 +84,10 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
+ 	}
+ 	var url string
+ 	if len(profile.Endpoints.API) > 0 {
+-		if len(profile.Protocol) > 0 {
++		if strings.HasPrefix(profile.Endpoints.API, "http://") ||
++			strings.HasPrefix(profile.Endpoints.API, "https://") {
++			url = profile.Endpoints.API
++		} else if len(profile.Protocol) > 0 {
+ 			url = fmt.Sprintf("%s://%s", profile.Protocol, profile.Endpoints.API)
+ 		} else {
+ 			url = fmt.Sprintf("https://%s", profile.Endpoints.API)
+-- 
+2.41.0
+
