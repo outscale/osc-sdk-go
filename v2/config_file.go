@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 )
 
 type ConfigFile struct {
@@ -83,7 +84,10 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 	}
 	var url string
 	if len(profile.Endpoints.API) > 0 {
-		if len(profile.Protocol) > 0 {
+		if strings.HasPrefix(profile.Endpoints.API, "http://") ||
+			strings.HasPrefix(profile.Endpoints.API, "https://") {
+			url = profile.Endpoints.API
+		} else if len(profile.Protocol) > 0 {
 			url = fmt.Sprintf("%s://%s", profile.Protocol, profile.Endpoints.API)
 		} else {
 			url = fmt.Sprintf("https://%s", profile.Endpoints.API)
