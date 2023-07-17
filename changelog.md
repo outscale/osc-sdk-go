@@ -1,3 +1,6 @@
+# 2.18.2
+ - init profile for configEnv 
+
 # 2.18.1
 
  - no need to check region 
