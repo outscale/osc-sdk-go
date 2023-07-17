@@ -1,0 +1,26 @@
+From e1b3d9a3c75e1836b91a3d04ee7e90a7e4bd0ae6 Mon Sep 17 00:00:00 2001
+From: "vincent.baer" <vincent.baer@outscale.com>
+Date: Mon, 17 Jul 2023 09:53:23 +0000
+Subject: [PATCH] Add config
+
+---
+ v2/config_env.go | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/v2/config_env.go b/v2/config_env.go
+index 03e98e47..50019490 100644
+--- a/v2/config_env.go
++++ b/v2/config_env.go
+@@ -58,7 +58,8 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
+ 
+ 	if configEnv.AccessKey == nil && configEnv.SecretKey == nil {
+ 		if configEnv.ProfileName == nil {
+-			*configEnv.ProfileName = "Default"
++			value := "default"
++			configEnv.ProfileName = &value
+ 		}
+ 		configFile, err := LoadDefaultConfigFile()
+ 		if err != nil {
+-- 
+2.25.1
+
