@@ -166,7 +166,8 @@ func (configEnv *ConfigEnv) Context(ctx context.Context) (context.Context, error
 
 	if configEnv.AccessKey == nil && configEnv.SecretKey == nil {
 		if configEnv.ProfileName == nil {
-			*configEnv.ProfileName = "Default"
+			value := "default"
+			configEnv.ProfileName = &value
 		}
 		configFile, err := LoadDefaultConfigFile()
 		if err != nil {
