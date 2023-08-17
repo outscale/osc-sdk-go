@@ -46,6 +46,11 @@ Region example
 */
 func ExampleRegion() {
 	config := osc.NewConfiguration()
+	endpoint, endpoint_found := os.LookupEnv("OSC_ENDPOINT_API")
+	if endpoint_found {
+		config.Servers[0].URL = endpoint
+	}
+
 	client := osc.NewAPIClient(config)
 	ctx := context.WithValue(context.Background(), osc.ContextAWSv4, osc.AWSv4{
 		AccessKey: os.Getenv("OSC_ACCESS_KEY"),
