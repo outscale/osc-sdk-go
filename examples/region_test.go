@@ -57,7 +57,7 @@ func ExampleRegion() {
 
 	_, httpRes, err := client.VolumeApi.ReadVolumes(ctx).ReadVolumesRequest(osc.ReadVolumesRequest{}).Execute()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while reading volumes")
+		fmt.Fprintln(os.Stderr, "Error in region_test.go while reading volumes", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}

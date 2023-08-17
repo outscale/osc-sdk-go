@@ -58,7 +58,7 @@ func ExampleTag() {
 	netCreationOpt := osc.CreateNetRequest{IpRange: "10.0.0.0/16"}
 	create, httpRes, err := client.NetApi.CreateNet(ctx).CreateNetRequest(netCreationOpt).Execute()
 	if err != nil {
-		fmt.Fprint(os.Stderr, "Error while creating Net ")
+		fmt.Fprintln(os.Stderr, "Error while creating Net ", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}

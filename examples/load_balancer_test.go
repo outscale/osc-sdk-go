@@ -66,7 +66,7 @@ func ExampleLoadBalancer() {
 	loadBalancerSubRegion := fmt.Sprintf("%sa", os.Getenv("OSC_REGION"))
 	read, httpRes, err := client.LoadBalancerApi.ReadLoadBalancers(ctx).ReadLoadBalancersRequest(osc.ReadLoadBalancersRequest{}).Execute()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error while reading load balancers")
+		fmt.Fprintln(os.Stderr, "Error while reading load balancers: ", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
@@ -97,7 +97,7 @@ func ExampleLoadBalancer() {
 	}
 	creation, httpRes, err := client.LoadBalancerApi.CreateLoadBalancer(ctx).CreateLoadBalancerRequest(createOpt).Execute()
 	if err != nil {
-		fmt.Fprint(os.Stderr, "Error while creating load balancer ")
+		fmt.Fprintln(os.Stderr, "Error while creating load balancer: ", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
@@ -112,7 +112,7 @@ func ExampleLoadBalancer() {
 	readOpts := osc.ReadLoadBalancersRequest{Filters: &readFilters}
 	read, httpRes, err = client.LoadBalancerApi.ReadLoadBalancers(ctx).ReadLoadBalancersRequest(readOpts).Execute()
 	if err != nil {
-		fmt.Fprint(os.Stderr, "Error while reading load balancers ")
+		fmt.Fprintln(os.Stderr, "Error while reading load balancers: ", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
