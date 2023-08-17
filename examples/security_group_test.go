@@ -88,7 +88,7 @@ func ExampleSecurityGroup() {
 	}
 	creation, httpRes, err := client.SecurityGroupApi.CreateSecurityGroup(ctx).CreateSecurityGroupRequest(createOpt).Execute()
 	if err != nil {
-		fmt.Fprint(os.Stderr, "Error while creating security group ")
+		fmt.Fprintln(os.Stderr, "Error while creating security group ", err)
 		if httpRes != nil {
 			fmt.Fprintln(os.Stderr, httpRes.Status)
 		}
