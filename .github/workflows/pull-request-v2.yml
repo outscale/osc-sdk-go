@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.19
+      - name: local tests
+        run: ./local_tests.sh
       - name: Go tests
         env:
           OSC_ACCESS_KEY: ${{ secrets.OSC_ACCESS_KEY }}
