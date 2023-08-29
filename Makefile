@@ -56,6 +56,7 @@ reuse-test:
 .PHONY: go-test
 go-test:
 	bash .github/scripts/check-creds-settings.sh
+	go clean -testcache
 	cd v2 && go test .
 
 # try to regen, should not have any difference
