@@ -11,6 +11,7 @@ api_api_log.go
 api_ca.go
 api_catalog.go
 api_client_gateway.go
+api_dedicated_group.go
 api_dhcp_option.go
 api_direct_link.go
 api_direct_link_interface.go
@@ -27,6 +28,7 @@ api_net.go
 api_net_access_point.go
 api_net_peering.go
 api_nic.go
+api_policy.go
 api_product_type.go
 api_public_catalog.go
 api_public_ip.go
@@ -95,6 +97,8 @@ docs/CreateCaRequest.md
 docs/CreateCaResponse.md
 docs/CreateClientGatewayRequest.md
 docs/CreateClientGatewayResponse.md
+docs/CreateDedicatedGroupRequest.md
+docs/CreateDedicatedGroupResponse.md
 docs/CreateDhcpOptionsRequest.md
 docs/CreateDhcpOptionsResponse.md
 docs/CreateDirectLinkInterfaceRequest.md
@@ -131,6 +135,12 @@ docs/CreateNetRequest.md
 docs/CreateNetResponse.md
 docs/CreateNicRequest.md
 docs/CreateNicResponse.md
+docs/CreatePolicyRequest.md
+docs/CreatePolicyResponse.md
+docs/CreatePolicyVersionRequest.md
+docs/CreatePolicyVersionResponse.md
+docs/CreateProductTypeRequest.md
+docs/CreateProductTypeResponse.md
 docs/CreatePublicIpRequest.md
 docs/CreatePublicIpResponse.md
 docs/CreateRouteRequest.md
@@ -167,6 +177,8 @@ docs/CreateVpnConnectionRequest.md
 docs/CreateVpnConnectionResponse.md
 docs/CreateVpnConnectionRouteRequest.md
 docs/CreateVpnConnectionRouteResponse.md
+docs/DedicatedGroup.md
+docs/DedicatedGroupApi.md
 docs/DeleteAccessKeyRequest.md
 docs/DeleteAccessKeyResponse.md
 docs/DeleteApiAccessRuleRequest.md
@@ -175,6 +187,8 @@ docs/DeleteCaRequest.md
 docs/DeleteCaResponse.md
 docs/DeleteClientGatewayRequest.md
 docs/DeleteClientGatewayResponse.md
+docs/DeleteDedicatedGroupRequest.md
+docs/DeleteDedicatedGroupResponse.md
 docs/DeleteDhcpOptionsRequest.md
 docs/DeleteDhcpOptionsResponse.md
 docs/DeleteDirectLinkInterfaceRequest.md
@@ -211,6 +225,10 @@ docs/DeleteNetRequest.md
 docs/DeleteNetResponse.md
 docs/DeleteNicRequest.md
 docs/DeleteNicResponse.md
+docs/DeletePolicyRequest.md
+docs/DeletePolicyResponse.md
+docs/DeletePolicyVersionRequest.md
+docs/DeletePolicyVersionResponse.md
 docs/DeletePublicIpRequest.md
 docs/DeletePublicIpResponse.md
 docs/DeleteRouteRequest.md
@@ -262,6 +280,7 @@ docs/FiltersApiLog.md
 docs/FiltersCa.md
 docs/FiltersCatalogs.md
 docs/FiltersClientGateway.md
+docs/FiltersDedicatedGroup.md
 docs/FiltersDhcpOptions.md
 docs/FiltersDirectLink.md
 docs/FiltersDirectLinkInterface.md
@@ -319,6 +338,8 @@ docs/LinkNicLight.md
 docs/LinkNicRequest.md
 docs/LinkNicResponse.md
 docs/LinkNicToUpdate.md
+docs/LinkPolicyRequest.md
+docs/LinkPolicyResponse.md
 docs/LinkPrivateIpsRequest.md
 docs/LinkPrivateIpsResponse.md
 docs/LinkPublicIp.md
@@ -332,6 +353,7 @@ docs/LinkVirtualGatewayRequest.md
 docs/LinkVirtualGatewayResponse.md
 docs/LinkVolumeRequest.md
 docs/LinkVolumeResponse.md
+docs/LinkedPolicy.md
 docs/LinkedVolume.md
 docs/Listener.md
 docs/ListenerApi.md
@@ -370,7 +392,11 @@ docs/PermissionsOnResource.md
 docs/PermissionsOnResourceCreation.md
 docs/Phase1Options.md
 docs/Phase2Options.md
+docs/Phase2OptionsToUpdate.md
 docs/Placement.md
+docs/Policy.md
+docs/PolicyApi.md
+docs/PolicyVersion.md
 docs/PrivateIp.md
 docs/PrivateIpLight.md
 docs/PrivateIpLightForVm.md
@@ -407,6 +433,8 @@ docs/ReadConsoleOutputRequest.md
 docs/ReadConsoleOutputResponse.md
 docs/ReadConsumptionAccountRequest.md
 docs/ReadConsumptionAccountResponse.md
+docs/ReadDedicatedGroupsRequest.md
+docs/ReadDedicatedGroupsResponse.md
 docs/ReadDhcpOptionsRequest.md
 docs/ReadDhcpOptionsResponse.md
 docs/ReadDirectLinkInterfacesRequest.md
@@ -425,6 +453,9 @@ docs/ReadInternetServicesRequest.md
 docs/ReadInternetServicesResponse.md
 docs/ReadKeypairsRequest.md
 docs/ReadKeypairsResponse.md
+docs/ReadLinkedPoliciesFilters.md
+docs/ReadLinkedPoliciesRequest.md
+docs/ReadLinkedPoliciesResponse.md
 docs/ReadListenerRulesRequest.md
 docs/ReadListenerRulesResponse.md
 docs/ReadLoadBalancerTagsRequest.md
@@ -445,6 +476,15 @@ docs/ReadNetsRequest.md
 docs/ReadNetsResponse.md
 docs/ReadNicsRequest.md
 docs/ReadNicsResponse.md
+docs/ReadPoliciesFilters.md
+docs/ReadPoliciesRequest.md
+docs/ReadPoliciesResponse.md
+docs/ReadPolicyRequest.md
+docs/ReadPolicyResponse.md
+docs/ReadPolicyVersionRequest.md
+docs/ReadPolicyVersionResponse.md
+docs/ReadPolicyVersionsRequest.md
+docs/ReadPolicyVersionsResponse.md
 docs/ReadProductTypesRequest.md
 docs/ReadProductTypesResponse.md
 docs/ReadPublicCatalogRequest.md
@@ -503,8 +543,6 @@ docs/RegisterVmsInLoadBalancerRequest.md
 docs/RegisterVmsInLoadBalancerResponse.md
 docs/RejectNetPeeringRequest.md
 docs/RejectNetPeeringResponse.md
-docs/ResetAccountPasswordRequest.md
-docs/ResetAccountPasswordResponse.md
 docs/ResourceLoadBalancerTag.md
 docs/ResourceTag.md
 docs/ResponseContext.md
@@ -524,11 +562,11 @@ docs/SecurityGroupLight.md
 docs/SecurityGroupRule.md
 docs/SecurityGroupRuleApi.md
 docs/SecurityGroupsMember.md
-docs/SendResetPasswordEmailRequest.md
-docs/SendResetPasswordEmailResponse.md
 docs/ServerCertificate.md
 docs/ServerCertificateApi.md
 docs/Service.md
+docs/SetDefaultPolicyVersionRequest.md
+docs/SetDefaultPolicyVersionResponse.md
 docs/Snapshot.md
 docs/SnapshotApi.md
 docs/SnapshotExportTask.md
@@ -554,6 +592,8 @@ docs/UnlinkLoadBalancerBackendMachinesRequest.md
 docs/UnlinkLoadBalancerBackendMachinesResponse.md
 docs/UnlinkNicRequest.md
 docs/UnlinkNicResponse.md
+docs/UnlinkPolicyRequest.md
+docs/UnlinkPolicyResponse.md
 docs/UnlinkPrivateIpsRequest.md
 docs/UnlinkPrivateIpsResponse.md
 docs/UnlinkPublicIpRequest.md
@@ -574,6 +614,8 @@ docs/UpdateApiAccessRuleRequest.md
 docs/UpdateApiAccessRuleResponse.md
 docs/UpdateCaRequest.md
 docs/UpdateCaResponse.md
+docs/UpdateDedicatedGroupRequest.md
+docs/UpdateDedicatedGroupResponse.md
 docs/UpdateDirectLinkInterfaceRequest.md
 docs/UpdateDirectLinkInterfaceResponse.md
 docs/UpdateFlexibleGpuRequest.md
@@ -594,6 +636,8 @@ docs/UpdateRoutePropagationRequest.md
 docs/UpdateRoutePropagationResponse.md
 docs/UpdateRouteRequest.md
 docs/UpdateRouteResponse.md
+docs/UpdateRouteTableLinkRequest.md
+docs/UpdateRouteTableLinkResponse.md
 docs/UpdateServerCertificateRequest.md
 docs/UpdateServerCertificateResponse.md
 docs/UpdateSnapshotRequest.md
@@ -631,6 +675,7 @@ docs/VolumeApi.md
 docs/VpnConnection.md
 docs/VpnConnectionApi.md
 docs/VpnOptions.md
+docs/VpnOptionsToUpdate.md
 docs/With.md
 git_push.sh
 go.mod
@@ -671,6 +716,8 @@ model_create_ca_request.go
 model_create_ca_response.go
 model_create_client_gateway_request.go
 model_create_client_gateway_response.go
+model_create_dedicated_group_request.go
+model_create_dedicated_group_response.go
 model_create_dhcp_options_request.go
 model_create_dhcp_options_response.go
 model_create_direct_link_interface_request.go
@@ -707,6 +754,12 @@ model_create_net_request.go
 model_create_net_response.go
 model_create_nic_request.go
 model_create_nic_response.go
+model_create_policy_request.go
+model_create_policy_response.go
+model_create_policy_version_request.go
+model_create_policy_version_response.go
+model_create_product_type_request.go
+model_create_product_type_response.go
 model_create_public_ip_request.go
 model_create_public_ip_response.go
 model_create_route_request.go
@@ -743,6 +796,7 @@ model_create_vpn_connection_request.go
 model_create_vpn_connection_response.go
 model_create_vpn_connection_route_request.go
 model_create_vpn_connection_route_response.go
+model_dedicated_group.go
 model_delete_access_key_request.go
 model_delete_access_key_response.go
 model_delete_api_access_rule_request.go
@@ -751,6 +805,8 @@ model_delete_ca_request.go
 model_delete_ca_response.go
 model_delete_client_gateway_request.go
 model_delete_client_gateway_response.go
+model_delete_dedicated_group_request.go
+model_delete_dedicated_group_response.go
 model_delete_dhcp_options_request.go
 model_delete_dhcp_options_response.go
 model_delete_direct_link_interface_request.go
@@ -787,6 +843,10 @@ model_delete_net_request.go
 model_delete_net_response.go
 model_delete_nic_request.go
 model_delete_nic_response.go
+model_delete_policy_request.go
+model_delete_policy_response.go
+model_delete_policy_version_request.go
+model_delete_policy_version_response.go
 model_delete_public_ip_request.go
 model_delete_public_ip_response.go
 model_delete_route_request.go
@@ -835,6 +895,7 @@ model_filters_api_log.go
 model_filters_ca.go
 model_filters_catalogs.go
 model_filters_client_gateway.go
+model_filters_dedicated_group.go
 model_filters_dhcp_options.go
 model_filters_direct_link.go
 model_filters_direct_link_interface.go
@@ -888,6 +949,8 @@ model_link_nic_light.go
 model_link_nic_request.go
 model_link_nic_response.go
 model_link_nic_to_update.go
+model_link_policy_request.go
+model_link_policy_response.go
 model_link_private_ips_request.go
 model_link_private_ips_response.go
 model_link_public_ip.go
@@ -901,6 +964,7 @@ model_link_virtual_gateway_request.go
 model_link_virtual_gateway_response.go
 model_link_volume_request.go
 model_link_volume_response.go
+model_linked_policy.go
 model_linked_volume.go
 model_listener.go
 model_listener_for_creation.go
@@ -930,7 +994,10 @@ model_permissions_on_resource.go
 model_permissions_on_resource_creation.go
 model_phase1_options.go
 model_phase2_options.go
+model_phase2_options_to_update.go
 model_placement.go
+model_policy.go
+model_policy_version.go
 model_private_ip.go
 model_private_ip_light.go
 model_private_ip_light_for_vm.go
@@ -963,6 +1030,8 @@ model_read_console_output_request.go
 model_read_console_output_response.go
 model_read_consumption_account_request.go
 model_read_consumption_account_response.go
+model_read_dedicated_groups_request.go
+model_read_dedicated_groups_response.go
 model_read_dhcp_options_request.go
 model_read_dhcp_options_response.go
 model_read_direct_link_interfaces_request.go
@@ -981,6 +1050,9 @@ model_read_internet_services_request.go
 model_read_internet_services_response.go
 model_read_keypairs_request.go
 model_read_keypairs_response.go
+model_read_linked_policies_filters.go
+model_read_linked_policies_request.go
+model_read_linked_policies_response.go
 model_read_listener_rules_request.go
 model_read_listener_rules_response.go
 model_read_load_balancer_tags_request.go
@@ -1001,6 +1073,15 @@ model_read_nets_request.go
 model_read_nets_response.go
 model_read_nics_request.go
 model_read_nics_response.go
+model_read_policies_filters.go
+model_read_policies_request.go
+model_read_policies_response.go
+model_read_policy_request.go
+model_read_policy_response.go
+model_read_policy_version_request.go
+model_read_policy_version_response.go
+model_read_policy_versions_request.go
+model_read_policy_versions_response.go
 model_read_product_types_request.go
 model_read_product_types_response.go
 model_read_public_catalog_request.go
@@ -1058,8 +1139,6 @@ model_register_vms_in_load_balancer_request.go
 model_register_vms_in_load_balancer_response.go
 model_reject_net_peering_request.go
 model_reject_net_peering_response.go
-model_reset_account_password_request.go
-model_reset_account_password_response.go
 model_resource_load_balancer_tag.go
 model_resource_tag.go
 model_response_context.go
@@ -1075,10 +1154,10 @@ model_security_group.go
 model_security_group_light.go
 model_security_group_rule.go
 model_security_groups_member.go
-model_send_reset_password_email_request.go
-model_send_reset_password_email_response.go
 model_server_certificate.go
 model_service.go
+model_set_default_policy_version_request.go
+model_set_default_policy_version_response.go
 model_snapshot.go
 model_snapshot_export_task.go
 model_source_net.go
@@ -1099,6 +1178,8 @@ model_unlink_load_balancer_backend_machines_request.go
 model_unlink_load_balancer_backend_machines_response.go
 model_unlink_nic_request.go
 model_unlink_nic_response.go
+model_unlink_policy_request.go
+model_unlink_policy_response.go
 model_unlink_private_ips_request.go
 model_unlink_private_ips_response.go
 model_unlink_public_ip_request.go
@@ -1119,6 +1200,8 @@ model_update_api_access_rule_request.go
 model_update_api_access_rule_response.go
 model_update_ca_request.go
 model_update_ca_response.go
+model_update_dedicated_group_request.go
+model_update_dedicated_group_response.go
 model_update_direct_link_interface_request.go
 model_update_direct_link_interface_response.go
 model_update_flexible_gpu_request.go
@@ -1139,6 +1222,8 @@ model_update_route_propagation_request.go
 model_update_route_propagation_response.go
 model_update_route_request.go
 model_update_route_response.go
+model_update_route_table_link_request.go
+model_update_route_table_link_response.go
 model_update_server_certificate_request.go
 model_update_server_certificate_response.go
 model_update_snapshot_request.go
@@ -1169,6 +1254,7 @@ model_vm_type.go
 model_volume.go
 model_vpn_connection.go
 model_vpn_options.go
+model_vpn_options_to_update.go
 model_with.go
 response.go
 utils.go

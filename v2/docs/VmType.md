@@ -5,6 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**EphemeralsType** | Pointer to **string** | The type of ephemeral storage disk. | [optional] 
+**Eth** | Pointer to **int32** | The number of Ethernet interface available. | [optional] 
+**Gpu** | Pointer to **int32** | The number of GPU available. | [optional] 
 **MaxPrivateIps** | Pointer to **int32** | The maximum number of private IPs per network interface card (NIC). | [optional] 
 **MemorySize** | Pointer to **float32** | The amount of memory, in gibibytes. | [optional] 
 **VcoreCount** | Pointer to **int32** | The number of vCores. | [optional] 
@@ -55,6 +58,81 @@ SetBsuOptimized sets BsuOptimized field to given value.
 `func (o *VmType) HasBsuOptimized() bool`
 
 HasBsuOptimized returns a boolean if a field has been set.
+
+### GetEphemeralsType
+
+`func (o *VmType) GetEphemeralsType() string`
+
+GetEphemeralsType returns the EphemeralsType field if non-nil, zero value otherwise.
+
+### GetEphemeralsTypeOk
+
+`func (o *VmType) GetEphemeralsTypeOk() (*string, bool)`
+
+GetEphemeralsTypeOk returns a tuple with the EphemeralsType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEphemeralsType
+
+`func (o *VmType) SetEphemeralsType(v string)`
+
+SetEphemeralsType sets EphemeralsType field to given value.
+
+### HasEphemeralsType
+
+`func (o *VmType) HasEphemeralsType() bool`
+
+HasEphemeralsType returns a boolean if a field has been set.
+
+### GetEth
+
+`func (o *VmType) GetEth() int32`
+
+GetEth returns the Eth field if non-nil, zero value otherwise.
+
+### GetEthOk
+
+`func (o *VmType) GetEthOk() (*int32, bool)`
+
+GetEthOk returns a tuple with the Eth field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEth
+
+`func (o *VmType) SetEth(v int32)`
+
+SetEth sets Eth field to given value.
+
+### HasEth
+
+`func (o *VmType) HasEth() bool`
+
+HasEth returns a boolean if a field has been set.
+
+### GetGpu
+
+`func (o *VmType) GetGpu() int32`
+
+GetGpu returns the Gpu field if non-nil, zero value otherwise.
+
+### GetGpuOk
+
+`func (o *VmType) GetGpuOk() (*int32, bool)`
+
+GetGpuOk returns a tuple with the Gpu field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGpu
+
+`func (o *VmType) SetGpu(v int32)`
+
+SetGpu sets Gpu field to given value.
+
+### HasGpu
+
+`func (o *VmType) HasGpu() bool`
+
+HasGpu returns a boolean if a field has been set.
 
 ### GetMaxPrivateIps
 

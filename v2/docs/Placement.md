@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SubregionName** | Pointer to **string** | The name of the Subregion. If you specify this parameter, you must not specify the &#x60;Nics&#x60; parameter. | [optional] 
-**Tenancy** | Pointer to **string** | The tenancy of the VM (&#x60;default&#x60; \\| &#x60;dedicated&#x60;). | [optional] 
+**Tenancy** | Pointer to **string** | The tenancy of the VM (&#x60;default&#x60;, &#x60;dedicated&#x60;, or a dedicated group ID). | [optional] 
 
 ## Methods
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **VirtualGatewayId** | Pointer to **string** | The ID of the virtual gateway. | [optional] 
 **VpnConnectionId** | **string** | The ID of the VPN connection you want to modify. | 
-**VpnOptions** | Pointer to [**VpnOptions**](VpnOptions.md) |  | [optional] 
+**VpnOptions** | Pointer to [**VpnOptionsToUpdate**](VpnOptionsToUpdate.md) |  | [optional] 
 
 ## Methods
 
@@ -126,20 +126,20 @@ SetVpnConnectionId sets VpnConnectionId field to given value.
 
 ### GetVpnOptions
 
-`func (o *UpdateVpnConnectionRequest) GetVpnOptions() VpnOptions`
+`func (o *UpdateVpnConnectionRequest) GetVpnOptions() VpnOptionsToUpdate`
 
 GetVpnOptions returns the VpnOptions field if non-nil, zero value otherwise.
 
 ### GetVpnOptionsOk
 
-`func (o *UpdateVpnConnectionRequest) GetVpnOptionsOk() (*VpnOptions, bool)`
+`func (o *UpdateVpnConnectionRequest) GetVpnOptionsOk() (*VpnOptionsToUpdate, bool)`
 
 GetVpnOptionsOk returns a tuple with the VpnOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVpnOptions
 
-`func (o *UpdateVpnConnectionRequest) SetVpnOptions(v VpnOptions)`
+`func (o *UpdateVpnConnectionRequest) SetVpnOptions(v VpnOptionsToUpdate)`
 
 SetVpnOptions sets VpnOptions field to given value.
 

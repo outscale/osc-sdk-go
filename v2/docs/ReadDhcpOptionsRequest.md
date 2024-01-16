@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersDhcpOptions**](FiltersDhcpOptions.md) |  | [optional] 
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60;and &#x60;1000&#x60;, both included). By default, &#x60;100&#x60;. | [optional] 
 
 ## Methods
 
@@ -75,6 +77,56 @@ SetFilters sets Filters field to given value.
 `func (o *ReadDhcpOptionsRequest) HasFilters() bool`
 
 HasFilters returns a boolean if a field has been set.
+
+### GetNextPageToken
+
+`func (o *ReadDhcpOptionsRequest) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *ReadDhcpOptionsRequest) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *ReadDhcpOptionsRequest) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *ReadDhcpOptionsRequest) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
+
+### GetResultsPerPage
+
+`func (o *ReadDhcpOptionsRequest) GetResultsPerPage() int32`
+
+GetResultsPerPage returns the ResultsPerPage field if non-nil, zero value otherwise.
+
+### GetResultsPerPageOk
+
+`func (o *ReadDhcpOptionsRequest) GetResultsPerPageOk() (*int32, bool)`
+
+GetResultsPerPageOk returns a tuple with the ResultsPerPage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResultsPerPage
+
+`func (o *ReadDhcpOptionsRequest) SetResultsPerPage(v int32)`
+
+SetResultsPerPage sets ResultsPerPage field to given value.
+
+### HasResultsPerPage
+
+`func (o *ReadDhcpOptionsRequest) HasResultsPerPage() bool`
+
+HasResultsPerPage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

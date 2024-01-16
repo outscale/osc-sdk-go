@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **KeypairName** | **string** | A unique name for the keypair, with a maximum length of 255 [ASCII printable characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters). | 
-**PublicKey** | Pointer to **string** | The public key. It must be Base64-encoded. | [optional] 
+**PublicKey** | Pointer to **string** | The public key to import in your account, if you are importing an existing keypair. This value must be Base64-encoded. | [optional] 
 
 ## Methods
 

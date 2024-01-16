@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **QuotaType** | Pointer to **string** | The resource ID if it is a resource-specific quota, &#x60;global&#x60; if it is not. | [optional] 
-**Quotas** | Pointer to [**[]Quota**](Quota.md) | One or more quotas associated with the user. | [optional] 
+**Quotas** | Pointer to [**[]Quota**](Quota.md) | One or more quotas associated with the account. | [optional] 
 
 ## Methods
 

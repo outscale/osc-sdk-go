@@ -9,11 +9,13 @@ Name | Type | Description | Notes
 **FromDate** | Pointer to **string** | The beginning of the time period, in ISO 8601 date-time format. | [optional] 
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
 **PayingAccountId** | Pointer to **string** | The ID of the TINA account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
+**Price** | Pointer to **float64** | The total price of the consumed resource during the specified time period, in the currency of the catalog of the Region where the API method was used. | [optional] 
 **Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, or &#x60;TinaOS-OSU&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period, in ISO 8601 date-time format. | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 
+**UnitPrice** | Pointer to **float64** | The unit price of the consumed resource, in the currency of the catalog of the Region where the API method was used. | [optional] 
 **Value** | Pointer to **float64** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
 
 ## Methods
@@ -160,6 +162,31 @@ SetPayingAccountId sets PayingAccountId field to given value.
 
 HasPayingAccountId returns a boolean if a field has been set.
 
+### GetPrice
+
+`func (o *ConsumptionEntry) GetPrice() float64`
+
+GetPrice returns the Price field if non-nil, zero value otherwise.
+
+### GetPriceOk
+
+`func (o *ConsumptionEntry) GetPriceOk() (*float64, bool)`
+
+GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrice
+
+`func (o *ConsumptionEntry) SetPrice(v float64)`
+
+SetPrice sets Price field to given value.
+
+### HasPrice
+
+`func (o *ConsumptionEntry) HasPrice() bool`
+
+HasPrice returns a boolean if a field has been set.
+
 ### GetService
 
 `func (o *ConsumptionEntry) GetService() string`
@@ -284,6 +311,31 @@ SetType sets Type field to given value.
 `func (o *ConsumptionEntry) HasType() bool`
 
 HasType returns a boolean if a field has been set.
+
+### GetUnitPrice
+
+`func (o *ConsumptionEntry) GetUnitPrice() float64`
+
+GetUnitPrice returns the UnitPrice field if non-nil, zero value otherwise.
+
+### GetUnitPriceOk
+
+`func (o *ConsumptionEntry) GetUnitPriceOk() (*float64, bool)`
+
+GetUnitPriceOk returns a tuple with the UnitPrice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnitPrice
+
+`func (o *ConsumptionEntry) SetUnitPrice(v float64)`
+
+SetUnitPrice sets UnitPrice field to given value.
+
+### HasUnitPrice
+
+`func (o *ConsumptionEntry) HasUnitPrice() bool`
+
+HasUnitPrice returns a boolean if a field has been set.
 
 ### GetValue
 

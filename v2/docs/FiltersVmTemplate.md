@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Rams** | Pointer to **[]int32** | The amount of RAM. | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the VM templates. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the VM templates. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VM templates, in the following format: \&quot;Filters\&quot;:{\&quot;Tags\&quot;:[\&quot;TAGKEY&#x3D;TAGVALUE\&quot;]}. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VM templates, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **VmTemplateIds** | Pointer to **[]string** | The IDs of the VM templates. | [optional] 
 **VmTemplateNames** | Pointer to **[]string** | The names of the VM templates. | [optional] 
 

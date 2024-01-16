@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkRouteTableId** | Pointer to **string** | The ID of the association between the route table and the Subnet. | [optional] 
 **Main** | Pointer to **bool** | If true, the route table is the main one. | [optional] 
+**NetId** | Pointer to **string** | The ID of the Net. | [optional] 
 **RouteTableId** | Pointer to **string** | The ID of the route table. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 
 
@@ -77,6 +78,31 @@ SetMain sets Main field to given value.
 `func (o *LinkRouteTable) HasMain() bool`
 
 HasMain returns a boolean if a field has been set.
+
+### GetNetId
+
+`func (o *LinkRouteTable) GetNetId() string`
+
+GetNetId returns the NetId field if non-nil, zero value otherwise.
+
+### GetNetIdOk
+
+`func (o *LinkRouteTable) GetNetIdOk() (*string, bool)`
+
+GetNetIdOk returns a tuple with the NetId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNetId
+
+`func (o *LinkRouteTable) SetNetId(v string)`
+
+SetNetId sets NetId field to given value.
+
+### HasNetId
+
+`func (o *LinkRouteTable) HasNetId() bool`
+
+HasNetId returns a boolean if a field has been set.
 
 ### GetRouteTableId
 
