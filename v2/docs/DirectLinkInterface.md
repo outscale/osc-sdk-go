@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **DirectLinkInterfaceName** | **string** | The name of the DirectLink interface. | 
 **OutscalePrivateIp** | Pointer to **string** | The IP on the OUTSCALE side of the DirectLink interface. | [optional] 
 **VirtualGatewayId** | **string** | The ID of the target virtual gateway. | 
-**Vlan** | **int32** | The VLAN number associated with the DirectLink interface. | 
+**Vlan** | **int32** | The VLAN number associated with the DirectLink interface. This number must be unique and be between &#x60;2&#x60; and &#x60;4094&#x60;. | 
 
 ## Methods
 

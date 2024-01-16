@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Path** | Pointer to **string** | The path to the EIM user you want to create (by default, &#x60;/&#x60;). | [optional] 
-**UserName** | **string** | The name of the EIM user you want to create. | 
+**Path** | Pointer to **string** | The path to the EIM user you want to create (by default, &#x60;/&#x60;). This path name must begin and end with a slash (/), and contain between 1 and 512 alphanumeric characters and/or slashes (/), or underscores (_). | [optional] 
+**UserName** | **string** | The name of the EIM user you want to create. This user name must contain between 1 and 64 alphanumeric characters and/or pluses (+), equals (&#x3D;), commas (,), periods (.), at signs (@), dashes (-), or underscores (_). | 
 
 ## Methods
 

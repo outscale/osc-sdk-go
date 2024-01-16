@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**KeypairFingerprint** | Pointer to **string** | The MD5 public key fingerprint as specified in section 4 of RFC 4716. | [optional] 
+**KeypairFingerprint** | Pointer to **string** | The MD5 public key fingerprint, as specified in section 4 of RFC 4716. | [optional] 
 **KeypairName** | Pointer to **string** | The name of the keypair. | [optional] 
-**PrivateKey** | Pointer to **string** | The private key. When saving the private key in a .rsa file, replace the &#x60;\\n&#x60; escape sequences with line breaks. | [optional] 
+**KeypairType** | Pointer to **string** | The type of the keypair (&#x60;ssh-rsa&#x60;, &#x60;ssh-ed25519&#x60;, &#x60;ecdsa-sha2-nistp256&#x60;, &#x60;ecdsa-sha2-nistp384&#x60;, or &#x60;ecdsa-sha2-nistp521&#x60;). | [optional] 
+**PrivateKey** | Pointer to **string** | The private key, returned only if you are creating a keypair (not if you are importing). When you save this private key in a .rsa file, make sure you replace the &#x60;\\n&#x60; escape sequences with real line breaks. | [optional] 
 
 ## Methods
 
@@ -76,6 +77,31 @@ SetKeypairName sets KeypairName field to given value.
 `func (o *KeypairCreated) HasKeypairName() bool`
 
 HasKeypairName returns a boolean if a field has been set.
+
+### GetKeypairType
+
+`func (o *KeypairCreated) GetKeypairType() string`
+
+GetKeypairType returns the KeypairType field if non-nil, zero value otherwise.
+
+### GetKeypairTypeOk
+
+`func (o *KeypairCreated) GetKeypairTypeOk() (*string, bool)`
+
+GetKeypairTypeOk returns a tuple with the KeypairType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKeypairType
+
+`func (o *KeypairCreated) SetKeypairType(v string)`
+
+SetKeypairType sets KeypairType field to given value.
+
+### HasKeypairType
+
+`func (o *KeypairCreated) HasKeypairType() bool`
+
+HasKeypairType returns a boolean if a field has been set.
 
 ### GetPrivateKey
 

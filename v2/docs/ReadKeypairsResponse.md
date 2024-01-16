@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Keypairs** | Pointer to [**[]Keypair**](Keypair.md) | Information about one or more keypairs. | [optional] 
-**ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
 
@@ -50,31 +49,6 @@ SetKeypairs sets Keypairs field to given value.
 `func (o *ReadKeypairsResponse) HasKeypairs() bool`
 
 HasKeypairs returns a boolean if a field has been set.
-
-### GetResponseContext
-
-`func (o *ReadKeypairsResponse) GetResponseContext() ResponseContext`
-
-GetResponseContext returns the ResponseContext field if non-nil, zero value otherwise.
-
-### GetResponseContextOk
-
-`func (o *ReadKeypairsResponse) GetResponseContextOk() (*ResponseContext, bool)`
-
-GetResponseContextOk returns a tuple with the ResponseContext field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResponseContext
-
-`func (o *ReadKeypairsResponse) SetResponseContext(v ResponseContext)`
-
-SetResponseContext sets ResponseContext field to given value.
-
-### HasResponseContext
-
-`func (o *ReadKeypairsResponse) HasResponseContext() bool`
-
-HasResponseContext returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

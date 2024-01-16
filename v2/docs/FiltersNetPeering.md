@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AccepterNetAccountIds** | Pointer to **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **AccepterNetIpRanges** | Pointer to **[]string** | The IP ranges of the peer Nets, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **AccepterNetNetIds** | Pointer to **[]string** | The IDs of the peer Nets. | [optional] 
+**ExpirationDates** | Pointer to [**[]time.Time**](time.Time.md) | The dates and times at which the Net peerings expire, in ISO 8601 date-time format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | [optional] 
 **NetPeeringIds** | Pointer to **[]string** | The IDs of the Net peerings. | [optional] 
 **SourceNetAccountIds** | Pointer to **[]string** | The account IDs of the owners of the peer Nets. | [optional] 
 **SourceNetIpRanges** | Pointer to **[]string** | The IP ranges of the peer Nets. | [optional] 
@@ -110,6 +111,31 @@ SetAccepterNetNetIds sets AccepterNetNetIds field to given value.
 `func (o *FiltersNetPeering) HasAccepterNetNetIds() bool`
 
 HasAccepterNetNetIds returns a boolean if a field has been set.
+
+### GetExpirationDates
+
+`func (o *FiltersNetPeering) GetExpirationDates() []time.Time`
+
+GetExpirationDates returns the ExpirationDates field if non-nil, zero value otherwise.
+
+### GetExpirationDatesOk
+
+`func (o *FiltersNetPeering) GetExpirationDatesOk() (*[]time.Time, bool)`
+
+GetExpirationDatesOk returns a tuple with the ExpirationDates field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpirationDates
+
+`func (o *FiltersNetPeering) SetExpirationDates(v []time.Time)`
+
+SetExpirationDates sets ExpirationDates field to given value.
+
+### HasExpirationDates
+
+`func (o *FiltersNetPeering) HasExpirationDates() bool`
+
+HasExpirationDates returns a boolean if a field has been set.
 
 ### GetNetPeeringIds
 

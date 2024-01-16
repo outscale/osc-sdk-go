@@ -5,9 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**EphemeralsTypes** | Pointer to **[]string** | The types of ephemeral storage disk. | [optional] 
+**Eths** | Pointer to **[]int32** | The number of Ethernet interfaces available. | [optional] 
+**Gpus** | Pointer to **[]int32** | The number of GPUs available. | [optional] 
 **MemorySizes** | Pointer to **[]float32** | The amounts of memory, in gibibytes (GiB). | [optional] 
 **VcoreCounts** | Pointer to **[]int32** | The numbers of vCores. | [optional] 
-**VmTypeNames** | Pointer to **[]string** | The names of the VM types. For more information, see [Instance Types](https://docs.outscale.com/en/userguide/Instance-Types.html). | [optional] 
+**VmTypeNames** | Pointer to **[]string** | The names of the VM types. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
 **VolumeCounts** | Pointer to **[]int32** | The maximum number of ephemeral storage disks. | [optional] 
 **VolumeSizes** | Pointer to **[]int32** | The size of one ephemeral storage disk, in gibibytes (GiB). | [optional] 
 
@@ -54,6 +57,81 @@ SetBsuOptimized sets BsuOptimized field to given value.
 `func (o *FiltersVmType) HasBsuOptimized() bool`
 
 HasBsuOptimized returns a boolean if a field has been set.
+
+### GetEphemeralsTypes
+
+`func (o *FiltersVmType) GetEphemeralsTypes() []string`
+
+GetEphemeralsTypes returns the EphemeralsTypes field if non-nil, zero value otherwise.
+
+### GetEphemeralsTypesOk
+
+`func (o *FiltersVmType) GetEphemeralsTypesOk() (*[]string, bool)`
+
+GetEphemeralsTypesOk returns a tuple with the EphemeralsTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEphemeralsTypes
+
+`func (o *FiltersVmType) SetEphemeralsTypes(v []string)`
+
+SetEphemeralsTypes sets EphemeralsTypes field to given value.
+
+### HasEphemeralsTypes
+
+`func (o *FiltersVmType) HasEphemeralsTypes() bool`
+
+HasEphemeralsTypes returns a boolean if a field has been set.
+
+### GetEths
+
+`func (o *FiltersVmType) GetEths() []int32`
+
+GetEths returns the Eths field if non-nil, zero value otherwise.
+
+### GetEthsOk
+
+`func (o *FiltersVmType) GetEthsOk() (*[]int32, bool)`
+
+GetEthsOk returns a tuple with the Eths field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEths
+
+`func (o *FiltersVmType) SetEths(v []int32)`
+
+SetEths sets Eths field to given value.
+
+### HasEths
+
+`func (o *FiltersVmType) HasEths() bool`
+
+HasEths returns a boolean if a field has been set.
+
+### GetGpus
+
+`func (o *FiltersVmType) GetGpus() []int32`
+
+GetGpus returns the Gpus field if non-nil, zero value otherwise.
+
+### GetGpusOk
+
+`func (o *FiltersVmType) GetGpusOk() (*[]int32, bool)`
+
+GetGpusOk returns a tuple with the Gpus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGpus
+
+`func (o *FiltersVmType) SetGpus(v []int32)`
+
+SetGpus sets Gpus field to given value.
+
+### HasGpus
+
+`func (o *FiltersVmType) HasGpus() bool`
+
+HasGpus returns a boolean if a field has been set.
 
 ### GetMemorySizes
 

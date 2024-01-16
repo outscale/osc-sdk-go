@@ -17,11 +17,12 @@ Name | Type | Description | Notes
 **Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | Pointer to **[]string** | The names of the OMIs, provided when they were created. | [optional] 
-**PermissionsToLaunchAccountIds** | Pointer to **[]string** | The account IDs of the users who have launch permissions for the OMIs. | [optional] 
+**PermissionsToLaunchAccountIds** | Pointer to **[]string** | The account IDs which have launch permissions for the OMIs. | [optional] 
 **PermissionsToLaunchGlobalPermission** | Pointer to **bool** | If true, lists all public OMIs. If false, lists all private OMIs. | [optional] 
+**ProductCodeNames** | Pointer to **[]string** | The names of the product codes associated with the OMI. | [optional] 
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
 **RootDeviceNames** | Pointer to **[]string** | The name of the root device. This value must be /dev/sda1. | [optional] 
-**RootDeviceTypes** | Pointer to **[]string** | The types of root device used by the OMIs (always &#x60;bsu&#x60;). | [optional] 
+**RootDeviceTypes** | Pointer to **[]string** | The types of root device used by the OMIs (&#x60;bsu&#x60; or &#x60;ebs&#x60;). | [optional] 
 **States** | Pointer to **[]string** | The states of the OMIs (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the OMIs. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the OMIs. | [optional] 
@@ -421,6 +422,31 @@ SetPermissionsToLaunchGlobalPermission sets PermissionsToLaunchGlobalPermission 
 `func (o *FiltersImage) HasPermissionsToLaunchGlobalPermission() bool`
 
 HasPermissionsToLaunchGlobalPermission returns a boolean if a field has been set.
+
+### GetProductCodeNames
+
+`func (o *FiltersImage) GetProductCodeNames() []string`
+
+GetProductCodeNames returns the ProductCodeNames field if non-nil, zero value otherwise.
+
+### GetProductCodeNamesOk
+
+`func (o *FiltersImage) GetProductCodeNamesOk() (*[]string, bool)`
+
+GetProductCodeNamesOk returns a tuple with the ProductCodeNames field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCodeNames
+
+`func (o *FiltersImage) SetProductCodeNames(v []string)`
+
+SetProductCodeNames sets ProductCodeNames field to given value.
+
+### HasProductCodeNames
+
+`func (o *FiltersImage) HasProductCodeNames() bool`
+
+HasProductCodeNames returns a boolean if a field has been set.
 
 ### GetProductCodes
 

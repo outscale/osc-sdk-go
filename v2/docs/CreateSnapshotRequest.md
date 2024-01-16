@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | A description for the snapshot. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**FileLocation** | Pointer to **string** | (When importing) The pre-signed URL of the snapshot you want to import, or the normal URL of the snapshot if you have permission on the OOS bucket. For more information, see [Configuring a Pre-signed URL](https://docs.outscale.com/en/userguide/Configuring-a-Pre-signed-URL.html) or [Managing Access to Your Buckets and Objects](https://docs.outscale.com/en/userguide/Managing-Access-to-Your-Buckets-and-Objects.html). | [optional] 
-**SnapshotSize** | Pointer to **int64** | (When importing) The size of the snapshot you want to create in your account, in bytes. This size must be greater than or equal to the size of the original, uncompressed snapshot. | [optional] 
-**SourceRegionName** | Pointer to **string** | (When copying) The name of the source Region, which must be the same as the Region of your account. | [optional] 
-**SourceSnapshotId** | Pointer to **string** | (When copying) The ID of the snapshot you want to copy. | [optional] 
-**VolumeId** | Pointer to **string** | (When creating) The ID of the volume you want to create a snapshot of. | [optional] 
+**FileLocation** | Pointer to **string** | **(when importing from a bucket)** The pre-signed URL of the snapshot you want to import, or the normal URL of the snapshot if you have permission on the OOS bucket. For more information, see [Configuring a Pre-signed URL](https://docs.outscale.com/en/userguide/Configuring-a-Pre-signed-URL.html) or [Managing Access to Your Buckets and Objects](https://docs.outscale.com/en/userguide/Managing-Access-to-Your-Buckets-and-Objects.html). | [optional] 
+**SnapshotSize** | Pointer to **int64** | **(when importing from a bucket)** The size of the snapshot you want to create in your account, in bytes. This size must be greater than or equal to the size of the original, uncompressed snapshot. | [optional] 
+**SourceRegionName** | Pointer to **string** | **(when copying a snapshot)** The name of the source Region, which must be the same as the Region of your account. | [optional] 
+**SourceSnapshotId** | Pointer to **string** | **(when copying a snapshot)** The ID of the snapshot you want to copy. | [optional] 
+**VolumeId** | Pointer to **string** | **(when creating from a volume)** The ID of the volume you want to create a snapshot of. | [optional] 
 
 ## Methods
 

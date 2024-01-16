@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Architecture** | Pointer to **string** | The architecture of the OMI (by default, &#x60;i386&#x60; if you specified the &#x60;FileLocation&#x60; or &#x60;RootDeviceName&#x60; parameter). | [optional] 
-**BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
+**Architecture** | Pointer to **string** | **(when registering from a snapshot, or from a bucket without using a manifest file)** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x84_64&#x60;). | [optional] 
+**BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | **(when registering from a snapshot, or from a bucket without using a manifest file)** One or more block device mappings. | [optional] 
 **Description** | Pointer to **string** | A description for the new OMI. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**FileLocation** | Pointer to **string** | The pre-signed URL of the OMI manifest file, or the full path to the OMI stored in a bucket. If you specify this parameter, a copy of the OMI is created in your account. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
-**ImageName** | Pointer to **string** | A unique name for the new OMI.&lt;br /&gt; Constraints: 3-128 alphanumeric characters, underscores (_), spaces ( ), parentheses (()), slashes (/), periods (.), or dashes (-). | [optional] 
-**NoReboot** | Pointer to **bool** | If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not. | [optional] 
+**FileLocation** | Pointer to **string** | **(when registering from a bucket by using a manifest file)** The pre-signed URL of the manifest file for the OMI you want to register. For more information, see [Configuring a Pre-signed URL](https://docs.outscale.com/en/userguide/Configuring-a-Pre-signed-URL.html) or [Managing Access to Your Buckets and Objects](https://docs.outscale.com/en/userguide/Managing-Access-to-Your-Buckets-and-Objects.html).&lt;br /&gt; You can also specify the normal URL of the OMI if you have permission on the OOS bucket, without using the manifest file, but in that case, you need to manually specify through the other parameters all the information that would otherwise be read from the manifest file. | [optional] 
+**ImageName** | Pointer to **string** | A unique name for the new OMI.&lt;br /&gt; Constraints: 3-128 alphanumeric characters, underscores (&#x60;_&#x60;), spaces (&#x60; &#x60;), parentheses (&#x60;()&#x60;), slashes (&#x60;/&#x60;), periods (&#x60;.&#x60;), or dashes (&#x60;-&#x60;). | [optional] 
+**NoReboot** | Pointer to **bool** | **(when creating from a VM)** If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not. | [optional] 
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
-**RootDeviceName** | Pointer to **string** | The name of the root device. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
-**SourceImageId** | Pointer to **string** | The ID of the OMI you want to copy. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
-**SourceRegionName** | Pointer to **string** | The name of the source Region, which must be the same as the Region of your account. | [optional] 
-**VmId** | Pointer to **string** | The ID of the VM from which you want to create the OMI. You must specify only one of the following parameters: &#x60;FileLocation&#x60;, &#x60;RootDeviceName&#x60;, &#x60;SourceImageId&#x60; or &#x60;VmId&#x60;. | [optional] 
+**RootDeviceName** | Pointer to **string** | **(when registering from a snapshot, or from a bucket without using a manifest file)** The name of the root device for the new OMI. | [optional] 
+**SourceImageId** | Pointer to **string** | **(when copying an OMI)** The ID of the OMI you want to copy. | [optional] 
+**SourceRegionName** | Pointer to **string** | **(when copying an OMI)** The name of the source Region (always the same as the Region of your account). | [optional] 
+**VmId** | Pointer to **string** | **(when creating from a VM)** The ID of the VM from which you want to create the OMI. | [optional] 
 
 ## Methods
 

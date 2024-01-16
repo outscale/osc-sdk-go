@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountIds** | Pointer to **[]string** | The account IDs of the owners of the security groups. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the security groups. | [optional] 
 **InboundRuleAccountIds** | Pointer to **[]string** | The account IDs that have been granted permissions. | [optional] 
 **InboundRuleFromPortRanges** | Pointer to **[]int32** | The beginnings of the port ranges for the TCP and UDP protocols, or the ICMP type numbers. | [optional] 
@@ -45,31 +44,6 @@ will change when the set of required properties is changed
 NewFiltersSecurityGroupWithDefaults instantiates a new FiltersSecurityGroup object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAccountIds
-
-`func (o *FiltersSecurityGroup) GetAccountIds() []string`
-
-GetAccountIds returns the AccountIds field if non-nil, zero value otherwise.
-
-### GetAccountIdsOk
-
-`func (o *FiltersSecurityGroup) GetAccountIdsOk() (*[]string, bool)`
-
-GetAccountIdsOk returns a tuple with the AccountIds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAccountIds
-
-`func (o *FiltersSecurityGroup) SetAccountIds(v []string)`
-
-SetAccountIds sets AccountIds field to given value.
-
-### HasAccountIds
-
-`func (o *FiltersSecurityGroup) HasAccountIds() bool`
-
-HasAccountIds returns a boolean if a field has been set.
 
 ### GetDescriptions
 

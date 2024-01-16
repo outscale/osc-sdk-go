@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of a user that has been granted permission. | [optional] 
+**AccountId** | Pointer to **string** | The account ID that has been granted permission. | [optional] 
 **Description** | Pointer to **string** | The description of the security group. | [optional] 
 **InboundRules** | Pointer to [**[]SecurityGroupRule**](SecurityGroupRule.md) | The inbound rules associated with the security group. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net for the security group. | [optional] 

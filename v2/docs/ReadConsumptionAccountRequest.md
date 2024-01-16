@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FromDate** | **string** | The beginning of the time period, in ISO 8601 date format (for example, &#x60;2020-06-14&#x60;). The date-time format is also accepted, but only with a time set to midnight (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | 
 **Overall** | Pointer to **bool** | By default or if false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account). | [optional] [default to false]
+**ShowPrice** | Pointer to **bool** | By default or if false, returns only the consumption of the specific account that sends this request. If true, returns the unit price of the consumed resource, and the total price of the consumed resource during the specified time period in the currency of the catalog of the Region where the API method was used. | [optional] 
 **ToDate** | **string** | The end of the time period, in ISO 8601 date format (for example, &#x60;2020-06-30&#x60;). The date-time format is also accepted, but only with a time set to midnight (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | 
 
 ## Methods
@@ -97,6 +98,31 @@ SetOverall sets Overall field to given value.
 `func (o *ReadConsumptionAccountRequest) HasOverall() bool`
 
 HasOverall returns a boolean if a field has been set.
+
+### GetShowPrice
+
+`func (o *ReadConsumptionAccountRequest) GetShowPrice() bool`
+
+GetShowPrice returns the ShowPrice field if non-nil, zero value otherwise.
+
+### GetShowPriceOk
+
+`func (o *ReadConsumptionAccountRequest) GetShowPriceOk() (*bool, bool)`
+
+GetShowPriceOk returns a tuple with the ShowPrice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShowPrice
+
+`func (o *ReadConsumptionAccountRequest) SetShowPrice(v bool)`
+
+SetShowPrice sets ShowPrice field to given value.
+
+### HasShowPrice
+
+`func (o *ReadConsumptionAccountRequest) HasShowPrice() bool`
+
+HasShowPrice returns a boolean if a field has been set.
 
 ### GetToDate
 

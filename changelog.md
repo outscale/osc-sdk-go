@@ -1,3 +1,7 @@
+# 2.19.0
+
+ - SDK update for Outscale API v1.28.5
+
 # 2.18.2
  - init profile for configEnv 
 
