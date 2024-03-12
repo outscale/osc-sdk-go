@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Architecture** | Pointer to **string** | **(when registering from a snapshot, or from a bucket without using a manifest file)** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x84_64&#x60;). | [optional] 
+**Architecture** | Pointer to **string** | **(when registering from a snapshot, or from a bucket without using a manifest file)** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x86_64&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | **(when registering from a snapshot, or from a bucket without using a manifest file)** One or more block device mappings. | [optional] 
 **Description** | Pointer to **string** | A description for the new OMI. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
