@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LinkRouteTableId** | Pointer to **string** | The ID of the association between the route table and the Subnet. | [optional] 
+**LinkRouteTableId** | Pointer to **string** | The ID of the association between the route table and the Net or Subnet. | [optional] 
 **Main** | Pointer to **bool** | If true, the route table is the main one. | [optional] 
-**NetId** | Pointer to **string** | The ID of the Net. | [optional] 
+**NetId** | Pointer to **string** | The ID of the Net, if the route table is not explicitly linked to a Subnet. | [optional] 
 **RouteTableId** | Pointer to **string** | The ID of the route table. | [optional] 
-**SubnetId** | Pointer to **string** | The ID of the Subnet. | [optional] 
+**SubnetId** | Pointer to **string** | The ID of the Subnet, if the route table is explicitly linked to a Subnet. | [optional] 
 
 ## Methods
 

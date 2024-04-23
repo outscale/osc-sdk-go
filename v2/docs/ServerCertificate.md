@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **ExpirationDate** | Pointer to **string** | The date at which the server certificate expires. | [optional] 
 **Id** | Pointer to **string** | The ID of the server certificate. | [optional] 
 **Name** | Pointer to **string** | The name of the server certificate. | [optional] 
-**Orn** | Pointer to **string** | The Outscale Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; Outscale Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns). | [optional] 
+**Orn** | Pointer to **string** | The OUTSCALE Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers &gt; OUTSCALE Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns). | [optional] 
 **Path** | Pointer to **string** | The path to the server certificate. | [optional] 
 **UploadDate** | Pointer to **string** | The date at which the server certificate has been uploaded. | [optional] 
 

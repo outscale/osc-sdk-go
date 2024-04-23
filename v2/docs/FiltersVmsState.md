@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaintenanceEventCodes** | Pointer to **[]string** | The code for the scheduled event (&#x60;system-reboot&#x60; \\| &#x60;system-maintenance&#x60;). | [optional] 
 **MaintenanceEventDescriptions** | Pointer to **[]string** | The description of the scheduled event. | [optional] 
-**MaintenanceEventsNotAfter** | Pointer to **[]string** | The latest time the event can end. | [optional] 
-**MaintenanceEventsNotBefore** | Pointer to **[]string** | The earliest time the event can start. | [optional] 
+**MaintenanceEventsNotAfter** | Pointer to **[]string** | The latest date and time (UTC) the event can end. | [optional] 
+**MaintenanceEventsNotBefore** | Pointer to **[]string** | The earliest date and time (UTC) the event can start. | [optional] 
 **SubregionNames** | Pointer to **[]string** | The names of the Subregions of the VMs. | [optional] 
 **VmIds** | Pointer to **[]string** | One or more IDs of VMs. | [optional] 
 **VmStates** | Pointer to **[]string** | The states of the VMs (&#x60;pending&#x60; \\| &#x60;running&#x60; \\| &#x60;stopping&#x60; \\| &#x60;stopped&#x60; \\| &#x60;shutting-down&#x60; \\| &#x60;terminated&#x60; \\| &#x60;quarantine&#x60;). | [optional] 

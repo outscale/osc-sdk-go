@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BackendPort** | Pointer to **int32** | The port on which the back-end VM is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). | [optional] 
-**BackendProtocol** | Pointer to **string** | The protocol for routing traffic to back-end VMs (&#x60;HTTP&#x60; \\| &#x60;HTTPS&#x60; \\| &#x60;TCP&#x60; \\| &#x60;SSL&#x60;). | [optional] 
+**BackendPort** | Pointer to **int32** | The port on which the backend VM is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). | [optional] 
+**BackendProtocol** | Pointer to **string** | The protocol for routing traffic to backend VMs (&#x60;HTTP&#x60; \\| &#x60;HTTPS&#x60; \\| &#x60;TCP&#x60; \\| &#x60;SSL&#x60;). | [optional] 
 **LoadBalancerPort** | Pointer to **int32** | The port on which the load balancer is listening (between &#x60;1&#x60; and &#x60;65535&#x60;, both included). | [optional] 
 **LoadBalancerProtocol** | Pointer to **string** | The routing protocol (&#x60;HTTP&#x60; \\| &#x60;HTTPS&#x60; \\| &#x60;TCP&#x60; \\| &#x60;SSL&#x60;). | [optional] 
 **PolicyNames** | Pointer to **[]string** | The names of the policies. If there are no policies enabled, the list is empty. | [optional] 

@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **NicIsSourceDestChecked** | Pointer to **bool** | Whether the source/destination checking is enabled (true) or disabled (false). | [optional] 
 **NicLinkNicDeleteOnVmDeletion** | Pointer to **bool** | Whether the NICs are deleted when the VMs they are attached to are deleted. | [optional] 
 **NicLinkNicDeviceNumbers** | Pointer to **[]int32** | The device numbers the NICs are attached to. | [optional] 
-**NicLinkNicLinkNicDates** | Pointer to **[]string** | The dates and time when the NICs were attached to the VMs. | [optional] 
+**NicLinkNicLinkNicDates** | Pointer to **[]string** | The dates and times (UTC) when the NICs were attached to the VMs. | [optional] 
 **NicLinkNicLinkNicIds** | Pointer to **[]string** | The IDs of the NIC attachments. | [optional] 
 **NicLinkNicStates** | Pointer to **[]string** | The states of the attachments. | [optional] 
 **NicLinkNicVmAccountIds** | Pointer to **[]string** | The account IDs of the owners of the VMs the NICs are attached to. | [optional] 

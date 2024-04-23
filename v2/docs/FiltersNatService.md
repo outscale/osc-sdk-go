@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientTokens** | Pointer to **[]string** | The idempotency tokens provided when creating the NAT services. | [optional] 
 **NatServiceIds** | Pointer to **[]string** | The IDs of the NAT services. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets in which the NAT services are. | [optional] 
 **States** | Pointer to **[]string** | The states of the NAT services (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewFiltersNatServiceWithDefaults instantiates a new FiltersNatService object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientTokens
+
+`func (o *FiltersNatService) GetClientTokens() []string`
+
+GetClientTokens returns the ClientTokens field if non-nil, zero value otherwise.
+
+### GetClientTokensOk
+
+`func (o *FiltersNatService) GetClientTokensOk() (*[]string, bool)`
+
+GetClientTokensOk returns a tuple with the ClientTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientTokens
+
+`func (o *FiltersNatService) SetClientTokens(v []string)`
+
+SetClientTokens sets ClientTokens field to given value.
+
+### HasClientTokens
+
+`func (o *FiltersNatService) HasClientTokens() bool`
+
+HasClientTokens returns a boolean if a field has been set.
 
 ### GetNatServiceIds
 

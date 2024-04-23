@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**VmTemplateId** | **string** | The ID of the VM template you want to delete.  | 
+**VmTemplateId** | **string** | The ID of the VM template you want to delete. | 
 
 ## Methods
 

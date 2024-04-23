@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Nets** | Pointer to [**[]Net**](Net.md) | Information about the described Nets. | [optional] 
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetNets sets Nets field to given value.
 `func (o *ReadNetsResponse) HasNets() bool`
 
 HasNets returns a boolean if a field has been set.
+
+### GetNextPageToken
+
+`func (o *ReadNetsResponse) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *ReadNetsResponse) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *ReadNetsResponse) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *ReadNetsResponse) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
 
 ### GetResponseContext
 

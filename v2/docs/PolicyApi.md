@@ -8,13 +8,20 @@ Method | HTTP request | Description
 [**CreatePolicyVersion**](PolicyApi.md#CreatePolicyVersion) | **Post** /CreatePolicyVersion | 
 [**DeletePolicy**](PolicyApi.md#DeletePolicy) | **Post** /DeletePolicy | 
 [**DeletePolicyVersion**](PolicyApi.md#DeletePolicyVersion) | **Post** /DeletePolicyVersion | 
+[**DeleteUserGroupPolicy**](PolicyApi.md#DeleteUserGroupPolicy) | **Post** /DeleteUserGroupPolicy | 
+[**LinkManagedPolicyToUserGroup**](PolicyApi.md#LinkManagedPolicyToUserGroup) | **Post** /LinkManagedPolicyToUserGroup | 
 [**LinkPolicy**](PolicyApi.md#LinkPolicy) | **Post** /LinkPolicy | 
+[**PutUserGroupPolicy**](PolicyApi.md#PutUserGroupPolicy) | **Post** /PutUserGroupPolicy | 
 [**ReadLinkedPolicies**](PolicyApi.md#ReadLinkedPolicies) | **Post** /ReadLinkedPolicies | 
+[**ReadManagedPoliciesLinkedToUserGroup**](PolicyApi.md#ReadManagedPoliciesLinkedToUserGroup) | **Post** /ReadManagedPoliciesLinkedToUserGroup | 
 [**ReadPolicies**](PolicyApi.md#ReadPolicies) | **Post** /ReadPolicies | 
 [**ReadPolicy**](PolicyApi.md#ReadPolicy) | **Post** /ReadPolicy | 
 [**ReadPolicyVersion**](PolicyApi.md#ReadPolicyVersion) | **Post** /ReadPolicyVersion | 
 [**ReadPolicyVersions**](PolicyApi.md#ReadPolicyVersions) | **Post** /ReadPolicyVersions | 
+[**ReadUserGroupPolicies**](PolicyApi.md#ReadUserGroupPolicies) | **Post** /ReadUserGroupPolicies | 
+[**ReadUserGroupPolicy**](PolicyApi.md#ReadUserGroupPolicy) | **Post** /ReadUserGroupPolicy | 
 [**SetDefaultPolicyVersion**](PolicyApi.md#SetDefaultPolicyVersion) | **Post** /SetDefaultPolicyVersion | 
+[**UnlinkManagedPolicyFromUserGroup**](PolicyApi.md#UnlinkManagedPolicyFromUserGroup) | **Post** /UnlinkManagedPolicyFromUserGroup | 
 [**UnlinkPolicy**](PolicyApi.md#UnlinkPolicy) | **Post** /UnlinkPolicy | 
 
 
@@ -275,6 +282,134 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteUserGroupPolicy
+
+> DeleteUserGroupPolicyResponse DeleteUserGroupPolicy(ctx).DeleteUserGroupPolicyRequest(deleteUserGroupPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteUserGroupPolicyRequest := *openapiclient.NewDeleteUserGroupPolicyRequest("PolicyName_example", "UserGroupName_example") // DeleteUserGroupPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.DeleteUserGroupPolicy(context.Background()).DeleteUserGroupPolicyRequest(deleteUserGroupPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.DeleteUserGroupPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteUserGroupPolicy`: DeleteUserGroupPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.DeleteUserGroupPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserGroupPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteUserGroupPolicyRequest** | [**DeleteUserGroupPolicyRequest**](DeleteUserGroupPolicyRequest.md) |  | 
+
+### Return type
+
+[**DeleteUserGroupPolicyResponse**](DeleteUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## LinkManagedPolicyToUserGroup
+
+> LinkManagedPolicyToUserGroupResponse LinkManagedPolicyToUserGroup(ctx).LinkManagedPolicyToUserGroupRequest(linkManagedPolicyToUserGroupRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    linkManagedPolicyToUserGroupRequest := *openapiclient.NewLinkManagedPolicyToUserGroupRequest("PolicyOrn_example", "UserGroupName_example") // LinkManagedPolicyToUserGroupRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.LinkManagedPolicyToUserGroup(context.Background()).LinkManagedPolicyToUserGroupRequest(linkManagedPolicyToUserGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.LinkManagedPolicyToUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkManagedPolicyToUserGroup`: LinkManagedPolicyToUserGroupResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.LinkManagedPolicyToUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLinkManagedPolicyToUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **linkManagedPolicyToUserGroupRequest** | [**LinkManagedPolicyToUserGroupRequest**](LinkManagedPolicyToUserGroupRequest.md) |  | 
+
+### Return type
+
+[**LinkManagedPolicyToUserGroupResponse**](LinkManagedPolicyToUserGroupResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## LinkPolicy
 
 > LinkPolicyResponse LinkPolicy(ctx).LinkPolicyRequest(linkPolicyRequest).Execute()
@@ -339,6 +474,70 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PutUserGroupPolicy
+
+> PutUserGroupPolicyResponse PutUserGroupPolicy(ctx).PutUserGroupPolicyRequest(putUserGroupPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    putUserGroupPolicyRequest := *openapiclient.NewPutUserGroupPolicyRequest("PolicyDocument_example", "PolicyName_example", "UserGroupName_example") // PutUserGroupPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.PutUserGroupPolicy(context.Background()).PutUserGroupPolicyRequest(putUserGroupPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.PutUserGroupPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutUserGroupPolicy`: PutUserGroupPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.PutUserGroupPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutUserGroupPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **putUserGroupPolicyRequest** | [**PutUserGroupPolicyRequest**](PutUserGroupPolicyRequest.md) |  | 
+
+### Return type
+
+[**PutUserGroupPolicyResponse**](PutUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ReadLinkedPolicies
 
 > ReadLinkedPoliciesResponse ReadLinkedPolicies(ctx).ReadLinkedPoliciesRequest(readLinkedPoliciesRequest).Execute()
@@ -358,7 +557,7 @@ import (
 )
 
 func main() {
-    readLinkedPoliciesRequest := *openapiclient.NewReadLinkedPoliciesRequest() // ReadLinkedPoliciesRequest |  (optional)
+    readLinkedPoliciesRequest := *openapiclient.NewReadLinkedPoliciesRequest("UserName_example") // ReadLinkedPoliciesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -388,6 +587,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadLinkedPoliciesResponse**](ReadLinkedPoliciesResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadManagedPoliciesLinkedToUserGroup
+
+> ReadManagedPoliciesLinkedToUserGroupResponse ReadManagedPoliciesLinkedToUserGroup(ctx).ReadManagedPoliciesLinkedToUserGroupRequest(readManagedPoliciesLinkedToUserGroupRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readManagedPoliciesLinkedToUserGroupRequest := *openapiclient.NewReadManagedPoliciesLinkedToUserGroupRequest("UserGroupName_example") // ReadManagedPoliciesLinkedToUserGroupRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadManagedPoliciesLinkedToUserGroup(context.Background()).ReadManagedPoliciesLinkedToUserGroupRequest(readManagedPoliciesLinkedToUserGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadManagedPoliciesLinkedToUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadManagedPoliciesLinkedToUserGroup`: ReadManagedPoliciesLinkedToUserGroupResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadManagedPoliciesLinkedToUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadManagedPoliciesLinkedToUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readManagedPoliciesLinkedToUserGroupRequest** | [**ReadManagedPoliciesLinkedToUserGroupRequest**](ReadManagedPoliciesLinkedToUserGroupRequest.md) |  | 
+
+### Return type
+
+[**ReadManagedPoliciesLinkedToUserGroupResponse**](ReadManagedPoliciesLinkedToUserGroupResponse.md)
 
 ### Authorization
 
@@ -659,6 +922,134 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ReadUserGroupPolicies
+
+> ReadUserGroupPoliciesResponse ReadUserGroupPolicies(ctx).ReadUserGroupPoliciesRequest(readUserGroupPoliciesRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readUserGroupPoliciesRequest := *openapiclient.NewReadUserGroupPoliciesRequest("UserGroupName_example") // ReadUserGroupPoliciesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadUserGroupPolicies(context.Background()).ReadUserGroupPoliciesRequest(readUserGroupPoliciesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadUserGroupPolicies``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadUserGroupPolicies`: ReadUserGroupPoliciesResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadUserGroupPolicies`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadUserGroupPoliciesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readUserGroupPoliciesRequest** | [**ReadUserGroupPoliciesRequest**](ReadUserGroupPoliciesRequest.md) |  | 
+
+### Return type
+
+[**ReadUserGroupPoliciesResponse**](ReadUserGroupPoliciesResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadUserGroupPolicy
+
+> ReadUserGroupPolicyResponse ReadUserGroupPolicy(ctx).ReadUserGroupPolicyRequest(readUserGroupPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readUserGroupPolicyRequest := *openapiclient.NewReadUserGroupPolicyRequest("PolicyName_example", "UserGroupName_example") // ReadUserGroupPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadUserGroupPolicy(context.Background()).ReadUserGroupPolicyRequest(readUserGroupPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadUserGroupPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadUserGroupPolicy`: ReadUserGroupPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadUserGroupPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadUserGroupPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readUserGroupPolicyRequest** | [**ReadUserGroupPolicyRequest**](ReadUserGroupPolicyRequest.md) |  | 
+
+### Return type
+
+[**ReadUserGroupPolicyResponse**](ReadUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## SetDefaultPolicyVersion
 
 > SetDefaultPolicyVersionResponse SetDefaultPolicyVersion(ctx).SetDefaultPolicyVersionRequest(setDefaultPolicyVersionRequest).Execute()
@@ -708,6 +1099,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SetDefaultPolicyVersionResponse**](SetDefaultPolicyVersionResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnlinkManagedPolicyFromUserGroup
+
+> UnlinkManagedPolicyFromUserGroupResponse UnlinkManagedPolicyFromUserGroup(ctx).UnlinkManagedPolicyFromUserGroupRequest(unlinkManagedPolicyFromUserGroupRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unlinkManagedPolicyFromUserGroupRequest := *openapiclient.NewUnlinkManagedPolicyFromUserGroupRequest("PolicyOrn_example", "UserGroupName_example") // UnlinkManagedPolicyFromUserGroupRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.UnlinkManagedPolicyFromUserGroup(context.Background()).UnlinkManagedPolicyFromUserGroupRequest(unlinkManagedPolicyFromUserGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.UnlinkManagedPolicyFromUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UnlinkManagedPolicyFromUserGroup`: UnlinkManagedPolicyFromUserGroupResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.UnlinkManagedPolicyFromUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnlinkManagedPolicyFromUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **unlinkManagedPolicyFromUserGroupRequest** | [**UnlinkManagedPolicyFromUserGroupRequest**](UnlinkManagedPolicyFromUserGroupRequest.md) |  | 
+
+### Return type
+
+[**UnlinkManagedPolicyFromUserGroupResponse**](UnlinkManagedPolicyFromUserGroupResponse.md)
 
 ### Authorization
 

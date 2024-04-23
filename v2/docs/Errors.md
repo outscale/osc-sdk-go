@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **string** | The code of the error. | [optional] 
-**Details** | Pointer to **string** | The details of the error. | [optional] 
-**Type** | Pointer to **string** | The type of the error. | [optional] 
+**Code** | Pointer to **string** | The code of the error (for example, &#x60;4078&#x60;). You can search for this returned code in the [errors page](api-errors.html) to find more details about the error. | [optional] 
+**Details** | Pointer to **string** | A description providing more details about the error. | [optional] 
+**Type** | Pointer to **string** | The type of the error (for example, &#x60;InvalidParameterValue&#x60;). | [optional] 
 
 ## Methods
 

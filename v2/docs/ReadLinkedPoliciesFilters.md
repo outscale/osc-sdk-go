@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PathPrefix** | Pointer to **string** | The path prefix of the policies, set to a slash (&#x60;/&#x60;) by default. | [optional] 
+**PathPrefix** | Pointer to **string** | The path prefix of the policies. If not specified, it is set to a slash (&#x60;/&#x60;). | [optional] 
 
 ## Methods
 

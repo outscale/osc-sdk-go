@@ -352,7 +352,7 @@ import (
 )
 
 func main() {
-    updateImageRequest := *openapiclient.NewUpdateImageRequest("ImageId_example", *openapiclient.NewPermissionsOnResourceCreation()) // UpdateImageRequest |  (optional)
+    updateImageRequest := *openapiclient.NewUpdateImageRequest("ImageId_example") // UpdateImageRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
