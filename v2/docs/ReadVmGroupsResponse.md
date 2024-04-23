@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
-**VmGroups** | Pointer to [**[]VmGroup**](VmGroup.md) | Information about one or more VM groups. | [optional] 
+**VmGroups** | Pointer to [**[]VmGroup**](VmGroup.md) |  | [optional] 
 
 ## Methods
 

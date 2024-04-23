@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccepterNet** | Pointer to [**AccepterNet**](AccepterNet.md) |  | [optional] 
-**ExpirationDate** | Pointer to **NullableTime** | The date and time at which the Net peerings expire. | [optional] 
+**ExpirationDate** | Pointer to **NullableTime** | The date and time (UTC) at which the Net peerings expire. | [optional] 
 **NetPeeringId** | Pointer to **string** | The ID of the Net peering. | [optional] 
 **SourceNet** | Pointer to [**SourceNet**](SourceNet.md) |  | [optional] 
 **State** | Pointer to [**NetPeeringState**](NetPeeringState.md) |  | [optional] 

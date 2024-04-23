@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FirstItem** | Pointer to **int32** | The item starting the list of policies requested. | [optional] 
 **PolicyOrn** | **string** | The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | 
-**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, 100). | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, &#x60;100&#x60;). | [optional] 
 
 ## Methods
 

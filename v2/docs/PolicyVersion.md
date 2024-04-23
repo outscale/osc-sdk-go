@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Body** | Pointer to **string** | The policy document as a json string. | [optional] 
-**CreationDate** | Pointer to **time.Time** | The date and time of creation of the version. | [optional] 
+**Body** | Pointer to **string** | The policy document, corresponding to a JSON string that contains the policy. For more information, see [EIM Reference Information](https://docs.outscale.com/en/userguide/EIM-Reference-Information.html). | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the version. | [optional] 
 **DefaultVersion** | Pointer to **bool** | If true, the version is the default one. | [optional] 
 **VersionId** | Pointer to **string** | The ID of the version. | [optional] 
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BackendVmIds** | **[]string** | One or more IDs of back-end VMs. | 
+**BackendVmIds** | **[]string** | One or more IDs of backend VMs. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **LoadBalancerName** | **string** | The name of the load balancer. | 
 

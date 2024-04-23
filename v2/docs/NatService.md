@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientToken** | Pointer to **string** | The idempotency token provided when creating the NAT service. | [optional] 
 **NatServiceId** | Pointer to **string** | The ID of the NAT service. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net in which the NAT service is. | [optional] 
 **PublicIps** | Pointer to [**[]PublicIpLight**](PublicIpLight.md) | Information about the public IP or IPs associated with the NAT service. | [optional] 
@@ -29,6 +30,31 @@ will change when the set of required properties is changed
 NewNatServiceWithDefaults instantiates a new NatService object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientToken
+
+`func (o *NatService) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *NatService) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *NatService) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *NatService) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetNatServiceId
 

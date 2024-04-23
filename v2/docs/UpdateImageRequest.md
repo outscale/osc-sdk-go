@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Description** | Pointer to **string** | A new description for the image. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ImageId** | **string** | The ID of the OMI you want to modify. | 
-**PermissionsToLaunch** | [**PermissionsOnResourceCreation**](PermissionsOnResourceCreation.md) |  | 
+**PermissionsToLaunch** | Pointer to [**PermissionsOnResourceCreation**](PermissionsOnResourceCreation.md) |  | [optional] 
 
 ## Methods
 
 ### NewUpdateImageRequest
 
-`func NewUpdateImageRequest(imageId string, permissionsToLaunch PermissionsOnResourceCreation, ) *UpdateImageRequest`
+`func NewUpdateImageRequest(imageId string, ) *UpdateImageRequest`
 
 NewUpdateImageRequest instantiates a new UpdateImageRequest object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,31 @@ will change when the set of required properties is changed
 NewUpdateImageRequestWithDefaults instantiates a new UpdateImageRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDescription
+
+`func (o *UpdateImageRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *UpdateImageRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *UpdateImageRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *UpdateImageRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetDryRun
 
@@ -91,6 +117,11 @@ and a boolean to check if the value has been set.
 
 SetPermissionsToLaunch sets PermissionsToLaunch field to given value.
 
+### HasPermissionsToLaunch
+
+`func (o *UpdateImageRequest) HasPermissionsToLaunch() bool`
+
+HasPermissionsToLaunch returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

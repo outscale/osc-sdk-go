@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** | The account ID of the owner of the OMI. | [optional] 
 **Architecture** | Pointer to **string** | The architecture of the OMI. | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time of creation of the OMI, in ISO 8601 date-time format. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the OMI. | [optional] 
 **Description** | Pointer to **string** | The description of the OMI. | [optional] 
 **FileLocation** | Pointer to **string** | The location from which the OMI files were created. | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI. | [optional] 

@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessLog** | Pointer to [**AccessLog**](AccessLog.md) |  | [optional] 
 **ApplicationStickyCookiePolicies** | Pointer to [**[]ApplicationStickyCookiePolicy**](ApplicationStickyCookiePolicy.md) | The stickiness policies defined for the load balancer. | [optional] 
-**BackendIps** | Pointer to **[]string** | One or more public IPs of back-end VMs. | [optional] 
-**BackendVmIds** | Pointer to **[]string** | One or more IDs of back-end VMs for the load balancer. | [optional] 
+**BackendIps** | Pointer to **[]string** | One or more public IPs of backend VMs. | [optional] 
+**BackendVmIds** | Pointer to **[]string** | One or more IDs of backend VMs for the load balancer. | [optional] 
 **DnsName** | Pointer to **string** | The DNS name of the load balancer. | [optional] 
 **HealthCheck** | Pointer to [**HealthCheck**](HealthCheck.md) |  | [optional] 
 **Listeners** | Pointer to [**[]Listener**](Listener.md) | The listeners for the load balancer. | [optional] 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiAccessRuleId** | Pointer to **string** |  The ID of the API access rule. | [optional] 
+**ApiAccessRuleId** | Pointer to **string** | The ID of the API access rule. | [optional] 
 **CaIds** | Pointer to **[]string** | One or more IDs of Client Certificate Authorities (CAs) used for the API access rule. | [optional] 
 **Cns** | Pointer to **[]string** | One or more Client Certificate Common Names (CNs). | [optional] 
 **Description** | Pointer to **string** | The description of the API access rule. | [optional] 

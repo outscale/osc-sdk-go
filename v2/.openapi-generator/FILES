@@ -45,6 +45,7 @@ api_subregion.go
 api_tag.go
 api_task.go
 api_user.go
+api_user_group.go
 api_virtual_gateway.go
 api_vm.go
 api_vm_group.go
@@ -62,6 +63,8 @@ docs/AccessKeySecretKey.md
 docs/AccessLog.md
 docs/Account.md
 docs/AccountApi.md
+docs/AddUserToUserGroupRequest.md
+docs/AddUserToUserGroupResponse.md
 docs/ApiAccessPolicy.md
 docs/ApiAccessPolicyApi.md
 docs/ApiAccessRule.md
@@ -161,6 +164,8 @@ docs/CreateSubnetRequest.md
 docs/CreateSubnetResponse.md
 docs/CreateTagsRequest.md
 docs/CreateTagsResponse.md
+docs/CreateUserGroupRequest.md
+docs/CreateUserGroupResponse.md
 docs/CreateUserRequest.md
 docs/CreateUserResponse.md
 docs/CreateVirtualGatewayRequest.md
@@ -247,6 +252,10 @@ docs/DeleteSubnetRequest.md
 docs/DeleteSubnetResponse.md
 docs/DeleteTagsRequest.md
 docs/DeleteTagsResponse.md
+docs/DeleteUserGroupPolicyRequest.md
+docs/DeleteUserGroupPolicyResponse.md
+docs/DeleteUserGroupRequest.md
+docs/DeleteUserGroupResponse.md
 docs/DeleteUserRequest.md
 docs/DeleteUserResponse.md
 docs/DeleteVirtualGatewayRequest.md
@@ -307,6 +316,7 @@ docs/FiltersSnapshot.md
 docs/FiltersSubnet.md
 docs/FiltersSubregion.md
 docs/FiltersTag.md
+docs/FiltersUserGroup.md
 docs/FiltersVirtualGateway.md
 docs/FiltersVm.md
 docs/FiltersVmGroup.md
@@ -322,6 +332,7 @@ docs/HealthCheck.md
 docs/Image.md
 docs/ImageApi.md
 docs/ImageExportTask.md
+docs/InlinePolicy.md
 docs/InternetService.md
 docs/InternetServiceApi.md
 docs/Keypair.md
@@ -333,6 +344,8 @@ docs/LinkInternetServiceRequest.md
 docs/LinkInternetServiceResponse.md
 docs/LinkLoadBalancerBackendMachinesRequest.md
 docs/LinkLoadBalancerBackendMachinesResponse.md
+docs/LinkManagedPolicyToUserGroupRequest.md
+docs/LinkManagedPolicyToUserGroupResponse.md
 docs/LinkNic.md
 docs/LinkNicLight.md
 docs/LinkNicRequest.md
@@ -392,7 +405,6 @@ docs/PermissionsOnResource.md
 docs/PermissionsOnResourceCreation.md
 docs/Phase1Options.md
 docs/Phase2Options.md
-docs/Phase2OptionsToUpdate.md
 docs/Placement.md
 docs/Policy.md
 docs/PolicyApi.md
@@ -406,6 +418,8 @@ docs/PublicCatalogApi.md
 docs/PublicIp.md
 docs/PublicIpApi.md
 docs/PublicIpLight.md
+docs/PutUserGroupPolicyRequest.md
+docs/PutUserGroupPolicyResponse.md
 docs/Quota.md
 docs/QuotaApi.md
 docs/QuotaTypes.md
@@ -464,6 +478,8 @@ docs/ReadLoadBalancersRequest.md
 docs/ReadLoadBalancersResponse.md
 docs/ReadLocationsRequest.md
 docs/ReadLocationsResponse.md
+docs/ReadManagedPoliciesLinkedToUserGroupRequest.md
+docs/ReadManagedPoliciesLinkedToUserGroupResponse.md
 docs/ReadNatServicesRequest.md
 docs/ReadNatServicesResponse.md
 docs/ReadNetAccessPointServicesRequest.md
@@ -515,6 +531,16 @@ docs/ReadSubregionsRequest.md
 docs/ReadSubregionsResponse.md
 docs/ReadTagsRequest.md
 docs/ReadTagsResponse.md
+docs/ReadUserGroupPoliciesRequest.md
+docs/ReadUserGroupPoliciesResponse.md
+docs/ReadUserGroupPolicyRequest.md
+docs/ReadUserGroupPolicyResponse.md
+docs/ReadUserGroupRequest.md
+docs/ReadUserGroupResponse.md
+docs/ReadUserGroupsPerUserRequest.md
+docs/ReadUserGroupsPerUserResponse.md
+docs/ReadUserGroupsRequest.md
+docs/ReadUserGroupsResponse.md
 docs/ReadUsersRequest.md
 docs/ReadUsersResponse.md
 docs/ReadVirtualGatewaysRequest.md
@@ -543,6 +569,8 @@ docs/RegisterVmsInLoadBalancerRequest.md
 docs/RegisterVmsInLoadBalancerResponse.md
 docs/RejectNetPeeringRequest.md
 docs/RejectNetPeeringResponse.md
+docs/RemoveUserFromUserGroupRequest.md
+docs/RemoveUserFromUserGroupResponse.md
 docs/ResourceLoadBalancerTag.md
 docs/ResourceTag.md
 docs/ResponseContext.md
@@ -590,6 +618,8 @@ docs/UnlinkInternetServiceRequest.md
 docs/UnlinkInternetServiceResponse.md
 docs/UnlinkLoadBalancerBackendMachinesRequest.md
 docs/UnlinkLoadBalancerBackendMachinesResponse.md
+docs/UnlinkManagedPolicyFromUserGroupRequest.md
+docs/UnlinkManagedPolicyFromUserGroupResponse.md
 docs/UnlinkNicRequest.md
 docs/UnlinkNicResponse.md
 docs/UnlinkPolicyRequest.md
@@ -644,6 +674,8 @@ docs/UpdateSnapshotRequest.md
 docs/UpdateSnapshotResponse.md
 docs/UpdateSubnetRequest.md
 docs/UpdateSubnetResponse.md
+docs/UpdateUserGroupRequest.md
+docs/UpdateUserGroupResponse.md
 docs/UpdateUserRequest.md
 docs/UpdateUserResponse.md
 docs/UpdateVmGroupRequest.md
@@ -658,6 +690,8 @@ docs/UpdateVpnConnectionRequest.md
 docs/UpdateVpnConnectionResponse.md
 docs/User.md
 docs/UserApi.md
+docs/UserGroup.md
+docs/UserGroupApi.md
 docs/VgwTelemetry.md
 docs/VirtualGateway.md
 docs/VirtualGatewayApi.md
@@ -675,7 +709,6 @@ docs/VolumeApi.md
 docs/VpnConnection.md
 docs/VpnConnectionApi.md
 docs/VpnOptions.md
-docs/VpnOptionsToUpdate.md
 docs/With.md
 git_push.sh
 go.mod
@@ -687,6 +720,8 @@ model_access_key.go
 model_access_key_secret_key.go
 model_access_log.go
 model_account.go
+model_add_user_to_user_group_request.go
+model_add_user_to_user_group_response.go
 model_api_access_policy.go
 model_api_access_rule.go
 model_application_sticky_cookie_policy.go
@@ -780,6 +815,8 @@ model_create_subnet_request.go
 model_create_subnet_response.go
 model_create_tags_request.go
 model_create_tags_response.go
+model_create_user_group_request.go
+model_create_user_group_response.go
 model_create_user_request.go
 model_create_user_response.go
 model_create_virtual_gateway_request.go
@@ -865,6 +902,10 @@ model_delete_subnet_request.go
 model_delete_subnet_response.go
 model_delete_tags_request.go
 model_delete_tags_response.go
+model_delete_user_group_policy_request.go
+model_delete_user_group_policy_response.go
+model_delete_user_group_request.go
+model_delete_user_group_response.go
 model_delete_user_request.go
 model_delete_user_response.go
 model_delete_virtual_gateway_request.go
@@ -922,6 +963,7 @@ model_filters_snapshot.go
 model_filters_subnet.go
 model_filters_subregion.go
 model_filters_tag.go
+model_filters_user_group.go
 model_filters_virtual_gateway.go
 model_filters_vm.go
 model_filters_vm_group.go
@@ -935,6 +977,7 @@ model_flexible_gpu_catalog.go
 model_health_check.go
 model_image.go
 model_image_export_task.go
+model_inline_policy.go
 model_internet_service.go
 model_keypair.go
 model_keypair_created.go
@@ -944,6 +987,8 @@ model_link_internet_service_request.go
 model_link_internet_service_response.go
 model_link_load_balancer_backend_machines_request.go
 model_link_load_balancer_backend_machines_response.go
+model_link_managed_policy_to_user_group_request.go
+model_link_managed_policy_to_user_group_response.go
 model_link_nic.go
 model_link_nic_light.go
 model_link_nic_request.go
@@ -994,7 +1039,6 @@ model_permissions_on_resource.go
 model_permissions_on_resource_creation.go
 model_phase1_options.go
 model_phase2_options.go
-model_phase2_options_to_update.go
 model_placement.go
 model_policy.go
 model_policy_version.go
@@ -1004,6 +1048,8 @@ model_private_ip_light_for_vm.go
 model_product_type.go
 model_public_ip.go
 model_public_ip_light.go
+model_put_user_group_policy_request.go
+model_put_user_group_policy_response.go
 model_quota.go
 model_quota_types.go
 model_read_access_keys_request.go
@@ -1061,6 +1107,8 @@ model_read_load_balancers_request.go
 model_read_load_balancers_response.go
 model_read_locations_request.go
 model_read_locations_response.go
+model_read_managed_policies_linked_to_user_group_request.go
+model_read_managed_policies_linked_to_user_group_response.go
 model_read_nat_services_request.go
 model_read_nat_services_response.go
 model_read_net_access_point_services_request.go
@@ -1112,6 +1160,16 @@ model_read_subregions_request.go
 model_read_subregions_response.go
 model_read_tags_request.go
 model_read_tags_response.go
+model_read_user_group_policies_request.go
+model_read_user_group_policies_response.go
+model_read_user_group_policy_request.go
+model_read_user_group_policy_response.go
+model_read_user_group_request.go
+model_read_user_group_response.go
+model_read_user_groups_per_user_request.go
+model_read_user_groups_per_user_response.go
+model_read_user_groups_request.go
+model_read_user_groups_response.go
 model_read_users_request.go
 model_read_users_response.go
 model_read_virtual_gateways_request.go
@@ -1139,6 +1197,8 @@ model_register_vms_in_load_balancer_request.go
 model_register_vms_in_load_balancer_response.go
 model_reject_net_peering_request.go
 model_reject_net_peering_response.go
+model_remove_user_from_user_group_request.go
+model_remove_user_from_user_group_response.go
 model_resource_load_balancer_tag.go
 model_resource_tag.go
 model_response_context.go
@@ -1176,6 +1236,8 @@ model_unlink_internet_service_request.go
 model_unlink_internet_service_response.go
 model_unlink_load_balancer_backend_machines_request.go
 model_unlink_load_balancer_backend_machines_response.go
+model_unlink_managed_policy_from_user_group_request.go
+model_unlink_managed_policy_from_user_group_response.go
 model_unlink_nic_request.go
 model_unlink_nic_response.go
 model_unlink_policy_request.go
@@ -1230,6 +1292,8 @@ model_update_snapshot_request.go
 model_update_snapshot_response.go
 model_update_subnet_request.go
 model_update_subnet_response.go
+model_update_user_group_request.go
+model_update_user_group_response.go
 model_update_user_request.go
 model_update_user_response.go
 model_update_vm_group_request.go
@@ -1243,6 +1307,7 @@ model_update_volume_response.go
 model_update_vpn_connection_request.go
 model_update_vpn_connection_response.go
 model_user.go
+model_user_group.go
 model_vgw_telemetry.go
 model_virtual_gateway.go
 model_vm.go
@@ -1254,7 +1319,6 @@ model_vm_type.go
 model_volume.go
 model_vpn_connection.go
 model_vpn_options.go
-model_vpn_options_to_update.go
 model_with.go
 response.go
 utils.go

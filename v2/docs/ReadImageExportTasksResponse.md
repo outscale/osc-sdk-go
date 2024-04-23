@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ImageExportTasks** | Pointer to [**[]ImageExportTask**](ImageExportTask.md) | Information about one or more image export tasks. | [optional] 
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetImageExportTasks sets ImageExportTasks field to given value.
 `func (o *ReadImageExportTasksResponse) HasImageExportTasks() bool`
 
 HasImageExportTasks returns a boolean if a field has been set.
+
+### GetNextPageToken
+
+`func (o *ReadImageExportTasksResponse) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *ReadImageExportTasksResponse) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *ReadImageExportTasksResponse) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *ReadImageExportTasksResponse) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
 
 ### GetResponseContext
 

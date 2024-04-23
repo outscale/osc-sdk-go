@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DirectLinks** | Pointer to [**[]DirectLink**](DirectLink.md) | Information about one or more DirectLinks. | [optional] 
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetDirectLinks sets DirectLinks field to given value.
 `func (o *ReadDirectLinksResponse) HasDirectLinks() bool`
 
 HasDirectLinks returns a boolean if a field has been set.
+
+### GetNextPageToken
+
+`func (o *ReadDirectLinksResponse) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *ReadDirectLinksResponse) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *ReadDirectLinksResponse) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *ReadDirectLinksResponse) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
 
 ### GetResponseContext
 

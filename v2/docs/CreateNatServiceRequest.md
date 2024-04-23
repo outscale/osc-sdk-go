@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **PublicIpId** | **string** | The allocation ID of the public IP to associate with the NAT service.&lt;br /&gt; If the public IP is already associated with another resource, you must first disassociate it. | 
 **SubnetId** | **string** | The ID of the Subnet in which you want to create the NAT service. | 
@@ -26,6 +27,31 @@ will change when the set of required properties is changed
 NewCreateNatServiceRequestWithDefaults instantiates a new CreateNatServiceRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientToken
+
+`func (o *CreateNatServiceRequest) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *CreateNatServiceRequest) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *CreateNatServiceRequest) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *CreateNatServiceRequest) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetDryRun
 

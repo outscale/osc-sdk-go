@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **LinkNicVmIds** | Pointer to **[]string** | The IDs of the VMs the NICs are attached to. | [optional] 
 **LinkPublicIpAccountIds** | Pointer to **[]string** | The account IDs of the owners of the public IPs associated with the NICs. | [optional] 
 **LinkPublicIpLinkPublicIpIds** | Pointer to **[]string** | The association IDs returned when the public IPs were associated with the NICs. | [optional] 
+**LinkPublicIpPublicDnsNames** | Pointer to **[]string** | The public DNS names associated with the public IPs. | [optional] 
 **LinkPublicIpPublicIpIds** | Pointer to **[]string** | The allocation IDs returned when the public IPs were allocated to their accounts. | [optional] 
 **LinkPublicIpPublicIps** | Pointer to **[]string** | The public IPs associated with the NICs. | [optional] 
 **MacAddresses** | Pointer to **[]string** | The Media Access Control (MAC) addresses of the NICs. | [optional] 
@@ -301,6 +302,31 @@ SetLinkPublicIpLinkPublicIpIds sets LinkPublicIpLinkPublicIpIds field to given v
 `func (o *FiltersNic) HasLinkPublicIpLinkPublicIpIds() bool`
 
 HasLinkPublicIpLinkPublicIpIds returns a boolean if a field has been set.
+
+### GetLinkPublicIpPublicDnsNames
+
+`func (o *FiltersNic) GetLinkPublicIpPublicDnsNames() []string`
+
+GetLinkPublicIpPublicDnsNames returns the LinkPublicIpPublicDnsNames field if non-nil, zero value otherwise.
+
+### GetLinkPublicIpPublicDnsNamesOk
+
+`func (o *FiltersNic) GetLinkPublicIpPublicDnsNamesOk() (*[]string, bool)`
+
+GetLinkPublicIpPublicDnsNamesOk returns a tuple with the LinkPublicIpPublicDnsNames field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkPublicIpPublicDnsNames
+
+`func (o *FiltersNic) SetLinkPublicIpPublicDnsNames(v []string)`
+
+SetLinkPublicIpPublicDnsNames sets LinkPublicIpPublicDnsNames field to given value.
+
+### HasLinkPublicIpPublicDnsNames
+
+`func (o *FiltersNic) HasLinkPublicIpPublicDnsNames() bool`
+
+HasLinkPublicIpPublicDnsNames returns a boolean if a field has been set.
 
 ### GetLinkPublicIpPublicIpIds
 

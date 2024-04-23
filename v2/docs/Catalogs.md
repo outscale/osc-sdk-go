@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Entries** | Pointer to [**[]CatalogEntry**](CatalogEntry.md) | One or more catalog entries. | [optional] 
-**FromDate** | Pointer to **time.Time** | The beginning of the time period, in ISO 8601 date-time format. | [optional] 
+**FromDate** | Pointer to **time.Time** | The beginning of the time period (UTC). | [optional] 
 **State** | Pointer to **string** | The state of the catalog (&#x60;CURRENT&#x60; \\| &#x60;OBSOLETE&#x60;). | [optional] 
-**ToDate** | Pointer to **time.Time** | The end of the time period, in ISO 8601 date-time format. | [optional] 
+**ToDate** | Pointer to **time.Time** | The end of the time period (UTC). | [optional] 
 
 ## Methods
 

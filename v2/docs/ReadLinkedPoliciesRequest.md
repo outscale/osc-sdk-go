@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**ReadLinkedPoliciesFilters**](ReadLinkedPoliciesFilters.md) |  | [optional] 
 **FirstItem** | Pointer to **int32** | The item starting the list of policies requested. | [optional] 
-**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, 100). | [optional] 
-**UserName** | Pointer to **string** | The name of the user the policies are linked to. | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, &#x60;100&#x60;). | [optional] 
+**UserName** | **string** | The name of the user the policies are linked to. | 
 
 ## Methods
 
 ### NewReadLinkedPoliciesRequest
 
-`func NewReadLinkedPoliciesRequest() *ReadLinkedPoliciesRequest`
+`func NewReadLinkedPoliciesRequest(userName string, ) *ReadLinkedPoliciesRequest`
 
 NewReadLinkedPoliciesRequest instantiates a new ReadLinkedPoliciesRequest object
 This constructor will assign default values to properties that have it defined,
@@ -148,11 +148,6 @@ and a boolean to check if the value has been set.
 
 SetUserName sets UserName field to given value.
 
-### HasUserName
-
-`func (o *ReadLinkedPoliciesRequest) HasUserName() bool`
-
-HasUserName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**ReadPoliciesFilters**](ReadPoliciesFilters.md) |  | [optional] 
 **FirstItem** | Pointer to **int32** | The item starting the list of policies requested. | [optional] 
-**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, 100). | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, &#x60;100&#x60;). | [optional] 
 
 ## Methods
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **OnlyLinked** | Pointer to **bool** | If set to true, lists only the policies attached to a user. | [optional] 
-**PathPrefix** | Pointer to **string** | The path prefix you can use to filter the results, set to a slash (&#x60;/&#x60;) by default. | [optional] 
+**PathPrefix** | Pointer to **string** | The path prefix you can use to filter the results. If not specified, it is set to a slash (&#x60;/&#x60;). | [optional] 
 **Scope** | Pointer to **string** | The scope to filter policies (&#x60;OWS&#x60; \\| &#x60;LOCAL&#x60;). | [optional] 
 
 ## Methods

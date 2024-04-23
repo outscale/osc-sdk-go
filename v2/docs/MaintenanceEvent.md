@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** | The code of the event (&#x60;system-reboot&#x60; \\| &#x60;system-maintenance&#x60;). | [optional] 
 **Description** | Pointer to **string** | The description of the event. | [optional] 
-**NotAfter** | Pointer to **string** | The latest scheduled end time for the event. | [optional] 
-**NotBefore** | Pointer to **string** | The earliest scheduled start time for the event. | [optional] 
+**NotAfter** | Pointer to **string** | The latest scheduled end date and time (UTC) for the event. | [optional] 
+**NotBefore** | Pointer to **string** | The earliest scheduled start date and time (UTC) for the event. | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BackendVmHealth** | Pointer to [**[]BackendVmHealth**](BackendVmHealth.md) | Information about the health of one or more back-end VMs. | [optional] 
+**BackendVmHealth** | Pointer to [**[]BackendVmHealth**](BackendVmHealth.md) | Information about the health of one or more backend VMs. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
