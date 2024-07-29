@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionType** | **string** | The type of VPN connection supported by the virtual gateway (only &#x60;ipsec.1&#x60; is supported). | 
+**ConnectionType** | **string** | The type of VPN connection supported by the virtual gateway (always &#x60;ipsec.1&#x60;). | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 
 ## Methods

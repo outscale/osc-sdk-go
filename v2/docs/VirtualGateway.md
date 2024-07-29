@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionType** | Pointer to **string** | The type of VPN connection supported by the virtual gateway (only &#x60;ipsec.1&#x60; is supported). | [optional] 
+**ConnectionType** | Pointer to **string** | The type of VPN connection supported by the virtual gateway (always &#x60;ipsec.1&#x60;). | [optional] 
 **NetToVirtualGatewayLinks** | Pointer to [**[]NetToVirtualGatewayLink**](NetToVirtualGatewayLink.md) | The Net to which the virtual gateway is attached. | [optional] 
 **State** | Pointer to **string** | The state of the virtual gateway (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the virtual gateway. | [optional] 

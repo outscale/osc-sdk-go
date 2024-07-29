@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAlias** | Pointer to **string** | The account alias of the owner of the snapshot. | [optional] 
 **AccountId** | Pointer to **string** | The account ID of the owner of the snapshot. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the snapshot. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) at which the snapshot was created. | [optional] 
 **Description** | Pointer to **string** | The description of the snapshot. | [optional] 
 **PermissionsToCreateVolume** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot, as a percentage. | [optional] 

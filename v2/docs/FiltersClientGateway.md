@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BgpAsns** | Pointer to **[]int32** | The Border Gateway Protocol (BGP) Autonomous System Numbers (ASNs) of the connections. | [optional] 
 **ClientGatewayIds** | Pointer to **[]string** | The IDs of the client gateways. | [optional] 
-**ConnectionTypes** | Pointer to **[]string** | The types of communication tunnels used by the client gateways (only &#x60;ipsec.1&#x60; is supported). | [optional] 
+**ConnectionTypes** | Pointer to **[]string** | The types of communication tunnels used by the client gateways (always &#x60;ipsec.1&#x60;). | [optional] 
 **PublicIps** | Pointer to **[]string** | The public IPv4 addresses of the client gateways. | [optional] 
 **States** | Pointer to **[]string** | The states of the client gateways (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the client gateways. | [optional] 

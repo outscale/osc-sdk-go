@@ -230,7 +230,7 @@ import (
 )
 
 func main() {
-    deleteLoadBalancerTagsRequest := *openapiclient.NewDeleteLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"}, []openapiclient.ResourceLoadBalancerTag{*openapiclient.NewResourceLoadBalancerTag()}) // DeleteLoadBalancerTagsRequest |  (optional)
+    deleteLoadBalancerTagsRequest := *openapiclient.NewDeleteLoadBalancerTagsRequest([]string{"LoadBalancerNames_example"}, []openapiclient.ResourceLoadBalancerTag{*openapiclient.NewResourceLoadBalancerTag("Key_example")}) // DeleteLoadBalancerTagsRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

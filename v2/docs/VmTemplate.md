@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CpuCores** | **int32** | The number of vCores. | 
 **CpuGeneration** | **string** | The processor generation. | 
 **CpuPerformance** | Pointer to **string** | The performance of the VMs. | [optional] 
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the VM template. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the VM was created. | [optional] 
 **Description** | Pointer to **string** | The description of the VM template. | [optional] 
 **ImageId** | **string** | The ID of the OMI. | 
 **KeypairName** | Pointer to **string** | The name of the keypair. | [optional] 

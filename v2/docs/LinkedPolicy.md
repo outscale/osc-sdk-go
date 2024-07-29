@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the linked policy. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the linked policy was created. | [optional] 
 **LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) at which the linked policy was last modified. | [optional] 
 **Orn** | Pointer to **string** | The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | [optional] 
 **PolicyId** | Pointer to **string** | The ID of the policy. | [optional] 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BgpAsns** | Pointer to **[]int32** | The Border Gateway Protocol (BGP) Autonomous System Numbers (ASNs) of the connections. | [optional] 
 **ClientGatewayIds** | Pointer to **[]string** | The IDs of the client gateways. | [optional] 
-**ConnectionTypes** | Pointer to **[]string** | The types of the VPN connections (only &#x60;ipsec.1&#x60; is supported). | [optional] 
+**ConnectionTypes** | Pointer to **[]string** | The types of the VPN connections (always &#x60;ipsec.1&#x60;). | [optional] 
 **RouteDestinationIpRanges** | Pointer to **[]string** | The destination IP ranges. | [optional] 
 **States** | Pointer to **[]string** | The states of the VPN connections (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **StaticRoutesOnly** | Pointer to **bool** | If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute). | [optional] 

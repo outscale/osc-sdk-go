@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the policy. | [optional] 
+**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the policy was created. | [optional] 
 **Description** | Pointer to **string** | A friendly name for the policy (between 0 and 1000 characters). | [optional] 
 **IsLinkable** | Pointer to **bool** | Indicates whether the policy can be linked to a group or an EIM user. | [optional] 
 **LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) at which the policy was last modified. | [optional] 
