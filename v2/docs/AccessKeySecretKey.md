@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessKeyId** | Pointer to **string** | The ID of the access key. | [optional] 
-**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the access key. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) at which the access key was created. | [optional] 
 **ExpirationDate** | Pointer to **string** | The date and time (UTC) at which the access key expires. | [optional] 
-**LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the access key. | [optional] 
-**SecretKey** | Pointer to **string** | The access key that enables you to send requests. | [optional] 
+**LastModificationDate** | Pointer to **string** | The date and time (UTC) at which the access key was last modified. | [optional] 
+**SecretKey** | Pointer to **string** | The secret key that enables you to send requests. | [optional] 
 **State** | Pointer to **string** | The state of the access key (&#x60;ACTIVE&#x60; if the key is valid for API calls, or &#x60;INACTIVE&#x60; if not). | [optional] 
 
 ## Methods

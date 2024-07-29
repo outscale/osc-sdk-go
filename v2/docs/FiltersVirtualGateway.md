@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionTypes** | Pointer to **[]string** | The types of the virtual gateways (only &#x60;ipsec.1&#x60; is supported). | [optional] 
+**ConnectionTypes** | Pointer to **[]string** | The types of the virtual gateways (always &#x60;ipsec.1&#x60;). | [optional] 
 **LinkNetIds** | Pointer to **[]string** | The IDs of the Nets the virtual gateways are attached to. | [optional] 
 **LinkStates** | Pointer to **[]string** | The current states of the attachments between the virtual gateways and the Nets (&#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60; \\| &#x60;detached&#x60;). | [optional] 
 **States** | Pointer to **[]string** | The states of the virtual gateways (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
