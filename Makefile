@@ -22,10 +22,10 @@ openapi-generator-help:
 	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) config-help -g go
 
 .PHONY: osc-generate
-osc-generate: osc-api/outscale.yaml
+osc-generate: osc-api/outscale-go.yaml
 	rm -rf .sdk || true
 	mkdir .sdk
-	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) generate -i /sdk/osc-api/outscale.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
+	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) generate -i /sdk/osc-api/outscale-go.yaml -g go -c /sdk/gen.yml -o /sdk/.sdk --additional-properties=packageVersion=$(SDK_VERSION)
 	# Set default user agent including sdk version using reproductible sed.
 	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) sed -i "s/ *UserAgent:.*/                UserAgent:     \"osc-sdk-go\/$(SDK_VERSION)\",/" /sdk/.sdk/configuration.go
 	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
@@ -34,7 +34,7 @@ osc-generate: osc-api/outscale.yaml
 	git checkout v2/go.mod v2/go.sum
 	cd v2 && git apply ../.osc-patches/*
 
-osc-api/outscale.yaml:
+osc-api/outscale-go.yaml:
 	git clone https://github.com/outscale/osc-api-deploy.git osc-api && cd osc-api && git checkout -b $(API_VERSION) $(API_VERSION)
 
 .PHONY: clean
