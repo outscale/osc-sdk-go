@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Entries** | Pointer to [**[]CatalogEntry**](CatalogEntry.md) | One or more catalog entries. | [optional] 
-**FromDate** | Pointer to **time.Time** | The beginning of the time period (UTC). | [optional] 
+**FromDate** | Pointer to **string** | The beginning of the time period (UTC). | [optional] 
 **State** | Pointer to **string** | The state of the catalog (&#x60;CURRENT&#x60; \\| &#x60;OBSOLETE&#x60;). | [optional] 
-**ToDate** | Pointer to **time.Time** | The end of the time period (UTC). | [optional] 
+**ToDate** | Pointer to **string** | The end of the time period (UTC). | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasEntries returns a boolean if a field has been set.
 
 ### GetFromDate
 
-`func (o *Catalogs) GetFromDate() time.Time`
+`func (o *Catalogs) GetFromDate() string`
 
 GetFromDate returns the FromDate field if non-nil, zero value otherwise.
 
 ### GetFromDateOk
 
-`func (o *Catalogs) GetFromDateOk() (*time.Time, bool)`
+`func (o *Catalogs) GetFromDateOk() (*string, bool)`
 
 GetFromDateOk returns a tuple with the FromDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFromDate
 
-`func (o *Catalogs) SetFromDate(v time.Time)`
+`func (o *Catalogs) SetFromDate(v string)`
 
 SetFromDate sets FromDate field to given value.
 
@@ -105,20 +105,20 @@ HasState returns a boolean if a field has been set.
 
 ### GetToDate
 
-`func (o *Catalogs) GetToDate() time.Time`
+`func (o *Catalogs) GetToDate() string`
 
 GetToDate returns the ToDate field if non-nil, zero value otherwise.
 
 ### GetToDateOk
 
-`func (o *Catalogs) GetToDateOk() (*time.Time, bool)`
+`func (o *Catalogs) GetToDateOk() (*string, bool)`
 
 GetToDateOk returns a tuple with the ToDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetToDate
 
-`func (o *Catalogs) SetToDate(v time.Time)`
+`func (o *Catalogs) SetToDate(v string)`
 
 SetToDate sets ToDate field to given value.
 

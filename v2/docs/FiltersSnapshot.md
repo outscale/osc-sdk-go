@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountAliases** | Pointer to **[]string** | The account aliases of the owners of the snapshots. | [optional] 
 **AccountIds** | Pointer to **[]string** | The account IDs of the owners of the snapshots. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the snapshots. | [optional] 
-**FromCreationDate** | Pointer to **time.Time** | The beginning of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | [optional] 
+**FromCreationDate** | Pointer to **string** | The beginning of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | [optional] 
 **PermissionsToCreateVolumeAccountIds** | Pointer to **[]string** | The account IDs which have permissions to create volumes. | [optional] 
 **PermissionsToCreateVolumeGlobalPermission** | Pointer to **bool** | If true, lists all public volumes. If false, lists all private volumes. | [optional] 
 **Progresses** | Pointer to **[]int32** | The progresses of the snapshots, as a percentage. | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the snapshots. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the snapshots. | [optional] 
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the snapshots, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
-**ToCreationDate** | Pointer to **time.Time** | The end of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
+**ToCreationDate** | Pointer to **string** | The end of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **VolumeIds** | Pointer to **[]string** | The IDs of the volumes used to create the snapshots. | [optional] 
 **VolumeSizes** | Pointer to **[]int32** | The sizes of the volumes used to create the snapshots, in gibibytes (GiB). | [optional] 
 
@@ -116,20 +116,20 @@ HasDescriptions returns a boolean if a field has been set.
 
 ### GetFromCreationDate
 
-`func (o *FiltersSnapshot) GetFromCreationDate() time.Time`
+`func (o *FiltersSnapshot) GetFromCreationDate() string`
 
 GetFromCreationDate returns the FromCreationDate field if non-nil, zero value otherwise.
 
 ### GetFromCreationDateOk
 
-`func (o *FiltersSnapshot) GetFromCreationDateOk() (*time.Time, bool)`
+`func (o *FiltersSnapshot) GetFromCreationDateOk() (*string, bool)`
 
 GetFromCreationDateOk returns a tuple with the FromCreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFromCreationDate
 
-`func (o *FiltersSnapshot) SetFromCreationDate(v time.Time)`
+`func (o *FiltersSnapshot) SetFromCreationDate(v string)`
 
 SetFromCreationDate sets FromCreationDate field to given value.
 
@@ -341,20 +341,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetToCreationDate
 
-`func (o *FiltersSnapshot) GetToCreationDate() time.Time`
+`func (o *FiltersSnapshot) GetToCreationDate() string`
 
 GetToCreationDate returns the ToCreationDate field if non-nil, zero value otherwise.
 
 ### GetToCreationDateOk
 
-`func (o *FiltersSnapshot) GetToCreationDateOk() (*time.Time, bool)`
+`func (o *FiltersSnapshot) GetToCreationDateOk() (*string, bool)`
 
 GetToCreationDateOk returns a tuple with the ToCreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetToCreationDate
 
-`func (o *FiltersSnapshot) SetToCreationDate(v time.Time)`
+`func (o *FiltersSnapshot) SetToCreationDate(v string)`
 
 SetToCreationDate sets ToCreationDate field to given value.
 

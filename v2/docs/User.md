@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the EIM user. | [optional] 
-**LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) of the last modification of the EIM user. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the EIM user. | [optional] 
+**LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the EIM user. | [optional] 
 **Path** | Pointer to **string** | The path to the EIM user. | [optional] 
 **UserId** | Pointer to **string** | The ID of the EIM user. | [optional] 
 **UserName** | Pointer to **string** | The name of the EIM user. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDate
 
-`func (o *User) GetCreationDate() time.Time`
+`func (o *User) GetCreationDate() string`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *User) GetCreationDateOk() (*time.Time, bool)`
+`func (o *User) GetCreationDateOk() (*string, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *User) SetCreationDate(v time.Time)`
+`func (o *User) SetCreationDate(v string)`
 
 SetCreationDate sets CreationDate field to given value.
 
@@ -56,20 +56,20 @@ HasCreationDate returns a boolean if a field has been set.
 
 ### GetLastModificationDate
 
-`func (o *User) GetLastModificationDate() time.Time`
+`func (o *User) GetLastModificationDate() string`
 
 GetLastModificationDate returns the LastModificationDate field if non-nil, zero value otherwise.
 
 ### GetLastModificationDateOk
 
-`func (o *User) GetLastModificationDateOk() (*time.Time, bool)`
+`func (o *User) GetLastModificationDateOk() (*string, bool)`
 
 GetLastModificationDateOk returns a tuple with the LastModificationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModificationDate
 
-`func (o *User) SetLastModificationDate(v time.Time)`
+`func (o *User) SetLastModificationDate(v string)`
 
 SetLastModificationDate sets LastModificationDate field to given value.
 

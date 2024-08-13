@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CpuCores** | **int32** | The number of vCores. | 
 **CpuGeneration** | **string** | The processor generation. | 
 **CpuPerformance** | Pointer to **string** | The performance of the VMs. | [optional] 
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the VM was created. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) at which the VM was created. | [optional] 
 **Description** | Pointer to **string** | The description of the VM template. | [optional] 
 **ImageId** | **string** | The ID of the OMI. | 
 **KeypairName** | Pointer to **string** | The name of the keypair. | [optional] 
@@ -102,20 +102,20 @@ HasCpuPerformance returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *VmTemplate) GetCreationDate() time.Time`
+`func (o *VmTemplate) GetCreationDate() string`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *VmTemplate) GetCreationDateOk() (*time.Time, bool)`
+`func (o *VmTemplate) GetCreationDateOk() (*string, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *VmTemplate) SetCreationDate(v time.Time)`
+`func (o *VmTemplate) SetCreationDate(v string)`
 
 SetCreationDate sets CreationDate field to given value.
 

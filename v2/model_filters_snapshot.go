@@ -13,7 +13,6 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // FiltersSnapshot One or more filters.
@@ -25,7 +24,7 @@ type FiltersSnapshot struct {
 	// The descriptions of the snapshots.
 	Descriptions *[]string `json:"Descriptions,omitempty"`
 	// The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
-	FromCreationDate *time.Time `json:"FromCreationDate,omitempty"`
+	FromCreationDate *string `json:"FromCreationDate,omitempty"`
 	// The account IDs which have permissions to create volumes.
 	PermissionsToCreateVolumeAccountIds *[]string `json:"PermissionsToCreateVolumeAccountIds,omitempty"`
 	// If true, lists all public volumes. If false, lists all private volumes.
@@ -43,7 +42,7 @@ type FiltersSnapshot struct {
 	// The key/value combination of the tags associated with the snapshots, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
 	Tags *[]string `json:"Tags,omitempty"`
 	// The end of the time period, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
-	ToCreationDate *time.Time `json:"ToCreationDate,omitempty"`
+	ToCreationDate *string `json:"ToCreationDate,omitempty"`
 	// The IDs of the volumes used to create the snapshots.
 	VolumeIds *[]string `json:"VolumeIds,omitempty"`
 	// The sizes of the volumes used to create the snapshots, in gibibytes (GiB).
@@ -164,9 +163,9 @@ func (o *FiltersSnapshot) SetDescriptions(v []string) {
 }
 
 // GetFromCreationDate returns the FromCreationDate field value if set, zero value otherwise.
-func (o *FiltersSnapshot) GetFromCreationDate() time.Time {
+func (o *FiltersSnapshot) GetFromCreationDate() string {
 	if o == nil || o.FromCreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.FromCreationDate
@@ -174,7 +173,7 @@ func (o *FiltersSnapshot) GetFromCreationDate() time.Time {
 
 // GetFromCreationDateOk returns a tuple with the FromCreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FiltersSnapshot) GetFromCreationDateOk() (*time.Time, bool) {
+func (o *FiltersSnapshot) GetFromCreationDateOk() (*string, bool) {
 	if o == nil || o.FromCreationDate == nil {
 		return nil, false
 	}
@@ -190,8 +189,8 @@ func (o *FiltersSnapshot) HasFromCreationDate() bool {
 	return false
 }
 
-// SetFromCreationDate gets a reference to the given time.Time and assigns it to the FromCreationDate field.
-func (o *FiltersSnapshot) SetFromCreationDate(v time.Time) {
+// SetFromCreationDate gets a reference to the given string and assigns it to the FromCreationDate field.
+func (o *FiltersSnapshot) SetFromCreationDate(v string) {
 	o.FromCreationDate = &v
 }
 
@@ -452,9 +451,9 @@ func (o *FiltersSnapshot) SetTags(v []string) {
 }
 
 // GetToCreationDate returns the ToCreationDate field value if set, zero value otherwise.
-func (o *FiltersSnapshot) GetToCreationDate() time.Time {
+func (o *FiltersSnapshot) GetToCreationDate() string {
 	if o == nil || o.ToCreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.ToCreationDate
@@ -462,7 +461,7 @@ func (o *FiltersSnapshot) GetToCreationDate() time.Time {
 
 // GetToCreationDateOk returns a tuple with the ToCreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FiltersSnapshot) GetToCreationDateOk() (*time.Time, bool) {
+func (o *FiltersSnapshot) GetToCreationDateOk() (*string, bool) {
 	if o == nil || o.ToCreationDate == nil {
 		return nil, false
 	}
@@ -478,8 +477,8 @@ func (o *FiltersSnapshot) HasToCreationDate() bool {
 	return false
 }
 
-// SetToCreationDate gets a reference to the given time.Time and assigns it to the ToCreationDate field.
-func (o *FiltersSnapshot) SetToCreationDate(v time.Time) {
+// SetToCreationDate gets a reference to the given string and assigns it to the ToCreationDate field.
+func (o *FiltersSnapshot) SetToCreationDate(v string) {
 	o.ToCreationDate = &v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | Pointer to **string** | The policy document, corresponding to a JSON string that contains the policy. For more information, see [EIM Reference Information](https://docs.outscale.com/en/userguide/EIM-Reference-Information.html) and [EIM Policy Generator](https://docs.outscale.com/en/userguide/EIM-Policy-Generator.html). | [optional] 
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the version was created. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) at which the version was created. | [optional] 
 **DefaultVersion** | Pointer to **bool** | If true, the version is the default one. | [optional] 
 **VersionId** | Pointer to **string** | The ID of the version. | [optional] 
 
@@ -55,20 +55,20 @@ HasBody returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *PolicyVersion) GetCreationDate() time.Time`
+`func (o *PolicyVersion) GetCreationDate() string`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *PolicyVersion) GetCreationDateOk() (*time.Time, bool)`
+`func (o *PolicyVersion) GetCreationDateOk() (*string, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *PolicyVersion) SetCreationDate(v time.Time)`
+`func (o *PolicyVersion) SetCreationDate(v string)`
 
 SetCreationDate sets CreationDate field to given value.
 

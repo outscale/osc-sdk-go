@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccepterNet** | Pointer to [**AccepterNet**](AccepterNet.md) |  | [optional] 
-**ExpirationDate** | Pointer to **NullableTime** | The date and time (UTC) at which the Net peerings expire. | [optional] 
+**ExpirationDate** | Pointer to **NullableString** | The date and time (UTC) at which the Net peerings expire. | [optional] 
 **NetPeeringId** | Pointer to **string** | The ID of the Net peering. | [optional] 
 **SourceNet** | Pointer to [**SourceNet**](SourceNet.md) |  | [optional] 
 **State** | Pointer to [**NetPeeringState**](NetPeeringState.md) |  | [optional] 
@@ -57,20 +57,20 @@ HasAccepterNet returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
-`func (o *NetPeering) GetExpirationDate() time.Time`
+`func (o *NetPeering) GetExpirationDate() string`
 
 GetExpirationDate returns the ExpirationDate field if non-nil, zero value otherwise.
 
 ### GetExpirationDateOk
 
-`func (o *NetPeering) GetExpirationDateOk() (*time.Time, bool)`
+`func (o *NetPeering) GetExpirationDateOk() (*string, bool)`
 
 GetExpirationDateOk returns a tuple with the ExpirationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpirationDate
 
-`func (o *NetPeering) SetExpirationDate(v time.Time)`
+`func (o *NetPeering) SetExpirationDate(v string)`
 
 SetExpirationDate sets ExpirationDate field to given value.
 

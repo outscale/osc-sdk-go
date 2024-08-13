@@ -13,15 +13,14 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // UserGroup Information about the user group.
 type UserGroup struct {
 	// The date and time (UTC) of creation of the user group.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *string `json:"CreationDate,omitempty"`
 	// The date and time (UTC) of the last modification of the user group.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *string `json:"LastModificationDate,omitempty"`
 	// The name of the user group.
 	Name *string `json:"Name,omitempty"`
 	// The Outscale Resource Name (ORN) of the user group. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
@@ -50,9 +49,9 @@ func NewUserGroupWithDefaults() *UserGroup {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *UserGroup) GetCreationDate() time.Time {
+func (o *UserGroup) GetCreationDate() string {
 	if o == nil || o.CreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CreationDate
@@ -60,7 +59,7 @@ func (o *UserGroup) GetCreationDate() time.Time {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroup) GetCreationDateOk() (*time.Time, bool) {
+func (o *UserGroup) GetCreationDateOk() (*string, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -76,15 +75,15 @@ func (o *UserGroup) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
-func (o *UserGroup) SetCreationDate(v time.Time) {
+// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
+func (o *UserGroup) SetCreationDate(v string) {
 	o.CreationDate = &v
 }
 
 // GetLastModificationDate returns the LastModificationDate field value if set, zero value otherwise.
-func (o *UserGroup) GetLastModificationDate() time.Time {
+func (o *UserGroup) GetLastModificationDate() string {
 	if o == nil || o.LastModificationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastModificationDate
@@ -92,7 +91,7 @@ func (o *UserGroup) GetLastModificationDate() time.Time {
 
 // GetLastModificationDateOk returns a tuple with the LastModificationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroup) GetLastModificationDateOk() (*time.Time, bool) {
+func (o *UserGroup) GetLastModificationDateOk() (*string, bool) {
 	if o == nil || o.LastModificationDate == nil {
 		return nil, false
 	}
@@ -108,8 +107,8 @@ func (o *UserGroup) HasLastModificationDate() bool {
 	return false
 }
 
-// SetLastModificationDate gets a reference to the given time.Time and assigns it to the LastModificationDate field.
-func (o *UserGroup) SetLastModificationDate(v time.Time) {
+// SetLastModificationDate gets a reference to the given string and assigns it to the LastModificationDate field.
+func (o *UserGroup) SetLastModificationDate(v string) {
 	o.LastModificationDate = &v
 }
 

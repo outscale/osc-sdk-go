@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) of creation of the user group. | [optional] 
-**LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) of the last modification of the user group. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the user group. | [optional] 
+**LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the user group. | [optional] 
 **Name** | Pointer to **string** | The name of the user group. | [optional] 
 **Orn** | Pointer to **string** | The Outscale Resource Name (ORN) of the user group. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | [optional] 
 **Path** | Pointer to **string** | The path to the user group. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDate
 
-`func (o *UserGroup) GetCreationDate() time.Time`
+`func (o *UserGroup) GetCreationDate() string`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *UserGroup) GetCreationDateOk() (*time.Time, bool)`
+`func (o *UserGroup) GetCreationDateOk() (*string, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *UserGroup) SetCreationDate(v time.Time)`
+`func (o *UserGroup) SetCreationDate(v string)`
 
 SetCreationDate sets CreationDate field to given value.
 
@@ -57,20 +57,20 @@ HasCreationDate returns a boolean if a field has been set.
 
 ### GetLastModificationDate
 
-`func (o *UserGroup) GetLastModificationDate() time.Time`
+`func (o *UserGroup) GetLastModificationDate() string`
 
 GetLastModificationDate returns the LastModificationDate field if non-nil, zero value otherwise.
 
 ### GetLastModificationDateOk
 
-`func (o *UserGroup) GetLastModificationDateOk() (*time.Time, bool)`
+`func (o *UserGroup) GetLastModificationDateOk() (*string, bool)`
 
 GetLastModificationDateOk returns a tuple with the LastModificationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModificationDate
 
-`func (o *UserGroup) SetLastModificationDate(v time.Time)`
+`func (o *UserGroup) SetLastModificationDate(v string)`
 
 SetLastModificationDate sets LastModificationDate field to given value.
 

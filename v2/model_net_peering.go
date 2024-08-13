@@ -13,14 +13,13 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // NetPeering Information about the Net peering.
 type NetPeering struct {
 	AccepterNet *AccepterNet `json:"AccepterNet,omitempty"`
 	// The date and time (UTC) at which the Net peerings expire.
-	ExpirationDate NullableTime `json:"ExpirationDate,omitempty"`
+	ExpirationDate NullableString `json:"ExpirationDate,omitempty"`
 	// The ID of the Net peering.
 	NetPeeringId *string          `json:"NetPeeringId,omitempty"`
 	SourceNet    *SourceNet       `json:"SourceNet,omitempty"`
@@ -79,9 +78,9 @@ func (o *NetPeering) SetAccepterNet(v AccepterNet) {
 }
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NetPeering) GetExpirationDate() time.Time {
+func (o *NetPeering) GetExpirationDate() string {
 	if o == nil || o.ExpirationDate.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.ExpirationDate.Get()
@@ -90,7 +89,7 @@ func (o *NetPeering) GetExpirationDate() time.Time {
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NetPeering) GetExpirationDateOk() (*time.Time, bool) {
+func (o *NetPeering) GetExpirationDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -106,8 +105,8 @@ func (o *NetPeering) HasExpirationDate() bool {
 	return false
 }
 
-// SetExpirationDate gets a reference to the given NullableTime and assigns it to the ExpirationDate field.
-func (o *NetPeering) SetExpirationDate(v time.Time) {
+// SetExpirationDate gets a reference to the given NullableString and assigns it to the ExpirationDate field.
+func (o *NetPeering) SetExpirationDate(v string) {
 	o.ExpirationDate.Set(&v)
 }
 
