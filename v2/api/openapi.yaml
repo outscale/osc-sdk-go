@@ -12281,7 +12281,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         NetPeering:
-          ExpirationDate: 2000-01-23T04:56:07.000+00:00
+          ExpirationDate: ExpirationDate
           SourceNet:
             IpRange: IpRange
             NetId: NetId
@@ -12896,8 +12896,8 @@ components:
       description: Information about the catalogs.
       example:
         State: CURRENT
-        FromDate: 2000-01-23T04:56:07.000+00:00
-        ToDate: 2000-01-23T04:56:07.000+00:00
+        FromDate: FromDate
+        ToDate: ToDate
         Entries:
         - Type: Type
           UnitPrice: 0.8008282
@@ -12923,7 +12923,6 @@ components:
           type: array
         FromDate:
           description: The beginning of the time period (UTC).
-          format: date-time
           type: string
         State:
           description: The state of the catalog (`CURRENT` \| `OBSOLETE`).
@@ -12933,7 +12932,6 @@ components:
           type: string
         ToDate:
           description: The end of the time period (UTC).
-          format: date-time
           type: string
       type: object
     CheckAuthenticationRequest:
@@ -14562,7 +14560,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         NetPeering:
-          ExpirationDate: 2000-01-23T04:56:07.000+00:00
+          ExpirationDate: ExpirationDate
           SourceNet:
             IpRange: IpRange
             NetId: NetId
@@ -14774,12 +14772,12 @@ components:
         Policy:
           Path: Path
           PolicyDefaultVersionId: PolicyDefaultVersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           ResourcesCount: 0
           Description: Description
           IsLinkable: true
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         ResponseContext:
@@ -14820,7 +14818,7 @@ components:
       example:
         PolicyVersion:
           VersionId: VersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           DefaultVersion: true
           Body: Body
         ResponseContext:
@@ -15685,9 +15683,9 @@ components:
           RequestId: RequestId
         UserGroup:
           Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
       properties:
@@ -15726,10 +15724,10 @@ components:
       example:
         User:
           Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -15948,7 +15946,7 @@ components:
       additionalProperties: false
       example:
         VmTemplate:
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           CpuGeneration: CpuGeneration
           CpuPerformance: medium
           Description: Description
@@ -20409,14 +20407,14 @@ components:
         VolumeIds:
         - VolumeIds
         - VolumeIds
-        ToCreationDate: 2000-01-23T04:56:07.000+00:00
+        ToCreationDate: ToCreationDate
         TagKeys:
         - TagKeys
         - TagKeys
         TagValues:
         - TagValues
         - TagValues
-        FromCreationDate: 2000-01-23T04:56:07.000+00:00
+        FromCreationDate: FromCreationDate
         States:
         - States
         - States
@@ -20452,7 +20450,6 @@ components:
         FromCreationDate:
           description: The beginning of the time period, in ISO 8601 date-time format
             (for example, `2020-06-14T00:00:00.000Z`).
-          format: date-time
           type: string
         PermissionsToCreateVolumeAccountIds:
           description: The account IDs which have permissions to create volumes.
@@ -20498,7 +20495,6 @@ components:
         ToCreationDate:
           description: The end of the time period, in ISO 8601 date-time format (for
             example, `2020-06-30T00:00:00.000Z`).
-          format: date-time
           type: string
         VolumeIds:
           description: The IDs of the volumes used to create the snapshots.
@@ -20766,8 +20762,8 @@ components:
       description: One or more filters.
       example:
         CreationDates:
-        - 2000-01-23
-        - 2000-01-23
+        - CreationDates
+        - CreationDates
         KeypairNames:
         - KeypairNames
         - KeypairNames
@@ -20988,7 +20984,6 @@ components:
         CreationDates:
           description: The dates when the VMs were launched.
           items:
-            format: date
             type: string
           type: array
         ImageIds:
@@ -22769,20 +22764,18 @@ components:
       additionalProperties: false
       description: Information about the linked policy.
       example:
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         PolicyName: PolicyName
-        LastModificationDate: 2000-01-23T04:56:07.000+00:00
+        LastModificationDate: LastModificationDate
         Orn: Orn
         PolicyId: PolicyId
       properties:
         CreationDate:
           description: The date and time (UTC) at which the linked policy was created.
-          format: date-time
           type: string
         LastModificationDate:
           description: The date and time (UTC) at which the linked policy was last
             modified.
-          format: date-time
           type: string
         Orn:
           description: The OUTSCALE Resource Name (ORN) of the policy. For more information,
@@ -23427,7 +23420,7 @@ components:
       additionalProperties: false
       description: Information about the Net peering.
       example:
-        ExpirationDate: 2000-01-23T04:56:07.000+00:00
+        ExpirationDate: ExpirationDate
         SourceNet:
           IpRange: IpRange
           NetId: NetId
@@ -23450,7 +23443,6 @@ components:
           $ref: '#/components/schemas/AccepterNet'
         ExpirationDate:
           description: The date and time (UTC) at which the Net peerings expire.
-          format: date-time
           nullable: true
           type: string
         NetPeeringId:
@@ -24024,18 +24016,17 @@ components:
       example:
         Path: Path
         PolicyDefaultVersionId: PolicyDefaultVersionId
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         ResourcesCount: 0
         Description: Description
         IsLinkable: true
         PolicyName: PolicyName
-        LastModificationDate: 2000-01-23T04:56:07.000+00:00
+        LastModificationDate: LastModificationDate
         Orn: Orn
         PolicyId: PolicyId
       properties:
         CreationDate:
           description: The date and time (UTC) at which the policy was created.
-          format: date-time
           type: string
         Description:
           description: A friendly name for the policy (between 0 and 1000 characters).
@@ -24046,7 +24037,6 @@ components:
           type: boolean
         LastModificationDate:
           description: The date and time (UTC) at which the policy was last modified.
-          format: date-time
           type: string
         Orn:
           description: The OUTSCALE Resource Name (ORN) of the policy. For more information,
@@ -24073,7 +24063,7 @@ components:
       description: Information about the policy version.
       example:
         VersionId: VersionId
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         DefaultVersion: true
         Body: Body
       properties:
@@ -24084,7 +24074,6 @@ components:
           type: string
         CreationDate:
           description: The date and time (UTC) at which the version was created.
-          format: date-time
           type: string
         DefaultVersion:
           description: If true, the version is the default one.
@@ -24797,8 +24786,8 @@ components:
           RequestId: RequestId
         Catalogs:
         - State: CURRENT
-          FromDate: 2000-01-23T04:56:07.000+00:00
-          ToDate: 2000-01-23T04:56:07.000+00:00
+          FromDate: FromDate
+          ToDate: ToDate
           Entries:
           - Type: Type
             UnitPrice: 0.8008282
@@ -24817,8 +24806,8 @@ components:
             Operation: Operation
             SubregionName: SubregionName
         - State: CURRENT
-          FromDate: 2000-01-23T04:56:07.000+00:00
-          ToDate: 2000-01-23T04:56:07.000+00:00
+          FromDate: FromDate
+          ToDate: ToDate
           Entries:
           - Type: Type
             UnitPrice: 0.8008282
@@ -25952,14 +25941,14 @@ components:
         MaxResultsLimit: 0
         MaxResultsTruncated: true
         Policies:
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         ResponseContext:
@@ -26330,14 +26319,14 @@ components:
         MaxResultsLimit: 0
         MaxResultsTruncated: true
         Policies:
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         ResponseContext:
@@ -26683,7 +26672,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         NetPeerings:
-        - ExpirationDate: 2000-01-23T04:56:07.000+00:00
+        - ExpirationDate: ExpirationDate
           SourceNet:
             IpRange: IpRange
             NetId: NetId
@@ -26701,7 +26690,7 @@ components:
             Key: Key
           - Value: Value
             Key: Key
-        - ExpirationDate: 2000-01-23T04:56:07.000+00:00
+        - ExpirationDate: ExpirationDate
           SourceNet:
             IpRange: IpRange
             NetId: NetId
@@ -27088,22 +27077,22 @@ components:
         Policies:
         - Path: Path
           PolicyDefaultVersionId: PolicyDefaultVersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           ResourcesCount: 0
           Description: Description
           IsLinkable: true
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         - Path: Path
           PolicyDefaultVersionId: PolicyDefaultVersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           ResourcesCount: 0
           Description: Description
           IsLinkable: true
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         ResponseContext:
@@ -27148,12 +27137,12 @@ components:
         Policy:
           Path: Path
           PolicyDefaultVersionId: PolicyDefaultVersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           ResourcesCount: 0
           Description: Description
           IsLinkable: true
           PolicyName: PolicyName
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           PolicyId: PolicyId
         ResponseContext:
@@ -27187,7 +27176,7 @@ components:
       example:
         PolicyVersion:
           VersionId: VersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           DefaultVersion: true
           Body: Body
         ResponseContext:
@@ -27228,11 +27217,11 @@ components:
           RequestId: RequestId
         PolicyVersions:
         - VersionId: VersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           DefaultVersion: true
           Body: Body
         - VersionId: VersionId
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           DefaultVersion: true
           Body: Body
         HasMoreItems: true
@@ -28224,14 +28213,14 @@ components:
           VolumeIds:
           - VolumeIds
           - VolumeIds
-          ToCreationDate: 2000-01-23T04:56:07.000+00:00
+          ToCreationDate: ToCreationDate
           TagKeys:
           - TagKeys
           - TagKeys
           TagValues:
           - TagValues
           - TagValues
-          FromCreationDate: 2000-01-23T04:56:07.000+00:00
+          FromCreationDate: FromCreationDate
           States:
           - States
           - States
@@ -28681,20 +28670,20 @@ components:
           RequestId: RequestId
         Users:
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         UserGroup:
           Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
       properties:
@@ -28735,15 +28724,15 @@ components:
           RequestId: RequestId
         UserGroups:
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
       properties:
@@ -28791,15 +28780,15 @@ components:
         HasMoreItems: true
         UserGroups:
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
       properties:
@@ -28839,15 +28828,15 @@ components:
           RequestId: RequestId
         Users:
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
       properties:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
@@ -29104,7 +29093,7 @@ components:
         ResponseContext:
           RequestId: RequestId
         VmTemplates:
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           CpuGeneration: CpuGeneration
           CpuPerformance: medium
           Description: Description
@@ -29119,7 +29108,7 @@ components:
           - Value: Value
             Key: Key
           Ram: 6
-        - CreationDate: 2000-01-23T04:56:07.000+00:00
+        - CreationDate: CreationDate
           CpuGeneration: CpuGeneration
           CpuPerformance: medium
           Description: Description
@@ -29285,8 +29274,8 @@ components:
       example:
         Filters:
           CreationDates:
-          - 2000-01-23
-          - 2000-01-23
+          - CreationDates
+          - CreationDates
           KeypairNames:
           - KeypairNames
           - KeypairNames
@@ -32893,20 +32882,20 @@ components:
           RequestId: RequestId
         Users:
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         - Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         UserGroup:
           Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserGroupId: UserGroupId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
           Orn: Orn
           Name: Name
       properties:
@@ -32949,10 +32938,10 @@ components:
       example:
         User:
           Path: Path
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           UserName: UserName
           UserId: UserId
-          LastModificationDate: 2000-01-23T04:56:07.000+00:00
+          LastModificationDate: LastModificationDate
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -33306,7 +33295,7 @@ components:
       additionalProperties: false
       example:
         VmTemplate:
-          CreationDate: 2000-01-23T04:56:07.000+00:00
+          CreationDate: CreationDate
           CpuGeneration: CpuGeneration
           CpuPerformance: medium
           Description: Description
@@ -33537,19 +33526,17 @@ components:
       description: Information about the EIM user.
       example:
         Path: Path
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         UserName: UserName
         UserId: UserId
-        LastModificationDate: 2000-01-23T04:56:07.000+00:00
+        LastModificationDate: LastModificationDate
       properties:
         CreationDate:
           description: The date and time (UTC) of creation of the EIM user.
-          format: date-time
           type: string
         LastModificationDate:
           description: The date and time (UTC) of the last modification of the EIM
             user.
-          format: date-time
           type: string
         Path:
           description: The path to the EIM user.
@@ -33566,20 +33553,18 @@ components:
       description: Information about the user group.
       example:
         Path: Path
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         UserGroupId: UserGroupId
-        LastModificationDate: 2000-01-23T04:56:07.000+00:00
+        LastModificationDate: LastModificationDate
         Orn: Orn
         Name: Name
       properties:
         CreationDate:
           description: The date and time (UTC) of creation of the user group.
-          format: date-time
           type: string
         LastModificationDate:
           description: The date and time (UTC) of the last modification of the user
             group.
-          format: date-time
           type: string
         Name:
           description: The name of the user group.
@@ -34067,7 +34052,7 @@ components:
       additionalProperties: false
       description: Information about the VM template.
       example:
-        CreationDate: 2000-01-23T04:56:07.000+00:00
+        CreationDate: CreationDate
         CpuGeneration: CpuGeneration
         CpuPerformance: medium
         Description: Description
@@ -34098,7 +34083,6 @@ components:
           type: string
         CreationDate:
           description: The date and time (UTC) at which the VM was created.
-          format: date-time
           type: string
         Description:
           description: The description of the VM template.

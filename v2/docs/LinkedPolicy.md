@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationDate** | Pointer to **time.Time** | The date and time (UTC) at which the linked policy was created. | [optional] 
-**LastModificationDate** | Pointer to **time.Time** | The date and time (UTC) at which the linked policy was last modified. | [optional] 
+**CreationDate** | Pointer to **string** | The date and time (UTC) at which the linked policy was created. | [optional] 
+**LastModificationDate** | Pointer to **string** | The date and time (UTC) at which the linked policy was last modified. | [optional] 
 **Orn** | Pointer to **string** | The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | [optional] 
 **PolicyId** | Pointer to **string** | The ID of the policy. | [optional] 
 **PolicyName** | Pointer to **string** | The name of the policy. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreationDate
 
-`func (o *LinkedPolicy) GetCreationDate() time.Time`
+`func (o *LinkedPolicy) GetCreationDate() string`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *LinkedPolicy) GetCreationDateOk() (*time.Time, bool)`
+`func (o *LinkedPolicy) GetCreationDateOk() (*string, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *LinkedPolicy) SetCreationDate(v time.Time)`
+`func (o *LinkedPolicy) SetCreationDate(v string)`
 
 SetCreationDate sets CreationDate field to given value.
 
@@ -56,20 +56,20 @@ HasCreationDate returns a boolean if a field has been set.
 
 ### GetLastModificationDate
 
-`func (o *LinkedPolicy) GetLastModificationDate() time.Time`
+`func (o *LinkedPolicy) GetLastModificationDate() string`
 
 GetLastModificationDate returns the LastModificationDate field if non-nil, zero value otherwise.
 
 ### GetLastModificationDateOk
 
-`func (o *LinkedPolicy) GetLastModificationDateOk() (*time.Time, bool)`
+`func (o *LinkedPolicy) GetLastModificationDateOk() (*string, bool)`
 
 GetLastModificationDateOk returns a tuple with the LastModificationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModificationDate
 
-`func (o *LinkedPolicy) SetLastModificationDate(v time.Time)`
+`func (o *LinkedPolicy) SetLastModificationDate(v string)`
 
 SetLastModificationDate sets LastModificationDate field to given value.
 

@@ -13,15 +13,14 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // User Information about the EIM user.
 type User struct {
 	// The date and time (UTC) of creation of the EIM user.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *string `json:"CreationDate,omitempty"`
 	// The date and time (UTC) of the last modification of the EIM user.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *string `json:"LastModificationDate,omitempty"`
 	// The path to the EIM user.
 	Path *string `json:"Path,omitempty"`
 	// The ID of the EIM user.
@@ -48,9 +47,9 @@ func NewUserWithDefaults() *User {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *User) GetCreationDate() time.Time {
+func (o *User) GetCreationDate() string {
 	if o == nil || o.CreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CreationDate
@@ -58,7 +57,7 @@ func (o *User) GetCreationDate() time.Time {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *User) GetCreationDateOk() (*time.Time, bool) {
+func (o *User) GetCreationDateOk() (*string, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -74,15 +73,15 @@ func (o *User) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
-func (o *User) SetCreationDate(v time.Time) {
+// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
+func (o *User) SetCreationDate(v string) {
 	o.CreationDate = &v
 }
 
 // GetLastModificationDate returns the LastModificationDate field value if set, zero value otherwise.
-func (o *User) GetLastModificationDate() time.Time {
+func (o *User) GetLastModificationDate() string {
 	if o == nil || o.LastModificationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastModificationDate
@@ -90,7 +89,7 @@ func (o *User) GetLastModificationDate() time.Time {
 
 // GetLastModificationDateOk returns a tuple with the LastModificationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *User) GetLastModificationDateOk() (*time.Time, bool) {
+func (o *User) GetLastModificationDateOk() (*string, bool) {
 	if o == nil || o.LastModificationDate == nil {
 		return nil, false
 	}
@@ -106,8 +105,8 @@ func (o *User) HasLastModificationDate() bool {
 	return false
 }
 
-// SetLastModificationDate gets a reference to the given time.Time and assigns it to the LastModificationDate field.
-func (o *User) SetLastModificationDate(v time.Time) {
+// SetLastModificationDate gets a reference to the given string and assigns it to the LastModificationDate field.
+func (o *User) SetLastModificationDate(v string) {
 	o.LastModificationDate = &v
 }
 

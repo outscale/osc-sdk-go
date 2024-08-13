@@ -13,7 +13,6 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // PolicyVersion Information about the policy version.
@@ -21,7 +20,7 @@ type PolicyVersion struct {
 	// The policy document, corresponding to a JSON string that contains the policy. For more information, see [EIM Reference Information](https://docs.outscale.com/en/userguide/EIM-Reference-Information.html) and [EIM Policy Generator](https://docs.outscale.com/en/userguide/EIM-Policy-Generator.html).
 	Body *string `json:"Body,omitempty"`
 	// The date and time (UTC) at which the version was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *string `json:"CreationDate,omitempty"`
 	// If true, the version is the default one.
 	DefaultVersion *bool `json:"DefaultVersion,omitempty"`
 	// The ID of the version.
@@ -78,9 +77,9 @@ func (o *PolicyVersion) SetBody(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *PolicyVersion) GetCreationDate() time.Time {
+func (o *PolicyVersion) GetCreationDate() string {
 	if o == nil || o.CreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CreationDate
@@ -88,7 +87,7 @@ func (o *PolicyVersion) GetCreationDate() time.Time {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyVersion) GetCreationDateOk() (*time.Time, bool) {
+func (o *PolicyVersion) GetCreationDateOk() (*string, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *PolicyVersion) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
-func (o *PolicyVersion) SetCreationDate(v time.Time) {
+// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
+func (o *PolicyVersion) SetCreationDate(v string) {
 	o.CreationDate = &v
 }
 

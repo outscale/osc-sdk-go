@@ -13,7 +13,6 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // VmTemplate Information about the VM template.
@@ -25,7 +24,7 @@ type VmTemplate struct {
 	// The performance of the VMs.
 	CpuPerformance *string `json:"CpuPerformance,omitempty"`
 	// The date and time (UTC) at which the VM was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *string `json:"CreationDate,omitempty"`
 	// The description of the VM template.
 	Description *string `json:"Description,omitempty"`
 	// The ID of the OMI.
@@ -146,9 +145,9 @@ func (o *VmTemplate) SetCpuPerformance(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *VmTemplate) GetCreationDate() time.Time {
+func (o *VmTemplate) GetCreationDate() string {
 	if o == nil || o.CreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CreationDate
@@ -156,7 +155,7 @@ func (o *VmTemplate) GetCreationDate() time.Time {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VmTemplate) GetCreationDateOk() (*time.Time, bool) {
+func (o *VmTemplate) GetCreationDateOk() (*string, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -172,8 +171,8 @@ func (o *VmTemplate) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
-func (o *VmTemplate) SetCreationDate(v time.Time) {
+// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
+func (o *VmTemplate) SetCreationDate(v string) {
 	o.CreationDate = &v
 }
 

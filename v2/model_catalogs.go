@@ -13,7 +13,6 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // Catalogs Information about the catalogs.
@@ -21,11 +20,11 @@ type Catalogs struct {
 	// One or more catalog entries.
 	Entries *[]CatalogEntry `json:"Entries,omitempty"`
 	// The beginning of the time period (UTC).
-	FromDate *time.Time `json:"FromDate,omitempty"`
+	FromDate *string `json:"FromDate,omitempty"`
 	// The state of the catalog (`CURRENT` \\| `OBSOLETE`).
 	State *string `json:"State,omitempty"`
 	// The end of the time period (UTC).
-	ToDate *time.Time `json:"ToDate,omitempty"`
+	ToDate *string `json:"ToDate,omitempty"`
 }
 
 // NewCatalogs instantiates a new Catalogs object
@@ -78,9 +77,9 @@ func (o *Catalogs) SetEntries(v []CatalogEntry) {
 }
 
 // GetFromDate returns the FromDate field value if set, zero value otherwise.
-func (o *Catalogs) GetFromDate() time.Time {
+func (o *Catalogs) GetFromDate() string {
 	if o == nil || o.FromDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.FromDate
@@ -88,7 +87,7 @@ func (o *Catalogs) GetFromDate() time.Time {
 
 // GetFromDateOk returns a tuple with the FromDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Catalogs) GetFromDateOk() (*time.Time, bool) {
+func (o *Catalogs) GetFromDateOk() (*string, bool) {
 	if o == nil || o.FromDate == nil {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *Catalogs) HasFromDate() bool {
 	return false
 }
 
-// SetFromDate gets a reference to the given time.Time and assigns it to the FromDate field.
-func (o *Catalogs) SetFromDate(v time.Time) {
+// SetFromDate gets a reference to the given string and assigns it to the FromDate field.
+func (o *Catalogs) SetFromDate(v string) {
 	o.FromDate = &v
 }
 
@@ -142,9 +141,9 @@ func (o *Catalogs) SetState(v string) {
 }
 
 // GetToDate returns the ToDate field value if set, zero value otherwise.
-func (o *Catalogs) GetToDate() time.Time {
+func (o *Catalogs) GetToDate() string {
 	if o == nil || o.ToDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.ToDate
@@ -152,7 +151,7 @@ func (o *Catalogs) GetToDate() time.Time {
 
 // GetToDateOk returns a tuple with the ToDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Catalogs) GetToDateOk() (*time.Time, bool) {
+func (o *Catalogs) GetToDateOk() (*string, bool) {
 	if o == nil || o.ToDate == nil {
 		return nil, false
 	}
@@ -168,8 +167,8 @@ func (o *Catalogs) HasToDate() bool {
 	return false
 }
 
-// SetToDate gets a reference to the given time.Time and assigns it to the ToDate field.
-func (o *Catalogs) SetToDate(v time.Time) {
+// SetToDate gets a reference to the given string and assigns it to the ToDate field.
+func (o *Catalogs) SetToDate(v string) {
 	o.ToDate = &v
 }
 

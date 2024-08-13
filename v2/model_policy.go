@@ -13,19 +13,18 @@ package osc
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // Policy Information about the policy.
 type Policy struct {
 	// The date and time (UTC) at which the policy was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *string `json:"CreationDate,omitempty"`
 	// A friendly name for the policy (between 0 and 1000 characters).
 	Description *string `json:"Description,omitempty"`
 	// Indicates whether the policy can be linked to a group or an EIM user.
 	IsLinkable *bool `json:"IsLinkable,omitempty"`
 	// The date and time (UTC) at which the policy was last modified.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *string `json:"LastModificationDate,omitempty"`
 	// The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
 	Orn *string `json:"Orn,omitempty"`
 	// The path to the policy.
@@ -58,9 +57,9 @@ func NewPolicyWithDefaults() *Policy {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *Policy) GetCreationDate() time.Time {
+func (o *Policy) GetCreationDate() string {
 	if o == nil || o.CreationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CreationDate
@@ -68,7 +67,7 @@ func (o *Policy) GetCreationDate() time.Time {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetCreationDateOk() (*time.Time, bool) {
+func (o *Policy) GetCreationDateOk() (*string, bool) {
 	if o == nil || o.CreationDate == nil {
 		return nil, false
 	}
@@ -84,8 +83,8 @@ func (o *Policy) HasCreationDate() bool {
 	return false
 }
 
-// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
-func (o *Policy) SetCreationDate(v time.Time) {
+// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
+func (o *Policy) SetCreationDate(v string) {
 	o.CreationDate = &v
 }
 
@@ -154,9 +153,9 @@ func (o *Policy) SetIsLinkable(v bool) {
 }
 
 // GetLastModificationDate returns the LastModificationDate field value if set, zero value otherwise.
-func (o *Policy) GetLastModificationDate() time.Time {
+func (o *Policy) GetLastModificationDate() string {
 	if o == nil || o.LastModificationDate == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastModificationDate
@@ -164,7 +163,7 @@ func (o *Policy) GetLastModificationDate() time.Time {
 
 // GetLastModificationDateOk returns a tuple with the LastModificationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetLastModificationDateOk() (*time.Time, bool) {
+func (o *Policy) GetLastModificationDateOk() (*string, bool) {
 	if o == nil || o.LastModificationDate == nil {
 		return nil, false
 	}
@@ -180,8 +179,8 @@ func (o *Policy) HasLastModificationDate() bool {
 	return false
 }
 
-// SetLastModificationDate gets a reference to the given time.Time and assigns it to the LastModificationDate field.
-func (o *Policy) SetLastModificationDate(v time.Time) {
+// SetLastModificationDate gets a reference to the given string and assigns it to the LastModificationDate field.
+func (o *Policy) SetLastModificationDate(v string) {
 	o.LastModificationDate = &v
 }
 
