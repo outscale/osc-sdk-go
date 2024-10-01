@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccepterNetId** | **string** | The ID of the Net you want to connect with. | 
+**AccepterOwnerId** | Pointer to **string** | The account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **SourceNetId** | **string** | The ID of the Net you send the peering request from. | 
 
@@ -46,6 +47,31 @@ and a boolean to check if the value has been set.
 
 SetAccepterNetId sets AccepterNetId field to given value.
 
+
+### GetAccepterOwnerId
+
+`func (o *CreateNetPeeringRequest) GetAccepterOwnerId() string`
+
+GetAccepterOwnerId returns the AccepterOwnerId field if non-nil, zero value otherwise.
+
+### GetAccepterOwnerIdOk
+
+`func (o *CreateNetPeeringRequest) GetAccepterOwnerIdOk() (*string, bool)`
+
+GetAccepterOwnerIdOk returns a tuple with the AccepterOwnerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccepterOwnerId
+
+`func (o *CreateNetPeeringRequest) SetAccepterOwnerId(v string)`
+
+SetAccepterOwnerId sets AccepterOwnerId field to given value.
+
+### HasAccepterOwnerId
+
+`func (o *CreateNetPeeringRequest) HasAccepterOwnerId() bool`
+
+HasAccepterOwnerId returns a boolean if a field has been set.
 
 ### GetDryRun
 

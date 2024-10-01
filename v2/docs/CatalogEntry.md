@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **SubregionName** | Pointer to **string** | The Subregion associated with the catalog entry. | [optional] 
 **Title** | Pointer to **string** | The description of the catalog entry. | [optional] 
 **Type** | Pointer to **string** | The type of resource associated with the catalog entry. | [optional] 
-**UnitPrice** | Pointer to **float32** | The unit price of the catalog entry, in the currency of the Region&#39;s catalog. | [optional] 
+**UnitPrice** | Pointer to **float32** | The unit price of the catalog entry in the currency of your account, in the ISO-4217 format (for example, &#x60;EUR&#x60;). | [optional] 
 
 ## Methods
 
