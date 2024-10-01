@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the EIM user. | [optional] 
 **LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the EIM user. | [optional] 
 **Path** | Pointer to **string** | The path to the EIM user. | [optional] 
+**UserEmail** | Pointer to **string** | The email address of the EIM user. | [optional] 
 **UserId** | Pointer to **string** | The ID of the EIM user. | [optional] 
 **UserName** | Pointer to **string** | The name of the EIM user. | [optional] 
 
@@ -103,6 +104,31 @@ SetPath sets Path field to given value.
 `func (o *User) HasPath() bool`
 
 HasPath returns a boolean if a field has been set.
+
+### GetUserEmail
+
+`func (o *User) GetUserEmail() string`
+
+GetUserEmail returns the UserEmail field if non-nil, zero value otherwise.
+
+### GetUserEmailOk
+
+`func (o *User) GetUserEmailOk() (*string, bool)`
+
+GetUserEmailOk returns a tuple with the UserEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserEmail
+
+`func (o *User) SetUserEmail(v string)`
+
+SetUserEmail sets UserEmail field to given value.
+
+### HasUserEmail
+
+`func (o *User) HasUserEmail() bool`
+
+HasUserEmail returns a boolean if a field has been set.
 
 ### GetUserId
 

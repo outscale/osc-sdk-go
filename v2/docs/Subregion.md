@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LocationCode** | Pointer to **string** | The location code of the Subregion. | [optional] 
+**LocationCode** | Pointer to **string** | The location code (physical zone) of the Subregion. For more information, see [About Regions &gt; Mapping Between Subregions and Physical Zones](https://docs.outscale.com/en/userguide/About-Regions-and-Subregions.html#_mapping_between_subregions_and_physical_zones). | [optional] 
 **RegionName** | Pointer to **string** | The name of the Region containing the Subregion. | [optional] 
 **State** | Pointer to **string** | The state of the Subregion. | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 

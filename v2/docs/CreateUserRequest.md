@@ -5,8 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Path** | Pointer to **string** | The path to the EIM user you want to create (by default, &#x60;/&#x60;). This path name must begin and end with a slash (&#x60;/&#x60;), and contain between 1 and 512 alphanumeric characters and/or slashes (&#x60;/&#x60;), or underscores (_). | [optional] 
-**UserName** | **string** | The name of the EIM user. This user name must contain between 1 and 64 alphanumeric characters and/or pluses (+), equals (&#x3D;), commas (,), periods (.), at signs (@), dashes (-), or underscores (_). | 
+**Path** | Pointer to **string** | The path to the EIM user you want to create (by default, &#x60;/&#x60;). This path name must begin and end with a slash (&#x60;/&#x60;), and contain between 1 and 512 alphanumeric characters and/or slashes (&#x60;/&#x60;), or underscores (&#x60;_&#x60;). | [optional] 
+**UserEmail** | Pointer to **string** | The email address of the EIM user. | [optional] 
+**UserName** | **string** | The name of the EIM user. This user name must contain between 1 and 64 alphanumeric characters and/or pluses (&#x60;+&#x60;), equals (&#x60;&#x3D;&#x60;), commas (&#x60;,&#x60;), periods (&#x60;.&#x60;), at signs (&#x60;@&#x60;), dashes (&#x60;-&#x60;), or underscores (&#x60;_&#x60;). | 
 
 ## Methods
 
@@ -76,6 +77,31 @@ SetPath sets Path field to given value.
 `func (o *CreateUserRequest) HasPath() bool`
 
 HasPath returns a boolean if a field has been set.
+
+### GetUserEmail
+
+`func (o *CreateUserRequest) GetUserEmail() string`
+
+GetUserEmail returns the UserEmail field if non-nil, zero value otherwise.
+
+### GetUserEmailOk
+
+`func (o *CreateUserRequest) GetUserEmailOk() (*string, bool)`
+
+GetUserEmailOk returns a tuple with the UserEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserEmail
+
+`func (o *CreateUserRequest) SetUserEmail(v string)`
+
+SetUserEmail sets UserEmail field to given value.
+
+### HasUserEmail
+
+`func (o *CreateUserRequest) HasUserEmail() bool`
+
+HasUserEmail returns a boolean if a field has been set.
 
 ### GetUserName
 

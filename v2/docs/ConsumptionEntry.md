@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period (UTC). | [optional] 
 **Type** | Pointer to **string** | The type of resource, depending on the API call. | [optional] 
-**UnitPrice** | Pointer to **float64** | The unit price of the consumed resource, in the currency of the Region&#39;s catalog. | [optional] 
+**UnitPrice** | Pointer to **float64** | The unit price of the consumed resource in the currency of your account, in the ISO-4217 format (for example, &#x60;EUR&#x60;). | [optional] 
 **Value** | Pointer to **float64** | The consumed amount for the resource. The unit depends on the resource type. For more information, see the &#x60;Title&#x60; element. | [optional] 
 
 ## Methods

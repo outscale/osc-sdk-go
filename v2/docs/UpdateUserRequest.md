@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NewPath** | Pointer to **string** | A new path for the EIM user. | [optional] 
+**NewUserEmail** | Pointer to **string** | A new email address for the EIM user. | [optional] 
 **NewUserName** | Pointer to **string** | A new name for the EIM user. | [optional] 
 **UserName** | **string** | The name of the EIM user you want to modify. | 
 
@@ -77,6 +78,31 @@ SetNewPath sets NewPath field to given value.
 `func (o *UpdateUserRequest) HasNewPath() bool`
 
 HasNewPath returns a boolean if a field has been set.
+
+### GetNewUserEmail
+
+`func (o *UpdateUserRequest) GetNewUserEmail() string`
+
+GetNewUserEmail returns the NewUserEmail field if non-nil, zero value otherwise.
+
+### GetNewUserEmailOk
+
+`func (o *UpdateUserRequest) GetNewUserEmailOk() (*string, bool)`
+
+GetNewUserEmailOk returns a tuple with the NewUserEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNewUserEmail
+
+`func (o *UpdateUserRequest) SetNewUserEmail(v string)`
+
+SetNewUserEmail sets NewUserEmail field to given value.
+
+### HasNewUserEmail
+
+`func (o *UpdateUserRequest) HasNewUserEmail() bool`
+
+HasNewUserEmail returns a boolean if a field has been set.
 
 ### GetNewUserName
 

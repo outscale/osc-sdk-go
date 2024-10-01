@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**LinkManagedPolicyToUserGroup**](PolicyApi.md#LinkManagedPolicyToUserGroup) | **Post** /LinkManagedPolicyToUserGroup | 
 [**LinkPolicy**](PolicyApi.md#LinkPolicy) | **Post** /LinkPolicy | 
 [**PutUserGroupPolicy**](PolicyApi.md#PutUserGroupPolicy) | **Post** /PutUserGroupPolicy | 
+[**ReadEntitiesLinkedToPolicy**](PolicyApi.md#ReadEntitiesLinkedToPolicy) | **Post** /ReadEntitiesLinkedToPolicy | 
 [**ReadLinkedPolicies**](PolicyApi.md#ReadLinkedPolicies) | **Post** /ReadLinkedPolicies | 
 [**ReadManagedPoliciesLinkedToUserGroup**](PolicyApi.md#ReadManagedPoliciesLinkedToUserGroup) | **Post** /ReadManagedPoliciesLinkedToUserGroup | 
 [**ReadPolicies**](PolicyApi.md#ReadPolicies) | **Post** /ReadPolicies | 
@@ -523,6 +524,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PutUserGroupPolicyResponse**](PutUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadEntitiesLinkedToPolicy
+
+> ReadEntitiesLinkedToPolicyResponse ReadEntitiesLinkedToPolicy(ctx).ReadEntitiesLinkedToPolicyRequest(readEntitiesLinkedToPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readEntitiesLinkedToPolicyRequest := *openapiclient.NewReadEntitiesLinkedToPolicyRequest() // ReadEntitiesLinkedToPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadEntitiesLinkedToPolicy(context.Background()).ReadEntitiesLinkedToPolicyRequest(readEntitiesLinkedToPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadEntitiesLinkedToPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadEntitiesLinkedToPolicy`: ReadEntitiesLinkedToPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadEntitiesLinkedToPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadEntitiesLinkedToPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readEntitiesLinkedToPolicyRequest** | [**ReadEntitiesLinkedToPolicyRequest**](ReadEntitiesLinkedToPolicyRequest.md) |  | 
+
+### Return type
+
+[**ReadEntitiesLinkedToPolicyResponse**](ReadEntitiesLinkedToPolicyResponse.md)
 
 ### Authorization
 

@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ReadCatalog**](CatalogApi.md#ReadCatalog) | **Post** /ReadCatalog | 
 [**ReadCatalogs**](CatalogApi.md#ReadCatalogs) | **Post** /ReadCatalogs | 
+[**ReadUnitPrice**](CatalogApi.md#ReadUnitPrice) | **Post** /ReadUnitPrice | 
 
 
 
@@ -122,6 +123,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadCatalogsResponse**](ReadCatalogsResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadUnitPrice
+
+> ReadUnitPriceResponse ReadUnitPrice(ctx).ReadUnitPriceRequest(readUnitPriceRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readUnitPriceRequest := *openapiclient.NewReadUnitPriceRequest("Operation_example", "Service_example", "Type_example") // ReadUnitPriceRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CatalogApi.ReadUnitPrice(context.Background()).ReadUnitPriceRequest(readUnitPriceRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CatalogApi.ReadUnitPrice``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadUnitPrice`: ReadUnitPriceResponse
+    fmt.Fprintf(os.Stdout, "Response from `CatalogApi.ReadUnitPrice`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadUnitPriceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readUnitPriceRequest** | [**ReadUnitPriceRequest**](ReadUnitPriceRequest.md) |  | 
+
+### Return type
+
+[**ReadUnitPriceResponse**](ReadUnitPriceResponse.md)
 
 ### Authorization
 

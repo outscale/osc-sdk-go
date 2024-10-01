@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**HostPattern** | Pointer to **NullableString** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except [-.?]. | [optional] 
+**HostPattern** | Pointer to **NullableString** | A host-name pattern for the rule, with a maximum length of 128 characters. This host-name pattern supports maximum three wildcards, and must not contain any special characters except &#x60;-.?&#x60;. | [optional] 
 **ListenerRuleName** | **string** | The name of the listener rule. | 
-**PathPattern** | Pointer to **NullableString** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except [_-.$/~&amp;quot;&#39;@:+?]. | [optional] 
+**PathPattern** | Pointer to **NullableString** | A path pattern for the rule, with a maximum length of 128 characters. This path pattern supports maximum three wildcards, and must not contain any special characters except &#x60;_-.$/~&amp;quot;&#39;@:+?&#x60;. | [optional] 
 
 ## Methods
 

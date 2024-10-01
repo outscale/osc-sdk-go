@@ -317,6 +317,7 @@ docs/FiltersSubnet.md
 docs/FiltersSubregion.md
 docs/FiltersTag.md
 docs/FiltersUserGroup.md
+docs/FiltersUsers.md
 docs/FiltersVirtualGateway.md
 docs/FiltersVm.md
 docs/FiltersVmGroup.md
@@ -383,6 +384,7 @@ docs/Location.md
 docs/LocationApi.md
 docs/Log.md
 docs/MaintenanceEvent.md
+docs/MinimalPolicy.md
 docs/NatService.md
 docs/NatServiceApi.md
 docs/Net.md
@@ -408,6 +410,7 @@ docs/Phase2Options.md
 docs/Placement.md
 docs/Policy.md
 docs/PolicyApi.md
+docs/PolicyEntities.md
 docs/PolicyVersion.md
 docs/PrivateIp.md
 docs/PrivateIpLight.md
@@ -455,6 +458,8 @@ docs/ReadDirectLinkInterfacesRequest.md
 docs/ReadDirectLinkInterfacesResponse.md
 docs/ReadDirectLinksRequest.md
 docs/ReadDirectLinksResponse.md
+docs/ReadEntitiesLinkedToPolicyRequest.md
+docs/ReadEntitiesLinkedToPolicyResponse.md
 docs/ReadFlexibleGpuCatalogRequest.md
 docs/ReadFlexibleGpuCatalogResponse.md
 docs/ReadFlexibleGpusRequest.md
@@ -531,6 +536,8 @@ docs/ReadSubregionsRequest.md
 docs/ReadSubregionsResponse.md
 docs/ReadTagsRequest.md
 docs/ReadTagsResponse.md
+docs/ReadUnitPriceRequest.md
+docs/ReadUnitPriceResponse.md
 docs/ReadUserGroupPoliciesRequest.md
 docs/ReadUserGroupPoliciesResponse.md
 docs/ReadUserGroupPolicyRequest.md
@@ -612,6 +619,7 @@ docs/SubregionApi.md
 docs/Tag.md
 docs/TagApi.md
 docs/TaskApi.md
+docs/UnitPriceEntry.md
 docs/UnlinkFlexibleGpuRequest.md
 docs/UnlinkFlexibleGpuResponse.md
 docs/UnlinkInternetServiceRequest.md
@@ -964,6 +972,7 @@ model_filters_subnet.go
 model_filters_subregion.go
 model_filters_tag.go
 model_filters_user_group.go
+model_filters_users.go
 model_filters_virtual_gateway.go
 model_filters_vm.go
 model_filters_vm_group.go
@@ -1022,6 +1031,7 @@ model_load_balancer_tag.go
 model_location.go
 model_log.go
 model_maintenance_event.go
+model_minimal_policy.go
 model_nat_service.go
 model_net.go
 model_net_access_point.go
@@ -1041,6 +1051,7 @@ model_phase1_options.go
 model_phase2_options.go
 model_placement.go
 model_policy.go
+model_policy_entities.go
 model_policy_version.go
 model_private_ip.go
 model_private_ip_light.go
@@ -1084,6 +1095,8 @@ model_read_direct_link_interfaces_request.go
 model_read_direct_link_interfaces_response.go
 model_read_direct_links_request.go
 model_read_direct_links_response.go
+model_read_entities_linked_to_policy_request.go
+model_read_entities_linked_to_policy_response.go
 model_read_flexible_gpu_catalog_request.go
 model_read_flexible_gpu_catalog_response.go
 model_read_flexible_gpus_request.go
@@ -1160,6 +1173,8 @@ model_read_subregions_request.go
 model_read_subregions_response.go
 model_read_tags_request.go
 model_read_tags_response.go
+model_read_unit_price_request.go
+model_read_unit_price_response.go
 model_read_user_group_policies_request.go
 model_read_user_group_policies_response.go
 model_read_user_group_policy_request.go
@@ -1230,6 +1245,7 @@ model_stop_vms_response.go
 model_subnet.go
 model_subregion.go
 model_tag.go
+model_unit_price_entry.go
 model_unlink_flexible_gpu_request.go
 model_unlink_flexible_gpu_response.go
 model_unlink_internet_service_request.go
