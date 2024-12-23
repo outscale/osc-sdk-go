@@ -31,7 +31,7 @@ osc-generate: osc-api/outscale-go.yaml
 	docker run -v $(PWD):/sdk --rm $(OPENAPI_IMG) chown -R $(USER_ID).$(GROUP_ID) /sdk/.sdk
 	mv .sdk v2
 	# keep dependencies as-is, should be updated by dependabot
-	git checkout v2/go.mod v2/go.sum
+	git checkout v2/go.mod v2/go.sum v2/LICENSE.txt
 	cd v2 && git apply ../.osc-patches/*
 
 osc-api/outscale-go.yaml:
