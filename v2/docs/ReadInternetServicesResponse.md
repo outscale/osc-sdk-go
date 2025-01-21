@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InternetServices** | Pointer to [**[]InternetService**](InternetService.md) | Information about one or more Internet services. | [optional] 
+**InternetServices** | Pointer to [**[]InternetService**](InternetService.md) | Information about one or more internet services. | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 

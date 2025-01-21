@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**InternetServiceId** | **string** | The ID of the Internet service you want to detach. | 
-**NetId** | **string** | The ID of the Net from which you want to detach the Internet service. | 
+**InternetServiceId** | **string** | The ID of the internet service you want to detach. | 
+**NetId** | **string** | The ID of the Net from which you want to detach the internet service. | 
 
 ## Methods
 

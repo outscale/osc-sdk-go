@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**CreateAccessKey**](AccessKeyApi.md#CreateAccessKey) | **Post** /CreateAccessKey | 
 [**DeleteAccessKey**](AccessKeyApi.md#DeleteAccessKey) | **Post** /DeleteAccessKey | 
 [**ReadAccessKeys**](AccessKeyApi.md#ReadAccessKeys) | **Post** /ReadAccessKeys | 
-[**ReadSecretAccessKey**](AccessKeyApi.md#ReadSecretAccessKey) | **Post** /ReadSecretAccessKey | 
 [**UpdateAccessKey**](AccessKeyApi.md#UpdateAccessKey) | **Post** /UpdateAccessKey | 
 
 
@@ -189,70 +188,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadAccessKeysResponse**](ReadAccessKeysResponse.md)
-
-### Authorization
-
-[ApiKeyAuthSec](../README.md#ApiKeyAuthSec), [BasicAuth](../README.md#BasicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ReadSecretAccessKey
-
-> ReadSecretAccessKeyResponse ReadSecretAccessKey(ctx).ReadSecretAccessKeyRequest(readSecretAccessKeyRequest).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    readSecretAccessKeyRequest := *openapiclient.NewReadSecretAccessKeyRequest("AccessKeyId_example") // ReadSecretAccessKeyRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessKeyApi.ReadSecretAccessKey(context.Background()).ReadSecretAccessKeyRequest(readSecretAccessKeyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessKeyApi.ReadSecretAccessKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReadSecretAccessKey`: ReadSecretAccessKeyResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessKeyApi.ReadSecretAccessKey`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiReadSecretAccessKeyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **readSecretAccessKeyRequest** | [**ReadSecretAccessKeyRequest**](ReadSecretAccessKeyRequest.md) |  | 
-
-### Return type
-
-[**ReadSecretAccessKeyResponse**](ReadSecretAccessKeyResponse.md)
 
 ### Authorization
 

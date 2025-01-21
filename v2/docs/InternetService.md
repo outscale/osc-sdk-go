@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InternetServiceId** | Pointer to **string** | The ID of the Internet service. | [optional] 
-**NetId** | Pointer to **string** | The ID of the Net attached to the Internet service. | [optional] 
-**State** | Pointer to **string** | The state of the attachment of the Internet service to the Net (always &#x60;available&#x60;). | [optional] 
-**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the Internet service. | [optional] 
+**InternetServiceId** | Pointer to **string** | The ID of the internet service. | [optional] 
+**NetId** | Pointer to **string** | The ID of the Net attached to the internet service. | [optional] 
+**State** | Pointer to **string** | The state of the attachment of the internet service to the Net (always &#x60;available&#x60;). | [optional] 
+**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the internet service. | [optional] 
 
 ## Methods
 

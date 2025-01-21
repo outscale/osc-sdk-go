@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InternetServiceIds** | Pointer to **[]string** | The IDs of the Internet services. | [optional] 
-**LinkNetIds** | Pointer to **[]string** | The IDs of the Nets the Internet services are attached to. | [optional] 
-**LinkStates** | Pointer to **[]string** | The current states of the attachments between the Internet services and the Nets (only &#x60;available&#x60;, if the Internet gateway is attached to a Net). | [optional] 
-**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the Internet services. | [optional] 
-**TagValues** | Pointer to **[]string** | The values of the tags associated with the Internet services. | [optional] 
-**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the Internet services, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
+**InternetServiceIds** | Pointer to **[]string** | The IDs of the internet services. | [optional] 
+**LinkNetIds** | Pointer to **[]string** | The IDs of the Nets the internet services are attached to. | [optional] 
+**LinkStates** | Pointer to **[]string** | The current states of the attachments between the internet services and the Nets (only &#x60;available&#x60;, if the internet gateway is attached to a Net). | [optional] 
+**TagKeys** | Pointer to **[]string** | The keys of the tags associated with the internet services. | [optional] 
+**TagValues** | Pointer to **[]string** | The values of the tags associated with the internet services. | [optional] 
+**Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the internet services, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 
 ## Methods
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DestinationIpRange** | **string** | The IP range used for the destination match, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**GatewayId** | Pointer to **string** | The ID of an Internet service or virtual gateway attached to your Net. | [optional] 
+**GatewayId** | Pointer to **string** | The ID of an internet service or virtual gateway attached to your Net. | [optional] 
 **NatServiceId** | Pointer to **string** | The ID of a NAT service. | [optional] 
 **NetPeeringId** | Pointer to **string** | The ID of a Net peering. | [optional] 
 **NicId** | Pointer to **string** | The ID of a network interface card (NIC). | [optional] 
