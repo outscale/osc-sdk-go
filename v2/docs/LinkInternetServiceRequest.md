@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**InternetServiceId** | **string** | The ID of the Internet service you want to attach. | 
-**NetId** | **string** | The ID of the Net to which you want to attach the Internet service. | 
+**InternetServiceId** | **string** | The ID of the internet service you want to attach. | 
+**NetId** | **string** | The ID of the Net to which you want to attach the internet service. | 
 
 ## Methods
 

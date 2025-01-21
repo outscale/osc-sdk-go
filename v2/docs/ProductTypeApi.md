@@ -5,6 +5,7 @@ All URIs are relative to *https://api.eu-west-2.outscale.com/api/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateProductType**](ProductTypeApi.md#CreateProductType) | **Post** /CreateProductType | 
+[**DeleteProductType**](ProductTypeApi.md#DeleteProductType) | **Post** /DeleteProductType | 
 [**ReadProductTypes**](ProductTypeApi.md#ReadProductTypes) | **Post** /ReadProductTypes | 
 
 
@@ -58,6 +59,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreateProductTypeResponse**](CreateProductTypeResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteProductType
+
+> DeleteProductTypeResponse DeleteProductType(ctx).DeleteProductTypeRequest(deleteProductTypeRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteProductTypeRequest := *openapiclient.NewDeleteProductTypeRequest("ProductTypeId_example") // DeleteProductTypeRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ProductTypeApi.DeleteProductType(context.Background()).DeleteProductTypeRequest(deleteProductTypeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ProductTypeApi.DeleteProductType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteProductType`: DeleteProductTypeResponse
+    fmt.Fprintf(os.Stdout, "Response from `ProductTypeApi.DeleteProductType`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteProductTypeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteProductTypeRequest** | [**DeleteProductTypeRequest**](DeleteProductTypeRequest.md) |  | 
+
+### Return type
+
+[**DeleteProductTypeResponse**](DeleteProductTypeResponse.md)
 
 ### Authorization
 

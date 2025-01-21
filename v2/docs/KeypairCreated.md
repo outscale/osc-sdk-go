@@ -5,9 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **KeypairFingerprint** | Pointer to **string** | The MD5 public key fingerprint, as specified in section 4 of RFC 4716. | [optional] 
+**KeypairId** | Pointer to **string** | The ID of the keypair. | [optional] 
 **KeypairName** | Pointer to **string** | The name of the keypair. | [optional] 
 **KeypairType** | Pointer to **string** | The type of the keypair (&#x60;ssh-rsa&#x60;, &#x60;ssh-ed25519&#x60;, &#x60;ecdsa-sha2-nistp256&#x60;, &#x60;ecdsa-sha2-nistp384&#x60;, or &#x60;ecdsa-sha2-nistp521&#x60;). | [optional] 
 **PrivateKey** | Pointer to **string** | The private key, returned only if you are creating a keypair (not if you are importing). When you save this private key in a .rsa file, make sure you replace the &#x60;\\n&#x60; escape sequences with real line breaks. | [optional] 
+**Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the keypair. | [optional] 
 
 ## Methods
 
@@ -52,6 +54,31 @@ SetKeypairFingerprint sets KeypairFingerprint field to given value.
 `func (o *KeypairCreated) HasKeypairFingerprint() bool`
 
 HasKeypairFingerprint returns a boolean if a field has been set.
+
+### GetKeypairId
+
+`func (o *KeypairCreated) GetKeypairId() string`
+
+GetKeypairId returns the KeypairId field if non-nil, zero value otherwise.
+
+### GetKeypairIdOk
+
+`func (o *KeypairCreated) GetKeypairIdOk() (*string, bool)`
+
+GetKeypairIdOk returns a tuple with the KeypairId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKeypairId
+
+`func (o *KeypairCreated) SetKeypairId(v string)`
+
+SetKeypairId sets KeypairId field to given value.
+
+### HasKeypairId
+
+`func (o *KeypairCreated) HasKeypairId() bool`
+
+HasKeypairId returns a boolean if a field has been set.
 
 ### GetKeypairName
 
@@ -127,6 +154,31 @@ SetPrivateKey sets PrivateKey field to given value.
 `func (o *KeypairCreated) HasPrivateKey() bool`
 
 HasPrivateKey returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *KeypairCreated) GetTags() []ResourceTag`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *KeypairCreated) GetTagsOk() (*[]ResourceTag, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *KeypairCreated) SetTags(v []ResourceTag)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *KeypairCreated) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

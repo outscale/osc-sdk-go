@@ -234,6 +234,8 @@ docs/DeletePolicyRequest.md
 docs/DeletePolicyResponse.md
 docs/DeletePolicyVersionRequest.md
 docs/DeletePolicyVersionResponse.md
+docs/DeleteProductTypeRequest.md
+docs/DeleteProductTypeResponse.md
 docs/DeletePublicIpRequest.md
 docs/DeletePublicIpResponse.md
 docs/DeleteRouteRequest.md
@@ -520,8 +522,6 @@ docs/ReadRegionsRequest.md
 docs/ReadRegionsResponse.md
 docs/ReadRouteTablesRequest.md
 docs/ReadRouteTablesResponse.md
-docs/ReadSecretAccessKeyRequest.md
-docs/ReadSecretAccessKeyResponse.md
 docs/ReadSecurityGroupsRequest.md
 docs/ReadSecurityGroupsResponse.md
 docs/ReadServerCertificatesRequest.md
@@ -892,6 +892,8 @@ model_delete_policy_request.go
 model_delete_policy_response.go
 model_delete_policy_version_request.go
 model_delete_policy_version_response.go
+model_delete_product_type_request.go
+model_delete_product_type_response.go
 model_delete_public_ip_request.go
 model_delete_public_ip_response.go
 model_delete_route_request.go
@@ -1157,8 +1159,6 @@ model_read_regions_request.go
 model_read_regions_response.go
 model_read_route_tables_request.go
 model_read_route_tables_response.go
-model_read_secret_access_key_request.go
-model_read_secret_access_key_response.go
 model_read_security_groups_request.go
 model_read_security_groups_response.go
 model_read_server_certificates_request.go

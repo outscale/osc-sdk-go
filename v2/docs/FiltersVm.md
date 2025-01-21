@@ -48,7 +48,7 @@ Name | Type | Description | Notes
 **PrivateIps** | Pointer to **[]string** | The private IPs of the VMs. | [optional] 
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI used to create the VMs. | [optional] 
 **PublicIps** | Pointer to **[]string** | The public IPs of the VMs. | [optional] 
-**ReservationIds** | Pointer to **[]string** | The IDs of the reservation of the VMs, created every time you launch VMs. These reservation IDs can be associated with several VMs when you lauch a group of VMs using the same launch request. | [optional] 
+**ReservationIds** | Pointer to **[]string** | The IDs of the reservation of the VMs, created every time you launch VMs. These reservation IDs can be associated with several VMs when you launch a group of VMs using the same launch request. | [optional] 
 **RootDeviceNames** | Pointer to **[]string** | The names of the root devices for the VMs (for example, &#x60;/dev/sda1&#x60;) | [optional] 
 **RootDeviceTypes** | Pointer to **[]string** | The root devices types used by the VMs (always &#x60;ebs&#x60;) | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | The IDs of the security groups for the VMs (only in the public Cloud). | [optional] 

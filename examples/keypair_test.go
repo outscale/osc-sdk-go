@@ -90,7 +90,7 @@ func ExampleKeypair() {
 	println(*creation.Keypair.PrivateKey)
 
 	println("Deleting", "keypair", keypairName)
-	deletionOpts := osc.DeleteKeypairRequest{KeypairName: keypairName}
+	deletionOpts := osc.DeleteKeypairRequest{KeypairName: &keypairName}
 	_, httpRes, err = client.KeypairApi.DeleteKeypair(ctx).DeleteKeypairRequest(deletionOpts).Execute()
 	if err != nil {
 		fmt.Fprint(os.Stderr, "Error while deleting keypair ")

@@ -93,7 +93,7 @@ import (
 )
 
 func main() {
-    deleteKeypairRequest := *openapiclient.NewDeleteKeypairRequest("KeypairName_example") // DeleteKeypairRequest |  (optional)
+    deleteKeypairRequest := *openapiclient.NewDeleteKeypairRequest() // DeleteKeypairRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
