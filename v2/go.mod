@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/aws/aws-sdk-go v1.44.103
-	golang.org/x/oauth2 v0.25.0
+	golang.org/x/oauth2 v0.29.0
 )
 
 require github.com/jmespath/go-jmespath v0.4.0 // indirect
