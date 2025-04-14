@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersAccessKeys**](FiltersAccessKeys.md) |  | [optional] 
+**Tag** | Pointer to **string** | The tag added to the access key. | [optional] 
 **UserName** | Pointer to **string** | The name of the EIM user. By default, the user who sends the request (which can be the root account). | [optional] 
 
 ## Methods
@@ -76,6 +77,31 @@ SetFilters sets Filters field to given value.
 `func (o *ReadAccessKeysRequest) HasFilters() bool`
 
 HasFilters returns a boolean if a field has been set.
+
+### GetTag
+
+`func (o *ReadAccessKeysRequest) GetTag() string`
+
+GetTag returns the Tag field if non-nil, zero value otherwise.
+
+### GetTagOk
+
+`func (o *ReadAccessKeysRequest) GetTagOk() (*string, bool)`
+
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTag
+
+`func (o *ReadAccessKeysRequest) SetTag(v string)`
+
+SetTag sets Tag field to given value.
+
+### HasTag
+
+`func (o *ReadAccessKeysRequest) HasTag() bool`
+
+HasTag returns a boolean if a field has been set.
 
 ### GetUserName
 

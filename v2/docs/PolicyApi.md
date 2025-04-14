@@ -9,9 +9,11 @@ Method | HTTP request | Description
 [**DeletePolicy**](PolicyApi.md#DeletePolicy) | **Post** /DeletePolicy | 
 [**DeletePolicyVersion**](PolicyApi.md#DeletePolicyVersion) | **Post** /DeletePolicyVersion | 
 [**DeleteUserGroupPolicy**](PolicyApi.md#DeleteUserGroupPolicy) | **Post** /DeleteUserGroupPolicy | 
+[**DeleteUserPolicy**](PolicyApi.md#DeleteUserPolicy) | **Post** /DeleteUserPolicy | 
 [**LinkManagedPolicyToUserGroup**](PolicyApi.md#LinkManagedPolicyToUserGroup) | **Post** /LinkManagedPolicyToUserGroup | 
 [**LinkPolicy**](PolicyApi.md#LinkPolicy) | **Post** /LinkPolicy | 
 [**PutUserGroupPolicy**](PolicyApi.md#PutUserGroupPolicy) | **Post** /PutUserGroupPolicy | 
+[**PutUserPolicy**](PolicyApi.md#PutUserPolicy) | **Post** /PutUserPolicy | 
 [**ReadEntitiesLinkedToPolicy**](PolicyApi.md#ReadEntitiesLinkedToPolicy) | **Post** /ReadEntitiesLinkedToPolicy | 
 [**ReadLinkedPolicies**](PolicyApi.md#ReadLinkedPolicies) | **Post** /ReadLinkedPolicies | 
 [**ReadManagedPoliciesLinkedToUserGroup**](PolicyApi.md#ReadManagedPoliciesLinkedToUserGroup) | **Post** /ReadManagedPoliciesLinkedToUserGroup | 
@@ -21,6 +23,8 @@ Method | HTTP request | Description
 [**ReadPolicyVersions**](PolicyApi.md#ReadPolicyVersions) | **Post** /ReadPolicyVersions | 
 [**ReadUserGroupPolicies**](PolicyApi.md#ReadUserGroupPolicies) | **Post** /ReadUserGroupPolicies | 
 [**ReadUserGroupPolicy**](PolicyApi.md#ReadUserGroupPolicy) | **Post** /ReadUserGroupPolicy | 
+[**ReadUserPolicies**](PolicyApi.md#ReadUserPolicies) | **Post** /ReadUserPolicies | 
+[**ReadUserPolicy**](PolicyApi.md#ReadUserPolicy) | **Post** /ReadUserPolicy | 
 [**SetDefaultPolicyVersion**](PolicyApi.md#SetDefaultPolicyVersion) | **Post** /SetDefaultPolicyVersion | 
 [**UnlinkManagedPolicyFromUserGroup**](PolicyApi.md#UnlinkManagedPolicyFromUserGroup) | **Post** /UnlinkManagedPolicyFromUserGroup | 
 [**UnlinkPolicy**](PolicyApi.md#UnlinkPolicy) | **Post** /UnlinkPolicy | 
@@ -347,6 +351,70 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteUserPolicy
+
+> DeleteUserPolicyResponse DeleteUserPolicy(ctx).DeleteUserPolicyRequest(deleteUserPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    deleteUserPolicyRequest := *openapiclient.NewDeleteUserPolicyRequest("PolicyName_example", "UserName_example") // DeleteUserPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.DeleteUserPolicy(context.Background()).DeleteUserPolicyRequest(deleteUserPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.DeleteUserPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteUserPolicy`: DeleteUserPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.DeleteUserPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteUserPolicyRequest** | [**DeleteUserPolicyRequest**](DeleteUserPolicyRequest.md) |  | 
+
+### Return type
+
+[**DeleteUserPolicyResponse**](DeleteUserPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## LinkManagedPolicyToUserGroup
 
 > LinkManagedPolicyToUserGroupResponse LinkManagedPolicyToUserGroup(ctx).LinkManagedPolicyToUserGroupRequest(linkManagedPolicyToUserGroupRequest).Execute()
@@ -524,6 +592,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PutUserGroupPolicyResponse**](PutUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutUserPolicy
+
+> PutUserPolicyResponse PutUserPolicy(ctx).PutUserPolicyRequest(putUserPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    putUserPolicyRequest := *openapiclient.NewPutUserPolicyRequest("PolicyDocument_example", "PolicyName_example", "UserName_example") // PutUserPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.PutUserPolicy(context.Background()).PutUserPolicyRequest(putUserPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.PutUserPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutUserPolicy`: PutUserPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.PutUserPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutUserPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **putUserPolicyRequest** | [**PutUserPolicyRequest**](PutUserPolicyRequest.md) |  | 
+
+### Return type
+
+[**PutUserPolicyResponse**](PutUserPolicyResponse.md)
 
 ### Authorization
 
@@ -1100,6 +1232,134 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadUserGroupPolicyResponse**](ReadUserGroupPolicyResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadUserPolicies
+
+> ReadUserPoliciesResponse ReadUserPolicies(ctx).ReadUserPoliciesRequest(readUserPoliciesRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readUserPoliciesRequest := *openapiclient.NewReadUserPoliciesRequest("UserName_example") // ReadUserPoliciesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadUserPolicies(context.Background()).ReadUserPoliciesRequest(readUserPoliciesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadUserPolicies``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadUserPolicies`: ReadUserPoliciesResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadUserPolicies`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadUserPoliciesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readUserPoliciesRequest** | [**ReadUserPoliciesRequest**](ReadUserPoliciesRequest.md) |  | 
+
+### Return type
+
+[**ReadUserPoliciesResponse**](ReadUserPoliciesResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadUserPolicy
+
+> ReadUserPolicyResponse ReadUserPolicy(ctx).ReadUserPolicyRequest(readUserPolicyRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readUserPolicyRequest := *openapiclient.NewReadUserPolicyRequest("PolicyName_example", "UserName_example") // ReadUserPolicyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PolicyApi.ReadUserPolicy(context.Background()).ReadUserPolicyRequest(readUserPolicyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PolicyApi.ReadUserPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadUserPolicy`: ReadUserPolicyResponse
+    fmt.Fprintf(os.Stdout, "Response from `PolicyApi.ReadUserPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadUserPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readUserPolicyRequest** | [**ReadUserPolicyRequest**](ReadUserPolicyRequest.md) |  | 
+
+### Return type
+
+[**ReadUserPolicyResponse**](ReadUserPolicyResponse.md)
 
 ### Authorization
 

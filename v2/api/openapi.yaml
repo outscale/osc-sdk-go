@@ -54,10 +54,10 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: 1.34.0
-  x-osc-api-oapi: 1.34.0
+  version: 1.34.3
   x-osc-api-osc-billing: 1.34.0
   x-osc-api-osc-cloud-vision: 1.34.0
+  x-osc-api-osc-core-iaas: 1.34.4
   x-osc-api-type: external
 servers:
 - url: https://api.{region}.outscale.com/api/v1
@@ -215,6 +215,8 @@ paths:
               ex1:
                 value:
                   ExpirationDate: 2063-04-05
+                  Tag: Group1
+                  UserName: example-user
             schema:
               $ref: '#/components/schemas/CreateAccessKeyRequest'
       responses:
@@ -233,6 +235,7 @@ paths:
                       ExpirationDate: 2063-04-05 00:00:00.000000000 +00:00
                       SecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                       LastModificationDate: 2010-10-01 12:34:56.789000000 +00:00
+                      Tag: Group1
               schema:
                 $ref: '#/components/schemas/CreateAccessKeyResponse'
           description: The HTTP 200 response (OK).
@@ -5136,6 +5139,34 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - Policy
+  /DeleteUserPolicy:
+    description: Deletes a specified inline policy from a specific user.
+    post:
+      operationId: DeleteUserPolicy
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ex1:
+                value:
+                  PolicyName: example-user-policy
+                  UserName: example-user
+            schema:
+              $ref: '#/components/schemas/DeleteUserPolicyRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ex1:
+                  value:
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
+              schema:
+                $ref: '#/components/schemas/DeleteUserPolicyResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - Policy
   /DeleteVirtualGateway:
     description: |-
       Deletes a specified virtual gateway.<br />
@@ -5404,7 +5435,11 @@ paths:
       tags:
       - VpnConnection
   /DeregisterVmsInLoadBalancer:
-    description: Deregisters a specified virtual machine (VM) from a load balancer.
+    description: |-
+      > [WARNING]<br />
+      > Deprecated: This call is deprecated and will be removed.<br />
+
+      Deregisters a specified virtual machine (VM) from a load balancer.
     post:
       operationId: DeregisterVmsInLoadBalancer
       requestBody:
@@ -5959,6 +5994,38 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - Policy
+  /PutUserPolicy:
+    description: |-
+      Creates or updates an inline policy included in a specified user.<br />
+      The policy is automatically applied to the user after its creation.
+    post:
+      operationId: PutUserPolicy
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ex1:
+                value:
+                  PolicyDocument: '{"Statement": [ {"Effect": "Allow", "Action": ["*"],
+                    "Resource": ["*"]} ]}'
+                  PolicyName: example-user-policy
+                  UserName: example-user
+            schema:
+              $ref: '#/components/schemas/PutUserPolicyRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ex1:
+                  value:
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
+              schema:
+                $ref: '#/components/schemas/PutUserPolicyResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - Policy
   /ReadAccessKeys:
     description: Lists the access key IDs of either your root account or an EIM user.
     post:
@@ -5972,6 +6039,8 @@ paths:
                   Filters:
                     States:
                     - ACTIVE
+                  Tag: Group1
+                  UserName: example-user
             schema:
               $ref: '#/components/schemas/ReadAccessKeysRequest'
       responses:
@@ -5989,6 +6058,7 @@ paths:
                       CreationDate: 2010-10-01 12:34:56.789000000 +00:00
                       ExpirationDate: 2063-04-05 00:00:00.000000000 +00:00
                       LastModificationDate: 2010-10-01 12:34:56.789000000 +00:00
+                      Tag: Group1
               schema:
                 $ref: '#/components/schemas/ReadAccessKeysResponse'
           description: The HTTP 200 response (OK).
@@ -8911,6 +8981,66 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - UserGroup
+  /ReadUserPolicies:
+    description: Lists the names of inline policies included in a specified user.
+    post:
+      operationId: ReadUserPolicies
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ex1:
+                value:
+                  UserName: example-user
+            schema:
+              $ref: '#/components/schemas/ReadUserPoliciesRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ex1:
+                  value:
+                    PolicyNames:
+                    - example-policy
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
+              schema:
+                $ref: '#/components/schemas/ReadUserPoliciesResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - Policy
+  /ReadUserPolicy:
+    description: Returns information about an inline policy included in a specified
+      user.
+    post:
+      operationId: ReadUserPolicy
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ex1:
+                value:
+                  UserName: example-user
+                  PolicyName: example-user-policy
+            schema:
+              $ref: '#/components/schemas/ReadUserPolicyRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ex1:
+                  value:
+                    PolicyDocument: '{"Statement": [ {"Effect": "Allow", "Action":
+                      ["*"], "Resource": ["*"]} ]}'
+                    PolicyName: example-user-policy
+                    UserName: example-user
+              schema:
+                $ref: '#/components/schemas/ReadUserPolicyResponse'
+          description: The HTTP 200 response (OK).
+      tags:
+      - Policy
   /ReadUsers:
     description: |-
       Lists all EIM users in the account.<br />
@@ -9556,6 +9686,9 @@ paths:
       - Vm
   /RegisterVmsInLoadBalancer:
     description: |-
+      > [WARNING]<br />
+      > Deprecated: This call is deprecated and will be removed.<br />
+
       Registers one or more virtual machines (VMs) with a specified load balancer.<br />
       The VMs can be in different Subnets and different Subregions than the load balancer, as long as the VMs and load balancers are all in the public Cloud or all in the same Net. It may take a little time for a VM to be registered with the load balancer. Once the VM is registered with a load balancer, it receives traffic and requests from this load balancer and is called a backend VM.
     post:
@@ -10400,6 +10533,7 @@ paths:
                       CreationDate: 2010-10-01 12:34:56.789000000 +00:00
                       ExpirationDate: 2063-04-05 00:00:00.000000000 +00:00
                       LastModificationDate: 2017-05-10 12:34:56.789000000 +00:00
+                      Tag: Group1
                 ex2:
                   summary: Updating an access key when not using the parameter ExpirationDate
                   value:
@@ -10410,6 +10544,7 @@ paths:
                       AccessKeyId: ABCDEFGHIJ0123456789
                       CreationDate: 2010-10-01 12:34:56.789000000 +00:00
                       LastModificationDate: 2017-05-10 12:34:56.789000000 +00:00
+                      Tag: Group1
               schema:
                 $ref: '#/components/schemas/UpdateAccessKeyResponse'
           description: The HTTP 200 response (OK).
@@ -12507,6 +12642,7 @@ components:
         AccessKeyId: AccessKeyId
         State: State
         LastModificationDate: LastModificationDate
+        Tag: Tag
       properties:
         AccessKeyId:
           description: The ID of the access key.
@@ -12527,6 +12663,9 @@ components:
           description: The state of the access key (`ACTIVE` if the key is valid for
             API calls, or `INACTIVE` if not).
           type: string
+        Tag:
+          description: The tag added to the access key.
+          type: string
       type: object
     AccessKeySecretKey:
       additionalProperties: false
@@ -12538,6 +12677,7 @@ components:
         AccessKeyId: AccessKeyId
         State: State
         LastModificationDate: LastModificationDate
+        Tag: Tag
       properties:
         AccessKeyId:
           description: The ID of the access key.
@@ -12560,6 +12700,9 @@ components:
         State:
           description: The state of the access key (`ACTIVE` if the key is valid for
             API calls, or `INACTIVE` if not).
+          type: string
+        Tag:
+          description: A tag added to the access key.
           type: string
       type: object
     AccessLog:
@@ -13254,6 +13397,7 @@ components:
         UserName: UserName
         ExpirationDate: ExpirationDate
         DryRun: true
+        Tag: Tag
       properties:
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -13265,6 +13409,9 @@ components:
             or `2020-06-14`). To remove an existing expiration date, use the method
             without specifying this parameter.
           format: datetime
+          type: string
+        Tag:
+          description: A tag to add to the access key.
           type: string
         UserName:
           description: The name of the EIM user that owns the key to be created. If
@@ -13284,6 +13431,7 @@ components:
           AccessKeyId: AccessKeyId
           State: State
           LastModificationDate: LastModificationDate
+          Tag: Tag
       properties:
         AccessKey:
           $ref: '#/components/schemas/AccessKeySecretKey'
@@ -14724,15 +14872,14 @@ components:
         AccepterOwnerId: AccepterOwnerId
       properties:
         AccepterNetId:
-          description: "The ID of the Net you want to connect with. <br/ > <br/ >\
-            \ \nIf the Net does not belong to you, you must also specify the `AccepterOwnerId`\
-            \ parameter with the account ID owning the Net you want to connect with."
+          description: |-
+            The ID of the Net you want to connect with. <br/ > <br/ >
+            If the Net does not belong to you, you must also specify the `AccepterOwnerId` parameter with the account ID owning the Net you want to connect with.
           type: string
         AccepterOwnerId:
-          description: "The account ID of the owner of the Net you want to connect\
-            \ with. By default, the account ID of the owner of the Net from which\
-            \ the peering request is sent. <br /><br/ > \nThis parameter is required\
-            \ if the Net you want to connect with does not belong to you."
+          description: |-
+            The account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. <br /><br/ >
+            This parameter is required if the Net you want to connect with does not belong to you.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -18255,6 +18402,37 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
+    DeleteUserPolicyRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        PolicyName: PolicyName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        PolicyName:
+          description: The name of the policy document you want to delete (between
+            1 and 128 characters).
+          type: string
+        UserName:
+          description: The name of the user you want to delete the policy from.
+          type: string
+      required:
+      - PolicyName
+      - UserName
+      type: object
+    DeleteUserPolicyResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
     DeleteUserRequest:
       additionalProperties: false
       example:
@@ -18618,9 +18796,10 @@ components:
         BgpAsn: 0
       properties:
         BgpAsn:
-          description: The BGP (Border Gateway Protocol) ASN (Autonomous System Number)
-            on the customer's side of the DirectLink interface. This number must be
-            between `64512` and `65534`.
+          description: |-
+            The BGP (Border Gateway Protocol) ASN (Autonomous System Number) on the customer's side of the DirectLink interface. <br/>
+            This number must be between `1` and `4294967295`, except `50624`, `53306`, and `132418`. <br/>
+            If you do not have an ASN, you can choose one between `64512` and `65534` (both included), or between `4200000000` and `4294967295` (both included).
           type: integer
         BgpKey:
           description: The BGP authentication key.
@@ -21039,8 +21218,8 @@ components:
       description: One or more filters.
       example:
         CreationDates:
-        - 2000-01-23
-        - 2000-01-23
+        - CreationDates
+        - CreationDates
         KeypairNames:
         - KeypairNames
         - KeypairNames
@@ -21261,7 +21440,6 @@ components:
         CreationDates:
           description: The dates when the VMs were launched.
           items:
-            format: date
             type: string
           type: array
         ImageIds:
@@ -24648,6 +24826,43 @@ components:
         ResponseContext:
           $ref: '#/components/schemas/ResponseContext'
       type: object
+    PutUserPolicyRequest:
+      additionalProperties: false
+      example:
+        UserName: UserName
+        PolicyName: PolicyName
+        DryRun: true
+        PolicyDocument: PolicyDocument
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        PolicyDocument:
+          description: The policy document, corresponding to a JSON string that contains
+            the policy. For more information, see [EIM Reference Information](https://docs.outscale.com/en/userguide/EIM-Reference-Information.html)
+            and [EIM Policy Generator](https://docs.outscale.com/en/userguide/EIM-Policy-Generator.html).
+          type: string
+        PolicyName:
+          description: The name of the policy (between 1 and 128 characters).
+          type: string
+        UserName:
+          description: The name of the user.
+          type: string
+      required:
+      - PolicyDocument
+      - PolicyName
+      - UserName
+      type: object
+    PutUserPolicyResponse:
+      additionalProperties: false
+      example:
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
     Quota:
       additionalProperties: false
       description: Information about the quota.
@@ -24726,6 +24941,7 @@ components:
           - AccessKeyIds
         UserName: UserName
         DryRun: true
+        Tag: Tag
       properties:
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -24733,6 +24949,9 @@ components:
           type: boolean
         Filters:
           $ref: '#/components/schemas/FiltersAccessKeys'
+        Tag:
+          description: The tag added to the access key.
+          type: string
         UserName:
           description: The name of the EIM user. By default, the user who sends the
             request (which can be the root account).
@@ -24747,11 +24966,13 @@ components:
           AccessKeyId: AccessKeyId
           State: State
           LastModificationDate: LastModificationDate
+          Tag: Tag
         - CreationDate: CreationDate
           ExpirationDate: ExpirationDate
           AccessKeyId: AccessKeyId
           State: State
           LastModificationDate: LastModificationDate
+          Tag: Tag
         ResponseContext:
           RequestId: RequestId
       properties:
@@ -29299,6 +29520,77 @@ components:
             $ref: '#/components/schemas/UserGroup'
           type: array
       type: object
+    ReadUserPoliciesRequest:
+      example:
+        UserName: UserName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        UserName:
+          description: The name of the user.
+          type: string
+      required:
+      - UserName
+      type: object
+    ReadUserPoliciesResponse:
+      example:
+        PolicyNames:
+        - PolicyNames
+        - PolicyNames
+        ResponseContext:
+          RequestId: RequestId
+      properties:
+        PolicyNames:
+          description: A list of policy names.
+          items:
+            type: string
+          type: array
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+      type: object
+    ReadUserPolicyRequest:
+      example:
+        UserName: UserName
+        PolicyName: PolicyName
+        DryRun: true
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        PolicyName:
+          description: The name of the policy.
+          type: string
+        UserName:
+          description: The name of the user.
+          type: string
+      required:
+      - PolicyName
+      - UserName
+      type: object
+    ReadUserPolicyResponse:
+      example:
+        UserName: UserName
+        PolicyName: PolicyName
+        ResponseContext:
+          RequestId: RequestId
+        PolicyDocument: PolicyDocument
+      properties:
+        PolicyDocument:
+          description: The policy document, providing a description of the policy.
+          type: string
+        PolicyName:
+          description: The name of the inline policy.
+          type: string
+        ResponseContext:
+          $ref: '#/components/schemas/ResponseContext'
+        UserName:
+          description: The name of the user in which the inline policy is included.
+          type: string
+      type: object
     ReadUsersRequest:
       additionalProperties: false
       example:
@@ -29793,8 +30085,8 @@ components:
       example:
         Filters:
           CreationDates:
-          - 2000-01-23
-          - 2000-01-23
+          - CreationDates
+          - CreationDates
           KeypairNames:
           - KeypairNames
           - KeypairNames
@@ -32151,6 +32443,7 @@ components:
           AccessKeyId: AccessKeyId
           State: State
           LastModificationDate: LastModificationDate
+          Tag: Tag
       properties:
         AccessKey:
           $ref: '#/components/schemas/AccessKey'
