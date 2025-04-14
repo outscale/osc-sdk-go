@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LastModificationDate** | Pointer to **string** | The date and time (UTC) at which the access key was last modified. | [optional] 
 **SecretKey** | Pointer to **string** | The secret key that enables you to send requests. | [optional] 
 **State** | Pointer to **string** | The state of the access key (&#x60;ACTIVE&#x60; if the key is valid for API calls, or &#x60;INACTIVE&#x60; if not). | [optional] 
+**Tag** | Pointer to **string** | A tag added to the access key. | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetState sets State field to given value.
 `func (o *AccessKeySecretKey) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetTag
+
+`func (o *AccessKeySecretKey) GetTag() string`
+
+GetTag returns the Tag field if non-nil, zero value otherwise.
+
+### GetTagOk
+
+`func (o *AccessKeySecretKey) GetTagOk() (*string, bool)`
+
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTag
+
+`func (o *AccessKeySecretKey) SetTag(v string)`
+
+SetTag sets Tag field to given value.
+
+### HasTag
+
+`func (o *AccessKeySecretKey) HasTag() bool`
+
+HasTag returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

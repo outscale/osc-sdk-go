@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccepterNetId** | **string** | The ID of the Net you want to connect with. &lt;br/ &gt; &lt;br/ &gt;  If the Net does not belong to you, you must also specify the &#x60;AccepterOwnerId&#x60; parameter with the account ID owning the Net you want to connect with. | 
-**AccepterOwnerId** | Pointer to **string** | The account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. &lt;br /&gt;&lt;br/ &gt;  This parameter is required if the Net you want to connect with does not belong to you. | [optional] 
+**AccepterNetId** | **string** | The ID of the Net you want to connect with. &lt;br/ &gt; &lt;br/ &gt; If the Net does not belong to you, you must also specify the &#x60;AccepterOwnerId&#x60; parameter with the account ID owning the Net you want to connect with. | 
+**AccepterOwnerId** | Pointer to **string** | The account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. &lt;br /&gt;&lt;br/ &gt; This parameter is required if the Net you want to connect with does not belong to you. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **SourceNetId** | **string** | The ID of the Net you send the peering request from. | 
 

@@ -258,6 +258,8 @@ docs/DeleteUserGroupPolicyRequest.md
 docs/DeleteUserGroupPolicyResponse.md
 docs/DeleteUserGroupRequest.md
 docs/DeleteUserGroupResponse.md
+docs/DeleteUserPolicyRequest.md
+docs/DeleteUserPolicyResponse.md
 docs/DeleteUserRequest.md
 docs/DeleteUserResponse.md
 docs/DeleteVirtualGatewayRequest.md
@@ -425,6 +427,8 @@ docs/PublicIpApi.md
 docs/PublicIpLight.md
 docs/PutUserGroupPolicyRequest.md
 docs/PutUserGroupPolicyResponse.md
+docs/PutUserPolicyRequest.md
+docs/PutUserPolicyResponse.md
 docs/Quota.md
 docs/QuotaApi.md
 docs/QuotaTypes.md
@@ -548,6 +552,10 @@ docs/ReadUserGroupsPerUserRequest.md
 docs/ReadUserGroupsPerUserResponse.md
 docs/ReadUserGroupsRequest.md
 docs/ReadUserGroupsResponse.md
+docs/ReadUserPoliciesRequest.md
+docs/ReadUserPoliciesResponse.md
+docs/ReadUserPolicyRequest.md
+docs/ReadUserPolicyResponse.md
 docs/ReadUsersRequest.md
 docs/ReadUsersResponse.md
 docs/ReadVirtualGatewaysRequest.md
@@ -916,6 +924,8 @@ model_delete_user_group_policy_request.go
 model_delete_user_group_policy_response.go
 model_delete_user_group_request.go
 model_delete_user_group_response.go
+model_delete_user_policy_request.go
+model_delete_user_policy_response.go
 model_delete_user_request.go
 model_delete_user_response.go
 model_delete_virtual_gateway_request.go
@@ -1063,6 +1073,8 @@ model_public_ip.go
 model_public_ip_light.go
 model_put_user_group_policy_request.go
 model_put_user_group_policy_response.go
+model_put_user_policy_request.go
+model_put_user_policy_response.go
 model_quota.go
 model_quota_types.go
 model_read_access_keys_request.go
@@ -1185,6 +1197,10 @@ model_read_user_groups_per_user_request.go
 model_read_user_groups_per_user_response.go
 model_read_user_groups_request.go
 model_read_user_groups_response.go
+model_read_user_policies_request.go
+model_read_user_policies_response.go
+model_read_user_policy_request.go
+model_read_user_policy_response.go
 model_read_users_request.go
 model_read_users_response.go
 model_read_virtual_gateways_request.go

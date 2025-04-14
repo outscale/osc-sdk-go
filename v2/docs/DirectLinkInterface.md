@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BgpAsn** | **int32** | The BGP (Border Gateway Protocol) ASN (Autonomous System Number) on the customer&#39;s side of the DirectLink interface. This number must be between &#x60;64512&#x60; and &#x60;65534&#x60;. | 
+**BgpAsn** | **int32** | The BGP (Border Gateway Protocol) ASN (Autonomous System Number) on the customer&#39;s side of the DirectLink interface. &lt;br/&gt; This number must be between &#x60;1&#x60; and &#x60;4294967295&#x60;, except &#x60;50624&#x60;, &#x60;53306&#x60;, and &#x60;132418&#x60;. &lt;br/&gt; If you do not have an ASN, you can choose one between &#x60;64512&#x60; and &#x60;65534&#x60; (both included), or between &#x60;4200000000&#x60; and &#x60;4294967295&#x60; (both included). | 
 **BgpKey** | Pointer to **string** | The BGP authentication key. | [optional] 
 **ClientPrivateIp** | Pointer to **string** | The IP on the customer&#39;s side of the DirectLink interface. | [optional] 
 **DirectLinkInterfaceName** | **string** | The name of the DirectLink interface. | 
