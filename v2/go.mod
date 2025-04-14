@@ -1,6 +1,8 @@
 module github.com/outscale/osc-sdk-go/v2
 
-go 1.19
+go 1.23.0
+
+toolchain go1.23.7
 
 require (
 	github.com/aws/aws-sdk-go v1.44.103
