@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.23.7
 
 require (
-	github.com/aws/aws-sdk-go v1.44.103
+	github.com/aws/aws-sdk-go v1.55.7
 	golang.org/x/oauth2 v0.30.0
 )
 
