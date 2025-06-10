@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ActionsOnNextBoot** | Pointer to [**ActionsOnNextBoot**](ActionsOnNextBoot.md) |  | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingVmUpdate**](BlockDeviceMappingVmUpdate.md) | One or more block device mappings of the VM. | [optional] 
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot delete the VM unless you change this parameter back to false. | [optional] 
@@ -36,6 +37,31 @@ will change when the set of required properties is changed
 NewUpdateVmRequestWithDefaults instantiates a new UpdateVmRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetActionsOnNextBoot
+
+`func (o *UpdateVmRequest) GetActionsOnNextBoot() ActionsOnNextBoot`
+
+GetActionsOnNextBoot returns the ActionsOnNextBoot field if non-nil, zero value otherwise.
+
+### GetActionsOnNextBootOk
+
+`func (o *UpdateVmRequest) GetActionsOnNextBootOk() (*ActionsOnNextBoot, bool)`
+
+GetActionsOnNextBootOk returns a tuple with the ActionsOnNextBoot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActionsOnNextBoot
+
+`func (o *UpdateVmRequest) SetActionsOnNextBoot(v ActionsOnNextBoot)`
+
+SetActionsOnNextBoot sets ActionsOnNextBoot field to given value.
+
+### HasActionsOnNextBoot
+
+`func (o *UpdateVmRequest) HasActionsOnNextBoot() bool`
+
+HasActionsOnNextBoot returns a boolean if a field has been set.
 
 ### GetBlockDeviceMappings
 

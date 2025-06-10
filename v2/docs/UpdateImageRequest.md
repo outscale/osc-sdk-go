@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ImageId** | **string** | The ID of the OMI you want to modify. | 
 **PermissionsToLaunch** | Pointer to [**PermissionsOnResourceCreation**](PermissionsOnResourceCreation.md) |  | [optional] 
+**ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. Any previously set value is deleted. Make sure to specify all product codes you want to associate with the OMI. | [optional] 
 
 ## Methods
 
@@ -122,6 +123,31 @@ SetPermissionsToLaunch sets PermissionsToLaunch field to given value.
 `func (o *UpdateImageRequest) HasPermissionsToLaunch() bool`
 
 HasPermissionsToLaunch returns a boolean if a field has been set.
+
+### GetProductCodes
+
+`func (o *UpdateImageRequest) GetProductCodes() []string`
+
+GetProductCodes returns the ProductCodes field if non-nil, zero value otherwise.
+
+### GetProductCodesOk
+
+`func (o *UpdateImageRequest) GetProductCodesOk() (*[]string, bool)`
+
+GetProductCodesOk returns a tuple with the ProductCodes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCodes
+
+`func (o *UpdateImageRequest) SetProductCodes(v []string)`
+
+SetProductCodes sets ProductCodes field to given value.
+
+### HasProductCodes
+
+`func (o *UpdateImageRequest) HasProductCodes() bool`
+
+HasProductCodes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

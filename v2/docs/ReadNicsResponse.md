@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **Nics** | Pointer to [**[]Nic**](Nic.md) | Information about one or more NICs. | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewReadNicsResponseWithDefaults instantiates a new ReadNicsResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetNextPageToken
+
+`func (o *ReadNicsResponse) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *ReadNicsResponse) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *ReadNicsResponse) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *ReadNicsResponse) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
 
 ### GetNics
 

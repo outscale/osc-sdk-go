@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Iops** | Pointer to **int32** | The number of I/O operations per second (IOPS). This parameter must be specified only if you create an &#x60;io1&#x60; volume. The maximum number of IOPS allowed for &#x60;io1&#x60; volumes is &#x60;13000&#x60; with a maximum performance ratio of 300 IOPS per gibibyte. | [optional] 
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). The maximum allowed size for a volume is 14901 GiB. This parameter is required if the volume is not created from a snapshot (&#x60;SnapshotId&#x60; unspecified). | [optional] 
@@ -29,6 +30,31 @@ will change when the set of required properties is changed
 NewCreateVolumeRequestWithDefaults instantiates a new CreateVolumeRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientToken
+
+`func (o *CreateVolumeRequest) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *CreateVolumeRequest) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *CreateVolumeRequest) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *CreateVolumeRequest) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetDryRun
 

@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ActionsOnNextBoot** | Pointer to [**ActionsOnNextBoot**](ActionsOnNextBoot.md) |  | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingVmCreation**](BlockDeviceMappingVmCreation.md) | One or more block device mappings. | [optional] 
+**BootMode** | Pointer to [**BootMode**](BootMode.md) |  | [optional] 
 **BootOnCreation** | Pointer to **bool** | By default or if true, the VM is started on creation. If false, the VM is stopped on creation. | [optional] [default to true]
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
@@ -45,6 +47,31 @@ NewCreateVmsRequestWithDefaults instantiates a new CreateVmsRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetActionsOnNextBoot
+
+`func (o *CreateVmsRequest) GetActionsOnNextBoot() ActionsOnNextBoot`
+
+GetActionsOnNextBoot returns the ActionsOnNextBoot field if non-nil, zero value otherwise.
+
+### GetActionsOnNextBootOk
+
+`func (o *CreateVmsRequest) GetActionsOnNextBootOk() (*ActionsOnNextBoot, bool)`
+
+GetActionsOnNextBootOk returns a tuple with the ActionsOnNextBoot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActionsOnNextBoot
+
+`func (o *CreateVmsRequest) SetActionsOnNextBoot(v ActionsOnNextBoot)`
+
+SetActionsOnNextBoot sets ActionsOnNextBoot field to given value.
+
+### HasActionsOnNextBoot
+
+`func (o *CreateVmsRequest) HasActionsOnNextBoot() bool`
+
+HasActionsOnNextBoot returns a boolean if a field has been set.
+
 ### GetBlockDeviceMappings
 
 `func (o *CreateVmsRequest) GetBlockDeviceMappings() []BlockDeviceMappingVmCreation`
@@ -69,6 +96,31 @@ SetBlockDeviceMappings sets BlockDeviceMappings field to given value.
 `func (o *CreateVmsRequest) HasBlockDeviceMappings() bool`
 
 HasBlockDeviceMappings returns a boolean if a field has been set.
+
+### GetBootMode
+
+`func (o *CreateVmsRequest) GetBootMode() BootMode`
+
+GetBootMode returns the BootMode field if non-nil, zero value otherwise.
+
+### GetBootModeOk
+
+`func (o *CreateVmsRequest) GetBootModeOk() (*BootMode, bool)`
+
+GetBootModeOk returns a tuple with the BootMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootMode
+
+`func (o *CreateVmsRequest) SetBootMode(v BootMode)`
+
+SetBootMode sets BootMode field to given value.
+
+### HasBootMode
+
+`func (o *CreateVmsRequest) HasBootMode() bool`
+
+HasBootMode returns a boolean if a field has been set.
 
 ### GetBootOnCreation
 

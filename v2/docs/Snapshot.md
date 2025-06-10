@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAlias** | Pointer to **string** | The account alias of the owner of the snapshot. | [optional] 
 **AccountId** | Pointer to **string** | The account ID of the owner of the snapshot. | [optional] 
+**ClientToken** | Pointer to **string** | The idempotency token provided when creating the snapshot. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the snapshot was created. | [optional] 
 **Description** | Pointer to **string** | The description of the snapshot. | [optional] 
 **PermissionsToCreateVolume** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
@@ -84,6 +85,31 @@ SetAccountId sets AccountId field to given value.
 `func (o *Snapshot) HasAccountId() bool`
 
 HasAccountId returns a boolean if a field has been set.
+
+### GetClientToken
+
+`func (o *Snapshot) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *Snapshot) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *Snapshot) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *Snapshot) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetCreationDate
 

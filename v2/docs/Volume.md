@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientToken** | Pointer to **string** | The idempotency token provided when creating the volume. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the volume was created. | [optional] 
 **Iops** | Pointer to **int32** | The number of I/O operations per second (IOPS):&lt;br /&gt; - For &#x60;io1&#x60; volumes, the number of provisioned IOPS&lt;br /&gt; - For &#x60;gp2&#x60; volumes, the baseline performance of the volume | [optional] 
 **LinkedVolumes** | Pointer to [**[]LinkedVolume**](LinkedVolume.md) | Information about your volume attachment. | [optional] 
@@ -33,6 +34,31 @@ will change when the set of required properties is changed
 NewVolumeWithDefaults instantiates a new Volume object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientToken
+
+`func (o *Volume) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *Volume) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *Volume) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *Volume) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetCreationDate
 

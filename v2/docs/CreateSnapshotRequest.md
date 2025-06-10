@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
 **Description** | Pointer to **string** | A description for the snapshot. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FileLocation** | Pointer to **string** | **(when importing from a bucket)** The pre-signed URL of the snapshot you want to import. For more information, see [Creating a Pre-signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html). | [optional] 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewCreateSnapshotRequestWithDefaults instantiates a new CreateSnapshotRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientToken
+
+`func (o *CreateSnapshotRequest) GetClientToken() string`
+
+GetClientToken returns the ClientToken field if non-nil, zero value otherwise.
+
+### GetClientTokenOk
+
+`func (o *CreateSnapshotRequest) GetClientTokenOk() (*string, bool)`
+
+GetClientTokenOk returns a tuple with the ClientToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientToken
+
+`func (o *CreateSnapshotRequest) SetClientToken(v string)`
+
+SetClientToken sets ClientToken field to given value.
+
+### HasClientToken
+
+`func (o *CreateSnapshotRequest) HasClientToken() bool`
+
+HasClientToken returns a boolean if a field has been set.
 
 ### GetDescription
 

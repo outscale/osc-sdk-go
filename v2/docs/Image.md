@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** | The account ID of the owner of the OMI. | [optional] 
 **Architecture** | Pointer to **string** | The architecture of the OMI. | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | One or more block device mappings. | [optional] 
+**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMI (&#x60;legacy&#x60; and/or &#x60;uefi&#x60;). | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the OMI was created. | [optional] 
 **Description** | Pointer to **string** | The description of the OMI. | [optional] 
 **FileLocation** | Pointer to **string** | The location from which the OMI files were created. | [optional] 
@@ -18,6 +19,7 @@ Name | Type | Description | Notes
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
 **RootDeviceName** | Pointer to **string** | The name of the root device. | [optional] 
 **RootDeviceType** | Pointer to **string** | The type of root device used by the OMI (always &#x60;bsu&#x60;). | [optional] 
+**SecureBoot** | Pointer to **bool** | Whether secure boot is activated or not. | [optional] 
 **State** | Pointer to **string** | The state of the OMI (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **StateComment** | Pointer to [**StateComment**](StateComment.md) |  | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the OMI. | [optional] 
@@ -140,6 +142,31 @@ SetBlockDeviceMappings sets BlockDeviceMappings field to given value.
 `func (o *Image) HasBlockDeviceMappings() bool`
 
 HasBlockDeviceMappings returns a boolean if a field has been set.
+
+### GetBootModes
+
+`func (o *Image) GetBootModes() []BootMode`
+
+GetBootModes returns the BootModes field if non-nil, zero value otherwise.
+
+### GetBootModesOk
+
+`func (o *Image) GetBootModesOk() (*[]BootMode, bool)`
+
+GetBootModesOk returns a tuple with the BootModes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootModes
+
+`func (o *Image) SetBootModes(v []BootMode)`
+
+SetBootModes sets BootModes field to given value.
+
+### HasBootModes
+
+`func (o *Image) HasBootModes() bool`
+
+HasBootModes returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -390,6 +417,31 @@ SetRootDeviceType sets RootDeviceType field to given value.
 `func (o *Image) HasRootDeviceType() bool`
 
 HasRootDeviceType returns a boolean if a field has been set.
+
+### GetSecureBoot
+
+`func (o *Image) GetSecureBoot() bool`
+
+GetSecureBoot returns the SecureBoot field if non-nil, zero value otherwise.
+
+### GetSecureBootOk
+
+`func (o *Image) GetSecureBootOk() (*bool, bool)`
+
+GetSecureBootOk returns a tuple with the SecureBoot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecureBoot
+
+`func (o *Image) SetSecureBoot(v bool)`
+
+SetSecureBoot sets SecureBoot field to given value.
+
+### HasSecureBoot
+
+`func (o *Image) HasSecureBoot() bool`
+
+HasSecureBoot returns a boolean if a field has been set.
 
 ### GetState
 
