@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Architecture** | Pointer to **string** | **When registering from a snapshot:** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x86_64&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | **(required) When registering from a snapshot:** One or more block device mappings. | [optional] 
+**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMI (&#x60;legacy&#x60; and/or &#x60;uefi&#x60;). | [optional] 
 **Description** | Pointer to **string** | A description for the new OMI. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FileLocation** | Pointer to **string** | **(required) When registering from a bucket by using a manifest file:** The pre-signed URL of the manifest file for the OMI you want to register. For more information, see [Creating a Pre-signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html). | [optional] 
@@ -85,6 +86,31 @@ SetBlockDeviceMappings sets BlockDeviceMappings field to given value.
 `func (o *CreateImageRequest) HasBlockDeviceMappings() bool`
 
 HasBlockDeviceMappings returns a boolean if a field has been set.
+
+### GetBootModes
+
+`func (o *CreateImageRequest) GetBootModes() []BootMode`
+
+GetBootModes returns the BootModes field if non-nil, zero value otherwise.
+
+### GetBootModesOk
+
+`func (o *CreateImageRequest) GetBootModesOk() (*[]BootMode, bool)`
+
+GetBootModesOk returns a tuple with the BootModes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootModes
+
+`func (o *CreateImageRequest) SetBootModes(v []BootMode)`
+
+SetBootModes sets BootModes field to given value.
+
+### HasBootModes
+
+`func (o *CreateImageRequest) HasBootModes() bool`
+
+HasBootModes returns a boolean if a field has been set.
 
 ### GetDescription
 

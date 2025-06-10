@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ClientTokens** | Pointer to **[]string** | The idempotency tokens provided when creating the volumes. | [optional] 
 **CreationDates** | Pointer to **[]string** | The dates and times at which the volumes were created, in ISO 8601 date-time format (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). | [optional] 
 **LinkVolumeDeleteOnVmDeletion** | Pointer to **bool** | Whether the volumes are deleted or not when terminating the VMs. | [optional] 
 **LinkVolumeDeviceNames** | Pointer to **[]string** | The VM device names. | [optional] 
@@ -38,6 +39,31 @@ will change when the set of required properties is changed
 NewFiltersVolumeWithDefaults instantiates a new FiltersVolume object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClientTokens
+
+`func (o *FiltersVolume) GetClientTokens() []string`
+
+GetClientTokens returns the ClientTokens field if non-nil, zero value otherwise.
+
+### GetClientTokensOk
+
+`func (o *FiltersVolume) GetClientTokensOk() (*[]string, bool)`
+
+GetClientTokensOk returns a tuple with the ClientTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientTokens
+
+`func (o *FiltersVolume) SetClientTokens(v []string)`
+
+SetClientTokens sets ClientTokens field to given value.
+
+### HasClientTokens
+
+`func (o *FiltersVolume) HasClientTokens() bool`
+
+HasClientTokens returns a boolean if a field has been set.
 
 ### GetCreationDates
 

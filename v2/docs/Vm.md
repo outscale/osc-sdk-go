@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ActionsOnNextBoot** | Pointer to [**ActionsOnNextBoot**](ActionsOnNextBoot.md) |  | [optional] 
 **Architecture** | Pointer to **string** | The architecture of the VM (&#x60;i386&#x60; \\| &#x60;x86_64&#x60;). | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingCreated**](BlockDeviceMappingCreated.md) | The block device mapping of the VM. | [optional] 
+**BootMode** | Pointer to [**BootMode**](BootMode.md) |  | [optional] 
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the VM was created. | [optional] 
@@ -58,6 +60,31 @@ NewVmWithDefaults instantiates a new Vm object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetActionsOnNextBoot
+
+`func (o *Vm) GetActionsOnNextBoot() ActionsOnNextBoot`
+
+GetActionsOnNextBoot returns the ActionsOnNextBoot field if non-nil, zero value otherwise.
+
+### GetActionsOnNextBootOk
+
+`func (o *Vm) GetActionsOnNextBootOk() (*ActionsOnNextBoot, bool)`
+
+GetActionsOnNextBootOk returns a tuple with the ActionsOnNextBoot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActionsOnNextBoot
+
+`func (o *Vm) SetActionsOnNextBoot(v ActionsOnNextBoot)`
+
+SetActionsOnNextBoot sets ActionsOnNextBoot field to given value.
+
+### HasActionsOnNextBoot
+
+`func (o *Vm) HasActionsOnNextBoot() bool`
+
+HasActionsOnNextBoot returns a boolean if a field has been set.
+
 ### GetArchitecture
 
 `func (o *Vm) GetArchitecture() string`
@@ -107,6 +134,31 @@ SetBlockDeviceMappings sets BlockDeviceMappings field to given value.
 `func (o *Vm) HasBlockDeviceMappings() bool`
 
 HasBlockDeviceMappings returns a boolean if a field has been set.
+
+### GetBootMode
+
+`func (o *Vm) GetBootMode() BootMode`
+
+GetBootMode returns the BootMode field if non-nil, zero value otherwise.
+
+### GetBootModeOk
+
+`func (o *Vm) GetBootModeOk() (*BootMode, bool)`
+
+GetBootModeOk returns a tuple with the BootMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootMode
+
+`func (o *Vm) SetBootMode(v BootMode)`
+
+SetBootMode sets BootMode field to given value.
+
+### HasBootMode
+
+`func (o *Vm) HasBootMode() bool`
+
+HasBootMode returns a boolean if a field has been set.
 
 ### GetBsuOptimized
 

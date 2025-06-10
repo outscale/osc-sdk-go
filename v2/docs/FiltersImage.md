@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappingSnapshotIds** | Pointer to **[]string** | The IDs of the snapshots used to create the volumes. | [optional] 
 **BlockDeviceMappingVolumeSizes** | Pointer to **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
 **BlockDeviceMappingVolumeTypes** | Pointer to **[]string** | The types of volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
+**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMIs (&#x60;legacy&#x60; and/or &#x60;uefi&#x60;). | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the OMIs, provided when they were created. | [optional] 
 **FileLocations** | Pointer to **[]string** | The locations of the buckets where the OMI files are stored. | [optional] 
 **Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 
@@ -23,6 +24,7 @@ Name | Type | Description | Notes
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 
 **RootDeviceNames** | Pointer to **[]string** | The name of the root device. This value must be /dev/sda1. | [optional] 
 **RootDeviceTypes** | Pointer to **[]string** | The types of root device used by the OMIs (&#x60;bsu&#x60; or &#x60;ebs&#x60;). | [optional] 
+**SecureBoot** | Pointer to **bool** | Whether secure boot is activated or not. | [optional] 
 **States** | Pointer to **[]string** | The states of the OMIs (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the OMIs. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the OMIs. | [optional] 
@@ -247,6 +249,31 @@ SetBlockDeviceMappingVolumeTypes sets BlockDeviceMappingVolumeTypes field to giv
 `func (o *FiltersImage) HasBlockDeviceMappingVolumeTypes() bool`
 
 HasBlockDeviceMappingVolumeTypes returns a boolean if a field has been set.
+
+### GetBootModes
+
+`func (o *FiltersImage) GetBootModes() []BootMode`
+
+GetBootModes returns the BootModes field if non-nil, zero value otherwise.
+
+### GetBootModesOk
+
+`func (o *FiltersImage) GetBootModesOk() (*[]BootMode, bool)`
+
+GetBootModesOk returns a tuple with the BootModes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootModes
+
+`func (o *FiltersImage) SetBootModes(v []BootMode)`
+
+SetBootModes sets BootModes field to given value.
+
+### HasBootModes
+
+`func (o *FiltersImage) HasBootModes() bool`
+
+HasBootModes returns a boolean if a field has been set.
 
 ### GetDescriptions
 
@@ -522,6 +549,31 @@ SetRootDeviceTypes sets RootDeviceTypes field to given value.
 `func (o *FiltersImage) HasRootDeviceTypes() bool`
 
 HasRootDeviceTypes returns a boolean if a field has been set.
+
+### GetSecureBoot
+
+`func (o *FiltersImage) GetSecureBoot() bool`
+
+GetSecureBoot returns the SecureBoot field if non-nil, zero value otherwise.
+
+### GetSecureBootOk
+
+`func (o *FiltersImage) GetSecureBootOk() (*bool, bool)`
+
+GetSecureBootOk returns a tuple with the SecureBoot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecureBoot
+
+`func (o *FiltersImage) SetSecureBoot(v bool)`
+
+SetSecureBoot sets SecureBoot field to given value.
+
+### HasSecureBoot
+
+`func (o *FiltersImage) HasSecureBoot() bool`
+
+HasSecureBoot returns a boolean if a field has been set.
 
 ### GetStates
 

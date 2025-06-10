@@ -63,6 +63,7 @@ docs/AccessKeySecretKey.md
 docs/AccessLog.md
 docs/Account.md
 docs/AccountApi.md
+docs/ActionsOnNextBoot.md
 docs/AddUserToUserGroupRequest.md
 docs/AddUserToUserGroupResponse.md
 docs/ApiAccessPolicy.md
@@ -76,6 +77,7 @@ docs/BlockDeviceMappingCreated.md
 docs/BlockDeviceMappingImage.md
 docs/BlockDeviceMappingVmCreation.md
 docs/BlockDeviceMappingVmUpdate.md
+docs/BootMode.md
 docs/BsuCreated.md
 docs/BsuToCreate.md
 docs/BsuToUpdateVm.md
@@ -599,6 +601,7 @@ docs/ScaleDownVmGroupRequest.md
 docs/ScaleDownVmGroupResponse.md
 docs/ScaleUpVmGroupRequest.md
 docs/ScaleUpVmGroupResponse.md
+docs/SecureBootAction.md
 docs/SecurityGroup.md
 docs/SecurityGroupApi.md
 docs/SecurityGroupLight.md
@@ -736,6 +739,7 @@ model_access_key.go
 model_access_key_secret_key.go
 model_access_log.go
 model_account.go
+model_actions_on_next_boot.go
 model_add_user_to_user_group_request.go
 model_add_user_to_user_group_response.go
 model_api_access_policy.go
@@ -746,6 +750,7 @@ model_block_device_mapping_created.go
 model_block_device_mapping_image.go
 model_block_device_mapping_vm_creation.go
 model_block_device_mapping_vm_update.go
+model_boot_mode.go
 model_bsu_created.go
 model_bsu_to_create.go
 model_bsu_to_update_vm.go
@@ -1241,6 +1246,7 @@ model_scale_down_vm_group_request.go
 model_scale_down_vm_group_response.go
 model_scale_up_vm_group_request.go
 model_scale_up_vm_group_response.go
+model_secure_boot_action.go
 model_security_group.go
 model_security_group_light.go
 model_security_group_rule.go
