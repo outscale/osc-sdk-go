@@ -19,6 +19,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 ## DeleteVirtualGateway
 
 > DeleteVirtualGatewayResponse DeleteVirtualGateway(ctx).DeleteVirtualGatewayRequest(deleteVirtualGatewayRequest).Execute()
+
+
 
 
 
@@ -147,6 +151,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 ## ReadVirtualGateways
 
 > ReadVirtualGatewaysResponse ReadVirtualGateways(ctx).ReadVirtualGatewaysRequest(readVirtualGatewaysRequest).Execute()
+
+
 
 
 
@@ -275,6 +283,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -336,6 +346,8 @@ Name | Type | Description  | Notes
 ## UpdateRoutePropagation
 
 > UpdateRoutePropagationResponse UpdateRoutePropagation(ctx).UpdateRoutePropagationRequest(updateRoutePropagationRequest).Execute()
+
+
 
 
 

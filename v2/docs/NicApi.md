@@ -21,6 +21,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -82,6 +84,8 @@ Name | Type | Description  | Notes
 ## DeleteNic
 
 > DeleteNicResponse DeleteNic(ctx).DeleteNicRequest(deleteNicRequest).Execute()
+
+
 
 
 
@@ -149,6 +153,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -210,6 +216,8 @@ Name | Type | Description  | Notes
 ## LinkPrivateIps
 
 > LinkPrivateIpsResponse LinkPrivateIps(ctx).LinkPrivateIpsRequest(linkPrivateIpsRequest).Execute()
+
+
 
 
 
@@ -277,6 +285,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -338,6 +348,8 @@ Name | Type | Description  | Notes
 ## UnlinkNic
 
 > UnlinkNicResponse UnlinkNic(ctx).UnlinkNicRequest(unlinkNicRequest).Execute()
+
+
 
 
 
@@ -405,6 +417,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -466,6 +480,8 @@ Name | Type | Description  | Notes
 ## UpdateNic
 
 > UpdateNicResponse UpdateNic(ctx).UpdateNicRequest(updateNicRequest).Execute()
+
+
 
 
 

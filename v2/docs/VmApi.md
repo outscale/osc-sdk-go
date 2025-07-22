@@ -24,6 +24,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -85,6 +87,8 @@ Name | Type | Description  | Notes
 ## DeleteVms
 
 > DeleteVmsResponse DeleteVms(ctx).DeleteVmsRequest(deleteVmsRequest).Execute()
+
+
 
 
 
@@ -152,6 +156,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -213,6 +219,8 @@ Name | Type | Description  | Notes
 ## ReadConsoleOutput
 
 > ReadConsoleOutputResponse ReadConsoleOutput(ctx).ReadConsoleOutputRequest(readConsoleOutputRequest).Execute()
+
+
 
 
 
@@ -280,6 +288,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -341,6 +351,8 @@ No authorization required
 ## ReadVms
 
 > ReadVmsResponse ReadVms(ctx).ReadVmsRequest(readVmsRequest).Execute()
+
+
 
 
 
@@ -408,6 +420,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -469,6 +483,8 @@ Name | Type | Description  | Notes
 ## RebootVms
 
 > RebootVmsResponse RebootVms(ctx).RebootVmsRequest(rebootVmsRequest).Execute()
+
+
 
 
 
@@ -536,6 +552,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -600,6 +618,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -661,6 +681,8 @@ Name | Type | Description  | Notes
 ## UpdateVm
 
 > UpdateVmResponse UpdateVm(ctx).UpdateVmRequest(updateVmRequest).Execute()
+
+
 
 
 

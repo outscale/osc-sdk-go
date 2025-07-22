@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -141,6 +145,8 @@ Name | Type | Description  | Notes
 ## UpdateRoute
 
 > UpdateRouteResponse UpdateRoute(ctx).UpdateRouteRequest(updateRouteRequest).Execute()
+
+
 
 
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappingLinkDates** | Pointer to **[]string** | The link dates for the BSU volumes mapped to the VMs (for example, &#x60;2016-01-23T18:45:30.000Z&#x60;). | [optional] 
 **BlockDeviceMappingStates** | Pointer to **[]string** | The states for the BSU volumes (&#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60; \\| &#x60;detached&#x60;). | [optional] 
 **BlockDeviceMappingVolumeIds** | Pointer to **[]string** | The volume IDs of the BSU volumes. | [optional] 
-**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes of the VMs (&#x60;legacy&#x60; \\| &#x60;uefi&#x60;). | [optional] 
+**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes of the VMs. | [optional] 
 **ClientTokens** | Pointer to **[]string** | The idempotency tokens provided when launching the VMs. | [optional] 
 **CreationDates** | Pointer to **[]string** | The dates when the VMs were launched. | [optional] 
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs used to launch the VMs. | [optional] 

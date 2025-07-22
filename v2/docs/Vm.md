@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **NetId** | Pointer to **string** | The ID of the Net in which the VM is running. | [optional] 
 **Nics** | Pointer to [**[]NicLight**](NicLight.md) | (Net only) The network interface cards (NICs) the VMs are attached to. | [optional] 
 **OsFamily** | Pointer to **string** | Indicates the operating system (OS) of the VM. | [optional] 
-**Performance** | Pointer to **string** | The performance of the VM (&#x60;medium&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] 
+**Performance** | Pointer to **string** | The performance of the VM. | [optional] 
 **Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **PrivateDnsName** | Pointer to **string** | The name of the private DNS. | [optional] 
 **PrivateIp** | Pointer to **string** | The primary private IP of the VM. | [optional] 

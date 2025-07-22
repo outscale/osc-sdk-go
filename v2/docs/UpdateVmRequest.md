@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **IsSourceDestChecked** | Pointer to **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. | [optional] 
 **KeypairName** | Pointer to **string** | The name of a keypair you want to associate with the VM.&lt;br /&gt; When you replace the keypair of a VM with another one, the metadata of the VM is modified to reflect the new public key, but the replacement is still not effective in the operating system of the VM. To complete the replacement and effectively apply the new keypair, you need to perform other actions inside the VM. For more information, see [Modifying the Keypair of a VM](https://docs.outscale.com/en/userguide/Modifying-the-Keypair-of-a-VM.html). | [optional] 
 **NestedVirtualization** | Pointer to **bool** | (dedicated tenancy only) If true, nested virtualization is enabled. If false, it is disabled. | [optional] 
-**Performance** | Pointer to **string** | The performance of the VM (&#x60;medium&#x60; \\| &#x60;high&#x60; \\|  &#x60;highest&#x60;). | [optional] 
+**Performance** | Pointer to **string** | The performance of the VM. | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security groups for the VM. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data, limited to 500 kibibytes (KiB). | [optional] 
 **VmId** | **string** | The ID of the VM. | 

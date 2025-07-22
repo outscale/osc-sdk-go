@@ -20,6 +20,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -81,6 +83,8 @@ Name | Type | Description  | Notes
 ## DeleteFlexibleGpu
 
 > DeleteFlexibleGpuResponse DeleteFlexibleGpu(ctx).DeleteFlexibleGpuRequest(deleteFlexibleGpuRequest).Execute()
+
+
 
 
 
@@ -148,6 +152,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -209,6 +215,8 @@ Name | Type | Description  | Notes
 ## ReadFlexibleGpuCatalog
 
 > ReadFlexibleGpuCatalogResponse ReadFlexibleGpuCatalog(ctx).ReadFlexibleGpuCatalogRequest(readFlexibleGpuCatalogRequest).Execute()
+
+
 
 
 
@@ -276,6 +284,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -340,6 +350,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -401,6 +413,8 @@ Name | Type | Description  | Notes
 ## UpdateFlexibleGpu
 
 > UpdateFlexibleGpuResponse UpdateFlexibleGpu(ctx).UpdateFlexibleGpuRequest(updateFlexibleGpuRequest).Execute()
+
+
 
 
 

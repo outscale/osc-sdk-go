@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllVms** | Pointer to **bool** | If true, includes the status of all VMs. By default or if set to false, only includes the status of running VMs. | [optional] [default to false]
+**AllVms** | Pointer to **bool** | If true, includes the status of all VMs. If false, only includes the status of running VMs. | [optional] [default to false]
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersVmsState**](FiltersVmsState.md) |  | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
-**ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60; and &#x60;1000&#x60;, both included). By default, &#x60;100&#x60;. | [optional] 
+**ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60; and &#x60;1000&#x60;, both included). | [optional] 
 
 ## Methods
 

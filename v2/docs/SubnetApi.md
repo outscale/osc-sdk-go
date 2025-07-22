@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
 ## DeleteSubnet
 
 > DeleteSubnetResponse DeleteSubnet(ctx).DeleteSubnetRequest(deleteSubnetRequest).Execute()
+
+
 
 
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
 ## UpdateSubnet
 
 > UpdateSubnetResponse UpdateSubnet(ctx).UpdateSubnetRequest(updateSubnetRequest).Execute()
+
+
 
 
 

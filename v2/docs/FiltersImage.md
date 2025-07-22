@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **BlockDeviceMappingSnapshotIds** | Pointer to **[]string** | The IDs of the snapshots used to create the volumes. | [optional] 
 **BlockDeviceMappingVolumeSizes** | Pointer to **[]int32** | The sizes of the volumes, in gibibytes (GiB). | [optional] 
 **BlockDeviceMappingVolumeTypes** | Pointer to **[]string** | The types of volumes (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
-**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMIs (&#x60;legacy&#x60; and/or &#x60;uefi&#x60;). | [optional] 
+**BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMIs. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the OMIs, provided when they were created. | [optional] 
 **FileLocations** | Pointer to **[]string** | The locations of the buckets where the OMI files are stored. | [optional] 
 **Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 

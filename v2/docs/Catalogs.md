@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Entries** | Pointer to [**[]CatalogEntry**](CatalogEntry.md) | One or more catalog entries. | [optional] 
 **FromDate** | Pointer to **string** | The beginning of the time period (UTC). | [optional] 
-**State** | Pointer to **string** | The state of the catalog (&#x60;CURRENT&#x60; \\| &#x60;OBSOLETE&#x60;). | [optional] 
+**State** | Pointer to **string** | The state of the catalog. | [optional] 
 **ToDate** | Pointer to **string** | The end of the time period (UTC). | [optional] 
 
 ## Methods

@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -76,6 +78,8 @@ Name | Type | Description  | Notes
 ## DeleteSecurityGroupRule
 
 > DeleteSecurityGroupRuleResponse DeleteSecurityGroupRule(ctx).DeleteSecurityGroupRuleRequest(deleteSecurityGroupRuleRequest).Execute()
+
+
 
 
 

@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
 ## DeleteUser
 
 > DeleteUserResponse DeleteUser(ctx).DeleteUserRequest(deleteUserRequest).Execute()
+
+
 
 
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
 ## UpdateUser
 
 > UpdateUserResponse UpdateUser(ctx).UpdateUserRequest(updateUserRequest).Execute()
+
+
 
 
 

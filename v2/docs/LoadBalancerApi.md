@@ -25,6 +25,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -86,6 +88,8 @@ Name | Type | Description  | Notes
 ## CreateLoadBalancerTags
 
 > CreateLoadBalancerTagsResponse CreateLoadBalancerTags(ctx).CreateLoadBalancerTagsRequest(createLoadBalancerTagsRequest).Execute()
+
+
 
 
 
@@ -153,6 +157,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -214,6 +220,8 @@ Name | Type | Description  | Notes
 ## DeleteLoadBalancerTags
 
 > DeleteLoadBalancerTagsResponse DeleteLoadBalancerTags(ctx).DeleteLoadBalancerTagsRequest(deleteLoadBalancerTagsRequest).Execute()
+
+
 
 
 
@@ -281,6 +289,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -342,6 +352,8 @@ Name | Type | Description  | Notes
 ## LinkLoadBalancerBackendMachines
 
 > LinkLoadBalancerBackendMachinesResponse LinkLoadBalancerBackendMachines(ctx).LinkLoadBalancerBackendMachinesRequest(linkLoadBalancerBackendMachinesRequest).Execute()
+
+
 
 
 
@@ -409,6 +421,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -470,6 +484,8 @@ Name | Type | Description  | Notes
 ## ReadLoadBalancers
 
 > ReadLoadBalancersResponse ReadLoadBalancers(ctx).ReadLoadBalancersRequest(readLoadBalancersRequest).Execute()
+
+
 
 
 
@@ -537,6 +553,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -598,6 +616,8 @@ Name | Type | Description  | Notes
 ## RegisterVmsInLoadBalancer
 
 > RegisterVmsInLoadBalancerResponse RegisterVmsInLoadBalancer(ctx).RegisterVmsInLoadBalancerRequest(registerVmsInLoadBalancerRequest).Execute()
+
+
 
 
 
@@ -665,6 +685,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -726,6 +748,8 @@ Name | Type | Description  | Notes
 ## UpdateLoadBalancer
 
 > UpdateLoadBalancerResponse UpdateLoadBalancer(ctx).UpdateLoadBalancerRequest(updateLoadBalancerRequest).Execute()
+
+
 
 
 
