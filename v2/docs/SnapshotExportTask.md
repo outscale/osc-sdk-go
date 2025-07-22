@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **OsuExport** | Pointer to [**OsuExportSnapshotExportTask**](OsuExportSnapshotExportTask.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot export task, as a percentage. | [optional] 
 **SnapshotId** | Pointer to **string** | The ID of the snapshot to be exported. | [optional] 
-**State** | Pointer to **string** | The state of the snapshot export task (&#x60;pending&#x60; \\| &#x60;active&#x60; \\| &#x60;completed&#x60; \\| &#x60;failed&#x60;). | [optional] 
+**State** | Pointer to **string** | The state of the snapshot export task (&#x60;pending&#x60; \\| &#x60;active&#x60; \\| &#x60;completed&#x60; \\| &#x60;cancelled&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the snapshot export task. | [optional] 
 **TaskId** | Pointer to **string** | The ID of the snapshot export task. | [optional] 
 

@@ -21,6 +21,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -82,6 +84,8 @@ Name | Type | Description  | Notes
 ## CreateUserGroup
 
 > CreateUserGroupResponse CreateUserGroup(ctx).CreateUserGroupRequest(createUserGroupRequest).Execute()
+
+
 
 
 
@@ -149,6 +153,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -210,6 +216,8 @@ Name | Type | Description  | Notes
 ## ReadUserGroup
 
 > ReadUserGroupResponse ReadUserGroup(ctx).ReadUserGroupRequest(readUserGroupRequest).Execute()
+
+
 
 
 
@@ -277,6 +285,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -338,6 +348,8 @@ Name | Type | Description  | Notes
 ## ReadUserGroupsPerUser
 
 > ReadUserGroupsPerUserResponse ReadUserGroupsPerUser(ctx).ReadUserGroupsPerUserRequest(readUserGroupsPerUserRequest).Execute()
+
+
 
 
 
@@ -405,6 +417,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -466,6 +480,8 @@ Name | Type | Description  | Notes
 ## UpdateUserGroup
 
 > UpdateUserGroupResponse UpdateUserGroup(ctx).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+
+
 
 
 

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreationDate** | Pointer to **string** | The date and time (UTC) of creation of the EIM user. | [optional] 
 **LastModificationDate** | Pointer to **string** | The date and time (UTC) of the last modification of the EIM user. | [optional] 
+**OutscaleLoginAllowed** | Pointer to **bool** | Whether the user is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated. | [optional] 
 **Path** | Pointer to **string** | The path to the EIM user. | [optional] 
 **UserEmail** | Pointer to **string** | The email address of the EIM user. | [optional] 
 **UserId** | Pointer to **string** | The ID of the EIM user. | [optional] 
@@ -79,6 +80,31 @@ SetLastModificationDate sets LastModificationDate field to given value.
 `func (o *User) HasLastModificationDate() bool`
 
 HasLastModificationDate returns a boolean if a field has been set.
+
+### GetOutscaleLoginAllowed
+
+`func (o *User) GetOutscaleLoginAllowed() bool`
+
+GetOutscaleLoginAllowed returns the OutscaleLoginAllowed field if non-nil, zero value otherwise.
+
+### GetOutscaleLoginAllowedOk
+
+`func (o *User) GetOutscaleLoginAllowedOk() (*bool, bool)`
+
+GetOutscaleLoginAllowedOk returns a tuple with the OutscaleLoginAllowed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutscaleLoginAllowed
+
+`func (o *User) SetOutscaleLoginAllowed(v bool)`
+
+SetOutscaleLoginAllowed sets OutscaleLoginAllowed field to given value.
+
+### HasOutscaleLoginAllowed
+
+`func (o *User) HasOutscaleLoginAllowed() bool`
+
+HasOutscaleLoginAllowed returns a boolean if a field has been set.
 
 ### GetPath
 

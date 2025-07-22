@@ -19,6 +19,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 ## CreateVpnConnectionRoute
 
 > CreateVpnConnectionRouteResponse CreateVpnConnectionRoute(ctx).CreateVpnConnectionRouteRequest(createVpnConnectionRouteRequest).Execute()
+
+
 
 
 
@@ -147,6 +151,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 ## DeleteVpnConnectionRoute
 
 > DeleteVpnConnectionRouteResponse DeleteVpnConnectionRoute(ctx).DeleteVpnConnectionRouteRequest(deleteVpnConnectionRouteRequest).Execute()
+
+
 
 
 
@@ -275,6 +283,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -336,6 +346,8 @@ Name | Type | Description  | Notes
 ## UpdateVpnConnection
 
 > UpdateVpnConnectionResponse UpdateVpnConnection(ctx).UpdateVpnConnectionRequest(updateVpnConnectionRequest).Execute()
+
+
 
 
 

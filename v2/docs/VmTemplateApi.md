@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
 ## DeleteVmTemplate
 
 > DeleteVmTemplateResponse DeleteVmTemplate(ctx).DeleteVmTemplateRequest(deleteVmTemplateRequest).Execute()
+
+
 
 
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
 ## UpdateVmTemplate
 
 > UpdateVmTemplateResponse UpdateVmTemplate(ctx).UpdateVmTemplateRequest(updateVmTemplateRequest).Execute()
+
+
 
 
 

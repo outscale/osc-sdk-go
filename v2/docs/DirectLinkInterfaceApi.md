@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
 ## DeleteDirectLinkInterface
 
 > DeleteDirectLinkInterfaceResponse DeleteDirectLinkInterface(ctx).DeleteDirectLinkInterfaceRequest(deleteDirectLinkInterfaceRequest).Execute()
+
+
 
 
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
 ## UpdateDirectLinkInterface
 
 > UpdateDirectLinkInterfaceResponse UpdateDirectLinkInterface(ctx).UpdateDirectLinkInterfaceRequest(updateDirectLinkInterfaceRequest).Execute()
+
+
 
 
 

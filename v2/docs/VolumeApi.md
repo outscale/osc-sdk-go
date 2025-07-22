@@ -19,6 +19,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 ## DeleteVolume
 
 > DeleteVolumeResponse DeleteVolume(ctx).DeleteVolumeRequest(deleteVolumeRequest).Execute()
+
+
 
 
 
@@ -147,6 +151,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 ## ReadVolumes
 
 > ReadVolumesResponse ReadVolumes(ctx).ReadVolumesRequest(readVolumesRequest).Execute()
+
+
 
 
 
@@ -275,6 +283,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -336,6 +346,8 @@ Name | Type | Description  | Notes
 ## UpdateVolume
 
 > UpdateVolumeResponse UpdateVolume(ctx).UpdateVolumeRequest(updateVolumeRequest).Execute()
+
+
 
 
 

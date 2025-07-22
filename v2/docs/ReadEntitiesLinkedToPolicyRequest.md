@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntitiesType** | Pointer to **[]string** | The type of entity linked to the policy (&#x60;ACCOUNT&#x60; \\| &#x60;USER&#x60; \\| &#x60;GROUP&#x60;) you want to get information about. | [optional] 
+**EntitiesType** | Pointer to **[]string** | The type of entity linked to the policy you want to get information about. | [optional] 
 **FirstItem** | Pointer to **int32** | The item starting the list of entities requested. | [optional] 
 **PolicyOrn** | Pointer to **string** | The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | [optional] 
 **ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, 100). | [optional] 

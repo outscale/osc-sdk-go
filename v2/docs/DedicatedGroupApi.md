@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
 ## DeleteDedicatedGroup
 
 > DeleteDedicatedGroupResponse DeleteDedicatedGroup(ctx).DeleteDedicatedGroupRequest(deleteDedicatedGroupRequest).Execute()
+
+
 
 
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
 ## UpdateDedicatedGroup
 
 > UpdateDedicatedGroupResponse UpdateDedicatedGroup(ctx).UpdateDedicatedGroupRequest(updateDedicatedGroupRequest).Execute()
+
+
 
 
 

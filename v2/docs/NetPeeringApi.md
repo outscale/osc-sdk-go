@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -79,6 +81,8 @@ Name | Type | Description  | Notes
 ## CreateNetPeering
 
 > CreateNetPeeringResponse CreateNetPeering(ctx).CreateNetPeeringRequest(createNetPeeringRequest).Execute()
+
+
 
 
 
@@ -146,6 +150,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -210,6 +216,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -271,6 +279,8 @@ Name | Type | Description  | Notes
 ## RejectNetPeering
 
 > RejectNetPeeringResponse RejectNetPeering(ctx).RejectNetPeeringRequest(rejectNetPeeringRequest).Execute()
+
+
 
 
 

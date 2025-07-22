@@ -19,6 +19,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 ## DeletePublicIp
 
 > DeletePublicIpResponse DeletePublicIp(ctx).DeletePublicIpRequest(deletePublicIpRequest).Execute()
+
+
 
 
 
@@ -147,6 +151,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 ## ReadPublicIpRanges
 
 > ReadPublicIpRangesResponse ReadPublicIpRanges(ctx).ReadPublicIpRangesRequest(readPublicIpRangesRequest).Execute()
+
+
 
 
 
@@ -275,6 +283,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -336,6 +346,8 @@ Name | Type | Description  | Notes
 ## UnlinkPublicIp
 
 > UnlinkPublicIpResponse UnlinkPublicIp(ctx).UnlinkPublicIpRequest(unlinkPublicIpRequest).Execute()
+
+
 
 
 

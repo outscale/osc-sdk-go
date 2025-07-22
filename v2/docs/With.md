@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **bool** | By default or if set to true, the account ID is displayed. | [optional] [default to true]
-**CallDuration** | Pointer to **bool** | By default or if set to true, the duration of the call is displayed. | [optional] [default to true]
-**QueryAccessKey** | Pointer to **bool** | By default or if set to true, the access key is displayed. | [optional] [default to true]
-**QueryApiName** | Pointer to **bool** | By default or if set to true, the name of the API is displayed. | [optional] [default to true]
-**QueryApiVersion** | Pointer to **bool** | By default or if set to true, the version of the API is displayed. | [optional] [default to true]
-**QueryCallName** | Pointer to **bool** | By default or if set to true, the name of the call is displayed. | [optional] [default to true]
-**QueryDate** | Pointer to **bool** | By default or if set to true, the date of the call is displayed. | [optional] [default to true]
-**QueryHeaderRaw** | Pointer to **bool** | By default or if set to true, the raw header of the HTTP request is displayed. | [optional] [default to true]
-**QueryHeaderSize** | Pointer to **bool** | By default or if set to true, the size of the raw header of the HTTP request is displayed. | [optional] [default to true]
-**QueryIpAddress** | Pointer to **bool** | By default or if set to true, the IP is displayed. | [optional] [default to true]
-**QueryPayloadRaw** | Pointer to **bool** | By default or if set to true, the raw payload of the HTTP request is displayed. | [optional] [default to true]
-**QueryPayloadSize** | Pointer to **bool** | By default or if set to true, the size of the raw payload of the HTTP request is displayed. | [optional] [default to true]
-**QueryUserAgent** | Pointer to **bool** | By default or if set to true, the user agent of the HTTP request is displayed. | [optional] [default to true]
-**RequestId** | Pointer to **bool** | By default or if set to true, the request ID is displayed. | [optional] [default to true]
-**ResponseSize** | Pointer to **bool** | By default or if set to true, the size of the response is displayed. | [optional] [default to true]
-**ResponseStatusCode** | Pointer to **bool** | By default or if set to true, the HTTP status code of the response is displayed. | [optional] [default to true]
+**AccountId** | Pointer to **bool** | If true, the account ID is displayed. | [optional] [default to true]
+**CallDuration** | Pointer to **bool** | If true, the duration of the call is displayed. | [optional] [default to true]
+**QueryAccessKey** | Pointer to **bool** | If true, the access key is displayed. | [optional] [default to true]
+**QueryApiName** | Pointer to **bool** | If true, the name of the API is displayed. | [optional] [default to true]
+**QueryApiVersion** | Pointer to **bool** | If true, the version of the API is displayed. | [optional] [default to true]
+**QueryCallName** | Pointer to **bool** | If true, the name of the call is displayed. | [optional] [default to true]
+**QueryDate** | Pointer to **bool** | If true, the date of the call is displayed. | [optional] [default to true]
+**QueryHeaderRaw** | Pointer to **bool** | If true, the raw header of the HTTP request is displayed. | [optional] [default to true]
+**QueryHeaderSize** | Pointer to **bool** | If true, the size of the raw header of the HTTP request is displayed. | [optional] [default to true]
+**QueryIpAddress** | Pointer to **bool** | If true, the IP is displayed. | [optional] [default to true]
+**QueryPayloadRaw** | Pointer to **bool** | If true, the raw payload of the HTTP request is displayed. | [optional] [default to true]
+**QueryPayloadSize** | Pointer to **bool** | If true, the size of the raw payload of the HTTP request is displayed. | [optional] [default to true]
+**QueryUserAgent** | Pointer to **bool** | If true, the user agent of the HTTP request is displayed. | [optional] [default to true]
+**RequestId** | Pointer to **bool** | If true, the request ID is displayed. | [optional] [default to true]
+**ResponseSize** | Pointer to **bool** | If true, the size of the response is displayed. | [optional] [default to true]
+**ResponseStatusCode** | Pointer to **bool** | If true, the HTTP status code of the response is displayed. | [optional] [default to true]
 
 ## Methods
 

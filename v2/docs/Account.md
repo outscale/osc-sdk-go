@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **JobTitle** | Pointer to **string** | The job title of the account owner. | [optional] 
 **LastName** | Pointer to **string** | The last name of the account owner. | [optional] 
 **MobileNumber** | Pointer to **string** | The mobile phone number of the account owner. | [optional] 
+**OutscaleLoginAllowed** | Pointer to **bool** | Whether the account is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated. | [optional] 
 **PhoneNumber** | Pointer to **string** | The landline phone number of the account owner. | [optional] 
 **StateProvince** | Pointer to **string** | The state/province of the account. | [optional] 
 **VatNumber** | Pointer to **string** | The value added tax (VAT) number for the account. | [optional] 
@@ -313,6 +314,31 @@ SetMobileNumber sets MobileNumber field to given value.
 `func (o *Account) HasMobileNumber() bool`
 
 HasMobileNumber returns a boolean if a field has been set.
+
+### GetOutscaleLoginAllowed
+
+`func (o *Account) GetOutscaleLoginAllowed() bool`
+
+GetOutscaleLoginAllowed returns the OutscaleLoginAllowed field if non-nil, zero value otherwise.
+
+### GetOutscaleLoginAllowedOk
+
+`func (o *Account) GetOutscaleLoginAllowedOk() (*bool, bool)`
+
+GetOutscaleLoginAllowedOk returns a tuple with the OutscaleLoginAllowed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutscaleLoginAllowed
+
+`func (o *Account) SetOutscaleLoginAllowed(v bool)`
+
+SetOutscaleLoginAllowed sets OutscaleLoginAllowed field to given value.
+
+### HasOutscaleLoginAllowed
+
+`func (o *Account) HasOutscaleLoginAllowed() bool`
+
+HasOutscaleLoginAllowed returns a boolean if a field has been set.
 
 ### GetPhoneNumber
 

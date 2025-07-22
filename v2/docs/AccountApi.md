@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -79,6 +81,8 @@ Name | Type | Description  | Notes
 ## CreateAccount
 
 > CreateAccountResponse CreateAccount(ctx).CreateAccountRequest(createAccountRequest).Execute()
+
+
 
 
 
@@ -146,6 +150,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -210,6 +216,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -219,11 +227,12 @@ import (
     "context"
     "fmt"
     "os"
+    "time"
     openapiclient "./openapi"
 )
 
 func main() {
-    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest("FromDate_example", "ToDate_example") // ReadConsumptionAccountRequest |  (optional)
+    readConsumptionAccountRequest := *openapiclient.NewReadConsumptionAccountRequest(time.Now(), time.Now()) // ReadConsumptionAccountRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -271,6 +280,8 @@ Name | Type | Description  | Notes
 ## UpdateAccount
 
 > UpdateAccountResponse UpdateAccount(ctx).UpdateAccountRequest(updateAccountRequest).Execute()
+
+
 
 
 

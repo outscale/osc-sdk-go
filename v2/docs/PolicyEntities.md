@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accounts** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) |  | [optional] 
-**Groups** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) |  | [optional] 
+**Accounts** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) | The accounts linked to the specified policy. | [optional] 
+**Groups** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) | The groups linked to the specified policy. | [optional] 
 **HasMoreItems** | Pointer to **bool** | If true, there are more items to return using the &#x60;FirstItem&#x60; parameter in a new request. | [optional] 
 **ItemsCount** | Pointer to **int32** | The number of entities the specified policy is linked to. | [optional] 
 **MaxResultsLimit** | Pointer to **int32** | Indicates maximum results defined for the operation. | [optional] 
 **MaxResultsTruncated** | Pointer to **bool** | If true, indicates whether requested page size is more than allowed. | [optional] 
-**Users** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) |  | [optional] 
+**Users** | Pointer to [**[]MinimalPolicy**](MinimalPolicy.md) | The users linked to the specified policy. | [optional] 
 
 ## Methods
 

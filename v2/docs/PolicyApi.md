@@ -37,6 +37,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -98,6 +100,8 @@ Name | Type | Description  | Notes
 ## CreatePolicyVersion
 
 > CreatePolicyVersionResponse CreatePolicyVersion(ctx).CreatePolicyVersionRequest(createPolicyVersionRequest).Execute()
+
+
 
 
 
@@ -165,6 +169,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -226,6 +232,8 @@ Name | Type | Description  | Notes
 ## DeletePolicyVersion
 
 > DeletePolicyVersionResponse DeletePolicyVersion(ctx).DeletePolicyVersionRequest(deletePolicyVersionRequest).Execute()
+
+
 
 
 
@@ -293,6 +301,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -354,6 +364,8 @@ Name | Type | Description  | Notes
 ## DeleteUserPolicy
 
 > DeleteUserPolicyResponse DeleteUserPolicy(ctx).DeleteUserPolicyRequest(deleteUserPolicyRequest).Execute()
+
+
 
 
 
@@ -421,6 +433,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -482,6 +496,8 @@ Name | Type | Description  | Notes
 ## LinkPolicy
 
 > LinkPolicyResponse LinkPolicy(ctx).LinkPolicyRequest(linkPolicyRequest).Execute()
+
+
 
 
 
@@ -549,6 +565,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -610,6 +628,8 @@ Name | Type | Description  | Notes
 ## PutUserPolicy
 
 > PutUserPolicyResponse PutUserPolicy(ctx).PutUserPolicyRequest(putUserPolicyRequest).Execute()
+
+
 
 
 
@@ -677,6 +697,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -738,6 +760,8 @@ Name | Type | Description  | Notes
 ## ReadLinkedPolicies
 
 > ReadLinkedPoliciesResponse ReadLinkedPolicies(ctx).ReadLinkedPoliciesRequest(readLinkedPoliciesRequest).Execute()
+
+
 
 
 
@@ -805,6 +829,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -866,6 +892,8 @@ Name | Type | Description  | Notes
 ## ReadPolicies
 
 > ReadPoliciesResponse ReadPolicies(ctx).ReadPoliciesRequest(readPoliciesRequest).Execute()
+
+
 
 
 
@@ -933,6 +961,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -994,6 +1024,8 @@ Name | Type | Description  | Notes
 ## ReadPolicyVersion
 
 > ReadPolicyVersionResponse ReadPolicyVersion(ctx).ReadPolicyVersionRequest(readPolicyVersionRequest).Execute()
+
+
 
 
 
@@ -1061,6 +1093,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -1122,6 +1156,8 @@ Name | Type | Description  | Notes
 ## ReadUserGroupPolicies
 
 > ReadUserGroupPoliciesResponse ReadUserGroupPolicies(ctx).ReadUserGroupPoliciesRequest(readUserGroupPoliciesRequest).Execute()
+
+
 
 
 
@@ -1189,6 +1225,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -1250,6 +1288,8 @@ Name | Type | Description  | Notes
 ## ReadUserPolicies
 
 > ReadUserPoliciesResponse ReadUserPolicies(ctx).ReadUserPoliciesRequest(readUserPoliciesRequest).Execute()
+
+
 
 
 
@@ -1317,6 +1357,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -1378,6 +1420,8 @@ Name | Type | Description  | Notes
 ## SetDefaultPolicyVersion
 
 > SetDefaultPolicyVersionResponse SetDefaultPolicyVersion(ctx).SetDefaultPolicyVersionRequest(setDefaultPolicyVersionRequest).Execute()
+
+
 
 
 
@@ -1445,6 +1489,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -1506,6 +1552,8 @@ Name | Type | Description  | Notes
 ## UnlinkPolicy
 
 > UnlinkPolicyResponse UnlinkPolicy(ctx).UnlinkPolicyRequest(unlinkPolicyRequest).Execute()
+
+
 
 
 
