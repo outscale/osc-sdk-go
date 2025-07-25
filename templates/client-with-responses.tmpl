@@ -1,0 +1,174 @@
+// Client builds on ClientInterface to offer response payloads
+type Client struct {
+    ClientInterfaceRaw
+}
+
+// NewClient creates a new Client, which wraps
+// Client with return type handling
+func NewClient(server string, opts ...ClientOption) (*Client, error) {
+    client, err := NewClientRaw(server, opts...)
+    if err != nil {
+        return nil, err
+    }
+    return &Client{client}, nil
+}
+
+{{$clientTypeName := opts.OutputOptions.ClientTypeName -}}
+
+// WithBaseURL overrides the baseURL.
+func WithBaseURL(baseURL string) ClientOption {
+	return func(c *{{ $clientTypeName }}) error {
+		newBaseURL, err := url.Parse(baseURL)
+		if err != nil {
+			return err
+		}
+		c.Server = newBaseURL.String()
+		return nil
+	}
+}
+
+// ClientInterface is the interface specification for the client with responses above.
+type ClientInterface interface {
+    //BIPBIP
+{{range . -}}
+{{$hasParams := .RequiresParamObject -}}
+{{$pathParams := .PathParams -}}
+{{$opid := .OperationId -}}
+{{$op := .}}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
+{{- range $k, $v := $responseTypeDefinitions}}
+{{if eq $v.TypeName "JSON200" }}
+    // {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with any body{{end}}
+    {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error)
+{{range $op.Bodies}}
+    {{if .IsSupportedByClient -}}
+        {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error)
+    {{end -}}
+{{end}}{{/* range $op.Bodies */}}
+{{end}}{{/* if JSON200 */}}
+{{end}}{{/* range $responseTypeDefinitions */}}
+{{end}}{{/* range . $opid := .OperationId */}}
+}
+
+{{range .}}{{$opid := .OperationId}}{{$op := .}}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
+type {{genResponseTypeName $opid | ucFirst}} struct {
+    Body         []byte
+	HTTPResponse *http.Response
+    {{- range $responseTypeDefinitions}}
+    {{.TypeName}} *{{.Schema.TypeDecl}}
+    {{- end}}
+}
+
+{{- range $responseTypeDefinitions}}
+  {{- range .AdditionalTypeDefinitions}}
+    type {{.TypeName}} {{if .IsAlias }}={{end}} {{.Schema.TypeDecl}}
+  {{- end}}
+{{- end}}
+
+// Status returns HTTPResponse.Status
+func (r {{genResponseTypeName $opid | ucFirst}}) Status() string {
+    if r.HTTPResponse != nil {
+        return r.HTTPResponse.Status
+    }
+    return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r {{genResponseTypeName $opid | ucFirst}}) StatusCode() int {
+    if r.HTTPResponse != nil {
+        return r.HTTPResponse.StatusCode
+    }
+    return 0
+}
+
+{{- range $responseTypeDefinitions}}
+{{ if eq .TypeName "JSON200" }}
+func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{.Schema.TypeDecl}}, error) {
+    if r.JSON200 != nil {
+        return r.JSON200, nil
+    }
+    {{- range $responseTypeDefinitions}}
+    {{ if ne .TypeName "JSON200" }}
+    if r.{{.TypeName}} != nil {
+        return nil, r.{{.TypeName}}
+    }
+    {{ end }}
+    {{- end}}
+    return nil, errors.New(string(r.Body))
+}
+{{ end }}
+{{ end}}
+
+
+{{ if opts.OutputOptions.ClientResponseBytesFunction }}
+// Bytes is a convenience method to retrieve the raw bytes from the HTTP response
+func (r {{genResponseTypeName $opid | ucFirst}}) Bytes() []byte {
+    return r.Body
+}
+{{end}}
+{{end}}
+
+
+{{range .}}
+{{$opid := .OperationId -}}
+{{$op := .}}
+{{/* Generate client methods (with responses)*/}}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
+{{ range $k, $v := $responseTypeDefinitions }}
+{{ if eq $v.TypeName "JSON200" }}
+// {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with arbitrary body{{end}} returning *{{$v.Schema.TypeDecl}}
+func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error){
+    rsp, err := c.{{$opid}}{{if $op.HasBody}}WithBody{{end}}Raw(ctx{{genParamNames $op.PathParams}}{{if $op.RequiresParamObject}}, params{{end}}{{if $op.HasBody}}, contentType, body{{end}}, reqEditors...)
+    if err != nil {
+        return nil, err
+    }
+    obj, err := Parse{{genResponseTypeName $opid | ucFirst}}(rsp)
+    if err != nil {
+        return nil, err
+    }
+   
+    return obj.Expect()
+}
+
+{{$hasParams := $op.RequiresParamObject -}}
+{{$pathParams := $op.PathParams -}}
+{{$bodyRequired := $op.BodyRequired -}}
+{{range $op.Bodies}}
+{{if .IsSupportedByClient -}}
+func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error) {
+    rsp, err := c.{{$opid}}{{.Suffix}}Raw(ctx{{genParamNames $pathParams}}{{if $hasParams}}, params{{end}}, body, reqEditors...)
+    if err != nil {
+        return nil, err
+    }
+    obj, err := Parse{{genResponseTypeName $opid | ucFirst}}(rsp)
+    if err != nil {
+        return nil, err
+    }
+   
+    return obj.Expect()
+}
+{{end}}
+{{end}}
+
+{{end}}{{end}}{{/* range type */}}
+{{end}}{{/* operations */}}
+
+{{/* Generate parse functions for responses*/}}
+{{range .}}{{$opid := .OperationId}}
+
+// Parse{{genResponseTypeName $opid | ucFirst}} parses an HTTP response from a {{$opid}} call
+func Parse{{genResponseTypeName $opid | ucFirst}}(rsp *http.Response) (*{{genResponseTypeName $opid}}, error) {
+    bodyBytes, err := io.ReadAll(rsp.Body)
+    defer func() { _ = rsp.Body.Close() }()
+    if err != nil {
+        return nil, err
+    }
+
+    response := {{genResponsePayload $opid}}
+
+    {{genResponseUnmarshal .}}
+
+    return response, nil
+}
+{{end}}{{/* range . $opid := .OperationId */}}

@@ -1,1 +1,0 @@
-../examples/region_test.go

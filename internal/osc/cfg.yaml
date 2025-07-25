@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/oapi-codegen/oapi-codegen/v2.5.0/configuration-schema.json
+package: osc
+output: client.gen.go
+generate:
+  models: true
+  client: true
+output-options:
+  client-type-name: ClientRaw
+  response-type-suffix: Resp
+  overlay:
+    path: ./patch.yaml
+  user-templates:
+    client.tmpl: ../../templates/client.tmpl
+    client-with-responses.tmpl: ../../templates/client-with-responses.tmpl
+

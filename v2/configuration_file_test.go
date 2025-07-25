@@ -1,1 +1,0 @@
-../examples/configuration_file_test.go

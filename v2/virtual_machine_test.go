@@ -1,1 +1,0 @@
-../examples/virtual_machine_test.go
