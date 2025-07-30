@@ -48,7 +48,7 @@ func NewClientRaw(server string, opts ...ClientOption) (*{{ $clientTypeName }}, 
     }
     // create httpClient, if not already present
     if client.Client == nil {
-        client.Client = &http.Client{}
+        client.Client = cleanhttp.DefaultPooledClient()
     }
     return &client, nil
 }

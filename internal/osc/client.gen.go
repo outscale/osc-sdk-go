@@ -15,6 +15,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hashicorp/go-cleanhttp"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	iso8601 "github.com/relvacode/iso8601"
 )
@@ -10026,7 +10027,7 @@ func NewClientRaw(server string, opts ...ClientOption) (*ClientRaw, error) {
 	}
 	// create httpClient, if not already present
 	if client.Client == nil {
-		client.Client = &http.Client{}
+		client.Client = cleanhttp.DefaultPooledClient()
 	}
 	return &client, nil
 }
@@ -25758,7 +25759,6 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
-	//BIPBIP
 
 	// AcceptNetPeeringWithBody request with any body
 	AcceptNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AcceptNetPeeringResponse, error)
@@ -26943,6 +26943,11 @@ func (r AcceptNetPeeringResp) Expect() (*AcceptNetPeeringResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -26971,6 +26976,11 @@ func (r AddUserToUserGroupResp) StatusCode() int {
 func (r AddUserToUserGroupResp) Expect() (*AddUserToUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27003,6 +27013,11 @@ func (r CheckAuthenticationResp) Expect() (*CheckAuthenticationResponse, error) 
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27031,6 +27046,11 @@ func (r CreateAccessKeyResp) StatusCode() int {
 func (r CreateAccessKeyResp) Expect() (*CreateAccessKeyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27063,6 +27083,11 @@ func (r CreateAccountResp) Expect() (*CreateAccountResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27091,6 +27116,11 @@ func (r CreateApiAccessRuleResp) StatusCode() int {
 func (r CreateApiAccessRuleResp) Expect() (*CreateApiAccessRuleResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27123,6 +27153,11 @@ func (r CreateCaResp) Expect() (*CreateCaResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27151,6 +27186,11 @@ func (r CreateClientGatewayResp) StatusCode() int {
 func (r CreateClientGatewayResp) Expect() (*CreateClientGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27198,6 +27238,11 @@ func (r CreateDedicatedGroupResp) Expect() (*CreateDedicatedGroupResponse, error
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27226,6 +27271,11 @@ func (r CreateDhcpOptionsResp) StatusCode() int {
 func (r CreateDhcpOptionsResp) Expect() (*CreateDhcpOptionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27258,6 +27308,11 @@ func (r CreateDirectLinkResp) Expect() (*CreateDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27288,6 +27343,11 @@ func (r CreateDirectLinkInterfaceResp) Expect() (*CreateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27316,6 +27376,11 @@ func (r CreateFlexibleGpuResp) StatusCode() int {
 func (r CreateFlexibleGpuResp) Expect() (*CreateFlexibleGpuResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27363,6 +27428,11 @@ func (r CreateImageResp) Expect() (*CreateImageResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27391,6 +27461,11 @@ func (r CreateImageExportTaskResp) StatusCode() int {
 func (r CreateImageExportTaskResp) Expect() (*CreateImageExportTaskResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27436,6 +27511,11 @@ func (r CreateInternetServiceResp) Expect() (*CreateInternetServiceResponse, err
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27488,6 +27568,11 @@ func (r CreateKeypairResp) Expect() (*CreateKeypairResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27516,6 +27601,11 @@ func (r CreateListenerRuleResp) StatusCode() int {
 func (r CreateListenerRuleResp) Expect() (*CreateListenerRuleResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27548,6 +27638,11 @@ func (r CreateLoadBalancerResp) Expect() (*CreateLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27576,6 +27671,11 @@ func (r CreateLoadBalancerListenersResp) StatusCode() int {
 func (r CreateLoadBalancerListenersResp) Expect() (*CreateLoadBalancerListenersResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27608,6 +27708,11 @@ func (r CreateLoadBalancerPolicyResp) Expect() (*CreateLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27636,6 +27741,11 @@ func (r CreateLoadBalancerTagsResp) StatusCode() int {
 func (r CreateLoadBalancerTagsResp) Expect() (*CreateLoadBalancerTagsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27681,6 +27791,11 @@ func (r CreateNatServiceResp) Expect() (*CreateNatServiceResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27733,6 +27848,11 @@ func (r CreateNetResp) Expect() (*CreateNetResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27761,6 +27881,11 @@ func (r CreateNetAccessPointResp) StatusCode() int {
 func (r CreateNetAccessPointResp) Expect() (*CreateNetAccessPointResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27808,6 +27933,11 @@ func (r CreateNetPeeringResp) Expect() (*CreateNetPeeringResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27853,6 +27983,11 @@ func (r CreateNicResp) Expect() (*CreateNicResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27881,6 +28016,11 @@ func (r CreatePolicyResp) StatusCode() int {
 func (r CreatePolicyResp) Expect() (*CreatePolicyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27913,6 +28053,11 @@ func (r CreatePolicyVersionResp) Expect() (*CreatePolicyVersionResponse, error) 
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -27941,6 +28086,11 @@ func (r CreateProductTypeResp) StatusCode() int {
 func (r CreateProductTypeResp) Expect() (*CreateProductTypeResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -27988,6 +28138,11 @@ func (r CreatePublicIpResp) Expect() (*CreatePublicIpResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28031,6 +28186,11 @@ func (r CreateRouteResp) Expect() (*CreateRouteResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28078,6 +28238,11 @@ func (r CreateRouteTableResp) Expect() (*CreateRouteTableResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28121,6 +28286,11 @@ func (r CreateSecurityGroupResp) Expect() (*CreateSecurityGroupResponse, error) 
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28168,6 +28338,11 @@ func (r CreateSecurityGroupRuleResp) Expect() (*CreateSecurityGroupRuleResponse,
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28196,6 +28371,11 @@ func (r CreateServerCertificateResp) StatusCode() int {
 func (r CreateServerCertificateResp) Expect() (*CreateServerCertificateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28243,6 +28423,11 @@ func (r CreateSnapshotResp) Expect() (*CreateSnapshotResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28271,6 +28456,11 @@ func (r CreateSnapshotExportTaskResp) StatusCode() int {
 func (r CreateSnapshotExportTaskResp) Expect() (*CreateSnapshotExportTaskResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28323,6 +28513,11 @@ func (r CreateSubnetResp) Expect() (*CreateSubnetResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28368,6 +28563,11 @@ func (r CreateTagsResp) Expect() (*CreateTagsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28396,6 +28596,11 @@ func (r CreateUserResp) StatusCode() int {
 func (r CreateUserResp) Expect() (*CreateUserResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28428,6 +28633,11 @@ func (r CreateUserGroupResp) Expect() (*CreateUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28456,6 +28666,11 @@ func (r CreateVirtualGatewayResp) StatusCode() int {
 func (r CreateVirtualGatewayResp) Expect() (*CreateVirtualGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28503,6 +28718,11 @@ func (r CreateVmGroupResp) Expect() (*CreateVmGroupResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28531,6 +28751,11 @@ func (r CreateVmTemplateResp) StatusCode() int {
 func (r CreateVmTemplateResp) Expect() (*CreateVmTemplateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28578,6 +28803,11 @@ func (r CreateVmsResp) Expect() (*CreateVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28623,6 +28853,11 @@ func (r CreateVolumeResp) Expect() (*CreateVolumeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28651,6 +28886,11 @@ func (r CreateVpnConnectionResp) StatusCode() int {
 func (r CreateVpnConnectionResp) Expect() (*CreateVpnConnectionResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28683,6 +28923,11 @@ func (r CreateVpnConnectionRouteResp) Expect() (*CreateVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28711,6 +28956,11 @@ func (r DeleteAccessKeyResp) StatusCode() int {
 func (r DeleteAccessKeyResp) Expect() (*DeleteAccessKeyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28743,6 +28993,11 @@ func (r DeleteApiAccessRuleResp) Expect() (*DeleteApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28773,6 +29028,11 @@ func (r DeleteCaResp) Expect() (*DeleteCaResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28801,6 +29061,11 @@ func (r DeleteClientGatewayResp) StatusCode() int {
 func (r DeleteClientGatewayResp) Expect() (*DeleteClientGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28848,6 +29113,11 @@ func (r DeleteDedicatedGroupResp) Expect() (*DeleteDedicatedGroupResponse, error
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28876,6 +29146,11 @@ func (r DeleteDhcpOptionsResp) StatusCode() int {
 func (r DeleteDhcpOptionsResp) Expect() (*DeleteDhcpOptionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28908,6 +29183,11 @@ func (r DeleteDirectLinkResp) Expect() (*DeleteDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28936,6 +29216,11 @@ func (r DeleteDirectLinkInterfaceResp) StatusCode() int {
 func (r DeleteDirectLinkInterfaceResp) Expect() (*DeleteDirectLinkInterfaceResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -28968,6 +29253,11 @@ func (r DeleteExportTaskResp) Expect() (*DeleteExportTaskResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -28996,6 +29286,11 @@ func (r DeleteFlexibleGpuResp) StatusCode() int {
 func (r DeleteFlexibleGpuResp) Expect() (*DeleteFlexibleGpuResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29043,6 +29338,11 @@ func (r DeleteImageResp) Expect() (*DeleteImageResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29086,6 +29386,11 @@ func (r DeleteInternetServiceResp) Expect() (*DeleteInternetServiceResponse, err
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29133,6 +29438,11 @@ func (r DeleteKeypairResp) Expect() (*DeleteKeypairResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29161,6 +29471,11 @@ func (r DeleteListenerRuleResp) StatusCode() int {
 func (r DeleteListenerRuleResp) Expect() (*DeleteListenerRuleResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29193,6 +29508,11 @@ func (r DeleteLoadBalancerResp) Expect() (*DeleteLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29221,6 +29541,11 @@ func (r DeleteLoadBalancerListenersResp) StatusCode() int {
 func (r DeleteLoadBalancerListenersResp) Expect() (*DeleteLoadBalancerListenersResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29253,6 +29578,11 @@ func (r DeleteLoadBalancerPolicyResp) Expect() (*DeleteLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29281,6 +29611,11 @@ func (r DeleteLoadBalancerTagsResp) StatusCode() int {
 func (r DeleteLoadBalancerTagsResp) Expect() (*DeleteLoadBalancerTagsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29328,6 +29663,11 @@ func (r DeleteNatServiceResp) Expect() (*DeleteNatServiceResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29373,6 +29713,11 @@ func (r DeleteNetResp) Expect() (*DeleteNetResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29401,6 +29746,11 @@ func (r DeleteNetAccessPointResp) StatusCode() int {
 func (r DeleteNetAccessPointResp) Expect() (*DeleteNetAccessPointResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29453,6 +29803,11 @@ func (r DeleteNetPeeringResp) Expect() (*DeleteNetPeeringResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29498,6 +29853,11 @@ func (r DeleteNicResp) Expect() (*DeleteNicResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29528,6 +29888,11 @@ func (r DeletePolicyResp) Expect() (*DeletePolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29556,6 +29921,11 @@ func (r DeletePolicyVersionResp) StatusCode() int {
 func (r DeletePolicyVersionResp) Expect() (*DeletePolicyVersionResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29603,6 +29973,11 @@ func (r DeleteProductTypeResp) Expect() (*DeleteProductTypeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29646,6 +30021,11 @@ func (r DeletePublicIpResp) Expect() (*DeletePublicIpResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29693,6 +30073,11 @@ func (r DeleteRouteResp) Expect() (*DeleteRouteResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29736,6 +30121,11 @@ func (r DeleteRouteTableResp) Expect() (*DeleteRouteTableResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29783,6 +30173,11 @@ func (r DeleteSecurityGroupResp) Expect() (*DeleteSecurityGroupResponse, error) 
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29828,6 +30223,11 @@ func (r DeleteSecurityGroupRuleResp) Expect() (*DeleteSecurityGroupRuleResponse,
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29856,6 +30256,11 @@ func (r DeleteServerCertificateResp) StatusCode() int {
 func (r DeleteServerCertificateResp) Expect() (*DeleteServerCertificateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29903,6 +30308,11 @@ func (r DeleteSnapshotResp) Expect() (*DeleteSnapshotResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -29946,6 +30356,11 @@ func (r DeleteSubnetResp) Expect() (*DeleteSubnetResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -29993,6 +30408,11 @@ func (r DeleteTagsResp) Expect() (*DeleteTagsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30021,6 +30441,11 @@ func (r DeleteUserResp) StatusCode() int {
 func (r DeleteUserResp) Expect() (*DeleteUserResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30053,6 +30478,11 @@ func (r DeleteUserGroupResp) Expect() (*DeleteUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30081,6 +30511,11 @@ func (r DeleteUserGroupPolicyResp) StatusCode() int {
 func (r DeleteUserGroupPolicyResp) Expect() (*DeleteUserGroupPolicyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30113,6 +30548,11 @@ func (r DeleteUserPolicyResp) Expect() (*DeleteUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30141,6 +30581,11 @@ func (r DeleteVirtualGatewayResp) StatusCode() int {
 func (r DeleteVirtualGatewayResp) Expect() (*DeleteVirtualGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30188,6 +30633,11 @@ func (r DeleteVmGroupResp) Expect() (*DeleteVmGroupResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30216,6 +30666,11 @@ func (r DeleteVmTemplateResp) StatusCode() int {
 func (r DeleteVmTemplateResp) Expect() (*DeleteVmTemplateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30263,6 +30718,11 @@ func (r DeleteVmsResp) Expect() (*DeleteVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30308,6 +30768,11 @@ func (r DeleteVolumeResp) Expect() (*DeleteVolumeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30336,6 +30801,11 @@ func (r DeleteVpnConnectionResp) StatusCode() int {
 func (r DeleteVpnConnectionResp) Expect() (*DeleteVpnConnectionResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30368,6 +30838,11 @@ func (r DeleteVpnConnectionRouteResp) Expect() (*DeleteVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30398,6 +30873,11 @@ func (r DeregisterVmsInLoadBalancerResp) Expect() (*DeregisterVmsInLoadBalancerR
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30426,6 +30906,11 @@ func (r LinkFlexibleGpuResp) StatusCode() int {
 func (r LinkFlexibleGpuResp) Expect() (*LinkFlexibleGpuResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30473,6 +30958,11 @@ func (r LinkInternetServiceResp) Expect() (*LinkInternetServiceResponse, error) 
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30503,6 +30993,11 @@ func (r LinkLoadBalancerBackendMachinesResp) Expect() (*LinkLoadBalancerBackendM
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30531,6 +31026,11 @@ func (r LinkManagedPolicyToUserGroupResp) StatusCode() int {
 func (r LinkManagedPolicyToUserGroupResp) Expect() (*LinkManagedPolicyToUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30578,6 +31078,11 @@ func (r LinkNicResp) Expect() (*LinkNicResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30606,6 +31111,11 @@ func (r LinkPolicyResp) StatusCode() int {
 func (r LinkPolicyResp) Expect() (*LinkPolicyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30653,6 +31163,11 @@ func (r LinkPrivateIpsResp) Expect() (*LinkPrivateIpsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30696,6 +31211,11 @@ func (r LinkPublicIpResp) Expect() (*LinkPublicIpResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30743,6 +31263,11 @@ func (r LinkRouteTableResp) Expect() (*LinkRouteTableResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30771,6 +31296,11 @@ func (r LinkVirtualGatewayResp) StatusCode() int {
 func (r LinkVirtualGatewayResp) Expect() (*LinkVirtualGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30818,6 +31348,11 @@ func (r LinkVolumeResp) Expect() (*LinkVolumeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30846,6 +31381,11 @@ func (r PutUserGroupPolicyResp) StatusCode() int {
 func (r PutUserGroupPolicyResp) Expect() (*PutUserGroupPolicyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30878,6 +31418,11 @@ func (r PutUserPolicyResp) Expect() (*PutUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30908,6 +31453,11 @@ func (r ReadAccessKeysResp) Expect() (*ReadAccessKeysResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -30936,6 +31486,11 @@ func (r ReadAccountsResp) StatusCode() int {
 func (r ReadAccountsResp) Expect() (*ReadAccountsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -30983,6 +31538,11 @@ func (r ReadAdminPasswordResp) Expect() (*ReadAdminPasswordResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31028,6 +31588,11 @@ func (r ReadApiAccessPolicyResp) Expect() (*ReadApiAccessPolicyResponse, error) 
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31056,6 +31621,11 @@ func (r ReadApiAccessRulesResp) StatusCode() int {
 func (r ReadApiAccessRulesResp) Expect() (*ReadApiAccessRulesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31088,6 +31658,11 @@ func (r ReadApiLogsResp) Expect() (*ReadApiLogsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31116,6 +31691,11 @@ func (r ReadCasResp) StatusCode() int {
 func (r ReadCasResp) Expect() (*ReadCasResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31148,6 +31728,11 @@ func (r ReadCatalogResp) Expect() (*ReadCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31178,6 +31763,11 @@ func (r ReadCatalogsResp) Expect() (*ReadCatalogsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31206,6 +31796,11 @@ func (r ReadClientGatewaysResp) StatusCode() int {
 func (r ReadClientGatewaysResp) Expect() (*ReadClientGatewaysResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31253,6 +31848,11 @@ func (r ReadConsoleOutputResp) Expect() (*ReadConsoleOutputResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31281,6 +31881,11 @@ func (r ReadConsumptionAccountResp) StatusCode() int {
 func (r ReadConsumptionAccountResp) Expect() (*ReadConsumptionAccountResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31328,6 +31933,11 @@ func (r ReadDedicatedGroupsResp) Expect() (*ReadDedicatedGroupsResponse, error) 
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31356,6 +31966,11 @@ func (r ReadDhcpOptionsResp) StatusCode() int {
 func (r ReadDhcpOptionsResp) Expect() (*ReadDhcpOptionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31388,6 +32003,11 @@ func (r ReadDirectLinkInterfacesResp) Expect() (*ReadDirectLinkInterfacesRespons
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31416,6 +32036,11 @@ func (r ReadDirectLinksResp) StatusCode() int {
 func (r ReadDirectLinksResp) Expect() (*ReadDirectLinksResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31448,6 +32073,11 @@ func (r ReadEntitiesLinkedToPolicyResp) Expect() (*ReadEntitiesLinkedToPolicyRes
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31476,6 +32106,11 @@ func (r ReadFlexibleGpuCatalogResp) StatusCode() int {
 func (r ReadFlexibleGpuCatalogResp) Expect() (*ReadFlexibleGpuCatalogResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31508,6 +32143,11 @@ func (r ReadFlexibleGpusResp) Expect() (*ReadFlexibleGpusResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31536,6 +32176,11 @@ func (r ReadImageExportTasksResp) StatusCode() int {
 func (r ReadImageExportTasksResp) Expect() (*ReadImageExportTasksResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31583,6 +32228,11 @@ func (r ReadImagesResp) Expect() (*ReadImagesResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31626,6 +32276,11 @@ func (r ReadInternetServicesResp) Expect() (*ReadInternetServicesResponse, error
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31673,6 +32328,11 @@ func (r ReadKeypairsResp) Expect() (*ReadKeypairsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31701,6 +32361,11 @@ func (r ReadLinkedPoliciesResp) StatusCode() int {
 func (r ReadLinkedPoliciesResp) Expect() (*ReadLinkedPoliciesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31733,6 +32398,11 @@ func (r ReadListenerRulesResp) Expect() (*ReadListenerRulesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31761,6 +32431,11 @@ func (r ReadLoadBalancerTagsResp) StatusCode() int {
 func (r ReadLoadBalancerTagsResp) Expect() (*ReadLoadBalancerTagsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31793,6 +32468,11 @@ func (r ReadLoadBalancersResp) Expect() (*ReadLoadBalancersResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31823,6 +32503,11 @@ func (r ReadLocationsResp) Expect() (*ReadLocationsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31851,6 +32536,11 @@ func (r ReadManagedPoliciesLinkedToUserGroupResp) StatusCode() int {
 func (r ReadManagedPoliciesLinkedToUserGroupResp) Expect() (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -31898,6 +32588,11 @@ func (r ReadNatServicesResp) Expect() (*ReadNatServicesResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31928,6 +32623,11 @@ func (r ReadNetAccessPointServicesResp) Expect() (*ReadNetAccessPointServicesRes
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -31956,6 +32656,11 @@ func (r ReadNetAccessPointsResp) StatusCode() int {
 func (r ReadNetAccessPointsResp) Expect() (*ReadNetAccessPointsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32003,6 +32708,11 @@ func (r ReadNetPeeringsResp) Expect() (*ReadNetPeeringsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32046,6 +32756,11 @@ func (r ReadNetsResp) Expect() (*ReadNetsResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32093,6 +32808,11 @@ func (r ReadNicsResp) Expect() (*ReadNicsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32121,6 +32841,11 @@ func (r ReadPoliciesResp) StatusCode() int {
 func (r ReadPoliciesResp) Expect() (*ReadPoliciesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32153,6 +32878,11 @@ func (r ReadPolicyResp) Expect() (*ReadPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32181,6 +32911,11 @@ func (r ReadPolicyVersionResp) StatusCode() int {
 func (r ReadPolicyVersionResp) Expect() (*ReadPolicyVersionResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32213,6 +32948,11 @@ func (r ReadPolicyVersionsResp) Expect() (*ReadPolicyVersionsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32241,6 +32981,11 @@ func (r ReadProductTypesResp) StatusCode() int {
 func (r ReadProductTypesResp) Expect() (*ReadProductTypesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32273,6 +33018,11 @@ func (r ReadPublicCatalogResp) Expect() (*ReadPublicCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32301,6 +33051,11 @@ func (r ReadPublicIpRangesResp) StatusCode() int {
 func (r ReadPublicIpRangesResp) Expect() (*ReadPublicIpRangesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32348,6 +33103,11 @@ func (r ReadPublicIpsResp) Expect() (*ReadPublicIpsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32378,6 +33138,11 @@ func (r ReadQuotasResp) Expect() (*ReadQuotasResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32406,6 +33171,11 @@ func (r ReadRegionsResp) StatusCode() int {
 func (r ReadRegionsResp) Expect() (*ReadRegionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32453,6 +33223,11 @@ func (r ReadRouteTablesResp) Expect() (*ReadRouteTablesResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32498,6 +33273,11 @@ func (r ReadSecurityGroupsResp) Expect() (*ReadSecurityGroupsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32528,6 +33308,11 @@ func (r ReadServerCertificatesResp) Expect() (*ReadServerCertificatesResponse, e
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32556,6 +33341,11 @@ func (r ReadSnapshotExportTasksResp) StatusCode() int {
 func (r ReadSnapshotExportTasksResp) Expect() (*ReadSnapshotExportTasksResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32603,6 +33393,11 @@ func (r ReadSnapshotsResp) Expect() (*ReadSnapshotsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32648,6 +33443,11 @@ func (r ReadSubnetsResp) Expect() (*ReadSubnetsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32676,6 +33476,11 @@ func (r ReadSubregionsResp) StatusCode() int {
 func (r ReadSubregionsResp) Expect() (*ReadSubregionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32723,6 +33528,11 @@ func (r ReadTagsResp) Expect() (*ReadTagsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32751,6 +33561,11 @@ func (r ReadUnitPriceResp) StatusCode() int {
 func (r ReadUnitPriceResp) Expect() (*ReadUnitPriceResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32783,6 +33598,11 @@ func (r ReadUserGroupResp) Expect() (*ReadUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32811,6 +33631,11 @@ func (r ReadUserGroupPoliciesResp) StatusCode() int {
 func (r ReadUserGroupPoliciesResp) Expect() (*ReadUserGroupPoliciesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32843,6 +33668,11 @@ func (r ReadUserGroupPolicyResp) Expect() (*ReadUserGroupPolicyResponse, error) 
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32871,6 +33701,11 @@ func (r ReadUserGroupsResp) StatusCode() int {
 func (r ReadUserGroupsResp) Expect() (*ReadUserGroupsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32903,6 +33738,11 @@ func (r ReadUserGroupsPerUserResp) Expect() (*ReadUserGroupsPerUserResponse, err
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32931,6 +33771,11 @@ func (r ReadUserPoliciesResp) StatusCode() int {
 func (r ReadUserPoliciesResp) Expect() (*ReadUserPoliciesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -32963,6 +33808,11 @@ func (r ReadUserPolicyResp) Expect() (*ReadUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -32993,6 +33843,11 @@ func (r ReadUsersResp) Expect() (*ReadUsersResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33021,6 +33876,11 @@ func (r ReadVirtualGatewaysResp) StatusCode() int {
 func (r ReadVirtualGatewaysResp) Expect() (*ReadVirtualGatewaysResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33068,6 +33928,11 @@ func (r ReadVmGroupsResp) Expect() (*ReadVmGroupsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33098,6 +33963,11 @@ func (r ReadVmTemplatesResp) Expect() (*ReadVmTemplatesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33126,6 +33996,11 @@ func (r ReadVmTypesResp) StatusCode() int {
 func (r ReadVmTypesResp) Expect() (*ReadVmTypesResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33173,6 +34048,11 @@ func (r ReadVmsResp) Expect() (*ReadVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33201,6 +34081,11 @@ func (r ReadVmsHealthResp) StatusCode() int {
 func (r ReadVmsHealthResp) Expect() (*ReadVmsHealthResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33248,6 +34133,11 @@ func (r ReadVmsStateResp) Expect() (*ReadVmsStateResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33293,6 +34183,11 @@ func (r ReadVolumesResp) Expect() (*ReadVolumesResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33321,6 +34216,11 @@ func (r ReadVpnConnectionsResp) StatusCode() int {
 func (r ReadVpnConnectionsResp) Expect() (*ReadVpnConnectionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33368,6 +34268,11 @@ func (r RebootVmsResp) Expect() (*RebootVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33396,6 +34301,11 @@ func (r RegisterVmsInLoadBalancerResp) StatusCode() int {
 func (r RegisterVmsInLoadBalancerResp) Expect() (*RegisterVmsInLoadBalancerResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33448,6 +34358,11 @@ func (r RejectNetPeeringResp) Expect() (*RejectNetPeeringResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33476,6 +34391,11 @@ func (r RemoveUserFromUserGroupResp) StatusCode() int {
 func (r RemoveUserFromUserGroupResp) Expect() (*RemoveUserFromUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33523,6 +34443,11 @@ func (r ScaleDownVmGroupResp) Expect() (*ScaleDownVmGroupResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33568,6 +34493,11 @@ func (r ScaleUpVmGroupResp) Expect() (*ScaleUpVmGroupResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33596,6 +34526,11 @@ func (r SetDefaultPolicyVersionResp) StatusCode() int {
 func (r SetDefaultPolicyVersionResp) Expect() (*SetDefaultPolicyVersionResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33643,6 +34578,11 @@ func (r StartVmsResp) Expect() (*StartVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33688,6 +34628,11 @@ func (r StopVmsResp) Expect() (*StopVmsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33716,6 +34661,11 @@ func (r UnlinkFlexibleGpuResp) StatusCode() int {
 func (r UnlinkFlexibleGpuResp) Expect() (*UnlinkFlexibleGpuResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33763,6 +34713,11 @@ func (r UnlinkInternetServiceResp) Expect() (*UnlinkInternetServiceResponse, err
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33793,6 +34748,11 @@ func (r UnlinkLoadBalancerBackendMachinesResp) Expect() (*UnlinkLoadBalancerBack
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33821,6 +34781,11 @@ func (r UnlinkManagedPolicyFromUserGroupResp) StatusCode() int {
 func (r UnlinkManagedPolicyFromUserGroupResp) Expect() (*UnlinkManagedPolicyFromUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33868,6 +34833,11 @@ func (r UnlinkNicResp) Expect() (*UnlinkNicResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33896,6 +34866,11 @@ func (r UnlinkPolicyResp) StatusCode() int {
 func (r UnlinkPolicyResp) Expect() (*UnlinkPolicyResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -33943,6 +34918,11 @@ func (r UnlinkPrivateIpsResp) Expect() (*UnlinkPrivateIpsResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -33986,6 +34966,11 @@ func (r UnlinkPublicIpResp) Expect() (*UnlinkPublicIpResponse, error) {
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34033,6 +35018,11 @@ func (r UnlinkRouteTableResp) Expect() (*UnlinkRouteTableResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34061,6 +35051,11 @@ func (r UnlinkVirtualGatewayResp) StatusCode() int {
 func (r UnlinkVirtualGatewayResp) Expect() (*UnlinkVirtualGatewayResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34108,6 +35103,11 @@ func (r UnlinkVolumeResp) Expect() (*UnlinkVolumeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34138,6 +35138,11 @@ func (r UpdateAccessKeyResp) Expect() (*UpdateAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34166,6 +35171,11 @@ func (r UpdateAccountResp) StatusCode() int {
 func (r UpdateAccountResp) Expect() (*UpdateAccountResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34213,6 +35223,11 @@ func (r UpdateApiAccessPolicyResp) Expect() (*UpdateApiAccessPolicyResponse, err
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34243,6 +35258,11 @@ func (r UpdateApiAccessRuleResp) Expect() (*UpdateApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34271,6 +35291,11 @@ func (r UpdateCaResp) StatusCode() int {
 func (r UpdateCaResp) Expect() (*UpdateCaResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34318,6 +35343,11 @@ func (r UpdateDedicatedGroupResp) Expect() (*UpdateDedicatedGroupResponse, error
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34348,6 +35378,11 @@ func (r UpdateDirectLinkInterfaceResp) Expect() (*UpdateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34376,6 +35411,11 @@ func (r UpdateFlexibleGpuResp) StatusCode() int {
 func (r UpdateFlexibleGpuResp) Expect() (*UpdateFlexibleGpuResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34423,6 +35463,11 @@ func (r UpdateImageResp) Expect() (*UpdateImageResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34453,6 +35498,11 @@ func (r UpdateListenerRuleResp) Expect() (*UpdateListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34481,6 +35531,11 @@ func (r UpdateLoadBalancerResp) StatusCode() int {
 func (r UpdateLoadBalancerResp) Expect() (*UpdateLoadBalancerResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34528,6 +35583,11 @@ func (r UpdateNetResp) Expect() (*UpdateNetResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34556,6 +35616,11 @@ func (r UpdateNetAccessPointResp) StatusCode() int {
 func (r UpdateNetAccessPointResp) Expect() (*UpdateNetAccessPointResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34603,6 +35668,11 @@ func (r UpdateNicResp) Expect() (*UpdateNicResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34648,6 +35718,11 @@ func (r UpdateRouteResp) Expect() (*UpdateRouteResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34676,6 +35751,11 @@ func (r UpdateRoutePropagationResp) StatusCode() int {
 func (r UpdateRoutePropagationResp) Expect() (*UpdateRoutePropagationResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34723,6 +35803,11 @@ func (r UpdateRouteTableLinkResp) Expect() (*UpdateRouteTableLinkResponse, error
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34751,6 +35836,11 @@ func (r UpdateServerCertificateResp) StatusCode() int {
 func (r UpdateServerCertificateResp) Expect() (*UpdateServerCertificateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34798,6 +35888,11 @@ func (r UpdateSnapshotResp) Expect() (*UpdateSnapshotResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34843,6 +35938,11 @@ func (r UpdateSubnetResp) Expect() (*UpdateSubnetResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34873,6 +35973,11 @@ func (r UpdateUserResp) Expect() (*UpdateUserResponse, error) {
 		return r.JSON200, nil
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34901,6 +36006,11 @@ func (r UpdateUserGroupResp) StatusCode() int {
 func (r UpdateUserGroupResp) Expect() (*UpdateUserGroupResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -34948,6 +36058,11 @@ func (r UpdateVmResp) Expect() (*UpdateVmResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -34993,6 +36108,11 @@ func (r UpdateVmGroupResp) Expect() (*UpdateVmGroupResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -35021,6 +36141,11 @@ func (r UpdateVmTemplateResp) StatusCode() int {
 func (r UpdateVmTemplateResp) Expect() (*UpdateVmTemplateResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())
@@ -35068,6 +36193,11 @@ func (r UpdateVolumeResp) Expect() (*UpdateVolumeResponse, error) {
 		return nil, r.JSON500
 	}
 
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
 	return nil, errors.New(r.Status())
 }
 
@@ -35111,6 +36241,11 @@ func (r UpdateVpnConnectionResp) Expect() (*UpdateVpnConnectionResponse, error) 
 
 	if r.JSON500 != nil {
 		return nil, r.JSON500
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
 	}
 
 	return nil, errors.New(r.Status())

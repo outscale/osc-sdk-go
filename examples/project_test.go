@@ -11,12 +11,7 @@ import (
 )
 
 func TestProject(t *testing.T) {
-	builder, err := client.Builder("", "")
-	if err != nil {
-		panic(err)
-	}
-
-	client, err := builder.OKS()
+	client, err := client.NewOKSClient()
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +30,10 @@ func TestProject(t *testing.T) {
 	}
 
 	project := oks.CreateProjectJSONRequestBody{Name: name}
-	mergo.Merge(&project, projectTemplate.Template)
+	err = mergo.Merge(&project, projectTemplate.Template)
+	if err != nil {
+		panic(err)
+	}
 
 	createProject, err := client.CreateProject(ctx, project)
 	if err != nil {

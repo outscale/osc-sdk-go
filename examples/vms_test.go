@@ -9,12 +9,7 @@ import (
 )
 
 func TestReadVms(t *testing.T) {
-	builder, err := client.Builder("", "")
-	if err != nil {
-		panic(err)
-	}
-
-	client, err := builder.OApi()
+	client, err := client.NewOapiClient()
 	if err != nil {
 		panic(err)
 	}

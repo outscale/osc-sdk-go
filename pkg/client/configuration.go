@@ -1,15 +1,14 @@
 package client
 
 import (
-	"encoding/json"
+	"crypto/tls"
+	"encoding/base64"
 	"errors"
-	"fmt"
-	"os"
-	"path"
+	"net/http"
 
-	"dario.cat/mergo"
-	oks "github.com/outscale/osc-sdk-go/v3/internal/oks"
-	osc "github.com/outscale/osc-sdk-go/v3/internal/osc"
+	cleanhttp "github.com/hashicorp/go-cleanhttp"
+	"github.com/outscale/osc-sdk-go/v3/internal/oks"
+	"github.com/outscale/osc-sdk-go/v3/internal/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/securityprovider"
 )
 
@@ -21,89 +20,17 @@ const (
 	OKS
 )
 
-type configFile struct {
-	profiles map[string]ClientBuilder
-}
-
-type ClientBuilder struct {
-	AccessKey         string   `json:"access_key"`
-	SecretKey         string   `json:"secret_key"`
-	X509ClientCert    string   `json:"x509_client_cert"`
-	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
-	X509ClientKey     string   `json:"x509_client_key"`
-	X509ClientKeyB64  string   `json:"x509_client_key_b64"`
-	Protocol          string   `json:"protocol"`
-	Region            string   `json:"region"`
-	Endpoints         Endpoint `json:"endpoints"`
-}
-
-type Endpoint struct {
-	API string `json:"api"`
-	LBU string `json:"lbu"`
-	OKS string `json:"oks"`
-}
-
-func getDefaultEndpointTemplate(service OscService) (string, error) {
-	switch service {
-	case OApi:
-		return "%s://api.%s.outscale.com/api/v1", nil
-	case LBU:
-		return "%s://lbu.%s.outscale.com", nil
-	case OKS:
-		return "%s://api.%s.oks.outscale.com/api/v2", nil
-	default:
-		return "", errors.New("unsupported service")
-	}
-}
-
-func (p *ClientBuilder) getDefaultEndpoint(service OscService) (string, error) {
-	temp, err := getDefaultEndpointTemplate(service)
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf(temp, p.Protocol, p.Region), nil
-}
-
-func (p *ClientBuilder) GetEndpoint(service OscService) (string, error) {
-	var endpoint string
-
-	switch service {
-	case OApi:
-		endpoint = p.Endpoints.API
-	case LBU:
-		endpoint = p.Endpoints.LBU
-	case OKS:
-		endpoint = p.Endpoints.OKS
+func NewOKSClient(opts ...OscClientOption) (*oks.Client, error) {
+	if len(opts) == 0 {
+		opts = append(opts, WithStandardConfiguration("", ""), WithRateLimit(), WithRetry())
 	}
 
-	if endpoint == "" {
-		return p.getDefaultEndpoint(service)
+	oksOpts := make([]oks.ClientOption, len(opts))
+	for i, o := range opts {
+		oksOpts[i] = o.OKS
 	}
 
-	return endpoint, nil
-}
-
-func (p *ClientBuilder) OKS() (*oks.Client, error) {
-	aksk, err := securityprovider.NewSecurityProviderAWSv4(
-		p.AccessKey,
-		p.SecretKey,
-		"",
-		"oks",
-		p.Region,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	server, err := p.GetEndpoint(OKS)
-	if err != nil {
-		return nil, err
-	}
-
-	client, err := oks.NewClient(
-		server,
-		oks.WithRequestEditorFn(aksk.InterceptOks),
-	)
+	client, err := oks.NewClient("", oksOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -111,30 +38,17 @@ func (p *ClientBuilder) OKS() (*oks.Client, error) {
 	return client, nil
 }
 
-func (p *ClientBuilder) OApi() (*osc.Client, error) {
-	aksk, err := securityprovider.NewSecurityProviderAWSv4(
-		p.AccessKey,
-		p.SecretKey,
-		"",
-		"oapi",
-		p.Region,
-	)
-	if err != nil {
-		return nil, err
+func NewOapiClient(opts ...OscClientOption) (*osc.Client, error) {
+	if len(opts) == 0 {
+		opts = append(opts, WithStandardConfiguration("", ""), WithRateLimit(), WithRetry())
 	}
 
-	server, err := p.GetEndpoint(OApi)
-	if err != nil {
-		return nil, err
+	oapiOpts := make([]osc.ClientOption, len(opts))
+	for i, o := range opts {
+		oapiOpts[i] = o.Oapi
 	}
 
-	c := NewClientWithRateLimit(WithClient(NewClientWithRetry()))
-
-	client, err := osc.NewClient(
-		server,
-		osc.WithRequestEditorFn(aksk.Intercept),
-		osc.WithHTTPClient(c),
-	)
+	client, err := osc.NewClient("", oapiOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -142,118 +56,268 @@ func (p *ClientBuilder) OApi() (*osc.Client, error) {
 	return client, nil
 }
 
-type CopyOption func(p *ClientBuilder)
-
-func (p *ClientBuilder) Copy(opts ...CopyOption) *ClientBuilder {
-	c := ClientBuilder{
-		AccessKey:         p.AccessKey,
-		SecretKey:         p.SecretKey,
-		X509ClientCertB64: p.X509ClientCertB64,
-		X509ClientKeyB64:  p.X509ClientKeyB64,
-		X509ClientCert:    p.X509ClientCert,
-		X509ClientKey:     p.X509ClientKey,
-		Protocol:          p.Protocol,
-		Region:            p.Region,
-		Endpoints:         p.Endpoints,
-	}
-
-	for _, opt := range opts {
-		opt(&c)
-	}
-
-	return &c
+type OscClientOption struct {
+	Oapi osc.ClientOption
+	OKS  oks.ClientOption
 }
 
-func newConfigFile() *configFile {
-	return &configFile{
-		profiles: make(map[string]ClientBuilder),
+func WithHTTPClient(client *http.Client) OscClientOption {
+	return OscClientOption{
+		Oapi: osc.WithHTTPClient(client),
+		OKS:  oks.WithHTTPClient(client),
 	}
 }
 
-func defaultConfigPath() (string, error) {
-	home, err := os.UserHomeDir()
+func NewOcsClientError(e error) OscClientOption {
+	return OscClientOption{
+		Oapi: func(cr *osc.ClientRaw) error {
+			return e
+		},
+		OKS: func(cr *oks.ClientRaw) error {
+			return e
+		},
+	}
+}
+
+func WithClientCertificat(cert tls.Certificate) OscClientOption {
+	transport := cleanhttp.DefaultPooledTransport()
+	transport.TLSClientConfig = &tls.Config{
+		Certificates: []tls.Certificate{cert},
+	}
+
+	client := &http.Client{
+		Transport: transport,
+	}
+
+	return WithHTTPClient(client)
+}
+
+func WithClientCertificatFiles(certPath, keyPath string) OscClientOption {
+	cert, err := tls.LoadX509KeyPair(certPath, keyPath)
 	if err != nil {
-		return "", err
+		return NewOcsClientError(err)
 	}
-	return path.Join(home, ".osc", "config.json"), nil
+	return WithClientCertificat(cert)
 }
 
-func loadConfigFile(path string) (*configFile, error) {
-	if path == "" {
-		return nil, errors.New("no path provided")
-	}
-
-	configJSON, err := os.ReadFile(path)
+func WithClientCertificatBase64(certB64, keyB64 string) OscClientOption {
+	certBytes, err := base64.StdEncoding.DecodeString(certB64)
 	if err != nil {
-		return nil, err
+		return NewOcsClientError(err)
 	}
 
-	configFile := newConfigFile()
-	if err := json.Unmarshal(configJSON, &configFile.profiles); err != nil {
-		return nil, err
-	}
-
-	return configFile, nil
-}
-
-func LoadProfileFromEnv() ClientBuilder {
-	var profile ClientBuilder
-
-	profile.AccessKey = os.Getenv("OSC_ACCESS_KEY")
-	profile.SecretKey = os.Getenv("OSC_SECRET_KEY")
-	profile.X509ClientCert = os.Getenv("OSC_X509_CLIENT_CERT")
-	profile.X509ClientCertB64 = os.Getenv("OSC_X509_CLIENT_CERT_B64")
-	profile.X509ClientKey = os.Getenv("OSC_X509_CLIENT_KEY")
-	profile.X509ClientKeyB64 = os.Getenv("OSC_X509_CLIENT_KEY_B64")
-	profile.Protocol = os.Getenv("OSC_PROTOCOL")
-	profile.Region = os.Getenv("OSC_REGION")
-	profile.Endpoints.API = os.Getenv("OSC_ENDPOINT_API")
-	profile.Endpoints.LBU = os.Getenv("OSC_ENDPOINT_LBU")
-	profile.Endpoints.OKS = os.Getenv("OSC_ENDPOINT_OKS")
-
-	return profile
-}
-
-func Builder(profile, path string) (*ClientBuilder, error) {
-	// 1. Load profile from environment
-	azerty := LoadProfileFromEnv()
-
-	// 2. Load additional config from environment
-	if profile == "" {
-		if value, present := os.LookupEnv("OSC_PROFILE"); present {
-			profile = value
-		} else {
-			profile = "default"
-		}
-	}
-
-	if path == "" {
-		if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
-			path = value
-		} else {
-			path, _ = defaultConfigPath()
-		}
-	}
-
-	// 3. Load profile for config file
-	configFile, err := loadConfigFile(path)
+	keyBytes, err := base64.StdEncoding.DecodeString(keyB64)
 	if err != nil {
-		if fileprofile, ok := configFile.profiles[profile]; ok {
-			err := mergo.Merge(&azerty, fileprofile)
-			if err != nil {
-				return nil, err
+		return NewOcsClientError(err)
+	}
+
+	cert, err := tls.X509KeyPair(certBytes, keyBytes)
+	if err != nil {
+		return NewOcsClientError(err)
+	}
+
+	return WithClientCertificat(cert)
+}
+
+func WithAkSk(accesKey, secretKey, region string) OscClientOption {
+	// TODO: this is not 100% accurate, because We need to pass the correct service name for OKS
+	sec, err := securityprovider.NewSecurityProviderAWSv4(accesKey, secretKey, "", "oapi", region)
+	if err != nil {
+		return NewOcsClientError(err)
+	}
+
+	return OscClientOption{
+		Oapi: osc.WithRequestEditorFn(sec.Intercept),
+		OKS:  oks.WithRequestEditorFn(sec.InterceptOks),
+	}
+}
+
+func WithLoginPassword(login, password string) OscClientOption {
+	sec, err := securityprovider.NewSecurityProviderLoginPassword(login, password)
+	if err != nil {
+		return NewOcsClientError(err)
+	}
+
+	return OscClientOption{
+		Oapi: osc.WithRequestEditorFn(sec.Intercept),
+		OKS:  oks.WithRequestEditorFn(sec.Intercept),
+	}
+}
+
+func WithRetry(opts ...ClientWithRetryOption) OscClientOption {
+	return OscClientOption{
+		Oapi: func(cr *osc.ClientRaw) error {
+			if cr.Client == nil {
+				cr.Client = NewClientWithRetry(opts...)
+				return nil
 			}
-		}
+
+			hc, ok := cr.Client.(*http.Client)
+			if ok {
+				opts = append(opts, WithRetryClient(hc))
+				cr.Client = NewClientWithRetry(opts...)
+				return nil
+			}
+
+			crl, ok := cr.Client.(ClientWithRateLimit)
+			if ok {
+				WithClient(NewClientWithRetry(opts...))(&crl)
+				return nil
+			}
+
+			return errors.New("unsupported client type")
+		},
+		OKS: func(cr *oks.ClientRaw) error {
+			if cr.Client == nil {
+				cr.Client = NewClientWithRetry(opts...)
+				return nil
+			}
+
+			hc, ok := cr.Client.(*http.Client)
+			if ok {
+				opts = append(opts, WithRetryClient(hc))
+				cr.Client = NewClientWithRetry(opts...)
+				return nil
+			}
+
+			crl, ok := cr.Client.(ClientWithRateLimit)
+			if ok {
+				WithClient(NewClientWithRetry(opts...))(&crl)
+				return nil
+			}
+
+			return errors.New("unsupported client type")
+		},
+	}
+}
+
+func WithRateLimit(opts ...ClientWithRateLimitOption) OscClientOption {
+	return OscClientOption{
+		Oapi: func(cr *osc.ClientRaw) error {
+			if cr.Client == nil {
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			hc, ok := cr.Client.(*http.Client)
+			if ok {
+				opts = append(opts, WithClient(hc))
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			rc, ok := cr.Client.(ClientWithRetry)
+			if ok {
+				opts = append(opts, WithClient(rc))
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			return errors.New("unsupported client type")
+		},
+		OKS: func(cr *oks.ClientRaw) error {
+			if cr.Client == nil {
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			hc, ok := cr.Client.(*http.Client)
+			if ok {
+				opts = append(opts, WithClient(hc))
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			rc, ok := cr.Client.(ClientWithRetry)
+			if ok {
+				opts = append(opts, WithClient(rc))
+				cr.Client = NewClientWithRateLimit(opts...)
+				return nil
+			}
+
+			return errors.New("unsupported client type")
+		},
+	}
+}
+
+func WithProfile(profile *Profile) OscClientOption {
+	opts := make([]OscClientOption, 0, 2)
+
+	// 1. Check authentication
+	if profile.X509ClientCert != "" && profile.X509ClientKey != "" {
+		opts = append(
+			opts,
+			WithClientCertificatFiles(profile.X509ClientCert, profile.X509ClientKey),
+		)
+	} else if profile.X509ClientCertB64 != "" && profile.X509ClientKeyB64 != "" {
+		opts = append(
+			opts,
+			WithClientCertificatBase64(profile.X509ClientCertB64, profile.X509ClientKeyB64),
+		)
+	} else if profile.AccessKey != "" && profile.SecretKey != "" && profile.Region != "" {
+		opts = append(
+			opts,
+			WithAkSk(profile.AccessKey, profile.SecretKey, profile.Region),
+		)
+	} else if profile.Login != "" && profile.Password != "" {
+		opts = append(
+			opts,
+			WithLoginPassword(profile.Login, profile.Password),
+		)
+	} else {
+		return NewOcsClientError(errors.New("no authentication provided"))
 	}
 
-	// 4. Load default
-	if azerty.Protocol == "" {
-		azerty.Protocol = "https"
+	// 2. Check Endpoint
+	opts = append(
+		opts,
+		OscClientOption{
+			Oapi: func(cr *osc.ClientRaw) error {
+				endpoint, err := profile.GetEndpoint(OApi)
+				if err != nil {
+					return err
+				}
+				cr.Server = endpoint
+				return nil
+			},
+			OKS: func(cr *oks.ClientRaw) error {
+				endpoint, err := profile.GetEndpoint(OKS)
+				if err != nil {
+					return err
+				}
+				cr.Server = endpoint
+				return nil
+			},
+		},
+	)
+
+	return OscClientOption{
+		Oapi: func(cr *osc.ClientRaw) error {
+			for _, o := range opts {
+				if err := o.Oapi(cr); err != nil {
+					return err
+				}
+			}
+
+			return nil
+		},
+		OKS: func(cr *oks.ClientRaw) error {
+			for _, o := range opts {
+				if err := o.OKS(cr); err != nil {
+					return err
+				}
+			}
+
+			return nil
+		},
+	}
+}
+
+func WithStandardConfiguration(profile, path string) OscClientOption {
+	p, err := NewProfileFromStrandardConfuguration(profile, path)
+	if err != nil {
+		return NewOcsClientError(err)
 	}
 
-	if azerty.Region == "" {
-		azerty.Region = "eu-west-2"
-	}
-
-	return &azerty, nil
+	return WithProfile(p)
 }

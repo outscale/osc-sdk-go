@@ -5,13 +5,11 @@ func (e *HTTPValidationError) Error() string {
 
 	for i, err := range *e.Errors {
 		d, _ := err.Details.AsHTTPValidationErrorErrorsDetails0()
-		if d != nil {
-			for _, v := range d {
-				if i != 0 {
-					msg += "\n"
-				}
-				msg += "[" + v.Type + "] " + v.Msg
+		for _, v := range d {
+			if i != 0 {
+				msg += "\n"
 			}
+			msg += "[" + v.Type + "] " + v.Msg
 		}
 
 		s, _ := err.Details.AsHTTPValidationErrorErrorsDetails1()

@@ -29,7 +29,6 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
-    //BIPBIP
 {{range . -}}
 {{$hasParams := .RequiresParamObject -}}
 {{$pathParams := .PathParams -}}
@@ -95,7 +94,14 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{.Schema.TypeDecl}}
     }
     {{ end }}
     {{- end}}
-    return nil, errors.New(string(r.Body))
+
+
+    errMsg := string(r.Body)
+    if errMsg != "" {
+        return nil, errors.New(errMsg)
+    }
+
+    return nil, errors.New(r.Status())
 }
 {{ end }}
 {{ end}}

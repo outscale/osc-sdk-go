@@ -31,6 +31,12 @@ func WithRetryMax(i int) ClientWithRetryOption {
 	}
 }
 
+func WithRetryClient(httpClient *http.Client) ClientWithRetryOption {
+	return func(c *ClientWithRetry) {
+		c.HTTPClient = httpClient
+	}
+}
+
 func NewClientWithRetry(opts ...ClientWithRetryOption) *ClientWithRetry {
 	client := &ClientWithRetry{
 		Client: retryablehttp.NewClient(),

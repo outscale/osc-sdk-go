@@ -30,29 +30,29 @@ func (s *SecurityProviderLoginPassword) Intercept(ctx context.Context, req *http
 
 // NewSecurityProviderAWSv4 creates an AWS v4 security provider for AK/SK use
 func NewSecurityProviderAWSv4(
-	access_key, secret_key, session_token, service, region string,
+	accessKey, secretKey, sessionToken, service, region string,
 ) (*SecurityProviderAWSv4, error) {
 	return &SecurityProviderAWSv4{
-		access_key:    access_key,
-		secret_key:    secret_key,
-		session_token: session_token,
-		service:       service,
-		region:        region,
+		accessKey:    accessKey,
+		secretKey:    secretKey,
+		sessionToken: sessionToken,
+		service:      service,
+		region:       region,
 	}, nil
 }
 
 type SecurityProviderAWSv4 struct {
-	access_key    string
-	secret_key    string
-	session_token string
-	service       string
-	region        string
+	accessKey    string
+	secretKey    string
+	sessionToken string
+	service      string
+	region       string
 }
 
 func (s *SecurityProviderAWSv4) Intercept(ctx context.Context, req *http.Request) error {
 	var fullbody []byte
 
-	creds := awscredentials.NewStaticCredentials(s.access_key, s.secret_key, s.session_token)
+	creds := awscredentials.NewStaticCredentials(s.accessKey, s.secretKey, s.sessionToken)
 	signer := awsv4.NewSigner(creds)
 	timestamp := time.Now()
 
@@ -88,7 +88,7 @@ func (s *SecurityProviderAWSv4) Intercept(ctx context.Context, req *http.Request
 }
 
 func (s *SecurityProviderAWSv4) InterceptOks(ctx context.Context, req *http.Request) error {
-	req.Header.Set("AccessKey", s.access_key)
-	req.Header.Set("SecretKey", s.secret_key)
+	req.Header.Set("AccessKey", s.accessKey)
+	req.Header.Set("SecretKey", s.secretKey)
 	return nil
 }
