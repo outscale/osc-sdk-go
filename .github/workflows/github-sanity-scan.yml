@@ -2,11 +2,11 @@ name: Github sanity scanner
 
 on:
   pull_request:
-    branches: [ v2 ]
+    branches: [ v3 ]
 
 jobs:
   github-sanity-scan:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-23.04
     steps:
     - uses: actions/checkout@v4
     - name: Github sanity scanner

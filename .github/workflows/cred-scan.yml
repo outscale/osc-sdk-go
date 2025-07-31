@@ -3,11 +3,11 @@ name: Credential Scanner
 on:
   pull_request:
     branches:
-    - v2
+    - v3
 
 jobs:
   cred-scan:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Scan credentials

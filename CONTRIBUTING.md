@@ -1,6 +1,6 @@
 # Hacking Outscale SDK
 
-SDK itself is generated from Outscale's [OpenAPI description](https://github.com/outscale/osc-api) in [v2](v2/) folder using OpenAPI Genetator.
+SDK itself is generated from Outscale's [OpenAPI description](https://github.com/outscale/osc-api) using oapi-codegen.
 
 Other contributions like examples and tests are welcome!
 
@@ -11,19 +11,17 @@ Some events may trigger a major (breaking) version of the SDK:
 1. OpenAPI generator introduce a new major version
 2. Outscale introduce a new major version of its API
 
-When OpenAPI generator introduce a breaking change, SDK can be generated in several versions (see corresponding branches)
+When oapi-codegen introduce a breaking change, SDK can be generated in several versions (see corresponding branches)
 
 # Generate SDK
 
 1. have some tools ready: GNU make, git, docker
 2. edit `api_version` file and to the latest Outscale API version
-3. edit `sdk_version` file and change it according to [semantic versioning](https://semver.org/)
-4. launch sdk generation by running `make gen`
-5. new sdk is now generated in `v2` folder
+3. launch sdk generation by running `make gen`
 
 Under the hood:
 - we get official Outscale yaml
-- run openapi-generator through docker to build osc folder
+- run oapi-codegen through go tools to build `internal/**/client.gen.go` files
 
 # Sending a Merge Request
 
@@ -39,13 +37,12 @@ Otherwise:
 For each major version (v1, v2, ...):
 1. rebase on corresponding major version branch
 2. update `api_version` to the last Outscale API version
-3. update `sdk_version` following [semantic versioning](https://semver.org/) logic.
-4. eventually update go.mod file
-5. `make gen` to re-build the sdk
-6. `make test` and fix any issue
-7. update `changelog.md` file
-8. commit changes
-9. tag version
-10. push to corresponding branch
+3. eventually update go.mod file
+4. `make gen` to re-build the sdk
+5. `make test` and fix any issue
+6. update `changelog.md` file
+7. commit changes
+8. tag version
+9. push to corresponding branch
 
 Note that CI should automatically detect new release on osc-api, update the SDK and push a new version.
