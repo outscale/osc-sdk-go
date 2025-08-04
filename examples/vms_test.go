@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/outscale/osc-sdk-go/v3/internal/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/client"
+	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 )
 
 func TestReadVms(t *testing.T) {

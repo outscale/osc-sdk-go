@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	cleanhttp "github.com/hashicorp/go-cleanhttp"
-	"github.com/outscale/osc-sdk-go/v3/internal/oks"
-	"github.com/outscale/osc-sdk-go/v3/internal/osc"
+	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
+	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/securityprovider"
 )
 

@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"dario.cat/mergo"
-	"github.com/outscale/osc-sdk-go/v3/internal/oks"
 	"github.com/outscale/osc-sdk-go/v3/pkg/client"
+	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
 )
 
 func TestProject(t *testing.T) {
