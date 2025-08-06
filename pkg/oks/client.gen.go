@@ -50,18 +50,7 @@ const (
 	MaintenanceWindowWeekDayWed    MaintenanceWindowWeekDay = "Wed"
 )
 
-// Defines values for ListProjectsParamsStatus.
-const (
-	Deleting  ListProjectsParamsStatus = "deleting"
-	Deploying ListProjectsParamsStatus = "deploying"
-	Failed    ListProjectsParamsStatus = "failed"
-	Pending   ListProjectsParamsStatus = "pending"
-	Ready     ListProjectsParamsStatus = "ready"
-	Updating  ListProjectsParamsStatus = "updating"
-	Upgrading ListProjectsParamsStatus = "upgrading"
-)
-
-// AdmissionFlags defines model for AdmissionFlags.
+// AdmissionFlags Information about the Kubernetes admission plugins configuration.
 type AdmissionFlags struct {
 	// AppliedAdmissionPlugins The list of admission plugins that are currently applied to the cluster.
 	AppliedAdmissionPlugins *[]string `json:"applied_admission_plugins,omitempty"`
@@ -73,7 +62,7 @@ type AdmissionFlags struct {
 	EnableAdmissionPlugins *[]string `json:"enable_admission_plugins,omitempty"`
 }
 
-// AdmissionFlagsInput defines model for AdmissionFlagsInput.
+// AdmissionFlagsInput Information about the Kubernetes admission plugins.
 type AdmissionFlagsInput struct {
 	// DisableAdmissionPlugins The list of Kubernetes admission plugins to disable.
 	DisableAdmissionPlugins *[]string `json:"disable_admission_plugins,omitempty"`
@@ -82,7 +71,7 @@ type AdmissionFlagsInput struct {
 	EnableAdmissionPlugins *[]string `json:"enable_admission_plugins,omitempty"`
 }
 
-// AutoMaintenances defines model for AutoMaintenances.
+// AutoMaintenances Information about the automated maintenance windows.
 type AutoMaintenances struct {
 	// MinorUpgradeMaintenance The maintenance window configuration for minor Kubernetes upgrades.
 	MinorUpgradeMaintenance MaintenanceWindow `json:"minor_upgrade_maintenance"`
@@ -91,7 +80,7 @@ type AutoMaintenances struct {
 	PatchUpgradeMaintenance MaintenanceWindow `json:"patch_upgrade_maintenance"`
 }
 
-// AutoUpgradeMaintenance defines model for AutoUpgradeMaintenance.
+// AutoUpgradeMaintenance Information about the window of the automated upgrade maintenance.
 type AutoUpgradeMaintenance struct {
 	// DurationHours The duration of the maintenance window, in hours.
 	DurationHours int `json:"durationHours"`
@@ -115,7 +104,7 @@ type CPSubregionsResponse struct {
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// Cluster defines model for Cluster.
+// Cluster Information about the cluster.
 type Cluster struct {
 	// AdminLbu If true, load balancer administration is enabled for cluster management. If false, it is disabled.
 	AdminLbu bool `json:"admin_lbu"`
@@ -135,7 +124,7 @@ type Cluster struct {
 	// CidrService The CIDR block of the Kubernetes services' network.
 	CidrService *string `json:"cidr_service"`
 
-	// ClusterDns The IP address of the cluster's DNS service.
+	// ClusterDns The IP of the cluster's DNS service.
 	ClusterDns *string `json:"cluster_dns"`
 
 	// Cni The Container Network Interface (CNI) used in the cluster.
@@ -143,6 +132,9 @@ type Cluster struct {
 
 	// ControlPlanes The control plane sizing of the cluster.
 	ControlPlanes string `json:"control_planes"`
+
+	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+	CpMultiAz bool `json:"cp_multi_az"`
 
 	// CpSubregions The Subregions on which the control plane components are deployed.
 	CpSubregions []string `json:"cp_subregions"`
@@ -152,6 +144,12 @@ type Cluster struct {
 
 	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
+
+	// ExpectedControlPlanes The type of control plane size that is expected.
+	ExpectedControlPlanes *string `json:"expected_control_planes"`
+
+	// ExpectedVersion The version of Kubernetes that is expected to be deployed during maintenance.
+	ExpectedVersion *string `json:"expected_version"`
 
 	// Id The Universally Unique Identifier (UUID) of the cluster.
 	Id string `json:"id"`
@@ -165,19 +163,19 @@ type Cluster struct {
 	// Statuses The status information of the cluster.
 	Statuses Statuses `json:"statuses"`
 
-	// Tags The key/value combinations of the tags associated with the cluster, in the following format&#58; "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
+	// Tags The key/value combinations of the tags associated with the cluster, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags map[string]string `json:"tags"`
 
 	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
 	Version string `json:"version"`
 }
 
-// ClusterInputInput defines model for ClusterInput-Input.
-type ClusterInputInput struct {
+// ClusterInput Information about the cluster configuration.
+type ClusterInput struct {
 	// AdminLbu If true, load balancer administration is enabled for cluster management. If false, it is disabled.
 	AdminLbu *bool `json:"admin_lbu,omitempty"`
 
-	// AdminWhitelist The list of CIDR blocks or IP addresses allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
 	AdminWhitelist []string `json:"admin_whitelist"`
 
 	// AdmissionFlags The configuration for Kubernetes admission controllers.
@@ -192,11 +190,14 @@ type ClusterInputInput struct {
 	// CidrService The CIDR block for the Kubernetes services' network.
 	CidrService *string `json:"cidr_service,omitempty"`
 
-	// ClusterDns The IP address for the cluster's DNS service.
+	// ClusterDns The IP for the cluster's DNS service.
 	ClusterDns *string `json:"cluster_dns,omitempty"`
 
 	// ControlPlanes The size of control plane deployment for the cluster. For more information, see [About OKS > Control Planes](https://docs.outscale.com/en/userguide/About-OKS.html#_control_planes).
 	ControlPlanes *string `json:"control_planes,omitempty"`
+
+	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+	CpMultiAz *bool `json:"cp_multi_az,omitempty"`
 
 	// CpSubregions The list of Subregions where control plane components are deployed.
 	CpSubregions *[]string `json:"cp_subregions,omitempty"`
@@ -214,21 +215,21 @@ type ClusterInputInput struct {
 	ProjectId string `json:"project_id"`
 
 	// Quirks The list of special configurations or behaviors for the cluster.
-	Quirks *[]interface{} `json:"quirks"`
+	Quirks *[]string `json:"quirks"`
 
-	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
+	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags *map[string]string `json:"tags,omitempty"`
 
 	// Version The Kubernetes version to be deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
-	Version *string `json:"version,omitempty"`
+	Version string `json:"version"`
 }
 
-// ClusterInputOutput defines model for ClusterInput-Output.
-type ClusterInputOutput struct {
-	// AdminLbu If true, the admin load balancer for cluster management is enabled.
+// ClusterInputTemplate Information about the default cluster template.
+type ClusterInputTemplate struct {
+	// AdminLbu If true, the admin load balancer for cluster management is enabled. If false, it is disabled.
 	AdminLbu *bool `json:"admin_lbu,omitempty"`
 
-	// AdminWhitelist The list of CIDR blocks or IP addresses allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
 	AdminWhitelist []string `json:"admin_whitelist"`
 
 	// AdmissionFlags The configuration for the Kubernetes admission controllers.
@@ -243,11 +244,14 @@ type ClusterInputOutput struct {
 	// CidrService The CIDR block of the Kubernetes pods' network.
 	CidrService *string `json:"cidr_service,omitempty"`
 
-	// ClusterDns The IP address for the cluster DNS service.
+	// ClusterDns The IP for the cluster DNS service.
 	ClusterDns *string `json:"cluster_dns,omitempty"`
 
 	// ControlPlanes The control plane type of the cluster.
 	ControlPlanes *string `json:"control_planes,omitempty"`
+
+	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+	CpMultiAz *bool `json:"cp_multi_az,omitempty"`
 
 	// CpSubregions A list of Subregions where control plane components are deployed.
 	CpSubregions *[]string `json:"cp_subregions,omitempty"`
@@ -258,44 +262,50 @@ type ClusterInputOutput struct {
 	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
-	// Name A unique cluster name per project. Must start with a letter and contain only lowercase letters, numbers, or hyphens.
-	Name string `json:"name"`
-
 	// ProjectId The ID of the project to which this cluster belongs to.
 	ProjectId string `json:"project_id"`
 
 	// Quirks A list of special configurations or behaviors for the cluster.
-	Quirks *[]interface{} `json:"quirks"`
+	Quirks *[]string `json:"quirks"`
 
-	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format: "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
+	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags *map[string]string `json:"tags,omitempty"`
 
 	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
-	Version *string `json:"version,omitempty"`
+	Version string `json:"version"`
 }
 
 // ClusterResponse defines model for ClusterResponse.
 type ClusterResponse struct {
-	Cluster         Cluster                              `json:"Cluster"`
+	// Cluster Information about the cluster.
+	Cluster Cluster `json:"Cluster"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ClusterResponseList defines model for ClusterResponseList.
+// ClusterResponseList Information about the clusters associated with a project.
 type ClusterResponseList struct {
-	Clusters        []Cluster                            `json:"Clusters"`
+	// Clusters Information about the clusters.
+	Clusters []Cluster `json:"Clusters"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ClusterUpdate defines model for ClusterUpdate.
+// ClusterUpdate Information about the updated cluster configuration.
 type ClusterUpdate struct {
-	// AdminWhitelist The updated list of CIDR blocks or IP addresses allowed to access the cluster via the Kubernetes API.
-	AdminWhitelist *[]interface{} `json:"admin_whitelist"`
+	// AdminWhitelist The updated list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+	AdminWhitelist *[]string `json:"admin_whitelist"`
 
-	// AdmissionFlags The updated configuration for the Kubernetes admission controllers.
-	AdmissionFlags *AdmissionFlagsInput `json:"admission_flags"`
+	// AdmissionFlags Information about the Kubernetes admission plugins.
+	AdmissionFlags *AdmissionFlagsInput `json:"admission_flags,omitempty"`
 
-	// AutoMaintenances The updated configuration for the automated maintenance windows.
-	AutoMaintenances *AutoMaintenances `json:"auto_maintenances"`
+	// AutoMaintenances Information about the automated maintenance windows.
+	AutoMaintenances *AutoMaintenances `json:"auto_maintenances,omitempty"`
+
+	// ControlPlanes The size of the control plane deployment for the cluster.
+	ControlPlanes *string `json:"control_planes,omitempty"`
 
 	// Description The updated description of the cluster.
 	Description *string `json:"description"`
@@ -304,10 +314,10 @@ type ClusterUpdate struct {
 	DisableApiTermination *bool `json:"disable_api_termination"`
 
 	// Quirks The updated list of special configurations or behaviors for the cluster.
-	Quirks *[]interface{} `json:"quirks"`
+	Quirks *[]string `json:"quirks"`
 
-	// Tags The updated key/value combinations of the tags associated with the cluster's metadata, in the following format: "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
-	Tags *map[string]interface{} `json:"tags"`
+	// Tags The updated key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	Tags *map[string]string `json:"tags"`
 
 	// Version The updated version of Kubernetes for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
 	Version *string `json:"version"`
@@ -316,12 +326,15 @@ type ClusterUpdate struct {
 // ControlPlanesResponse defines model for ControlPlanesResponse.
 type ControlPlanesResponse struct {
 	// ControlPlanes The list of available control plane types.
-	ControlPlanes   []string                             `json:"ControlPlanes"`
+	ControlPlanes []string `json:"ControlPlanes"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
 // DetailResponse defines model for DetailResponse.
 type DetailResponse struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 
 	// Detail A detailed message related to the API response.
@@ -346,30 +359,30 @@ type HTTPValidationError_Errors_Details struct {
 	union json.RawMessage
 }
 
-// KubeconfigData defines model for KubeconfigData.
+// KubeconfigData Information about the kubeconfig for the cluster.
 type KubeconfigData struct {
 	// Kubeconfig A file containing access configuration to the cluster.
 	Kubeconfig string `json:"kubeconfig"`
-
-	// Name The name of the cluster.
-	Name string `json:"name"`
 }
 
 // KubeconfigResponse defines model for KubeconfigResponse.
 type KubeconfigResponse struct {
-	Cluster         ClustersClusterSchemaRPCResponse     `json:"Cluster"`
+	Cluster ClustersClusterSchemaRPCResponse `json:"Cluster"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
 // KubernetesVersionsResponse defines model for KubernetesVersionsResponse.
 type KubernetesVersionsResponse struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 
 	// Versions A list of available Kubernetes versions.
 	Versions []string `json:"Versions"`
 }
 
-// MaintenanceWindow defines model for MaintenanceWindow.
+// MaintenanceWindow Information about the maintenance window configuration.
 type MaintenanceWindow struct {
 	// DurationHours The duration of the maintenance window, in hours.
 	DurationHours *int `json:"duration_hours,omitempty"`
@@ -390,13 +403,13 @@ type MaintenanceWindow struct {
 // MaintenanceWindowWeekDay The weekday on which the maintenance window begins.
 type MaintenanceWindowWeekDay string
 
-// Metadata defines model for Metadata.
+// Metadata Information about the node pool's metadata.
 type Metadata struct {
 	// Name An ID for the node pool.
 	Name string `json:"name"`
 }
 
-// Nodepool defines model for Nodepool.
+// Nodepool Information about the node pool.
 type Nodepool struct {
 	// ApiVersion The node pool API version in use.
 	ApiVersion string `json:"apiVersion"`
@@ -411,7 +424,31 @@ type Nodepool struct {
 	Spec Spec `json:"spec"`
 }
 
-// Project defines model for Project.
+// OKSQuotas Information about your quotas.
+type OKSQuotas struct {
+	// CPSubregions The maximum allowed value for control plane Subregions.
+	CPSubregions []string `json:"CPSubregions"`
+
+	// ClustersPerProject The maximum allowed number of clusters per project.
+	ClustersPerProject int `json:"ClustersPerProject"`
+
+	// KubeVersions The maximum allowed value for Kubernetes versions.
+	KubeVersions []string `json:"KubeVersions"`
+
+	// Projects The maximum allowed number of projects.
+	Projects int `json:"Projects"`
+}
+
+// PermissionsOnResource Information about the permissions for a resource.
+type PermissionsOnResource struct {
+	// AccountIds One or more account IDs that the permission is associated with.
+	AccountIds []string `json:"AccountIds"`
+
+	// GlobalPermission A global permission for all accounts.
+	GlobalPermission int `json:"GlobalPermission"`
+}
+
+// Project Information about the project.
 type Project struct {
 	// Cidr The CIDR block associated with the Net of the project.
 	Cidr string `json:"cidr"`
@@ -420,7 +457,7 @@ type Project struct {
 	CreatedAt time.Time `json:"created_at"`
 
 	// DeletedAt The timestamp when the project was deleted (if applicable).
-	DeletedAt *string `json:"deleted_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
 
 	// Description A description for the project.
 	Description *string `json:"description"`
@@ -440,14 +477,14 @@ type Project struct {
 	// Status The status of the project.
 	Status string `json:"status"`
 
-	// Tags The key/value combinations of the tags associated with the resource, in the following format: "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
+	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags map[string]string `json:"tags"`
 
 	// UpdatedAt The timestamp when the project was last updated.
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-// ProjectInput defines model for ProjectInput.
+// ProjectInput Information about the project configuration.
 type ProjectInput struct {
 	// Cidr The CIDR block to associate with the Net of the project.
 	Cidr string `json:"cidr"`
@@ -462,29 +499,34 @@ type ProjectInput struct {
 	Name string `json:"name"`
 
 	// Quirks A list of special configurations or behaviors for the project.
-	Quirks *[]interface{} `json:"quirks"`
+	Quirks *[]string `json:"quirks"`
 
 	// Region The Region on which the project is deployed.
 	Region string `json:"region"`
 
-	// Tags The key/value combinations of the tags associated with the resource, in the following format: "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
-	Tags *map[string]interface{} `json:"tags,omitempty"`
+	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	Tags *map[string]string `json:"tags,omitempty"`
 }
 
 // ProjectResponse defines model for ProjectResponse.
 type ProjectResponse struct {
-	Project         Project                              `json:"Project"`
+	// Project Information about the project.
+	Project Project `json:"Project"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ProjectResponseList defines model for ProjectResponseList.
+// ProjectResponseList Information about the retrieved projects.
 type ProjectResponseList struct {
 	// Projects The list of retrieved projects.
-	Projects        []Project                            `json:"Projects"`
+	Projects []Project `json:"Projects"`
+
+	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ProjectUpdate defines model for ProjectUpdate.
+// ProjectUpdate Information about the updated project configuration.
 type ProjectUpdate struct {
 	// Description The updated description for the project.
 	Description *string `json:"description"`
@@ -493,13 +535,34 @@ type ProjectUpdate struct {
 	DisableApiTermination *bool `json:"disable_api_termination"`
 
 	// Quirks The updated list of special configurations or behaviors for the project.
-	Quirks *[]interface{} `json:"quirks"`
+	Quirks *[]string `json:"quirks"`
 
-	// Tags The updated key/value combinations of the tags associated with the project’s metadata, in the following format: "tags":{"TAGKEY1":"TAGVALUE1","TAGKEY2":"TAGVALUE2"}.
-	Tags *map[string]interface{} `json:"tags"`
+	// Tags The updated key/value combinations of the tags associated with the project's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	Tags *map[string]string `json:"tags"`
 }
 
-// Quotas defines model for Quotas.
+// PublicIp Information about the public IP.
+type PublicIp struct {
+	// PublicIp The address of the public IP.
+	PublicIp string `json:"PublicIp"`
+
+	// PublicIpId The allocation ID of the public IP.
+	PublicIpId string `json:"PublicIpId"`
+
+	// Tags One or more tags associated with the public IP.
+	Tags []ResourceTag `json:"Tags"`
+}
+
+// PublicIpsResponse defines model for PublicIpsResponse.
+type PublicIpsResponse struct {
+	// PublicIps The public IP details associated with the project.
+	PublicIps []PublicIp `json:"PublicIps"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
+}
+
+// Quotas Information about the quotas.
 type Quotas struct {
 	// AccountId The ID of the account.
 	AccountId string `json:"AccountId"`
@@ -523,20 +586,67 @@ type Quotas struct {
 	UsedValue int `json:"UsedValue"`
 }
 
-// QuotasData defines model for QuotasData.
+// QuotasData Information about the quotas for a project.
 type QuotasData struct {
 	// Quotas A list of quota details.
 	Quotas []Quotas `json:"quotas"`
+
+	// Subregions A list of Subregion details.
+	Subregions []Subregion `json:"subregions"`
 }
 
-// QuotasResponse defines model for QuotasResponse.
-type QuotasResponse struct {
-	// Project The quota details associated with the project.
-	Project         ProjectsProjectSchemaRPCResponse     `json:"Project"`
+// ResourceTag Information about the tags associated with a resource.
+type ResourceTag struct {
+	// Key The key for the tag.
+	Key string `json:"Key"`
+
+	// Value The value for the tag.
+	Value string `json:"Value"`
+}
+
+// Snapshot Information about the Snapshot.
+type Snapshot struct {
+	// AccountId The account ID of the owner of the snapshot.
+	AccountId string `json:"AccountId"`
+
+	// CreationDate The date and time (UTC) at which the snapshot was created.
+	CreationDate string `json:"CreationDate"`
+
+	// Description The description of the snapshot.
+	Description string `json:"Description"`
+
+	// PermissionsToCreateVolume Permissions for the resource.
+	PermissionsToCreateVolume PermissionsOnResource `json:"PermissionsToCreateVolume"`
+
+	// Progress The progress of the snapshot, as a percentage.
+	Progress int `json:"Progress"`
+
+	// SnapshotId The ID of the snapshot.
+	SnapshotId string `json:"SnapshotId"`
+
+	// State The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
+	State string `json:"State"`
+
+	// Tags One or more tags associated with the snapshot.
+	Tags []ResourceTag `json:"Tags"`
+
+	// VolumeId The ID of the volume used to create the snapshot.
+	VolumeId string `json:"VolumeId"`
+
+	// VolumeSize The size of the volume used to create the snapshot, in gibibytes (GiB).
+	VolumeSize int `json:"VolumeSize"`
+}
+
+// SnapshotsResponse defines model for SnapshotsResponse.
+type SnapshotsResponse struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
+
+	// Snapshots Snapshot details associated with the project
+	Snapshots []Snapshot `json:"Snapshots"`
 }
 
-// Spec defines model for Spec.
+// Spec Information about the specification for the node pool configuration.
 type Spec struct {
 	// AutoHealing If true, the automatic healing of failed nodes is enabled.
 	AutoHealing bool `json:"autoHealing"`
@@ -557,7 +667,7 @@ type Spec struct {
 	Zones []string `json:"zones"`
 }
 
-// Statuses defines model for Statuses.
+// Statuses Information about the status of the cluster.
 type Statuses struct {
 	// AvailableUpgrade Any available version of Kubernetes for upgrade (if applicable). For more information, see [GetKubernetesVersions](#getkubenetesversions).
 	AvailableUpgrade *string `json:"available_upgrade,omitempty"`
@@ -566,40 +676,58 @@ type Statuses struct {
 	CreatedAt time.Time `json:"created_at"`
 
 	// DeletedAt The timestamp when the cluster was deleted (if applicable).
-	DeletedAt *string `json:"deleted_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
 
 	// Status The status of the cluster.
 	Status *string `json:"status"`
 
 	// UpdatedAt The timestamp when the cluster was last updated.
-	UpdatedAt *string `json:"updated_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// TemplateResponseClusterInput defines model for TemplateResponse_ClusterInput_.
-type TemplateResponseClusterInput struct {
+// Subregion Information about the Subregion.
+type Subregion struct {
+	// LocationCode The location code (physical zone) of the Subregion.
+	LocationCode string `json:"LocationCode"`
+
+	// RegionName The name of the Region containing the Subregion.
+	RegionName string `json:"RegionName"`
+
+	// State The state of the Subregion.
+	State string `json:"State"`
+
+	// SubregionName The name of the Subregion.
+	SubregionName string `json:"SubregionName"`
+}
+
+// TemplateResponseClusterInputTemplate Information about the default cluster template.
+type TemplateResponseClusterInputTemplate struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
 	// Template The returned template resource.
-	Template ClusterInputOutput `json:"Template"`
+	Template ClusterInputTemplate `json:"Template"`
 }
 
-// TemplateResponseNodepool defines model for TemplateResponse_Nodepool_.
+// TemplateResponseNodepool Information about the default node pool template.
 type TemplateResponseNodepool struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
 	// Template The returned template resource.
 	Template Nodepool `json:"Template"`
 }
 
-// TemplateResponseProjectInput defines model for TemplateResponse_ProjectInput_.
+// TemplateResponseProjectInput Information about the default project template.
 type TemplateResponseProjectInput struct {
+	// ResponseContext Information about the context of the response.
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
 	// Template The returned template resource.
 	Template ProjectInput `json:"Template"`
 }
 
-// UpgradeStrategy defines model for UpgradeStrategy.
+// UpgradeStrategy Information for the management of node pool upgrades.
 type UpgradeStrategy struct {
 	// AutoUpgradeEnabled If true, automatic upgrades for the node pool are enabled.
 	AutoUpgradeEnabled bool `json:"autoUpgradeEnabled"`
@@ -614,11 +742,16 @@ type UpgradeStrategy struct {
 	MaxUnavailable int `json:"maxUnavailable"`
 }
 
-// ValidationError defines model for ValidationError.
+// ValidationError Information about the validation error.
 type ValidationError struct {
-	Loc  []ValidationError_Loc_Item `json:"loc"`
-	Msg  string                     `json:"msg"`
-	Type string                     `json:"type"`
+	// Loc The location of the validation error in the request.
+	Loc []ValidationError_Loc_Item `json:"loc"`
+
+	// Msg A descriptive message about the error.
+	Msg string `json:"msg"`
+
+	// Type The identifier for the type of validation error.
+	Type string `json:"type"`
 }
 
 // ValidationErrorLoc0 defines model for .
@@ -632,7 +765,7 @@ type ValidationError_Loc_Item struct {
 	union json.RawMessage
 }
 
-// Volume defines model for Volume.
+// Volume Information about the volume configuration.
 type Volume struct {
 	// Device The device name for the volume.
 	Device string `json:"device"`
@@ -643,7 +776,7 @@ type Volume struct {
 	// Size The size of the volume.
 	Size int `json:"size"`
 
-	// Type The type of the volume (gp2, io1, standard).
+	// Type The type of the volume (`gp2`, `io1`, `standard`).
 	Type string `json:"type"`
 }
 
@@ -656,10 +789,19 @@ type ClustersClusterSchemaRPCResponse struct {
 	RequestId string `json:"request_id"`
 }
 
-// ClustersClusterSchemaResponseContext defines model for clusters__cluster_schema__ResponseContext.
+// ClustersClusterSchemaResponseContext Information about the context of the response.
 type ClustersClusterSchemaResponseContext struct {
 	// RequestId The ID of the API request.
 	RequestId string `json:"RequestId"`
+}
+
+// ProjectsProjectSchemaQuotasResponse defines model for projects__project_schema__QuotasResponse.
+type ProjectsProjectSchemaQuotasResponse struct {
+	// Project The quota details associated with the project.
+	Project ProjectsProjectSchemaRPCResponse `json:"Project"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
 // ProjectsProjectSchemaRPCResponse defines model for projects__project_schema__RPCResponse.
@@ -671,13 +813,28 @@ type ProjectsProjectSchemaRPCResponse struct {
 	RequestId string `json:"request_id"`
 }
 
-// ProjectsProjectSchemaResponseContext defines model for projects__project_schema__ResponseContext.
+// ProjectsProjectSchemaResponseContext Information about the context of the response.
 type ProjectsProjectSchemaResponseContext struct {
 	// RequestId The ID of the API request.
 	RequestId string `json:"RequestId"`
 }
 
-// TemplatesTemplateSchemaResponseContext defines model for templates__template_schema__ResponseContext.
+// QuotasQuotaSchemaQuotasResponse defines model for quotas__quota_schema__QuotasResponse.
+type QuotasQuotaSchemaQuotasResponse struct {
+	// Quotas Information about your quotas.
+	Quotas OKSQuotas `json:"Quotas"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext QuotasQuotaSchemaResponseContext `json:"ResponseContext"`
+}
+
+// QuotasQuotaSchemaResponseContext Information about the context of the response.
+type QuotasQuotaSchemaResponseContext struct {
+	// RequestId The ID of the API request.
+	RequestId string `json:"RequestId"`
+}
+
+// TemplatesTemplateSchemaResponseContext Information about the context of the response.
 type TemplatesTemplateSchemaResponseContext struct {
 	// RequestId The ID of the API request.
 	RequestId string `json:"RequestId"`
@@ -749,7 +906,7 @@ type ListProjectsParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
 	// Status The status of the projects.
-	Status *ListProjectsParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+	Status *string `form:"status,omitempty" json:"status,omitempty"`
 
 	// Cidr The IP ranges for the projects, IN CIDR notation (for example, `192.0.2.0/16`).
 	Cidr *string `form:"cidr,omitempty" json:"cidr,omitempty"`
@@ -758,11 +915,14 @@ type ListProjectsParams struct {
 	Deleted *bool `form:"deleted,omitempty" json:"deleted,omitempty"`
 }
 
-// ListProjectsParamsStatus defines parameters for ListProjects.
-type ListProjectsParamsStatus string
+// GetClusterTemplateParams defines parameters for GetClusterTemplate.
+type GetClusterTemplateParams struct {
+	// XRealIP A header with the IP of the client making the request.
+	XRealIP *string `json:"X-Real-IP,omitempty"`
+}
 
 // CreateClusterJSONRequestBody defines body for CreateCluster for application/json ContentType.
-type CreateClusterJSONRequestBody = ClusterInputInput
+type CreateClusterJSONRequestBody = ClusterInput
 
 // UpdateClusterJSONRequestBody defines body for UpdateCluster for application/json ContentType.
 type UpdateClusterJSONRequestBody = ClusterUpdate
@@ -1030,11 +1190,20 @@ type ClientInterfaceRaw interface {
 
 	UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetProjectPublicIpsRaw request
+	GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetProjectQuotasRaw request
 	GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetProjectSnapshotsRaw request
+	GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetQuotasRaw request
+	GetQuotasRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetClusterTemplateRaw request
-	GetClusterTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetNodepoolTemplateRaw request
 	GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1295,6 +1464,18 @@ func (c *ClientRaw) UpdateProjectRaw(ctx context.Context, projectId string, body
 	return c.Client.Do(req)
 }
 
+func (c *ClientRaw) GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetProjectPublicIpsRequest(c.Server, projectId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *ClientRaw) GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetProjectQuotasRequest(c.Server, projectId)
 	if err != nil {
@@ -1307,8 +1488,32 @@ func (c *ClientRaw) GetProjectQuotasRaw(ctx context.Context, projectId string, r
 	return c.Client.Do(req)
 }
 
-func (c *ClientRaw) GetClusterTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetClusterTemplateRequest(c.Server)
+func (c *ClientRaw) GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetProjectSnapshotsRequest(c.Server, projectId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) GetQuotasRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetQuotasRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetClusterTemplateRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2266,6 +2471,40 @@ func NewUpdateProjectRequestWithBody(server string, projectId string, contentTyp
 	return req, nil
 }
 
+// NewGetProjectPublicIpsRequest generates requests for GetProjectPublicIps
+func NewGetProjectPublicIpsRequest(server string, projectId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "project_id", runtime.ParamLocationPath, projectId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/projects/%s/public_ips", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetProjectQuotasRequest generates requests for GetProjectQuotas
 func NewGetProjectQuotasRequest(server string, projectId string) (*http.Request, error) {
 	var err error
@@ -2300,8 +2539,69 @@ func NewGetProjectQuotasRequest(server string, projectId string) (*http.Request,
 	return req, nil
 }
 
+// NewGetProjectSnapshotsRequest generates requests for GetProjectSnapshots
+func NewGetProjectSnapshotsRequest(server string, projectId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "project_id", runtime.ParamLocationPath, projectId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/projects/%s/snapshots", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetQuotasRequest generates requests for GetQuotas
+func NewGetQuotasRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/quotas")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetClusterTemplateRequest generates requests for GetClusterTemplate
-func NewGetClusterTemplateRequest(server string) (*http.Request, error) {
+func NewGetClusterTemplateRequest(server string, params *GetClusterTemplateParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -2322,6 +2622,21 @@ func NewGetClusterTemplateRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XRealIP != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithLocation("simple", false, "X-Real-IP", runtime.ParamLocationHeader, *params.XRealIP)
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Real-IP", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -2484,11 +2799,20 @@ type ClientInterface interface {
 
 	UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
 
+	// GetProjectPublicIps request
+	GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*PublicIpsResponse, error)
+
 	// GetProjectQuotas request
-	GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*QuotasResponse, error)
+	GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectsProjectSchemaQuotasResponse, error)
+
+	// GetProjectSnapshots request
+	GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*SnapshotsResponse, error)
+
+	// GetQuotas request
+	GetQuotas(ctx context.Context, reqEditors ...RequestEditorFn) (*QuotasQuotaSchemaQuotasResponse, error)
 
 	// GetClusterTemplate request
-	GetClusterTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInput, error)
+	GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInputTemplate, error)
 
 	// GetNodepoolTemplate request
 	GetNodepoolTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseNodepool, error)
@@ -3177,10 +3501,50 @@ func (r UpdateProjectResponse) Expect() (*ProjectResponse, error) {
 	return nil, errors.New(r.Status())
 }
 
+type GetProjectPublicIpsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PublicIpsResponse
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetProjectPublicIpsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetProjectPublicIpsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetProjectPublicIpsResponse) Expect() (*PublicIpsResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	if r.JSON422 != nil {
+		return nil, r.JSON422
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
 type GetProjectQuotasResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *QuotasResponse
+	JSON200      *ProjectsProjectSchemaQuotasResponse
 	JSON422      *HTTPValidationError
 }
 
@@ -3200,7 +3564,87 @@ func (r GetProjectQuotasResponse) StatusCode() int {
 	return 0
 }
 
-func (r GetProjectQuotasResponse) Expect() (*QuotasResponse, error) {
+func (r GetProjectQuotasResponse) Expect() (*ProjectsProjectSchemaQuotasResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	if r.JSON422 != nil {
+		return nil, r.JSON422
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type GetProjectSnapshotsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SnapshotsResponse
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetProjectSnapshotsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetProjectSnapshotsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetProjectSnapshotsResponse) Expect() (*SnapshotsResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	if r.JSON422 != nil {
+		return nil, r.JSON422
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type GetQuotasResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *QuotasQuotaSchemaQuotasResponse
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetQuotasResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetQuotasResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetQuotasResponse) Expect() (*QuotasQuotaSchemaQuotasResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
 	}
@@ -3220,7 +3664,7 @@ func (r GetProjectQuotasResponse) Expect() (*QuotasResponse, error) {
 type GetClusterTemplateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *TemplateResponseClusterInput
+	JSON200      *TemplateResponseClusterInputTemplate
 	JSON422      *HTTPValidationError
 }
 
@@ -3240,7 +3684,7 @@ func (r GetClusterTemplateResponse) StatusCode() int {
 	return 0
 }
 
-func (r GetClusterTemplateResponse) Expect() (*TemplateResponseClusterInput, error) {
+func (r GetClusterTemplateResponse) Expect() (*TemplateResponseClusterInputTemplate, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
 	}
@@ -3627,8 +4071,22 @@ func (c *Client) UpdateProject(ctx context.Context, projectId string, body Updat
 	return obj.Expect()
 }
 
-// GetProjectQuotas request returning *QuotasResponse
-func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*QuotasResponse, error) {
+// GetProjectPublicIps request returning *PublicIpsResponse
+func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*PublicIpsResponse, error) {
+	rsp, err := c.GetProjectPublicIpsRaw(ctx, projectId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetProjectPublicIpsResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// GetProjectQuotas request returning *ProjectsProjectSchemaQuotasResponse
+func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectsProjectSchemaQuotasResponse, error) {
 	rsp, err := c.GetProjectQuotasRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3641,9 +4099,37 @@ func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEdit
 	return obj.Expect()
 }
 
-// GetClusterTemplate request returning *TemplateResponseClusterInput
-func (c *Client) GetClusterTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInput, error) {
-	rsp, err := c.GetClusterTemplateRaw(ctx, reqEditors...)
+// GetProjectSnapshots request returning *SnapshotsResponse
+func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*SnapshotsResponse, error) {
+	rsp, err := c.GetProjectSnapshotsRaw(ctx, projectId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetProjectSnapshotsResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// GetQuotas request returning *QuotasQuotaSchemaQuotasResponse
+func (c *Client) GetQuotas(ctx context.Context, reqEditors ...RequestEditorFn) (*QuotasQuotaSchemaQuotasResponse, error) {
+	rsp, err := c.GetQuotasRaw(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetQuotasResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// GetClusterTemplate request returning *TemplateResponseClusterInputTemplate
+func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInputTemplate, error) {
+	rsp, err := c.GetClusterTemplateRaw(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -4244,6 +4730,39 @@ func ParseUpdateProjectResponse(rsp *http.Response) (*UpdateProjectResponse, err
 	return response, nil
 }
 
+// ParseGetProjectPublicIpsResponse parses an HTTP response from a GetProjectPublicIps call
+func ParseGetProjectPublicIpsResponse(rsp *http.Response) (*GetProjectPublicIpsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetProjectPublicIpsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PublicIpsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetProjectQuotasResponse parses an HTTP response from a GetProjectQuotas call
 func ParseGetProjectQuotasResponse(rsp *http.Response) (*GetProjectQuotasResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -4259,7 +4778,73 @@ func ParseGetProjectQuotasResponse(rsp *http.Response) (*GetProjectQuotasRespons
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest QuotasResponse
+		var dest ProjectsProjectSchemaQuotasResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetProjectSnapshotsResponse parses an HTTP response from a GetProjectSnapshots call
+func ParseGetProjectSnapshotsResponse(rsp *http.Response) (*GetProjectSnapshotsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetProjectSnapshotsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SnapshotsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetQuotasResponse parses an HTTP response from a GetQuotas call
+func ParseGetQuotasResponse(rsp *http.Response) (*GetQuotasResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetQuotasResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest QuotasQuotaSchemaQuotasResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -4292,7 +4877,7 @@ func ParseGetClusterTemplateResponse(rsp *http.Response) (*GetClusterTemplateRes
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TemplateResponseClusterInput
+		var dest TemplateResponseClusterInputTemplate
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
