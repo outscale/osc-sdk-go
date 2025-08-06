@@ -240,6 +240,9 @@ type Account struct {
 	// MobileNumber The mobile phone number of the account owner.
 	MobileNumber *string `json:"MobileNumber,omitempty"`
 
+	// OutscaleLoginAllowed Whether the account is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated.
+	OutscaleLoginAllowed *bool `json:"OutscaleLoginAllowed,omitempty"`
+
 	// PhoneNumber The landline phone number of the account owner.
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 
@@ -255,7 +258,7 @@ type Account struct {
 
 // ActionsOnNextBoot The action to perform on the next boot of the VM.
 type ActionsOnNextBoot struct {
-	// SecureBoot One action to perform on the next boot of the VM (`enable` | `disable` | `setup-mode` |`none`).
+	// SecureBoot One action to perform on the next boot of the VM. For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
 	SecureBoot *SecureBootAction `json:"SecureBoot,omitempty"`
 }
 
@@ -387,7 +390,7 @@ type BlockDeviceMappingVmUpdate struct {
 	VirtualDeviceName *string `json:"VirtualDeviceName,omitempty"`
 }
 
-// BootMode Information about the boot mode of the OMI (`legacy` and/or `uefi`).
+// BootMode Information about the boot mode of the VM.
 type BootMode string
 
 // BsuCreated Information about the created BSU volume.
@@ -407,7 +410,7 @@ type BsuCreated struct {
 
 // BsuToCreate Information about the BSU volume to create.
 type BsuToCreate struct {
-	// DeleteOnVmDeletion By default or if set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
+	// DeleteOnVmDeletion If set to true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
 	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
 
 	// Iops The number of I/O operations per second (IOPS). This parameter must be specified only if you create an `io1` volume. The maximum number of IOPS allowed for `io1` volumes is `13000` with a maximum performance ratio of 300 IOPS per gibibyte.
@@ -486,16 +489,16 @@ type Catalogs struct {
 	Entries *[]CatalogEntry `json:"Entries,omitempty"`
 
 	// FromDate The beginning of the time period (UTC).
-	FromDate *string `json:"FromDate,omitempty"`
+	FromDate *time.Time `json:"FromDate,omitempty"`
 
-	// State The state of the catalog (`CURRENT` \| `OBSOLETE`).
+	// State The state of the catalog.
 	State *CatalogsState `json:"State,omitempty"`
 
 	// ToDate The end of the time period (UTC).
-	ToDate *string `json:"ToDate,omitempty"`
+	ToDate *time.Time `json:"ToDate,omitempty"`
 }
 
-// CatalogsState The state of the catalog (`CURRENT` \| `OBSOLETE`).
+// CatalogsState The state of the catalog.
 type CatalogsState string
 
 // CheckAuthenticationRequest defines model for CheckAuthenticationRequest.
@@ -886,7 +889,7 @@ type CreateImageRequest struct {
 	// BlockDeviceMappings **(required) When registering from a snapshot:** One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
 
-	// BootModes The boot modes compatible with the OMI (`legacy` and/or `uefi`).
+	// BootModes The boot modes compatible with the OMI.
 	BootModes *[]BootMode `json:"BootModes,omitempty"`
 
 	// Description A description for the new OMI.
@@ -1634,7 +1637,7 @@ type CreateVmGroupRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// PositioningStrategy The positioning strategy of VMs on hypervisors. By default, or if set to `no-strategy` our orchestrator determines the most adequate position for your VMs. If set to `attract`, your VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, your VMs are deployed on a different hypervisor, which improves fault tolerance.
+	// PositioningStrategy The positioning strategy of VMs on hypervisors. If set to `no-strategy`, our orchestrator determines the most adequate position for your VMs. If set to `attract`, your VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, your VMs are deployed on a different hypervisor, which improves fault tolerance.
 	PositioningStrategy *CreateVmGroupRequestPositioningStrategy `json:"PositioningStrategy,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security groups for the VM group.
@@ -1656,7 +1659,7 @@ type CreateVmGroupRequest struct {
 	VmTemplateId string `json:"VmTemplateId"`
 }
 
-// CreateVmGroupRequestPositioningStrategy The positioning strategy of VMs on hypervisors. By default, or if set to `no-strategy` our orchestrator determines the most adequate position for your VMs. If set to `attract`, your VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, your VMs are deployed on a different hypervisor, which improves fault tolerance.
+// CreateVmGroupRequestPositioningStrategy The positioning strategy of VMs on hypervisors. If set to `no-strategy`, our orchestrator determines the most adequate position for your VMs. If set to `attract`, your VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, your VMs are deployed on a different hypervisor, which improves fault tolerance.
 type CreateVmGroupRequestPositioningStrategy string
 
 // CreateVmGroupResponse defines model for CreateVmGroupResponse.
@@ -1676,7 +1679,7 @@ type CreateVmTemplateRequest struct {
 	// CpuGeneration The processor generation to use for each VM (for example, `v4`).
 	CpuGeneration string `json:"CpuGeneration"`
 
-	// CpuPerformance The performance of the VMs (`medium` \| `high` \|  `highest`).
+	// CpuPerformance The performance of the VMs.
 	CpuPerformance *CreateVmTemplateRequestCpuPerformance `json:"CpuPerformance,omitempty"`
 
 	// Description A description for the VM template.
@@ -1701,7 +1704,7 @@ type CreateVmTemplateRequest struct {
 	VmTemplateName string `json:"VmTemplateName"`
 }
 
-// CreateVmTemplateRequestCpuPerformance The performance of the VMs (`medium` \| `high` \|  `highest`).
+// CreateVmTemplateRequestCpuPerformance The performance of the VMs.
 type CreateVmTemplateRequestCpuPerformance string
 
 // CreateVmTemplateResponse defines model for CreateVmTemplateResponse.
@@ -1721,10 +1724,10 @@ type CreateVmsRequest struct {
 	// BlockDeviceMappings One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingVmCreation `json:"BlockDeviceMappings,omitempty"`
 
-	// BootMode Information about the boot mode of the OMI (`legacy` and/or `uefi`).
+	// BootMode Information about the boot mode of the VM.
 	BootMode *BootMode `json:"BootMode,omitempty"`
 
-	// BootOnCreation By default or if true, the VM is started on creation. If false, the VM is stopped on creation.
+	// BootOnCreation If true, the VM is started on creation. If false, the VM is stopped on creation.
 	BootOnCreation *bool `json:"BootOnCreation,omitempty"`
 
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
@@ -1757,7 +1760,7 @@ type CreateVmsRequest struct {
 	// Nics One or more NICs. If you specify this parameter, you must not specify the `SubnetId` and `SubregionName` parameters. You also must define one NIC as the primary network interface of the VM with `0` as its device number.
 	Nics *[]NicForVmCreation `json:"Nics,omitempty"`
 
-	// Performance The performance of the VM (`medium` \| `high` \|  `highest`). By default, `high`. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
+	// Performance The performance of the VM. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
 	Performance *CreateVmsRequestPerformance `json:"Performance,omitempty"`
 
 	// Placement Information about the placement of the VM.
@@ -1778,7 +1781,7 @@ type CreateVmsRequest struct {
 	// UserData Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html).
 	UserData *string `json:"UserData,omitempty"`
 
-	// VmInitiatedShutdownBehavior The VM behavior when you stop it. By default or if set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
+	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 
 	// VmType The type of VM. You can specify a TINA type (in the `tinavW.cXrYpZ` or `tinavW.cXrY` format), or an AWS type (for example, `t2.small`, which is the default value).<br />
@@ -1786,7 +1789,7 @@ type CreateVmsRequest struct {
 	VmType *string `json:"VmType,omitempty"`
 }
 
-// CreateVmsRequestPerformance The performance of the VM (`medium` \| `high` \|  `highest`). By default, `high`. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
+// CreateVmsRequestPerformance The performance of the VM. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
 type CreateVmsRequestPerformance string
 
 // CreateVmsResponse defines model for CreateVmsResponse.
@@ -2807,7 +2810,7 @@ type DirectLinkInterfaces struct {
 	// Location The datacenter where the DirectLink interface is located.
 	Location *string `json:"Location,omitempty"`
 
-	// Mtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes (always `1500`).
+	// Mtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes.
 	Mtu *int `json:"Mtu,omitempty"`
 
 	// OutscalePrivateIp The IP on the OUTSCALE side of the DirectLink interface.
@@ -2821,6 +2824,72 @@ type DirectLinkInterfaces struct {
 
 	// Vlan The VLAN number associated with the DirectLink interface.
 	Vlan *int `json:"Vlan,omitempty"`
+}
+
+// DisableOutscaleLoginPerUsersRequest defines model for DisableOutscaleLoginPerUsersRequest.
+type DisableOutscaleLoginPerUsersRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+
+	// UserNames The usernames of the EIM users you want to disable the Outscale login for.
+	UserNames *[]string `json:"UserNames,omitempty"`
+}
+
+// DisableOutscaleLoginPerUsersResponse defines model for DisableOutscaleLoginPerUsersResponse.
+type DisableOutscaleLoginPerUsersResponse struct {
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+}
+
+// DisableOutscaleLoginRequest defines model for DisableOutscaleLoginRequest.
+type DisableOutscaleLoginRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+}
+
+// DisableOutscaleLoginResponse defines model for DisableOutscaleLoginResponse.
+type DisableOutscaleLoginResponse struct {
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+}
+
+// EnableOutscaleLoginForUsersRequest defines model for EnableOutscaleLoginForUsersRequest.
+type EnableOutscaleLoginForUsersRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+}
+
+// EnableOutscaleLoginForUsersResponse defines model for EnableOutscaleLoginForUsersResponse.
+type EnableOutscaleLoginForUsersResponse struct {
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+}
+
+// EnableOutscaleLoginPerUsersRequest defines model for EnableOutscaleLoginPerUsersRequest.
+type EnableOutscaleLoginPerUsersRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+
+	// UserNames The usernames of the EIM users you want to enable the Outscale login for.
+	UserNames *[]string `json:"UserNames,omitempty"`
+}
+
+// EnableOutscaleLoginPerUsersResponse defines model for EnableOutscaleLoginPerUsersResponse.
+type EnableOutscaleLoginPerUsersResponse struct {
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+}
+
+// EnableOutscaleLoginRequest defines model for EnableOutscaleLoginRequest.
+type EnableOutscaleLoginRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+}
+
+// EnableOutscaleLoginResponse defines model for EnableOutscaleLoginResponse.
+type EnableOutscaleLoginResponse struct {
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
 // ErrorResponse defines model for ErrorResponse.
@@ -3068,7 +3137,7 @@ type FiltersImage struct {
 	// BlockDeviceMappingVolumeTypes The types of volumes (`standard` \| `gp2` \| `io1`).
 	BlockDeviceMappingVolumeTypes *[]string `json:"BlockDeviceMappingVolumeTypes,omitempty"`
 
-	// BootModes The boot modes compatible with the OMIs (`legacy` and/or `uefi`).
+	// BootModes The boot modes compatible with the OMIs.
 	BootModes *[]BootMode `json:"BootModes,omitempty"`
 
 	// Descriptions The descriptions of the OMIs, provided when they were created.
@@ -3597,7 +3666,7 @@ type FiltersSnapshot struct {
 	Descriptions *[]string `json:"Descriptions,omitempty"`
 
 	// FromCreationDate The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
-	FromCreationDate *string `json:"FromCreationDate,omitempty"`
+	FromCreationDate *time.Time `json:"FromCreationDate,omitempty"`
 
 	// PermissionsToCreateVolumeAccountIds The account IDs which have permissions to create volumes.
 	PermissionsToCreateVolumeAccountIds *[]string `json:"PermissionsToCreateVolumeAccountIds,omitempty"`
@@ -3624,7 +3693,7 @@ type FiltersSnapshot struct {
 	Tags *[]string `json:"Tags,omitempty"`
 
 	// ToCreationDate The end of the time period, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
-	ToCreationDate *string `json:"ToCreationDate,omitempty"`
+	ToCreationDate *time.Time `json:"ToCreationDate,omitempty"`
 
 	// VolumeIds The IDs of the volumes used to create the snapshots.
 	VolumeIds *[]string `json:"VolumeIds,omitempty"`
@@ -3752,7 +3821,7 @@ type FiltersVm struct {
 	// BlockDeviceMappingVolumeIds The volume IDs of the BSU volumes.
 	BlockDeviceMappingVolumeIds *[]string `json:"BlockDeviceMappingVolumeIds,omitempty"`
 
-	// BootModes The boot modes of the VMs (`legacy` \| `uefi`).
+	// BootModes The boot modes of the VMs.
 	BootModes *[]BootMode `json:"BootModes,omitempty"`
 
 	// ClientTokens The idempotency tokens provided when launching the VMs.
@@ -4062,7 +4131,7 @@ type FiltersVolume struct {
 	ClientTokens *[]string `json:"ClientTokens,omitempty"`
 
 	// CreationDates The dates and times at which the volumes were created, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
-	CreationDates *[]openapi_types.Date `json:"CreationDates,omitempty"`
+	CreationDates *[]time.Time `json:"CreationDates,omitempty"`
 
 	// LinkVolumeDeleteOnVmDeletion Whether the volumes are deleted or not when terminating the VMs.
 	LinkVolumeDeleteOnVmDeletion *bool `json:"LinkVolumeDeleteOnVmDeletion,omitempty"`
@@ -4071,7 +4140,7 @@ type FiltersVolume struct {
 	LinkVolumeDeviceNames *[]string `json:"LinkVolumeDeviceNames,omitempty"`
 
 	// LinkVolumeLinkDates The dates and times at which the volumes were attached, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
-	LinkVolumeLinkDates *[]openapi_types.Date `json:"LinkVolumeLinkDates,omitempty"`
+	LinkVolumeLinkDates *[]time.Time `json:"LinkVolumeLinkDates,omitempty"`
 
 	// LinkVolumeLinkStates The attachment states of the volumes (`attaching` \| `detaching` \| `attached` \| `detached`).
 	LinkVolumeLinkStates *[]string `json:"LinkVolumeLinkStates,omitempty"`
@@ -4100,7 +4169,7 @@ type FiltersVolume struct {
 	// VolumeSizes The sizes of the volumes, in gibibytes (GiB).
 	VolumeSizes *[]int `json:"VolumeSizes,omitempty"`
 
-	// VolumeStates The states of the volumes (`creating` \| `available` \| `in-use` \| `updating` \| `deleting` \| `error`).
+	// VolumeStates The states of the volumes (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
 	VolumeStates *[]string `json:"VolumeStates,omitempty"`
 
 	// VolumeTypes The types of the volumes (`standard` \| `gp2` \| `io1`).
@@ -4223,7 +4292,7 @@ type Image struct {
 	// BlockDeviceMappings One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
 
-	// BootModes The boot modes compatible with the OMI (`legacy` and/or `uefi`).
+	// BootModes The boot modes compatible with the OMI.
 	BootModes *[]BootMode `json:"BootModes,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the OMI was created.
@@ -4691,10 +4760,10 @@ type LinkVolumeResponse struct {
 // LinkedPolicy Information about the linked policy.
 type LinkedPolicy struct {
 	// CreationDate The date and time (UTC) at which the linked policy was created.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) at which the linked policy was last modified.
-	LastModificationDate *string `json:"LastModificationDate,omitempty"`
+	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
 
 	// Orn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
 	Orn *string `json:"Orn,omitempty"`
@@ -4759,7 +4828,8 @@ type ListenerForCreation struct {
 	// LoadBalancerProtocol The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL`).
 	LoadBalancerProtocol string `json:"LoadBalancerProtocol"`
 
-	// ServerCertificateId The OUTSCALE Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > OUTSCALE Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns).
+	// ServerCertificateId The OUTSCALE Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > OUTSCALE Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns).<br/>
+	// This parameter is required for `HTTPS` and `SSL` protocols.
 	ServerCertificateId *string `json:"ServerCertificateId,omitempty"`
 }
 
@@ -5058,7 +5128,7 @@ type NetPeering struct {
 	AccepterNet *AccepterNet `json:"AccepterNet,omitempty"`
 
 	// ExpirationDate The date and time (UTC) at which the Net peerings expire.
-	ExpirationDate *string `json:"ExpirationDate"`
+	ExpirationDate *time.Time `json:"ExpirationDate"`
 
 	// NetPeeringId The ID of the Net peering.
 	NetPeeringId *string `json:"NetPeeringId,omitempty"`
@@ -5343,7 +5413,7 @@ type Placement struct {
 // Policy Information about the policy.
 type Policy struct {
 	// CreationDate The date and time (UTC) at which the policy was created.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// Description A friendly name for the policy (between 0 and 1000 characters).
 	Description *string `json:"Description,omitempty"`
@@ -5352,7 +5422,7 @@ type Policy struct {
 	IsLinkable *bool `json:"IsLinkable,omitempty"`
 
 	// LastModificationDate The date and time (UTC) at which the policy was last modified.
-	LastModificationDate *string `json:"LastModificationDate,omitempty"`
+	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
 
 	// Orn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
 	Orn *string `json:"Orn,omitempty"`
@@ -5375,8 +5445,11 @@ type Policy struct {
 
 // PolicyEntities Information about the policy entities.
 type PolicyEntities struct {
+	// Accounts The accounts linked to the specified policy.
 	Accounts *[]MinimalPolicy `json:"Accounts,omitempty"`
-	Groups   *[]MinimalPolicy `json:"Groups,omitempty"`
+
+	// Groups The groups linked to the specified policy.
+	Groups *[]MinimalPolicy `json:"Groups,omitempty"`
 
 	// HasMoreItems If true, there are more items to return using the `FirstItem` parameter in a new request.
 	HasMoreItems *bool `json:"HasMoreItems,omitempty"`
@@ -5388,8 +5461,10 @@ type PolicyEntities struct {
 	MaxResultsLimit *int `json:"MaxResultsLimit,omitempty"`
 
 	// MaxResultsTruncated If true, indicates whether requested page size is more than allowed.
-	MaxResultsTruncated *bool            `json:"MaxResultsTruncated,omitempty"`
-	Users               *[]MinimalPolicy `json:"Users,omitempty"`
+	MaxResultsTruncated *bool `json:"MaxResultsTruncated,omitempty"`
+
+	// Users The users linked to the specified policy.
+	Users *[]MinimalPolicy `json:"Users,omitempty"`
 }
 
 // PolicyVersion Information about the policy version.
@@ -5398,7 +5473,7 @@ type PolicyVersion struct {
 	Body *string `json:"Body,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the version was created.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// DefaultVersion If true, the version is the default one.
 	DefaultVersion *bool `json:"DefaultVersion,omitempty"`
@@ -5676,7 +5751,7 @@ type ReadApiLogsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *string `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 
 	// With The information to display in each returned log.
@@ -5757,7 +5832,7 @@ type ReadClientGatewaysRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -5802,7 +5877,7 @@ type ReadConsumptionAccountRequest struct {
 	// FromDate The beginning of the time period, in ISO 8601 date format (for example, `2020-06-14`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-14T00:00:00.000Z`). This value is included in the time period.
 	FromDate iso8601.Time `json:"FromDate"`
 
-	// Overall By default or if false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
+	// Overall If false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
 	Overall *bool `json:"Overall,omitempty"`
 
 	// ShowPrice If true, the response also includes the unit price of the consumed resource (`UnitPrice`) and the total price of the consumed resource during the specified time period (`Price`), in the currency of your account.
@@ -5835,7 +5910,7 @@ type ReadDedicatedGroupsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -5862,7 +5937,7 @@ type ReadDhcpOptionsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -5889,7 +5964,7 @@ type ReadDirectLinkInterfacesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -5916,7 +5991,7 @@ type ReadDirectLinksRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -5934,7 +6009,7 @@ type ReadDirectLinksResponse struct {
 
 // ReadEntitiesLinkedToPolicyRequest defines model for ReadEntitiesLinkedToPolicyRequest.
 type ReadEntitiesLinkedToPolicyRequest struct {
-	// EntitiesType The type of entity linked to the policy (`ACCOUNT` \| `USER` \| `GROUP`) you want to get information about.
+	// EntitiesType The type of entity linked to the policy you want to get information about.
 	EntitiesType *[]ReadEntitiesLinkedToPolicyRequestEntitiesType `json:"EntitiesType,omitempty"`
 
 	// FirstItem The item starting the list of entities requested.
@@ -6003,7 +6078,7 @@ type ReadImageExportTasksRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6030,7 +6105,7 @@ type ReadImagesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6057,7 +6132,7 @@ type ReadInternetServicesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6204,7 +6279,7 @@ type ReadLocationsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6267,7 +6342,7 @@ type ReadNatServicesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6294,7 +6369,7 @@ type ReadNetAccessPointServicesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6321,7 +6396,7 @@ type ReadNetAccessPointsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6348,7 +6423,7 @@ type ReadNetPeeringsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6375,7 +6450,7 @@ type ReadNetsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6402,7 +6477,7 @@ type ReadNicsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6537,7 +6612,7 @@ type ReadProductTypesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6576,7 +6651,7 @@ type ReadPublicIpRangesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6603,7 +6678,7 @@ type ReadPublicIpsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6630,7 +6705,7 @@ type ReadQuotasRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6672,7 +6747,7 @@ type ReadRouteTablesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6699,7 +6774,7 @@ type ReadSecurityGroupsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6744,7 +6819,7 @@ type ReadSnapshotExportTasksRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6771,7 +6846,7 @@ type ReadSnapshotsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6798,7 +6873,7 @@ type ReadSubnetsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6825,7 +6900,7 @@ type ReadSubregionsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -6852,7 +6927,7 @@ type ReadTagsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7116,7 +7191,7 @@ type ReadVirtualGatewaysRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7145,7 +7220,9 @@ type ReadVmGroupsRequest struct {
 type ReadVmGroupsResponse struct {
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
-	VmGroups        *[]VmGroup       `json:"VmGroups,omitempty"`
+
+	// VmGroups Information about one or more VM groups.
+	VmGroups *[]VmGroup `json:"VmGroups,omitempty"`
 }
 
 // ReadVmTemplatesRequest defines model for ReadVmTemplatesRequest.
@@ -7177,7 +7254,7 @@ type ReadVmTypesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7225,7 +7302,7 @@ type ReadVmsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7243,7 +7320,7 @@ type ReadVmsResponse struct {
 
 // ReadVmsStateRequest defines model for ReadVmsStateRequest.
 type ReadVmsStateRequest struct {
-	// AllVms If true, includes the status of all VMs. By default or if set to false, only includes the status of running VMs.
+	// AllVms If true, includes the status of all VMs. If false, only includes the status of running VMs.
 	AllVms *bool `json:"AllVms,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -7255,7 +7332,7 @@ type ReadVmsStateRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7282,7 +7359,7 @@ type ReadVolumesRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7309,7 +7386,7 @@ type ReadVpnConnectionsRequest struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
 
-	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 }
 
@@ -7539,7 +7616,7 @@ type ScaleUpVmGroupResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
-// SecureBootAction One action to perform on the next boot of the VM (`enable` | `disable` | `setup-mode` |`none`).
+// SecureBootAction One action to perform on the next boot of the VM. For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
 type SecureBootAction string
 
 // SecurityGroup Information about the security group.
@@ -7712,7 +7789,7 @@ type SnapshotExportTask struct {
 	// SnapshotId The ID of the snapshot to be exported.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
 
-	// State The state of the snapshot export task (`pending` \| `active` \| `completed` \| `failed`).
+	// State The state of the snapshot export task (`pending` \| `active` \| `completed` \| `cancelled` \| `failed`).
 	State *string `json:"State,omitempty"`
 
 	// Tags One or more tags associated with the snapshot export task.
@@ -8245,11 +8322,11 @@ type UpdateDirectLinkInterfaceRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// Mtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes (always `1500`).
+	// Mtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes.
 	Mtu UpdateDirectLinkInterfaceRequestMtu `json:"Mtu"`
 }
 
-// UpdateDirectLinkInterfaceRequestMtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes (always `1500`).
+// UpdateDirectLinkInterfaceRequestMtu The maximum transmission unit (MTU) of the DirectLink interface, in bytes.
 type UpdateDirectLinkInterfaceRequestMtu int
 
 // UpdateDirectLinkInterfaceResponse defines model for UpdateDirectLinkInterfaceResponse.
@@ -8711,7 +8788,7 @@ type UpdateVmRequest struct {
 	// NestedVirtualization (dedicated tenancy only) If true, nested virtualization is enabled. If false, it is disabled.
 	NestedVirtualization *bool `json:"NestedVirtualization,omitempty"`
 
-	// Performance The performance of the VM (`medium` \| `high` \|  `highest`).
+	// Performance The performance of the VM.
 	Performance *UpdateVmRequestPerformance `json:"Performance,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security groups for the VM.
@@ -8730,7 +8807,7 @@ type UpdateVmRequest struct {
 	VmType *string `json:"VmType,omitempty"`
 }
 
-// UpdateVmRequestPerformance The performance of the VM (`medium` \| `high` \|  `highest`).
+// UpdateVmRequestPerformance The performance of the VM.
 type UpdateVmRequestPerformance string
 
 // UpdateVmResponse defines model for UpdateVmResponse.
@@ -8830,10 +8907,13 @@ type UpdateVpnConnectionResponse struct {
 // User Information about the EIM user.
 type User struct {
 	// CreationDate The date and time (UTC) of creation of the EIM user.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) of the last modification of the EIM user.
-	LastModificationDate *string `json:"LastModificationDate,omitempty"`
+	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+
+	// OutscaleLoginAllowed Whether the user is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated.
+	OutscaleLoginAllowed *bool `json:"OutscaleLoginAllowed,omitempty"`
 
 	// Path The path to the EIM user.
 	Path *string `json:"Path,omitempty"`
@@ -8851,10 +8931,10 @@ type User struct {
 // UserGroup Information about the user group.
 type UserGroup struct {
 	// CreationDate The date and time (UTC) of creation of the user group.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) of the last modification of the user group.
-	LastModificationDate *string `json:"LastModificationDate,omitempty"`
+	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
 
 	// Name The name of the user group.
 	Name *string `json:"Name,omitempty"`
@@ -8916,7 +8996,7 @@ type Vm struct {
 	// BlockDeviceMappings The block device mapping of the VM.
 	BlockDeviceMappings *[]BlockDeviceMappingCreated `json:"BlockDeviceMappings,omitempty"`
 
-	// BootMode Information about the boot mode of the OMI (`legacy` and/or `uefi`).
+	// BootMode Information about the boot mode of the VM.
 	BootMode *BootMode `json:"BootMode,omitempty"`
 
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
@@ -8958,7 +9038,7 @@ type Vm struct {
 	// OsFamily Indicates the operating system (OS) of the VM.
 	OsFamily *string `json:"OsFamily,omitempty"`
 
-	// Performance The performance of the VM (`medium` \| `high` \|  `highest`).
+	// Performance The performance of the VM.
 	Performance *string `json:"Performance,omitempty"`
 
 	// Placement Information about the placement of the VM.
@@ -9024,19 +9104,19 @@ type VmGroup struct {
 	// Description The description of the VM group.
 	Description *string `json:"Description,omitempty"`
 
-	// PositioningStrategy The positioning strategy of the VMs on hypervisors. By default, or if set to `no-strategy`, TINA determines the most adequate position for the VMs. If set to `attract`, the VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, the VMs are deployed on a different hypervisor, which improves fault tolerance.
+	// PositioningStrategy The positioning strategy of the VMs on hypervisors. If set to `no-strategy`, TINA determines the most adequate position for the VMs. If set to `attract`, the VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, the VMs are deployed on a different hypervisor, which improves fault tolerance.
 	PositioningStrategy *VmGroupPositioningStrategy `json:"PositioningStrategy,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security groups for the VM group.
 	SecurityGroupIds *[]string `json:"SecurityGroupIds,omitempty"`
 
-	// State The state of the VM group (`pending` \| `available` \| `scaling up` \| `scaling down` \| `deleting` \| `deleted`).
+	// State The state of the VM group.
 	State *VmGroupState `json:"State,omitempty"`
 
 	// SubnetId The ID of the Subnet for the VM group.
 	SubnetId *string `json:"SubnetId,omitempty"`
 
-	// Tags One or more tags associated with the VM.
+	// Tags One or more tags associated with the VM group.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 
 	// VmCount The number of VMs in the VM group.
@@ -9055,10 +9135,10 @@ type VmGroup struct {
 	VmTemplateId *string `json:"VmTemplateId,omitempty"`
 }
 
-// VmGroupPositioningStrategy The positioning strategy of the VMs on hypervisors. By default, or if set to `no-strategy`, TINA determines the most adequate position for the VMs. If set to `attract`, the VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, the VMs are deployed on a different hypervisor, which improves fault tolerance.
+// VmGroupPositioningStrategy The positioning strategy of the VMs on hypervisors. If set to `no-strategy`, TINA determines the most adequate position for the VMs. If set to `attract`, the VMs are deployed on the same hypervisor, which improves network performance. If set to `repulse`, the VMs are deployed on a different hypervisor, which improves fault tolerance.
 type VmGroupPositioningStrategy string
 
-// VmGroupState The state of the VM group (`pending` \| `available` \| `scaling up` \| `scaling down` \| `deleting` \| `deleted`).
+// VmGroupState The state of the VM group.
 type VmGroupState string
 
 // VmState Information about the state of the VM.
@@ -9100,7 +9180,7 @@ type VmTemplate struct {
 	CpuPerformance *VmTemplateCpuPerformance `json:"CpuPerformance,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the VM was created.
-	CreationDate *string `json:"CreationDate,omitempty"`
+	CreationDate *time.Time `json:"CreationDate,omitempty"`
 
 	// Description The description of the VM template.
 	Description *string `json:"Description,omitempty"`
@@ -9182,7 +9262,7 @@ type Volume struct {
 	// SnapshotId The snapshot from which the volume was created.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
 
-	// State The state of the volume (`creating` \| `available` \| `in-use` \| `updating` \| `deleting` \| `error`).
+	// State The state of the volume (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
 	State *string `json:"State,omitempty"`
 
 	// SubregionName The Subregion in which the volume was created.
@@ -9248,52 +9328,52 @@ type VpnOptions struct {
 
 // With The information to display in each returned log.
 type With struct {
-	// AccountId By default or if set to true, the account ID is displayed.
+	// AccountId If true, the account ID is displayed.
 	AccountId *bool `json:"AccountId,omitempty"`
 
-	// CallDuration By default or if set to true, the duration of the call is displayed.
+	// CallDuration If true, the duration of the call is displayed.
 	CallDuration *bool `json:"CallDuration,omitempty"`
 
-	// QueryAccessKey By default or if set to true, the access key is displayed.
+	// QueryAccessKey If true, the access key is displayed.
 	QueryAccessKey *bool `json:"QueryAccessKey,omitempty"`
 
-	// QueryApiName By default or if set to true, the name of the API is displayed.
+	// QueryApiName If true, the name of the API is displayed.
 	QueryApiName *bool `json:"QueryApiName,omitempty"`
 
-	// QueryApiVersion By default or if set to true, the version of the API is displayed.
+	// QueryApiVersion If true, the version of the API is displayed.
 	QueryApiVersion *bool `json:"QueryApiVersion,omitempty"`
 
-	// QueryCallName By default or if set to true, the name of the call is displayed.
+	// QueryCallName If true, the name of the call is displayed.
 	QueryCallName *bool `json:"QueryCallName,omitempty"`
 
-	// QueryDate By default or if set to true, the date of the call is displayed.
+	// QueryDate If true, the date of the call is displayed.
 	QueryDate *bool `json:"QueryDate,omitempty"`
 
-	// QueryHeaderRaw By default or if set to true, the raw header of the HTTP request is displayed.
+	// QueryHeaderRaw If true, the raw header of the HTTP request is displayed.
 	QueryHeaderRaw *bool `json:"QueryHeaderRaw,omitempty"`
 
-	// QueryHeaderSize By default or if set to true, the size of the raw header of the HTTP request is displayed.
+	// QueryHeaderSize If true, the size of the raw header of the HTTP request is displayed.
 	QueryHeaderSize *bool `json:"QueryHeaderSize,omitempty"`
 
-	// QueryIpAddress By default or if set to true, the IP is displayed.
+	// QueryIpAddress If true, the IP is displayed.
 	QueryIpAddress *bool `json:"QueryIpAddress,omitempty"`
 
-	// QueryPayloadRaw By default or if set to true, the raw payload of the HTTP request is displayed.
+	// QueryPayloadRaw If true, the raw payload of the HTTP request is displayed.
 	QueryPayloadRaw *bool `json:"QueryPayloadRaw,omitempty"`
 
-	// QueryPayloadSize By default or if set to true, the size of the raw payload of the HTTP request is displayed.
+	// QueryPayloadSize If true, the size of the raw payload of the HTTP request is displayed.
 	QueryPayloadSize *bool `json:"QueryPayloadSize,omitempty"`
 
-	// QueryUserAgent By default or if set to true, the user agent of the HTTP request is displayed.
+	// QueryUserAgent If true, the user agent of the HTTP request is displayed.
 	QueryUserAgent *bool `json:"QueryUserAgent,omitempty"`
 
-	// RequestId By default or if set to true, the request ID is displayed.
+	// RequestId If true, the request ID is displayed.
 	RequestId *bool `json:"RequestId,omitempty"`
 
-	// ResponseSize By default or if set to true, the size of the response is displayed.
+	// ResponseSize If true, the size of the response is displayed.
 	ResponseSize *bool `json:"ResponseSize,omitempty"`
 
-	// ResponseStatusCode By default or if set to true, the HTTP status code of the response is displayed.
+	// ResponseStatusCode If true, the HTTP status code of the response is displayed.
 	ResponseStatusCode *bool `json:"ResponseStatusCode,omitempty"`
 }
 
@@ -9584,6 +9664,24 @@ type DeleteVpnConnectionRouteJSONRequestBody = DeleteVpnConnectionRouteRequest
 
 // DeregisterVmsInLoadBalancerJSONRequestBody defines body for DeregisterVmsInLoadBalancer for application/json ContentType.
 type DeregisterVmsInLoadBalancerJSONRequestBody = DeregisterVmsInLoadBalancerRequest
+
+// DisableOutscaleLoginJSONRequestBody defines body for DisableOutscaleLogin for application/json ContentType.
+type DisableOutscaleLoginJSONRequestBody = DisableOutscaleLoginRequest
+
+// DisableOutscaleLoginForUsersJSONRequestBody defines body for DisableOutscaleLoginForUsers for application/json ContentType.
+type DisableOutscaleLoginForUsersJSONRequestBody = DisableOutscaleLoginRequest
+
+// DisableOutscaleLoginPerUsersJSONRequestBody defines body for DisableOutscaleLoginPerUsers for application/json ContentType.
+type DisableOutscaleLoginPerUsersJSONRequestBody = DisableOutscaleLoginPerUsersRequest
+
+// EnableOutscaleLoginJSONRequestBody defines body for EnableOutscaleLogin for application/json ContentType.
+type EnableOutscaleLoginJSONRequestBody = EnableOutscaleLoginRequest
+
+// EnableOutscaleLoginForUsersJSONRequestBody defines body for EnableOutscaleLoginForUsers for application/json ContentType.
+type EnableOutscaleLoginForUsersJSONRequestBody = EnableOutscaleLoginForUsersRequest
+
+// EnableOutscaleLoginPerUsersJSONRequestBody defines body for EnableOutscaleLoginPerUsers for application/json ContentType.
+type EnableOutscaleLoginPerUsersJSONRequestBody = EnableOutscaleLoginPerUsersRequest
 
 // LinkFlexibleGpuJSONRequestBody defines body for LinkFlexibleGpu for application/json ContentType.
 type LinkFlexibleGpuJSONRequestBody = LinkFlexibleGpuRequest
@@ -10531,6 +10629,36 @@ type ClientInterfaceRaw interface {
 	DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DisableOutscaleLoginWithBodyRaw request with any body
+	DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DisableOutscaleLoginForUsersWithBodyRaw request with any body
+	DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DisableOutscaleLoginPerUsersWithBodyRaw request with any body
+	DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// EnableOutscaleLoginWithBodyRaw request with any body
+	EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// EnableOutscaleLoginForUsersWithBodyRaw request with any body
+	EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// EnableOutscaleLoginPerUsersWithBodyRaw request with any body
+	EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// LinkFlexibleGpuWithBodyRaw request with any body
 	LinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13482,6 +13610,150 @@ func (c *ClientRaw) DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, 
 
 func (c *ClientRaw) DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeregisterVmsInLoadBalancerRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginForUsersRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginForUsersRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginPerUsersRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisableOutscaleLoginPerUsersRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginForUsersRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginForUsersRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginPerUsersRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *ClientRaw) EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEnableOutscaleLoginPerUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -20476,6 +20748,246 @@ func NewDeregisterVmsInLoadBalancerRequestWithBody(server string, contentType st
 	return req, nil
 }
 
+// NewDisableOutscaleLoginRequest calls the generic DisableOutscaleLogin builder with application/json body
+func NewDisableOutscaleLoginRequest(server string, body DisableOutscaleLoginJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDisableOutscaleLoginRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewDisableOutscaleLoginRequestWithBody generates requests for DisableOutscaleLogin with any type of body
+func NewDisableOutscaleLoginRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/DisableOutscaleLogin")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDisableOutscaleLoginForUsersRequest calls the generic DisableOutscaleLoginForUsers builder with application/json body
+func NewDisableOutscaleLoginForUsersRequest(server string, body DisableOutscaleLoginForUsersJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDisableOutscaleLoginForUsersRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewDisableOutscaleLoginForUsersRequestWithBody generates requests for DisableOutscaleLoginForUsers with any type of body
+func NewDisableOutscaleLoginForUsersRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/DisableOutscaleLoginForUsers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDisableOutscaleLoginPerUsersRequest calls the generic DisableOutscaleLoginPerUsers builder with application/json body
+func NewDisableOutscaleLoginPerUsersRequest(server string, body DisableOutscaleLoginPerUsersJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDisableOutscaleLoginPerUsersRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewDisableOutscaleLoginPerUsersRequestWithBody generates requests for DisableOutscaleLoginPerUsers with any type of body
+func NewDisableOutscaleLoginPerUsersRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/DisableOutscaleLoginPerUsers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewEnableOutscaleLoginRequest calls the generic EnableOutscaleLogin builder with application/json body
+func NewEnableOutscaleLoginRequest(server string, body EnableOutscaleLoginJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewEnableOutscaleLoginRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewEnableOutscaleLoginRequestWithBody generates requests for EnableOutscaleLogin with any type of body
+func NewEnableOutscaleLoginRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/EnableOutscaleLogin")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewEnableOutscaleLoginForUsersRequest calls the generic EnableOutscaleLoginForUsers builder with application/json body
+func NewEnableOutscaleLoginForUsersRequest(server string, body EnableOutscaleLoginForUsersJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewEnableOutscaleLoginForUsersRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewEnableOutscaleLoginForUsersRequestWithBody generates requests for EnableOutscaleLoginForUsers with any type of body
+func NewEnableOutscaleLoginForUsersRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/EnableOutscaleLoginForUsers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewEnableOutscaleLoginPerUsersRequest calls the generic EnableOutscaleLoginPerUsers builder with application/json body
+func NewEnableOutscaleLoginPerUsersRequest(server string, body EnableOutscaleLoginPerUsersJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewEnableOutscaleLoginPerUsersRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewEnableOutscaleLoginPerUsersRequestWithBody generates requests for EnableOutscaleLoginPerUsers with any type of body
+func NewEnableOutscaleLoginPerUsersRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/EnableOutscaleLoginPerUsers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewLinkFlexibleGpuRequest calls the generic LinkFlexibleGpu builder with application/json body
 func NewLinkFlexibleGpuRequest(server string, body LinkFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -26240,6 +26752,36 @@ type ClientInterface interface {
 
 	DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*DeregisterVmsInLoadBalancerResponse, error)
 
+	// DisableOutscaleLoginWithBody request with any body
+	DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+
+	DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+
+	// DisableOutscaleLoginForUsersWithBody request with any body
+	DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+
+	DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+
+	// DisableOutscaleLoginPerUsersWithBody request with any body
+	DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error)
+
+	DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error)
+
+	// EnableOutscaleLoginWithBody request with any body
+	EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error)
+
+	EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error)
+
+	// EnableOutscaleLoginForUsersWithBody request with any body
+	EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error)
+
+	EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error)
+
+	// EnableOutscaleLoginPerUsersWithBody request with any body
+	EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error)
+
+	EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error)
+
 	// LinkFlexibleGpuWithBody request with any body
 	LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error)
 
@@ -30869,6 +31411,216 @@ func (r DeregisterVmsInLoadBalancerResp) StatusCode() int {
 }
 
 func (r DeregisterVmsInLoadBalancerResp) Expect() (*DeregisterVmsInLoadBalancerResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type DisableOutscaleLoginResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DisableOutscaleLoginResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DisableOutscaleLoginResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DisableOutscaleLoginResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r DisableOutscaleLoginResp) Expect() (*DisableOutscaleLoginResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type DisableOutscaleLoginForUsersResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DisableOutscaleLoginResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DisableOutscaleLoginForUsersResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DisableOutscaleLoginForUsersResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r DisableOutscaleLoginForUsersResp) Expect() (*DisableOutscaleLoginResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type DisableOutscaleLoginPerUsersResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DisableOutscaleLoginPerUsersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DisableOutscaleLoginPerUsersResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DisableOutscaleLoginPerUsersResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r DisableOutscaleLoginPerUsersResp) Expect() (*DisableOutscaleLoginPerUsersResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type EnableOutscaleLoginResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EnableOutscaleLoginResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r EnableOutscaleLoginResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r EnableOutscaleLoginResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r EnableOutscaleLoginResp) Expect() (*EnableOutscaleLoginResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type EnableOutscaleLoginForUsersResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EnableOutscaleLoginForUsersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r EnableOutscaleLoginForUsersResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r EnableOutscaleLoginForUsersResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r EnableOutscaleLoginForUsersResp) Expect() (*EnableOutscaleLoginForUsersResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	errMsg := string(r.Body)
+	if errMsg != "" {
+		return nil, errors.New(errMsg)
+	}
+
+	return nil, errors.New(r.Status())
+}
+
+type EnableOutscaleLoginPerUsersResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EnableOutscaleLoginPerUsersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r EnableOutscaleLoginPerUsersResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r EnableOutscaleLoginPerUsersResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r EnableOutscaleLoginPerUsersResp) Expect() (*EnableOutscaleLoginPerUsersResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
 	}
@@ -38843,6 +39595,168 @@ func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body Deregiste
 	return obj.Expect()
 }
 
+// DisableOutscaleLoginWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
+func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+	rsp, err := c.DisableOutscaleLoginWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+	rsp, err := c.DisableOutscaleLoginRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// DisableOutscaleLoginForUsersWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
+func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+	rsp, err := c.DisableOutscaleLoginForUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginForUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+	rsp, err := c.DisableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginForUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// DisableOutscaleLoginPerUsersWithBody request with arbitrary body returning *DisableOutscaleLoginPerUsersResponse
+func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error) {
+	rsp, err := c.DisableOutscaleLoginPerUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginPerUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error) {
+	rsp, err := c.DisableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseDisableOutscaleLoginPerUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// EnableOutscaleLoginWithBody request with arbitrary body returning *EnableOutscaleLoginResponse
+func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error) {
+	rsp, err := c.EnableOutscaleLoginWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error) {
+	rsp, err := c.EnableOutscaleLoginRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// EnableOutscaleLoginForUsersWithBody request with arbitrary body returning *EnableOutscaleLoginForUsersResponse
+func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error) {
+	rsp, err := c.EnableOutscaleLoginForUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginForUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error) {
+	rsp, err := c.EnableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginForUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+// EnableOutscaleLoginPerUsersWithBody request with arbitrary body returning *EnableOutscaleLoginPerUsersResponse
+func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error) {
+	rsp, err := c.EnableOutscaleLoginPerUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginPerUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
+func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error) {
+	rsp, err := c.EnableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseEnableOutscaleLoginPerUsersResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.Expect()
+}
+
 // LinkFlexibleGpuWithBody request with arbitrary body returning *LinkFlexibleGpuResponse
 func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error) {
 	rsp, err := c.LinkFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
@@ -45741,6 +46655,162 @@ func ParseDeregisterVmsInLoadBalancerResp(rsp *http.Response) (*DeregisterVmsInL
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest DeregisterVmsInLoadBalancerResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDisableOutscaleLoginResp parses an HTTP response from a DisableOutscaleLogin call
+func ParseDisableOutscaleLoginResp(rsp *http.Response) (*DisableOutscaleLoginResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DisableOutscaleLoginResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DisableOutscaleLoginResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDisableOutscaleLoginForUsersResp parses an HTTP response from a DisableOutscaleLoginForUsers call
+func ParseDisableOutscaleLoginForUsersResp(rsp *http.Response) (*DisableOutscaleLoginForUsersResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DisableOutscaleLoginForUsersResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DisableOutscaleLoginResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDisableOutscaleLoginPerUsersResp parses an HTTP response from a DisableOutscaleLoginPerUsers call
+func ParseDisableOutscaleLoginPerUsersResp(rsp *http.Response) (*DisableOutscaleLoginPerUsersResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DisableOutscaleLoginPerUsersResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DisableOutscaleLoginPerUsersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseEnableOutscaleLoginResp parses an HTTP response from a EnableOutscaleLogin call
+func ParseEnableOutscaleLoginResp(rsp *http.Response) (*EnableOutscaleLoginResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &EnableOutscaleLoginResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EnableOutscaleLoginResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseEnableOutscaleLoginForUsersResp parses an HTTP response from a EnableOutscaleLoginForUsers call
+func ParseEnableOutscaleLoginForUsersResp(rsp *http.Response) (*EnableOutscaleLoginForUsersResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &EnableOutscaleLoginForUsersResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EnableOutscaleLoginForUsersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseEnableOutscaleLoginPerUsersResp parses an HTTP response from a EnableOutscaleLoginPerUsers call
+func ParseEnableOutscaleLoginPerUsersResp(rsp *http.Response) (*EnableOutscaleLoginPerUsersResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &EnableOutscaleLoginPerUsersResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EnableOutscaleLoginPerUsersResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
