@@ -9,7 +9,17 @@ import (
 )
 
 func TestReadVms(t *testing.T) {
-	client, err := client.NewOapiClient()
+	profile, err := client.NewProfileFromStrandardConfiguration("", "")
+	if err != nil {
+		panic(err)
+	}
+	profile.TlsSkipVerify = true
+
+	client, err := client.NewOapiClient(
+		client.WithProfile(profile),
+		client.WithRetry(),
+		client.WithRateLimit(),
+	)
 	if err != nil {
 		panic(err)
 	}

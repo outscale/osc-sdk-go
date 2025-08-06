@@ -15,7 +15,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-cleanhttp"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	iso8601 "github.com/relvacode/iso8601"
 )
@@ -10010,11 +10009,10 @@ type ClientRaw struct {
 type ClientOption func(*ClientRaw) error
 
 // Creates a new ClientRaw, with reasonable defaults
-func NewClientRaw(server string, opts ...ClientOption) (*ClientRaw, error) {
+func NewClientRaw(opts ...ClientOption) (*ClientRaw, error) {
 	// create a client with sane default values
-	client := ClientRaw{
-		Server: server,
-	}
+	client := ClientRaw{}
+
 	// mutate client and add all optional params
 	for _, o := range opts {
 		if err := o(&client); err != nil {
@@ -10025,10 +10023,12 @@ func NewClientRaw(server string, opts ...ClientOption) (*ClientRaw, error) {
 	if !strings.HasSuffix(client.Server, "/") {
 		client.Server += "/"
 	}
-	// create httpClient, if not already present
+
+	// fail if no client where provided
 	if client.Client == nil {
-		client.Client = cleanhttp.DefaultPooledClient()
+		return nil, errors.New("client not provided")
 	}
+
 	return &client, nil
 }
 
@@ -25737,8 +25737,8 @@ type Client struct {
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(server string, opts ...ClientOption) (*Client, error) {
-	client, err := NewClientRaw(server, opts...)
+func NewClient(opts ...ClientOption) (*Client, error) {
+	client, err := NewClientRaw(opts...)
 	if err != nil {
 		return nil, err
 	}

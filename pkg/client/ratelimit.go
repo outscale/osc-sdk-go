@@ -3,7 +3,6 @@ package client
 import (
 	"net/http"
 
-	"github.com/hashicorp/go-cleanhttp"
 	"go.uber.org/ratelimit"
 )
 
@@ -37,10 +36,6 @@ func NewClientWithRateLimit(
 
 	for _, opt := range opts {
 		opt(&c)
-	}
-
-	if c.client == nil {
-		c.client = cleanhttp.DefaultPooledClient()
 	}
 
 	if c.rl == nil {

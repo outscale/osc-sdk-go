@@ -31,11 +31,10 @@ type {{ $clientTypeName }} struct {
 type ClientOption func(*{{ $clientTypeName }}) error
 
 // Creates a new {{ $clientTypeName }}, with reasonable defaults
-func NewClientRaw(server string, opts ...ClientOption) (*{{ $clientTypeName }}, error) {
+func NewClientRaw(opts ...ClientOption) (*{{ $clientTypeName }}, error) {
     // create a client with sane default values
-    client := {{ $clientTypeName }}{
-        Server: server,
-    }
+    client := {{ $clientTypeName }}{}
+
     // mutate client and add all optional params
     for _, o := range opts {
         if err := o(&client); err != nil {
@@ -46,10 +45,12 @@ func NewClientRaw(server string, opts ...ClientOption) (*{{ $clientTypeName }}, 
     if !strings.HasSuffix(client.Server, "/") {
         client.Server += "/"
     }
-    // create httpClient, if not already present
+
+    // fail if no client where provided
     if client.Client == nil {
-        client.Client = cleanhttp.DefaultPooledClient()
-    }
+		return nil, errors.New("client not provided")
+	}
+
     return &client, nil
 }
 

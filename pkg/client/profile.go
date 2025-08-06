@@ -25,14 +25,15 @@ type Profile struct {
 	X509ClientCertB64 string `json:"x509_client_cert_b64"`
 	X509ClientKey     string `json:"x509_client_key"`
 	X509ClientKeyB64  string `json:"x509_client_key_b64"`
+	TlsSkipVerify     bool   `json:"tls_skip_verify"`
 	Login             string
 	Password          string
 	Protocol          string   `json:"protocol"`
 	Region            string   `json:"region"`
-	Endpoints         endpoint `json:"endpoints"`
+	Endpoints         Endpoint `json:"endpoints"`
 }
 
-type endpoint struct {
+type Endpoint struct {
 	API string `json:"api"`
 	LBU string `json:"lbu"`
 	OKS string `json:"oks"`
@@ -110,6 +111,11 @@ func LoadConfigFile(path string) (*ConfigFile, error) {
 	return configFile, nil
 }
 
+func getenvBool(key string) bool {
+	env := os.Getenv(key)
+	return env == "yes" || env == "Yes" || env == "true" || env == "True"
+}
+
 func LoadProfileFromEnv() Profile {
 	var profile Profile
 
@@ -119,6 +125,7 @@ func LoadProfileFromEnv() Profile {
 	profile.X509ClientCertB64 = os.Getenv("OSC_X509_CLIENT_CERT_B64")
 	profile.X509ClientKey = os.Getenv("OSC_X509_CLIENT_KEY")
 	profile.X509ClientKeyB64 = os.Getenv("OSC_X509_CLIENT_KEY_B64")
+	profile.TlsSkipVerify = getenvBool("OSC_TLS_SKIP_VERIFY")
 	profile.Login = os.Getenv("OSC_LOGIN")
 	profile.Password = os.Getenv("OSC_PASSWORD")
 	profile.Protocol = os.Getenv("OSC_PROTOCOL")
@@ -130,7 +137,7 @@ func LoadProfileFromEnv() Profile {
 	return profile
 }
 
-func NewProfileFromStrandardConfuguration(profile, path string) (*Profile, error) {
+func NewProfileFromStrandardConfiguration(profile, path string) (*Profile, error) {
 	// 1. Load profile from environment
 	mergedProfile := LoadProfileFromEnv()
 
