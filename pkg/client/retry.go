@@ -31,6 +31,12 @@ func WithRetryMax(i int) ClientWithRetryOption {
 	}
 }
 
+func WithRetryCheckRetry(policy retryablehttp.CheckRetry) ClientWithRetryOption {
+	return func(c *ClientWithRetry) {
+		c.CheckRetry = policy
+	}
+}
+
 func WithRetryClient(httpClient *http.Client) ClientWithRetryOption {
 	return func(c *ClientWithRetry) {
 		c.HTTPClient = httpClient

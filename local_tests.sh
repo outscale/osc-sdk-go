@@ -41,4 +41,4 @@ fi
 
 set -e
 
-make go-test
+make test

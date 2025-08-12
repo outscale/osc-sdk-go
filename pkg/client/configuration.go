@@ -117,7 +117,12 @@ func NewOKSClient(opts ...OscClientOption) (*oks.Client, error) {
 
 func NewOapiClient(opts ...OscClientOption) (*osc.Client, error) {
 	if len(opts) == 0 {
-		opts = append(opts, WithStandardConfiguration("", ""), WithRateLimit(), WithRetry())
+		opts = append(
+			opts,
+			WithStandardConfiguration("", ""),
+			WithRateLimit(),
+			WithRetry(WithRetryCheckRetry(osc.RetryPolicy)),
+		)
 	}
 
 	doer, err := newHttpRequestDoer(opts...)

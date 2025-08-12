@@ -1,5 +1,12 @@
 package osc
 
+import (
+	"context"
+	"net/http"
+
+	"github.com/hashicorp/go-retryablehttp"
+)
+
 func (e *ErrorResponse) Error() string {
 	var msg string
 
@@ -27,4 +34,17 @@ func ErrorHelper(e error) string {
 	}
 
 	return "no error"
+}
+
+func RetryPolicy(ctx context.Context, resp *http.Response, err error) (bool, error) {
+	shouldRetry, err := retryablehttp.DefaultRetryPolicy(ctx, resp, err)
+	if shouldRetry {
+		return shouldRetry, err
+	}
+
+	if resp.StatusCode == http.StatusConflict {
+		return true, nil
+	}
+
+	return shouldRetry, nil
 }
