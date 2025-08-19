@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **PermissionsToCreateVolume** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot, as a percentage. | [optional] 
 **SnapshotId** | Pointer to **string** | The ID of the snapshot. | [optional] 
-**State** | Pointer to **string** | The state of the snapshot (&#x60;in-queue&#x60; \\| &#x60;pending&#x60; \\| &#x60;completed&#x60; \\| &#x60;error&#x60; \\| &#x60;deleting&#x60;)). | [optional] 
+**State** | Pointer to **string** | The state of the snapshot (&#x60;in-queue&#x60; \\| &#x60;pending&#x60; \\| &#x60;completed&#x60; \\| &#x60;error&#x60; \\| &#x60;deleting&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the snapshot. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume used to create the snapshot. | [optional] 
 **VolumeSize** | Pointer to **int32** | The size of the volume used to create the snapshot, in gibibytes (GiB). | [optional] 

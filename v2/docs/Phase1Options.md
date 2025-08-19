@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DpdTimeoutAction** | Pointer to **string** | The action to carry out after a Dead Peer Detection (DPD) timeout occurs. | [optional] 
-**DpdTimeoutSeconds** | Pointer to **int32** | The maximum waiting time for a Dead Peer Detection (DPD) response before considering the peer as dead, in seconds. | [optional] 
-**IkeVersions** | Pointer to **[]string** | The Internet Key Exchange (IKE) versions allowed for the VPN tunnel. | [optional] 
-**Phase1DhGroupNumbers** | Pointer to **[]int32** | The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel for phase 1. | [optional] 
-**Phase1EncryptionAlgorithms** | Pointer to **[]string** | The encryption algorithms allowed for the VPN tunnel for phase 1. | [optional] 
-**Phase1IntegrityAlgorithms** | Pointer to **[]string** | The integrity algorithms allowed for the VPN tunnel for phase 1. | [optional] 
-**Phase1LifetimeSeconds** | Pointer to **int32** | The lifetime for phase 1 of the IKE negotiation process, in seconds. | [optional] 
-**ReplayWindowSize** | Pointer to **int32** | The number of packets in an IKE replay window. | [optional] 
-**StartupAction** | Pointer to **string** | The action to carry out when establishing tunnels for a VPN connection. | [optional] 
+**DpdTimeoutAction** | Pointer to **string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**DpdTimeoutSeconds** | Pointer to **int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**IkeVersions** | Pointer to **[]string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase1DhGroupNumbers** | Pointer to **[]int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase1EncryptionAlgorithms** | Pointer to **[]string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase1IntegrityAlgorithms** | Pointer to **[]string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase1LifetimeSeconds** | Pointer to **int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**ReplayWindowSize** | Pointer to **int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**StartupAction** | Pointer to **string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 
 ## Methods
 

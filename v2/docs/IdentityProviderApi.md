@@ -166,7 +166,7 @@ import (
 )
 
 func main() {
-    disableOutscaleLoginPerUsersRequest := *openapiclient.NewDisableOutscaleLoginPerUsersRequest() // DisableOutscaleLoginPerUsersRequest |  (optional)
+    disableOutscaleLoginPerUsersRequest := *openapiclient.NewDisableOutscaleLoginPerUsersRequest([]string{"UserNames_example"}) // DisableOutscaleLoginPerUsersRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -364,7 +364,7 @@ import (
 )
 
 func main() {
-    enableOutscaleLoginPerUsersRequest := *openapiclient.NewEnableOutscaleLoginPerUsersRequest() // EnableOutscaleLoginPerUsersRequest |  (optional)
+    enableOutscaleLoginPerUsersRequest := *openapiclient.NewEnableOutscaleLoginPerUsersRequest([]string{"UserNames_example"}) // EnableOutscaleLoginPerUsersRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

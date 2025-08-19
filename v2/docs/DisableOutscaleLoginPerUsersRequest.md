@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**UserNames** | Pointer to **[]string** | The usernames of the EIM users you want to disable the Outscale login for. | [optional] 
+**UserNames** | **[]string** | The usernames of the EIM users you want to disable the Outscale login for. | 
 
 ## Methods
 
 ### NewDisableOutscaleLoginPerUsersRequest
 
-`func NewDisableOutscaleLoginPerUsersRequest() *DisableOutscaleLoginPerUsersRequest`
+`func NewDisableOutscaleLoginPerUsersRequest(userNames []string, ) *DisableOutscaleLoginPerUsersRequest`
 
 NewDisableOutscaleLoginPerUsersRequest instantiates a new DisableOutscaleLoginPerUsersRequest object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetUserNames sets UserNames field to given value.
 
-### HasUserNames
-
-`func (o *DisableOutscaleLoginPerUsersRequest) HasUserNames() bool`
-
-HasUserNames returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
