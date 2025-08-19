@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Phase2DhGroupNumbers** | Pointer to **[]int32** | The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel for phase 2. | [optional] 
-**Phase2EncryptionAlgorithms** | Pointer to **[]string** | The encryption algorithms allowed for the VPN tunnel for phase 2. | [optional] 
-**Phase2IntegrityAlgorithms** | Pointer to **[]string** | The integrity algorithms allowed for the VPN tunnel for phase 2. | [optional] 
-**Phase2LifetimeSeconds** | Pointer to **int32** | The lifetime for phase 2 of the Internet Key Exchange (IKE) negotiation process, in seconds. | [optional] 
+**Phase2DhGroupNumbers** | Pointer to **[]int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase2EncryptionAlgorithms** | Pointer to **[]string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase2IntegrityAlgorithms** | Pointer to **[]string** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
+**Phase2LifetimeSeconds** | Pointer to **int32** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
 **PreSharedKey** | Pointer to **string** | The pre-shared key to establish the initial authentication between the client gateway and the virtual gateway. This key can contain any character except line breaks and double quotes (&amp;quot;). | [optional] 
 
 ## Methods
