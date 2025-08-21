@@ -2748,12 +2748,12 @@ type DirectLink struct {
 	// RegionName The Region in which the DirectLink has been created.
 	RegionName *string `json:"RegionName,omitempty"`
 
-	// State The state of the DirectLink.<br />
-	// * `requested`: The DirectLink is requested but the request has not been validated yet.<br />
-	// * `pending`: The DirectLink request has been validated. It remains in the `pending` state until you establish the physical link.<br />
-	// * `available`: The physical link is established and the connection is ready to use.<br />
-	// * `deleting`: The deletion process is in progress.<br />
-	// * `deleted`: The DirectLink is deleted.
+	// State The state of the DirectLink.
+	// <ul><li>`pending`: The DirectLink request has been validated. It remains in the `pending` state until you establish the physical link.</li>
+	// <li>`available`: The physical link is established and the connection is ready to use.</li>
+	// <li>`disabled`: The network link is down.</li>
+	// <li>`deleted`: The DirectLink is deleted.</li>
+	// </ul>
 	State *string `json:"State,omitempty"`
 }
 
@@ -2834,7 +2834,7 @@ type DisableOutscaleLoginPerUsersRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserNames The usernames of the EIM users you want to disable the Outscale login for.
-	UserNames *[]string `json:"UserNames,omitempty"`
+	UserNames []string `json:"UserNames"`
 }
 
 // DisableOutscaleLoginPerUsersResponse defines model for DisableOutscaleLoginPerUsersResponse.
@@ -2873,7 +2873,7 @@ type EnableOutscaleLoginPerUsersRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserNames The usernames of the EIM users you want to enable the Outscale login for.
-	UserNames *[]string `json:"UserNames,omitempty"`
+	UserNames []string `json:"UserNames"`
 }
 
 // EnableOutscaleLoginPerUsersResponse defines model for EnableOutscaleLoginPerUsersResponse.
@@ -5355,48 +5355,48 @@ type PermissionsOnResourceCreation struct {
 	Removals *PermissionsOnResource `json:"Removals,omitempty"`
 }
 
-// Phase1Options Information about Phase 1 of the Internet Key Exchange (IKE) negotiation. When Phase 1 finishes successfully, peers proceed to Phase 2 negotiations.
+// Phase1Options This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 type Phase1Options struct {
-	// DpdTimeoutAction The action to carry out after a Dead Peer Detection (DPD) timeout occurs.
+	// DpdTimeoutAction This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	DpdTimeoutAction *string `json:"DpdTimeoutAction,omitempty"`
 
-	// DpdTimeoutSeconds The maximum waiting time for a Dead Peer Detection (DPD) response before considering the peer as dead, in seconds.
+	// DpdTimeoutSeconds This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	DpdTimeoutSeconds *int `json:"DpdTimeoutSeconds,omitempty"`
 
-	// IkeVersions The Internet Key Exchange (IKE) versions allowed for the VPN tunnel.
+	// IkeVersions This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	IkeVersions *[]string `json:"IkeVersions,omitempty"`
 
-	// Phase1DhGroupNumbers The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel for phase 1.
+	// Phase1DhGroupNumbers This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase1DhGroupNumbers *[]int `json:"Phase1DhGroupNumbers,omitempty"`
 
-	// Phase1EncryptionAlgorithms The encryption algorithms allowed for the VPN tunnel for phase 1.
+	// Phase1EncryptionAlgorithms This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase1EncryptionAlgorithms *[]string `json:"Phase1EncryptionAlgorithms,omitempty"`
 
-	// Phase1IntegrityAlgorithms The integrity algorithms allowed for the VPN tunnel for phase 1.
+	// Phase1IntegrityAlgorithms This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase1IntegrityAlgorithms *[]string `json:"Phase1IntegrityAlgorithms,omitempty"`
 
-	// Phase1LifetimeSeconds The lifetime for phase 1 of the IKE negotiation process, in seconds.
+	// Phase1LifetimeSeconds This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase1LifetimeSeconds *int `json:"Phase1LifetimeSeconds,omitempty"`
 
-	// ReplayWindowSize The number of packets in an IKE replay window.
+	// ReplayWindowSize This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	ReplayWindowSize *int `json:"ReplayWindowSize,omitempty"`
 
-	// StartupAction The action to carry out when establishing tunnels for a VPN connection.
+	// StartupAction This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	StartupAction *string `json:"StartupAction,omitempty"`
 }
 
 // Phase2Options Information about Phase 2 of the Internet Key Exchange (IKE) negotiation.
 type Phase2Options struct {
-	// Phase2DhGroupNumbers The Diffie-Hellman (DH) group numbers allowed for the VPN tunnel for phase 2.
+	// Phase2DhGroupNumbers This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase2DhGroupNumbers *[]int `json:"Phase2DhGroupNumbers,omitempty"`
 
-	// Phase2EncryptionAlgorithms The encryption algorithms allowed for the VPN tunnel for phase 2.
+	// Phase2EncryptionAlgorithms This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase2EncryptionAlgorithms *[]string `json:"Phase2EncryptionAlgorithms,omitempty"`
 
-	// Phase2IntegrityAlgorithms The integrity algorithms allowed for the VPN tunnel for phase 2.
+	// Phase2IntegrityAlgorithms This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase2IntegrityAlgorithms *[]string `json:"Phase2IntegrityAlgorithms,omitempty"`
 
-	// Phase2LifetimeSeconds The lifetime for phase 2 of the Internet Key Exchange (IKE) negotiation process, in seconds.
+	// Phase2LifetimeSeconds This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase2LifetimeSeconds *int `json:"Phase2LifetimeSeconds,omitempty"`
 
 	// PreSharedKey The pre-shared key to establish the initial authentication between the client gateway and the virtual gateway. This key can contain any character except line breaks and double quotes (&quot;).
@@ -7764,7 +7764,7 @@ type Snapshot struct {
 	// SnapshotId The ID of the snapshot.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
 
-	// State The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`)).
+	// State The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
 	State *string `json:"State,omitempty"`
 
 	// Tags One or more tags associated with the snapshot.
@@ -9318,7 +9318,7 @@ type VpnConnection struct {
 
 // VpnOptions Information about the VPN options.
 type VpnOptions struct {
-	// Phase1Options Information about Phase 1 of the Internet Key Exchange (IKE) negotiation. When Phase 1 finishes successfully, peers proceed to Phase 2 negotiations.
+	// Phase1Options This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	Phase1Options *Phase1Options `json:"Phase1Options,omitempty"`
 
 	// Phase2Options Information about Phase 2 of the Internet Key Exchange (IKE) negotiation.
