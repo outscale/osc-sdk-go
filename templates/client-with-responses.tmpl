@@ -1,12 +1,12 @@
 // Client builds on ClientInterface to offer response payloads
 type Client struct {
-    ClientInterfaceRaw
+    clientInterfaceRaw
 }
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(opts ...ClientOption) (*Client, error) {
-    client, err := NewClientRaw(opts...)
+func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
+    client, err := newClientRaw(profile, opts...)
     if err != nil {
         return nil, err
     }
@@ -14,18 +14,6 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 {{$clientTypeName := opts.OutputOptions.ClientTypeName -}}
-
-// WithBaseURL overrides the baseURL.
-func WithBaseURL(baseURL string) ClientOption {
-	return func(c *{{ $clientTypeName }}) error {
-		newBaseURL, err := url.Parse(baseURL)
-		if err != nil {
-			return err
-		}
-		c.Server = newBaseURL.String()
-		return nil
-	}
-}
 
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
@@ -38,10 +26,10 @@ type ClientInterface interface {
 {{- range $k, $v := $responseTypeDefinitions}}
 {{if eq $v.TypeName "JSON200" }}
     // {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with any body{{end}}
-    {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error)
+    {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error)
 {{range $op.Bodies}}
     {{if .IsSupportedByClient -}}
-        {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error)
+        {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error)
     {{end -}}
 {{end}}{{/* range $op.Bodies */}}
 {{end}}{{/* if JSON200 */}}
@@ -124,7 +112,7 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Bytes() []byte {
 {{ range $k, $v := $responseTypeDefinitions }}
 {{ if eq $v.TypeName "JSON200" }}
 // {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with arbitrary body{{end}} returning *{{$v.Schema.TypeDecl}}
-func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error){
+func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error){
     rsp, err := c.{{$opid}}{{if $op.HasBody}}WithBody{{end}}Raw(ctx{{genParamNames $op.PathParams}}{{if $op.RequiresParamObject}}, params{{end}}{{if $op.HasBody}}, contentType, body{{end}}, reqEditors...)
     if err != nil {
         return nil, err
@@ -142,7 +130,7 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{$bodyRequired := $op.BodyRequired -}}
 {{range $op.Bodies}}
 {{if .IsSupportedByClient -}}
-func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... RequestEditorFn) (*{{$v.Schema.TypeDecl}}, error) {
+func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
     rsp, err := c.{{$opid}}{{.Suffix}}Raw(ctx{{genParamNames $pathParams}}{{if $hasParams}}, params{{end}}, body, reqEditors...)
     if err != nil {
         return nil, err

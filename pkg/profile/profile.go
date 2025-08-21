@@ -1,9 +1,12 @@
-package client
+// Package profile provide functions to manage standard Outscale profiles.
+//
+// The profile can be loaded from environment variables or from a JSON configuration file.
+// The configuration file is located at ~/.osc/config.json by
+package profile
 
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 	"path"
 
@@ -14,7 +17,7 @@ const (
 	defaultProfile = "default"
 )
 
-type ConfigFile struct {
+type configFile struct {
 	profiles map[string]Profile
 }
 
@@ -33,54 +36,8 @@ type Profile struct {
 	Endpoints         Endpoint `json:"endpoints"`
 }
 
-type Endpoint struct {
-	API string `json:"api"`
-	LBU string `json:"lbu"`
-	OKS string `json:"oks"`
-}
-
-func getDefaultEndpointTemplate(service OscService) (string, error) {
-	switch service {
-	case OApi:
-		return "%s://api.%s.outscale.com/api/v1", nil
-	case LBU:
-		return "%s://lbu.%s.outscale.com", nil
-	case OKS:
-		return "%s://api.%s.oks.outscale.com/api/v2", nil
-	default:
-		return "", errors.New("unsupported service")
-	}
-}
-
-func (p *Profile) getDefaultEndpoint(service OscService) (string, error) {
-	temp, err := getDefaultEndpointTemplate(service)
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf(temp, p.Protocol, p.Region), nil
-}
-
-func (p *Profile) GetEndpoint(service OscService) (string, error) {
-	var endpoint string
-
-	switch service {
-	case OApi:
-		endpoint = p.Endpoints.API
-	case LBU:
-		endpoint = p.Endpoints.LBU
-	case OKS:
-		endpoint = p.Endpoints.OKS
-	}
-
-	if endpoint == "" {
-		return p.getDefaultEndpoint(service)
-	}
-
-	return endpoint, nil
-}
-
-func NewConfigFile() *ConfigFile {
-	return &ConfigFile{
+func newConfigFile() *configFile {
+	return &configFile{
 		profiles: make(map[string]Profile),
 	}
 }
@@ -93,7 +50,7 @@ func defaultConfigPath() (string, error) {
 	return path.Join(home, ".osc", "config.json"), nil
 }
 
-func LoadConfigFile(path string) (*ConfigFile, error) {
+func loadConfigFile(path string) (*configFile, error) {
 	if path == "" {
 		return nil, errors.New("no path provided")
 	}
@@ -103,7 +60,7 @@ func LoadConfigFile(path string) (*ConfigFile, error) {
 		return nil, err
 	}
 
-	configFile := NewConfigFile()
+	configFile := newConfigFile()
 	if err := json.Unmarshal(configJSON, &configFile.profiles); err != nil {
 		return nil, err
 	}
@@ -131,7 +88,6 @@ func LoadProfileFromEnv() Profile {
 	profile.Protocol = os.Getenv("OSC_PROTOCOL")
 	profile.Region = os.Getenv("OSC_REGION")
 	profile.Endpoints.API = os.Getenv("OSC_ENDPOINT_API")
-	profile.Endpoints.LBU = os.Getenv("OSC_ENDPOINT_LBU")
 	profile.Endpoints.OKS = os.Getenv("OSC_ENDPOINT_OKS")
 
 	return profile
@@ -159,7 +115,7 @@ func NewProfileFromStrandardConfiguration(profile, path string) (*Profile, error
 	}
 
 	// 3. Load profile for config file
-	configFile, err := LoadConfigFile(path)
+	configFile, err := loadConfigFile(path)
 	if err == nil {
 		if fileprofile, ok := configFile.profiles[profile]; ok {
 			err := mergo.Merge(&mergedProfile, fileprofile)

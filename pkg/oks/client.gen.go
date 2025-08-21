@@ -16,6 +16,8 @@ import (
 	"time"
 
 	"github.com/oapi-codegen/runtime"
+	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 
 const (
@@ -1057,16 +1059,6 @@ func (t *ValidationError_Loc_Item) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// RequestEditorFn  is the function signature for the RequestEditor callback function
-type RequestEditorFn func(ctx context.Context, req *http.Request) error
-
-// Doer performs HTTP requests.
-//
-// The standard http.Client implements this interface.
-type HttpRequestDoer interface {
-	Do(req *http.Request) (*http.Response, error)
-}
-
 // ClientRaw which conforms to the OpenAPI3 specification for this service.
 type ClientRaw struct {
 	// The endpoint of the server conforming to this interface, with scheme,
@@ -1075,477 +1067,508 @@ type ClientRaw struct {
 	// paths in the swagger spec will be appended to the server.
 	Server string
 
-	// Doer for performing requests, typically a *http.Client with any
+	// RoundTripper for performing requests, typically a *http.Client with any
 	// customized settings, such as certificate chains.
-	Client HttpRequestDoer
-
-	// A list of callbacks for modifying requests which are generated before sending over
-	// the network.
-	RequestEditors []RequestEditorFn
-}
-
-// ClientOption allows setting custom parameters during construction
-type ClientOption func(*ClientRaw) error
-
-// Creates a new ClientRaw, with reasonable defaults
-func NewClientRaw(opts ...ClientOption) (*ClientRaw, error) {
-	// create a client with sane default values
-	client := ClientRaw{}
-
-	// mutate client and add all optional params
-	for _, o := range opts {
-		if err := o(&client); err != nil {
-			return nil, err
-		}
-	}
-	// ensure the server URL always has a trailing slash
-	if !strings.HasSuffix(client.Server, "/") {
-		client.Server += "/"
-	}
-
-	// fail if no client where provided
-	if client.Client == nil {
-		return nil, errors.New("client not provided")
-	}
-
-	return &client, nil
-}
-
-// WithHTTPClient allows overriding the default Doer, which is
-// automatically created using http.Client. This is useful for tests.
-func WithHTTPClient(doer HttpRequestDoer) ClientOption {
-	return func(c *ClientRaw) error {
-		c.Client = doer
-		return nil
-	}
-}
-
-// WithRequestEditorFn allows setting up a callback function, which will be
-// called right before sending the request. This can be used to mutate the request.
-func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
-	return func(c *ClientRaw) error {
-		c.RequestEditors = append(c.RequestEditors, fn)
-		return nil
-	}
+	Client *middleware.MiddlewareChain
 }
 
 // The interface specification for the client above.
-type ClientInterfaceRaw interface {
+type clientInterfaceRaw interface {
 	// ListClustersByProjectIDRaw request
-	ListClustersByProjectIDRaw(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListClustersByProjectIDRaw(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateClusterWithBodyRaw request with any body
-	CreateClusterWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateClusterWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateClusterRaw(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateClusterRaw(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ListAllClustersRaw request
-	ListAllClustersRaw(ctx context.Context, params *ListAllClustersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListAllClustersRaw(ctx context.Context, params *ListAllClustersParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetControlPlanePlansRaw request
-	GetControlPlanePlansRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetControlPlanePlansRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetCPSubregionsRaw request
-	GetCPSubregionsRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetCPSubregionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetKubenetesVersionsRaw request
-	GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteClusterRaw request
-	DeleteClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetClusterRaw request
-	GetClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateClusterWithBodyRaw request with any body
-	UpdateClusterWithBodyRaw(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateClusterWithBodyRaw(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateClusterRaw(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateClusterRaw(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetKubeconfigRaw request
-	GetKubeconfigRaw(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetKubeconfigRaw(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetKubeconfigWithPubkeyNACLRaw request
-	GetKubeconfigWithPubkeyNACLRaw(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetKubeconfigWithPubkeyNACLRaw(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpgradeClusterRaw request
-	UpgradeClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpgradeClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ListProjectsRaw request
-	ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateProjectWithBodyRaw request with any body
-	CreateProjectWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateProjectWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateProjectRaw(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateProjectRaw(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteProjectRaw request
-	DeleteProjectRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteProjectRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetProjectRaw request
-	GetProjectRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetProjectRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateProjectWithBodyRaw request with any body
-	UpdateProjectWithBodyRaw(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateProjectWithBodyRaw(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetProjectPublicIpsRaw request
-	GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetProjectQuotasRaw request
-	GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetProjectSnapshotsRaw request
-	GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetQuotasRaw request
-	GetQuotasRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetQuotasRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetClusterTemplateRaw request
-	GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetNodepoolTemplateRaw request
-	GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetProjectTemplateRaw request
-	GetProjectTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetProjectTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 }
 
-func (c *ClientRaw) ListClustersByProjectIDRaw(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ListClustersByProjectIDRaw(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewListClustersByProjectIDRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateClusterWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateClusterWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateClusterRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateClusterRaw(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateClusterRaw(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateClusterRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ListAllClustersRaw(ctx context.Context, params *ListAllClustersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ListAllClustersRaw(ctx context.Context, params *ListAllClustersParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewListAllClustersRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetControlPlanePlansRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetControlPlanePlansRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetControlPlanePlansRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetCPSubregionsRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetCPSubregionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetCPSubregionsRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetKubenetesVersionsRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteClusterRequest(c.Server, clusterId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetClusterRequest(c.Server, clusterId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateClusterWithBodyRaw(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateClusterWithBodyRaw(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateClusterRequestWithBody(c.Server, clusterId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateClusterRaw(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateClusterRaw(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateClusterRequest(c.Server, clusterId, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetKubeconfigRaw(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetKubeconfigRaw(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetKubeconfigRequest(c.Server, clusterId, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetKubeconfigWithPubkeyNACLRaw(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetKubeconfigWithPubkeyNACLRaw(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetKubeconfigWithPubkeyNACLRequest(c.Server, clusterId, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpgradeClusterRaw(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpgradeClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpgradeClusterRequest(c.Server, clusterId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewListProjectsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateProjectWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateProjectWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateProjectRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateProjectRaw(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateProjectRaw(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateProjectRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteProjectRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteProjectRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteProjectRequest(c.Server, projectId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetProjectRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetProjectRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectRequest(c.Server, projectId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateProjectWithBodyRaw(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateProjectWithBodyRaw(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateProjectRequestWithBody(c.Server, projectId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateProjectRequest(c.Server, projectId, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectPublicIpsRequest(c.Server, projectId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetProjectQuotasRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectQuotasRequest(c.Server, projectId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetProjectSnapshotsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectSnapshotsRequest(c.Server, projectId)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetQuotasRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetQuotasRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetQuotasRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetClusterTemplateRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetNodepoolTemplateRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetProjectTemplateRaw(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) GetProjectTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectTemplateRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
 // NewListClustersByProjectIDRequest generates requests for ListClustersByProjectID
@@ -2696,129 +2719,103 @@ func NewGetProjectTemplateRequest(server string) (*http.Request, error) {
 	return req, nil
 }
 
-func (c *ClientRaw) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
-	for _, r := range c.RequestEditors {
-		if err := r(ctx, req); err != nil {
-			return err
-		}
-	}
-	for _, r := range additionalEditors {
-		if err := r(ctx, req); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 // Client builds on ClientInterface to offer response payloads
 type Client struct {
-	ClientInterfaceRaw
+	clientInterfaceRaw
 }
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(opts ...ClientOption) (*Client, error) {
-	client, err := NewClientRaw(opts...)
+func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
+	client, err := newClientRaw(profile, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &Client{client}, nil
 }
 
-// WithBaseURL overrides the baseURL.
-func WithBaseURL(baseURL string) ClientOption {
-	return func(c *ClientRaw) error {
-		newBaseURL, err := url.Parse(baseURL)
-		if err != nil {
-			return err
-		}
-		c.Server = newBaseURL.String()
-		return nil
-	}
-}
-
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
 
 	// ListClustersByProjectID request
-	ListClustersByProjectID(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...RequestEditorFn) (*ClusterResponseList, error)
+	ListClustersByProjectID(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error)
 
 	// CreateClusterWithBody request with any body
-	CreateClusterWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	CreateClusterWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
-	CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
 	// ListAllClusters request
-	ListAllClusters(ctx context.Context, params *ListAllClustersParams, reqEditors ...RequestEditorFn) (*ClusterResponseList, error)
+	ListAllClusters(ctx context.Context, params *ListAllClustersParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error)
 
 	// GetControlPlanePlans request
-	GetControlPlanePlans(ctx context.Context, reqEditors ...RequestEditorFn) (*ControlPlanesResponse, error)
+	GetControlPlanePlans(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*ControlPlanesResponse, error)
 
 	// GetCPSubregions request
-	GetCPSubregions(ctx context.Context, reqEditors ...RequestEditorFn) (*CPSubregionsResponse, error)
+	GetCPSubregions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*CPSubregionsResponse, error)
 
 	// GetKubenetesVersions request
-	GetKubenetesVersions(ctx context.Context, reqEditors ...RequestEditorFn) (*KubernetesVersionsResponse, error)
+	GetKubenetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error)
 
 	// DeleteCluster request
-	DeleteCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*DetailResponse, error)
+	DeleteCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error)
 
 	// GetCluster request
-	GetCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	GetCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
 	// UpdateClusterWithBody request with any body
-	UpdateClusterWithBody(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	UpdateClusterWithBody(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
-	UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
 	// GetKubeconfig request
-	GetKubeconfig(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...RequestEditorFn) (*KubeconfigResponse, error)
+	GetKubeconfig(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error)
 
 	// GetKubeconfigWithPubkeyNACL request
-	GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...RequestEditorFn) (*KubeconfigResponse, error)
+	GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error)
 
 	// UpgradeCluster request
-	UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*ClusterResponse, error)
+	UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
 	// ListProjects request
-	ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*ProjectResponseList, error)
+	ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponseList, error)
 
 	// CreateProjectWithBody request with any body
-	CreateProjectWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
+	CreateProjectWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
-	CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
+	CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
 	// DeleteProject request
-	DeleteProject(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*DetailResponse, error)
+	DeleteProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error)
 
 	// GetProject request
-	GetProject(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
+	GetProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
 	// UpdateProjectWithBody request with any body
-	UpdateProjectWithBody(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
+	UpdateProjectWithBody(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
-	UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*ProjectResponse, error)
+	UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
 	// GetProjectPublicIps request
-	GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*PublicIpsResponse, error)
+	GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*PublicIpsResponse, error)
 
 	// GetProjectQuotas request
-	GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectsProjectSchemaQuotasResponse, error)
+	GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectsProjectSchemaQuotasResponse, error)
 
 	// GetProjectSnapshots request
-	GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*SnapshotsResponse, error)
+	GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*SnapshotsResponse, error)
 
 	// GetQuotas request
-	GetQuotas(ctx context.Context, reqEditors ...RequestEditorFn) (*QuotasQuotaSchemaQuotasResponse, error)
+	GetQuotas(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*QuotasQuotaSchemaQuotasResponse, error)
 
 	// GetClusterTemplate request
-	GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInputTemplate, error)
+	GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseClusterInputTemplate, error)
 
 	// GetNodepoolTemplate request
-	GetNodepoolTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseNodepool, error)
+	GetNodepoolTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNodepool, error)
 
 	// GetProjectTemplate request
-	GetProjectTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseProjectInput, error)
+	GetProjectTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseProjectInput, error)
 }
 
 type ListClustersByProjectIDResponse struct {
@@ -3782,7 +3779,7 @@ func (r GetProjectTemplateResponse) Expect() (*TemplateResponseProjectInput, err
 }
 
 // ListClustersByProjectID request returning *ClusterResponseList
-func (c *Client) ListClustersByProjectID(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...RequestEditorFn) (*ClusterResponseList, error) {
+func (c *Client) ListClustersByProjectID(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error) {
 	rsp, err := c.ListClustersByProjectIDRaw(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3796,7 +3793,7 @@ func (c *Client) ListClustersByProjectID(ctx context.Context, params *ListCluste
 }
 
 // CreateClusterWithBody request with arbitrary body returning *ClusterResponse
-func (c *Client) CreateClusterWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) CreateClusterWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.CreateClusterWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3809,7 +3806,7 @@ func (c *Client) CreateClusterWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.CreateClusterRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3823,7 +3820,7 @@ func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONReques
 }
 
 // ListAllClusters request returning *ClusterResponseList
-func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersParams, reqEditors ...RequestEditorFn) (*ClusterResponseList, error) {
+func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error) {
 	rsp, err := c.ListAllClustersRaw(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3837,7 +3834,7 @@ func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersPar
 }
 
 // GetControlPlanePlans request returning *ControlPlanesResponse
-func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...RequestEditorFn) (*ControlPlanesResponse, error) {
+func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*ControlPlanesResponse, error) {
 	rsp, err := c.GetControlPlanePlansRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3851,7 +3848,7 @@ func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...Request
 }
 
 // GetCPSubregions request returning *CPSubregionsResponse
-func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...RequestEditorFn) (*CPSubregionsResponse, error) {
+func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*CPSubregionsResponse, error) {
 	rsp, err := c.GetCPSubregionsRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3865,7 +3862,7 @@ func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...RequestEdito
 }
 
 // GetKubenetesVersions request returning *KubernetesVersionsResponse
-func (c *Client) GetKubenetesVersions(ctx context.Context, reqEditors ...RequestEditorFn) (*KubernetesVersionsResponse, error) {
+func (c *Client) GetKubenetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error) {
 	rsp, err := c.GetKubenetesVersionsRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3879,7 +3876,7 @@ func (c *Client) GetKubenetesVersions(ctx context.Context, reqEditors ...Request
 }
 
 // DeleteCluster request returning *DetailResponse
-func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*DetailResponse, error) {
+func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error) {
 	rsp, err := c.DeleteClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3893,7 +3890,7 @@ func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors
 }
 
 // GetCluster request returning *ClusterResponse
-func (c *Client) GetCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) GetCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.GetClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3907,7 +3904,7 @@ func (c *Client) GetCluster(ctx context.Context, clusterId string, reqEditors ..
 }
 
 // UpdateClusterWithBody request with arbitrary body returning *ClusterResponse
-func (c *Client) UpdateClusterWithBody(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) UpdateClusterWithBody(ctx context.Context, clusterId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.UpdateClusterWithBodyRaw(ctx, clusterId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3920,7 +3917,7 @@ func (c *Client) UpdateClusterWithBody(ctx context.Context, clusterId string, co
 	return obj.Expect()
 }
 
-func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.UpdateClusterRaw(ctx, clusterId, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3934,7 +3931,7 @@ func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body Updat
 }
 
 // GetKubeconfig request returning *KubeconfigResponse
-func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...RequestEditorFn) (*KubeconfigResponse, error) {
+func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error) {
 	rsp, err := c.GetKubeconfigRaw(ctx, clusterId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3948,7 +3945,7 @@ func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *Ge
 }
 
 // GetKubeconfigWithPubkeyNACL request returning *KubeconfigResponse
-func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...RequestEditorFn) (*KubeconfigResponse, error) {
+func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error) {
 	rsp, err := c.GetKubeconfigWithPubkeyNACLRaw(ctx, clusterId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3962,7 +3959,7 @@ func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId stri
 }
 
 // UpgradeCluster request returning *ClusterResponse
-func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...RequestEditorFn) (*ClusterResponse, error) {
+func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.UpgradeClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3976,7 +3973,7 @@ func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditor
 }
 
 // ListProjects request returning *ProjectResponseList
-func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*ProjectResponseList, error) {
+func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponseList, error) {
 	rsp, err := c.ListProjectsRaw(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3990,7 +3987,7 @@ func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, r
 }
 
 // CreateProjectWithBody request with arbitrary body returning *ProjectResponse
-func (c *Client) CreateProjectWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProjectResponse, error) {
+func (c *Client) CreateProjectWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.CreateProjectWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4003,7 +4000,7 @@ func (c *Client) CreateProjectWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*ProjectResponse, error) {
+func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.CreateProjectRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4017,7 +4014,7 @@ func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONReques
 }
 
 // DeleteProject request returning *DetailResponse
-func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*DetailResponse, error) {
+func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error) {
 	rsp, err := c.DeleteProjectRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4031,7 +4028,7 @@ func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors
 }
 
 // GetProject request returning *ProjectResponse
-func (c *Client) GetProject(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectResponse, error) {
+func (c *Client) GetProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.GetProjectRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4045,7 +4042,7 @@ func (c *Client) GetProject(ctx context.Context, projectId string, reqEditors ..
 }
 
 // UpdateProjectWithBody request with arbitrary body returning *ProjectResponse
-func (c *Client) UpdateProjectWithBody(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProjectResponse, error) {
+func (c *Client) UpdateProjectWithBody(ctx context.Context, projectId string, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.UpdateProjectWithBodyRaw(ctx, projectId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4058,7 +4055,7 @@ func (c *Client) UpdateProjectWithBody(ctx context.Context, projectId string, co
 	return obj.Expect()
 }
 
-func (c *Client) UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...RequestEditorFn) (*ProjectResponse, error) {
+func (c *Client) UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.UpdateProjectRaw(ctx, projectId, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4072,7 +4069,7 @@ func (c *Client) UpdateProject(ctx context.Context, projectId string, body Updat
 }
 
 // GetProjectPublicIps request returning *PublicIpsResponse
-func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*PublicIpsResponse, error) {
+func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*PublicIpsResponse, error) {
 	rsp, err := c.GetProjectPublicIpsRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4086,7 +4083,7 @@ func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqE
 }
 
 // GetProjectQuotas request returning *ProjectsProjectSchemaQuotasResponse
-func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*ProjectsProjectSchemaQuotasResponse, error) {
+func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectsProjectSchemaQuotasResponse, error) {
 	rsp, err := c.GetProjectQuotasRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4100,7 +4097,7 @@ func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEdit
 }
 
 // GetProjectSnapshots request returning *SnapshotsResponse
-func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...RequestEditorFn) (*SnapshotsResponse, error) {
+func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*SnapshotsResponse, error) {
 	rsp, err := c.GetProjectSnapshotsRaw(ctx, projectId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4114,7 +4111,7 @@ func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqE
 }
 
 // GetQuotas request returning *QuotasQuotaSchemaQuotasResponse
-func (c *Client) GetQuotas(ctx context.Context, reqEditors ...RequestEditorFn) (*QuotasQuotaSchemaQuotasResponse, error) {
+func (c *Client) GetQuotas(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*QuotasQuotaSchemaQuotasResponse, error) {
 	rsp, err := c.GetQuotasRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4128,7 +4125,7 @@ func (c *Client) GetQuotas(ctx context.Context, reqEditors ...RequestEditorFn) (
 }
 
 // GetClusterTemplate request returning *TemplateResponseClusterInputTemplate
-func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...RequestEditorFn) (*TemplateResponseClusterInputTemplate, error) {
+func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseClusterInputTemplate, error) {
 	rsp, err := c.GetClusterTemplateRaw(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4142,7 +4139,7 @@ func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTempl
 }
 
 // GetNodepoolTemplate request returning *TemplateResponseNodepool
-func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseNodepool, error) {
+func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNodepool, error) {
 	rsp, err := c.GetNodepoolTemplateRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4156,7 +4153,7 @@ func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...RequestE
 }
 
 // GetProjectTemplate request returning *TemplateResponseProjectInput
-func (c *Client) GetProjectTemplate(ctx context.Context, reqEditors ...RequestEditorFn) (*TemplateResponseProjectInput, error) {
+func (c *Client) GetProjectTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseProjectInput, error) {
 	rsp, err := c.GetProjectTemplateRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err

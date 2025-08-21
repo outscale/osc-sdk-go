@@ -16,6 +16,8 @@ import (
 	"time"
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
+	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	iso8601 "github.com/relvacode/iso8601"
 )
 
@@ -10076,16 +10078,6 @@ type UpdateVolumeJSONRequestBody = UpdateVolumeRequest
 // UpdateVpnConnectionJSONRequestBody defines body for UpdateVpnConnection for application/json ContentType.
 type UpdateVpnConnectionJSONRequestBody = UpdateVpnConnectionRequest
 
-// RequestEditorFn  is the function signature for the RequestEditor callback function
-type RequestEditorFn func(ctx context.Context, req *http.Request) error
-
-// Doer performs HTTP requests.
-//
-// The standard http.Client implements this interface.
-type HttpRequestDoer interface {
-	Do(req *http.Request) (*http.Response, error)
-}
-
 // ClientRaw which conforms to the OpenAPI3 specification for this service.
 type ClientRaw struct {
 	// The endpoint of the server conforming to this interface, with scheme,
@@ -10094,6818 +10086,7934 @@ type ClientRaw struct {
 	// paths in the swagger spec will be appended to the server.
 	Server string
 
-	// Doer for performing requests, typically a *http.Client with any
+	// RoundTripper for performing requests, typically a *http.Client with any
 	// customized settings, such as certificate chains.
-	Client HttpRequestDoer
-
-	// A list of callbacks for modifying requests which are generated before sending over
-	// the network.
-	RequestEditors []RequestEditorFn
-}
-
-// ClientOption allows setting custom parameters during construction
-type ClientOption func(*ClientRaw) error
-
-// Creates a new ClientRaw, with reasonable defaults
-func NewClientRaw(opts ...ClientOption) (*ClientRaw, error) {
-	// create a client with sane default values
-	client := ClientRaw{}
-
-	// mutate client and add all optional params
-	for _, o := range opts {
-		if err := o(&client); err != nil {
-			return nil, err
-		}
-	}
-	// ensure the server URL always has a trailing slash
-	if !strings.HasSuffix(client.Server, "/") {
-		client.Server += "/"
-	}
-
-	// fail if no client where provided
-	if client.Client == nil {
-		return nil, errors.New("client not provided")
-	}
-
-	return &client, nil
-}
-
-// WithHTTPClient allows overriding the default Doer, which is
-// automatically created using http.Client. This is useful for tests.
-func WithHTTPClient(doer HttpRequestDoer) ClientOption {
-	return func(c *ClientRaw) error {
-		c.Client = doer
-		return nil
-	}
-}
-
-// WithRequestEditorFn allows setting up a callback function, which will be
-// called right before sending the request. This can be used to mutate the request.
-func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
-	return func(c *ClientRaw) error {
-		c.RequestEditors = append(c.RequestEditors, fn)
-		return nil
-	}
+	Client *middleware.MiddlewareChain
 }
 
 // The interface specification for the client above.
-type ClientInterfaceRaw interface {
+type clientInterfaceRaw interface {
 	// AcceptNetPeeringWithBodyRaw request with any body
-	AcceptNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AcceptNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	AcceptNetPeeringRaw(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AcceptNetPeeringRaw(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// AddUserToUserGroupWithBodyRaw request with any body
-	AddUserToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AddUserToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	AddUserToUserGroupRaw(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AddUserToUserGroupRaw(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CheckAuthenticationWithBodyRaw request with any body
-	CheckAuthenticationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CheckAuthenticationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CheckAuthenticationRaw(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CheckAuthenticationRaw(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateAccessKeyWithBodyRaw request with any body
-	CreateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateAccessKeyRaw(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateAccessKeyRaw(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateAccountWithBodyRaw request with any body
-	CreateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateAccountRaw(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateAccountRaw(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateApiAccessRuleWithBodyRaw request with any body
-	CreateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateApiAccessRuleRaw(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateApiAccessRuleRaw(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateCaWithBodyRaw request with any body
-	CreateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateCaRaw(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateCaRaw(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateClientGatewayWithBodyRaw request with any body
-	CreateClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateClientGatewayRaw(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateClientGatewayRaw(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateDedicatedGroupWithBodyRaw request with any body
-	CreateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateDedicatedGroupRaw(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDedicatedGroupRaw(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateDhcpOptionsWithBodyRaw request with any body
-	CreateDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateDhcpOptionsRaw(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDhcpOptionsRaw(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateDirectLinkWithBodyRaw request with any body
-	CreateDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateDirectLinkRaw(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDirectLinkRaw(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateDirectLinkInterfaceWithBodyRaw request with any body
-	CreateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateDirectLinkInterfaceRaw(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDirectLinkInterfaceRaw(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateFlexibleGpuWithBodyRaw request with any body
-	CreateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateFlexibleGpuRaw(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateFlexibleGpuRaw(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateImageWithBodyRaw request with any body
-	CreateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateImageRaw(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateImageRaw(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateImageExportTaskWithBodyRaw request with any body
-	CreateImageExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateImageExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateImageExportTaskRaw(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateImageExportTaskRaw(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateInternetServiceWithBodyRaw request with any body
-	CreateInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateInternetServiceRaw(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateInternetServiceRaw(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateKeypairWithBodyRaw request with any body
-	CreateKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateKeypairRaw(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateKeypairRaw(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateListenerRuleWithBodyRaw request with any body
-	CreateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateListenerRuleRaw(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateListenerRuleRaw(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateLoadBalancerWithBodyRaw request with any body
-	CreateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateLoadBalancerRaw(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerRaw(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateLoadBalancerListenersWithBodyRaw request with any body
-	CreateLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateLoadBalancerListenersRaw(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerListenersRaw(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateLoadBalancerPolicyWithBodyRaw request with any body
-	CreateLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateLoadBalancerPolicyRaw(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerPolicyRaw(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateLoadBalancerTagsWithBodyRaw request with any body
-	CreateLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateLoadBalancerTagsRaw(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateLoadBalancerTagsRaw(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateNatServiceWithBodyRaw request with any body
-	CreateNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateNatServiceRaw(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNatServiceRaw(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateNetWithBodyRaw request with any body
-	CreateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateNetRaw(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetRaw(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateNetAccessPointWithBodyRaw request with any body
-	CreateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateNetAccessPointRaw(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetAccessPointRaw(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateNetPeeringWithBodyRaw request with any body
-	CreateNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateNetPeeringRaw(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNetPeeringRaw(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateNicWithBodyRaw request with any body
-	CreateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateNicRaw(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNicRaw(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreatePolicyWithBodyRaw request with any body
-	CreatePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreatePolicyRaw(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePolicyRaw(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreatePolicyVersionWithBodyRaw request with any body
-	CreatePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreatePolicyVersionRaw(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePolicyVersionRaw(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateProductTypeWithBodyRaw request with any body
-	CreateProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateProductTypeRaw(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateProductTypeRaw(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreatePublicIpWithBodyRaw request with any body
-	CreatePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreatePublicIpRaw(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreatePublicIpRaw(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateRouteWithBodyRaw request with any body
-	CreateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateRouteRaw(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateRouteRaw(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateRouteTableWithBodyRaw request with any body
-	CreateRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateRouteTableRaw(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateRouteTableRaw(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateSecurityGroupWithBodyRaw request with any body
-	CreateSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateSecurityGroupRaw(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSecurityGroupRaw(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateSecurityGroupRuleWithBodyRaw request with any body
-	CreateSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateSecurityGroupRuleRaw(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSecurityGroupRuleRaw(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateServerCertificateWithBodyRaw request with any body
-	CreateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateServerCertificateRaw(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateServerCertificateRaw(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateSnapshotWithBodyRaw request with any body
-	CreateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateSnapshotRaw(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSnapshotRaw(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateSnapshotExportTaskWithBodyRaw request with any body
-	CreateSnapshotExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSnapshotExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateSnapshotExportTaskRaw(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSnapshotExportTaskRaw(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateSubnetWithBodyRaw request with any body
-	CreateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateSubnetRaw(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateSubnetRaw(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateTagsWithBodyRaw request with any body
-	CreateTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateTagsRaw(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateTagsRaw(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateUserWithBodyRaw request with any body
-	CreateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateUserRaw(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateUserRaw(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateUserGroupWithBodyRaw request with any body
-	CreateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateUserGroupRaw(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateUserGroupRaw(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVirtualGatewayWithBodyRaw request with any body
-	CreateVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVirtualGatewayRaw(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVirtualGatewayRaw(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVmGroupWithBodyRaw request with any body
-	CreateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVmGroupRaw(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmGroupRaw(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVmTemplateWithBodyRaw request with any body
-	CreateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVmTemplateRaw(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmTemplateRaw(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVmsWithBodyRaw request with any body
-	CreateVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVmsRaw(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVmsRaw(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVolumeWithBodyRaw request with any body
-	CreateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVolumeRaw(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVolumeRaw(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVpnConnectionWithBodyRaw request with any body
-	CreateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVpnConnectionRaw(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVpnConnectionRaw(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// CreateVpnConnectionRouteWithBodyRaw request with any body
-	CreateVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	CreateVpnConnectionRouteRaw(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateVpnConnectionRouteRaw(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteAccessKeyWithBodyRaw request with any body
-	DeleteAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteAccessKeyRaw(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteAccessKeyRaw(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteApiAccessRuleWithBodyRaw request with any body
-	DeleteApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteApiAccessRuleRaw(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteApiAccessRuleRaw(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteCaWithBodyRaw request with any body
-	DeleteCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteCaRaw(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteCaRaw(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteClientGatewayWithBodyRaw request with any body
-	DeleteClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteClientGatewayRaw(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteClientGatewayRaw(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteDedicatedGroupWithBodyRaw request with any body
-	DeleteDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteDedicatedGroupRaw(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDedicatedGroupRaw(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteDhcpOptionsWithBodyRaw request with any body
-	DeleteDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteDhcpOptionsRaw(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDhcpOptionsRaw(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteDirectLinkWithBodyRaw request with any body
-	DeleteDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteDirectLinkRaw(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDirectLinkRaw(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteDirectLinkInterfaceWithBodyRaw request with any body
-	DeleteDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteDirectLinkInterfaceRaw(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteDirectLinkInterfaceRaw(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteExportTaskWithBodyRaw request with any body
-	DeleteExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteExportTaskRaw(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteExportTaskRaw(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteFlexibleGpuWithBodyRaw request with any body
-	DeleteFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteFlexibleGpuRaw(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteFlexibleGpuRaw(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteImageWithBodyRaw request with any body
-	DeleteImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteImageRaw(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteImageRaw(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteInternetServiceWithBodyRaw request with any body
-	DeleteInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteInternetServiceRaw(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteInternetServiceRaw(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteKeypairWithBodyRaw request with any body
-	DeleteKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteKeypairRaw(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteKeypairRaw(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteListenerRuleWithBodyRaw request with any body
-	DeleteListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteListenerRuleRaw(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteListenerRuleRaw(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteLoadBalancerWithBodyRaw request with any body
-	DeleteLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteLoadBalancerRaw(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerRaw(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteLoadBalancerListenersWithBodyRaw request with any body
-	DeleteLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteLoadBalancerListenersRaw(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerListenersRaw(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteLoadBalancerPolicyWithBodyRaw request with any body
-	DeleteLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteLoadBalancerPolicyRaw(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerPolicyRaw(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteLoadBalancerTagsWithBodyRaw request with any body
-	DeleteLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteLoadBalancerTagsRaw(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteLoadBalancerTagsRaw(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteNatServiceWithBodyRaw request with any body
-	DeleteNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteNatServiceRaw(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNatServiceRaw(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteNetWithBodyRaw request with any body
-	DeleteNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteNetRaw(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetRaw(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteNetAccessPointWithBodyRaw request with any body
-	DeleteNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteNetAccessPointRaw(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetAccessPointRaw(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteNetPeeringWithBodyRaw request with any body
-	DeleteNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteNetPeeringRaw(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNetPeeringRaw(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteNicWithBodyRaw request with any body
-	DeleteNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteNicRaw(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNicRaw(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeletePolicyWithBodyRaw request with any body
-	DeletePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeletePolicyRaw(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePolicyRaw(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeletePolicyVersionWithBodyRaw request with any body
-	DeletePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeletePolicyVersionRaw(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePolicyVersionRaw(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteProductTypeWithBodyRaw request with any body
-	DeleteProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteProductTypeRaw(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteProductTypeRaw(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeletePublicIpWithBodyRaw request with any body
-	DeletePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeletePublicIpRaw(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeletePublicIpRaw(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteRouteWithBodyRaw request with any body
-	DeleteRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteRouteRaw(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteRouteRaw(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteRouteTableWithBodyRaw request with any body
-	DeleteRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteRouteTableRaw(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteRouteTableRaw(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteSecurityGroupWithBodyRaw request with any body
-	DeleteSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteSecurityGroupRaw(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSecurityGroupRaw(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteSecurityGroupRuleWithBodyRaw request with any body
-	DeleteSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteSecurityGroupRuleRaw(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSecurityGroupRuleRaw(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteServerCertificateWithBodyRaw request with any body
-	DeleteServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteServerCertificateRaw(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteServerCertificateRaw(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteSnapshotWithBodyRaw request with any body
-	DeleteSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteSnapshotRaw(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSnapshotRaw(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteSubnetWithBodyRaw request with any body
-	DeleteSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteSubnetRaw(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteSubnetRaw(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteTagsWithBodyRaw request with any body
-	DeleteTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteTagsRaw(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteTagsRaw(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteUserWithBodyRaw request with any body
-	DeleteUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteUserRaw(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserRaw(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteUserGroupWithBodyRaw request with any body
-	DeleteUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteUserGroupRaw(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserGroupRaw(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteUserGroupPolicyWithBodyRaw request with any body
-	DeleteUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteUserGroupPolicyRaw(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserGroupPolicyRaw(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteUserPolicyWithBodyRaw request with any body
-	DeleteUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteUserPolicyRaw(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteUserPolicyRaw(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVirtualGatewayWithBodyRaw request with any body
-	DeleteVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVirtualGatewayRaw(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVirtualGatewayRaw(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVmGroupWithBodyRaw request with any body
-	DeleteVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVmGroupRaw(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmGroupRaw(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVmTemplateWithBodyRaw request with any body
-	DeleteVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVmTemplateRaw(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmTemplateRaw(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVmsWithBodyRaw request with any body
-	DeleteVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVmsRaw(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVmsRaw(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVolumeWithBodyRaw request with any body
-	DeleteVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVolumeRaw(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVolumeRaw(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVpnConnectionWithBodyRaw request with any body
-	DeleteVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVpnConnectionRaw(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVpnConnectionRaw(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteVpnConnectionRouteWithBodyRaw request with any body
-	DeleteVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeleteVpnConnectionRouteRaw(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVpnConnectionRouteRaw(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeregisterVmsInLoadBalancerWithBodyRaw request with any body
-	DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DisableOutscaleLoginWithBodyRaw request with any body
-	DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DisableOutscaleLoginForUsersWithBodyRaw request with any body
-	DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DisableOutscaleLoginPerUsersWithBodyRaw request with any body
-	DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// EnableOutscaleLoginWithBodyRaw request with any body
-	EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// EnableOutscaleLoginForUsersWithBodyRaw request with any body
-	EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// EnableOutscaleLoginPerUsersWithBodyRaw request with any body
-	EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkFlexibleGpuWithBodyRaw request with any body
-	LinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkFlexibleGpuRaw(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkFlexibleGpuRaw(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkInternetServiceWithBodyRaw request with any body
-	LinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkInternetServiceRaw(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkInternetServiceRaw(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkLoadBalancerBackendMachinesWithBodyRaw request with any body
-	LinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkLoadBalancerBackendMachinesRaw(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkLoadBalancerBackendMachinesRaw(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkManagedPolicyToUserGroupWithBodyRaw request with any body
-	LinkManagedPolicyToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkManagedPolicyToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkManagedPolicyToUserGroupRaw(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkManagedPolicyToUserGroupRaw(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkNicWithBodyRaw request with any body
-	LinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkNicRaw(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkNicRaw(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkPolicyWithBodyRaw request with any body
-	LinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkPolicyRaw(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPolicyRaw(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkPrivateIpsWithBodyRaw request with any body
-	LinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkPrivateIpsRaw(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPrivateIpsRaw(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkPublicIpWithBodyRaw request with any body
-	LinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkPublicIpRaw(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkPublicIpRaw(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkRouteTableWithBodyRaw request with any body
-	LinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkRouteTableRaw(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkRouteTableRaw(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkVirtualGatewayWithBodyRaw request with any body
-	LinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkVirtualGatewayRaw(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkVirtualGatewayRaw(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// LinkVolumeWithBodyRaw request with any body
-	LinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	LinkVolumeRaw(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	LinkVolumeRaw(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// PutUserGroupPolicyWithBodyRaw request with any body
-	PutUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PutUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	PutUserGroupPolicyRaw(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PutUserGroupPolicyRaw(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// PutUserPolicyWithBodyRaw request with any body
-	PutUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PutUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	PutUserPolicyRaw(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PutUserPolicyRaw(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadAccessKeysWithBodyRaw request with any body
-	ReadAccessKeysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAccessKeysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadAccessKeysRaw(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAccessKeysRaw(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadAccountsWithBodyRaw request with any body
-	ReadAccountsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAccountsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadAccountsRaw(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAccountsRaw(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadAdminPasswordWithBodyRaw request with any body
-	ReadAdminPasswordWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAdminPasswordWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadAdminPasswordRaw(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadAdminPasswordRaw(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadApiAccessPolicyWithBodyRaw request with any body
-	ReadApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadApiAccessPolicyRaw(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiAccessPolicyRaw(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadApiAccessRulesWithBodyRaw request with any body
-	ReadApiAccessRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiAccessRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadApiAccessRulesRaw(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiAccessRulesRaw(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadApiLogsWithBodyRaw request with any body
-	ReadApiLogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiLogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadCasWithBodyRaw request with any body
-	ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadCasRaw(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCasRaw(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadCatalogWithBodyRaw request with any body
-	ReadCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadCatalogRaw(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCatalogRaw(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadCatalogsWithBodyRaw request with any body
-	ReadCatalogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCatalogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadCatalogsRaw(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadCatalogsRaw(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadClientGatewaysWithBodyRaw request with any body
-	ReadClientGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadClientGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadClientGatewaysRaw(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadClientGatewaysRaw(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadConsoleOutputWithBodyRaw request with any body
-	ReadConsoleOutputWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadConsoleOutputWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadConsoleOutputRaw(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadConsoleOutputRaw(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadConsumptionAccountWithBodyRaw request with any body
-	ReadConsumptionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadConsumptionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadConsumptionAccountRaw(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadConsumptionAccountRaw(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadDedicatedGroupsWithBodyRaw request with any body
-	ReadDedicatedGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDedicatedGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadDedicatedGroupsRaw(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDedicatedGroupsRaw(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadDhcpOptionsWithBodyRaw request with any body
-	ReadDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadDhcpOptionsRaw(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDhcpOptionsRaw(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadDirectLinkInterfacesWithBodyRaw request with any body
-	ReadDirectLinkInterfacesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDirectLinkInterfacesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadDirectLinkInterfacesRaw(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDirectLinkInterfacesRaw(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadDirectLinksWithBodyRaw request with any body
-	ReadDirectLinksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDirectLinksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadDirectLinksRaw(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadDirectLinksRaw(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadEntitiesLinkedToPolicyWithBodyRaw request with any body
-	ReadEntitiesLinkedToPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadEntitiesLinkedToPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadEntitiesLinkedToPolicyRaw(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadEntitiesLinkedToPolicyRaw(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadFlexibleGpuCatalogWithBodyRaw request with any body
-	ReadFlexibleGpuCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadFlexibleGpuCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadFlexibleGpuCatalogRaw(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadFlexibleGpuCatalogRaw(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadFlexibleGpusWithBodyRaw request with any body
-	ReadFlexibleGpusWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadFlexibleGpusWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadFlexibleGpusRaw(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadFlexibleGpusRaw(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadImageExportTasksWithBodyRaw request with any body
-	ReadImageExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadImageExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadImageExportTasksRaw(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadImageExportTasksRaw(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadImagesWithBodyRaw request with any body
-	ReadImagesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadImagesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadImagesRaw(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadImagesRaw(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadInternetServicesWithBodyRaw request with any body
-	ReadInternetServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadInternetServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadInternetServicesRaw(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadInternetServicesRaw(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadKeypairsWithBodyRaw request with any body
-	ReadKeypairsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadKeypairsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadKeypairsRaw(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadKeypairsRaw(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadLinkedPoliciesWithBodyRaw request with any body
-	ReadLinkedPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLinkedPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadLinkedPoliciesRaw(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLinkedPoliciesRaw(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadListenerRulesWithBodyRaw request with any body
-	ReadListenerRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadListenerRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadListenerRulesRaw(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadListenerRulesRaw(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadLoadBalancerTagsWithBodyRaw request with any body
-	ReadLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadLoadBalancerTagsRaw(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLoadBalancerTagsRaw(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadLoadBalancersWithBodyRaw request with any body
-	ReadLoadBalancersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLoadBalancersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadLoadBalancersRaw(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLoadBalancersRaw(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadLocationsWithBodyRaw request with any body
-	ReadLocationsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLocationsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadLocationsRaw(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadLocationsRaw(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadManagedPoliciesLinkedToUserGroupWithBodyRaw request with any body
-	ReadManagedPoliciesLinkedToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadManagedPoliciesLinkedToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadManagedPoliciesLinkedToUserGroupRaw(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadManagedPoliciesLinkedToUserGroupRaw(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNatServicesWithBodyRaw request with any body
-	ReadNatServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNatServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNatServicesRaw(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNatServicesRaw(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNetAccessPointServicesWithBodyRaw request with any body
-	ReadNetAccessPointServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetAccessPointServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNetAccessPointServicesRaw(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetAccessPointServicesRaw(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNetAccessPointsWithBodyRaw request with any body
-	ReadNetAccessPointsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetAccessPointsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNetAccessPointsRaw(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetAccessPointsRaw(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNetPeeringsWithBodyRaw request with any body
-	ReadNetPeeringsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetPeeringsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNetPeeringsRaw(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetPeeringsRaw(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNetsWithBodyRaw request with any body
-	ReadNetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNetsRaw(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNetsRaw(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadNicsWithBodyRaw request with any body
-	ReadNicsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNicsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadNicsRaw(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadNicsRaw(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPoliciesWithBodyRaw request with any body
-	ReadPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPoliciesRaw(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPoliciesRaw(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPolicyWithBodyRaw request with any body
-	ReadPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPolicyRaw(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyRaw(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPolicyVersionWithBodyRaw request with any body
-	ReadPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPolicyVersionRaw(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyVersionRaw(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPolicyVersionsWithBodyRaw request with any body
-	ReadPolicyVersionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyVersionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPolicyVersionsRaw(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPolicyVersionsRaw(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadProductTypesWithBodyRaw request with any body
-	ReadProductTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadProductTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadProductTypesRaw(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadProductTypesRaw(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPublicCatalogWithBodyRaw request with any body
-	ReadPublicCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPublicCatalogRaw(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicCatalogRaw(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPublicIpRangesWithBodyRaw request with any body
-	ReadPublicIpRangesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicIpRangesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPublicIpRangesRaw(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicIpRangesRaw(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadPublicIpsWithBodyRaw request with any body
-	ReadPublicIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadPublicIpsRaw(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadPublicIpsRaw(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadQuotasWithBodyRaw request with any body
-	ReadQuotasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadQuotasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadQuotasRaw(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadQuotasRaw(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadRegionsWithBodyRaw request with any body
-	ReadRegionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadRegionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadRegionsRaw(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadRegionsRaw(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadRouteTablesWithBodyRaw request with any body
-	ReadRouteTablesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadRouteTablesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadRouteTablesRaw(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadRouteTablesRaw(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadSecurityGroupsWithBodyRaw request with any body
-	ReadSecurityGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSecurityGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadSecurityGroupsRaw(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSecurityGroupsRaw(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadServerCertificatesWithBodyRaw request with any body
-	ReadServerCertificatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadServerCertificatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadServerCertificatesRaw(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadServerCertificatesRaw(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadSnapshotExportTasksWithBodyRaw request with any body
-	ReadSnapshotExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSnapshotExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadSnapshotExportTasksRaw(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSnapshotExportTasksRaw(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadSnapshotsWithBodyRaw request with any body
-	ReadSnapshotsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSnapshotsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadSnapshotsRaw(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSnapshotsRaw(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadSubnetsWithBodyRaw request with any body
-	ReadSubnetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSubnetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadSubnetsRaw(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSubnetsRaw(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadSubregionsWithBodyRaw request with any body
-	ReadSubregionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSubregionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadSubregionsRaw(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadSubregionsRaw(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadTagsWithBodyRaw request with any body
-	ReadTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadTagsRaw(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadTagsRaw(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUnitPriceWithBodyRaw request with any body
-	ReadUnitPriceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUnitPriceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUnitPriceRaw(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUnitPriceRaw(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserGroupWithBodyRaw request with any body
-	ReadUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserGroupRaw(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupRaw(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserGroupPoliciesWithBodyRaw request with any body
-	ReadUserGroupPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserGroupPoliciesRaw(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupPoliciesRaw(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserGroupPolicyWithBodyRaw request with any body
-	ReadUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserGroupPolicyRaw(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupPolicyRaw(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserGroupsWithBodyRaw request with any body
-	ReadUserGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserGroupsRaw(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupsRaw(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserGroupsPerUserWithBodyRaw request with any body
-	ReadUserGroupsPerUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupsPerUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserGroupsPerUserRaw(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserGroupsPerUserRaw(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserPoliciesWithBodyRaw request with any body
-	ReadUserPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserPoliciesRaw(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserPoliciesRaw(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUserPolicyWithBodyRaw request with any body
-	ReadUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUserPolicyRaw(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUserPolicyRaw(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadUsersWithBodyRaw request with any body
-	ReadUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadUsersRaw(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadUsersRaw(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVirtualGatewaysWithBodyRaw request with any body
-	ReadVirtualGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVirtualGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVirtualGatewaysRaw(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVirtualGatewaysRaw(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmGroupsWithBodyRaw request with any body
-	ReadVmGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmGroupsRaw(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmGroupsRaw(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmTemplatesWithBodyRaw request with any body
-	ReadVmTemplatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmTemplatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmTemplatesRaw(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmTemplatesRaw(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmTypesWithBodyRaw request with any body
-	ReadVmTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmTypesRaw(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmTypesRaw(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmsWithBodyRaw request with any body
-	ReadVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmsRaw(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsRaw(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmsHealthWithBodyRaw request with any body
-	ReadVmsHealthWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsHealthWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmsHealthRaw(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsHealthRaw(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVmsStateWithBodyRaw request with any body
-	ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVolumesWithBodyRaw request with any body
-	ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVolumesRaw(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVolumesRaw(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVpnConnectionsWithBodyRaw request with any body
-	ReadVpnConnectionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVpnConnectionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ReadVpnConnectionsRaw(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ReadVpnConnectionsRaw(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// RebootVmsWithBodyRaw request with any body
-	RebootVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RebootVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	RebootVmsRaw(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RebootVmsRaw(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// RegisterVmsInLoadBalancerWithBodyRaw request with any body
-	RegisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	RegisterVmsInLoadBalancerRaw(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegisterVmsInLoadBalancerRaw(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// RejectNetPeeringWithBodyRaw request with any body
-	RejectNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RejectNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	RejectNetPeeringRaw(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RejectNetPeeringRaw(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// RemoveUserFromUserGroupWithBodyRaw request with any body
-	RemoveUserFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RemoveUserFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	RemoveUserFromUserGroupRaw(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RemoveUserFromUserGroupRaw(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ScaleDownVmGroupWithBodyRaw request with any body
-	ScaleDownVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScaleDownVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ScaleDownVmGroupRaw(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScaleDownVmGroupRaw(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ScaleUpVmGroupWithBodyRaw request with any body
-	ScaleUpVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScaleUpVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	ScaleUpVmGroupRaw(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScaleUpVmGroupRaw(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// SetDefaultPolicyVersionWithBodyRaw request with any body
-	SetDefaultPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SetDefaultPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	SetDefaultPolicyVersionRaw(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SetDefaultPolicyVersionRaw(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// StartVmsWithBodyRaw request with any body
-	StartVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	StartVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	StartVmsRaw(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	StartVmsRaw(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// StopVmsWithBodyRaw request with any body
-	StopVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	StopVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	StopVmsRaw(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	StopVmsRaw(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkFlexibleGpuWithBodyRaw request with any body
-	UnlinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkFlexibleGpuRaw(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkFlexibleGpuRaw(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkInternetServiceWithBodyRaw request with any body
-	UnlinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkInternetServiceRaw(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkInternetServiceRaw(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkLoadBalancerBackendMachinesWithBodyRaw request with any body
-	UnlinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkLoadBalancerBackendMachinesRaw(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkLoadBalancerBackendMachinesRaw(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkManagedPolicyFromUserGroupWithBodyRaw request with any body
-	UnlinkManagedPolicyFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkManagedPolicyFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkManagedPolicyFromUserGroupRaw(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkManagedPolicyFromUserGroupRaw(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkNicWithBodyRaw request with any body
-	UnlinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkNicRaw(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkNicRaw(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkPolicyWithBodyRaw request with any body
-	UnlinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkPolicyRaw(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPolicyRaw(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkPrivateIpsWithBodyRaw request with any body
-	UnlinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkPrivateIpsRaw(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPrivateIpsRaw(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkPublicIpWithBodyRaw request with any body
-	UnlinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkPublicIpRaw(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkPublicIpRaw(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkRouteTableWithBodyRaw request with any body
-	UnlinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkRouteTableRaw(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkRouteTableRaw(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkVirtualGatewayWithBodyRaw request with any body
-	UnlinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkVirtualGatewayRaw(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkVirtualGatewayRaw(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UnlinkVolumeWithBodyRaw request with any body
-	UnlinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UnlinkVolumeRaw(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnlinkVolumeRaw(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateAccessKeyWithBodyRaw request with any body
-	UpdateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateAccessKeyRaw(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateAccessKeyRaw(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateAccountWithBodyRaw request with any body
-	UpdateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateAccountRaw(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateAccountRaw(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateApiAccessPolicyWithBodyRaw request with any body
-	UpdateApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateApiAccessPolicyRaw(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateApiAccessPolicyRaw(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateApiAccessRuleWithBodyRaw request with any body
-	UpdateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateApiAccessRuleRaw(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateApiAccessRuleRaw(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateCaWithBodyRaw request with any body
-	UpdateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateCaRaw(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateCaRaw(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateDedicatedGroupWithBodyRaw request with any body
-	UpdateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateDedicatedGroupRaw(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateDedicatedGroupRaw(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateDirectLinkInterfaceWithBodyRaw request with any body
-	UpdateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateDirectLinkInterfaceRaw(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateDirectLinkInterfaceRaw(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateFlexibleGpuWithBodyRaw request with any body
-	UpdateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateFlexibleGpuRaw(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateFlexibleGpuRaw(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateImageWithBodyRaw request with any body
-	UpdateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateImageRaw(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateImageRaw(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateListenerRuleWithBodyRaw request with any body
-	UpdateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateListenerRuleRaw(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateListenerRuleRaw(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateLoadBalancerWithBodyRaw request with any body
-	UpdateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateLoadBalancerRaw(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateLoadBalancerRaw(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateNetWithBodyRaw request with any body
-	UpdateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateNetRaw(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNetRaw(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateNetAccessPointWithBodyRaw request with any body
-	UpdateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateNetAccessPointRaw(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNetAccessPointRaw(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateNicWithBodyRaw request with any body
-	UpdateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateNicRaw(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateNicRaw(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateRouteWithBodyRaw request with any body
-	UpdateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateRouteRaw(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRouteRaw(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateRoutePropagationWithBodyRaw request with any body
-	UpdateRoutePropagationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRoutePropagationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateRoutePropagationRaw(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRoutePropagationRaw(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateRouteTableLinkWithBodyRaw request with any body
-	UpdateRouteTableLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRouteTableLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateRouteTableLinkRaw(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateRouteTableLinkRaw(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateServerCertificateWithBodyRaw request with any body
-	UpdateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateServerCertificateRaw(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateServerCertificateRaw(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateSnapshotWithBodyRaw request with any body
-	UpdateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateSnapshotRaw(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateSnapshotRaw(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateSubnetWithBodyRaw request with any body
-	UpdateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateSubnetRaw(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateSubnetRaw(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateUserWithBodyRaw request with any body
-	UpdateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateUserRaw(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateUserRaw(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateUserGroupWithBodyRaw request with any body
-	UpdateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateUserGroupRaw(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateUserGroupRaw(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateVmWithBodyRaw request with any body
-	UpdateVmWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateVmRaw(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmRaw(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateVmGroupWithBodyRaw request with any body
-	UpdateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateVmGroupRaw(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmGroupRaw(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateVmTemplateWithBodyRaw request with any body
-	UpdateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateVmTemplateRaw(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVmTemplateRaw(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateVolumeWithBodyRaw request with any body
-	UpdateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateVolumeRaw(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVolumeRaw(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// UpdateVpnConnectionWithBodyRaw request with any body
-	UpdateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 }
 
-func (c *ClientRaw) AcceptNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) AcceptNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewAcceptNetPeeringRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) AcceptNetPeeringRaw(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) AcceptNetPeeringRaw(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewAcceptNetPeeringRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) AddUserToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) AddUserToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewAddUserToUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) AddUserToUserGroupRaw(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) AddUserToUserGroupRaw(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewAddUserToUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CheckAuthenticationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CheckAuthenticationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCheckAuthenticationRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CheckAuthenticationRaw(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CheckAuthenticationRaw(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCheckAuthenticationRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateAccessKeyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateAccessKeyRaw(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateAccessKeyRaw(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateAccessKeyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateAccountRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateAccountRaw(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateAccountRaw(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateAccountRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateApiAccessRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateApiAccessRuleRaw(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateApiAccessRuleRaw(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateApiAccessRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateCaRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateCaRaw(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateCaRaw(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateCaRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateClientGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateClientGatewayRaw(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateClientGatewayRaw(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateClientGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDedicatedGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDedicatedGroupRaw(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDedicatedGroupRaw(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDedicatedGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDhcpOptionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDhcpOptionsRaw(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDhcpOptionsRaw(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDhcpOptionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDirectLinkRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDirectLinkRaw(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDirectLinkRaw(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDirectLinkRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDirectLinkInterfaceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateDirectLinkInterfaceRaw(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateDirectLinkInterfaceRaw(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateDirectLinkInterfaceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateFlexibleGpuRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateFlexibleGpuRaw(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateFlexibleGpuRaw(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateFlexibleGpuRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateImageRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateImageRaw(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateImageRaw(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateImageRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateImageExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateImageExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateImageExportTaskRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateImageExportTaskRaw(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateImageExportTaskRaw(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateImageExportTaskRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateInternetServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateInternetServiceRaw(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateInternetServiceRaw(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateInternetServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateKeypairRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateKeypairRaw(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateKeypairRaw(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateKeypairRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateListenerRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateListenerRuleRaw(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateListenerRuleRaw(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateListenerRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerRaw(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerRaw(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerListenersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerListenersRaw(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerListenersRaw(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerListenersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerPolicyRaw(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerPolicyRaw(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateLoadBalancerTagsRaw(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateLoadBalancerTagsRaw(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateLoadBalancerTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNatServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNatServiceRaw(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNatServiceRaw(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNatServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetRaw(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetRaw(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetAccessPointRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetAccessPointRaw(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetAccessPointRaw(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetAccessPointRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetPeeringRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNetPeeringRaw(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNetPeeringRaw(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNetPeeringRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNicRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateNicRaw(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateNicRaw(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateNicRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePolicyRaw(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePolicyRaw(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePolicyVersionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePolicyVersionRaw(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePolicyVersionRaw(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePolicyVersionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateProductTypeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateProductTypeRaw(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateProductTypeRaw(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateProductTypeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePublicIpRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreatePublicIpRaw(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreatePublicIpRaw(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreatePublicIpRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateRouteRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateRouteRaw(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateRouteRaw(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateRouteRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateRouteTableRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateRouteTableRaw(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateRouteTableRaw(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateRouteTableRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSecurityGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSecurityGroupRaw(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSecurityGroupRaw(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSecurityGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSecurityGroupRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSecurityGroupRuleRaw(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSecurityGroupRuleRaw(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSecurityGroupRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateServerCertificateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateServerCertificateRaw(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateServerCertificateRaw(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateServerCertificateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSnapshotRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSnapshotRaw(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSnapshotRaw(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSnapshotRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSnapshotExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSnapshotExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSnapshotExportTaskRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSnapshotExportTaskRaw(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSnapshotExportTaskRaw(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSnapshotExportTaskRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSubnetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateSubnetRaw(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateSubnetRaw(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateSubnetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateTagsRaw(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateTagsRaw(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateUserRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateUserRaw(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateUserRaw(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateUserRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateUserGroupRaw(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateUserGroupRaw(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVirtualGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVirtualGatewayRaw(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVirtualGatewayRaw(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVirtualGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmGroupRaw(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmGroupRaw(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmTemplateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmTemplateRaw(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmTemplateRaw(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmTemplateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVmsRaw(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVmsRaw(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVolumeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVolumeRaw(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVolumeRaw(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVolumeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVpnConnectionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVpnConnectionRaw(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVpnConnectionRaw(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVpnConnectionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVpnConnectionRouteRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) CreateVpnConnectionRouteRaw(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) CreateVpnConnectionRouteRaw(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewCreateVpnConnectionRouteRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteAccessKeyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteAccessKeyRaw(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteAccessKeyRaw(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteAccessKeyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteApiAccessRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteApiAccessRuleRaw(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteApiAccessRuleRaw(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteApiAccessRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteCaRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteCaRaw(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteCaRaw(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteCaRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteClientGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteClientGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteClientGatewayRaw(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteClientGatewayRaw(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteClientGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDedicatedGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDedicatedGroupRaw(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDedicatedGroupRaw(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDedicatedGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDhcpOptionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDhcpOptionsRaw(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDhcpOptionsRaw(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDhcpOptionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDirectLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDirectLinkRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDirectLinkRaw(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDirectLinkRaw(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDirectLinkRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDirectLinkInterfaceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteDirectLinkInterfaceRaw(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteDirectLinkInterfaceRaw(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteDirectLinkInterfaceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteExportTaskWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteExportTaskRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteExportTaskRaw(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteExportTaskRaw(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteExportTaskRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteFlexibleGpuRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteFlexibleGpuRaw(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteFlexibleGpuRaw(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteFlexibleGpuRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteImageRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteImageRaw(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteImageRaw(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteImageRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteInternetServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteInternetServiceRaw(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteInternetServiceRaw(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteInternetServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteKeypairWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteKeypairRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteKeypairRaw(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteKeypairRaw(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteKeypairRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteListenerRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteListenerRuleRaw(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteListenerRuleRaw(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteListenerRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerRaw(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerRaw(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerListenersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerListenersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerListenersRaw(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerListenersRaw(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerListenersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerPolicyRaw(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerPolicyRaw(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteLoadBalancerTagsRaw(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteLoadBalancerTagsRaw(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteLoadBalancerTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNatServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNatServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNatServiceRaw(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNatServiceRaw(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNatServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetRaw(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetRaw(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetAccessPointRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetAccessPointRaw(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetAccessPointRaw(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetAccessPointRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetPeeringRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNetPeeringRaw(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNetPeeringRaw(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNetPeeringRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNicRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteNicRaw(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteNicRaw(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteNicRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePolicyRaw(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePolicyRaw(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePolicyVersionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePolicyVersionRaw(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePolicyVersionRaw(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePolicyVersionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteProductTypeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteProductTypeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteProductTypeRaw(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteProductTypeRaw(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteProductTypeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePublicIpRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeletePublicIpRaw(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeletePublicIpRaw(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeletePublicIpRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteRouteRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteRouteRaw(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteRouteRaw(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteRouteRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteRouteTableRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteRouteTableRaw(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteRouteTableRaw(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteRouteTableRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSecurityGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSecurityGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSecurityGroupRaw(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSecurityGroupRaw(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSecurityGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSecurityGroupRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSecurityGroupRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSecurityGroupRuleRaw(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSecurityGroupRuleRaw(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSecurityGroupRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteServerCertificateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteServerCertificateRaw(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteServerCertificateRaw(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteServerCertificateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSnapshotRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSnapshotRaw(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSnapshotRaw(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSnapshotRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSubnetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteSubnetRaw(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteSubnetRaw(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteSubnetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteTagsRaw(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteTagsRaw(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserRaw(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserRaw(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserGroupRaw(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserGroupRaw(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserGroupPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserGroupPolicyRaw(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserGroupPolicyRaw(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserGroupPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteUserPolicyRaw(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteUserPolicyRaw(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteUserPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVirtualGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVirtualGatewayRaw(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVirtualGatewayRaw(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVirtualGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmGroupRaw(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmGroupRaw(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmTemplateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmTemplateRaw(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmTemplateRaw(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmTemplateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVmsRaw(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVmsRaw(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVolumeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVolumeRaw(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVolumeRaw(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVolumeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVpnConnectionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVpnConnectionRaw(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVpnConnectionRaw(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVpnConnectionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVpnConnectionRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVpnConnectionRouteRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeleteVpnConnectionRouteRaw(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeleteVpnConnectionRouteRaw(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeleteVpnConnectionRouteRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeregisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeregisterVmsInLoadBalancerRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DeregisterVmsInLoadBalancerRaw(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDeregisterVmsInLoadBalancerRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginRaw(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginForUsersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginForUsersRaw(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginForUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginPerUsersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) DisableOutscaleLoginPerUsersRaw(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewDisableOutscaleLoginPerUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginRaw(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginForUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginForUsersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginForUsersRaw(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginForUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginPerUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginPerUsersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) EnableOutscaleLoginPerUsersRaw(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewEnableOutscaleLoginPerUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkFlexibleGpuRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkFlexibleGpuRaw(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkFlexibleGpuRaw(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkFlexibleGpuRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkInternetServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkInternetServiceRaw(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkInternetServiceRaw(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkInternetServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkLoadBalancerBackendMachinesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkLoadBalancerBackendMachinesRaw(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkLoadBalancerBackendMachinesRaw(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkLoadBalancerBackendMachinesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkManagedPolicyToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkManagedPolicyToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkManagedPolicyToUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkManagedPolicyToUserGroupRaw(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkManagedPolicyToUserGroupRaw(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkManagedPolicyToUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkNicRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkNicRaw(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkNicRaw(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkNicRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPolicyRaw(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPolicyRaw(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPrivateIpsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPrivateIpsRaw(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPrivateIpsRaw(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPrivateIpsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPublicIpRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkPublicIpRaw(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkPublicIpRaw(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkPublicIpRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkRouteTableRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkRouteTableRaw(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkRouteTableRaw(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkRouteTableRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkVirtualGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkVirtualGatewayRaw(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkVirtualGatewayRaw(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkVirtualGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkVolumeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) LinkVolumeRaw(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) LinkVolumeRaw(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewLinkVolumeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) PutUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) PutUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewPutUserGroupPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) PutUserGroupPolicyRaw(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) PutUserGroupPolicyRaw(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewPutUserGroupPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) PutUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) PutUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewPutUserPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) PutUserPolicyRaw(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) PutUserPolicyRaw(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewPutUserPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAccessKeysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAccessKeysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAccessKeysRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAccessKeysRaw(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAccessKeysRaw(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAccessKeysRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAccountsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAccountsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAccountsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAccountsRaw(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAccountsRaw(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAccountsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAdminPasswordWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAdminPasswordWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAdminPasswordRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadAdminPasswordRaw(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadAdminPasswordRaw(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadAdminPasswordRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiAccessPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiAccessPolicyRaw(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiAccessPolicyRaw(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiAccessPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiAccessRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiAccessRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiAccessRulesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiAccessRulesRaw(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiAccessRulesRaw(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiAccessRulesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiLogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiLogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiLogsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadApiLogsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCasRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCasRaw(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCasRaw(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCasRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCatalogRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCatalogRaw(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCatalogRaw(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCatalogRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCatalogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCatalogsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCatalogsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadCatalogsRaw(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadCatalogsRaw(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCatalogsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadClientGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadClientGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadClientGatewaysRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadClientGatewaysRaw(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadClientGatewaysRaw(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadClientGatewaysRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadConsoleOutputWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadConsoleOutputWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadConsoleOutputRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadConsoleOutputRaw(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadConsoleOutputRaw(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadConsoleOutputRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadConsumptionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadConsumptionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadConsumptionAccountRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadConsumptionAccountRaw(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadConsumptionAccountRaw(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadConsumptionAccountRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDedicatedGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDedicatedGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDedicatedGroupsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDedicatedGroupsRaw(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDedicatedGroupsRaw(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDedicatedGroupsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDhcpOptionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDhcpOptionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDhcpOptionsRaw(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDhcpOptionsRaw(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDhcpOptionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDirectLinkInterfacesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDirectLinkInterfacesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDirectLinkInterfacesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDirectLinkInterfacesRaw(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDirectLinkInterfacesRaw(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDirectLinkInterfacesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDirectLinksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDirectLinksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDirectLinksRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadDirectLinksRaw(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadDirectLinksRaw(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadDirectLinksRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadEntitiesLinkedToPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadEntitiesLinkedToPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadEntitiesLinkedToPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadEntitiesLinkedToPolicyRaw(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadEntitiesLinkedToPolicyRaw(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadEntitiesLinkedToPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadFlexibleGpuCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadFlexibleGpuCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadFlexibleGpuCatalogRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadFlexibleGpuCatalogRaw(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadFlexibleGpuCatalogRaw(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadFlexibleGpuCatalogRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadFlexibleGpusWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadFlexibleGpusWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadFlexibleGpusRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadFlexibleGpusRaw(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadFlexibleGpusRaw(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadFlexibleGpusRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadImageExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadImageExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadImageExportTasksRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadImageExportTasksRaw(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadImageExportTasksRaw(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadImageExportTasksRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadImagesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadImagesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadImagesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadImagesRaw(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadImagesRaw(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadImagesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadInternetServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadInternetServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadInternetServicesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadInternetServicesRaw(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadInternetServicesRaw(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadInternetServicesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadKeypairsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadKeypairsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadKeypairsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadKeypairsRaw(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadKeypairsRaw(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadKeypairsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLinkedPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLinkedPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLinkedPoliciesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLinkedPoliciesRaw(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLinkedPoliciesRaw(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLinkedPoliciesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadListenerRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadListenerRulesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadListenerRulesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadListenerRulesRaw(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadListenerRulesRaw(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadListenerRulesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLoadBalancerTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLoadBalancerTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLoadBalancerTagsRaw(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLoadBalancerTagsRaw(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLoadBalancerTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLoadBalancersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLoadBalancersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLoadBalancersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLoadBalancersRaw(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLoadBalancersRaw(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLoadBalancersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLocationsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLocationsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLocationsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadLocationsRaw(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadLocationsRaw(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadLocationsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadManagedPoliciesLinkedToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadManagedPoliciesLinkedToUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadManagedPoliciesLinkedToUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadManagedPoliciesLinkedToUserGroupRaw(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadManagedPoliciesLinkedToUserGroupRaw(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadManagedPoliciesLinkedToUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNatServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNatServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNatServicesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNatServicesRaw(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNatServicesRaw(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNatServicesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetAccessPointServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetAccessPointServicesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetAccessPointServicesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetAccessPointServicesRaw(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetAccessPointServicesRaw(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetAccessPointServicesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetAccessPointsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetAccessPointsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetAccessPointsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetAccessPointsRaw(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetAccessPointsRaw(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetAccessPointsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetPeeringsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetPeeringsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetPeeringsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetPeeringsRaw(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetPeeringsRaw(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetPeeringsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNetsRaw(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNetsRaw(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNetsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNicsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNicsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNicsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadNicsRaw(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadNicsRaw(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadNicsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPoliciesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPoliciesRaw(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPoliciesRaw(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPoliciesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyRaw(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyRaw(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyVersionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyVersionRaw(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyVersionRaw(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyVersionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyVersionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyVersionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyVersionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPolicyVersionsRaw(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPolicyVersionsRaw(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPolicyVersionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadProductTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadProductTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadProductTypesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadProductTypesRaw(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadProductTypesRaw(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadProductTypesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicCatalogWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicCatalogRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicCatalogRaw(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicCatalogRaw(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicCatalogRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicIpRangesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicIpRangesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicIpRangesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicIpRangesRaw(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicIpRangesRaw(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicIpRangesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicIpsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadPublicIpsRaw(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadPublicIpsRaw(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadPublicIpsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadQuotasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadQuotasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadQuotasRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadQuotasRaw(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadQuotasRaw(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadQuotasRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadRegionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadRegionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadRegionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadRegionsRaw(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadRegionsRaw(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadRegionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadRouteTablesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadRouteTablesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadRouteTablesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadRouteTablesRaw(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadRouteTablesRaw(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadRouteTablesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSecurityGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSecurityGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSecurityGroupsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSecurityGroupsRaw(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSecurityGroupsRaw(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSecurityGroupsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadServerCertificatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadServerCertificatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadServerCertificatesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadServerCertificatesRaw(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadServerCertificatesRaw(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadServerCertificatesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSnapshotExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSnapshotExportTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSnapshotExportTasksRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSnapshotExportTasksRaw(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSnapshotExportTasksRaw(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSnapshotExportTasksRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSnapshotsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSnapshotsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSnapshotsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSnapshotsRaw(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSnapshotsRaw(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSnapshotsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSubnetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSubnetsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSubnetsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSubnetsRaw(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSubnetsRaw(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSubnetsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSubregionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSubregionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSubregionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadSubregionsRaw(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadSubregionsRaw(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadSubregionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadTagsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadTagsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadTagsRaw(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadTagsRaw(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadTagsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUnitPriceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUnitPriceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUnitPriceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUnitPriceRaw(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUnitPriceRaw(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUnitPriceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupRaw(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupRaw(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupPoliciesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupPoliciesRaw(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupPoliciesRaw(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupPoliciesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupPolicyRaw(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupPolicyRaw(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupsRaw(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupsRaw(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupsPerUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupsPerUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupsPerUserRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserGroupsPerUserRaw(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserGroupsPerUserRaw(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserGroupsPerUserRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserPoliciesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserPoliciesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserPoliciesRaw(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserPoliciesRaw(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserPoliciesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUserPolicyRaw(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUserPolicyRaw(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUserPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUsersWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUsersRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadUsersRaw(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadUsersRaw(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadUsersRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVirtualGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVirtualGatewaysWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVirtualGatewaysRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVirtualGatewaysRaw(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVirtualGatewaysRaw(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVirtualGatewaysRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmGroupsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmGroupsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmGroupsRaw(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmGroupsRaw(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmGroupsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmTemplatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmTemplatesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmTemplatesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmTemplatesRaw(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmTemplatesRaw(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmTemplatesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmTypesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmTypesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmTypesRaw(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmTypesRaw(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmTypesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsRaw(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsRaw(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsHealthWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsHealthWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsHealthRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsHealthRaw(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsHealthRaw(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsHealthRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsStateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsStateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVolumesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVolumesRaw(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVolumesRaw(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVolumesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVpnConnectionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVpnConnectionsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVpnConnectionsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ReadVpnConnectionsRaw(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ReadVpnConnectionsRaw(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVpnConnectionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RebootVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RebootVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRebootVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RebootVmsRaw(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RebootVmsRaw(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRebootVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RegisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RegisterVmsInLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRegisterVmsInLoadBalancerRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RegisterVmsInLoadBalancerRaw(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RegisterVmsInLoadBalancerRaw(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRegisterVmsInLoadBalancerRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RejectNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RejectNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRejectNetPeeringRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RejectNetPeeringRaw(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RejectNetPeeringRaw(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRejectNetPeeringRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RemoveUserFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RemoveUserFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRemoveUserFromUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) RemoveUserFromUserGroupRaw(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) RemoveUserFromUserGroupRaw(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewRemoveUserFromUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ScaleDownVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ScaleDownVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewScaleDownVmGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ScaleDownVmGroupRaw(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ScaleDownVmGroupRaw(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewScaleDownVmGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ScaleUpVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ScaleUpVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewScaleUpVmGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) ScaleUpVmGroupRaw(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) ScaleUpVmGroupRaw(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewScaleUpVmGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) SetDefaultPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) SetDefaultPolicyVersionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewSetDefaultPolicyVersionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) SetDefaultPolicyVersionRaw(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) SetDefaultPolicyVersionRaw(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewSetDefaultPolicyVersionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) StartVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) StartVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewStartVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) StartVmsRaw(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) StartVmsRaw(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewStartVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) StopVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) StopVmsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewStopVmsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) StopVmsRaw(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) StopVmsRaw(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewStopVmsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkFlexibleGpuRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkFlexibleGpuRaw(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkFlexibleGpuRaw(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkFlexibleGpuRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkInternetServiceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkInternetServiceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkInternetServiceRaw(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkInternetServiceRaw(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkInternetServiceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkLoadBalancerBackendMachinesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkLoadBalancerBackendMachinesRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkLoadBalancerBackendMachinesRaw(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkLoadBalancerBackendMachinesRaw(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkLoadBalancerBackendMachinesRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkManagedPolicyFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkManagedPolicyFromUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkManagedPolicyFromUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkManagedPolicyFromUserGroupRaw(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkManagedPolicyFromUserGroupRaw(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkManagedPolicyFromUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkNicRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkNicRaw(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkNicRaw(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkNicRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPolicyRaw(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPolicyRaw(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPrivateIpsWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPrivateIpsRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPrivateIpsRaw(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPrivateIpsRaw(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPrivateIpsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPublicIpWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPublicIpRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkPublicIpRaw(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkPublicIpRaw(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkPublicIpRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkRouteTableWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkRouteTableRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkRouteTableRaw(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkRouteTableRaw(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkRouteTableRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkVirtualGatewayWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkVirtualGatewayRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkVirtualGatewayRaw(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkVirtualGatewayRaw(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkVirtualGatewayRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkVolumeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UnlinkVolumeRaw(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UnlinkVolumeRaw(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUnlinkVolumeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateAccessKeyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateAccessKeyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateAccessKeyRaw(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateAccessKeyRaw(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateAccessKeyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateAccountRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateAccountRaw(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateAccountRaw(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateAccountRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateApiAccessPolicyWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateApiAccessPolicyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateApiAccessPolicyRaw(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateApiAccessPolicyRaw(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateApiAccessPolicyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateApiAccessRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateApiAccessRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateApiAccessRuleRaw(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateApiAccessRuleRaw(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateApiAccessRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateCaWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateCaRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateCaRaw(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateCaRaw(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateCaRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateDedicatedGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateDedicatedGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateDedicatedGroupRaw(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateDedicatedGroupRaw(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateDedicatedGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateDirectLinkInterfaceWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateDirectLinkInterfaceRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateDirectLinkInterfaceRaw(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateDirectLinkInterfaceRaw(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateDirectLinkInterfaceRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateFlexibleGpuWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateFlexibleGpuRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateFlexibleGpuRaw(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateFlexibleGpuRaw(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateFlexibleGpuRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateImageWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateImageRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateImageRaw(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateImageRaw(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateImageRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateListenerRuleWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateListenerRuleRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateListenerRuleRaw(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateListenerRuleRaw(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateListenerRuleRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateLoadBalancerWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateLoadBalancerRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateLoadBalancerRaw(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateLoadBalancerRaw(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateLoadBalancerRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNetRaw(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNetRaw(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNetAccessPointWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNetAccessPointRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNetAccessPointRaw(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNetAccessPointRaw(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNetAccessPointRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNicWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNicRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateNicRaw(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateNicRaw(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateNicRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRouteWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRouteRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRouteRaw(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRouteRaw(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRouteRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRoutePropagationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRoutePropagationWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRoutePropagationRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRoutePropagationRaw(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRoutePropagationRaw(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRoutePropagationRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRouteTableLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRouteTableLinkWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRouteTableLinkRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateRouteTableLinkRaw(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateRouteTableLinkRaw(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateRouteTableLinkRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateServerCertificateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateServerCertificateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateServerCertificateRaw(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateServerCertificateRaw(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateServerCertificateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateSnapshotWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateSnapshotRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateSnapshotRaw(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateSnapshotRaw(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateSnapshotRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateSubnetWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateSubnetRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateSubnetRaw(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateSubnetRaw(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateSubnetRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateUserWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateUserRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateUserRaw(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateUserRaw(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateUserRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateUserGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateUserGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateUserGroupRaw(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateUserGroupRaw(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateUserGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmRaw(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmRaw(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmGroupWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmGroupRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmGroupRaw(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmGroupRaw(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmGroupRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmTemplateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmTemplateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVmTemplateRaw(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVmTemplateRaw(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVmTemplateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVolumeWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVolumeRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVolumeRaw(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVolumeRaw(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVolumeRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVpnConnectionRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
 	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *ClientRaw) UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewUpdateVpnConnectionRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
 		return nil, err
 	}
-	return c.Client.Do(req)
+
+	return client.RoundTrip(req)
 }
 
 // NewAcceptNetPeeringRequest calls the generic AcceptNetPeering builder with application/json body
@@ -26228,1214 +27336,1188 @@ func NewUpdateVpnConnectionRequestWithBody(server string, contentType string, bo
 	return req, nil
 }
 
-func (c *ClientRaw) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
-	for _, r := range c.RequestEditors {
-		if err := r(ctx, req); err != nil {
-			return err
-		}
-	}
-	for _, r := range additionalEditors {
-		if err := r(ctx, req); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 // Client builds on ClientInterface to offer response payloads
 type Client struct {
-	ClientInterfaceRaw
+	clientInterfaceRaw
 }
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(opts ...ClientOption) (*Client, error) {
-	client, err := NewClientRaw(opts...)
+func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
+	client, err := newClientRaw(profile, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &Client{client}, nil
 }
 
-// WithBaseURL overrides the baseURL.
-func WithBaseURL(baseURL string) ClientOption {
-	return func(c *ClientRaw) error {
-		newBaseURL, err := url.Parse(baseURL)
-		if err != nil {
-			return err
-		}
-		c.Server = newBaseURL.String()
-		return nil
-	}
-}
-
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
 
 	// AcceptNetPeeringWithBody request with any body
-	AcceptNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AcceptNetPeeringResponse, error)
+	AcceptNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error)
 
-	AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*AcceptNetPeeringResponse, error)
+	AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error)
 
 	// AddUserToUserGroupWithBody request with any body
-	AddUserToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AddUserToUserGroupResponse, error)
+	AddUserToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error)
 
-	AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*AddUserToUserGroupResponse, error)
+	AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error)
 
 	// CheckAuthenticationWithBody request with any body
-	CheckAuthenticationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CheckAuthenticationResponse, error)
+	CheckAuthenticationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error)
 
-	CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*CheckAuthenticationResponse, error)
+	CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error)
 
 	// CreateAccessKeyWithBody request with any body
-	CreateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAccessKeyResponse, error)
+	CreateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error)
 
-	CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAccessKeyResponse, error)
+	CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error)
 
 	// CreateAccountWithBody request with any body
-	CreateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAccountResponse, error)
+	CreateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error)
 
-	CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAccountResponse, error)
+	CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error)
 
 	// CreateApiAccessRuleWithBody request with any body
-	CreateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateApiAccessRuleResponse, error)
+	CreateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error)
 
-	CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateApiAccessRuleResponse, error)
+	CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error)
 
 	// CreateCaWithBody request with any body
-	CreateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateCaResponse, error)
+	CreateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error)
 
-	CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateCaResponse, error)
+	CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error)
 
 	// CreateClientGatewayWithBody request with any body
-	CreateClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateClientGatewayResponse, error)
+	CreateClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error)
 
-	CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateClientGatewayResponse, error)
+	CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error)
 
 	// CreateDedicatedGroupWithBody request with any body
-	CreateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDedicatedGroupResponse, error)
+	CreateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error)
 
-	CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDedicatedGroupResponse, error)
+	CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error)
 
 	// CreateDhcpOptionsWithBody request with any body
-	CreateDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDhcpOptionsResponse, error)
+	CreateDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error)
 
-	CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDhcpOptionsResponse, error)
+	CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error)
 
 	// CreateDirectLinkWithBody request with any body
-	CreateDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDirectLinkResponse, error)
+	CreateDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error)
 
-	CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDirectLinkResponse, error)
+	CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error)
 
 	// CreateDirectLinkInterfaceWithBody request with any body
-	CreateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDirectLinkInterfaceResponse, error)
+	CreateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error)
 
-	CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDirectLinkInterfaceResponse, error)
+	CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error)
 
 	// CreateFlexibleGpuWithBody request with any body
-	CreateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateFlexibleGpuResponse, error)
+	CreateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error)
 
-	CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateFlexibleGpuResponse, error)
+	CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error)
 
 	// CreateImageWithBody request with any body
-	CreateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateImageResponse, error)
+	CreateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error)
 
-	CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateImageResponse, error)
+	CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error)
 
 	// CreateImageExportTaskWithBody request with any body
-	CreateImageExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateImageExportTaskResponse, error)
+	CreateImageExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error)
 
-	CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateImageExportTaskResponse, error)
+	CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error)
 
 	// CreateInternetServiceWithBody request with any body
-	CreateInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateInternetServiceResponse, error)
+	CreateInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error)
 
-	CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateInternetServiceResponse, error)
+	CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error)
 
 	// CreateKeypairWithBody request with any body
-	CreateKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateKeypairResponse, error)
+	CreateKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error)
 
-	CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateKeypairResponse, error)
+	CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error)
 
 	// CreateListenerRuleWithBody request with any body
-	CreateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateListenerRuleResponse, error)
+	CreateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error)
 
-	CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateListenerRuleResponse, error)
+	CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error)
 
 	// CreateLoadBalancerWithBody request with any body
-	CreateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerResponse, error)
+	CreateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error)
 
-	CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerResponse, error)
+	CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error)
 
 	// CreateLoadBalancerListenersWithBody request with any body
-	CreateLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerListenersResponse, error)
+	CreateLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error)
 
-	CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerListenersResponse, error)
+	CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error)
 
 	// CreateLoadBalancerPolicyWithBody request with any body
-	CreateLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerPolicyResponse, error)
+	CreateLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error)
 
-	CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerPolicyResponse, error)
+	CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error)
 
 	// CreateLoadBalancerTagsWithBody request with any body
-	CreateLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerTagsResponse, error)
+	CreateLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error)
 
-	CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerTagsResponse, error)
+	CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error)
 
 	// CreateNatServiceWithBody request with any body
-	CreateNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNatServiceResponse, error)
+	CreateNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error)
 
-	CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNatServiceResponse, error)
+	CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error)
 
 	// CreateNetWithBody request with any body
-	CreateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetResponse, error)
+	CreateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error)
 
-	CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetResponse, error)
+	CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error)
 
 	// CreateNetAccessPointWithBody request with any body
-	CreateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetAccessPointResponse, error)
+	CreateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error)
 
-	CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetAccessPointResponse, error)
+	CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error)
 
 	// CreateNetPeeringWithBody request with any body
-	CreateNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetPeeringResponse, error)
+	CreateNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error)
 
-	CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetPeeringResponse, error)
+	CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error)
 
 	// CreateNicWithBody request with any body
-	CreateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNicResponse, error)
+	CreateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error)
 
-	CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNicResponse, error)
+	CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error)
 
 	// CreatePolicyWithBody request with any body
-	CreatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePolicyResponse, error)
+	CreatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error)
 
-	CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePolicyResponse, error)
+	CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error)
 
 	// CreatePolicyVersionWithBody request with any body
-	CreatePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePolicyVersionResponse, error)
+	CreatePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error)
 
-	CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePolicyVersionResponse, error)
+	CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error)
 
 	// CreateProductTypeWithBody request with any body
-	CreateProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateProductTypeResponse, error)
+	CreateProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error)
 
-	CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateProductTypeResponse, error)
+	CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error)
 
 	// CreatePublicIpWithBody request with any body
-	CreatePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePublicIpResponse, error)
+	CreatePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error)
 
-	CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePublicIpResponse, error)
+	CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error)
 
 	// CreateRouteWithBody request with any body
-	CreateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateRouteResponse, error)
+	CreateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error)
 
-	CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateRouteResponse, error)
+	CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error)
 
 	// CreateRouteTableWithBody request with any body
-	CreateRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateRouteTableResponse, error)
+	CreateRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error)
 
-	CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateRouteTableResponse, error)
+	CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error)
 
 	// CreateSecurityGroupWithBody request with any body
-	CreateSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSecurityGroupResponse, error)
+	CreateSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error)
 
-	CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSecurityGroupResponse, error)
+	CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error)
 
 	// CreateSecurityGroupRuleWithBody request with any body
-	CreateSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSecurityGroupRuleResponse, error)
+	CreateSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error)
 
-	CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSecurityGroupRuleResponse, error)
+	CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error)
 
 	// CreateServerCertificateWithBody request with any body
-	CreateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateServerCertificateResponse, error)
+	CreateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error)
 
-	CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateServerCertificateResponse, error)
+	CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error)
 
 	// CreateSnapshotWithBody request with any body
-	CreateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSnapshotResponse, error)
+	CreateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error)
 
-	CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSnapshotResponse, error)
+	CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error)
 
 	// CreateSnapshotExportTaskWithBody request with any body
-	CreateSnapshotExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSnapshotExportTaskResponse, error)
+	CreateSnapshotExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error)
 
-	CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSnapshotExportTaskResponse, error)
+	CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error)
 
 	// CreateSubnetWithBody request with any body
-	CreateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSubnetResponse, error)
+	CreateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error)
 
-	CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSubnetResponse, error)
+	CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error)
 
 	// CreateTagsWithBody request with any body
-	CreateTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTagsResponse, error)
+	CreateTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error)
 
-	CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTagsResponse, error)
+	CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error)
 
 	// CreateUserWithBody request with any body
-	CreateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateUserResponse, error)
+	CreateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error)
 
-	CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateUserResponse, error)
+	CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error)
 
 	// CreateUserGroupWithBody request with any body
-	CreateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateUserGroupResponse, error)
+	CreateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error)
 
-	CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateUserGroupResponse, error)
+	CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error)
 
 	// CreateVirtualGatewayWithBody request with any body
-	CreateVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVirtualGatewayResponse, error)
+	CreateVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error)
 
-	CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVirtualGatewayResponse, error)
+	CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error)
 
 	// CreateVmGroupWithBody request with any body
-	CreateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmGroupResponse, error)
+	CreateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error)
 
-	CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmGroupResponse, error)
+	CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error)
 
 	// CreateVmTemplateWithBody request with any body
-	CreateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmTemplateResponse, error)
+	CreateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error)
 
-	CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmTemplateResponse, error)
+	CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error)
 
 	// CreateVmsWithBody request with any body
-	CreateVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmsResponse, error)
+	CreateVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error)
 
-	CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmsResponse, error)
+	CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error)
 
 	// CreateVolumeWithBody request with any body
-	CreateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVolumeResponse, error)
+	CreateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error)
 
-	CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVolumeResponse, error)
+	CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error)
 
 	// CreateVpnConnectionWithBody request with any body
-	CreateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVpnConnectionResponse, error)
+	CreateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error)
 
-	CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVpnConnectionResponse, error)
+	CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error)
 
 	// CreateVpnConnectionRouteWithBody request with any body
-	CreateVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVpnConnectionRouteResponse, error)
+	CreateVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error)
 
-	CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVpnConnectionRouteResponse, error)
+	CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error)
 
 	// DeleteAccessKeyWithBody request with any body
-	DeleteAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteAccessKeyResponse, error)
+	DeleteAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error)
 
-	DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteAccessKeyResponse, error)
+	DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error)
 
 	// DeleteApiAccessRuleWithBody request with any body
-	DeleteApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteApiAccessRuleResponse, error)
+	DeleteApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error)
 
-	DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteApiAccessRuleResponse, error)
+	DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error)
 
 	// DeleteCaWithBody request with any body
-	DeleteCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteCaResponse, error)
+	DeleteCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error)
 
-	DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteCaResponse, error)
+	DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error)
 
 	// DeleteClientGatewayWithBody request with any body
-	DeleteClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteClientGatewayResponse, error)
+	DeleteClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error)
 
-	DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteClientGatewayResponse, error)
+	DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error)
 
 	// DeleteDedicatedGroupWithBody request with any body
-	DeleteDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDedicatedGroupResponse, error)
+	DeleteDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error)
 
-	DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDedicatedGroupResponse, error)
+	DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error)
 
 	// DeleteDhcpOptionsWithBody request with any body
-	DeleteDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDhcpOptionsResponse, error)
+	DeleteDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error)
 
-	DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDhcpOptionsResponse, error)
+	DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error)
 
 	// DeleteDirectLinkWithBody request with any body
-	DeleteDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDirectLinkResponse, error)
+	DeleteDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error)
 
-	DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDirectLinkResponse, error)
+	DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error)
 
 	// DeleteDirectLinkInterfaceWithBody request with any body
-	DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDirectLinkInterfaceResponse, error)
+	DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error)
 
-	DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDirectLinkInterfaceResponse, error)
+	DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error)
 
 	// DeleteExportTaskWithBody request with any body
-	DeleteExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteExportTaskResponse, error)
+	DeleteExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error)
 
-	DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteExportTaskResponse, error)
+	DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error)
 
 	// DeleteFlexibleGpuWithBody request with any body
-	DeleteFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteFlexibleGpuResponse, error)
+	DeleteFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error)
 
-	DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteFlexibleGpuResponse, error)
+	DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error)
 
 	// DeleteImageWithBody request with any body
-	DeleteImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteImageResponse, error)
+	DeleteImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error)
 
-	DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteImageResponse, error)
+	DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error)
 
 	// DeleteInternetServiceWithBody request with any body
-	DeleteInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteInternetServiceResponse, error)
+	DeleteInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error)
 
-	DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteInternetServiceResponse, error)
+	DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error)
 
 	// DeleteKeypairWithBody request with any body
-	DeleteKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteKeypairResponse, error)
+	DeleteKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error)
 
-	DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteKeypairResponse, error)
+	DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error)
 
 	// DeleteListenerRuleWithBody request with any body
-	DeleteListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteListenerRuleResponse, error)
+	DeleteListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error)
 
-	DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteListenerRuleResponse, error)
+	DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error)
 
 	// DeleteLoadBalancerWithBody request with any body
-	DeleteLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerResponse, error)
+	DeleteLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error)
 
-	DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerResponse, error)
+	DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error)
 
 	// DeleteLoadBalancerListenersWithBody request with any body
-	DeleteLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerListenersResponse, error)
+	DeleteLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error)
 
-	DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerListenersResponse, error)
+	DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error)
 
 	// DeleteLoadBalancerPolicyWithBody request with any body
-	DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerPolicyResponse, error)
+	DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error)
 
-	DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerPolicyResponse, error)
+	DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error)
 
 	// DeleteLoadBalancerTagsWithBody request with any body
-	DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerTagsResponse, error)
+	DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error)
 
-	DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerTagsResponse, error)
+	DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error)
 
 	// DeleteNatServiceWithBody request with any body
-	DeleteNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNatServiceResponse, error)
+	DeleteNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error)
 
-	DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNatServiceResponse, error)
+	DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error)
 
 	// DeleteNetWithBody request with any body
-	DeleteNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetResponse, error)
+	DeleteNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error)
 
-	DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetResponse, error)
+	DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error)
 
 	// DeleteNetAccessPointWithBody request with any body
-	DeleteNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetAccessPointResponse, error)
+	DeleteNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error)
 
-	DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetAccessPointResponse, error)
+	DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error)
 
 	// DeleteNetPeeringWithBody request with any body
-	DeleteNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetPeeringResponse, error)
+	DeleteNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error)
 
-	DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetPeeringResponse, error)
+	DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error)
 
 	// DeleteNicWithBody request with any body
-	DeleteNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNicResponse, error)
+	DeleteNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error)
 
-	DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNicResponse, error)
+	DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error)
 
 	// DeletePolicyWithBody request with any body
-	DeletePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePolicyResponse, error)
+	DeletePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error)
 
-	DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePolicyResponse, error)
+	DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error)
 
 	// DeletePolicyVersionWithBody request with any body
-	DeletePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePolicyVersionResponse, error)
+	DeletePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error)
 
-	DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePolicyVersionResponse, error)
+	DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error)
 
 	// DeleteProductTypeWithBody request with any body
-	DeleteProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteProductTypeResponse, error)
+	DeleteProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error)
 
-	DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteProductTypeResponse, error)
+	DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error)
 
 	// DeletePublicIpWithBody request with any body
-	DeletePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePublicIpResponse, error)
+	DeletePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error)
 
-	DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePublicIpResponse, error)
+	DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error)
 
 	// DeleteRouteWithBody request with any body
-	DeleteRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteRouteResponse, error)
+	DeleteRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error)
 
-	DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteRouteResponse, error)
+	DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error)
 
 	// DeleteRouteTableWithBody request with any body
-	DeleteRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteRouteTableResponse, error)
+	DeleteRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error)
 
-	DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteRouteTableResponse, error)
+	DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error)
 
 	// DeleteSecurityGroupWithBody request with any body
-	DeleteSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupResponse, error)
+	DeleteSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error)
 
-	DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupResponse, error)
+	DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error)
 
 	// DeleteSecurityGroupRuleWithBody request with any body
-	DeleteSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupRuleResponse, error)
+	DeleteSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error)
 
-	DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupRuleResponse, error)
+	DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error)
 
 	// DeleteServerCertificateWithBody request with any body
-	DeleteServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteServerCertificateResponse, error)
+	DeleteServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error)
 
-	DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteServerCertificateResponse, error)
+	DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error)
 
 	// DeleteSnapshotWithBody request with any body
-	DeleteSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSnapshotResponse, error)
+	DeleteSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error)
 
-	DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSnapshotResponse, error)
+	DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error)
 
 	// DeleteSubnetWithBody request with any body
-	DeleteSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSubnetResponse, error)
+	DeleteSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error)
 
-	DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSubnetResponse, error)
+	DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error)
 
 	// DeleteTagsWithBody request with any body
-	DeleteTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteTagsResponse, error)
+	DeleteTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error)
 
-	DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteTagsResponse, error)
+	DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error)
 
 	// DeleteUserWithBody request with any body
-	DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error)
+	DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error)
 
-	DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error)
+	DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error)
 
 	// DeleteUserGroupWithBody request with any body
-	DeleteUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserGroupResponse, error)
+	DeleteUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error)
 
-	DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserGroupResponse, error)
+	DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error)
 
 	// DeleteUserGroupPolicyWithBody request with any body
-	DeleteUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserGroupPolicyResponse, error)
+	DeleteUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error)
 
-	DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserGroupPolicyResponse, error)
+	DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error)
 
 	// DeleteUserPolicyWithBody request with any body
-	DeleteUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserPolicyResponse, error)
+	DeleteUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error)
 
-	DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserPolicyResponse, error)
+	DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error)
 
 	// DeleteVirtualGatewayWithBody request with any body
-	DeleteVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVirtualGatewayResponse, error)
+	DeleteVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error)
 
-	DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVirtualGatewayResponse, error)
+	DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error)
 
 	// DeleteVmGroupWithBody request with any body
-	DeleteVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmGroupResponse, error)
+	DeleteVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error)
 
-	DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmGroupResponse, error)
+	DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error)
 
 	// DeleteVmTemplateWithBody request with any body
-	DeleteVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmTemplateResponse, error)
+	DeleteVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error)
 
-	DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmTemplateResponse, error)
+	DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error)
 
 	// DeleteVmsWithBody request with any body
-	DeleteVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmsResponse, error)
+	DeleteVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error)
 
-	DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmsResponse, error)
+	DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error)
 
 	// DeleteVolumeWithBody request with any body
-	DeleteVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVolumeResponse, error)
+	DeleteVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error)
 
-	DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVolumeResponse, error)
+	DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error)
 
 	// DeleteVpnConnectionWithBody request with any body
-	DeleteVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionResponse, error)
+	DeleteVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error)
 
-	DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionResponse, error)
+	DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error)
 
 	// DeleteVpnConnectionRouteWithBody request with any body
-	DeleteVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionRouteResponse, error)
+	DeleteVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error)
 
-	DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionRouteResponse, error)
+	DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error)
 
 	// DeregisterVmsInLoadBalancerWithBody request with any body
-	DeregisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeregisterVmsInLoadBalancerResponse, error)
+	DeregisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error)
 
-	DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*DeregisterVmsInLoadBalancerResponse, error)
+	DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error)
 
 	// DisableOutscaleLoginWithBody request with any body
-	DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+	DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error)
 
-	DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+	DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error)
 
 	// DisableOutscaleLoginForUsersWithBody request with any body
-	DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+	DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error)
 
-	DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error)
+	DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error)
 
 	// DisableOutscaleLoginPerUsersWithBody request with any body
-	DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error)
+	DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error)
 
-	DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error)
+	DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error)
 
 	// EnableOutscaleLoginWithBody request with any body
-	EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error)
+	EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error)
 
-	EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error)
+	EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error)
 
 	// EnableOutscaleLoginForUsersWithBody request with any body
-	EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error)
+	EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error)
 
-	EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error)
+	EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error)
 
 	// EnableOutscaleLoginPerUsersWithBody request with any body
-	EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error)
+	EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error)
 
-	EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error)
+	EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error)
 
 	// LinkFlexibleGpuWithBody request with any body
-	LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error)
+	LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error)
 
-	LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error)
+	LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error)
 
 	// LinkInternetServiceWithBody request with any body
-	LinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkInternetServiceResponse, error)
+	LinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error)
 
-	LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkInternetServiceResponse, error)
+	LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error)
 
 	// LinkLoadBalancerBackendMachinesWithBody request with any body
-	LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkLoadBalancerBackendMachinesResponse, error)
+	LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error)
 
-	LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkLoadBalancerBackendMachinesResponse, error)
+	LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error)
 
 	// LinkManagedPolicyToUserGroupWithBody request with any body
-	LinkManagedPolicyToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkManagedPolicyToUserGroupResponse, error)
+	LinkManagedPolicyToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error)
 
-	LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkManagedPolicyToUserGroupResponse, error)
+	LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error)
 
 	// LinkNicWithBody request with any body
-	LinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkNicResponse, error)
+	LinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error)
 
-	LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkNicResponse, error)
+	LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error)
 
 	// LinkPolicyWithBody request with any body
-	LinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPolicyResponse, error)
+	LinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error)
 
-	LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPolicyResponse, error)
+	LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error)
 
 	// LinkPrivateIpsWithBody request with any body
-	LinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPrivateIpsResponse, error)
+	LinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error)
 
-	LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPrivateIpsResponse, error)
+	LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error)
 
 	// LinkPublicIpWithBody request with any body
-	LinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPublicIpResponse, error)
+	LinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error)
 
-	LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPublicIpResponse, error)
+	LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error)
 
 	// LinkRouteTableWithBody request with any body
-	LinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkRouteTableResponse, error)
+	LinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error)
 
-	LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkRouteTableResponse, error)
+	LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error)
 
 	// LinkVirtualGatewayWithBody request with any body
-	LinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkVirtualGatewayResponse, error)
+	LinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error)
 
-	LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkVirtualGatewayResponse, error)
+	LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error)
 
 	// LinkVolumeWithBody request with any body
-	LinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkVolumeResponse, error)
+	LinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error)
 
-	LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkVolumeResponse, error)
+	LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error)
 
 	// PutUserGroupPolicyWithBody request with any body
-	PutUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutUserGroupPolicyResponse, error)
+	PutUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error)
 
-	PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*PutUserGroupPolicyResponse, error)
+	PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error)
 
 	// PutUserPolicyWithBody request with any body
-	PutUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutUserPolicyResponse, error)
+	PutUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error)
 
-	PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*PutUserPolicyResponse, error)
+	PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error)
 
 	// ReadAccessKeysWithBody request with any body
-	ReadAccessKeysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAccessKeysResponse, error)
+	ReadAccessKeysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error)
 
-	ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAccessKeysResponse, error)
+	ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error)
 
 	// ReadAccountsWithBody request with any body
-	ReadAccountsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAccountsResponse, error)
+	ReadAccountsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error)
 
-	ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAccountsResponse, error)
+	ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error)
 
 	// ReadAdminPasswordWithBody request with any body
-	ReadAdminPasswordWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAdminPasswordResponse, error)
+	ReadAdminPasswordWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error)
 
-	ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAdminPasswordResponse, error)
+	ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error)
 
 	// ReadApiAccessPolicyWithBody request with any body
-	ReadApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiAccessPolicyResponse, error)
+	ReadApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error)
 
-	ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiAccessPolicyResponse, error)
+	ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error)
 
 	// ReadApiAccessRulesWithBody request with any body
-	ReadApiAccessRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiAccessRulesResponse, error)
+	ReadApiAccessRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error)
 
-	ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiAccessRulesResponse, error)
+	ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error)
 
 	// ReadApiLogsWithBody request with any body
-	ReadApiLogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiLogsResponse, error)
+	ReadApiLogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error)
 
-	ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiLogsResponse, error)
+	ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error)
 
 	// ReadCasWithBody request with any body
-	ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCasResponse, error)
+	ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error)
 
-	ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCasResponse, error)
+	ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error)
 
 	// ReadCatalogWithBody request with any body
-	ReadCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCatalogResponse, error)
+	ReadCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error)
 
-	ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCatalogResponse, error)
+	ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error)
 
 	// ReadCatalogsWithBody request with any body
-	ReadCatalogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCatalogsResponse, error)
+	ReadCatalogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error)
 
-	ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCatalogsResponse, error)
+	ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error)
 
 	// ReadClientGatewaysWithBody request with any body
-	ReadClientGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadClientGatewaysResponse, error)
+	ReadClientGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error)
 
-	ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadClientGatewaysResponse, error)
+	ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error)
 
 	// ReadConsoleOutputWithBody request with any body
-	ReadConsoleOutputWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadConsoleOutputResponse, error)
+	ReadConsoleOutputWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error)
 
-	ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadConsoleOutputResponse, error)
+	ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error)
 
 	// ReadConsumptionAccountWithBody request with any body
-	ReadConsumptionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadConsumptionAccountResponse, error)
+	ReadConsumptionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error)
 
-	ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadConsumptionAccountResponse, error)
+	ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error)
 
 	// ReadDedicatedGroupsWithBody request with any body
-	ReadDedicatedGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDedicatedGroupsResponse, error)
+	ReadDedicatedGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error)
 
-	ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDedicatedGroupsResponse, error)
+	ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error)
 
 	// ReadDhcpOptionsWithBody request with any body
-	ReadDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDhcpOptionsResponse, error)
+	ReadDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error)
 
-	ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDhcpOptionsResponse, error)
+	ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error)
 
 	// ReadDirectLinkInterfacesWithBody request with any body
-	ReadDirectLinkInterfacesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDirectLinkInterfacesResponse, error)
+	ReadDirectLinkInterfacesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error)
 
-	ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDirectLinkInterfacesResponse, error)
+	ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error)
 
 	// ReadDirectLinksWithBody request with any body
-	ReadDirectLinksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDirectLinksResponse, error)
+	ReadDirectLinksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error)
 
-	ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDirectLinksResponse, error)
+	ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error)
 
 	// ReadEntitiesLinkedToPolicyWithBody request with any body
-	ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadEntitiesLinkedToPolicyResponse, error)
+	ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error)
 
-	ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadEntitiesLinkedToPolicyResponse, error)
+	ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error)
 
 	// ReadFlexibleGpuCatalogWithBody request with any body
-	ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadFlexibleGpuCatalogResponse, error)
+	ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error)
 
-	ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadFlexibleGpuCatalogResponse, error)
+	ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error)
 
 	// ReadFlexibleGpusWithBody request with any body
-	ReadFlexibleGpusWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadFlexibleGpusResponse, error)
+	ReadFlexibleGpusWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error)
 
-	ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadFlexibleGpusResponse, error)
+	ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error)
 
 	// ReadImageExportTasksWithBody request with any body
-	ReadImageExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadImageExportTasksResponse, error)
+	ReadImageExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error)
 
-	ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadImageExportTasksResponse, error)
+	ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error)
 
 	// ReadImagesWithBody request with any body
-	ReadImagesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadImagesResponse, error)
+	ReadImagesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error)
 
-	ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadImagesResponse, error)
+	ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error)
 
 	// ReadInternetServicesWithBody request with any body
-	ReadInternetServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadInternetServicesResponse, error)
+	ReadInternetServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error)
 
-	ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadInternetServicesResponse, error)
+	ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error)
 
 	// ReadKeypairsWithBody request with any body
-	ReadKeypairsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadKeypairsResponse, error)
+	ReadKeypairsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error)
 
-	ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadKeypairsResponse, error)
+	ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error)
 
 	// ReadLinkedPoliciesWithBody request with any body
-	ReadLinkedPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLinkedPoliciesResponse, error)
+	ReadLinkedPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error)
 
-	ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLinkedPoliciesResponse, error)
+	ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error)
 
 	// ReadListenerRulesWithBody request with any body
-	ReadListenerRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadListenerRulesResponse, error)
+	ReadListenerRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error)
 
-	ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadListenerRulesResponse, error)
+	ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error)
 
 	// ReadLoadBalancerTagsWithBody request with any body
-	ReadLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLoadBalancerTagsResponse, error)
+	ReadLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error)
 
-	ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLoadBalancerTagsResponse, error)
+	ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error)
 
 	// ReadLoadBalancersWithBody request with any body
-	ReadLoadBalancersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLoadBalancersResponse, error)
+	ReadLoadBalancersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error)
 
-	ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLoadBalancersResponse, error)
+	ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error)
 
 	// ReadLocationsWithBody request with any body
-	ReadLocationsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLocationsResponse, error)
+	ReadLocationsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error)
 
-	ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLocationsResponse, error)
+	ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error)
 
 	// ReadManagedPoliciesLinkedToUserGroupWithBody request with any body
-	ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadManagedPoliciesLinkedToUserGroupResponse, error)
+	ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error)
 
-	ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadManagedPoliciesLinkedToUserGroupResponse, error)
+	ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error)
 
 	// ReadNatServicesWithBody request with any body
-	ReadNatServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNatServicesResponse, error)
+	ReadNatServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error)
 
-	ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNatServicesResponse, error)
+	ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error)
 
 	// ReadNetAccessPointServicesWithBody request with any body
-	ReadNetAccessPointServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetAccessPointServicesResponse, error)
+	ReadNetAccessPointServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error)
 
-	ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetAccessPointServicesResponse, error)
+	ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error)
 
 	// ReadNetAccessPointsWithBody request with any body
-	ReadNetAccessPointsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetAccessPointsResponse, error)
+	ReadNetAccessPointsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error)
 
-	ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetAccessPointsResponse, error)
+	ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error)
 
 	// ReadNetPeeringsWithBody request with any body
-	ReadNetPeeringsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetPeeringsResponse, error)
+	ReadNetPeeringsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error)
 
-	ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetPeeringsResponse, error)
+	ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error)
 
 	// ReadNetsWithBody request with any body
-	ReadNetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetsResponse, error)
+	ReadNetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error)
 
-	ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetsResponse, error)
+	ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error)
 
 	// ReadNicsWithBody request with any body
-	ReadNicsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNicsResponse, error)
+	ReadNicsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error)
 
-	ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNicsResponse, error)
+	ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error)
 
 	// ReadPoliciesWithBody request with any body
-	ReadPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPoliciesResponse, error)
+	ReadPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error)
 
-	ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPoliciesResponse, error)
+	ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error)
 
 	// ReadPolicyWithBody request with any body
-	ReadPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyResponse, error)
+	ReadPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error)
 
-	ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyResponse, error)
+	ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error)
 
 	// ReadPolicyVersionWithBody request with any body
-	ReadPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyVersionResponse, error)
+	ReadPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error)
 
-	ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyVersionResponse, error)
+	ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error)
 
 	// ReadPolicyVersionsWithBody request with any body
-	ReadPolicyVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyVersionsResponse, error)
+	ReadPolicyVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error)
 
-	ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyVersionsResponse, error)
+	ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error)
 
 	// ReadProductTypesWithBody request with any body
-	ReadProductTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadProductTypesResponse, error)
+	ReadProductTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error)
 
-	ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadProductTypesResponse, error)
+	ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error)
 
 	// ReadPublicCatalogWithBody request with any body
-	ReadPublicCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicCatalogResponse, error)
+	ReadPublicCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error)
 
-	ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicCatalogResponse, error)
+	ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error)
 
 	// ReadPublicIpRangesWithBody request with any body
-	ReadPublicIpRangesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicIpRangesResponse, error)
+	ReadPublicIpRangesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error)
 
-	ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicIpRangesResponse, error)
+	ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error)
 
 	// ReadPublicIpsWithBody request with any body
-	ReadPublicIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicIpsResponse, error)
+	ReadPublicIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error)
 
-	ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicIpsResponse, error)
+	ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error)
 
 	// ReadQuotasWithBody request with any body
-	ReadQuotasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadQuotasResponse, error)
+	ReadQuotasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error)
 
-	ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadQuotasResponse, error)
+	ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error)
 
 	// ReadRegionsWithBody request with any body
-	ReadRegionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadRegionsResponse, error)
+	ReadRegionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error)
 
-	ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadRegionsResponse, error)
+	ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error)
 
 	// ReadRouteTablesWithBody request with any body
-	ReadRouteTablesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadRouteTablesResponse, error)
+	ReadRouteTablesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error)
 
-	ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadRouteTablesResponse, error)
+	ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error)
 
 	// ReadSecurityGroupsWithBody request with any body
-	ReadSecurityGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSecurityGroupsResponse, error)
+	ReadSecurityGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error)
 
-	ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSecurityGroupsResponse, error)
+	ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error)
 
 	// ReadServerCertificatesWithBody request with any body
-	ReadServerCertificatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadServerCertificatesResponse, error)
+	ReadServerCertificatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error)
 
-	ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadServerCertificatesResponse, error)
+	ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error)
 
 	// ReadSnapshotExportTasksWithBody request with any body
-	ReadSnapshotExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSnapshotExportTasksResponse, error)
+	ReadSnapshotExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error)
 
-	ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSnapshotExportTasksResponse, error)
+	ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error)
 
 	// ReadSnapshotsWithBody request with any body
-	ReadSnapshotsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSnapshotsResponse, error)
+	ReadSnapshotsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error)
 
-	ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSnapshotsResponse, error)
+	ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error)
 
 	// ReadSubnetsWithBody request with any body
-	ReadSubnetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSubnetsResponse, error)
+	ReadSubnetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error)
 
-	ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSubnetsResponse, error)
+	ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error)
 
 	// ReadSubregionsWithBody request with any body
-	ReadSubregionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSubregionsResponse, error)
+	ReadSubregionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error)
 
-	ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSubregionsResponse, error)
+	ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error)
 
 	// ReadTagsWithBody request with any body
-	ReadTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadTagsResponse, error)
+	ReadTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error)
 
-	ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadTagsResponse, error)
+	ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error)
 
 	// ReadUnitPriceWithBody request with any body
-	ReadUnitPriceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUnitPriceResponse, error)
+	ReadUnitPriceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error)
 
-	ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUnitPriceResponse, error)
+	ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error)
 
 	// ReadUserGroupWithBody request with any body
-	ReadUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupResponse, error)
+	ReadUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error)
 
-	ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupResponse, error)
+	ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error)
 
 	// ReadUserGroupPoliciesWithBody request with any body
-	ReadUserGroupPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupPoliciesResponse, error)
+	ReadUserGroupPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error)
 
-	ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupPoliciesResponse, error)
+	ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error)
 
 	// ReadUserGroupPolicyWithBody request with any body
-	ReadUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupPolicyResponse, error)
+	ReadUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error)
 
-	ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupPolicyResponse, error)
+	ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error)
 
 	// ReadUserGroupsWithBody request with any body
-	ReadUserGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupsResponse, error)
+	ReadUserGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error)
 
-	ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupsResponse, error)
+	ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error)
 
 	// ReadUserGroupsPerUserWithBody request with any body
-	ReadUserGroupsPerUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupsPerUserResponse, error)
+	ReadUserGroupsPerUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error)
 
-	ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupsPerUserResponse, error)
+	ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error)
 
 	// ReadUserPoliciesWithBody request with any body
-	ReadUserPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserPoliciesResponse, error)
+	ReadUserPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error)
 
-	ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserPoliciesResponse, error)
+	ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error)
 
 	// ReadUserPolicyWithBody request with any body
-	ReadUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserPolicyResponse, error)
+	ReadUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error)
 
-	ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserPolicyResponse, error)
+	ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error)
 
 	// ReadUsersWithBody request with any body
-	ReadUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUsersResponse, error)
+	ReadUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error)
 
-	ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUsersResponse, error)
+	ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error)
 
 	// ReadVirtualGatewaysWithBody request with any body
-	ReadVirtualGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVirtualGatewaysResponse, error)
+	ReadVirtualGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error)
 
-	ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVirtualGatewaysResponse, error)
+	ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error)
 
 	// ReadVmGroupsWithBody request with any body
-	ReadVmGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmGroupsResponse, error)
+	ReadVmGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error)
 
-	ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmGroupsResponse, error)
+	ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error)
 
 	// ReadVmTemplatesWithBody request with any body
-	ReadVmTemplatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmTemplatesResponse, error)
+	ReadVmTemplatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error)
 
-	ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmTemplatesResponse, error)
+	ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error)
 
 	// ReadVmTypesWithBody request with any body
-	ReadVmTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmTypesResponse, error)
+	ReadVmTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error)
 
-	ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmTypesResponse, error)
+	ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error)
 
 	// ReadVmsWithBody request with any body
-	ReadVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsResponse, error)
+	ReadVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error)
 
-	ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsResponse, error)
+	ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error)
 
 	// ReadVmsHealthWithBody request with any body
-	ReadVmsHealthWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsHealthResponse, error)
+	ReadVmsHealthWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error)
 
-	ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsHealthResponse, error)
+	ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error)
 
 	// ReadVmsStateWithBody request with any body
-	ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsStateResponse, error)
+	ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
 
-	ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsStateResponse, error)
+	ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
 
 	// ReadVolumesWithBody request with any body
-	ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVolumesResponse, error)
+	ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error)
 
-	ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVolumesResponse, error)
+	ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error)
 
 	// ReadVpnConnectionsWithBody request with any body
-	ReadVpnConnectionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVpnConnectionsResponse, error)
+	ReadVpnConnectionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error)
 
-	ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVpnConnectionsResponse, error)
+	ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error)
 
 	// RebootVmsWithBody request with any body
-	RebootVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RebootVmsResponse, error)
+	RebootVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error)
 
-	RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*RebootVmsResponse, error)
+	RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error)
 
 	// RegisterVmsInLoadBalancerWithBody request with any body
-	RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterVmsInLoadBalancerResponse, error)
+	RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error)
 
-	RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterVmsInLoadBalancerResponse, error)
+	RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error)
 
 	// RejectNetPeeringWithBody request with any body
-	RejectNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RejectNetPeeringResponse, error)
+	RejectNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error)
 
-	RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*RejectNetPeeringResponse, error)
+	RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error)
 
 	// RemoveUserFromUserGroupWithBody request with any body
-	RemoveUserFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RemoveUserFromUserGroupResponse, error)
+	RemoveUserFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error)
 
-	RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*RemoveUserFromUserGroupResponse, error)
+	RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error)
 
 	// ScaleDownVmGroupWithBody request with any body
-	ScaleDownVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScaleDownVmGroupResponse, error)
+	ScaleDownVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error)
 
-	ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ScaleDownVmGroupResponse, error)
+	ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error)
 
 	// ScaleUpVmGroupWithBody request with any body
-	ScaleUpVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScaleUpVmGroupResponse, error)
+	ScaleUpVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error)
 
-	ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ScaleUpVmGroupResponse, error)
+	ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error)
 
 	// SetDefaultPolicyVersionWithBody request with any body
-	SetDefaultPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SetDefaultPolicyVersionResponse, error)
+	SetDefaultPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error)
 
-	SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*SetDefaultPolicyVersionResponse, error)
+	SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error)
 
 	// StartVmsWithBody request with any body
-	StartVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartVmsResponse, error)
+	StartVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error)
 
-	StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*StartVmsResponse, error)
+	StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error)
 
 	// StopVmsWithBody request with any body
-	StopVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StopVmsResponse, error)
+	StopVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error)
 
-	StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*StopVmsResponse, error)
+	StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error)
 
 	// UnlinkFlexibleGpuWithBody request with any body
-	UnlinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkFlexibleGpuResponse, error)
+	UnlinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error)
 
-	UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkFlexibleGpuResponse, error)
+	UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error)
 
 	// UnlinkInternetServiceWithBody request with any body
-	UnlinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkInternetServiceResponse, error)
+	UnlinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error)
 
-	UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkInternetServiceResponse, error)
+	UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error)
 
 	// UnlinkLoadBalancerBackendMachinesWithBody request with any body
-	UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkLoadBalancerBackendMachinesResponse, error)
+	UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error)
 
-	UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkLoadBalancerBackendMachinesResponse, error)
+	UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error)
 
 	// UnlinkManagedPolicyFromUserGroupWithBody request with any body
-	UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkManagedPolicyFromUserGroupResponse, error)
+	UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error)
 
-	UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkManagedPolicyFromUserGroupResponse, error)
+	UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error)
 
 	// UnlinkNicWithBody request with any body
-	UnlinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkNicResponse, error)
+	UnlinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error)
 
-	UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkNicResponse, error)
+	UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error)
 
 	// UnlinkPolicyWithBody request with any body
-	UnlinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPolicyResponse, error)
+	UnlinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error)
 
-	UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPolicyResponse, error)
+	UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error)
 
 	// UnlinkPrivateIpsWithBody request with any body
-	UnlinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPrivateIpsResponse, error)
+	UnlinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error)
 
-	UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPrivateIpsResponse, error)
+	UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error)
 
 	// UnlinkPublicIpWithBody request with any body
-	UnlinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPublicIpResponse, error)
+	UnlinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error)
 
-	UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPublicIpResponse, error)
+	UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error)
 
 	// UnlinkRouteTableWithBody request with any body
-	UnlinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkRouteTableResponse, error)
+	UnlinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error)
 
-	UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkRouteTableResponse, error)
+	UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error)
 
 	// UnlinkVirtualGatewayWithBody request with any body
-	UnlinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkVirtualGatewayResponse, error)
+	UnlinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error)
 
-	UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkVirtualGatewayResponse, error)
+	UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error)
 
 	// UnlinkVolumeWithBody request with any body
-	UnlinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkVolumeResponse, error)
+	UnlinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error)
 
-	UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkVolumeResponse, error)
+	UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error)
 
 	// UpdateAccessKeyWithBody request with any body
-	UpdateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAccessKeyResponse, error)
+	UpdateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error)
 
-	UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAccessKeyResponse, error)
+	UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error)
 
 	// UpdateAccountWithBody request with any body
-	UpdateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAccountResponse, error)
+	UpdateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error)
 
-	UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAccountResponse, error)
+	UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error)
 
 	// UpdateApiAccessPolicyWithBody request with any body
-	UpdateApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateApiAccessPolicyResponse, error)
+	UpdateApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error)
 
-	UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateApiAccessPolicyResponse, error)
+	UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error)
 
 	// UpdateApiAccessRuleWithBody request with any body
-	UpdateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateApiAccessRuleResponse, error)
+	UpdateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error)
 
-	UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateApiAccessRuleResponse, error)
+	UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error)
 
 	// UpdateCaWithBody request with any body
-	UpdateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCaResponse, error)
+	UpdateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error)
 
-	UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCaResponse, error)
+	UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error)
 
 	// UpdateDedicatedGroupWithBody request with any body
-	UpdateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateDedicatedGroupResponse, error)
+	UpdateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error)
 
-	UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateDedicatedGroupResponse, error)
+	UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error)
 
 	// UpdateDirectLinkInterfaceWithBody request with any body
-	UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateDirectLinkInterfaceResponse, error)
+	UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error)
 
-	UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateDirectLinkInterfaceResponse, error)
+	UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error)
 
 	// UpdateFlexibleGpuWithBody request with any body
-	UpdateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFlexibleGpuResponse, error)
+	UpdateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error)
 
-	UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFlexibleGpuResponse, error)
+	UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error)
 
 	// UpdateImageWithBody request with any body
-	UpdateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateImageResponse, error)
+	UpdateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error)
 
-	UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateImageResponse, error)
+	UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error)
 
 	// UpdateListenerRuleWithBody request with any body
-	UpdateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateListenerRuleResponse, error)
+	UpdateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error)
 
-	UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateListenerRuleResponse, error)
+	UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error)
 
 	// UpdateLoadBalancerWithBody request with any body
-	UpdateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateLoadBalancerResponse, error)
+	UpdateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error)
 
-	UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateLoadBalancerResponse, error)
+	UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error)
 
 	// UpdateNetWithBody request with any body
-	UpdateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetResponse, error)
+	UpdateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error)
 
-	UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetResponse, error)
+	UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error)
 
 	// UpdateNetAccessPointWithBody request with any body
-	UpdateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetAccessPointResponse, error)
+	UpdateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error)
 
-	UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetAccessPointResponse, error)
+	UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error)
 
 	// UpdateNicWithBody request with any body
-	UpdateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNicResponse, error)
+	UpdateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error)
 
-	UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNicResponse, error)
+	UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error)
 
 	// UpdateRouteWithBody request with any body
-	UpdateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRouteResponse, error)
+	UpdateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error)
 
-	UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRouteResponse, error)
+	UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error)
 
 	// UpdateRoutePropagationWithBody request with any body
-	UpdateRoutePropagationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRoutePropagationResponse, error)
+	UpdateRoutePropagationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error)
 
-	UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRoutePropagationResponse, error)
+	UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error)
 
 	// UpdateRouteTableLinkWithBody request with any body
-	UpdateRouteTableLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRouteTableLinkResponse, error)
+	UpdateRouteTableLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error)
 
-	UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRouteTableLinkResponse, error)
+	UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error)
 
 	// UpdateServerCertificateWithBody request with any body
-	UpdateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateServerCertificateResponse, error)
+	UpdateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error)
 
-	UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateServerCertificateResponse, error)
+	UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error)
 
 	// UpdateSnapshotWithBody request with any body
-	UpdateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSnapshotResponse, error)
+	UpdateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error)
 
-	UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSnapshotResponse, error)
+	UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error)
 
 	// UpdateSubnetWithBody request with any body
-	UpdateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSubnetResponse, error)
+	UpdateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error)
 
-	UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSubnetResponse, error)
+	UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error)
 
 	// UpdateUserWithBody request with any body
-	UpdateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateUserResponse, error)
+	UpdateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error)
 
-	UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateUserResponse, error)
+	UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error)
 
 	// UpdateUserGroupWithBody request with any body
-	UpdateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateUserGroupResponse, error)
+	UpdateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error)
 
-	UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateUserGroupResponse, error)
+	UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error)
 
 	// UpdateVmWithBody request with any body
-	UpdateVmWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmResponse, error)
+	UpdateVmWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error)
 
-	UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmResponse, error)
+	UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error)
 
 	// UpdateVmGroupWithBody request with any body
-	UpdateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmGroupResponse, error)
+	UpdateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error)
 
-	UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmGroupResponse, error)
+	UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error)
 
 	// UpdateVmTemplateWithBody request with any body
-	UpdateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmTemplateResponse, error)
+	UpdateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error)
 
-	UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmTemplateResponse, error)
+	UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error)
 
 	// UpdateVolumeWithBody request with any body
-	UpdateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVolumeResponse, error)
+	UpdateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error)
 
-	UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVolumeResponse, error)
+	UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error)
 
 	// UpdateVpnConnectionWithBody request with any body
-	UpdateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVpnConnectionResponse, error)
+	UpdateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error)
 
-	UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVpnConnectionResponse, error)
+	UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error)
 }
 
 type AcceptNetPeeringResp struct {
@@ -37004,7 +38086,7 @@ func (r UpdateVpnConnectionResp) Expect() (*UpdateVpnConnectionResponse, error) 
 }
 
 // AcceptNetPeeringWithBody request with arbitrary body returning *AcceptNetPeeringResponse
-func (c *Client) AcceptNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AcceptNetPeeringResponse, error) {
+func (c *Client) AcceptNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error) {
 	rsp, err := c.AcceptNetPeeringWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37017,7 +38099,7 @@ func (c *Client) AcceptNetPeeringWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*AcceptNetPeeringResponse, error) {
+func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error) {
 	rsp, err := c.AcceptNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37031,7 +38113,7 @@ func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSON
 }
 
 // AddUserToUserGroupWithBody request with arbitrary body returning *AddUserToUserGroupResponse
-func (c *Client) AddUserToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AddUserToUserGroupResponse, error) {
+func (c *Client) AddUserToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error) {
 	rsp, err := c.AddUserToUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37044,7 +38126,7 @@ func (c *Client) AddUserToUserGroupWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*AddUserToUserGroupResponse, error) {
+func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error) {
 	rsp, err := c.AddUserToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37058,7 +38140,7 @@ func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroup
 }
 
 // CheckAuthenticationWithBody request with arbitrary body returning *CheckAuthenticationResponse
-func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CheckAuthenticationResponse, error) {
+func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error) {
 	rsp, err := c.CheckAuthenticationWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37071,7 +38153,7 @@ func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*CheckAuthenticationResponse, error) {
+func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error) {
 	rsp, err := c.CheckAuthenticationRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37085,7 +38167,7 @@ func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticati
 }
 
 // CreateAccessKeyWithBody request with arbitrary body returning *CreateAccessKeyResponse
-func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAccessKeyResponse, error) {
+func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error) {
 	rsp, err := c.CreateAccessKeyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37098,7 +38180,7 @@ func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAccessKeyResponse, error) {
+func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error) {
 	rsp, err := c.CreateAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37112,7 +38194,7 @@ func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRe
 }
 
 // CreateAccountWithBody request with arbitrary body returning *CreateAccountResponse
-func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAccountResponse, error) {
+func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error) {
 	rsp, err := c.CreateAccountWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37125,7 +38207,7 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAccountResponse, error) {
+func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error) {
 	rsp, err := c.CreateAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37139,7 +38221,7 @@ func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONReques
 }
 
 // CreateApiAccessRuleWithBody request with arbitrary body returning *CreateApiAccessRuleResponse
-func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateApiAccessRuleResponse, error) {
+func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error) {
 	rsp, err := c.CreateApiAccessRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37152,7 +38234,7 @@ func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateApiAccessRuleResponse, error) {
+func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error) {
 	rsp, err := c.CreateApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37166,7 +38248,7 @@ func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRu
 }
 
 // CreateCaWithBody request with arbitrary body returning *CreateCaResponse
-func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateCaResponse, error) {
+func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error) {
 	rsp, err := c.CreateCaWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37179,7 +38261,7 @@ func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateCaResponse, error) {
+func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error) {
 	rsp, err := c.CreateCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37193,7 +38275,7 @@ func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, req
 }
 
 // CreateClientGatewayWithBody request with arbitrary body returning *CreateClientGatewayResponse
-func (c *Client) CreateClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateClientGatewayResponse, error) {
+func (c *Client) CreateClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error) {
 	rsp, err := c.CreateClientGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37206,7 +38288,7 @@ func (c *Client) CreateClientGatewayWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateClientGatewayResponse, error) {
+func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error) {
 	rsp, err := c.CreateClientGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37220,7 +38302,7 @@ func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatew
 }
 
 // CreateDedicatedGroupWithBody request with arbitrary body returning *CreateDedicatedGroupResponse
-func (c *Client) CreateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDedicatedGroupResponse, error) {
+func (c *Client) CreateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error) {
 	rsp, err := c.CreateDedicatedGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37233,7 +38315,7 @@ func (c *Client) CreateDedicatedGroupWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDedicatedGroupResponse, error) {
+func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error) {
 	rsp, err := c.CreateDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37247,7 +38329,7 @@ func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedG
 }
 
 // CreateDhcpOptionsWithBody request with arbitrary body returning *CreateDhcpOptionsResponse
-func (c *Client) CreateDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDhcpOptionsResponse, error) {
+func (c *Client) CreateDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error) {
 	rsp, err := c.CreateDhcpOptionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37260,7 +38342,7 @@ func (c *Client) CreateDhcpOptionsWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDhcpOptionsResponse, error) {
+func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error) {
 	rsp, err := c.CreateDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37274,7 +38356,7 @@ func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJS
 }
 
 // CreateDirectLinkWithBody request with arbitrary body returning *CreateDirectLinkResponse
-func (c *Client) CreateDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDirectLinkResponse, error) {
+func (c *Client) CreateDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error) {
 	rsp, err := c.CreateDirectLinkWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37287,7 +38369,7 @@ func (c *Client) CreateDirectLinkWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDirectLinkResponse, error) {
+func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error) {
 	rsp, err := c.CreateDirectLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37301,7 +38383,7 @@ func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSON
 }
 
 // CreateDirectLinkInterfaceWithBody request with arbitrary body returning *CreateDirectLinkInterfaceResponse
-func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDirectLinkInterfaceResponse, error) {
+func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error) {
 	rsp, err := c.CreateDirectLinkInterfaceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37314,7 +38396,7 @@ func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 	return obj.Expect()
 }
 
-func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDirectLinkInterfaceResponse, error) {
+func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error) {
 	rsp, err := c.CreateDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37328,7 +38410,7 @@ func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirec
 }
 
 // CreateFlexibleGpuWithBody request with arbitrary body returning *CreateFlexibleGpuResponse
-func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateFlexibleGpuResponse, error) {
+func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error) {
 	rsp, err := c.CreateFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37341,7 +38423,7 @@ func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateFlexibleGpuResponse, error) {
+func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error) {
 	rsp, err := c.CreateFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37355,7 +38437,7 @@ func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJS
 }
 
 // CreateImageWithBody request with arbitrary body returning *CreateImageResponse
-func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateImageResponse, error) {
+func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error) {
 	rsp, err := c.CreateImageWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37368,7 +38450,7 @@ func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateImageResponse, error) {
+func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error) {
 	rsp, err := c.CreateImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37382,7 +38464,7 @@ func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBod
 }
 
 // CreateImageExportTaskWithBody request with arbitrary body returning *CreateImageExportTaskResponse
-func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateImageExportTaskResponse, error) {
+func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error) {
 	rsp, err := c.CreateImageExportTaskWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37395,7 +38477,7 @@ func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateImageExportTaskResponse, error) {
+func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error) {
 	rsp, err := c.CreateImageExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37409,7 +38491,7 @@ func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExpo
 }
 
 // CreateInternetServiceWithBody request with arbitrary body returning *CreateInternetServiceResponse
-func (c *Client) CreateInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateInternetServiceResponse, error) {
+func (c *Client) CreateInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error) {
 	rsp, err := c.CreateInternetServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37422,7 +38504,7 @@ func (c *Client) CreateInternetServiceWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateInternetServiceResponse, error) {
+func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error) {
 	rsp, err := c.CreateInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37436,7 +38518,7 @@ func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetS
 }
 
 // CreateKeypairWithBody request with arbitrary body returning *CreateKeypairResponse
-func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateKeypairResponse, error) {
+func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error) {
 	rsp, err := c.CreateKeypairWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37449,7 +38531,7 @@ func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateKeypairResponse, error) {
+func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error) {
 	rsp, err := c.CreateKeypairRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37463,7 +38545,7 @@ func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONReques
 }
 
 // CreateListenerRuleWithBody request with arbitrary body returning *CreateListenerRuleResponse
-func (c *Client) CreateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateListenerRuleResponse, error) {
+func (c *Client) CreateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error) {
 	rsp, err := c.CreateListenerRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37476,7 +38558,7 @@ func (c *Client) CreateListenerRuleWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateListenerRuleResponse, error) {
+func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error) {
 	rsp, err := c.CreateListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37490,7 +38572,7 @@ func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRule
 }
 
 // CreateLoadBalancerWithBody request with arbitrary body returning *CreateLoadBalancerResponse
-func (c *Client) CreateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerResponse, error) {
+func (c *Client) CreateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error) {
 	rsp, err := c.CreateLoadBalancerWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37503,7 +38585,7 @@ func (c *Client) CreateLoadBalancerWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerResponse, error) {
+func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error) {
 	rsp, err := c.CreateLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37517,7 +38599,7 @@ func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancer
 }
 
 // CreateLoadBalancerListenersWithBody request with arbitrary body returning *CreateLoadBalancerListenersResponse
-func (c *Client) CreateLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerListenersResponse, error) {
+func (c *Client) CreateLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error) {
 	rsp, err := c.CreateLoadBalancerListenersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37530,7 +38612,7 @@ func (c *Client) CreateLoadBalancerListenersWithBody(ctx context.Context, conten
 	return obj.Expect()
 }
 
-func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerListenersResponse, error) {
+func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error) {
 	rsp, err := c.CreateLoadBalancerListenersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37544,7 +38626,7 @@ func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoa
 }
 
 // CreateLoadBalancerPolicyWithBody request with arbitrary body returning *CreateLoadBalancerPolicyResponse
-func (c *Client) CreateLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerPolicyResponse, error) {
+func (c *Client) CreateLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error) {
 	rsp, err := c.CreateLoadBalancerPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37557,7 +38639,7 @@ func (c *Client) CreateLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerPolicyResponse, error) {
+func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error) {
 	rsp, err := c.CreateLoadBalancerPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37571,7 +38653,7 @@ func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBa
 }
 
 // CreateLoadBalancerTagsWithBody request with arbitrary body returning *CreateLoadBalancerTagsResponse
-func (c *Client) CreateLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLoadBalancerTagsResponse, error) {
+func (c *Client) CreateLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error) {
 	rsp, err := c.CreateLoadBalancerTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37584,7 +38666,7 @@ func (c *Client) CreateLoadBalancerTagsWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLoadBalancerTagsResponse, error) {
+func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error) {
 	rsp, err := c.CreateLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37598,7 +38680,7 @@ func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBala
 }
 
 // CreateNatServiceWithBody request with arbitrary body returning *CreateNatServiceResponse
-func (c *Client) CreateNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNatServiceResponse, error) {
+func (c *Client) CreateNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error) {
 	rsp, err := c.CreateNatServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37611,7 +38693,7 @@ func (c *Client) CreateNatServiceWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNatServiceResponse, error) {
+func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error) {
 	rsp, err := c.CreateNatServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37625,7 +38707,7 @@ func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSON
 }
 
 // CreateNetWithBody request with arbitrary body returning *CreateNetResponse
-func (c *Client) CreateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetResponse, error) {
+func (c *Client) CreateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error) {
 	rsp, err := c.CreateNetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37638,7 +38720,7 @@ func (c *Client) CreateNetWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetResponse, error) {
+func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error) {
 	rsp, err := c.CreateNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37652,7 +38734,7 @@ func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, r
 }
 
 // CreateNetAccessPointWithBody request with arbitrary body returning *CreateNetAccessPointResponse
-func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetAccessPointResponse, error) {
+func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error) {
 	rsp, err := c.CreateNetAccessPointWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37665,7 +38747,7 @@ func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetAccessPointResponse, error) {
+func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error) {
 	rsp, err := c.CreateNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37679,7 +38761,7 @@ func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessP
 }
 
 // CreateNetPeeringWithBody request with arbitrary body returning *CreateNetPeeringResponse
-func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetPeeringResponse, error) {
+func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error) {
 	rsp, err := c.CreateNetPeeringWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37692,7 +38774,7 @@ func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetPeeringResponse, error) {
+func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error) {
 	rsp, err := c.CreateNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37706,7 +38788,7 @@ func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSON
 }
 
 // CreateNicWithBody request with arbitrary body returning *CreateNicResponse
-func (c *Client) CreateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNicResponse, error) {
+func (c *Client) CreateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error) {
 	rsp, err := c.CreateNicWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37719,7 +38801,7 @@ func (c *Client) CreateNicWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNicResponse, error) {
+func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error) {
 	rsp, err := c.CreateNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37733,7 +38815,7 @@ func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, r
 }
 
 // CreatePolicyWithBody request with arbitrary body returning *CreatePolicyResponse
-func (c *Client) CreatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePolicyResponse, error) {
+func (c *Client) CreatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error) {
 	rsp, err := c.CreatePolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37746,7 +38828,7 @@ func (c *Client) CreatePolicyWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePolicyResponse, error) {
+func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error) {
 	rsp, err := c.CreatePolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37760,7 +38842,7 @@ func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestB
 }
 
 // CreatePolicyVersionWithBody request with arbitrary body returning *CreatePolicyVersionResponse
-func (c *Client) CreatePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePolicyVersionResponse, error) {
+func (c *Client) CreatePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error) {
 	rsp, err := c.CreatePolicyVersionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37773,7 +38855,7 @@ func (c *Client) CreatePolicyVersionWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePolicyVersionResponse, error) {
+func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error) {
 	rsp, err := c.CreatePolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37787,7 +38869,7 @@ func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersi
 }
 
 // CreateProductTypeWithBody request with arbitrary body returning *CreateProductTypeResponse
-func (c *Client) CreateProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateProductTypeResponse, error) {
+func (c *Client) CreateProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error) {
 	rsp, err := c.CreateProductTypeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37800,7 +38882,7 @@ func (c *Client) CreateProductTypeWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateProductTypeResponse, error) {
+func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error) {
 	rsp, err := c.CreateProductTypeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37814,7 +38896,7 @@ func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJS
 }
 
 // CreatePublicIpWithBody request with arbitrary body returning *CreatePublicIpResponse
-func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePublicIpResponse, error) {
+func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error) {
 	rsp, err := c.CreatePublicIpWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37827,7 +38909,7 @@ func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePublicIpResponse, error) {
+func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error) {
 	rsp, err := c.CreatePublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37841,7 +38923,7 @@ func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequ
 }
 
 // CreateRouteWithBody request with arbitrary body returning *CreateRouteResponse
-func (c *Client) CreateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateRouteResponse, error) {
+func (c *Client) CreateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error) {
 	rsp, err := c.CreateRouteWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37854,7 +38936,7 @@ func (c *Client) CreateRouteWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateRouteResponse, error) {
+func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error) {
 	rsp, err := c.CreateRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37868,7 +38950,7 @@ func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBod
 }
 
 // CreateRouteTableWithBody request with arbitrary body returning *CreateRouteTableResponse
-func (c *Client) CreateRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateRouteTableResponse, error) {
+func (c *Client) CreateRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error) {
 	rsp, err := c.CreateRouteTableWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37881,7 +38963,7 @@ func (c *Client) CreateRouteTableWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateRouteTableResponse, error) {
+func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error) {
 	rsp, err := c.CreateRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37895,7 +38977,7 @@ func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSON
 }
 
 // CreateSecurityGroupWithBody request with arbitrary body returning *CreateSecurityGroupResponse
-func (c *Client) CreateSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSecurityGroupResponse, error) {
+func (c *Client) CreateSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error) {
 	rsp, err := c.CreateSecurityGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37908,7 +38990,7 @@ func (c *Client) CreateSecurityGroupWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSecurityGroupResponse, error) {
+func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error) {
 	rsp, err := c.CreateSecurityGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37922,7 +39004,7 @@ func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGro
 }
 
 // CreateSecurityGroupRuleWithBody request with arbitrary body returning *CreateSecurityGroupRuleResponse
-func (c *Client) CreateSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSecurityGroupRuleResponse, error) {
+func (c *Client) CreateSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error) {
 	rsp, err := c.CreateSecurityGroupRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37935,7 +39017,7 @@ func (c *Client) CreateSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSecurityGroupRuleResponse, error) {
+func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error) {
 	rsp, err := c.CreateSecurityGroupRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37949,7 +39031,7 @@ func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurit
 }
 
 // CreateServerCertificateWithBody request with arbitrary body returning *CreateServerCertificateResponse
-func (c *Client) CreateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateServerCertificateResponse, error) {
+func (c *Client) CreateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error) {
 	rsp, err := c.CreateServerCertificateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37962,7 +39044,7 @@ func (c *Client) CreateServerCertificateWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateServerCertificateResponse, error) {
+func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error) {
 	rsp, err := c.CreateServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37976,7 +39058,7 @@ func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerC
 }
 
 // CreateSnapshotWithBody request with arbitrary body returning *CreateSnapshotResponse
-func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSnapshotResponse, error) {
+func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error) {
 	rsp, err := c.CreateSnapshotWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -37989,7 +39071,7 @@ func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSnapshotResponse, error) {
+func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error) {
 	rsp, err := c.CreateSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38003,7 +39085,7 @@ func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequ
 }
 
 // CreateSnapshotExportTaskWithBody request with arbitrary body returning *CreateSnapshotExportTaskResponse
-func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSnapshotExportTaskResponse, error) {
+func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error) {
 	rsp, err := c.CreateSnapshotExportTaskWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38016,7 +39098,7 @@ func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSnapshotExportTaskResponse, error) {
+func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error) {
 	rsp, err := c.CreateSnapshotExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38030,7 +39112,7 @@ func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapsh
 }
 
 // CreateSubnetWithBody request with arbitrary body returning *CreateSubnetResponse
-func (c *Client) CreateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSubnetResponse, error) {
+func (c *Client) CreateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error) {
 	rsp, err := c.CreateSubnetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38043,7 +39125,7 @@ func (c *Client) CreateSubnetWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSubnetResponse, error) {
+func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error) {
 	rsp, err := c.CreateSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38057,7 +39139,7 @@ func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestB
 }
 
 // CreateTagsWithBody request with arbitrary body returning *CreateTagsResponse
-func (c *Client) CreateTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTagsResponse, error) {
+func (c *Client) CreateTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error) {
 	rsp, err := c.CreateTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38070,7 +39152,7 @@ func (c *Client) CreateTagsWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTagsResponse, error) {
+func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error) {
 	rsp, err := c.CreateTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38084,7 +39166,7 @@ func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody,
 }
 
 // CreateUserWithBody request with arbitrary body returning *CreateUserResponse
-func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateUserResponse, error) {
+func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error) {
 	rsp, err := c.CreateUserWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38097,7 +39179,7 @@ func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateUserResponse, error) {
+func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error) {
 	rsp, err := c.CreateUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38111,7 +39193,7 @@ func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody,
 }
 
 // CreateUserGroupWithBody request with arbitrary body returning *CreateUserGroupResponse
-func (c *Client) CreateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateUserGroupResponse, error) {
+func (c *Client) CreateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error) {
 	rsp, err := c.CreateUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38124,7 +39206,7 @@ func (c *Client) CreateUserGroupWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateUserGroupResponse, error) {
+func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error) {
 	rsp, err := c.CreateUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38138,7 +39220,7 @@ func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRe
 }
 
 // CreateVirtualGatewayWithBody request with arbitrary body returning *CreateVirtualGatewayResponse
-func (c *Client) CreateVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVirtualGatewayResponse, error) {
+func (c *Client) CreateVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error) {
 	rsp, err := c.CreateVirtualGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38151,7 +39233,7 @@ func (c *Client) CreateVirtualGatewayWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVirtualGatewayResponse, error) {
+func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error) {
 	rsp, err := c.CreateVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38165,7 +39247,7 @@ func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGat
 }
 
 // CreateVmGroupWithBody request with arbitrary body returning *CreateVmGroupResponse
-func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmGroupResponse, error) {
+func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error) {
 	rsp, err := c.CreateVmGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38178,7 +39260,7 @@ func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmGroupResponse, error) {
+func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error) {
 	rsp, err := c.CreateVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38192,7 +39274,7 @@ func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONReques
 }
 
 // CreateVmTemplateWithBody request with arbitrary body returning *CreateVmTemplateResponse
-func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmTemplateResponse, error) {
+func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error) {
 	rsp, err := c.CreateVmTemplateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38205,7 +39287,7 @@ func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmTemplateResponse, error) {
+func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error) {
 	rsp, err := c.CreateVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38219,7 +39301,7 @@ func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSON
 }
 
 // CreateVmsWithBody request with arbitrary body returning *CreateVmsResponse
-func (c *Client) CreateVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVmsResponse, error) {
+func (c *Client) CreateVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error) {
 	rsp, err := c.CreateVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38232,7 +39314,7 @@ func (c *Client) CreateVmsWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVmsResponse, error) {
+func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error) {
 	rsp, err := c.CreateVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38246,7 +39328,7 @@ func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, r
 }
 
 // CreateVolumeWithBody request with arbitrary body returning *CreateVolumeResponse
-func (c *Client) CreateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVolumeResponse, error) {
+func (c *Client) CreateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error) {
 	rsp, err := c.CreateVolumeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38259,7 +39341,7 @@ func (c *Client) CreateVolumeWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVolumeResponse, error) {
+func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error) {
 	rsp, err := c.CreateVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38273,7 +39355,7 @@ func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestB
 }
 
 // CreateVpnConnectionWithBody request with arbitrary body returning *CreateVpnConnectionResponse
-func (c *Client) CreateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVpnConnectionResponse, error) {
+func (c *Client) CreateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error) {
 	rsp, err := c.CreateVpnConnectionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38286,7 +39368,7 @@ func (c *Client) CreateVpnConnectionWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVpnConnectionResponse, error) {
+func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error) {
 	rsp, err := c.CreateVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38300,7 +39382,7 @@ func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnecti
 }
 
 // CreateVpnConnectionRouteWithBody request with arbitrary body returning *CreateVpnConnectionRouteResponse
-func (c *Client) CreateVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVpnConnectionRouteResponse, error) {
+func (c *Client) CreateVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error) {
 	rsp, err := c.CreateVpnConnectionRouteWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38313,7 +39395,7 @@ func (c *Client) CreateVpnConnectionRouteWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVpnConnectionRouteResponse, error) {
+func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error) {
 	rsp, err := c.CreateVpnConnectionRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38327,7 +39409,7 @@ func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnCon
 }
 
 // DeleteAccessKeyWithBody request with arbitrary body returning *DeleteAccessKeyResponse
-func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteAccessKeyResponse, error) {
+func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error) {
 	rsp, err := c.DeleteAccessKeyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38340,7 +39422,7 @@ func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteAccessKeyResponse, error) {
+func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error) {
 	rsp, err := c.DeleteAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38354,7 +39436,7 @@ func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRe
 }
 
 // DeleteApiAccessRuleWithBody request with arbitrary body returning *DeleteApiAccessRuleResponse
-func (c *Client) DeleteApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteApiAccessRuleResponse, error) {
+func (c *Client) DeleteApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error) {
 	rsp, err := c.DeleteApiAccessRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38367,7 +39449,7 @@ func (c *Client) DeleteApiAccessRuleWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteApiAccessRuleResponse, error) {
+func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error) {
 	rsp, err := c.DeleteApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38381,7 +39463,7 @@ func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRu
 }
 
 // DeleteCaWithBody request with arbitrary body returning *DeleteCaResponse
-func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteCaResponse, error) {
+func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error) {
 	rsp, err := c.DeleteCaWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38394,7 +39476,7 @@ func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteCaResponse, error) {
+func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error) {
 	rsp, err := c.DeleteCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38408,7 +39490,7 @@ func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, req
 }
 
 // DeleteClientGatewayWithBody request with arbitrary body returning *DeleteClientGatewayResponse
-func (c *Client) DeleteClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteClientGatewayResponse, error) {
+func (c *Client) DeleteClientGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error) {
 	rsp, err := c.DeleteClientGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38421,7 +39503,7 @@ func (c *Client) DeleteClientGatewayWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteClientGatewayResponse, error) {
+func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error) {
 	rsp, err := c.DeleteClientGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38435,7 +39517,7 @@ func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatew
 }
 
 // DeleteDedicatedGroupWithBody request with arbitrary body returning *DeleteDedicatedGroupResponse
-func (c *Client) DeleteDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDedicatedGroupResponse, error) {
+func (c *Client) DeleteDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error) {
 	rsp, err := c.DeleteDedicatedGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38448,7 +39530,7 @@ func (c *Client) DeleteDedicatedGroupWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDedicatedGroupResponse, error) {
+func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error) {
 	rsp, err := c.DeleteDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38462,7 +39544,7 @@ func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedG
 }
 
 // DeleteDhcpOptionsWithBody request with arbitrary body returning *DeleteDhcpOptionsResponse
-func (c *Client) DeleteDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDhcpOptionsResponse, error) {
+func (c *Client) DeleteDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error) {
 	rsp, err := c.DeleteDhcpOptionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38475,7 +39557,7 @@ func (c *Client) DeleteDhcpOptionsWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDhcpOptionsResponse, error) {
+func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error) {
 	rsp, err := c.DeleteDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38489,7 +39571,7 @@ func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJS
 }
 
 // DeleteDirectLinkWithBody request with arbitrary body returning *DeleteDirectLinkResponse
-func (c *Client) DeleteDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDirectLinkResponse, error) {
+func (c *Client) DeleteDirectLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error) {
 	rsp, err := c.DeleteDirectLinkWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38502,7 +39584,7 @@ func (c *Client) DeleteDirectLinkWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDirectLinkResponse, error) {
+func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error) {
 	rsp, err := c.DeleteDirectLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38516,7 +39598,7 @@ func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSON
 }
 
 // DeleteDirectLinkInterfaceWithBody request with arbitrary body returning *DeleteDirectLinkInterfaceResponse
-func (c *Client) DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteDirectLinkInterfaceResponse, error) {
+func (c *Client) DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error) {
 	rsp, err := c.DeleteDirectLinkInterfaceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38529,7 +39611,7 @@ func (c *Client) DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentT
 	return obj.Expect()
 }
 
-func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteDirectLinkInterfaceResponse, error) {
+func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error) {
 	rsp, err := c.DeleteDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38543,7 +39625,7 @@ func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirec
 }
 
 // DeleteExportTaskWithBody request with arbitrary body returning *DeleteExportTaskResponse
-func (c *Client) DeleteExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteExportTaskResponse, error) {
+func (c *Client) DeleteExportTaskWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error) {
 	rsp, err := c.DeleteExportTaskWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38556,7 +39638,7 @@ func (c *Client) DeleteExportTaskWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteExportTaskResponse, error) {
+func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error) {
 	rsp, err := c.DeleteExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38570,7 +39652,7 @@ func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSON
 }
 
 // DeleteFlexibleGpuWithBody request with arbitrary body returning *DeleteFlexibleGpuResponse
-func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteFlexibleGpuResponse, error) {
+func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error) {
 	rsp, err := c.DeleteFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38583,7 +39665,7 @@ func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteFlexibleGpuResponse, error) {
+func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error) {
 	rsp, err := c.DeleteFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38597,7 +39679,7 @@ func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJS
 }
 
 // DeleteImageWithBody request with arbitrary body returning *DeleteImageResponse
-func (c *Client) DeleteImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteImageResponse, error) {
+func (c *Client) DeleteImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error) {
 	rsp, err := c.DeleteImageWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38610,7 +39692,7 @@ func (c *Client) DeleteImageWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteImageResponse, error) {
+func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error) {
 	rsp, err := c.DeleteImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38624,7 +39706,7 @@ func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBod
 }
 
 // DeleteInternetServiceWithBody request with arbitrary body returning *DeleteInternetServiceResponse
-func (c *Client) DeleteInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteInternetServiceResponse, error) {
+func (c *Client) DeleteInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error) {
 	rsp, err := c.DeleteInternetServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38637,7 +39719,7 @@ func (c *Client) DeleteInternetServiceWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteInternetServiceResponse, error) {
+func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error) {
 	rsp, err := c.DeleteInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38651,7 +39733,7 @@ func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetS
 }
 
 // DeleteKeypairWithBody request with arbitrary body returning *DeleteKeypairResponse
-func (c *Client) DeleteKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteKeypairResponse, error) {
+func (c *Client) DeleteKeypairWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error) {
 	rsp, err := c.DeleteKeypairWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38664,7 +39746,7 @@ func (c *Client) DeleteKeypairWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteKeypairResponse, error) {
+func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error) {
 	rsp, err := c.DeleteKeypairRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38678,7 +39760,7 @@ func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONReques
 }
 
 // DeleteListenerRuleWithBody request with arbitrary body returning *DeleteListenerRuleResponse
-func (c *Client) DeleteListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteListenerRuleResponse, error) {
+func (c *Client) DeleteListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error) {
 	rsp, err := c.DeleteListenerRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38691,7 +39773,7 @@ func (c *Client) DeleteListenerRuleWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteListenerRuleResponse, error) {
+func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error) {
 	rsp, err := c.DeleteListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38705,7 +39787,7 @@ func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRule
 }
 
 // DeleteLoadBalancerWithBody request with arbitrary body returning *DeleteLoadBalancerResponse
-func (c *Client) DeleteLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerResponse, error) {
+func (c *Client) DeleteLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error) {
 	rsp, err := c.DeleteLoadBalancerWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38718,7 +39800,7 @@ func (c *Client) DeleteLoadBalancerWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerResponse, error) {
+func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error) {
 	rsp, err := c.DeleteLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38732,7 +39814,7 @@ func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancer
 }
 
 // DeleteLoadBalancerListenersWithBody request with arbitrary body returning *DeleteLoadBalancerListenersResponse
-func (c *Client) DeleteLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerListenersResponse, error) {
+func (c *Client) DeleteLoadBalancerListenersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error) {
 	rsp, err := c.DeleteLoadBalancerListenersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38745,7 +39827,7 @@ func (c *Client) DeleteLoadBalancerListenersWithBody(ctx context.Context, conten
 	return obj.Expect()
 }
 
-func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerListenersResponse, error) {
+func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error) {
 	rsp, err := c.DeleteLoadBalancerListenersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38759,7 +39841,7 @@ func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoa
 }
 
 // DeleteLoadBalancerPolicyWithBody request with arbitrary body returning *DeleteLoadBalancerPolicyResponse
-func (c *Client) DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerPolicyResponse, error) {
+func (c *Client) DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error) {
 	rsp, err := c.DeleteLoadBalancerPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38772,7 +39854,7 @@ func (c *Client) DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerPolicyResponse, error) {
+func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error) {
 	rsp, err := c.DeleteLoadBalancerPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38786,7 +39868,7 @@ func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBa
 }
 
 // DeleteLoadBalancerTagsWithBody request with arbitrary body returning *DeleteLoadBalancerTagsResponse
-func (c *Client) DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerTagsResponse, error) {
+func (c *Client) DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error) {
 	rsp, err := c.DeleteLoadBalancerTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38799,7 +39881,7 @@ func (c *Client) DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteLoadBalancerTagsResponse, error) {
+func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error) {
 	rsp, err := c.DeleteLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38813,7 +39895,7 @@ func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBala
 }
 
 // DeleteNatServiceWithBody request with arbitrary body returning *DeleteNatServiceResponse
-func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNatServiceResponse, error) {
+func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error) {
 	rsp, err := c.DeleteNatServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38826,7 +39908,7 @@ func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNatServiceResponse, error) {
+func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error) {
 	rsp, err := c.DeleteNatServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38840,7 +39922,7 @@ func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSON
 }
 
 // DeleteNetWithBody request with arbitrary body returning *DeleteNetResponse
-func (c *Client) DeleteNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetResponse, error) {
+func (c *Client) DeleteNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error) {
 	rsp, err := c.DeleteNetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38853,7 +39935,7 @@ func (c *Client) DeleteNetWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetResponse, error) {
+func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error) {
 	rsp, err := c.DeleteNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38867,7 +39949,7 @@ func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, r
 }
 
 // DeleteNetAccessPointWithBody request with arbitrary body returning *DeleteNetAccessPointResponse
-func (c *Client) DeleteNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetAccessPointResponse, error) {
+func (c *Client) DeleteNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error) {
 	rsp, err := c.DeleteNetAccessPointWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38880,7 +39962,7 @@ func (c *Client) DeleteNetAccessPointWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetAccessPointResponse, error) {
+func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error) {
 	rsp, err := c.DeleteNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38894,7 +39976,7 @@ func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessP
 }
 
 // DeleteNetPeeringWithBody request with arbitrary body returning *DeleteNetPeeringResponse
-func (c *Client) DeleteNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNetPeeringResponse, error) {
+func (c *Client) DeleteNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error) {
 	rsp, err := c.DeleteNetPeeringWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38907,7 +39989,7 @@ func (c *Client) DeleteNetPeeringWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNetPeeringResponse, error) {
+func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error) {
 	rsp, err := c.DeleteNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38921,7 +40003,7 @@ func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSON
 }
 
 // DeleteNicWithBody request with arbitrary body returning *DeleteNicResponse
-func (c *Client) DeleteNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteNicResponse, error) {
+func (c *Client) DeleteNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error) {
 	rsp, err := c.DeleteNicWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38934,7 +40016,7 @@ func (c *Client) DeleteNicWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteNicResponse, error) {
+func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error) {
 	rsp, err := c.DeleteNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38948,7 +40030,7 @@ func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, r
 }
 
 // DeletePolicyWithBody request with arbitrary body returning *DeletePolicyResponse
-func (c *Client) DeletePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePolicyResponse, error) {
+func (c *Client) DeletePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error) {
 	rsp, err := c.DeletePolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38961,7 +40043,7 @@ func (c *Client) DeletePolicyWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePolicyResponse, error) {
+func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error) {
 	rsp, err := c.DeletePolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38975,7 +40057,7 @@ func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestB
 }
 
 // DeletePolicyVersionWithBody request with arbitrary body returning *DeletePolicyVersionResponse
-func (c *Client) DeletePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePolicyVersionResponse, error) {
+func (c *Client) DeletePolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error) {
 	rsp, err := c.DeletePolicyVersionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38988,7 +40070,7 @@ func (c *Client) DeletePolicyVersionWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePolicyVersionResponse, error) {
+func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error) {
 	rsp, err := c.DeletePolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39002,7 +40084,7 @@ func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersi
 }
 
 // DeleteProductTypeWithBody request with arbitrary body returning *DeleteProductTypeResponse
-func (c *Client) DeleteProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteProductTypeResponse, error) {
+func (c *Client) DeleteProductTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error) {
 	rsp, err := c.DeleteProductTypeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39015,7 +40097,7 @@ func (c *Client) DeleteProductTypeWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteProductTypeResponse, error) {
+func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error) {
 	rsp, err := c.DeleteProductTypeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39029,7 +40111,7 @@ func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJS
 }
 
 // DeletePublicIpWithBody request with arbitrary body returning *DeletePublicIpResponse
-func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeletePublicIpResponse, error) {
+func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error) {
 	rsp, err := c.DeletePublicIpWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39042,7 +40124,7 @@ func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePublicIpResponse, error) {
+func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error) {
 	rsp, err := c.DeletePublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39056,7 +40138,7 @@ func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequ
 }
 
 // DeleteRouteWithBody request with arbitrary body returning *DeleteRouteResponse
-func (c *Client) DeleteRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteRouteResponse, error) {
+func (c *Client) DeleteRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error) {
 	rsp, err := c.DeleteRouteWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39069,7 +40151,7 @@ func (c *Client) DeleteRouteWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteRouteResponse, error) {
+func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error) {
 	rsp, err := c.DeleteRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39083,7 +40165,7 @@ func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBod
 }
 
 // DeleteRouteTableWithBody request with arbitrary body returning *DeleteRouteTableResponse
-func (c *Client) DeleteRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteRouteTableResponse, error) {
+func (c *Client) DeleteRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error) {
 	rsp, err := c.DeleteRouteTableWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39096,7 +40178,7 @@ func (c *Client) DeleteRouteTableWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteRouteTableResponse, error) {
+func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error) {
 	rsp, err := c.DeleteRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39110,7 +40192,7 @@ func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSON
 }
 
 // DeleteSecurityGroupWithBody request with arbitrary body returning *DeleteSecurityGroupResponse
-func (c *Client) DeleteSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupResponse, error) {
+func (c *Client) DeleteSecurityGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error) {
 	rsp, err := c.DeleteSecurityGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39123,7 +40205,7 @@ func (c *Client) DeleteSecurityGroupWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupResponse, error) {
+func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error) {
 	rsp, err := c.DeleteSecurityGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39137,7 +40219,7 @@ func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGro
 }
 
 // DeleteSecurityGroupRuleWithBody request with arbitrary body returning *DeleteSecurityGroupRuleResponse
-func (c *Client) DeleteSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupRuleResponse, error) {
+func (c *Client) DeleteSecurityGroupRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error) {
 	rsp, err := c.DeleteSecurityGroupRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39150,7 +40232,7 @@ func (c *Client) DeleteSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSecurityGroupRuleResponse, error) {
+func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error) {
 	rsp, err := c.DeleteSecurityGroupRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39164,7 +40246,7 @@ func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurit
 }
 
 // DeleteServerCertificateWithBody request with arbitrary body returning *DeleteServerCertificateResponse
-func (c *Client) DeleteServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteServerCertificateResponse, error) {
+func (c *Client) DeleteServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error) {
 	rsp, err := c.DeleteServerCertificateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39177,7 +40259,7 @@ func (c *Client) DeleteServerCertificateWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteServerCertificateResponse, error) {
+func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error) {
 	rsp, err := c.DeleteServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39191,7 +40273,7 @@ func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerC
 }
 
 // DeleteSnapshotWithBody request with arbitrary body returning *DeleteSnapshotResponse
-func (c *Client) DeleteSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSnapshotResponse, error) {
+func (c *Client) DeleteSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error) {
 	rsp, err := c.DeleteSnapshotWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39204,7 +40286,7 @@ func (c *Client) DeleteSnapshotWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSnapshotResponse, error) {
+func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error) {
 	rsp, err := c.DeleteSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39218,7 +40300,7 @@ func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequ
 }
 
 // DeleteSubnetWithBody request with arbitrary body returning *DeleteSubnetResponse
-func (c *Client) DeleteSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteSubnetResponse, error) {
+func (c *Client) DeleteSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error) {
 	rsp, err := c.DeleteSubnetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39231,7 +40313,7 @@ func (c *Client) DeleteSubnetWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteSubnetResponse, error) {
+func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error) {
 	rsp, err := c.DeleteSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39245,7 +40327,7 @@ func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestB
 }
 
 // DeleteTagsWithBody request with arbitrary body returning *DeleteTagsResponse
-func (c *Client) DeleteTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteTagsResponse, error) {
+func (c *Client) DeleteTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error) {
 	rsp, err := c.DeleteTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39258,7 +40340,7 @@ func (c *Client) DeleteTagsWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteTagsResponse, error) {
+func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error) {
 	rsp, err := c.DeleteTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39272,7 +40354,7 @@ func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody,
 }
 
 // DeleteUserWithBody request with arbitrary body returning *DeleteUserResponse
-func (c *Client) DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error) {
+func (c *Client) DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error) {
 	rsp, err := c.DeleteUserWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39285,7 +40367,7 @@ func (c *Client) DeleteUserWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error) {
+func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error) {
 	rsp, err := c.DeleteUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39299,7 +40381,7 @@ func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody,
 }
 
 // DeleteUserGroupWithBody request with arbitrary body returning *DeleteUserGroupResponse
-func (c *Client) DeleteUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserGroupResponse, error) {
+func (c *Client) DeleteUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error) {
 	rsp, err := c.DeleteUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39312,7 +40394,7 @@ func (c *Client) DeleteUserGroupWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserGroupResponse, error) {
+func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error) {
 	rsp, err := c.DeleteUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39326,7 +40408,7 @@ func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRe
 }
 
 // DeleteUserGroupPolicyWithBody request with arbitrary body returning *DeleteUserGroupPolicyResponse
-func (c *Client) DeleteUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserGroupPolicyResponse, error) {
+func (c *Client) DeleteUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error) {
 	rsp, err := c.DeleteUserGroupPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39339,7 +40421,7 @@ func (c *Client) DeleteUserGroupPolicyWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserGroupPolicyResponse, error) {
+func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error) {
 	rsp, err := c.DeleteUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39353,7 +40435,7 @@ func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroup
 }
 
 // DeleteUserPolicyWithBody request with arbitrary body returning *DeleteUserPolicyResponse
-func (c *Client) DeleteUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserPolicyResponse, error) {
+func (c *Client) DeleteUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error) {
 	rsp, err := c.DeleteUserPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39366,7 +40448,7 @@ func (c *Client) DeleteUserPolicyWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteUserPolicyResponse, error) {
+func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error) {
 	rsp, err := c.DeleteUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39380,7 +40462,7 @@ func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSON
 }
 
 // DeleteVirtualGatewayWithBody request with arbitrary body returning *DeleteVirtualGatewayResponse
-func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVirtualGatewayResponse, error) {
+func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error) {
 	rsp, err := c.DeleteVirtualGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39393,7 +40475,7 @@ func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVirtualGatewayResponse, error) {
+func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error) {
 	rsp, err := c.DeleteVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39407,7 +40489,7 @@ func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGat
 }
 
 // DeleteVmGroupWithBody request with arbitrary body returning *DeleteVmGroupResponse
-func (c *Client) DeleteVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmGroupResponse, error) {
+func (c *Client) DeleteVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error) {
 	rsp, err := c.DeleteVmGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39420,7 +40502,7 @@ func (c *Client) DeleteVmGroupWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmGroupResponse, error) {
+func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error) {
 	rsp, err := c.DeleteVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39434,7 +40516,7 @@ func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONReques
 }
 
 // DeleteVmTemplateWithBody request with arbitrary body returning *DeleteVmTemplateResponse
-func (c *Client) DeleteVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmTemplateResponse, error) {
+func (c *Client) DeleteVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error) {
 	rsp, err := c.DeleteVmTemplateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39447,7 +40529,7 @@ func (c *Client) DeleteVmTemplateWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmTemplateResponse, error) {
+func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error) {
 	rsp, err := c.DeleteVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39461,7 +40543,7 @@ func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSON
 }
 
 // DeleteVmsWithBody request with arbitrary body returning *DeleteVmsResponse
-func (c *Client) DeleteVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVmsResponse, error) {
+func (c *Client) DeleteVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error) {
 	rsp, err := c.DeleteVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39474,7 +40556,7 @@ func (c *Client) DeleteVmsWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVmsResponse, error) {
+func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error) {
 	rsp, err := c.DeleteVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39488,7 +40570,7 @@ func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, r
 }
 
 // DeleteVolumeWithBody request with arbitrary body returning *DeleteVolumeResponse
-func (c *Client) DeleteVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVolumeResponse, error) {
+func (c *Client) DeleteVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error) {
 	rsp, err := c.DeleteVolumeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39501,7 +40583,7 @@ func (c *Client) DeleteVolumeWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVolumeResponse, error) {
+func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error) {
 	rsp, err := c.DeleteVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39515,7 +40597,7 @@ func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestB
 }
 
 // DeleteVpnConnectionWithBody request with arbitrary body returning *DeleteVpnConnectionResponse
-func (c *Client) DeleteVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionResponse, error) {
+func (c *Client) DeleteVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error) {
 	rsp, err := c.DeleteVpnConnectionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39528,7 +40610,7 @@ func (c *Client) DeleteVpnConnectionWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionResponse, error) {
+func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error) {
 	rsp, err := c.DeleteVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39542,7 +40624,7 @@ func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnecti
 }
 
 // DeleteVpnConnectionRouteWithBody request with arbitrary body returning *DeleteVpnConnectionRouteResponse
-func (c *Client) DeleteVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionRouteResponse, error) {
+func (c *Client) DeleteVpnConnectionRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error) {
 	rsp, err := c.DeleteVpnConnectionRouteWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39555,7 +40637,7 @@ func (c *Client) DeleteVpnConnectionRouteWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteVpnConnectionRouteResponse, error) {
+func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error) {
 	rsp, err := c.DeleteVpnConnectionRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39569,7 +40651,7 @@ func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnCon
 }
 
 // DeregisterVmsInLoadBalancerWithBody request with arbitrary body returning *DeregisterVmsInLoadBalancerResponse
-func (c *Client) DeregisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeregisterVmsInLoadBalancerResponse, error) {
+func (c *Client) DeregisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error) {
 	rsp, err := c.DeregisterVmsInLoadBalancerWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39582,7 +40664,7 @@ func (c *Client) DeregisterVmsInLoadBalancerWithBody(ctx context.Context, conten
 	return obj.Expect()
 }
 
-func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*DeregisterVmsInLoadBalancerResponse, error) {
+func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error) {
 	rsp, err := c.DeregisterVmsInLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39596,7 +40678,7 @@ func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body Deregiste
 }
 
 // DisableOutscaleLoginWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
-func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	rsp, err := c.DisableOutscaleLoginWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39609,7 +40691,7 @@ func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	rsp, err := c.DisableOutscaleLoginRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39623,7 +40705,7 @@ func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleL
 }
 
 // DisableOutscaleLoginForUsersWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
-func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	rsp, err := c.DisableOutscaleLoginForUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39636,7 +40718,7 @@ func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, conte
 	return obj.Expect()
 }
 
-func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginResponse, error) {
+func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	rsp, err := c.DisableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39650,7 +40732,7 @@ func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableO
 }
 
 // DisableOutscaleLoginPerUsersWithBody request with arbitrary body returning *DisableOutscaleLoginPerUsersResponse
-func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error) {
+func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error) {
 	rsp, err := c.DisableOutscaleLoginPerUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39663,7 +40745,7 @@ func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, conte
 	return obj.Expect()
 }
 
-func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*DisableOutscaleLoginPerUsersResponse, error) {
+func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error) {
 	rsp, err := c.DisableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39677,7 +40759,7 @@ func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableO
 }
 
 // EnableOutscaleLoginWithBody request with arbitrary body returning *EnableOutscaleLoginResponse
-func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error) {
+func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error) {
 	rsp, err := c.EnableOutscaleLoginWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39690,7 +40772,7 @@ func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginResponse, error) {
+func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error) {
 	rsp, err := c.EnableOutscaleLoginRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39704,7 +40786,7 @@ func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLog
 }
 
 // EnableOutscaleLoginForUsersWithBody request with arbitrary body returning *EnableOutscaleLoginForUsersResponse
-func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error) {
+func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error) {
 	rsp, err := c.EnableOutscaleLoginForUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39717,7 +40799,7 @@ func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, conten
 	return obj.Expect()
 }
 
-func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginForUsersResponse, error) {
+func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error) {
 	rsp, err := c.EnableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39731,7 +40813,7 @@ func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOut
 }
 
 // EnableOutscaleLoginPerUsersWithBody request with arbitrary body returning *EnableOutscaleLoginPerUsersResponse
-func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error) {
+func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error) {
 	rsp, err := c.EnableOutscaleLoginPerUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39744,7 +40826,7 @@ func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, conten
 	return obj.Expect()
 }
 
-func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*EnableOutscaleLoginPerUsersResponse, error) {
+func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error) {
 	rsp, err := c.EnableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39758,7 +40840,7 @@ func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOut
 }
 
 // LinkFlexibleGpuWithBody request with arbitrary body returning *LinkFlexibleGpuResponse
-func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error) {
+func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error) {
 	rsp, err := c.LinkFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39771,7 +40853,7 @@ func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkFlexibleGpuResponse, error) {
+func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error) {
 	rsp, err := c.LinkFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39785,7 +40867,7 @@ func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRe
 }
 
 // LinkInternetServiceWithBody request with arbitrary body returning *LinkInternetServiceResponse
-func (c *Client) LinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkInternetServiceResponse, error) {
+func (c *Client) LinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error) {
 	rsp, err := c.LinkInternetServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39798,7 +40880,7 @@ func (c *Client) LinkInternetServiceWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkInternetServiceResponse, error) {
+func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error) {
 	rsp, err := c.LinkInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39812,7 +40894,7 @@ func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServi
 }
 
 // LinkLoadBalancerBackendMachinesWithBody request with arbitrary body returning *LinkLoadBalancerBackendMachinesResponse
-func (c *Client) LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkLoadBalancerBackendMachinesResponse, error) {
+func (c *Client) LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error) {
 	rsp, err := c.LinkLoadBalancerBackendMachinesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39825,7 +40907,7 @@ func (c *Client) LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, co
 	return obj.Expect()
 }
 
-func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkLoadBalancerBackendMachinesResponse, error) {
+func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error) {
 	rsp, err := c.LinkLoadBalancerBackendMachinesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39839,7 +40921,7 @@ func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkL
 }
 
 // LinkManagedPolicyToUserGroupWithBody request with arbitrary body returning *LinkManagedPolicyToUserGroupResponse
-func (c *Client) LinkManagedPolicyToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkManagedPolicyToUserGroupResponse, error) {
+func (c *Client) LinkManagedPolicyToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error) {
 	rsp, err := c.LinkManagedPolicyToUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39852,7 +40934,7 @@ func (c *Client) LinkManagedPolicyToUserGroupWithBody(ctx context.Context, conte
 	return obj.Expect()
 }
 
-func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkManagedPolicyToUserGroupResponse, error) {
+func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error) {
 	rsp, err := c.LinkManagedPolicyToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39866,7 +40948,7 @@ func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkMana
 }
 
 // LinkNicWithBody request with arbitrary body returning *LinkNicResponse
-func (c *Client) LinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkNicResponse, error) {
+func (c *Client) LinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error) {
 	rsp, err := c.LinkNicWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39879,7 +40961,7 @@ func (c *Client) LinkNicWithBody(ctx context.Context, contentType string, body i
 	return obj.Expect()
 }
 
-func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkNicResponse, error) {
+func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error) {
 	rsp, err := c.LinkNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39893,7 +40975,7 @@ func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEd
 }
 
 // LinkPolicyWithBody request with arbitrary body returning *LinkPolicyResponse
-func (c *Client) LinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPolicyResponse, error) {
+func (c *Client) LinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error) {
 	rsp, err := c.LinkPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39906,7 +40988,7 @@ func (c *Client) LinkPolicyWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPolicyResponse, error) {
+func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error) {
 	rsp, err := c.LinkPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39920,7 +41002,7 @@ func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody,
 }
 
 // LinkPrivateIpsWithBody request with arbitrary body returning *LinkPrivateIpsResponse
-func (c *Client) LinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPrivateIpsResponse, error) {
+func (c *Client) LinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error) {
 	rsp, err := c.LinkPrivateIpsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39933,7 +41015,7 @@ func (c *Client) LinkPrivateIpsWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPrivateIpsResponse, error) {
+func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error) {
 	rsp, err := c.LinkPrivateIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39947,7 +41029,7 @@ func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequ
 }
 
 // LinkPublicIpWithBody request with arbitrary body returning *LinkPublicIpResponse
-func (c *Client) LinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkPublicIpResponse, error) {
+func (c *Client) LinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error) {
 	rsp, err := c.LinkPublicIpWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39960,7 +41042,7 @@ func (c *Client) LinkPublicIpWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkPublicIpResponse, error) {
+func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error) {
 	rsp, err := c.LinkPublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39974,7 +41056,7 @@ func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestB
 }
 
 // LinkRouteTableWithBody request with arbitrary body returning *LinkRouteTableResponse
-func (c *Client) LinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkRouteTableResponse, error) {
+func (c *Client) LinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error) {
 	rsp, err := c.LinkRouteTableWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39987,7 +41069,7 @@ func (c *Client) LinkRouteTableWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkRouteTableResponse, error) {
+func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error) {
 	rsp, err := c.LinkRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40001,7 +41083,7 @@ func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequ
 }
 
 // LinkVirtualGatewayWithBody request with arbitrary body returning *LinkVirtualGatewayResponse
-func (c *Client) LinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkVirtualGatewayResponse, error) {
+func (c *Client) LinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error) {
 	rsp, err := c.LinkVirtualGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40014,7 +41096,7 @@ func (c *Client) LinkVirtualGatewayWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkVirtualGatewayResponse, error) {
+func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error) {
 	rsp, err := c.LinkVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40028,7 +41110,7 @@ func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGateway
 }
 
 // LinkVolumeWithBody request with arbitrary body returning *LinkVolumeResponse
-func (c *Client) LinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkVolumeResponse, error) {
+func (c *Client) LinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error) {
 	rsp, err := c.LinkVolumeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40041,7 +41123,7 @@ func (c *Client) LinkVolumeWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkVolumeResponse, error) {
+func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error) {
 	rsp, err := c.LinkVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40055,7 +41137,7 @@ func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody,
 }
 
 // PutUserGroupPolicyWithBody request with arbitrary body returning *PutUserGroupPolicyResponse
-func (c *Client) PutUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutUserGroupPolicyResponse, error) {
+func (c *Client) PutUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error) {
 	rsp, err := c.PutUserGroupPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40068,7 +41150,7 @@ func (c *Client) PutUserGroupPolicyWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*PutUserGroupPolicyResponse, error) {
+func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error) {
 	rsp, err := c.PutUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40082,7 +41164,7 @@ func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicy
 }
 
 // PutUserPolicyWithBody request with arbitrary body returning *PutUserPolicyResponse
-func (c *Client) PutUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutUserPolicyResponse, error) {
+func (c *Client) PutUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error) {
 	rsp, err := c.PutUserPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40095,7 +41177,7 @@ func (c *Client) PutUserPolicyWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*PutUserPolicyResponse, error) {
+func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error) {
 	rsp, err := c.PutUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40109,7 +41191,7 @@ func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONReques
 }
 
 // ReadAccessKeysWithBody request with arbitrary body returning *ReadAccessKeysResponse
-func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAccessKeysResponse, error) {
+func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error) {
 	rsp, err := c.ReadAccessKeysWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40122,7 +41204,7 @@ func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAccessKeysResponse, error) {
+func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error) {
 	rsp, err := c.ReadAccessKeysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40136,7 +41218,7 @@ func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequ
 }
 
 // ReadAccountsWithBody request with arbitrary body returning *ReadAccountsResponse
-func (c *Client) ReadAccountsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAccountsResponse, error) {
+func (c *Client) ReadAccountsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error) {
 	rsp, err := c.ReadAccountsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40149,7 +41231,7 @@ func (c *Client) ReadAccountsWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAccountsResponse, error) {
+func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error) {
 	rsp, err := c.ReadAccountsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40163,7 +41245,7 @@ func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestB
 }
 
 // ReadAdminPasswordWithBody request with arbitrary body returning *ReadAdminPasswordResponse
-func (c *Client) ReadAdminPasswordWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadAdminPasswordResponse, error) {
+func (c *Client) ReadAdminPasswordWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error) {
 	rsp, err := c.ReadAdminPasswordWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40176,7 +41258,7 @@ func (c *Client) ReadAdminPasswordWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadAdminPasswordResponse, error) {
+func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error) {
 	rsp, err := c.ReadAdminPasswordRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40190,7 +41272,7 @@ func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJS
 }
 
 // ReadApiAccessPolicyWithBody request with arbitrary body returning *ReadApiAccessPolicyResponse
-func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiAccessPolicyResponse, error) {
+func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error) {
 	rsp, err := c.ReadApiAccessPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40203,7 +41285,7 @@ func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiAccessPolicyResponse, error) {
+func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error) {
 	rsp, err := c.ReadApiAccessPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40217,7 +41299,7 @@ func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPoli
 }
 
 // ReadApiAccessRulesWithBody request with arbitrary body returning *ReadApiAccessRulesResponse
-func (c *Client) ReadApiAccessRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiAccessRulesResponse, error) {
+func (c *Client) ReadApiAccessRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error) {
 	rsp, err := c.ReadApiAccessRulesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40230,7 +41312,7 @@ func (c *Client) ReadApiAccessRulesWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiAccessRulesResponse, error) {
+func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error) {
 	rsp, err := c.ReadApiAccessRulesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40244,7 +41326,7 @@ func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRules
 }
 
 // ReadApiLogsWithBody request with arbitrary body returning *ReadApiLogsResponse
-func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadApiLogsResponse, error) {
+func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error) {
 	rsp, err := c.ReadApiLogsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40257,7 +41339,7 @@ func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadApiLogsResponse, error) {
+func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error) {
 	rsp, err := c.ReadApiLogsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40271,7 +41353,7 @@ func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBod
 }
 
 // ReadCasWithBody request with arbitrary body returning *ReadCasResponse
-func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCasResponse, error) {
+func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
 	rsp, err := c.ReadCasWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40284,7 +41366,7 @@ func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body i
 	return obj.Expect()
 }
 
-func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCasResponse, error) {
+func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
 	rsp, err := c.ReadCasRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40298,7 +41380,7 @@ func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEd
 }
 
 // ReadCatalogWithBody request with arbitrary body returning *ReadCatalogResponse
-func (c *Client) ReadCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCatalogResponse, error) {
+func (c *Client) ReadCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error) {
 	rsp, err := c.ReadCatalogWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40311,7 +41393,7 @@ func (c *Client) ReadCatalogWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCatalogResponse, error) {
+func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error) {
 	rsp, err := c.ReadCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40325,7 +41407,7 @@ func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBod
 }
 
 // ReadCatalogsWithBody request with arbitrary body returning *ReadCatalogsResponse
-func (c *Client) ReadCatalogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadCatalogsResponse, error) {
+func (c *Client) ReadCatalogsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error) {
 	rsp, err := c.ReadCatalogsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40338,7 +41420,7 @@ func (c *Client) ReadCatalogsWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadCatalogsResponse, error) {
+func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error) {
 	rsp, err := c.ReadCatalogsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40352,7 +41434,7 @@ func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestB
 }
 
 // ReadClientGatewaysWithBody request with arbitrary body returning *ReadClientGatewaysResponse
-func (c *Client) ReadClientGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadClientGatewaysResponse, error) {
+func (c *Client) ReadClientGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error) {
 	rsp, err := c.ReadClientGatewaysWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40365,7 +41447,7 @@ func (c *Client) ReadClientGatewaysWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadClientGatewaysResponse, error) {
+func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error) {
 	rsp, err := c.ReadClientGatewaysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40379,7 +41461,7 @@ func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGateways
 }
 
 // ReadConsoleOutputWithBody request with arbitrary body returning *ReadConsoleOutputResponse
-func (c *Client) ReadConsoleOutputWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadConsoleOutputResponse, error) {
+func (c *Client) ReadConsoleOutputWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error) {
 	rsp, err := c.ReadConsoleOutputWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40392,7 +41474,7 @@ func (c *Client) ReadConsoleOutputWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadConsoleOutputResponse, error) {
+func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error) {
 	rsp, err := c.ReadConsoleOutputRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40406,7 +41488,7 @@ func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJS
 }
 
 // ReadConsumptionAccountWithBody request with arbitrary body returning *ReadConsumptionAccountResponse
-func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadConsumptionAccountResponse, error) {
+func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error) {
 	rsp, err := c.ReadConsumptionAccountWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40419,7 +41501,7 @@ func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadConsumptionAccountResponse, error) {
+func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error) {
 	rsp, err := c.ReadConsumptionAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40433,7 +41515,7 @@ func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptio
 }
 
 // ReadDedicatedGroupsWithBody request with arbitrary body returning *ReadDedicatedGroupsResponse
-func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDedicatedGroupsResponse, error) {
+func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error) {
 	rsp, err := c.ReadDedicatedGroupsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40446,7 +41528,7 @@ func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDedicatedGroupsResponse, error) {
+func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error) {
 	rsp, err := c.ReadDedicatedGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40460,7 +41542,7 @@ func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGrou
 }
 
 // ReadDhcpOptionsWithBody request with arbitrary body returning *ReadDhcpOptionsResponse
-func (c *Client) ReadDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDhcpOptionsResponse, error) {
+func (c *Client) ReadDhcpOptionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error) {
 	rsp, err := c.ReadDhcpOptionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40473,7 +41555,7 @@ func (c *Client) ReadDhcpOptionsWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDhcpOptionsResponse, error) {
+func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error) {
 	rsp, err := c.ReadDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40487,7 +41569,7 @@ func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRe
 }
 
 // ReadDirectLinkInterfacesWithBody request with arbitrary body returning *ReadDirectLinkInterfacesResponse
-func (c *Client) ReadDirectLinkInterfacesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDirectLinkInterfacesResponse, error) {
+func (c *Client) ReadDirectLinkInterfacesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error) {
 	rsp, err := c.ReadDirectLinkInterfacesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40500,7 +41582,7 @@ func (c *Client) ReadDirectLinkInterfacesWithBody(ctx context.Context, contentTy
 	return obj.Expect()
 }
 
-func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDirectLinkInterfacesResponse, error) {
+func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error) {
 	rsp, err := c.ReadDirectLinkInterfacesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40514,7 +41596,7 @@ func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLi
 }
 
 // ReadDirectLinksWithBody request with arbitrary body returning *ReadDirectLinksResponse
-func (c *Client) ReadDirectLinksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadDirectLinksResponse, error) {
+func (c *Client) ReadDirectLinksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error) {
 	rsp, err := c.ReadDirectLinksWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40527,7 +41609,7 @@ func (c *Client) ReadDirectLinksWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadDirectLinksResponse, error) {
+func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error) {
 	rsp, err := c.ReadDirectLinksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40541,7 +41623,7 @@ func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRe
 }
 
 // ReadEntitiesLinkedToPolicyWithBody request with arbitrary body returning *ReadEntitiesLinkedToPolicyResponse
-func (c *Client) ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadEntitiesLinkedToPolicyResponse, error) {
+func (c *Client) ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error) {
 	rsp, err := c.ReadEntitiesLinkedToPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40554,7 +41636,7 @@ func (c *Client) ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, content
 	return obj.Expect()
 }
 
-func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadEntitiesLinkedToPolicyResponse, error) {
+func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error) {
 	rsp, err := c.ReadEntitiesLinkedToPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40568,7 +41650,7 @@ func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntiti
 }
 
 // ReadFlexibleGpuCatalogWithBody request with arbitrary body returning *ReadFlexibleGpuCatalogResponse
-func (c *Client) ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadFlexibleGpuCatalogResponse, error) {
+func (c *Client) ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error) {
 	rsp, err := c.ReadFlexibleGpuCatalogWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40581,7 +41663,7 @@ func (c *Client) ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadFlexibleGpuCatalogResponse, error) {
+func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error) {
 	rsp, err := c.ReadFlexibleGpuCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40595,7 +41677,7 @@ func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGp
 }
 
 // ReadFlexibleGpusWithBody request with arbitrary body returning *ReadFlexibleGpusResponse
-func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadFlexibleGpusResponse, error) {
+func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error) {
 	rsp, err := c.ReadFlexibleGpusWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40608,7 +41690,7 @@ func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadFlexibleGpusResponse, error) {
+func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error) {
 	rsp, err := c.ReadFlexibleGpusRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40622,7 +41704,7 @@ func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSON
 }
 
 // ReadImageExportTasksWithBody request with arbitrary body returning *ReadImageExportTasksResponse
-func (c *Client) ReadImageExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadImageExportTasksResponse, error) {
+func (c *Client) ReadImageExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error) {
 	rsp, err := c.ReadImageExportTasksWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40635,7 +41717,7 @@ func (c *Client) ReadImageExportTasksWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadImageExportTasksResponse, error) {
+func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error) {
 	rsp, err := c.ReadImageExportTasksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40649,7 +41731,7 @@ func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportT
 }
 
 // ReadImagesWithBody request with arbitrary body returning *ReadImagesResponse
-func (c *Client) ReadImagesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadImagesResponse, error) {
+func (c *Client) ReadImagesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error) {
 	rsp, err := c.ReadImagesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40662,7 +41744,7 @@ func (c *Client) ReadImagesWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadImagesResponse, error) {
+func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error) {
 	rsp, err := c.ReadImagesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40676,7 +41758,7 @@ func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody,
 }
 
 // ReadInternetServicesWithBody request with arbitrary body returning *ReadInternetServicesResponse
-func (c *Client) ReadInternetServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadInternetServicesResponse, error) {
+func (c *Client) ReadInternetServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error) {
 	rsp, err := c.ReadInternetServicesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40689,7 +41771,7 @@ func (c *Client) ReadInternetServicesWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadInternetServicesResponse, error) {
+func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error) {
 	rsp, err := c.ReadInternetServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40703,7 +41785,7 @@ func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServ
 }
 
 // ReadKeypairsWithBody request with arbitrary body returning *ReadKeypairsResponse
-func (c *Client) ReadKeypairsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadKeypairsResponse, error) {
+func (c *Client) ReadKeypairsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error) {
 	rsp, err := c.ReadKeypairsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40716,7 +41798,7 @@ func (c *Client) ReadKeypairsWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadKeypairsResponse, error) {
+func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error) {
 	rsp, err := c.ReadKeypairsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40730,7 +41812,7 @@ func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestB
 }
 
 // ReadLinkedPoliciesWithBody request with arbitrary body returning *ReadLinkedPoliciesResponse
-func (c *Client) ReadLinkedPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLinkedPoliciesResponse, error) {
+func (c *Client) ReadLinkedPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error) {
 	rsp, err := c.ReadLinkedPoliciesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40743,7 +41825,7 @@ func (c *Client) ReadLinkedPoliciesWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLinkedPoliciesResponse, error) {
+func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error) {
 	rsp, err := c.ReadLinkedPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40757,7 +41839,7 @@ func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPolicies
 }
 
 // ReadListenerRulesWithBody request with arbitrary body returning *ReadListenerRulesResponse
-func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadListenerRulesResponse, error) {
+func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error) {
 	rsp, err := c.ReadListenerRulesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40770,7 +41852,7 @@ func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadListenerRulesResponse, error) {
+func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error) {
 	rsp, err := c.ReadListenerRulesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40784,7 +41866,7 @@ func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJS
 }
 
 // ReadLoadBalancerTagsWithBody request with arbitrary body returning *ReadLoadBalancerTagsResponse
-func (c *Client) ReadLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLoadBalancerTagsResponse, error) {
+func (c *Client) ReadLoadBalancerTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error) {
 	rsp, err := c.ReadLoadBalancerTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40797,7 +41879,7 @@ func (c *Client) ReadLoadBalancerTagsWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLoadBalancerTagsResponse, error) {
+func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error) {
 	rsp, err := c.ReadLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40811,7 +41893,7 @@ func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancer
 }
 
 // ReadLoadBalancersWithBody request with arbitrary body returning *ReadLoadBalancersResponse
-func (c *Client) ReadLoadBalancersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLoadBalancersResponse, error) {
+func (c *Client) ReadLoadBalancersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error) {
 	rsp, err := c.ReadLoadBalancersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40824,7 +41906,7 @@ func (c *Client) ReadLoadBalancersWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLoadBalancersResponse, error) {
+func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error) {
 	rsp, err := c.ReadLoadBalancersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40838,7 +41920,7 @@ func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJS
 }
 
 // ReadLocationsWithBody request with arbitrary body returning *ReadLocationsResponse
-func (c *Client) ReadLocationsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadLocationsResponse, error) {
+func (c *Client) ReadLocationsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error) {
 	rsp, err := c.ReadLocationsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40851,7 +41933,7 @@ func (c *Client) ReadLocationsWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadLocationsResponse, error) {
+func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error) {
 	rsp, err := c.ReadLocationsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40865,7 +41947,7 @@ func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONReques
 }
 
 // ReadManagedPoliciesLinkedToUserGroupWithBody request with arbitrary body returning *ReadManagedPoliciesLinkedToUserGroupResponse
-func (c *Client) ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
+func (c *Client) ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
 	rsp, err := c.ReadManagedPoliciesLinkedToUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40878,7 +41960,7 @@ func (c *Client) ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Contex
 	return obj.Expect()
 }
 
-func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
+func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
 	rsp, err := c.ReadManagedPoliciesLinkedToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40892,7 +41974,7 @@ func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body 
 }
 
 // ReadNatServicesWithBody request with arbitrary body returning *ReadNatServicesResponse
-func (c *Client) ReadNatServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNatServicesResponse, error) {
+func (c *Client) ReadNatServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error) {
 	rsp, err := c.ReadNatServicesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40905,7 +41987,7 @@ func (c *Client) ReadNatServicesWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNatServicesResponse, error) {
+func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error) {
 	rsp, err := c.ReadNatServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40919,7 +42001,7 @@ func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRe
 }
 
 // ReadNetAccessPointServicesWithBody request with arbitrary body returning *ReadNetAccessPointServicesResponse
-func (c *Client) ReadNetAccessPointServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetAccessPointServicesResponse, error) {
+func (c *Client) ReadNetAccessPointServicesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error) {
 	rsp, err := c.ReadNetAccessPointServicesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40932,7 +42014,7 @@ func (c *Client) ReadNetAccessPointServicesWithBody(ctx context.Context, content
 	return obj.Expect()
 }
 
-func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetAccessPointServicesResponse, error) {
+func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error) {
 	rsp, err := c.ReadNetAccessPointServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40946,7 +42028,7 @@ func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAcc
 }
 
 // ReadNetAccessPointsWithBody request with arbitrary body returning *ReadNetAccessPointsResponse
-func (c *Client) ReadNetAccessPointsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetAccessPointsResponse, error) {
+func (c *Client) ReadNetAccessPointsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error) {
 	rsp, err := c.ReadNetAccessPointsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40959,7 +42041,7 @@ func (c *Client) ReadNetAccessPointsWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetAccessPointsResponse, error) {
+func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error) {
 	rsp, err := c.ReadNetAccessPointsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40973,7 +42055,7 @@ func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPoin
 }
 
 // ReadNetPeeringsWithBody request with arbitrary body returning *ReadNetPeeringsResponse
-func (c *Client) ReadNetPeeringsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetPeeringsResponse, error) {
+func (c *Client) ReadNetPeeringsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error) {
 	rsp, err := c.ReadNetPeeringsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40986,7 +42068,7 @@ func (c *Client) ReadNetPeeringsWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetPeeringsResponse, error) {
+func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error) {
 	rsp, err := c.ReadNetPeeringsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41000,7 +42082,7 @@ func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRe
 }
 
 // ReadNetsWithBody request with arbitrary body returning *ReadNetsResponse
-func (c *Client) ReadNetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNetsResponse, error) {
+func (c *Client) ReadNetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error) {
 	rsp, err := c.ReadNetsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41013,7 +42095,7 @@ func (c *Client) ReadNetsWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNetsResponse, error) {
+func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error) {
 	rsp, err := c.ReadNetsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41027,7 +42109,7 @@ func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, req
 }
 
 // ReadNicsWithBody request with arbitrary body returning *ReadNicsResponse
-func (c *Client) ReadNicsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadNicsResponse, error) {
+func (c *Client) ReadNicsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error) {
 	rsp, err := c.ReadNicsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41040,7 +42122,7 @@ func (c *Client) ReadNicsWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadNicsResponse, error) {
+func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error) {
 	rsp, err := c.ReadNicsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41054,7 +42136,7 @@ func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, req
 }
 
 // ReadPoliciesWithBody request with arbitrary body returning *ReadPoliciesResponse
-func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPoliciesResponse, error) {
+func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error) {
 	rsp, err := c.ReadPoliciesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41067,7 +42149,7 @@ func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPoliciesResponse, error) {
+func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error) {
 	rsp, err := c.ReadPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41081,7 +42163,7 @@ func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestB
 }
 
 // ReadPolicyWithBody request with arbitrary body returning *ReadPolicyResponse
-func (c *Client) ReadPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyResponse, error) {
+func (c *Client) ReadPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error) {
 	rsp, err := c.ReadPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41094,7 +42176,7 @@ func (c *Client) ReadPolicyWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyResponse, error) {
+func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error) {
 	rsp, err := c.ReadPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41108,7 +42190,7 @@ func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody,
 }
 
 // ReadPolicyVersionWithBody request with arbitrary body returning *ReadPolicyVersionResponse
-func (c *Client) ReadPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyVersionResponse, error) {
+func (c *Client) ReadPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error) {
 	rsp, err := c.ReadPolicyVersionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41121,7 +42203,7 @@ func (c *Client) ReadPolicyVersionWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyVersionResponse, error) {
+func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error) {
 	rsp, err := c.ReadPolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41135,7 +42217,7 @@ func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJS
 }
 
 // ReadPolicyVersionsWithBody request with arbitrary body returning *ReadPolicyVersionsResponse
-func (c *Client) ReadPolicyVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPolicyVersionsResponse, error) {
+func (c *Client) ReadPolicyVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error) {
 	rsp, err := c.ReadPolicyVersionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41148,7 +42230,7 @@ func (c *Client) ReadPolicyVersionsWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPolicyVersionsResponse, error) {
+func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error) {
 	rsp, err := c.ReadPolicyVersionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41162,7 +42244,7 @@ func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersions
 }
 
 // ReadProductTypesWithBody request with arbitrary body returning *ReadProductTypesResponse
-func (c *Client) ReadProductTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadProductTypesResponse, error) {
+func (c *Client) ReadProductTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error) {
 	rsp, err := c.ReadProductTypesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41175,7 +42257,7 @@ func (c *Client) ReadProductTypesWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadProductTypesResponse, error) {
+func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error) {
 	rsp, err := c.ReadProductTypesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41189,7 +42271,7 @@ func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSON
 }
 
 // ReadPublicCatalogWithBody request with arbitrary body returning *ReadPublicCatalogResponse
-func (c *Client) ReadPublicCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicCatalogResponse, error) {
+func (c *Client) ReadPublicCatalogWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error) {
 	rsp, err := c.ReadPublicCatalogWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41202,7 +42284,7 @@ func (c *Client) ReadPublicCatalogWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicCatalogResponse, error) {
+func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error) {
 	rsp, err := c.ReadPublicCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41216,7 +42298,7 @@ func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJS
 }
 
 // ReadPublicIpRangesWithBody request with arbitrary body returning *ReadPublicIpRangesResponse
-func (c *Client) ReadPublicIpRangesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicIpRangesResponse, error) {
+func (c *Client) ReadPublicIpRangesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error) {
 	rsp, err := c.ReadPublicIpRangesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41229,7 +42311,7 @@ func (c *Client) ReadPublicIpRangesWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicIpRangesResponse, error) {
+func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error) {
 	rsp, err := c.ReadPublicIpRangesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41243,7 +42325,7 @@ func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRanges
 }
 
 // ReadPublicIpsWithBody request with arbitrary body returning *ReadPublicIpsResponse
-func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadPublicIpsResponse, error) {
+func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error) {
 	rsp, err := c.ReadPublicIpsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41256,7 +42338,7 @@ func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadPublicIpsResponse, error) {
+func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error) {
 	rsp, err := c.ReadPublicIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41270,7 +42352,7 @@ func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONReques
 }
 
 // ReadQuotasWithBody request with arbitrary body returning *ReadQuotasResponse
-func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadQuotasResponse, error) {
+func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error) {
 	rsp, err := c.ReadQuotasWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41283,7 +42365,7 @@ func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadQuotasResponse, error) {
+func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error) {
 	rsp, err := c.ReadQuotasRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41297,7 +42379,7 @@ func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody,
 }
 
 // ReadRegionsWithBody request with arbitrary body returning *ReadRegionsResponse
-func (c *Client) ReadRegionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadRegionsResponse, error) {
+func (c *Client) ReadRegionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error) {
 	rsp, err := c.ReadRegionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41310,7 +42392,7 @@ func (c *Client) ReadRegionsWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadRegionsResponse, error) {
+func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error) {
 	rsp, err := c.ReadRegionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41324,7 +42406,7 @@ func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBod
 }
 
 // ReadRouteTablesWithBody request with arbitrary body returning *ReadRouteTablesResponse
-func (c *Client) ReadRouteTablesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadRouteTablesResponse, error) {
+func (c *Client) ReadRouteTablesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error) {
 	rsp, err := c.ReadRouteTablesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41337,7 +42419,7 @@ func (c *Client) ReadRouteTablesWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadRouteTablesResponse, error) {
+func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error) {
 	rsp, err := c.ReadRouteTablesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41351,7 +42433,7 @@ func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRe
 }
 
 // ReadSecurityGroupsWithBody request with arbitrary body returning *ReadSecurityGroupsResponse
-func (c *Client) ReadSecurityGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSecurityGroupsResponse, error) {
+func (c *Client) ReadSecurityGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error) {
 	rsp, err := c.ReadSecurityGroupsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41364,7 +42446,7 @@ func (c *Client) ReadSecurityGroupsWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSecurityGroupsResponse, error) {
+func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error) {
 	rsp, err := c.ReadSecurityGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41378,7 +42460,7 @@ func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroups
 }
 
 // ReadServerCertificatesWithBody request with arbitrary body returning *ReadServerCertificatesResponse
-func (c *Client) ReadServerCertificatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadServerCertificatesResponse, error) {
+func (c *Client) ReadServerCertificatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error) {
 	rsp, err := c.ReadServerCertificatesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41391,7 +42473,7 @@ func (c *Client) ReadServerCertificatesWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadServerCertificatesResponse, error) {
+func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error) {
 	rsp, err := c.ReadServerCertificatesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41405,7 +42487,7 @@ func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCert
 }
 
 // ReadSnapshotExportTasksWithBody request with arbitrary body returning *ReadSnapshotExportTasksResponse
-func (c *Client) ReadSnapshotExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSnapshotExportTasksResponse, error) {
+func (c *Client) ReadSnapshotExportTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error) {
 	rsp, err := c.ReadSnapshotExportTasksWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41418,7 +42500,7 @@ func (c *Client) ReadSnapshotExportTasksWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSnapshotExportTasksResponse, error) {
+func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error) {
 	rsp, err := c.ReadSnapshotExportTasksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41432,7 +42514,7 @@ func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotE
 }
 
 // ReadSnapshotsWithBody request with arbitrary body returning *ReadSnapshotsResponse
-func (c *Client) ReadSnapshotsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSnapshotsResponse, error) {
+func (c *Client) ReadSnapshotsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error) {
 	rsp, err := c.ReadSnapshotsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41445,7 +42527,7 @@ func (c *Client) ReadSnapshotsWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSnapshotsResponse, error) {
+func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error) {
 	rsp, err := c.ReadSnapshotsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41459,7 +42541,7 @@ func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONReques
 }
 
 // ReadSubnetsWithBody request with arbitrary body returning *ReadSubnetsResponse
-func (c *Client) ReadSubnetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSubnetsResponse, error) {
+func (c *Client) ReadSubnetsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error) {
 	rsp, err := c.ReadSubnetsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41472,7 +42554,7 @@ func (c *Client) ReadSubnetsWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSubnetsResponse, error) {
+func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error) {
 	rsp, err := c.ReadSubnetsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41486,7 +42568,7 @@ func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBod
 }
 
 // ReadSubregionsWithBody request with arbitrary body returning *ReadSubregionsResponse
-func (c *Client) ReadSubregionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadSubregionsResponse, error) {
+func (c *Client) ReadSubregionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error) {
 	rsp, err := c.ReadSubregionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41499,7 +42581,7 @@ func (c *Client) ReadSubregionsWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadSubregionsResponse, error) {
+func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error) {
 	rsp, err := c.ReadSubregionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41513,7 +42595,7 @@ func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequ
 }
 
 // ReadTagsWithBody request with arbitrary body returning *ReadTagsResponse
-func (c *Client) ReadTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadTagsResponse, error) {
+func (c *Client) ReadTagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error) {
 	rsp, err := c.ReadTagsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41526,7 +42608,7 @@ func (c *Client) ReadTagsWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadTagsResponse, error) {
+func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error) {
 	rsp, err := c.ReadTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41540,7 +42622,7 @@ func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, req
 }
 
 // ReadUnitPriceWithBody request with arbitrary body returning *ReadUnitPriceResponse
-func (c *Client) ReadUnitPriceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUnitPriceResponse, error) {
+func (c *Client) ReadUnitPriceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error) {
 	rsp, err := c.ReadUnitPriceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41553,7 +42635,7 @@ func (c *Client) ReadUnitPriceWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUnitPriceResponse, error) {
+func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error) {
 	rsp, err := c.ReadUnitPriceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41567,7 +42649,7 @@ func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONReques
 }
 
 // ReadUserGroupWithBody request with arbitrary body returning *ReadUserGroupResponse
-func (c *Client) ReadUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupResponse, error) {
+func (c *Client) ReadUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error) {
 	rsp, err := c.ReadUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41580,7 +42662,7 @@ func (c *Client) ReadUserGroupWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupResponse, error) {
+func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error) {
 	rsp, err := c.ReadUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41594,7 +42676,7 @@ func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONReques
 }
 
 // ReadUserGroupPoliciesWithBody request with arbitrary body returning *ReadUserGroupPoliciesResponse
-func (c *Client) ReadUserGroupPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupPoliciesResponse, error) {
+func (c *Client) ReadUserGroupPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error) {
 	rsp, err := c.ReadUserGroupPoliciesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41607,7 +42689,7 @@ func (c *Client) ReadUserGroupPoliciesWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupPoliciesResponse, error) {
+func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error) {
 	rsp, err := c.ReadUserGroupPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41621,7 +42703,7 @@ func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPo
 }
 
 // ReadUserGroupPolicyWithBody request with arbitrary body returning *ReadUserGroupPolicyResponse
-func (c *Client) ReadUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupPolicyResponse, error) {
+func (c *Client) ReadUserGroupPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error) {
 	rsp, err := c.ReadUserGroupPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41634,7 +42716,7 @@ func (c *Client) ReadUserGroupPolicyWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupPolicyResponse, error) {
+func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error) {
 	rsp, err := c.ReadUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41648,7 +42730,7 @@ func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPoli
 }
 
 // ReadUserGroupsWithBody request with arbitrary body returning *ReadUserGroupsResponse
-func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupsResponse, error) {
+func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error) {
 	rsp, err := c.ReadUserGroupsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41661,7 +42743,7 @@ func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupsResponse, error) {
+func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error) {
 	rsp, err := c.ReadUserGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41675,7 +42757,7 @@ func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequ
 }
 
 // ReadUserGroupsPerUserWithBody request with arbitrary body returning *ReadUserGroupsPerUserResponse
-func (c *Client) ReadUserGroupsPerUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserGroupsPerUserResponse, error) {
+func (c *Client) ReadUserGroupsPerUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error) {
 	rsp, err := c.ReadUserGroupsPerUserWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41688,7 +42770,7 @@ func (c *Client) ReadUserGroupsPerUserWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserGroupsPerUserResponse, error) {
+func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error) {
 	rsp, err := c.ReadUserGroupsPerUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41702,7 +42784,7 @@ func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsP
 }
 
 // ReadUserPoliciesWithBody request with arbitrary body returning *ReadUserPoliciesResponse
-func (c *Client) ReadUserPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserPoliciesResponse, error) {
+func (c *Client) ReadUserPoliciesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error) {
 	rsp, err := c.ReadUserPoliciesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41715,7 +42797,7 @@ func (c *Client) ReadUserPoliciesWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserPoliciesResponse, error) {
+func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error) {
 	rsp, err := c.ReadUserPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41729,7 +42811,7 @@ func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSON
 }
 
 // ReadUserPolicyWithBody request with arbitrary body returning *ReadUserPolicyResponse
-func (c *Client) ReadUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUserPolicyResponse, error) {
+func (c *Client) ReadUserPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error) {
 	rsp, err := c.ReadUserPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41742,7 +42824,7 @@ func (c *Client) ReadUserPolicyWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUserPolicyResponse, error) {
+func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error) {
 	rsp, err := c.ReadUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41756,7 +42838,7 @@ func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequ
 }
 
 // ReadUsersWithBody request with arbitrary body returning *ReadUsersResponse
-func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadUsersResponse, error) {
+func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error) {
 	rsp, err := c.ReadUsersWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41769,7 +42851,7 @@ func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadUsersResponse, error) {
+func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error) {
 	rsp, err := c.ReadUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41783,7 +42865,7 @@ func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, r
 }
 
 // ReadVirtualGatewaysWithBody request with arbitrary body returning *ReadVirtualGatewaysResponse
-func (c *Client) ReadVirtualGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVirtualGatewaysResponse, error) {
+func (c *Client) ReadVirtualGatewaysWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error) {
 	rsp, err := c.ReadVirtualGatewaysWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41796,7 +42878,7 @@ func (c *Client) ReadVirtualGatewaysWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVirtualGatewaysResponse, error) {
+func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error) {
 	rsp, err := c.ReadVirtualGatewaysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41810,7 +42892,7 @@ func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewa
 }
 
 // ReadVmGroupsWithBody request with arbitrary body returning *ReadVmGroupsResponse
-func (c *Client) ReadVmGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmGroupsResponse, error) {
+func (c *Client) ReadVmGroupsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error) {
 	rsp, err := c.ReadVmGroupsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41823,7 +42905,7 @@ func (c *Client) ReadVmGroupsWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmGroupsResponse, error) {
+func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error) {
 	rsp, err := c.ReadVmGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41837,7 +42919,7 @@ func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestB
 }
 
 // ReadVmTemplatesWithBody request with arbitrary body returning *ReadVmTemplatesResponse
-func (c *Client) ReadVmTemplatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmTemplatesResponse, error) {
+func (c *Client) ReadVmTemplatesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error) {
 	rsp, err := c.ReadVmTemplatesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41850,7 +42932,7 @@ func (c *Client) ReadVmTemplatesWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmTemplatesResponse, error) {
+func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error) {
 	rsp, err := c.ReadVmTemplatesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41864,7 +42946,7 @@ func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRe
 }
 
 // ReadVmTypesWithBody request with arbitrary body returning *ReadVmTypesResponse
-func (c *Client) ReadVmTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmTypesResponse, error) {
+func (c *Client) ReadVmTypesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error) {
 	rsp, err := c.ReadVmTypesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41877,7 +42959,7 @@ func (c *Client) ReadVmTypesWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmTypesResponse, error) {
+func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error) {
 	rsp, err := c.ReadVmTypesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41891,7 +42973,7 @@ func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBod
 }
 
 // ReadVmsWithBody request with arbitrary body returning *ReadVmsResponse
-func (c *Client) ReadVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsResponse, error) {
+func (c *Client) ReadVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error) {
 	rsp, err := c.ReadVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41904,7 +42986,7 @@ func (c *Client) ReadVmsWithBody(ctx context.Context, contentType string, body i
 	return obj.Expect()
 }
 
-func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsResponse, error) {
+func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error) {
 	rsp, err := c.ReadVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41918,7 +43000,7 @@ func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEd
 }
 
 // ReadVmsHealthWithBody request with arbitrary body returning *ReadVmsHealthResponse
-func (c *Client) ReadVmsHealthWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsHealthResponse, error) {
+func (c *Client) ReadVmsHealthWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error) {
 	rsp, err := c.ReadVmsHealthWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41931,7 +43013,7 @@ func (c *Client) ReadVmsHealthWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsHealthResponse, error) {
+func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error) {
 	rsp, err := c.ReadVmsHealthRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41945,7 +43027,7 @@ func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONReques
 }
 
 // ReadVmsStateWithBody request with arbitrary body returning *ReadVmsStateResponse
-func (c *Client) ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVmsStateResponse, error) {
+func (c *Client) ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error) {
 	rsp, err := c.ReadVmsStateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41958,7 +43040,7 @@ func (c *Client) ReadVmsStateWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVmsStateResponse, error) {
+func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error) {
 	rsp, err := c.ReadVmsStateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41972,7 +43054,7 @@ func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestB
 }
 
 // ReadVolumesWithBody request with arbitrary body returning *ReadVolumesResponse
-func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVolumesResponse, error) {
+func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error) {
 	rsp, err := c.ReadVolumesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41985,7 +43067,7 @@ func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVolumesResponse, error) {
+func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error) {
 	rsp, err := c.ReadVolumesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41999,7 +43081,7 @@ func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBod
 }
 
 // ReadVpnConnectionsWithBody request with arbitrary body returning *ReadVpnConnectionsResponse
-func (c *Client) ReadVpnConnectionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReadVpnConnectionsResponse, error) {
+func (c *Client) ReadVpnConnectionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error) {
 	rsp, err := c.ReadVpnConnectionsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42012,7 +43094,7 @@ func (c *Client) ReadVpnConnectionsWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...RequestEditorFn) (*ReadVpnConnectionsResponse, error) {
+func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error) {
 	rsp, err := c.ReadVpnConnectionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42026,7 +43108,7 @@ func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnections
 }
 
 // RebootVmsWithBody request with arbitrary body returning *RebootVmsResponse
-func (c *Client) RebootVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RebootVmsResponse, error) {
+func (c *Client) RebootVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error) {
 	rsp, err := c.RebootVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42039,7 +43121,7 @@ func (c *Client) RebootVmsWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*RebootVmsResponse, error) {
+func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error) {
 	rsp, err := c.RebootVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42053,7 +43135,7 @@ func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, r
 }
 
 // RegisterVmsInLoadBalancerWithBody request with arbitrary body returning *RegisterVmsInLoadBalancerResponse
-func (c *Client) RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterVmsInLoadBalancerResponse, error) {
+func (c *Client) RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error) {
 	rsp, err := c.RegisterVmsInLoadBalancerWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42066,7 +43148,7 @@ func (c *Client) RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentT
 	return obj.Expect()
 }
 
-func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterVmsInLoadBalancerResponse, error) {
+func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error) {
 	rsp, err := c.RegisterVmsInLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42080,7 +43162,7 @@ func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVms
 }
 
 // RejectNetPeeringWithBody request with arbitrary body returning *RejectNetPeeringResponse
-func (c *Client) RejectNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RejectNetPeeringResponse, error) {
+func (c *Client) RejectNetPeeringWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error) {
 	rsp, err := c.RejectNetPeeringWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42093,7 +43175,7 @@ func (c *Client) RejectNetPeeringWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...RequestEditorFn) (*RejectNetPeeringResponse, error) {
+func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error) {
 	rsp, err := c.RejectNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42107,7 +43189,7 @@ func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSON
 }
 
 // RemoveUserFromUserGroupWithBody request with arbitrary body returning *RemoveUserFromUserGroupResponse
-func (c *Client) RemoveUserFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RemoveUserFromUserGroupResponse, error) {
+func (c *Client) RemoveUserFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error) {
 	rsp, err := c.RemoveUserFromUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42120,7 +43202,7 @@ func (c *Client) RemoveUserFromUserGroupWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*RemoveUserFromUserGroupResponse, error) {
+func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error) {
 	rsp, err := c.RemoveUserFromUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42134,7 +43216,7 @@ func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFro
 }
 
 // ScaleDownVmGroupWithBody request with arbitrary body returning *ScaleDownVmGroupResponse
-func (c *Client) ScaleDownVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScaleDownVmGroupResponse, error) {
+func (c *Client) ScaleDownVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error) {
 	rsp, err := c.ScaleDownVmGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42147,7 +43229,7 @@ func (c *Client) ScaleDownVmGroupWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ScaleDownVmGroupResponse, error) {
+func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error) {
 	rsp, err := c.ScaleDownVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42161,7 +43243,7 @@ func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSON
 }
 
 // ScaleUpVmGroupWithBody request with arbitrary body returning *ScaleUpVmGroupResponse
-func (c *Client) ScaleUpVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScaleUpVmGroupResponse, error) {
+func (c *Client) ScaleUpVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error) {
 	rsp, err := c.ScaleUpVmGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42174,7 +43256,7 @@ func (c *Client) ScaleUpVmGroupWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*ScaleUpVmGroupResponse, error) {
+func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error) {
 	rsp, err := c.ScaleUpVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42188,7 +43270,7 @@ func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequ
 }
 
 // SetDefaultPolicyVersionWithBody request with arbitrary body returning *SetDefaultPolicyVersionResponse
-func (c *Client) SetDefaultPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SetDefaultPolicyVersionResponse, error) {
+func (c *Client) SetDefaultPolicyVersionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error) {
 	rsp, err := c.SetDefaultPolicyVersionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42201,7 +43283,7 @@ func (c *Client) SetDefaultPolicyVersionWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*SetDefaultPolicyVersionResponse, error) {
+func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error) {
 	rsp, err := c.SetDefaultPolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42215,7 +43297,7 @@ func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPol
 }
 
 // StartVmsWithBody request with arbitrary body returning *StartVmsResponse
-func (c *Client) StartVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartVmsResponse, error) {
+func (c *Client) StartVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error) {
 	rsp, err := c.StartVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42228,7 +43310,7 @@ func (c *Client) StartVmsWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*StartVmsResponse, error) {
+func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error) {
 	rsp, err := c.StartVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42242,7 +43324,7 @@ func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, req
 }
 
 // StopVmsWithBody request with arbitrary body returning *StopVmsResponse
-func (c *Client) StopVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StopVmsResponse, error) {
+func (c *Client) StopVmsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error) {
 	rsp, err := c.StopVmsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42255,7 +43337,7 @@ func (c *Client) StopVmsWithBody(ctx context.Context, contentType string, body i
 	return obj.Expect()
 }
 
-func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...RequestEditorFn) (*StopVmsResponse, error) {
+func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error) {
 	rsp, err := c.StopVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42269,7 +43351,7 @@ func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEd
 }
 
 // UnlinkFlexibleGpuWithBody request with arbitrary body returning *UnlinkFlexibleGpuResponse
-func (c *Client) UnlinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkFlexibleGpuResponse, error) {
+func (c *Client) UnlinkFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error) {
 	rsp, err := c.UnlinkFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42282,7 +43364,7 @@ func (c *Client) UnlinkFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkFlexibleGpuResponse, error) {
+func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error) {
 	rsp, err := c.UnlinkFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42296,7 +43378,7 @@ func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJS
 }
 
 // UnlinkInternetServiceWithBody request with arbitrary body returning *UnlinkInternetServiceResponse
-func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkInternetServiceResponse, error) {
+func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error) {
 	rsp, err := c.UnlinkInternetServiceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42309,7 +43391,7 @@ func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkInternetServiceResponse, error) {
+func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error) {
 	rsp, err := c.UnlinkInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42323,7 +43405,7 @@ func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetS
 }
 
 // UnlinkLoadBalancerBackendMachinesWithBody request with arbitrary body returning *UnlinkLoadBalancerBackendMachinesResponse
-func (c *Client) UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
+func (c *Client) UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
 	rsp, err := c.UnlinkLoadBalancerBackendMachinesWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42336,7 +43418,7 @@ func (c *Client) UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, 
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
+func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
 	rsp, err := c.UnlinkLoadBalancerBackendMachinesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42350,7 +43432,7 @@ func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body Unl
 }
 
 // UnlinkManagedPolicyFromUserGroupWithBody request with arbitrary body returning *UnlinkManagedPolicyFromUserGroupResponse
-func (c *Client) UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
+func (c *Client) UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
 	rsp, err := c.UnlinkManagedPolicyFromUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42363,7 +43445,7 @@ func (c *Client) UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, c
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
+func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
 	rsp, err := c.UnlinkManagedPolicyFromUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42377,7 +43459,7 @@ func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body Unli
 }
 
 // UnlinkNicWithBody request with arbitrary body returning *UnlinkNicResponse
-func (c *Client) UnlinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkNicResponse, error) {
+func (c *Client) UnlinkNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error) {
 	rsp, err := c.UnlinkNicWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42390,7 +43472,7 @@ func (c *Client) UnlinkNicWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkNicResponse, error) {
+func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error) {
 	rsp, err := c.UnlinkNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42404,7 +43486,7 @@ func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, r
 }
 
 // UnlinkPolicyWithBody request with arbitrary body returning *UnlinkPolicyResponse
-func (c *Client) UnlinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPolicyResponse, error) {
+func (c *Client) UnlinkPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error) {
 	rsp, err := c.UnlinkPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42417,7 +43499,7 @@ func (c *Client) UnlinkPolicyWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPolicyResponse, error) {
+func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error) {
 	rsp, err := c.UnlinkPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42431,7 +43513,7 @@ func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestB
 }
 
 // UnlinkPrivateIpsWithBody request with arbitrary body returning *UnlinkPrivateIpsResponse
-func (c *Client) UnlinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPrivateIpsResponse, error) {
+func (c *Client) UnlinkPrivateIpsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error) {
 	rsp, err := c.UnlinkPrivateIpsWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42444,7 +43526,7 @@ func (c *Client) UnlinkPrivateIpsWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPrivateIpsResponse, error) {
+func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error) {
 	rsp, err := c.UnlinkPrivateIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42458,7 +43540,7 @@ func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSON
 }
 
 // UnlinkPublicIpWithBody request with arbitrary body returning *UnlinkPublicIpResponse
-func (c *Client) UnlinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkPublicIpResponse, error) {
+func (c *Client) UnlinkPublicIpWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error) {
 	rsp, err := c.UnlinkPublicIpWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42471,7 +43553,7 @@ func (c *Client) UnlinkPublicIpWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkPublicIpResponse, error) {
+func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error) {
 	rsp, err := c.UnlinkPublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42485,7 +43567,7 @@ func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequ
 }
 
 // UnlinkRouteTableWithBody request with arbitrary body returning *UnlinkRouteTableResponse
-func (c *Client) UnlinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkRouteTableResponse, error) {
+func (c *Client) UnlinkRouteTableWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error) {
 	rsp, err := c.UnlinkRouteTableWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42498,7 +43580,7 @@ func (c *Client) UnlinkRouteTableWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkRouteTableResponse, error) {
+func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error) {
 	rsp, err := c.UnlinkRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42512,7 +43594,7 @@ func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSON
 }
 
 // UnlinkVirtualGatewayWithBody request with arbitrary body returning *UnlinkVirtualGatewayResponse
-func (c *Client) UnlinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkVirtualGatewayResponse, error) {
+func (c *Client) UnlinkVirtualGatewayWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error) {
 	rsp, err := c.UnlinkVirtualGatewayWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42525,7 +43607,7 @@ func (c *Client) UnlinkVirtualGatewayWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkVirtualGatewayResponse, error) {
+func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error) {
 	rsp, err := c.UnlinkVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42539,7 +43621,7 @@ func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGat
 }
 
 // UnlinkVolumeWithBody request with arbitrary body returning *UnlinkVolumeResponse
-func (c *Client) UnlinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnlinkVolumeResponse, error) {
+func (c *Client) UnlinkVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error) {
 	rsp, err := c.UnlinkVolumeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42552,7 +43634,7 @@ func (c *Client) UnlinkVolumeWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*UnlinkVolumeResponse, error) {
+func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error) {
 	rsp, err := c.UnlinkVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42566,7 +43648,7 @@ func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestB
 }
 
 // UpdateAccessKeyWithBody request with arbitrary body returning *UpdateAccessKeyResponse
-func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAccessKeyResponse, error) {
+func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error) {
 	rsp, err := c.UpdateAccessKeyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42579,7 +43661,7 @@ func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAccessKeyResponse, error) {
+func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error) {
 	rsp, err := c.UpdateAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42593,7 +43675,7 @@ func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRe
 }
 
 // UpdateAccountWithBody request with arbitrary body returning *UpdateAccountResponse
-func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAccountResponse, error) {
+func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error) {
 	rsp, err := c.UpdateAccountWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42606,7 +43688,7 @@ func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAccountResponse, error) {
+func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error) {
 	rsp, err := c.UpdateAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42620,7 +43702,7 @@ func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONReques
 }
 
 // UpdateApiAccessPolicyWithBody request with arbitrary body returning *UpdateApiAccessPolicyResponse
-func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateApiAccessPolicyResponse, error) {
+func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error) {
 	rsp, err := c.UpdateApiAccessPolicyWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42633,7 +43715,7 @@ func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType 
 	return obj.Expect()
 }
 
-func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateApiAccessPolicyResponse, error) {
+func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error) {
 	rsp, err := c.UpdateApiAccessPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42647,7 +43729,7 @@ func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccess
 }
 
 // UpdateApiAccessRuleWithBody request with arbitrary body returning *UpdateApiAccessRuleResponse
-func (c *Client) UpdateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateApiAccessRuleResponse, error) {
+func (c *Client) UpdateApiAccessRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error) {
 	rsp, err := c.UpdateApiAccessRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42660,7 +43742,7 @@ func (c *Client) UpdateApiAccessRuleWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateApiAccessRuleResponse, error) {
+func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error) {
 	rsp, err := c.UpdateApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42674,7 +43756,7 @@ func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRu
 }
 
 // UpdateCaWithBody request with arbitrary body returning *UpdateCaResponse
-func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCaResponse, error) {
+func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error) {
 	rsp, err := c.UpdateCaWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42687,7 +43769,7 @@ func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCaResponse, error) {
+func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error) {
 	rsp, err := c.UpdateCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42701,7 +43783,7 @@ func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, req
 }
 
 // UpdateDedicatedGroupWithBody request with arbitrary body returning *UpdateDedicatedGroupResponse
-func (c *Client) UpdateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateDedicatedGroupResponse, error) {
+func (c *Client) UpdateDedicatedGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error) {
 	rsp, err := c.UpdateDedicatedGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42714,7 +43796,7 @@ func (c *Client) UpdateDedicatedGroupWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateDedicatedGroupResponse, error) {
+func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error) {
 	rsp, err := c.UpdateDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42728,7 +43810,7 @@ func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedG
 }
 
 // UpdateDirectLinkInterfaceWithBody request with arbitrary body returning *UpdateDirectLinkInterfaceResponse
-func (c *Client) UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateDirectLinkInterfaceResponse, error) {
+func (c *Client) UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error) {
 	rsp, err := c.UpdateDirectLinkInterfaceWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42741,7 +43823,7 @@ func (c *Client) UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 	return obj.Expect()
 }
 
-func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateDirectLinkInterfaceResponse, error) {
+func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error) {
 	rsp, err := c.UpdateDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42755,7 +43837,7 @@ func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirec
 }
 
 // UpdateFlexibleGpuWithBody request with arbitrary body returning *UpdateFlexibleGpuResponse
-func (c *Client) UpdateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFlexibleGpuResponse, error) {
+func (c *Client) UpdateFlexibleGpuWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error) {
 	rsp, err := c.UpdateFlexibleGpuWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42768,7 +43850,7 @@ func (c *Client) UpdateFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return obj.Expect()
 }
 
-func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFlexibleGpuResponse, error) {
+func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error) {
 	rsp, err := c.UpdateFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42782,7 +43864,7 @@ func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJS
 }
 
 // UpdateImageWithBody request with arbitrary body returning *UpdateImageResponse
-func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateImageResponse, error) {
+func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error) {
 	rsp, err := c.UpdateImageWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42795,7 +43877,7 @@ func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateImageResponse, error) {
+func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error) {
 	rsp, err := c.UpdateImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42809,7 +43891,7 @@ func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBod
 }
 
 // UpdateListenerRuleWithBody request with arbitrary body returning *UpdateListenerRuleResponse
-func (c *Client) UpdateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateListenerRuleResponse, error) {
+func (c *Client) UpdateListenerRuleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error) {
 	rsp, err := c.UpdateListenerRuleWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42822,7 +43904,7 @@ func (c *Client) UpdateListenerRuleWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateListenerRuleResponse, error) {
+func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error) {
 	rsp, err := c.UpdateListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42836,7 +43918,7 @@ func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRule
 }
 
 // UpdateLoadBalancerWithBody request with arbitrary body returning *UpdateLoadBalancerResponse
-func (c *Client) UpdateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateLoadBalancerResponse, error) {
+func (c *Client) UpdateLoadBalancerWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error) {
 	rsp, err := c.UpdateLoadBalancerWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42849,7 +43931,7 @@ func (c *Client) UpdateLoadBalancerWithBody(ctx context.Context, contentType str
 	return obj.Expect()
 }
 
-func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateLoadBalancerResponse, error) {
+func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error) {
 	rsp, err := c.UpdateLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42863,7 +43945,7 @@ func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancer
 }
 
 // UpdateNetWithBody request with arbitrary body returning *UpdateNetResponse
-func (c *Client) UpdateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetResponse, error) {
+func (c *Client) UpdateNetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error) {
 	rsp, err := c.UpdateNetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42876,7 +43958,7 @@ func (c *Client) UpdateNetWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetResponse, error) {
+func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error) {
 	rsp, err := c.UpdateNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42890,7 +43972,7 @@ func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, r
 }
 
 // UpdateNetAccessPointWithBody request with arbitrary body returning *UpdateNetAccessPointResponse
-func (c *Client) UpdateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetAccessPointResponse, error) {
+func (c *Client) UpdateNetAccessPointWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error) {
 	rsp, err := c.UpdateNetAccessPointWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42903,7 +43985,7 @@ func (c *Client) UpdateNetAccessPointWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetAccessPointResponse, error) {
+func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error) {
 	rsp, err := c.UpdateNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42917,7 +43999,7 @@ func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessP
 }
 
 // UpdateNicWithBody request with arbitrary body returning *UpdateNicResponse
-func (c *Client) UpdateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNicResponse, error) {
+func (c *Client) UpdateNicWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error) {
 	rsp, err := c.UpdateNicWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42930,7 +44012,7 @@ func (c *Client) UpdateNicWithBody(ctx context.Context, contentType string, body
 	return obj.Expect()
 }
 
-func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNicResponse, error) {
+func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error) {
 	rsp, err := c.UpdateNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42944,7 +44026,7 @@ func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, r
 }
 
 // UpdateRouteWithBody request with arbitrary body returning *UpdateRouteResponse
-func (c *Client) UpdateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRouteResponse, error) {
+func (c *Client) UpdateRouteWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error) {
 	rsp, err := c.UpdateRouteWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42957,7 +44039,7 @@ func (c *Client) UpdateRouteWithBody(ctx context.Context, contentType string, bo
 	return obj.Expect()
 }
 
-func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRouteResponse, error) {
+func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error) {
 	rsp, err := c.UpdateRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42971,7 +44053,7 @@ func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBod
 }
 
 // UpdateRoutePropagationWithBody request with arbitrary body returning *UpdateRoutePropagationResponse
-func (c *Client) UpdateRoutePropagationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRoutePropagationResponse, error) {
+func (c *Client) UpdateRoutePropagationWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error) {
 	rsp, err := c.UpdateRoutePropagationWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42984,7 +44066,7 @@ func (c *Client) UpdateRoutePropagationWithBody(ctx context.Context, contentType
 	return obj.Expect()
 }
 
-func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRoutePropagationResponse, error) {
+func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error) {
 	rsp, err := c.UpdateRoutePropagationRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42998,7 +44080,7 @@ func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePro
 }
 
 // UpdateRouteTableLinkWithBody request with arbitrary body returning *UpdateRouteTableLinkResponse
-func (c *Client) UpdateRouteTableLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRouteTableLinkResponse, error) {
+func (c *Client) UpdateRouteTableLinkWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error) {
 	rsp, err := c.UpdateRouteTableLinkWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43011,7 +44093,7 @@ func (c *Client) UpdateRouteTableLinkWithBody(ctx context.Context, contentType s
 	return obj.Expect()
 }
 
-func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateRouteTableLinkResponse, error) {
+func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error) {
 	rsp, err := c.UpdateRouteTableLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43025,7 +44107,7 @@ func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTable
 }
 
 // UpdateServerCertificateWithBody request with arbitrary body returning *UpdateServerCertificateResponse
-func (c *Client) UpdateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateServerCertificateResponse, error) {
+func (c *Client) UpdateServerCertificateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error) {
 	rsp, err := c.UpdateServerCertificateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43038,7 +44120,7 @@ func (c *Client) UpdateServerCertificateWithBody(ctx context.Context, contentTyp
 	return obj.Expect()
 }
 
-func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateServerCertificateResponse, error) {
+func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error) {
 	rsp, err := c.UpdateServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43052,7 +44134,7 @@ func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerC
 }
 
 // UpdateSnapshotWithBody request with arbitrary body returning *UpdateSnapshotResponse
-func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSnapshotResponse, error) {
+func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error) {
 	rsp, err := c.UpdateSnapshotWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43065,7 +44147,7 @@ func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string,
 	return obj.Expect()
 }
 
-func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSnapshotResponse, error) {
+func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error) {
 	rsp, err := c.UpdateSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43079,7 +44161,7 @@ func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequ
 }
 
 // UpdateSubnetWithBody request with arbitrary body returning *UpdateSubnetResponse
-func (c *Client) UpdateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSubnetResponse, error) {
+func (c *Client) UpdateSubnetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error) {
 	rsp, err := c.UpdateSubnetWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43092,7 +44174,7 @@ func (c *Client) UpdateSubnetWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSubnetResponse, error) {
+func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error) {
 	rsp, err := c.UpdateSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43106,7 +44188,7 @@ func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestB
 }
 
 // UpdateUserWithBody request with arbitrary body returning *UpdateUserResponse
-func (c *Client) UpdateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateUserResponse, error) {
+func (c *Client) UpdateUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error) {
 	rsp, err := c.UpdateUserWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43119,7 +44201,7 @@ func (c *Client) UpdateUserWithBody(ctx context.Context, contentType string, bod
 	return obj.Expect()
 }
 
-func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateUserResponse, error) {
+func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error) {
 	rsp, err := c.UpdateUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43133,7 +44215,7 @@ func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody,
 }
 
 // UpdateUserGroupWithBody request with arbitrary body returning *UpdateUserGroupResponse
-func (c *Client) UpdateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateUserGroupResponse, error) {
+func (c *Client) UpdateUserGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error) {
 	rsp, err := c.UpdateUserGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43146,7 +44228,7 @@ func (c *Client) UpdateUserGroupWithBody(ctx context.Context, contentType string
 	return obj.Expect()
 }
 
-func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateUserGroupResponse, error) {
+func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error) {
 	rsp, err := c.UpdateUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43160,7 +44242,7 @@ func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRe
 }
 
 // UpdateVmWithBody request with arbitrary body returning *UpdateVmResponse
-func (c *Client) UpdateVmWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmResponse, error) {
+func (c *Client) UpdateVmWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error) {
 	rsp, err := c.UpdateVmWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43173,7 +44255,7 @@ func (c *Client) UpdateVmWithBody(ctx context.Context, contentType string, body 
 	return obj.Expect()
 }
 
-func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmResponse, error) {
+func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error) {
 	rsp, err := c.UpdateVmRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43187,7 +44269,7 @@ func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, req
 }
 
 // UpdateVmGroupWithBody request with arbitrary body returning *UpdateVmGroupResponse
-func (c *Client) UpdateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmGroupResponse, error) {
+func (c *Client) UpdateVmGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error) {
 	rsp, err := c.UpdateVmGroupWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43200,7 +44282,7 @@ func (c *Client) UpdateVmGroupWithBody(ctx context.Context, contentType string, 
 	return obj.Expect()
 }
 
-func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmGroupResponse, error) {
+func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error) {
 	rsp, err := c.UpdateVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43214,7 +44296,7 @@ func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONReques
 }
 
 // UpdateVmTemplateWithBody request with arbitrary body returning *UpdateVmTemplateResponse
-func (c *Client) UpdateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVmTemplateResponse, error) {
+func (c *Client) UpdateVmTemplateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error) {
 	rsp, err := c.UpdateVmTemplateWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43227,7 +44309,7 @@ func (c *Client) UpdateVmTemplateWithBody(ctx context.Context, contentType strin
 	return obj.Expect()
 }
 
-func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVmTemplateResponse, error) {
+func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error) {
 	rsp, err := c.UpdateVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43241,7 +44323,7 @@ func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSON
 }
 
 // UpdateVolumeWithBody request with arbitrary body returning *UpdateVolumeResponse
-func (c *Client) UpdateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVolumeResponse, error) {
+func (c *Client) UpdateVolumeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error) {
 	rsp, err := c.UpdateVolumeWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43254,7 +44336,7 @@ func (c *Client) UpdateVolumeWithBody(ctx context.Context, contentType string, b
 	return obj.Expect()
 }
 
-func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVolumeResponse, error) {
+func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error) {
 	rsp, err := c.UpdateVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43268,7 +44350,7 @@ func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestB
 }
 
 // UpdateVpnConnectionWithBody request with arbitrary body returning *UpdateVpnConnectionResponse
-func (c *Client) UpdateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVpnConnectionResponse, error) {
+func (c *Client) UpdateVpnConnectionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error) {
 	rsp, err := c.UpdateVpnConnectionWithBodyRaw(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43281,7 +44363,7 @@ func (c *Client) UpdateVpnConnectionWithBody(ctx context.Context, contentType st
 	return obj.Expect()
 }
 
-func (c *Client) UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVpnConnectionResponse, error) {
+func (c *Client) UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error) {
 	rsp, err := c.UpdateVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err

@@ -4,12 +4,17 @@ import (
 	"context"
 	"testing"
 
-	"github.com/outscale/osc-sdk-go/v3/pkg/client"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 
 func TestKeypair(t *testing.T) {
-	client, err := client.NewOapiClient()
+	userProfile, err := profile.NewProfileFromStrandardConfiguration("", "")
+	if err != nil {
+		panic(err)
+	}
+
+	client, err := osc.NewClient(userProfile)
 	if err != nil {
 		panic(err)
 	}
@@ -17,7 +22,9 @@ func TestKeypair(t *testing.T) {
 	ctx := context.Background()
 
 	keypairName := "osc-sdk-go-example"
+	faux := false
 	keypair, err := client.CreateKeypair(ctx, osc.CreateKeypairRequest{
+		DryRun:      &faux,
 		KeypairName: keypairName,
 	})
 	if err != nil {

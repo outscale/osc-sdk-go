@@ -6,12 +6,17 @@ import (
 	"time"
 
 	"dario.cat/mergo"
-	"github.com/outscale/osc-sdk-go/v3/pkg/client"
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 
 func TestProject(t *testing.T) {
-	client, err := client.NewOKSClient()
+	userProfile, err := profile.NewProfileFromStrandardConfiguration("", "")
+	if err != nil {
+		panic(err)
+	}
+
+	client, err := oks.NewClient(userProfile)
 	if err != nil {
 		panic(err)
 	}

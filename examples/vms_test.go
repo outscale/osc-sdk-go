@@ -4,22 +4,17 @@ import (
 	"context"
 	"testing"
 
-	"github.com/outscale/osc-sdk-go/v3/pkg/client"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 
 func TestReadVms(t *testing.T) {
-	profile, err := client.NewProfileFromStrandardConfiguration("", "")
+	userProfile, err := profile.NewProfileFromStrandardConfiguration("", "")
 	if err != nil {
 		panic(err)
 	}
-	profile.TlsSkipVerify = true
 
-	client, err := client.NewOapiClient(
-		client.WithProfile(profile),
-		client.WithRetry(),
-		client.WithRateLimit(),
-	)
+	client, err := osc.NewClient(userProfile)
 	if err != nil {
 		panic(err)
 	}
