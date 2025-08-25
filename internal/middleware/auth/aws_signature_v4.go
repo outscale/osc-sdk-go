@@ -1,13 +1,12 @@
 package auth
 
 import (
-	"bytes"
+	"crypto/sha256"
 	"io"
 	"net/http"
-	"time"
 
-	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
-	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	"github.com/aws/smithy-go/aws-http-auth/credentials"
+	"github.com/aws/smithy-go/aws-http-auth/sigv4"
 )
 
 // NewSecurityProviderAWSv4 creates an AWS v4 security provider for AK/SK use
@@ -42,12 +41,14 @@ func (s *SecurityProviderAWSv4) Decorate(next http.RoundTripper) http.RoundTripp
 
 	return &awsSignatureV4RoundTripper{
 		inner:                 next,
+		signer:                sigv4.New(),
 		SecurityProviderAWSv4: s,
 	}
 }
 
 type awsSignatureV4RoundTripper struct {
-	inner http.RoundTripper
+	inner  http.RoundTripper
+	signer *sigv4.Signer
 	*SecurityProviderAWSv4
 }
 
@@ -67,26 +68,33 @@ func (a *awsSignatureV4RoundTripper) roundTripOks(req *http.Request) (*http.Resp
 }
 
 func (a *awsSignatureV4RoundTripper) roundTrip(req *http.Request) (*http.Response, error) {
-	var fullbody []byte
-
-	creds := awscredentials.NewStaticCredentials(a.accessKey, a.secretKey, a.sessionToken)
-	signer := awsv4.NewSigner(creds)
-	timestamp := time.Now()
+	sigReq := sigv4.SignRequestInput{
+		Request: req,
+		Credentials: credentials.Credentials{
+			AccessKeyID:     a.accessKey,
+			SecretAccessKey: a.secretKey,
+			SessionToken:    a.sessionToken,
+		},
+		Service: a.service,
+		Region:  a.region,
+	}
 
 	if req.GetBody != nil {
+		h := sha256.New()
+
 		bodyreader, err := req.GetBody()
 		if err != nil {
 			return nil, err
 		}
 
-		fullbody, err = io.ReadAll(bodyreader)
-		if err != nil {
+		if _, err := io.Copy(h, bodyreader); err != nil {
 			return nil, err
 		}
+
+		sigReq.PayloadHash = h.Sum(nil)
 	}
 
-	readseek := bytes.NewReader(fullbody)
-	_, err := signer.Sign(req, readseek, a.service, a.region, timestamp)
+	err := a.signer.SignRequest(&sigReq)
 	if err != nil {
 		return nil, err
 	}
