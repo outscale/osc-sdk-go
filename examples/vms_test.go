@@ -1,11 +1,11 @@
 package examples_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestReadVms(t *testing.T) {
@@ -14,12 +14,12 @@ func TestReadVms(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := osc.NewClient(userProfile)
+	client, err := osc.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}
 
-	read, err := client.ReadVms(context.TODO(), osc.ReadVmsRequest{Filters: nil})
+	read, err := client.ReadVms(t.Context(), osc.ReadVmsRequest{Filters: nil})
 	if err != nil {
 		panic(err)
 	}

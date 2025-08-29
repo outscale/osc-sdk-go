@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -11257,6 +11256,9 @@ type clientInterfaceRaw interface {
 	UpdateVpnConnectionWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	LogRequest(ctx context.Context, req any)
+	LogResponse(ctx context.Context, resp any)
 }
 
 func (c *ClientRaw) AcceptNetPeeringWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
@@ -11279,6 +11281,7 @@ func (c *ClientRaw) AcceptNetPeeringRaw(ctx context.Context, body AcceptNetPeeri
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11308,6 +11311,7 @@ func (c *ClientRaw) AddUserToUserGroupRaw(ctx context.Context, body AddUserToUse
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11337,6 +11341,7 @@ func (c *ClientRaw) CheckAuthenticationRaw(ctx context.Context, body CheckAuthen
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11366,6 +11371,7 @@ func (c *ClientRaw) CreateAccessKeyRaw(ctx context.Context, body CreateAccessKey
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11395,6 +11401,7 @@ func (c *ClientRaw) CreateAccountRaw(ctx context.Context, body CreateAccountJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11424,6 +11431,7 @@ func (c *ClientRaw) CreateApiAccessRuleRaw(ctx context.Context, body CreateApiAc
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11453,6 +11461,7 @@ func (c *ClientRaw) CreateCaRaw(ctx context.Context, body CreateCaJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11482,6 +11491,7 @@ func (c *ClientRaw) CreateClientGatewayRaw(ctx context.Context, body CreateClien
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11511,6 +11521,7 @@ func (c *ClientRaw) CreateDedicatedGroupRaw(ctx context.Context, body CreateDedi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11540,6 +11551,7 @@ func (c *ClientRaw) CreateDhcpOptionsRaw(ctx context.Context, body CreateDhcpOpt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11569,6 +11581,7 @@ func (c *ClientRaw) CreateDirectLinkRaw(ctx context.Context, body CreateDirectLi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11598,6 +11611,7 @@ func (c *ClientRaw) CreateDirectLinkInterfaceRaw(ctx context.Context, body Creat
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11627,6 +11641,7 @@ func (c *ClientRaw) CreateFlexibleGpuRaw(ctx context.Context, body CreateFlexibl
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11656,6 +11671,7 @@ func (c *ClientRaw) CreateImageRaw(ctx context.Context, body CreateImageJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11685,6 +11701,7 @@ func (c *ClientRaw) CreateImageExportTaskRaw(ctx context.Context, body CreateIma
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11714,6 +11731,7 @@ func (c *ClientRaw) CreateInternetServiceRaw(ctx context.Context, body CreateInt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11743,6 +11761,7 @@ func (c *ClientRaw) CreateKeypairRaw(ctx context.Context, body CreateKeypairJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11772,6 +11791,7 @@ func (c *ClientRaw) CreateListenerRuleRaw(ctx context.Context, body CreateListen
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11801,6 +11821,7 @@ func (c *ClientRaw) CreateLoadBalancerRaw(ctx context.Context, body CreateLoadBa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11830,6 +11851,7 @@ func (c *ClientRaw) CreateLoadBalancerListenersRaw(ctx context.Context, body Cre
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11859,6 +11881,7 @@ func (c *ClientRaw) CreateLoadBalancerPolicyRaw(ctx context.Context, body Create
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11888,6 +11911,7 @@ func (c *ClientRaw) CreateLoadBalancerTagsRaw(ctx context.Context, body CreateLo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11917,6 +11941,7 @@ func (c *ClientRaw) CreateNatServiceRaw(ctx context.Context, body CreateNatServi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11946,6 +11971,7 @@ func (c *ClientRaw) CreateNetRaw(ctx context.Context, body CreateNetJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -11975,6 +12001,7 @@ func (c *ClientRaw) CreateNetAccessPointRaw(ctx context.Context, body CreateNetA
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12004,6 +12031,7 @@ func (c *ClientRaw) CreateNetPeeringRaw(ctx context.Context, body CreateNetPeeri
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12033,6 +12061,7 @@ func (c *ClientRaw) CreateNicRaw(ctx context.Context, body CreateNicJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12062,6 +12091,7 @@ func (c *ClientRaw) CreatePolicyRaw(ctx context.Context, body CreatePolicyJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12091,6 +12121,7 @@ func (c *ClientRaw) CreatePolicyVersionRaw(ctx context.Context, body CreatePolic
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12120,6 +12151,7 @@ func (c *ClientRaw) CreateProductTypeRaw(ctx context.Context, body CreateProduct
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12149,6 +12181,7 @@ func (c *ClientRaw) CreatePublicIpRaw(ctx context.Context, body CreatePublicIpJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12178,6 +12211,7 @@ func (c *ClientRaw) CreateRouteRaw(ctx context.Context, body CreateRouteJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12207,6 +12241,7 @@ func (c *ClientRaw) CreateRouteTableRaw(ctx context.Context, body CreateRouteTab
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12236,6 +12271,7 @@ func (c *ClientRaw) CreateSecurityGroupRaw(ctx context.Context, body CreateSecur
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12265,6 +12301,7 @@ func (c *ClientRaw) CreateSecurityGroupRuleRaw(ctx context.Context, body CreateS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12294,6 +12331,7 @@ func (c *ClientRaw) CreateServerCertificateRaw(ctx context.Context, body CreateS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12323,6 +12361,7 @@ func (c *ClientRaw) CreateSnapshotRaw(ctx context.Context, body CreateSnapshotJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12352,6 +12391,7 @@ func (c *ClientRaw) CreateSnapshotExportTaskRaw(ctx context.Context, body Create
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12381,6 +12421,7 @@ func (c *ClientRaw) CreateSubnetRaw(ctx context.Context, body CreateSubnetJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12410,6 +12451,7 @@ func (c *ClientRaw) CreateTagsRaw(ctx context.Context, body CreateTagsJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12439,6 +12481,7 @@ func (c *ClientRaw) CreateUserRaw(ctx context.Context, body CreateUserJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12468,6 +12511,7 @@ func (c *ClientRaw) CreateUserGroupRaw(ctx context.Context, body CreateUserGroup
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12497,6 +12541,7 @@ func (c *ClientRaw) CreateVirtualGatewayRaw(ctx context.Context, body CreateVirt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12526,6 +12571,7 @@ func (c *ClientRaw) CreateVmGroupRaw(ctx context.Context, body CreateVmGroupJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12555,6 +12601,7 @@ func (c *ClientRaw) CreateVmTemplateRaw(ctx context.Context, body CreateVmTempla
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12584,6 +12631,7 @@ func (c *ClientRaw) CreateVmsRaw(ctx context.Context, body CreateVmsJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12613,6 +12661,7 @@ func (c *ClientRaw) CreateVolumeRaw(ctx context.Context, body CreateVolumeJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12642,6 +12691,7 @@ func (c *ClientRaw) CreateVpnConnectionRaw(ctx context.Context, body CreateVpnCo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12671,6 +12721,7 @@ func (c *ClientRaw) CreateVpnConnectionRouteRaw(ctx context.Context, body Create
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12700,6 +12751,7 @@ func (c *ClientRaw) DeleteAccessKeyRaw(ctx context.Context, body DeleteAccessKey
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12729,6 +12781,7 @@ func (c *ClientRaw) DeleteApiAccessRuleRaw(ctx context.Context, body DeleteApiAc
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12758,6 +12811,7 @@ func (c *ClientRaw) DeleteCaRaw(ctx context.Context, body DeleteCaJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12787,6 +12841,7 @@ func (c *ClientRaw) DeleteClientGatewayRaw(ctx context.Context, body DeleteClien
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12816,6 +12871,7 @@ func (c *ClientRaw) DeleteDedicatedGroupRaw(ctx context.Context, body DeleteDedi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12845,6 +12901,7 @@ func (c *ClientRaw) DeleteDhcpOptionsRaw(ctx context.Context, body DeleteDhcpOpt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12874,6 +12931,7 @@ func (c *ClientRaw) DeleteDirectLinkRaw(ctx context.Context, body DeleteDirectLi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12903,6 +12961,7 @@ func (c *ClientRaw) DeleteDirectLinkInterfaceRaw(ctx context.Context, body Delet
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12932,6 +12991,7 @@ func (c *ClientRaw) DeleteExportTaskRaw(ctx context.Context, body DeleteExportTa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12961,6 +13021,7 @@ func (c *ClientRaw) DeleteFlexibleGpuRaw(ctx context.Context, body DeleteFlexibl
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -12990,6 +13051,7 @@ func (c *ClientRaw) DeleteImageRaw(ctx context.Context, body DeleteImageJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13019,6 +13081,7 @@ func (c *ClientRaw) DeleteInternetServiceRaw(ctx context.Context, body DeleteInt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13048,6 +13111,7 @@ func (c *ClientRaw) DeleteKeypairRaw(ctx context.Context, body DeleteKeypairJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13077,6 +13141,7 @@ func (c *ClientRaw) DeleteListenerRuleRaw(ctx context.Context, body DeleteListen
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13106,6 +13171,7 @@ func (c *ClientRaw) DeleteLoadBalancerRaw(ctx context.Context, body DeleteLoadBa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13135,6 +13201,7 @@ func (c *ClientRaw) DeleteLoadBalancerListenersRaw(ctx context.Context, body Del
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13164,6 +13231,7 @@ func (c *ClientRaw) DeleteLoadBalancerPolicyRaw(ctx context.Context, body Delete
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13193,6 +13261,7 @@ func (c *ClientRaw) DeleteLoadBalancerTagsRaw(ctx context.Context, body DeleteLo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13222,6 +13291,7 @@ func (c *ClientRaw) DeleteNatServiceRaw(ctx context.Context, body DeleteNatServi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13251,6 +13321,7 @@ func (c *ClientRaw) DeleteNetRaw(ctx context.Context, body DeleteNetJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13280,6 +13351,7 @@ func (c *ClientRaw) DeleteNetAccessPointRaw(ctx context.Context, body DeleteNetA
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13309,6 +13381,7 @@ func (c *ClientRaw) DeleteNetPeeringRaw(ctx context.Context, body DeleteNetPeeri
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13338,6 +13411,7 @@ func (c *ClientRaw) DeleteNicRaw(ctx context.Context, body DeleteNicJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13367,6 +13441,7 @@ func (c *ClientRaw) DeletePolicyRaw(ctx context.Context, body DeletePolicyJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13396,6 +13471,7 @@ func (c *ClientRaw) DeletePolicyVersionRaw(ctx context.Context, body DeletePolic
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13425,6 +13501,7 @@ func (c *ClientRaw) DeleteProductTypeRaw(ctx context.Context, body DeleteProduct
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13454,6 +13531,7 @@ func (c *ClientRaw) DeletePublicIpRaw(ctx context.Context, body DeletePublicIpJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13483,6 +13561,7 @@ func (c *ClientRaw) DeleteRouteRaw(ctx context.Context, body DeleteRouteJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13512,6 +13591,7 @@ func (c *ClientRaw) DeleteRouteTableRaw(ctx context.Context, body DeleteRouteTab
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13541,6 +13621,7 @@ func (c *ClientRaw) DeleteSecurityGroupRaw(ctx context.Context, body DeleteSecur
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13570,6 +13651,7 @@ func (c *ClientRaw) DeleteSecurityGroupRuleRaw(ctx context.Context, body DeleteS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13599,6 +13681,7 @@ func (c *ClientRaw) DeleteServerCertificateRaw(ctx context.Context, body DeleteS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13628,6 +13711,7 @@ func (c *ClientRaw) DeleteSnapshotRaw(ctx context.Context, body DeleteSnapshotJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13657,6 +13741,7 @@ func (c *ClientRaw) DeleteSubnetRaw(ctx context.Context, body DeleteSubnetJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13686,6 +13771,7 @@ func (c *ClientRaw) DeleteTagsRaw(ctx context.Context, body DeleteTagsJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13715,6 +13801,7 @@ func (c *ClientRaw) DeleteUserRaw(ctx context.Context, body DeleteUserJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13744,6 +13831,7 @@ func (c *ClientRaw) DeleteUserGroupRaw(ctx context.Context, body DeleteUserGroup
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13773,6 +13861,7 @@ func (c *ClientRaw) DeleteUserGroupPolicyRaw(ctx context.Context, body DeleteUse
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13802,6 +13891,7 @@ func (c *ClientRaw) DeleteUserPolicyRaw(ctx context.Context, body DeleteUserPoli
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13831,6 +13921,7 @@ func (c *ClientRaw) DeleteVirtualGatewayRaw(ctx context.Context, body DeleteVirt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13860,6 +13951,7 @@ func (c *ClientRaw) DeleteVmGroupRaw(ctx context.Context, body DeleteVmGroupJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13889,6 +13981,7 @@ func (c *ClientRaw) DeleteVmTemplateRaw(ctx context.Context, body DeleteVmTempla
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13918,6 +14011,7 @@ func (c *ClientRaw) DeleteVmsRaw(ctx context.Context, body DeleteVmsJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13947,6 +14041,7 @@ func (c *ClientRaw) DeleteVolumeRaw(ctx context.Context, body DeleteVolumeJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -13976,6 +14071,7 @@ func (c *ClientRaw) DeleteVpnConnectionRaw(ctx context.Context, body DeleteVpnCo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14005,6 +14101,7 @@ func (c *ClientRaw) DeleteVpnConnectionRouteRaw(ctx context.Context, body Delete
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14034,6 +14131,7 @@ func (c *ClientRaw) DeregisterVmsInLoadBalancerRaw(ctx context.Context, body Der
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14063,6 +14161,7 @@ func (c *ClientRaw) DisableOutscaleLoginRaw(ctx context.Context, body DisableOut
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14092,6 +14191,7 @@ func (c *ClientRaw) DisableOutscaleLoginForUsersRaw(ctx context.Context, body Di
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14121,6 +14221,7 @@ func (c *ClientRaw) DisableOutscaleLoginPerUsersRaw(ctx context.Context, body Di
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14150,6 +14251,7 @@ func (c *ClientRaw) EnableOutscaleLoginRaw(ctx context.Context, body EnableOutsc
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14179,6 +14281,7 @@ func (c *ClientRaw) EnableOutscaleLoginForUsersRaw(ctx context.Context, body Ena
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14208,6 +14311,7 @@ func (c *ClientRaw) EnableOutscaleLoginPerUsersRaw(ctx context.Context, body Ena
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14237,6 +14341,7 @@ func (c *ClientRaw) LinkFlexibleGpuRaw(ctx context.Context, body LinkFlexibleGpu
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14266,6 +14371,7 @@ func (c *ClientRaw) LinkInternetServiceRaw(ctx context.Context, body LinkInterne
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14295,6 +14401,7 @@ func (c *ClientRaw) LinkLoadBalancerBackendMachinesRaw(ctx context.Context, body
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14324,6 +14431,7 @@ func (c *ClientRaw) LinkManagedPolicyToUserGroupRaw(ctx context.Context, body Li
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14353,6 +14461,7 @@ func (c *ClientRaw) LinkNicRaw(ctx context.Context, body LinkNicJSONRequestBody,
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14382,6 +14491,7 @@ func (c *ClientRaw) LinkPolicyRaw(ctx context.Context, body LinkPolicyJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14411,6 +14521,7 @@ func (c *ClientRaw) LinkPrivateIpsRaw(ctx context.Context, body LinkPrivateIpsJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14440,6 +14551,7 @@ func (c *ClientRaw) LinkPublicIpRaw(ctx context.Context, body LinkPublicIpJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14469,6 +14581,7 @@ func (c *ClientRaw) LinkRouteTableRaw(ctx context.Context, body LinkRouteTableJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14498,6 +14611,7 @@ func (c *ClientRaw) LinkVirtualGatewayRaw(ctx context.Context, body LinkVirtualG
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14527,6 +14641,7 @@ func (c *ClientRaw) LinkVolumeRaw(ctx context.Context, body LinkVolumeJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14556,6 +14671,7 @@ func (c *ClientRaw) PutUserGroupPolicyRaw(ctx context.Context, body PutUserGroup
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14585,6 +14701,7 @@ func (c *ClientRaw) PutUserPolicyRaw(ctx context.Context, body PutUserPolicyJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14614,6 +14731,7 @@ func (c *ClientRaw) ReadAccessKeysRaw(ctx context.Context, body ReadAccessKeysJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14643,6 +14761,7 @@ func (c *ClientRaw) ReadAccountsRaw(ctx context.Context, body ReadAccountsJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14672,6 +14791,7 @@ func (c *ClientRaw) ReadAdminPasswordRaw(ctx context.Context, body ReadAdminPass
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14701,6 +14821,7 @@ func (c *ClientRaw) ReadApiAccessPolicyRaw(ctx context.Context, body ReadApiAcce
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14730,6 +14851,7 @@ func (c *ClientRaw) ReadApiAccessRulesRaw(ctx context.Context, body ReadApiAcces
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14759,6 +14881,7 @@ func (c *ClientRaw) ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14788,6 +14911,7 @@ func (c *ClientRaw) ReadCasRaw(ctx context.Context, body ReadCasJSONRequestBody,
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14817,6 +14941,7 @@ func (c *ClientRaw) ReadCatalogRaw(ctx context.Context, body ReadCatalogJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14846,6 +14971,7 @@ func (c *ClientRaw) ReadCatalogsRaw(ctx context.Context, body ReadCatalogsJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14875,6 +15001,7 @@ func (c *ClientRaw) ReadClientGatewaysRaw(ctx context.Context, body ReadClientGa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14904,6 +15031,7 @@ func (c *ClientRaw) ReadConsoleOutputRaw(ctx context.Context, body ReadConsoleOu
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14933,6 +15061,7 @@ func (c *ClientRaw) ReadConsumptionAccountRaw(ctx context.Context, body ReadCons
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14962,6 +15091,7 @@ func (c *ClientRaw) ReadDedicatedGroupsRaw(ctx context.Context, body ReadDedicat
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -14991,6 +15121,7 @@ func (c *ClientRaw) ReadDhcpOptionsRaw(ctx context.Context, body ReadDhcpOptions
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15020,6 +15151,7 @@ func (c *ClientRaw) ReadDirectLinkInterfacesRaw(ctx context.Context, body ReadDi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15049,6 +15181,7 @@ func (c *ClientRaw) ReadDirectLinksRaw(ctx context.Context, body ReadDirectLinks
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15078,6 +15211,7 @@ func (c *ClientRaw) ReadEntitiesLinkedToPolicyRaw(ctx context.Context, body Read
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15107,6 +15241,7 @@ func (c *ClientRaw) ReadFlexibleGpuCatalogRaw(ctx context.Context, body ReadFlex
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15136,6 +15271,7 @@ func (c *ClientRaw) ReadFlexibleGpusRaw(ctx context.Context, body ReadFlexibleGp
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15165,6 +15301,7 @@ func (c *ClientRaw) ReadImageExportTasksRaw(ctx context.Context, body ReadImageE
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15194,6 +15331,7 @@ func (c *ClientRaw) ReadImagesRaw(ctx context.Context, body ReadImagesJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15223,6 +15361,7 @@ func (c *ClientRaw) ReadInternetServicesRaw(ctx context.Context, body ReadIntern
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15252,6 +15391,7 @@ func (c *ClientRaw) ReadKeypairsRaw(ctx context.Context, body ReadKeypairsJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15281,6 +15421,7 @@ func (c *ClientRaw) ReadLinkedPoliciesRaw(ctx context.Context, body ReadLinkedPo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15310,6 +15451,7 @@ func (c *ClientRaw) ReadListenerRulesRaw(ctx context.Context, body ReadListenerR
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15339,6 +15481,7 @@ func (c *ClientRaw) ReadLoadBalancerTagsRaw(ctx context.Context, body ReadLoadBa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15368,6 +15511,7 @@ func (c *ClientRaw) ReadLoadBalancersRaw(ctx context.Context, body ReadLoadBalan
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15397,6 +15541,7 @@ func (c *ClientRaw) ReadLocationsRaw(ctx context.Context, body ReadLocationsJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15426,6 +15571,7 @@ func (c *ClientRaw) ReadManagedPoliciesLinkedToUserGroupRaw(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15455,6 +15601,7 @@ func (c *ClientRaw) ReadNatServicesRaw(ctx context.Context, body ReadNatServices
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15484,6 +15631,7 @@ func (c *ClientRaw) ReadNetAccessPointServicesRaw(ctx context.Context, body Read
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15513,6 +15661,7 @@ func (c *ClientRaw) ReadNetAccessPointsRaw(ctx context.Context, body ReadNetAcce
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15542,6 +15691,7 @@ func (c *ClientRaw) ReadNetPeeringsRaw(ctx context.Context, body ReadNetPeerings
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15571,6 +15721,7 @@ func (c *ClientRaw) ReadNetsRaw(ctx context.Context, body ReadNetsJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15600,6 +15751,7 @@ func (c *ClientRaw) ReadNicsRaw(ctx context.Context, body ReadNicsJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15629,6 +15781,7 @@ func (c *ClientRaw) ReadPoliciesRaw(ctx context.Context, body ReadPoliciesJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15658,6 +15811,7 @@ func (c *ClientRaw) ReadPolicyRaw(ctx context.Context, body ReadPolicyJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15687,6 +15841,7 @@ func (c *ClientRaw) ReadPolicyVersionRaw(ctx context.Context, body ReadPolicyVer
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15716,6 +15871,7 @@ func (c *ClientRaw) ReadPolicyVersionsRaw(ctx context.Context, body ReadPolicyVe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15745,6 +15901,7 @@ func (c *ClientRaw) ReadProductTypesRaw(ctx context.Context, body ReadProductTyp
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15774,6 +15931,7 @@ func (c *ClientRaw) ReadPublicCatalogRaw(ctx context.Context, body ReadPublicCat
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15803,6 +15961,7 @@ func (c *ClientRaw) ReadPublicIpRangesRaw(ctx context.Context, body ReadPublicIp
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15832,6 +15991,7 @@ func (c *ClientRaw) ReadPublicIpsRaw(ctx context.Context, body ReadPublicIpsJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15861,6 +16021,7 @@ func (c *ClientRaw) ReadQuotasRaw(ctx context.Context, body ReadQuotasJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15890,6 +16051,7 @@ func (c *ClientRaw) ReadRegionsRaw(ctx context.Context, body ReadRegionsJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15919,6 +16081,7 @@ func (c *ClientRaw) ReadRouteTablesRaw(ctx context.Context, body ReadRouteTables
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15948,6 +16111,7 @@ func (c *ClientRaw) ReadSecurityGroupsRaw(ctx context.Context, body ReadSecurity
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -15977,6 +16141,7 @@ func (c *ClientRaw) ReadServerCertificatesRaw(ctx context.Context, body ReadServ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16006,6 +16171,7 @@ func (c *ClientRaw) ReadSnapshotExportTasksRaw(ctx context.Context, body ReadSna
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16035,6 +16201,7 @@ func (c *ClientRaw) ReadSnapshotsRaw(ctx context.Context, body ReadSnapshotsJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16064,6 +16231,7 @@ func (c *ClientRaw) ReadSubnetsRaw(ctx context.Context, body ReadSubnetsJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16093,6 +16261,7 @@ func (c *ClientRaw) ReadSubregionsRaw(ctx context.Context, body ReadSubregionsJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16122,6 +16291,7 @@ func (c *ClientRaw) ReadTagsRaw(ctx context.Context, body ReadTagsJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16151,6 +16321,7 @@ func (c *ClientRaw) ReadUnitPriceRaw(ctx context.Context, body ReadUnitPriceJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16180,6 +16351,7 @@ func (c *ClientRaw) ReadUserGroupRaw(ctx context.Context, body ReadUserGroupJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16209,6 +16381,7 @@ func (c *ClientRaw) ReadUserGroupPoliciesRaw(ctx context.Context, body ReadUserG
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16238,6 +16411,7 @@ func (c *ClientRaw) ReadUserGroupPolicyRaw(ctx context.Context, body ReadUserGro
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16267,6 +16441,7 @@ func (c *ClientRaw) ReadUserGroupsRaw(ctx context.Context, body ReadUserGroupsJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16296,6 +16471,7 @@ func (c *ClientRaw) ReadUserGroupsPerUserRaw(ctx context.Context, body ReadUserG
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16325,6 +16501,7 @@ func (c *ClientRaw) ReadUserPoliciesRaw(ctx context.Context, body ReadUserPolici
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16354,6 +16531,7 @@ func (c *ClientRaw) ReadUserPolicyRaw(ctx context.Context, body ReadUserPolicyJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16383,6 +16561,7 @@ func (c *ClientRaw) ReadUsersRaw(ctx context.Context, body ReadUsersJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16412,6 +16591,7 @@ func (c *ClientRaw) ReadVirtualGatewaysRaw(ctx context.Context, body ReadVirtual
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16441,6 +16621,7 @@ func (c *ClientRaw) ReadVmGroupsRaw(ctx context.Context, body ReadVmGroupsJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16470,6 +16651,7 @@ func (c *ClientRaw) ReadVmTemplatesRaw(ctx context.Context, body ReadVmTemplates
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16499,6 +16681,7 @@ func (c *ClientRaw) ReadVmTypesRaw(ctx context.Context, body ReadVmTypesJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16528,6 +16711,7 @@ func (c *ClientRaw) ReadVmsRaw(ctx context.Context, body ReadVmsJSONRequestBody,
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16557,6 +16741,7 @@ func (c *ClientRaw) ReadVmsHealthRaw(ctx context.Context, body ReadVmsHealthJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16586,6 +16771,7 @@ func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16615,6 +16801,7 @@ func (c *ClientRaw) ReadVolumesRaw(ctx context.Context, body ReadVolumesJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16644,6 +16831,7 @@ func (c *ClientRaw) ReadVpnConnectionsRaw(ctx context.Context, body ReadVpnConne
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16673,6 +16861,7 @@ func (c *ClientRaw) RebootVmsRaw(ctx context.Context, body RebootVmsJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16702,6 +16891,7 @@ func (c *ClientRaw) RegisterVmsInLoadBalancerRaw(ctx context.Context, body Regis
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16731,6 +16921,7 @@ func (c *ClientRaw) RejectNetPeeringRaw(ctx context.Context, body RejectNetPeeri
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16760,6 +16951,7 @@ func (c *ClientRaw) RemoveUserFromUserGroupRaw(ctx context.Context, body RemoveU
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16789,6 +16981,7 @@ func (c *ClientRaw) ScaleDownVmGroupRaw(ctx context.Context, body ScaleDownVmGro
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16818,6 +17011,7 @@ func (c *ClientRaw) ScaleUpVmGroupRaw(ctx context.Context, body ScaleUpVmGroupJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16847,6 +17041,7 @@ func (c *ClientRaw) SetDefaultPolicyVersionRaw(ctx context.Context, body SetDefa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16876,6 +17071,7 @@ func (c *ClientRaw) StartVmsRaw(ctx context.Context, body StartVmsJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16905,6 +17101,7 @@ func (c *ClientRaw) StopVmsRaw(ctx context.Context, body StopVmsJSONRequestBody,
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16934,6 +17131,7 @@ func (c *ClientRaw) UnlinkFlexibleGpuRaw(ctx context.Context, body UnlinkFlexibl
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16963,6 +17161,7 @@ func (c *ClientRaw) UnlinkInternetServiceRaw(ctx context.Context, body UnlinkInt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -16992,6 +17191,7 @@ func (c *ClientRaw) UnlinkLoadBalancerBackendMachinesRaw(ctx context.Context, bo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17021,6 +17221,7 @@ func (c *ClientRaw) UnlinkManagedPolicyFromUserGroupRaw(ctx context.Context, bod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17050,6 +17251,7 @@ func (c *ClientRaw) UnlinkNicRaw(ctx context.Context, body UnlinkNicJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17079,6 +17281,7 @@ func (c *ClientRaw) UnlinkPolicyRaw(ctx context.Context, body UnlinkPolicyJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17108,6 +17311,7 @@ func (c *ClientRaw) UnlinkPrivateIpsRaw(ctx context.Context, body UnlinkPrivateI
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17137,6 +17341,7 @@ func (c *ClientRaw) UnlinkPublicIpRaw(ctx context.Context, body UnlinkPublicIpJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17166,6 +17371,7 @@ func (c *ClientRaw) UnlinkRouteTableRaw(ctx context.Context, body UnlinkRouteTab
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17195,6 +17401,7 @@ func (c *ClientRaw) UnlinkVirtualGatewayRaw(ctx context.Context, body UnlinkVirt
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17224,6 +17431,7 @@ func (c *ClientRaw) UnlinkVolumeRaw(ctx context.Context, body UnlinkVolumeJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17253,6 +17461,7 @@ func (c *ClientRaw) UpdateAccessKeyRaw(ctx context.Context, body UpdateAccessKey
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17282,6 +17491,7 @@ func (c *ClientRaw) UpdateAccountRaw(ctx context.Context, body UpdateAccountJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17311,6 +17521,7 @@ func (c *ClientRaw) UpdateApiAccessPolicyRaw(ctx context.Context, body UpdateApi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17340,6 +17551,7 @@ func (c *ClientRaw) UpdateApiAccessRuleRaw(ctx context.Context, body UpdateApiAc
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17369,6 +17581,7 @@ func (c *ClientRaw) UpdateCaRaw(ctx context.Context, body UpdateCaJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17398,6 +17611,7 @@ func (c *ClientRaw) UpdateDedicatedGroupRaw(ctx context.Context, body UpdateDedi
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17427,6 +17641,7 @@ func (c *ClientRaw) UpdateDirectLinkInterfaceRaw(ctx context.Context, body Updat
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17456,6 +17671,7 @@ func (c *ClientRaw) UpdateFlexibleGpuRaw(ctx context.Context, body UpdateFlexibl
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17485,6 +17701,7 @@ func (c *ClientRaw) UpdateImageRaw(ctx context.Context, body UpdateImageJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17514,6 +17731,7 @@ func (c *ClientRaw) UpdateListenerRuleRaw(ctx context.Context, body UpdateListen
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17543,6 +17761,7 @@ func (c *ClientRaw) UpdateLoadBalancerRaw(ctx context.Context, body UpdateLoadBa
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17572,6 +17791,7 @@ func (c *ClientRaw) UpdateNetRaw(ctx context.Context, body UpdateNetJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17601,6 +17821,7 @@ func (c *ClientRaw) UpdateNetAccessPointRaw(ctx context.Context, body UpdateNetA
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17630,6 +17851,7 @@ func (c *ClientRaw) UpdateNicRaw(ctx context.Context, body UpdateNicJSONRequestB
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17659,6 +17881,7 @@ func (c *ClientRaw) UpdateRouteRaw(ctx context.Context, body UpdateRouteJSONRequ
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17688,6 +17911,7 @@ func (c *ClientRaw) UpdateRoutePropagationRaw(ctx context.Context, body UpdateRo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17717,6 +17941,7 @@ func (c *ClientRaw) UpdateRouteTableLinkRaw(ctx context.Context, body UpdateRout
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17746,6 +17971,7 @@ func (c *ClientRaw) UpdateServerCertificateRaw(ctx context.Context, body UpdateS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17775,6 +18001,7 @@ func (c *ClientRaw) UpdateSnapshotRaw(ctx context.Context, body UpdateSnapshotJS
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17804,6 +18031,7 @@ func (c *ClientRaw) UpdateSubnetRaw(ctx context.Context, body UpdateSubnetJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17833,6 +18061,7 @@ func (c *ClientRaw) UpdateUserRaw(ctx context.Context, body UpdateUserJSONReques
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17862,6 +18091,7 @@ func (c *ClientRaw) UpdateUserGroupRaw(ctx context.Context, body UpdateUserGroup
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17891,6 +18121,7 @@ func (c *ClientRaw) UpdateVmRaw(ctx context.Context, body UpdateVmJSONRequestBod
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17920,6 +18151,7 @@ func (c *ClientRaw) UpdateVmGroupRaw(ctx context.Context, body UpdateVmGroupJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17949,6 +18181,7 @@ func (c *ClientRaw) UpdateVmTemplateRaw(ctx context.Context, body UpdateVmTempla
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -17978,6 +18211,7 @@ func (c *ClientRaw) UpdateVolumeRaw(ctx context.Context, body UpdateVolumeJSONRe
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -18007,6 +18241,7 @@ func (c *ClientRaw) UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnCo
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -27336,6 +27571,14 @@ func NewUpdateVpnConnectionRequestWithBody(server string, contentType string, bo
 	return req, nil
 }
 
+func (c *ClientRaw) LogRequest(ctx context.Context, req any) {
+	c.Client.LogRequest(ctx, req)
+}
+
+func (c *ClientRaw) LogResponse(ctx context.Context, resp any) {
+	c.Client.LogResponse(ctx, resp)
+}
+
 // Client builds on ClientInterface to offer response payloads
 type Client struct {
 	clientInterfaceRaw
@@ -28551,28 +28794,36 @@ func (r AcceptNetPeeringResp) Expect() (*AcceptNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r AcceptNetPeeringResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r AcceptNetPeeringResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type AddUserToUserGroupResp struct {
@@ -28602,12 +28853,20 @@ func (r AddUserToUserGroupResp) Expect() (*AddUserToUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r AddUserToUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r AddUserToUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CheckAuthenticationResp struct {
@@ -28637,12 +28896,20 @@ func (r CheckAuthenticationResp) Expect() (*CheckAuthenticationResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CheckAuthenticationResp) DeepError() error {
+
+	return nil
+}
+
+func (r CheckAuthenticationResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateAccessKeyResp struct {
@@ -28672,12 +28939,20 @@ func (r CreateAccessKeyResp) Expect() (*CreateAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateAccessKeyResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateAccessKeyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateAccountResp struct {
@@ -28707,12 +28982,20 @@ func (r CreateAccountResp) Expect() (*CreateAccountResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateAccountResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateAccountResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateApiAccessRuleResp struct {
@@ -28742,12 +29025,20 @@ func (r CreateApiAccessRuleResp) Expect() (*CreateApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateApiAccessRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateApiAccessRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateCaResp struct {
@@ -28777,12 +29068,20 @@ func (r CreateCaResp) Expect() (*CreateCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateCaResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateCaResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateClientGatewayResp struct {
@@ -28812,12 +29111,20 @@ func (r CreateClientGatewayResp) Expect() (*CreateClientGatewayResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateClientGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateClientGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateDedicatedGroupResp struct {
@@ -28850,24 +29157,32 @@ func (r CreateDedicatedGroupResp) Expect() (*CreateDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateDedicatedGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateDedicatedGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateDhcpOptionsResp struct {
@@ -28897,12 +29212,20 @@ func (r CreateDhcpOptionsResp) Expect() (*CreateDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateDhcpOptionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateDhcpOptionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateDirectLinkResp struct {
@@ -28932,12 +29255,20 @@ func (r CreateDirectLinkResp) Expect() (*CreateDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateDirectLinkResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateDirectLinkResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateDirectLinkInterfaceResp struct {
@@ -28967,12 +29298,20 @@ func (r CreateDirectLinkInterfaceResp) Expect() (*CreateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateDirectLinkInterfaceResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateDirectLinkInterfaceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateFlexibleGpuResp struct {
@@ -29002,12 +29341,20 @@ func (r CreateFlexibleGpuResp) Expect() (*CreateFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateFlexibleGpuResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateFlexibleGpuResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateImageResp struct {
@@ -29040,24 +29387,32 @@ func (r CreateImageResp) Expect() (*CreateImageResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateImageResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateImageResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateImageExportTaskResp struct {
@@ -29087,12 +29442,20 @@ func (r CreateImageExportTaskResp) Expect() (*CreateImageExportTaskResponse, err
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateImageExportTaskResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateImageExportTaskResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateInternetServiceResp struct {
@@ -29125,24 +29488,32 @@ func (r CreateInternetServiceResp) Expect() (*CreateInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateInternetServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateInternetServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateKeypairResp struct {
@@ -29176,28 +29547,36 @@ func (r CreateKeypairResp) Expect() (*CreateKeypairResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateKeypairResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateKeypairResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateListenerRuleResp struct {
@@ -29227,12 +29606,20 @@ func (r CreateListenerRuleResp) Expect() (*CreateListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateListenerRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateListenerRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateLoadBalancerResp struct {
@@ -29262,12 +29649,20 @@ func (r CreateLoadBalancerResp) Expect() (*CreateLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateLoadBalancerResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateLoadBalancerResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateLoadBalancerListenersResp struct {
@@ -29297,12 +29692,20 @@ func (r CreateLoadBalancerListenersResp) Expect() (*CreateLoadBalancerListenersR
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateLoadBalancerListenersResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateLoadBalancerListenersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateLoadBalancerPolicyResp struct {
@@ -29332,12 +29735,20 @@ func (r CreateLoadBalancerPolicyResp) Expect() (*CreateLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateLoadBalancerPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateLoadBalancerPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateLoadBalancerTagsResp struct {
@@ -29367,12 +29778,20 @@ func (r CreateLoadBalancerTagsResp) Expect() (*CreateLoadBalancerTagsResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateLoadBalancerTagsResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateLoadBalancerTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateNatServiceResp struct {
@@ -29405,24 +29824,32 @@ func (r CreateNatServiceResp) Expect() (*CreateNatServiceResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateNatServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateNatServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateNetResp struct {
@@ -29456,28 +29883,36 @@ func (r CreateNetResp) Expect() (*CreateNetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateNetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateNetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateNetAccessPointResp struct {
@@ -29507,12 +29942,20 @@ func (r CreateNetAccessPointResp) Expect() (*CreateNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateNetAccessPointResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateNetAccessPointResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateNetPeeringResp struct {
@@ -29545,24 +29988,32 @@ func (r CreateNetPeeringResp) Expect() (*CreateNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateNetPeeringResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateNetPeeringResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateNicResp struct {
@@ -29595,24 +30046,32 @@ func (r CreateNicResp) Expect() (*CreateNicResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateNicResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateNicResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreatePolicyResp struct {
@@ -29642,12 +30101,20 @@ func (r CreatePolicyResp) Expect() (*CreatePolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreatePolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreatePolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreatePolicyVersionResp struct {
@@ -29677,12 +30144,20 @@ func (r CreatePolicyVersionResp) Expect() (*CreatePolicyVersionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreatePolicyVersionResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreatePolicyVersionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateProductTypeResp struct {
@@ -29712,12 +30187,20 @@ func (r CreateProductTypeResp) Expect() (*CreateProductTypeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateProductTypeResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateProductTypeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreatePublicIpResp struct {
@@ -29750,24 +30233,32 @@ func (r CreatePublicIpResp) Expect() (*CreatePublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreatePublicIpResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreatePublicIpResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateRouteResp struct {
@@ -29800,24 +30291,32 @@ func (r CreateRouteResp) Expect() (*CreateRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateRouteResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateRouteResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateRouteTableResp struct {
@@ -29850,24 +30349,32 @@ func (r CreateRouteTableResp) Expect() (*CreateRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateRouteTableResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateRouteTableResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateSecurityGroupResp struct {
@@ -29900,24 +30407,32 @@ func (r CreateSecurityGroupResp) Expect() (*CreateSecurityGroupResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateSecurityGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateSecurityGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateSecurityGroupRuleResp struct {
@@ -29950,24 +30465,32 @@ func (r CreateSecurityGroupRuleResp) Expect() (*CreateSecurityGroupRuleResponse,
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateSecurityGroupRuleResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateSecurityGroupRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateServerCertificateResp struct {
@@ -29997,12 +30520,20 @@ func (r CreateServerCertificateResp) Expect() (*CreateServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateServerCertificateResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateServerCertificateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateSnapshotResp struct {
@@ -30035,24 +30566,32 @@ func (r CreateSnapshotResp) Expect() (*CreateSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateSnapshotResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateSnapshotResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateSnapshotExportTaskResp struct {
@@ -30082,12 +30621,20 @@ func (r CreateSnapshotExportTaskResp) Expect() (*CreateSnapshotExportTaskRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateSnapshotExportTaskResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateSnapshotExportTaskResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateSubnetResp struct {
@@ -30121,28 +30668,36 @@ func (r CreateSubnetResp) Expect() (*CreateSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateSubnetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateSubnetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateTagsResp struct {
@@ -30175,24 +30730,32 @@ func (r CreateTagsResp) Expect() (*CreateTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateTagsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateUserResp struct {
@@ -30222,12 +30785,20 @@ func (r CreateUserResp) Expect() (*CreateUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateUserResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateUserResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateUserGroupResp struct {
@@ -30257,12 +30828,20 @@ func (r CreateUserGroupResp) Expect() (*CreateUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVirtualGatewayResp struct {
@@ -30292,12 +30871,20 @@ func (r CreateVirtualGatewayResp) Expect() (*CreateVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVirtualGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateVirtualGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVmGroupResp struct {
@@ -30330,24 +30917,32 @@ func (r CreateVmGroupResp) Expect() (*CreateVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateVmGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVmGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVmTemplateResp struct {
@@ -30377,12 +30972,20 @@ func (r CreateVmTemplateResp) Expect() (*CreateVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVmTemplateResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateVmTemplateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVmsResp struct {
@@ -30415,24 +31018,32 @@ func (r CreateVmsResp) Expect() (*CreateVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVolumeResp struct {
@@ -30465,24 +31076,32 @@ func (r CreateVolumeResp) Expect() (*CreateVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateVolumeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVolumeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVpnConnectionResp struct {
@@ -30512,12 +31131,20 @@ func (r CreateVpnConnectionResp) Expect() (*CreateVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVpnConnectionResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateVpnConnectionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateVpnConnectionRouteResp struct {
@@ -30547,12 +31174,20 @@ func (r CreateVpnConnectionRouteResp) Expect() (*CreateVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateVpnConnectionRouteResp) DeepError() error {
+
+	return nil
+}
+
+func (r CreateVpnConnectionRouteResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteAccessKeyResp struct {
@@ -30582,12 +31217,20 @@ func (r DeleteAccessKeyResp) Expect() (*DeleteAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteAccessKeyResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteAccessKeyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteApiAccessRuleResp struct {
@@ -30617,12 +31260,20 @@ func (r DeleteApiAccessRuleResp) Expect() (*DeleteApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteApiAccessRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteApiAccessRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteCaResp struct {
@@ -30652,12 +31303,20 @@ func (r DeleteCaResp) Expect() (*DeleteCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteCaResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteCaResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteClientGatewayResp struct {
@@ -30687,12 +31346,20 @@ func (r DeleteClientGatewayResp) Expect() (*DeleteClientGatewayResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteClientGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteClientGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteDedicatedGroupResp struct {
@@ -30725,24 +31392,32 @@ func (r DeleteDedicatedGroupResp) Expect() (*DeleteDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteDedicatedGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteDedicatedGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteDhcpOptionsResp struct {
@@ -30772,12 +31447,20 @@ func (r DeleteDhcpOptionsResp) Expect() (*DeleteDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteDhcpOptionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteDhcpOptionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteDirectLinkResp struct {
@@ -30807,12 +31490,20 @@ func (r DeleteDirectLinkResp) Expect() (*DeleteDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteDirectLinkResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteDirectLinkResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteDirectLinkInterfaceResp struct {
@@ -30842,12 +31533,20 @@ func (r DeleteDirectLinkInterfaceResp) Expect() (*DeleteDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteDirectLinkInterfaceResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteDirectLinkInterfaceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteExportTaskResp struct {
@@ -30877,12 +31576,20 @@ func (r DeleteExportTaskResp) Expect() (*DeleteExportTaskResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteExportTaskResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteExportTaskResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteFlexibleGpuResp struct {
@@ -30912,12 +31619,20 @@ func (r DeleteFlexibleGpuResp) Expect() (*DeleteFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteFlexibleGpuResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteFlexibleGpuResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteImageResp struct {
@@ -30950,24 +31665,32 @@ func (r DeleteImageResp) Expect() (*DeleteImageResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteImageResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteImageResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteInternetServiceResp struct {
@@ -31000,24 +31723,32 @@ func (r DeleteInternetServiceResp) Expect() (*DeleteInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteInternetServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteInternetServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteKeypairResp struct {
@@ -31050,24 +31781,32 @@ func (r DeleteKeypairResp) Expect() (*DeleteKeypairResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteKeypairResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteKeypairResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteListenerRuleResp struct {
@@ -31097,12 +31836,20 @@ func (r DeleteListenerRuleResp) Expect() (*DeleteListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteListenerRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteListenerRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteLoadBalancerResp struct {
@@ -31132,12 +31879,20 @@ func (r DeleteLoadBalancerResp) Expect() (*DeleteLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteLoadBalancerResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteLoadBalancerResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteLoadBalancerListenersResp struct {
@@ -31167,12 +31922,20 @@ func (r DeleteLoadBalancerListenersResp) Expect() (*DeleteLoadBalancerListenersR
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteLoadBalancerListenersResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteLoadBalancerListenersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteLoadBalancerPolicyResp struct {
@@ -31202,12 +31965,20 @@ func (r DeleteLoadBalancerPolicyResp) Expect() (*DeleteLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteLoadBalancerPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteLoadBalancerPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteLoadBalancerTagsResp struct {
@@ -31237,12 +32008,20 @@ func (r DeleteLoadBalancerTagsResp) Expect() (*DeleteLoadBalancerTagsResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteLoadBalancerTagsResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteLoadBalancerTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteNatServiceResp struct {
@@ -31275,24 +32054,32 @@ func (r DeleteNatServiceResp) Expect() (*DeleteNatServiceResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteNatServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteNatServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteNetResp struct {
@@ -31325,24 +32112,32 @@ func (r DeleteNetResp) Expect() (*DeleteNetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteNetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteNetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteNetAccessPointResp struct {
@@ -31372,12 +32167,20 @@ func (r DeleteNetAccessPointResp) Expect() (*DeleteNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteNetAccessPointResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteNetAccessPointResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteNetPeeringResp struct {
@@ -31411,28 +32214,36 @@ func (r DeleteNetPeeringResp) Expect() (*DeleteNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteNetPeeringResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteNetPeeringResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteNicResp struct {
@@ -31465,24 +32276,32 @@ func (r DeleteNicResp) Expect() (*DeleteNicResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteNicResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteNicResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeletePolicyResp struct {
@@ -31512,12 +32331,20 @@ func (r DeletePolicyResp) Expect() (*DeletePolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeletePolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeletePolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeletePolicyVersionResp struct {
@@ -31547,12 +32374,20 @@ func (r DeletePolicyVersionResp) Expect() (*DeletePolicyVersionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeletePolicyVersionResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeletePolicyVersionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteProductTypeResp struct {
@@ -31585,24 +32420,32 @@ func (r DeleteProductTypeResp) Expect() (*DeleteProductTypeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteProductTypeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteProductTypeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeletePublicIpResp struct {
@@ -31635,24 +32478,32 @@ func (r DeletePublicIpResp) Expect() (*DeletePublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeletePublicIpResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeletePublicIpResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteRouteResp struct {
@@ -31685,24 +32536,32 @@ func (r DeleteRouteResp) Expect() (*DeleteRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteRouteResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteRouteResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteRouteTableResp struct {
@@ -31735,24 +32594,32 @@ func (r DeleteRouteTableResp) Expect() (*DeleteRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteRouteTableResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteRouteTableResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteSecurityGroupResp struct {
@@ -31785,24 +32652,32 @@ func (r DeleteSecurityGroupResp) Expect() (*DeleteSecurityGroupResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteSecurityGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteSecurityGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteSecurityGroupRuleResp struct {
@@ -31835,24 +32710,32 @@ func (r DeleteSecurityGroupRuleResp) Expect() (*DeleteSecurityGroupRuleResponse,
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteSecurityGroupRuleResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteSecurityGroupRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteServerCertificateResp struct {
@@ -31882,12 +32765,20 @@ func (r DeleteServerCertificateResp) Expect() (*DeleteServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteServerCertificateResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteServerCertificateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteSnapshotResp struct {
@@ -31920,24 +32811,32 @@ func (r DeleteSnapshotResp) Expect() (*DeleteSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteSnapshotResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteSnapshotResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteSubnetResp struct {
@@ -31970,24 +32869,32 @@ func (r DeleteSubnetResp) Expect() (*DeleteSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteSubnetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteSubnetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteTagsResp struct {
@@ -32020,24 +32927,32 @@ func (r DeleteTagsResp) Expect() (*DeleteTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteTagsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteUserResp struct {
@@ -32067,12 +32982,20 @@ func (r DeleteUserResp) Expect() (*DeleteUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteUserResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteUserResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteUserGroupResp struct {
@@ -32102,12 +33025,20 @@ func (r DeleteUserGroupResp) Expect() (*DeleteUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteUserGroupPolicyResp struct {
@@ -32137,12 +33068,20 @@ func (r DeleteUserGroupPolicyResp) Expect() (*DeleteUserGroupPolicyResponse, err
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteUserGroupPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteUserGroupPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteUserPolicyResp struct {
@@ -32172,12 +33111,20 @@ func (r DeleteUserPolicyResp) Expect() (*DeleteUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteUserPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteUserPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVirtualGatewayResp struct {
@@ -32207,12 +33154,20 @@ func (r DeleteVirtualGatewayResp) Expect() (*DeleteVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVirtualGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteVirtualGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVmGroupResp struct {
@@ -32245,24 +33200,32 @@ func (r DeleteVmGroupResp) Expect() (*DeleteVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteVmGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVmGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVmTemplateResp struct {
@@ -32292,12 +33255,20 @@ func (r DeleteVmTemplateResp) Expect() (*DeleteVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVmTemplateResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteVmTemplateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVmsResp struct {
@@ -32330,24 +33301,32 @@ func (r DeleteVmsResp) Expect() (*DeleteVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVolumeResp struct {
@@ -32380,24 +33359,32 @@ func (r DeleteVolumeResp) Expect() (*DeleteVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteVolumeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVolumeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVpnConnectionResp struct {
@@ -32427,12 +33414,20 @@ func (r DeleteVpnConnectionResp) Expect() (*DeleteVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVpnConnectionResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteVpnConnectionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteVpnConnectionRouteResp struct {
@@ -32462,12 +33457,20 @@ func (r DeleteVpnConnectionRouteResp) Expect() (*DeleteVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteVpnConnectionRouteResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeleteVpnConnectionRouteResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeregisterVmsInLoadBalancerResp struct {
@@ -32497,12 +33500,20 @@ func (r DeregisterVmsInLoadBalancerResp) Expect() (*DeregisterVmsInLoadBalancerR
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DeregisterVmsInLoadBalancerResp) DeepError() error {
+
+	return nil
+}
+
+func (r DeregisterVmsInLoadBalancerResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DisableOutscaleLoginResp struct {
@@ -32532,12 +33543,20 @@ func (r DisableOutscaleLoginResp) Expect() (*DisableOutscaleLoginResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DisableOutscaleLoginResp) DeepError() error {
+
+	return nil
+}
+
+func (r DisableOutscaleLoginResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DisableOutscaleLoginForUsersResp struct {
@@ -32567,12 +33586,20 @@ func (r DisableOutscaleLoginForUsersResp) Expect() (*DisableOutscaleLoginRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DisableOutscaleLoginForUsersResp) DeepError() error {
+
+	return nil
+}
+
+func (r DisableOutscaleLoginForUsersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DisableOutscaleLoginPerUsersResp struct {
@@ -32602,12 +33629,20 @@ func (r DisableOutscaleLoginPerUsersResp) Expect() (*DisableOutscaleLoginPerUser
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r DisableOutscaleLoginPerUsersResp) DeepError() error {
+
+	return nil
+}
+
+func (r DisableOutscaleLoginPerUsersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type EnableOutscaleLoginResp struct {
@@ -32637,12 +33672,20 @@ func (r EnableOutscaleLoginResp) Expect() (*EnableOutscaleLoginResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r EnableOutscaleLoginResp) DeepError() error {
+
+	return nil
+}
+
+func (r EnableOutscaleLoginResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type EnableOutscaleLoginForUsersResp struct {
@@ -32672,12 +33715,20 @@ func (r EnableOutscaleLoginForUsersResp) Expect() (*EnableOutscaleLoginForUsersR
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r EnableOutscaleLoginForUsersResp) DeepError() error {
+
+	return nil
+}
+
+func (r EnableOutscaleLoginForUsersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type EnableOutscaleLoginPerUsersResp struct {
@@ -32707,12 +33758,20 @@ func (r EnableOutscaleLoginPerUsersResp) Expect() (*EnableOutscaleLoginPerUsersR
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r EnableOutscaleLoginPerUsersResp) DeepError() error {
+
+	return nil
+}
+
+func (r EnableOutscaleLoginPerUsersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkFlexibleGpuResp struct {
@@ -32742,12 +33801,20 @@ func (r LinkFlexibleGpuResp) Expect() (*LinkFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkFlexibleGpuResp) DeepError() error {
+
+	return nil
+}
+
+func (r LinkFlexibleGpuResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkInternetServiceResp struct {
@@ -32780,24 +33847,32 @@ func (r LinkInternetServiceResp) Expect() (*LinkInternetServiceResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkInternetServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkInternetServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkLoadBalancerBackendMachinesResp struct {
@@ -32827,12 +33902,20 @@ func (r LinkLoadBalancerBackendMachinesResp) Expect() (*LinkLoadBalancerBackendM
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkLoadBalancerBackendMachinesResp) DeepError() error {
+
+	return nil
+}
+
+func (r LinkLoadBalancerBackendMachinesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkManagedPolicyToUserGroupResp struct {
@@ -32862,12 +33945,20 @@ func (r LinkManagedPolicyToUserGroupResp) Expect() (*LinkManagedPolicyToUserGrou
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkManagedPolicyToUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r LinkManagedPolicyToUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkNicResp struct {
@@ -32900,24 +33991,32 @@ func (r LinkNicResp) Expect() (*LinkNicResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkNicResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkNicResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkPolicyResp struct {
@@ -32947,12 +34046,20 @@ func (r LinkPolicyResp) Expect() (*LinkPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r LinkPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkPrivateIpsResp struct {
@@ -32985,24 +34092,32 @@ func (r LinkPrivateIpsResp) Expect() (*LinkPrivateIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkPrivateIpsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkPrivateIpsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkPublicIpResp struct {
@@ -33035,24 +34150,32 @@ func (r LinkPublicIpResp) Expect() (*LinkPublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkPublicIpResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkPublicIpResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkRouteTableResp struct {
@@ -33085,24 +34208,32 @@ func (r LinkRouteTableResp) Expect() (*LinkRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkRouteTableResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkRouteTableResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkVirtualGatewayResp struct {
@@ -33132,12 +34263,20 @@ func (r LinkVirtualGatewayResp) Expect() (*LinkVirtualGatewayResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkVirtualGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r LinkVirtualGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type LinkVolumeResp struct {
@@ -33170,24 +34309,32 @@ func (r LinkVolumeResp) Expect() (*LinkVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r LinkVolumeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r LinkVolumeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type PutUserGroupPolicyResp struct {
@@ -33217,12 +34364,20 @@ func (r PutUserGroupPolicyResp) Expect() (*PutUserGroupPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r PutUserGroupPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r PutUserGroupPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type PutUserPolicyResp struct {
@@ -33252,12 +34407,20 @@ func (r PutUserPolicyResp) Expect() (*PutUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r PutUserPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r PutUserPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadAccessKeysResp struct {
@@ -33287,12 +34450,20 @@ func (r ReadAccessKeysResp) Expect() (*ReadAccessKeysResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadAccessKeysResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadAccessKeysResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadAccountsResp struct {
@@ -33322,12 +34493,20 @@ func (r ReadAccountsResp) Expect() (*ReadAccountsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadAccountsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadAccountsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadAdminPasswordResp struct {
@@ -33360,24 +34539,32 @@ func (r ReadAdminPasswordResp) Expect() (*ReadAdminPasswordResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadAdminPasswordResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadAdminPasswordResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadApiAccessPolicyResp struct {
@@ -33410,24 +34597,32 @@ func (r ReadApiAccessPolicyResp) Expect() (*ReadApiAccessPolicyResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadApiAccessPolicyResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadApiAccessPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadApiAccessRulesResp struct {
@@ -33457,12 +34652,20 @@ func (r ReadApiAccessRulesResp) Expect() (*ReadApiAccessRulesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadApiAccessRulesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadApiAccessRulesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadApiLogsResp struct {
@@ -33492,12 +34695,20 @@ func (r ReadApiLogsResp) Expect() (*ReadApiLogsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadApiLogsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadApiLogsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadCasResp struct {
@@ -33527,12 +34738,20 @@ func (r ReadCasResp) Expect() (*ReadCasResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadCasResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadCasResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadCatalogResp struct {
@@ -33562,12 +34781,20 @@ func (r ReadCatalogResp) Expect() (*ReadCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadCatalogResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadCatalogResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadCatalogsResp struct {
@@ -33597,12 +34824,20 @@ func (r ReadCatalogsResp) Expect() (*ReadCatalogsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadCatalogsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadCatalogsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadClientGatewaysResp struct {
@@ -33632,12 +34867,20 @@ func (r ReadClientGatewaysResp) Expect() (*ReadClientGatewaysResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadClientGatewaysResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadClientGatewaysResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadConsoleOutputResp struct {
@@ -33670,24 +34913,32 @@ func (r ReadConsoleOutputResp) Expect() (*ReadConsoleOutputResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadConsoleOutputResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadConsoleOutputResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadConsumptionAccountResp struct {
@@ -33717,12 +34968,20 @@ func (r ReadConsumptionAccountResp) Expect() (*ReadConsumptionAccountResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadConsumptionAccountResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadConsumptionAccountResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadDedicatedGroupsResp struct {
@@ -33755,24 +35014,32 @@ func (r ReadDedicatedGroupsResp) Expect() (*ReadDedicatedGroupsResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadDedicatedGroupsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadDedicatedGroupsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadDhcpOptionsResp struct {
@@ -33802,12 +35069,20 @@ func (r ReadDhcpOptionsResp) Expect() (*ReadDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadDhcpOptionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadDhcpOptionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadDirectLinkInterfacesResp struct {
@@ -33837,12 +35112,20 @@ func (r ReadDirectLinkInterfacesResp) Expect() (*ReadDirectLinkInterfacesRespons
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadDirectLinkInterfacesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadDirectLinkInterfacesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadDirectLinksResp struct {
@@ -33872,12 +35155,20 @@ func (r ReadDirectLinksResp) Expect() (*ReadDirectLinksResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadDirectLinksResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadDirectLinksResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadEntitiesLinkedToPolicyResp struct {
@@ -33907,12 +35198,20 @@ func (r ReadEntitiesLinkedToPolicyResp) Expect() (*ReadEntitiesLinkedToPolicyRes
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadEntitiesLinkedToPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadEntitiesLinkedToPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadFlexibleGpuCatalogResp struct {
@@ -33942,12 +35241,20 @@ func (r ReadFlexibleGpuCatalogResp) Expect() (*ReadFlexibleGpuCatalogResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadFlexibleGpuCatalogResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadFlexibleGpuCatalogResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadFlexibleGpusResp struct {
@@ -33977,12 +35284,20 @@ func (r ReadFlexibleGpusResp) Expect() (*ReadFlexibleGpusResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadFlexibleGpusResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadFlexibleGpusResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadImageExportTasksResp struct {
@@ -34012,12 +35327,20 @@ func (r ReadImageExportTasksResp) Expect() (*ReadImageExportTasksResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadImageExportTasksResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadImageExportTasksResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadImagesResp struct {
@@ -34050,24 +35373,32 @@ func (r ReadImagesResp) Expect() (*ReadImagesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadImagesResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadImagesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadInternetServicesResp struct {
@@ -34100,24 +35431,32 @@ func (r ReadInternetServicesResp) Expect() (*ReadInternetServicesResponse, error
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadInternetServicesResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadInternetServicesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadKeypairsResp struct {
@@ -34150,24 +35489,32 @@ func (r ReadKeypairsResp) Expect() (*ReadKeypairsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadKeypairsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadKeypairsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadLinkedPoliciesResp struct {
@@ -34197,12 +35544,20 @@ func (r ReadLinkedPoliciesResp) Expect() (*ReadLinkedPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadLinkedPoliciesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadLinkedPoliciesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadListenerRulesResp struct {
@@ -34232,12 +35587,20 @@ func (r ReadListenerRulesResp) Expect() (*ReadListenerRulesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadListenerRulesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadListenerRulesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadLoadBalancerTagsResp struct {
@@ -34267,12 +35630,20 @@ func (r ReadLoadBalancerTagsResp) Expect() (*ReadLoadBalancerTagsResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadLoadBalancerTagsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadLoadBalancerTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadLoadBalancersResp struct {
@@ -34302,12 +35673,20 @@ func (r ReadLoadBalancersResp) Expect() (*ReadLoadBalancersResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadLoadBalancersResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadLoadBalancersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadLocationsResp struct {
@@ -34337,12 +35716,20 @@ func (r ReadLocationsResp) Expect() (*ReadLocationsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadLocationsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadLocationsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadManagedPoliciesLinkedToUserGroupResp struct {
@@ -34372,12 +35759,20 @@ func (r ReadManagedPoliciesLinkedToUserGroupResp) Expect() (*ReadManagedPolicies
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadManagedPoliciesLinkedToUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadManagedPoliciesLinkedToUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNatServicesResp struct {
@@ -34410,24 +35805,32 @@ func (r ReadNatServicesResp) Expect() (*ReadNatServicesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadNatServicesResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNatServicesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNetAccessPointServicesResp struct {
@@ -34457,12 +35860,20 @@ func (r ReadNetAccessPointServicesResp) Expect() (*ReadNetAccessPointServicesRes
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNetAccessPointServicesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadNetAccessPointServicesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNetAccessPointsResp struct {
@@ -34492,12 +35903,20 @@ func (r ReadNetAccessPointsResp) Expect() (*ReadNetAccessPointsResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNetAccessPointsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadNetAccessPointsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNetPeeringsResp struct {
@@ -34530,24 +35949,32 @@ func (r ReadNetPeeringsResp) Expect() (*ReadNetPeeringsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadNetPeeringsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNetPeeringsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNetsResp struct {
@@ -34580,24 +36007,32 @@ func (r ReadNetsResp) Expect() (*ReadNetsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadNetsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNetsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadNicsResp struct {
@@ -34630,24 +36065,32 @@ func (r ReadNicsResp) Expect() (*ReadNicsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadNicsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadNicsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPoliciesResp struct {
@@ -34677,12 +36120,20 @@ func (r ReadPoliciesResp) Expect() (*ReadPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPoliciesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPoliciesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPolicyResp struct {
@@ -34712,12 +36163,20 @@ func (r ReadPolicyResp) Expect() (*ReadPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPolicyVersionResp struct {
@@ -34747,12 +36206,20 @@ func (r ReadPolicyVersionResp) Expect() (*ReadPolicyVersionResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPolicyVersionResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPolicyVersionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPolicyVersionsResp struct {
@@ -34782,12 +36249,20 @@ func (r ReadPolicyVersionsResp) Expect() (*ReadPolicyVersionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPolicyVersionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPolicyVersionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadProductTypesResp struct {
@@ -34817,12 +36292,20 @@ func (r ReadProductTypesResp) Expect() (*ReadProductTypesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadProductTypesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadProductTypesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPublicCatalogResp struct {
@@ -34852,12 +36335,20 @@ func (r ReadPublicCatalogResp) Expect() (*ReadPublicCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPublicCatalogResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPublicCatalogResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPublicIpRangesResp struct {
@@ -34887,12 +36378,20 @@ func (r ReadPublicIpRangesResp) Expect() (*ReadPublicIpRangesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPublicIpRangesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadPublicIpRangesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadPublicIpsResp struct {
@@ -34925,24 +36424,32 @@ func (r ReadPublicIpsResp) Expect() (*ReadPublicIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadPublicIpsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadPublicIpsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadQuotasResp struct {
@@ -34972,12 +36479,20 @@ func (r ReadQuotasResp) Expect() (*ReadQuotasResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadQuotasResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadQuotasResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadRegionsResp struct {
@@ -35007,12 +36522,20 @@ func (r ReadRegionsResp) Expect() (*ReadRegionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadRegionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadRegionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadRouteTablesResp struct {
@@ -35045,24 +36568,32 @@ func (r ReadRouteTablesResp) Expect() (*ReadRouteTablesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadRouteTablesResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadRouteTablesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadSecurityGroupsResp struct {
@@ -35095,24 +36626,32 @@ func (r ReadSecurityGroupsResp) Expect() (*ReadSecurityGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadSecurityGroupsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadSecurityGroupsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadServerCertificatesResp struct {
@@ -35142,12 +36681,20 @@ func (r ReadServerCertificatesResp) Expect() (*ReadServerCertificatesResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadServerCertificatesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadServerCertificatesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadSnapshotExportTasksResp struct {
@@ -35177,12 +36724,20 @@ func (r ReadSnapshotExportTasksResp) Expect() (*ReadSnapshotExportTasksResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadSnapshotExportTasksResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadSnapshotExportTasksResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadSnapshotsResp struct {
@@ -35215,24 +36770,32 @@ func (r ReadSnapshotsResp) Expect() (*ReadSnapshotsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadSnapshotsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadSnapshotsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadSubnetsResp struct {
@@ -35265,24 +36828,32 @@ func (r ReadSubnetsResp) Expect() (*ReadSubnetsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadSubnetsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadSubnetsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadSubregionsResp struct {
@@ -35312,12 +36883,20 @@ func (r ReadSubregionsResp) Expect() (*ReadSubregionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadSubregionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadSubregionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadTagsResp struct {
@@ -35350,24 +36929,32 @@ func (r ReadTagsResp) Expect() (*ReadTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadTagsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadTagsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUnitPriceResp struct {
@@ -35397,12 +36984,20 @@ func (r ReadUnitPriceResp) Expect() (*ReadUnitPriceResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUnitPriceResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUnitPriceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserGroupResp struct {
@@ -35432,12 +37027,20 @@ func (r ReadUserGroupResp) Expect() (*ReadUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserGroupPoliciesResp struct {
@@ -35467,12 +37070,20 @@ func (r ReadUserGroupPoliciesResp) Expect() (*ReadUserGroupPoliciesResponse, err
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserGroupPoliciesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserGroupPoliciesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserGroupPolicyResp struct {
@@ -35502,12 +37113,20 @@ func (r ReadUserGroupPolicyResp) Expect() (*ReadUserGroupPolicyResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserGroupPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserGroupPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserGroupsResp struct {
@@ -35537,12 +37156,20 @@ func (r ReadUserGroupsResp) Expect() (*ReadUserGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserGroupsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserGroupsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserGroupsPerUserResp struct {
@@ -35572,12 +37199,20 @@ func (r ReadUserGroupsPerUserResp) Expect() (*ReadUserGroupsPerUserResponse, err
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserGroupsPerUserResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserGroupsPerUserResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserPoliciesResp struct {
@@ -35607,12 +37242,20 @@ func (r ReadUserPoliciesResp) Expect() (*ReadUserPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserPoliciesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserPoliciesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUserPolicyResp struct {
@@ -35642,12 +37285,20 @@ func (r ReadUserPolicyResp) Expect() (*ReadUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUserPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUserPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadUsersResp struct {
@@ -35677,12 +37328,20 @@ func (r ReadUsersResp) Expect() (*ReadUsersResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadUsersResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadUsersResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVirtualGatewaysResp struct {
@@ -35712,12 +37371,20 @@ func (r ReadVirtualGatewaysResp) Expect() (*ReadVirtualGatewaysResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVirtualGatewaysResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadVirtualGatewaysResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmGroupsResp struct {
@@ -35750,24 +37417,32 @@ func (r ReadVmGroupsResp) Expect() (*ReadVmGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadVmGroupsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmGroupsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmTemplatesResp struct {
@@ -35797,12 +37472,20 @@ func (r ReadVmTemplatesResp) Expect() (*ReadVmTemplatesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmTemplatesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadVmTemplatesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmTypesResp struct {
@@ -35832,12 +37515,20 @@ func (r ReadVmTypesResp) Expect() (*ReadVmTypesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmTypesResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadVmTypesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmsResp struct {
@@ -35870,24 +37561,32 @@ func (r ReadVmsResp) Expect() (*ReadVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmsHealthResp struct {
@@ -35917,12 +37616,20 @@ func (r ReadVmsHealthResp) Expect() (*ReadVmsHealthResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmsHealthResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadVmsHealthResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVmsStateResp struct {
@@ -35955,24 +37662,32 @@ func (r ReadVmsStateResp) Expect() (*ReadVmsStateResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadVmsStateResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVmsStateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVolumesResp struct {
@@ -36005,24 +37720,32 @@ func (r ReadVolumesResp) Expect() (*ReadVolumesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ReadVolumesResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVolumesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ReadVpnConnectionsResp struct {
@@ -36052,12 +37775,20 @@ func (r ReadVpnConnectionsResp) Expect() (*ReadVpnConnectionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r ReadVpnConnectionsResp) DeepError() error {
+
+	return nil
+}
+
+func (r ReadVpnConnectionsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type RebootVmsResp struct {
@@ -36090,24 +37821,32 @@ func (r RebootVmsResp) Expect() (*RebootVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r RebootVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r RebootVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type RegisterVmsInLoadBalancerResp struct {
@@ -36137,12 +37876,20 @@ func (r RegisterVmsInLoadBalancerResp) Expect() (*RegisterVmsInLoadBalancerRespo
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r RegisterVmsInLoadBalancerResp) DeepError() error {
+
+	return nil
+}
+
+func (r RegisterVmsInLoadBalancerResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type RejectNetPeeringResp struct {
@@ -36176,28 +37923,36 @@ func (r RejectNetPeeringResp) Expect() (*RejectNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r RejectNetPeeringResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON409 != nil {
-		return nil, r.JSON409
+		return r.JSON409
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r RejectNetPeeringResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type RemoveUserFromUserGroupResp struct {
@@ -36227,12 +37982,20 @@ func (r RemoveUserFromUserGroupResp) Expect() (*RemoveUserFromUserGroupResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r RemoveUserFromUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r RemoveUserFromUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ScaleDownVmGroupResp struct {
@@ -36265,24 +38028,32 @@ func (r ScaleDownVmGroupResp) Expect() (*ScaleDownVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ScaleDownVmGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ScaleDownVmGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ScaleUpVmGroupResp struct {
@@ -36315,24 +38086,32 @@ func (r ScaleUpVmGroupResp) Expect() (*ScaleUpVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ScaleUpVmGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ScaleUpVmGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type SetDefaultPolicyVersionResp struct {
@@ -36362,12 +38141,20 @@ func (r SetDefaultPolicyVersionResp) Expect() (*SetDefaultPolicyVersionResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r SetDefaultPolicyVersionResp) DeepError() error {
+
+	return nil
+}
+
+func (r SetDefaultPolicyVersionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type StartVmsResp struct {
@@ -36400,24 +38187,32 @@ func (r StartVmsResp) Expect() (*StartVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r StartVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r StartVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type StopVmsResp struct {
@@ -36450,24 +38245,32 @@ func (r StopVmsResp) Expect() (*StopVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r StopVmsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r StopVmsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkFlexibleGpuResp struct {
@@ -36497,12 +38300,20 @@ func (r UnlinkFlexibleGpuResp) Expect() (*UnlinkFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkFlexibleGpuResp) DeepError() error {
+
+	return nil
+}
+
+func (r UnlinkFlexibleGpuResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkInternetServiceResp struct {
@@ -36535,24 +38346,32 @@ func (r UnlinkInternetServiceResp) Expect() (*UnlinkInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkInternetServiceResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkInternetServiceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkLoadBalancerBackendMachinesResp struct {
@@ -36582,12 +38401,20 @@ func (r UnlinkLoadBalancerBackendMachinesResp) Expect() (*UnlinkLoadBalancerBack
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkLoadBalancerBackendMachinesResp) DeepError() error {
+
+	return nil
+}
+
+func (r UnlinkLoadBalancerBackendMachinesResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkManagedPolicyFromUserGroupResp struct {
@@ -36617,12 +38444,20 @@ func (r UnlinkManagedPolicyFromUserGroupResp) Expect() (*UnlinkManagedPolicyFrom
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkManagedPolicyFromUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r UnlinkManagedPolicyFromUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkNicResp struct {
@@ -36655,24 +38490,32 @@ func (r UnlinkNicResp) Expect() (*UnlinkNicResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkNicResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkNicResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkPolicyResp struct {
@@ -36702,12 +38545,20 @@ func (r UnlinkPolicyResp) Expect() (*UnlinkPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkPolicyResp) DeepError() error {
+
+	return nil
+}
+
+func (r UnlinkPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkPrivateIpsResp struct {
@@ -36740,24 +38591,32 @@ func (r UnlinkPrivateIpsResp) Expect() (*UnlinkPrivateIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkPrivateIpsResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkPrivateIpsResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkPublicIpResp struct {
@@ -36790,24 +38649,32 @@ func (r UnlinkPublicIpResp) Expect() (*UnlinkPublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkPublicIpResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkPublicIpResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkRouteTableResp struct {
@@ -36840,24 +38707,32 @@ func (r UnlinkRouteTableResp) Expect() (*UnlinkRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkRouteTableResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkRouteTableResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkVirtualGatewayResp struct {
@@ -36887,12 +38762,20 @@ func (r UnlinkVirtualGatewayResp) Expect() (*UnlinkVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkVirtualGatewayResp) DeepError() error {
+
+	return nil
+}
+
+func (r UnlinkVirtualGatewayResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UnlinkVolumeResp struct {
@@ -36925,24 +38808,32 @@ func (r UnlinkVolumeResp) Expect() (*UnlinkVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UnlinkVolumeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UnlinkVolumeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateAccessKeyResp struct {
@@ -36972,12 +38863,20 @@ func (r UpdateAccessKeyResp) Expect() (*UpdateAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateAccessKeyResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateAccessKeyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateAccountResp struct {
@@ -37007,12 +38906,20 @@ func (r UpdateAccountResp) Expect() (*UpdateAccountResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateAccountResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateAccountResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateApiAccessPolicyResp struct {
@@ -37045,24 +38952,32 @@ func (r UpdateApiAccessPolicyResp) Expect() (*UpdateApiAccessPolicyResponse, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateApiAccessPolicyResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateApiAccessPolicyResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateApiAccessRuleResp struct {
@@ -37092,12 +39007,20 @@ func (r UpdateApiAccessRuleResp) Expect() (*UpdateApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateApiAccessRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateApiAccessRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateCaResp struct {
@@ -37127,12 +39050,20 @@ func (r UpdateCaResp) Expect() (*UpdateCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateCaResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateCaResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateDedicatedGroupResp struct {
@@ -37165,24 +39096,32 @@ func (r UpdateDedicatedGroupResp) Expect() (*UpdateDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateDedicatedGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateDedicatedGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateDirectLinkInterfaceResp struct {
@@ -37212,12 +39151,20 @@ func (r UpdateDirectLinkInterfaceResp) Expect() (*UpdateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateDirectLinkInterfaceResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateDirectLinkInterfaceResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateFlexibleGpuResp struct {
@@ -37247,12 +39194,20 @@ func (r UpdateFlexibleGpuResp) Expect() (*UpdateFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateFlexibleGpuResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateFlexibleGpuResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateImageResp struct {
@@ -37285,24 +39240,32 @@ func (r UpdateImageResp) Expect() (*UpdateImageResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateImageResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateImageResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateListenerRuleResp struct {
@@ -37332,12 +39295,20 @@ func (r UpdateListenerRuleResp) Expect() (*UpdateListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateListenerRuleResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateListenerRuleResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateLoadBalancerResp struct {
@@ -37367,12 +39338,20 @@ func (r UpdateLoadBalancerResp) Expect() (*UpdateLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateLoadBalancerResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateLoadBalancerResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateNetResp struct {
@@ -37405,24 +39384,32 @@ func (r UpdateNetResp) Expect() (*UpdateNetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateNetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateNetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateNetAccessPointResp struct {
@@ -37452,12 +39439,20 @@ func (r UpdateNetAccessPointResp) Expect() (*UpdateNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateNetAccessPointResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateNetAccessPointResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateNicResp struct {
@@ -37490,24 +39485,32 @@ func (r UpdateNicResp) Expect() (*UpdateNicResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateNicResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateNicResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateRouteResp struct {
@@ -37540,24 +39543,32 @@ func (r UpdateRouteResp) Expect() (*UpdateRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateRouteResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateRouteResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateRoutePropagationResp struct {
@@ -37587,12 +39598,20 @@ func (r UpdateRoutePropagationResp) Expect() (*UpdateRoutePropagationResponse, e
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateRoutePropagationResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateRoutePropagationResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateRouteTableLinkResp struct {
@@ -37625,24 +39644,32 @@ func (r UpdateRouteTableLinkResp) Expect() (*UpdateRouteTableLinkResponse, error
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateRouteTableLinkResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateRouteTableLinkResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateServerCertificateResp struct {
@@ -37672,12 +39699,20 @@ func (r UpdateServerCertificateResp) Expect() (*UpdateServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateServerCertificateResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateServerCertificateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateSnapshotResp struct {
@@ -37710,24 +39745,32 @@ func (r UpdateSnapshotResp) Expect() (*UpdateSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateSnapshotResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateSnapshotResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateSubnetResp struct {
@@ -37760,24 +39803,32 @@ func (r UpdateSubnetResp) Expect() (*UpdateSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateSubnetResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateSubnetResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateUserResp struct {
@@ -37807,12 +39858,20 @@ func (r UpdateUserResp) Expect() (*UpdateUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateUserResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateUserResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateUserGroupResp struct {
@@ -37842,12 +39901,20 @@ func (r UpdateUserGroupResp) Expect() (*UpdateUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateUserGroupResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateUserGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateVmResp struct {
@@ -37880,24 +39947,32 @@ func (r UpdateVmResp) Expect() (*UpdateVmResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateVmResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateVmResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateVmGroupResp struct {
@@ -37930,24 +40005,32 @@ func (r UpdateVmGroupResp) Expect() (*UpdateVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateVmGroupResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateVmGroupResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateVmTemplateResp struct {
@@ -37977,12 +40060,20 @@ func (r UpdateVmTemplateResp) Expect() (*UpdateVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil, r
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateVmTemplateResp) DeepError() error {
+
+	return nil
+}
+
+func (r UpdateVmTemplateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateVolumeResp struct {
@@ -38015,24 +40106,32 @@ func (r UpdateVolumeResp) Expect() (*UpdateVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateVolumeResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateVolumeResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateVpnConnectionResp struct {
@@ -38065,24 +40164,32 @@ func (r UpdateVpnConnectionResp) Expect() (*UpdateVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateVpnConnectionResp) DeepError() error {
+
 	if r.JSON400 != nil {
-		return nil, r.JSON400
+		return r.JSON400
 	}
 
 	if r.JSON401 != nil {
-		return nil, r.JSON401
+		return r.JSON401
 	}
 
 	if r.JSON500 != nil {
-		return nil, r.JSON500
+		return r.JSON500
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateVpnConnectionResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 // AcceptNetPeeringWithBody request with arbitrary body returning *AcceptNetPeeringResponse
@@ -38096,10 +40203,16 @@ func (c *Client) AcceptNetPeeringWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.AcceptNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38109,7 +40222,11 @@ func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // AddUserToUserGroupWithBody request with arbitrary body returning *AddUserToUserGroupResponse
@@ -38123,10 +40240,16 @@ func (c *Client) AddUserToUserGroupWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.AddUserToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38136,7 +40259,11 @@ func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroup
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CheckAuthenticationWithBody request with arbitrary body returning *CheckAuthenticationResponse
@@ -38150,10 +40277,16 @@ func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CheckAuthenticationRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38163,7 +40296,11 @@ func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticati
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateAccessKeyWithBody request with arbitrary body returning *CreateAccessKeyResponse
@@ -38177,10 +40314,16 @@ func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38190,7 +40333,11 @@ func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateAccountWithBody request with arbitrary body returning *CreateAccountResponse
@@ -38204,10 +40351,16 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38217,7 +40370,11 @@ func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateApiAccessRuleWithBody request with arbitrary body returning *CreateApiAccessRuleResponse
@@ -38231,10 +40388,16 @@ func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38244,7 +40407,11 @@ func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRu
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateCaWithBody request with arbitrary body returning *CreateCaResponse
@@ -38258,10 +40425,16 @@ func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38271,7 +40444,11 @@ func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateClientGatewayWithBody request with arbitrary body returning *CreateClientGatewayResponse
@@ -38285,10 +40462,16 @@ func (c *Client) CreateClientGatewayWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateClientGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38298,7 +40481,11 @@ func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatew
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateDedicatedGroupWithBody request with arbitrary body returning *CreateDedicatedGroupResponse
@@ -38312,10 +40499,16 @@ func (c *Client) CreateDedicatedGroupWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38325,7 +40518,11 @@ func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedG
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateDhcpOptionsWithBody request with arbitrary body returning *CreateDhcpOptionsResponse
@@ -38339,10 +40536,16 @@ func (c *Client) CreateDhcpOptionsWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38352,7 +40555,11 @@ func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateDirectLinkWithBody request with arbitrary body returning *CreateDirectLinkResponse
@@ -38366,10 +40573,16 @@ func (c *Client) CreateDirectLinkWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateDirectLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38379,7 +40592,11 @@ func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateDirectLinkInterfaceWithBody request with arbitrary body returning *CreateDirectLinkInterfaceResponse
@@ -38393,10 +40610,16 @@ func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38406,7 +40629,11 @@ func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirec
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateFlexibleGpuWithBody request with arbitrary body returning *CreateFlexibleGpuResponse
@@ -38420,10 +40647,16 @@ func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38433,7 +40666,11 @@ func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateImageWithBody request with arbitrary body returning *CreateImageResponse
@@ -38447,10 +40684,16 @@ func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38460,7 +40703,11 @@ func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateImageExportTaskWithBody request with arbitrary body returning *CreateImageExportTaskResponse
@@ -38474,10 +40721,16 @@ func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateImageExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38487,7 +40740,11 @@ func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExpo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateInternetServiceWithBody request with arbitrary body returning *CreateInternetServiceResponse
@@ -38501,10 +40758,16 @@ func (c *Client) CreateInternetServiceWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38514,7 +40777,11 @@ func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateKeypairWithBody request with arbitrary body returning *CreateKeypairResponse
@@ -38528,10 +40795,16 @@ func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateKeypairRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38541,7 +40814,11 @@ func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateListenerRuleWithBody request with arbitrary body returning *CreateListenerRuleResponse
@@ -38555,10 +40832,16 @@ func (c *Client) CreateListenerRuleWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38568,7 +40851,11 @@ func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRule
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateLoadBalancerWithBody request with arbitrary body returning *CreateLoadBalancerResponse
@@ -38582,10 +40869,16 @@ func (c *Client) CreateLoadBalancerWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38595,7 +40888,11 @@ func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancer
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateLoadBalancerListenersWithBody request with arbitrary body returning *CreateLoadBalancerListenersResponse
@@ -38609,10 +40906,16 @@ func (c *Client) CreateLoadBalancerListenersWithBody(ctx context.Context, conten
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateLoadBalancerListenersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38622,7 +40925,11 @@ func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateLoadBalancerPolicyWithBody request with arbitrary body returning *CreateLoadBalancerPolicyResponse
@@ -38636,10 +40943,16 @@ func (c *Client) CreateLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateLoadBalancerPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38649,7 +40962,11 @@ func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateLoadBalancerTagsWithBody request with arbitrary body returning *CreateLoadBalancerTagsResponse
@@ -38663,10 +40980,16 @@ func (c *Client) CreateLoadBalancerTagsWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38676,7 +40999,11 @@ func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBala
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateNatServiceWithBody request with arbitrary body returning *CreateNatServiceResponse
@@ -38690,10 +41017,16 @@ func (c *Client) CreateNatServiceWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateNatServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38703,7 +41036,11 @@ func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateNetWithBody request with arbitrary body returning *CreateNetResponse
@@ -38717,10 +41054,16 @@ func (c *Client) CreateNetWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38730,7 +41073,11 @@ func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateNetAccessPointWithBody request with arbitrary body returning *CreateNetAccessPointResponse
@@ -38744,10 +41091,16 @@ func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38757,7 +41110,11 @@ func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessP
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateNetPeeringWithBody request with arbitrary body returning *CreateNetPeeringResponse
@@ -38771,10 +41128,16 @@ func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38784,7 +41147,11 @@ func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateNicWithBody request with arbitrary body returning *CreateNicResponse
@@ -38798,10 +41165,16 @@ func (c *Client) CreateNicWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38811,7 +41184,11 @@ func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreatePolicyWithBody request with arbitrary body returning *CreatePolicyResponse
@@ -38825,10 +41202,16 @@ func (c *Client) CreatePolicyWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreatePolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38838,7 +41221,11 @@ func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreatePolicyVersionWithBody request with arbitrary body returning *CreatePolicyVersionResponse
@@ -38852,10 +41239,16 @@ func (c *Client) CreatePolicyVersionWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreatePolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38865,7 +41258,11 @@ func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersi
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateProductTypeWithBody request with arbitrary body returning *CreateProductTypeResponse
@@ -38879,10 +41276,16 @@ func (c *Client) CreateProductTypeWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateProductTypeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38892,7 +41295,11 @@ func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreatePublicIpWithBody request with arbitrary body returning *CreatePublicIpResponse
@@ -38906,10 +41313,16 @@ func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreatePublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38919,7 +41332,11 @@ func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateRouteWithBody request with arbitrary body returning *CreateRouteResponse
@@ -38933,10 +41350,16 @@ func (c *Client) CreateRouteWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38946,7 +41369,11 @@ func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateRouteTableWithBody request with arbitrary body returning *CreateRouteTableResponse
@@ -38960,10 +41387,16 @@ func (c *Client) CreateRouteTableWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -38973,7 +41406,11 @@ func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateSecurityGroupWithBody request with arbitrary body returning *CreateSecurityGroupResponse
@@ -38987,10 +41424,16 @@ func (c *Client) CreateSecurityGroupWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateSecurityGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39000,7 +41443,11 @@ func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGro
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateSecurityGroupRuleWithBody request with arbitrary body returning *CreateSecurityGroupRuleResponse
@@ -39014,10 +41461,16 @@ func (c *Client) CreateSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateSecurityGroupRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39027,7 +41480,11 @@ func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurit
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateServerCertificateWithBody request with arbitrary body returning *CreateServerCertificateResponse
@@ -39041,10 +41498,16 @@ func (c *Client) CreateServerCertificateWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39054,7 +41517,11 @@ func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerC
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateSnapshotWithBody request with arbitrary body returning *CreateSnapshotResponse
@@ -39068,10 +41535,16 @@ func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39081,7 +41554,11 @@ func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateSnapshotExportTaskWithBody request with arbitrary body returning *CreateSnapshotExportTaskResponse
@@ -39095,10 +41572,16 @@ func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateSnapshotExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39108,7 +41591,11 @@ func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapsh
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateSubnetWithBody request with arbitrary body returning *CreateSubnetResponse
@@ -39122,10 +41609,16 @@ func (c *Client) CreateSubnetWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39135,7 +41628,11 @@ func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateTagsWithBody request with arbitrary body returning *CreateTagsResponse
@@ -39149,10 +41646,16 @@ func (c *Client) CreateTagsWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39162,7 +41665,11 @@ func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateUserWithBody request with arbitrary body returning *CreateUserResponse
@@ -39176,10 +41683,16 @@ func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39189,7 +41702,11 @@ func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateUserGroupWithBody request with arbitrary body returning *CreateUserGroupResponse
@@ -39203,10 +41720,16 @@ func (c *Client) CreateUserGroupWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39216,7 +41739,11 @@ func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVirtualGatewayWithBody request with arbitrary body returning *CreateVirtualGatewayResponse
@@ -39230,10 +41757,16 @@ func (c *Client) CreateVirtualGatewayWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39243,7 +41776,11 @@ func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGat
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVmGroupWithBody request with arbitrary body returning *CreateVmGroupResponse
@@ -39257,10 +41794,16 @@ func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39270,7 +41813,11 @@ func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVmTemplateWithBody request with arbitrary body returning *CreateVmTemplateResponse
@@ -39284,10 +41831,16 @@ func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39297,7 +41850,11 @@ func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVmsWithBody request with arbitrary body returning *CreateVmsResponse
@@ -39311,10 +41868,16 @@ func (c *Client) CreateVmsWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39324,7 +41887,11 @@ func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVolumeWithBody request with arbitrary body returning *CreateVolumeResponse
@@ -39338,10 +41905,16 @@ func (c *Client) CreateVolumeWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39351,7 +41924,11 @@ func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVpnConnectionWithBody request with arbitrary body returning *CreateVpnConnectionResponse
@@ -39365,10 +41942,16 @@ func (c *Client) CreateVpnConnectionWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39378,7 +41961,11 @@ func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnecti
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateVpnConnectionRouteWithBody request with arbitrary body returning *CreateVpnConnectionRouteResponse
@@ -39392,10 +41979,16 @@ func (c *Client) CreateVpnConnectionRouteWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateVpnConnectionRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39405,7 +41998,11 @@ func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnCon
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteAccessKeyWithBody request with arbitrary body returning *DeleteAccessKeyResponse
@@ -39419,10 +42016,16 @@ func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39432,7 +42035,11 @@ func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteApiAccessRuleWithBody request with arbitrary body returning *DeleteApiAccessRuleResponse
@@ -39446,10 +42053,16 @@ func (c *Client) DeleteApiAccessRuleWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39459,7 +42072,11 @@ func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRu
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteCaWithBody request with arbitrary body returning *DeleteCaResponse
@@ -39473,10 +42090,16 @@ func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39486,7 +42109,11 @@ func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteClientGatewayWithBody request with arbitrary body returning *DeleteClientGatewayResponse
@@ -39500,10 +42127,16 @@ func (c *Client) DeleteClientGatewayWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteClientGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39513,7 +42146,11 @@ func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatew
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteDedicatedGroupWithBody request with arbitrary body returning *DeleteDedicatedGroupResponse
@@ -39527,10 +42164,16 @@ func (c *Client) DeleteDedicatedGroupWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39540,7 +42183,11 @@ func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedG
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteDhcpOptionsWithBody request with arbitrary body returning *DeleteDhcpOptionsResponse
@@ -39554,10 +42201,16 @@ func (c *Client) DeleteDhcpOptionsWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39567,7 +42220,11 @@ func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteDirectLinkWithBody request with arbitrary body returning *DeleteDirectLinkResponse
@@ -39581,10 +42238,16 @@ func (c *Client) DeleteDirectLinkWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteDirectLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39594,7 +42257,11 @@ func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteDirectLinkInterfaceWithBody request with arbitrary body returning *DeleteDirectLinkInterfaceResponse
@@ -39608,10 +42275,16 @@ func (c *Client) DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentT
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39621,7 +42294,11 @@ func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirec
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteExportTaskWithBody request with arbitrary body returning *DeleteExportTaskResponse
@@ -39635,10 +42312,16 @@ func (c *Client) DeleteExportTaskWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteExportTaskRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39648,7 +42331,11 @@ func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteFlexibleGpuWithBody request with arbitrary body returning *DeleteFlexibleGpuResponse
@@ -39662,10 +42349,16 @@ func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39675,7 +42368,11 @@ func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteImageWithBody request with arbitrary body returning *DeleteImageResponse
@@ -39689,10 +42386,16 @@ func (c *Client) DeleteImageWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39702,7 +42405,11 @@ func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteInternetServiceWithBody request with arbitrary body returning *DeleteInternetServiceResponse
@@ -39716,10 +42423,16 @@ func (c *Client) DeleteInternetServiceWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39729,7 +42442,11 @@ func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteKeypairWithBody request with arbitrary body returning *DeleteKeypairResponse
@@ -39743,10 +42460,16 @@ func (c *Client) DeleteKeypairWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteKeypairRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39756,7 +42479,11 @@ func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteListenerRuleWithBody request with arbitrary body returning *DeleteListenerRuleResponse
@@ -39770,10 +42497,16 @@ func (c *Client) DeleteListenerRuleWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39783,7 +42516,11 @@ func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRule
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteLoadBalancerWithBody request with arbitrary body returning *DeleteLoadBalancerResponse
@@ -39797,10 +42534,16 @@ func (c *Client) DeleteLoadBalancerWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39810,7 +42553,11 @@ func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancer
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteLoadBalancerListenersWithBody request with arbitrary body returning *DeleteLoadBalancerListenersResponse
@@ -39824,10 +42571,16 @@ func (c *Client) DeleteLoadBalancerListenersWithBody(ctx context.Context, conten
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteLoadBalancerListenersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39837,7 +42590,11 @@ func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteLoadBalancerPolicyWithBody request with arbitrary body returning *DeleteLoadBalancerPolicyResponse
@@ -39851,10 +42608,16 @@ func (c *Client) DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteLoadBalancerPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39864,7 +42627,11 @@ func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteLoadBalancerTagsWithBody request with arbitrary body returning *DeleteLoadBalancerTagsResponse
@@ -39878,10 +42645,16 @@ func (c *Client) DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39891,7 +42664,11 @@ func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBala
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteNatServiceWithBody request with arbitrary body returning *DeleteNatServiceResponse
@@ -39905,10 +42682,16 @@ func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteNatServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39918,7 +42701,11 @@ func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteNetWithBody request with arbitrary body returning *DeleteNetResponse
@@ -39932,10 +42719,16 @@ func (c *Client) DeleteNetWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39945,7 +42738,11 @@ func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteNetAccessPointWithBody request with arbitrary body returning *DeleteNetAccessPointResponse
@@ -39959,10 +42756,16 @@ func (c *Client) DeleteNetAccessPointWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39972,7 +42775,11 @@ func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessP
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteNetPeeringWithBody request with arbitrary body returning *DeleteNetPeeringResponse
@@ -39986,10 +42793,16 @@ func (c *Client) DeleteNetPeeringWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -39999,7 +42812,11 @@ func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteNicWithBody request with arbitrary body returning *DeleteNicResponse
@@ -40013,10 +42830,16 @@ func (c *Client) DeleteNicWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40026,7 +42849,11 @@ func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeletePolicyWithBody request with arbitrary body returning *DeletePolicyResponse
@@ -40040,10 +42867,16 @@ func (c *Client) DeletePolicyWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeletePolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40053,7 +42886,11 @@ func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeletePolicyVersionWithBody request with arbitrary body returning *DeletePolicyVersionResponse
@@ -40067,10 +42904,16 @@ func (c *Client) DeletePolicyVersionWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeletePolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40080,7 +42923,11 @@ func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersi
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteProductTypeWithBody request with arbitrary body returning *DeleteProductTypeResponse
@@ -40094,10 +42941,16 @@ func (c *Client) DeleteProductTypeWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteProductTypeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40107,7 +42960,11 @@ func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeletePublicIpWithBody request with arbitrary body returning *DeletePublicIpResponse
@@ -40121,10 +42978,16 @@ func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeletePublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40134,7 +42997,11 @@ func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteRouteWithBody request with arbitrary body returning *DeleteRouteResponse
@@ -40148,10 +43015,16 @@ func (c *Client) DeleteRouteWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40161,7 +43034,11 @@ func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteRouteTableWithBody request with arbitrary body returning *DeleteRouteTableResponse
@@ -40175,10 +43052,16 @@ func (c *Client) DeleteRouteTableWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40188,7 +43071,11 @@ func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteSecurityGroupWithBody request with arbitrary body returning *DeleteSecurityGroupResponse
@@ -40202,10 +43089,16 @@ func (c *Client) DeleteSecurityGroupWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteSecurityGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40215,7 +43108,11 @@ func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGro
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteSecurityGroupRuleWithBody request with arbitrary body returning *DeleteSecurityGroupRuleResponse
@@ -40229,10 +43126,16 @@ func (c *Client) DeleteSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteSecurityGroupRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40242,7 +43145,11 @@ func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurit
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteServerCertificateWithBody request with arbitrary body returning *DeleteServerCertificateResponse
@@ -40256,10 +43163,16 @@ func (c *Client) DeleteServerCertificateWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40269,7 +43182,11 @@ func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerC
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteSnapshotWithBody request with arbitrary body returning *DeleteSnapshotResponse
@@ -40283,10 +43200,16 @@ func (c *Client) DeleteSnapshotWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40296,7 +43219,11 @@ func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteSubnetWithBody request with arbitrary body returning *DeleteSubnetResponse
@@ -40310,10 +43237,16 @@ func (c *Client) DeleteSubnetWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40323,7 +43256,11 @@ func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteTagsWithBody request with arbitrary body returning *DeleteTagsResponse
@@ -40337,10 +43274,16 @@ func (c *Client) DeleteTagsWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40350,7 +43293,11 @@ func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteUserWithBody request with arbitrary body returning *DeleteUserResponse
@@ -40364,10 +43311,16 @@ func (c *Client) DeleteUserWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40377,7 +43330,11 @@ func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteUserGroupWithBody request with arbitrary body returning *DeleteUserGroupResponse
@@ -40391,10 +43348,16 @@ func (c *Client) DeleteUserGroupWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40404,7 +43367,11 @@ func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteUserGroupPolicyWithBody request with arbitrary body returning *DeleteUserGroupPolicyResponse
@@ -40418,10 +43385,16 @@ func (c *Client) DeleteUserGroupPolicyWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40431,7 +43404,11 @@ func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroup
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteUserPolicyWithBody request with arbitrary body returning *DeleteUserPolicyResponse
@@ -40445,10 +43422,16 @@ func (c *Client) DeleteUserPolicyWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40458,7 +43441,11 @@ func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVirtualGatewayWithBody request with arbitrary body returning *DeleteVirtualGatewayResponse
@@ -40472,10 +43459,16 @@ func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40485,7 +43478,11 @@ func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGat
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVmGroupWithBody request with arbitrary body returning *DeleteVmGroupResponse
@@ -40499,10 +43496,16 @@ func (c *Client) DeleteVmGroupWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40512,7 +43515,11 @@ func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVmTemplateWithBody request with arbitrary body returning *DeleteVmTemplateResponse
@@ -40526,10 +43533,16 @@ func (c *Client) DeleteVmTemplateWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40539,7 +43552,11 @@ func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVmsWithBody request with arbitrary body returning *DeleteVmsResponse
@@ -40553,10 +43570,16 @@ func (c *Client) DeleteVmsWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40566,7 +43589,11 @@ func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVolumeWithBody request with arbitrary body returning *DeleteVolumeResponse
@@ -40580,10 +43607,16 @@ func (c *Client) DeleteVolumeWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40593,7 +43626,11 @@ func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVpnConnectionWithBody request with arbitrary body returning *DeleteVpnConnectionResponse
@@ -40607,10 +43644,16 @@ func (c *Client) DeleteVpnConnectionWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40620,7 +43663,11 @@ func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnecti
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteVpnConnectionRouteWithBody request with arbitrary body returning *DeleteVpnConnectionRouteResponse
@@ -40634,10 +43681,16 @@ func (c *Client) DeleteVpnConnectionRouteWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeleteVpnConnectionRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40647,7 +43700,11 @@ func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnCon
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeregisterVmsInLoadBalancerWithBody request with arbitrary body returning *DeregisterVmsInLoadBalancerResponse
@@ -40661,10 +43718,16 @@ func (c *Client) DeregisterVmsInLoadBalancerWithBody(ctx context.Context, conten
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DeregisterVmsInLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40674,7 +43737,11 @@ func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body Deregiste
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DisableOutscaleLoginWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
@@ -40688,10 +43755,16 @@ func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DisableOutscaleLoginRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40701,7 +43774,11 @@ func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleL
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DisableOutscaleLoginForUsersWithBody request with arbitrary body returning *DisableOutscaleLoginResponse
@@ -40715,10 +43792,16 @@ func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, conte
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DisableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40728,7 +43811,11 @@ func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableO
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DisableOutscaleLoginPerUsersWithBody request with arbitrary body returning *DisableOutscaleLoginPerUsersResponse
@@ -40742,10 +43829,16 @@ func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, conte
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.DisableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40755,7 +43848,11 @@ func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableO
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // EnableOutscaleLoginWithBody request with arbitrary body returning *EnableOutscaleLoginResponse
@@ -40769,10 +43866,16 @@ func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.EnableOutscaleLoginRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40782,7 +43885,11 @@ func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLog
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // EnableOutscaleLoginForUsersWithBody request with arbitrary body returning *EnableOutscaleLoginForUsersResponse
@@ -40796,10 +43903,16 @@ func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, conten
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.EnableOutscaleLoginForUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40809,7 +43922,11 @@ func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOut
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // EnableOutscaleLoginPerUsersWithBody request with arbitrary body returning *EnableOutscaleLoginPerUsersResponse
@@ -40823,10 +43940,16 @@ func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, conten
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.EnableOutscaleLoginPerUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40836,7 +43959,11 @@ func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOut
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkFlexibleGpuWithBody request with arbitrary body returning *LinkFlexibleGpuResponse
@@ -40850,10 +43977,16 @@ func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40863,7 +43996,11 @@ func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkInternetServiceWithBody request with arbitrary body returning *LinkInternetServiceResponse
@@ -40877,10 +44014,16 @@ func (c *Client) LinkInternetServiceWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40890,7 +44033,11 @@ func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServi
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkLoadBalancerBackendMachinesWithBody request with arbitrary body returning *LinkLoadBalancerBackendMachinesResponse
@@ -40904,10 +44051,16 @@ func (c *Client) LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, co
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkLoadBalancerBackendMachinesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40917,7 +44070,11 @@ func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkL
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkManagedPolicyToUserGroupWithBody request with arbitrary body returning *LinkManagedPolicyToUserGroupResponse
@@ -40931,10 +44088,16 @@ func (c *Client) LinkManagedPolicyToUserGroupWithBody(ctx context.Context, conte
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkManagedPolicyToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40944,7 +44107,11 @@ func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkMana
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkNicWithBody request with arbitrary body returning *LinkNicResponse
@@ -40958,10 +44125,16 @@ func (c *Client) LinkNicWithBody(ctx context.Context, contentType string, body i
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40971,7 +44144,11 @@ func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEd
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkPolicyWithBody request with arbitrary body returning *LinkPolicyResponse
@@ -40985,10 +44162,16 @@ func (c *Client) LinkPolicyWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -40998,7 +44181,11 @@ func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkPrivateIpsWithBody request with arbitrary body returning *LinkPrivateIpsResponse
@@ -41012,10 +44199,16 @@ func (c *Client) LinkPrivateIpsWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkPrivateIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41025,7 +44218,11 @@ func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkPublicIpWithBody request with arbitrary body returning *LinkPublicIpResponse
@@ -41039,10 +44236,16 @@ func (c *Client) LinkPublicIpWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkPublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41052,7 +44255,11 @@ func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkRouteTableWithBody request with arbitrary body returning *LinkRouteTableResponse
@@ -41066,10 +44273,16 @@ func (c *Client) LinkRouteTableWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41079,7 +44292,11 @@ func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkVirtualGatewayWithBody request with arbitrary body returning *LinkVirtualGatewayResponse
@@ -41093,10 +44310,16 @@ func (c *Client) LinkVirtualGatewayWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41106,7 +44329,11 @@ func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGateway
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // LinkVolumeWithBody request with arbitrary body returning *LinkVolumeResponse
@@ -41120,10 +44347,16 @@ func (c *Client) LinkVolumeWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.LinkVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41133,7 +44366,11 @@ func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // PutUserGroupPolicyWithBody request with arbitrary body returning *PutUserGroupPolicyResponse
@@ -41147,10 +44384,16 @@ func (c *Client) PutUserGroupPolicyWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.PutUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41160,7 +44403,11 @@ func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // PutUserPolicyWithBody request with arbitrary body returning *PutUserPolicyResponse
@@ -41174,10 +44421,16 @@ func (c *Client) PutUserPolicyWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.PutUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41187,7 +44440,11 @@ func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadAccessKeysWithBody request with arbitrary body returning *ReadAccessKeysResponse
@@ -41201,10 +44458,16 @@ func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadAccessKeysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41214,7 +44477,11 @@ func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadAccountsWithBody request with arbitrary body returning *ReadAccountsResponse
@@ -41228,10 +44495,16 @@ func (c *Client) ReadAccountsWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadAccountsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41241,7 +44514,11 @@ func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadAdminPasswordWithBody request with arbitrary body returning *ReadAdminPasswordResponse
@@ -41255,10 +44532,16 @@ func (c *Client) ReadAdminPasswordWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadAdminPasswordRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41268,7 +44551,11 @@ func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadApiAccessPolicyWithBody request with arbitrary body returning *ReadApiAccessPolicyResponse
@@ -41282,10 +44569,16 @@ func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadApiAccessPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41295,7 +44588,11 @@ func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPoli
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadApiAccessRulesWithBody request with arbitrary body returning *ReadApiAccessRulesResponse
@@ -41309,10 +44606,16 @@ func (c *Client) ReadApiAccessRulesWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadApiAccessRulesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41322,7 +44625,11 @@ func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRules
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadApiLogsWithBody request with arbitrary body returning *ReadApiLogsResponse
@@ -41336,10 +44643,16 @@ func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadApiLogsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41349,7 +44662,11 @@ func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadCasWithBody request with arbitrary body returning *ReadCasResponse
@@ -41363,10 +44680,16 @@ func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body i
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadCasRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41376,7 +44699,11 @@ func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEd
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadCatalogWithBody request with arbitrary body returning *ReadCatalogResponse
@@ -41390,10 +44717,16 @@ func (c *Client) ReadCatalogWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41403,7 +44736,11 @@ func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadCatalogsWithBody request with arbitrary body returning *ReadCatalogsResponse
@@ -41417,10 +44754,16 @@ func (c *Client) ReadCatalogsWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadCatalogsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41430,7 +44773,11 @@ func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadClientGatewaysWithBody request with arbitrary body returning *ReadClientGatewaysResponse
@@ -41444,10 +44791,16 @@ func (c *Client) ReadClientGatewaysWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadClientGatewaysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41457,7 +44810,11 @@ func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGateways
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadConsoleOutputWithBody request with arbitrary body returning *ReadConsoleOutputResponse
@@ -41471,10 +44828,16 @@ func (c *Client) ReadConsoleOutputWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadConsoleOutputRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41484,7 +44847,11 @@ func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadConsumptionAccountWithBody request with arbitrary body returning *ReadConsumptionAccountResponse
@@ -41498,10 +44865,16 @@ func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadConsumptionAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41511,7 +44884,11 @@ func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptio
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadDedicatedGroupsWithBody request with arbitrary body returning *ReadDedicatedGroupsResponse
@@ -41525,10 +44902,16 @@ func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadDedicatedGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41538,7 +44921,11 @@ func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGrou
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadDhcpOptionsWithBody request with arbitrary body returning *ReadDhcpOptionsResponse
@@ -41552,10 +44939,16 @@ func (c *Client) ReadDhcpOptionsWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadDhcpOptionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41565,7 +44958,11 @@ func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadDirectLinkInterfacesWithBody request with arbitrary body returning *ReadDirectLinkInterfacesResponse
@@ -41579,10 +44976,16 @@ func (c *Client) ReadDirectLinkInterfacesWithBody(ctx context.Context, contentTy
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadDirectLinkInterfacesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41592,7 +44995,11 @@ func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLi
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadDirectLinksWithBody request with arbitrary body returning *ReadDirectLinksResponse
@@ -41606,10 +45013,16 @@ func (c *Client) ReadDirectLinksWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadDirectLinksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41619,7 +45032,11 @@ func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadEntitiesLinkedToPolicyWithBody request with arbitrary body returning *ReadEntitiesLinkedToPolicyResponse
@@ -41633,10 +45050,16 @@ func (c *Client) ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, content
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadEntitiesLinkedToPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41646,7 +45069,11 @@ func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntiti
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadFlexibleGpuCatalogWithBody request with arbitrary body returning *ReadFlexibleGpuCatalogResponse
@@ -41660,10 +45087,16 @@ func (c *Client) ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadFlexibleGpuCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41673,7 +45106,11 @@ func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadFlexibleGpusWithBody request with arbitrary body returning *ReadFlexibleGpusResponse
@@ -41687,10 +45124,16 @@ func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadFlexibleGpusRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41700,7 +45143,11 @@ func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadImageExportTasksWithBody request with arbitrary body returning *ReadImageExportTasksResponse
@@ -41714,10 +45161,16 @@ func (c *Client) ReadImageExportTasksWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadImageExportTasksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41727,7 +45180,11 @@ func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportT
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadImagesWithBody request with arbitrary body returning *ReadImagesResponse
@@ -41741,10 +45198,16 @@ func (c *Client) ReadImagesWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadImagesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41754,7 +45217,11 @@ func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadInternetServicesWithBody request with arbitrary body returning *ReadInternetServicesResponse
@@ -41768,10 +45235,16 @@ func (c *Client) ReadInternetServicesWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadInternetServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41781,7 +45254,11 @@ func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadKeypairsWithBody request with arbitrary body returning *ReadKeypairsResponse
@@ -41795,10 +45272,16 @@ func (c *Client) ReadKeypairsWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadKeypairsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41808,7 +45291,11 @@ func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadLinkedPoliciesWithBody request with arbitrary body returning *ReadLinkedPoliciesResponse
@@ -41822,10 +45309,16 @@ func (c *Client) ReadLinkedPoliciesWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadLinkedPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41835,7 +45328,11 @@ func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPolicies
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadListenerRulesWithBody request with arbitrary body returning *ReadListenerRulesResponse
@@ -41849,10 +45346,16 @@ func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadListenerRulesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41862,7 +45365,11 @@ func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadLoadBalancerTagsWithBody request with arbitrary body returning *ReadLoadBalancerTagsResponse
@@ -41876,10 +45383,16 @@ func (c *Client) ReadLoadBalancerTagsWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadLoadBalancerTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41889,7 +45402,11 @@ func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancer
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadLoadBalancersWithBody request with arbitrary body returning *ReadLoadBalancersResponse
@@ -41903,10 +45420,16 @@ func (c *Client) ReadLoadBalancersWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadLoadBalancersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41916,7 +45439,11 @@ func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadLocationsWithBody request with arbitrary body returning *ReadLocationsResponse
@@ -41930,10 +45457,16 @@ func (c *Client) ReadLocationsWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadLocationsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41943,7 +45476,11 @@ func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadManagedPoliciesLinkedToUserGroupWithBody request with arbitrary body returning *ReadManagedPoliciesLinkedToUserGroupResponse
@@ -41957,10 +45494,16 @@ func (c *Client) ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Contex
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadManagedPoliciesLinkedToUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41970,7 +45513,11 @@ func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNatServicesWithBody request with arbitrary body returning *ReadNatServicesResponse
@@ -41984,10 +45531,16 @@ func (c *Client) ReadNatServicesWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNatServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -41997,7 +45550,11 @@ func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNetAccessPointServicesWithBody request with arbitrary body returning *ReadNetAccessPointServicesResponse
@@ -42011,10 +45568,16 @@ func (c *Client) ReadNetAccessPointServicesWithBody(ctx context.Context, content
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNetAccessPointServicesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42024,7 +45587,11 @@ func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAcc
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNetAccessPointsWithBody request with arbitrary body returning *ReadNetAccessPointsResponse
@@ -42038,10 +45605,16 @@ func (c *Client) ReadNetAccessPointsWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNetAccessPointsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42051,7 +45624,11 @@ func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPoin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNetPeeringsWithBody request with arbitrary body returning *ReadNetPeeringsResponse
@@ -42065,10 +45642,16 @@ func (c *Client) ReadNetPeeringsWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNetPeeringsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42078,7 +45661,11 @@ func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNetsWithBody request with arbitrary body returning *ReadNetsResponse
@@ -42092,10 +45679,16 @@ func (c *Client) ReadNetsWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNetsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42105,7 +45698,11 @@ func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadNicsWithBody request with arbitrary body returning *ReadNicsResponse
@@ -42119,10 +45716,16 @@ func (c *Client) ReadNicsWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadNicsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42132,7 +45735,11 @@ func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPoliciesWithBody request with arbitrary body returning *ReadPoliciesResponse
@@ -42146,10 +45753,16 @@ func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42159,7 +45772,11 @@ func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPolicyWithBody request with arbitrary body returning *ReadPolicyResponse
@@ -42173,10 +45790,16 @@ func (c *Client) ReadPolicyWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42186,7 +45809,11 @@ func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPolicyVersionWithBody request with arbitrary body returning *ReadPolicyVersionResponse
@@ -42200,10 +45827,16 @@ func (c *Client) ReadPolicyVersionWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42213,7 +45846,11 @@ func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPolicyVersionsWithBody request with arbitrary body returning *ReadPolicyVersionsResponse
@@ -42227,10 +45864,16 @@ func (c *Client) ReadPolicyVersionsWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPolicyVersionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42240,7 +45883,11 @@ func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersions
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadProductTypesWithBody request with arbitrary body returning *ReadProductTypesResponse
@@ -42254,10 +45901,16 @@ func (c *Client) ReadProductTypesWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadProductTypesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42267,7 +45920,11 @@ func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPublicCatalogWithBody request with arbitrary body returning *ReadPublicCatalogResponse
@@ -42281,10 +45938,16 @@ func (c *Client) ReadPublicCatalogWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPublicCatalogRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42294,7 +45957,11 @@ func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPublicIpRangesWithBody request with arbitrary body returning *ReadPublicIpRangesResponse
@@ -42308,10 +45975,16 @@ func (c *Client) ReadPublicIpRangesWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPublicIpRangesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42321,7 +45994,11 @@ func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRanges
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadPublicIpsWithBody request with arbitrary body returning *ReadPublicIpsResponse
@@ -42335,10 +46012,16 @@ func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadPublicIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42348,7 +46031,11 @@ func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadQuotasWithBody request with arbitrary body returning *ReadQuotasResponse
@@ -42362,10 +46049,16 @@ func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadQuotasRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42375,7 +46068,11 @@ func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadRegionsWithBody request with arbitrary body returning *ReadRegionsResponse
@@ -42389,10 +46086,16 @@ func (c *Client) ReadRegionsWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadRegionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42402,7 +46105,11 @@ func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadRouteTablesWithBody request with arbitrary body returning *ReadRouteTablesResponse
@@ -42416,10 +46123,16 @@ func (c *Client) ReadRouteTablesWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadRouteTablesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42429,7 +46142,11 @@ func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadSecurityGroupsWithBody request with arbitrary body returning *ReadSecurityGroupsResponse
@@ -42443,10 +46160,16 @@ func (c *Client) ReadSecurityGroupsWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadSecurityGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42456,7 +46179,11 @@ func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroups
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadServerCertificatesWithBody request with arbitrary body returning *ReadServerCertificatesResponse
@@ -42470,10 +46197,16 @@ func (c *Client) ReadServerCertificatesWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadServerCertificatesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42483,7 +46216,11 @@ func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCert
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadSnapshotExportTasksWithBody request with arbitrary body returning *ReadSnapshotExportTasksResponse
@@ -42497,10 +46234,16 @@ func (c *Client) ReadSnapshotExportTasksWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadSnapshotExportTasksRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42510,7 +46253,11 @@ func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotE
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadSnapshotsWithBody request with arbitrary body returning *ReadSnapshotsResponse
@@ -42524,10 +46271,16 @@ func (c *Client) ReadSnapshotsWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadSnapshotsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42537,7 +46290,11 @@ func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadSubnetsWithBody request with arbitrary body returning *ReadSubnetsResponse
@@ -42551,10 +46308,16 @@ func (c *Client) ReadSubnetsWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadSubnetsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42564,7 +46327,11 @@ func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadSubregionsWithBody request with arbitrary body returning *ReadSubregionsResponse
@@ -42578,10 +46345,16 @@ func (c *Client) ReadSubregionsWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadSubregionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42591,7 +46364,11 @@ func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadTagsWithBody request with arbitrary body returning *ReadTagsResponse
@@ -42605,10 +46382,16 @@ func (c *Client) ReadTagsWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadTagsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42618,7 +46401,11 @@ func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUnitPriceWithBody request with arbitrary body returning *ReadUnitPriceResponse
@@ -42632,10 +46419,16 @@ func (c *Client) ReadUnitPriceWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUnitPriceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42645,7 +46438,11 @@ func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserGroupWithBody request with arbitrary body returning *ReadUserGroupResponse
@@ -42659,10 +46456,16 @@ func (c *Client) ReadUserGroupWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42672,7 +46475,11 @@ func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserGroupPoliciesWithBody request with arbitrary body returning *ReadUserGroupPoliciesResponse
@@ -42686,10 +46493,16 @@ func (c *Client) ReadUserGroupPoliciesWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserGroupPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42699,7 +46512,11 @@ func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserGroupPolicyWithBody request with arbitrary body returning *ReadUserGroupPolicyResponse
@@ -42713,10 +46530,16 @@ func (c *Client) ReadUserGroupPolicyWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserGroupPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42726,7 +46549,11 @@ func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPoli
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserGroupsWithBody request with arbitrary body returning *ReadUserGroupsResponse
@@ -42740,10 +46567,16 @@ func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42753,7 +46586,11 @@ func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserGroupsPerUserWithBody request with arbitrary body returning *ReadUserGroupsPerUserResponse
@@ -42767,10 +46604,16 @@ func (c *Client) ReadUserGroupsPerUserWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserGroupsPerUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42780,7 +46623,11 @@ func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsP
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserPoliciesWithBody request with arbitrary body returning *ReadUserPoliciesResponse
@@ -42794,10 +46641,16 @@ func (c *Client) ReadUserPoliciesWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserPoliciesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42807,7 +46660,11 @@ func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUserPolicyWithBody request with arbitrary body returning *ReadUserPolicyResponse
@@ -42821,10 +46678,16 @@ func (c *Client) ReadUserPolicyWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUserPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42834,7 +46697,11 @@ func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadUsersWithBody request with arbitrary body returning *ReadUsersResponse
@@ -42848,10 +46715,16 @@ func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadUsersRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42861,7 +46734,11 @@ func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVirtualGatewaysWithBody request with arbitrary body returning *ReadVirtualGatewaysResponse
@@ -42875,10 +46752,16 @@ func (c *Client) ReadVirtualGatewaysWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVirtualGatewaysRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42888,7 +46771,11 @@ func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmGroupsWithBody request with arbitrary body returning *ReadVmGroupsResponse
@@ -42902,10 +46789,16 @@ func (c *Client) ReadVmGroupsWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmGroupsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42915,7 +46808,11 @@ func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmTemplatesWithBody request with arbitrary body returning *ReadVmTemplatesResponse
@@ -42929,10 +46826,16 @@ func (c *Client) ReadVmTemplatesWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmTemplatesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42942,7 +46845,11 @@ func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmTypesWithBody request with arbitrary body returning *ReadVmTypesResponse
@@ -42956,10 +46863,16 @@ func (c *Client) ReadVmTypesWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmTypesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42969,7 +46882,11 @@ func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmsWithBody request with arbitrary body returning *ReadVmsResponse
@@ -42983,10 +46900,16 @@ func (c *Client) ReadVmsWithBody(ctx context.Context, contentType string, body i
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -42996,7 +46919,11 @@ func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEd
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmsHealthWithBody request with arbitrary body returning *ReadVmsHealthResponse
@@ -43010,10 +46937,16 @@ func (c *Client) ReadVmsHealthWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmsHealthRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43023,7 +46956,11 @@ func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVmsStateWithBody request with arbitrary body returning *ReadVmsStateResponse
@@ -43037,10 +46974,16 @@ func (c *Client) ReadVmsStateWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVmsStateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43050,7 +46993,11 @@ func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVolumesWithBody request with arbitrary body returning *ReadVolumesResponse
@@ -43064,10 +47011,16 @@ func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVolumesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43077,7 +47030,11 @@ func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ReadVpnConnectionsWithBody request with arbitrary body returning *ReadVpnConnectionsResponse
@@ -43091,10 +47048,16 @@ func (c *Client) ReadVpnConnectionsWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ReadVpnConnectionsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43104,7 +47067,11 @@ func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnections
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // RebootVmsWithBody request with arbitrary body returning *RebootVmsResponse
@@ -43118,10 +47085,16 @@ func (c *Client) RebootVmsWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.RebootVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43131,7 +47104,11 @@ func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // RegisterVmsInLoadBalancerWithBody request with arbitrary body returning *RegisterVmsInLoadBalancerResponse
@@ -43145,10 +47122,16 @@ func (c *Client) RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentT
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.RegisterVmsInLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43158,7 +47141,11 @@ func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVms
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // RejectNetPeeringWithBody request with arbitrary body returning *RejectNetPeeringResponse
@@ -43172,10 +47159,16 @@ func (c *Client) RejectNetPeeringWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.RejectNetPeeringRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43185,7 +47178,11 @@ func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // RemoveUserFromUserGroupWithBody request with arbitrary body returning *RemoveUserFromUserGroupResponse
@@ -43199,10 +47196,16 @@ func (c *Client) RemoveUserFromUserGroupWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.RemoveUserFromUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43212,7 +47215,11 @@ func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFro
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ScaleDownVmGroupWithBody request with arbitrary body returning *ScaleDownVmGroupResponse
@@ -43226,10 +47233,16 @@ func (c *Client) ScaleDownVmGroupWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ScaleDownVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43239,7 +47252,11 @@ func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ScaleUpVmGroupWithBody request with arbitrary body returning *ScaleUpVmGroupResponse
@@ -43253,10 +47270,16 @@ func (c *Client) ScaleUpVmGroupWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.ScaleUpVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43266,7 +47289,11 @@ func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // SetDefaultPolicyVersionWithBody request with arbitrary body returning *SetDefaultPolicyVersionResponse
@@ -43280,10 +47307,16 @@ func (c *Client) SetDefaultPolicyVersionWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.SetDefaultPolicyVersionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43293,7 +47326,11 @@ func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPol
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // StartVmsWithBody request with arbitrary body returning *StartVmsResponse
@@ -43307,10 +47344,16 @@ func (c *Client) StartVmsWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.StartVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43320,7 +47363,11 @@ func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // StopVmsWithBody request with arbitrary body returning *StopVmsResponse
@@ -43334,10 +47381,16 @@ func (c *Client) StopVmsWithBody(ctx context.Context, contentType string, body i
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.StopVmsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43347,7 +47400,11 @@ func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEd
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkFlexibleGpuWithBody request with arbitrary body returning *UnlinkFlexibleGpuResponse
@@ -43361,10 +47418,16 @@ func (c *Client) UnlinkFlexibleGpuWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43374,7 +47437,11 @@ func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkInternetServiceWithBody request with arbitrary body returning *UnlinkInternetServiceResponse
@@ -43388,10 +47455,16 @@ func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkInternetServiceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43401,7 +47474,11 @@ func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkLoadBalancerBackendMachinesWithBody request with arbitrary body returning *UnlinkLoadBalancerBackendMachinesResponse
@@ -43415,10 +47492,16 @@ func (c *Client) UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkLoadBalancerBackendMachinesRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43428,7 +47511,11 @@ func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body Unl
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkManagedPolicyFromUserGroupWithBody request with arbitrary body returning *UnlinkManagedPolicyFromUserGroupResponse
@@ -43442,10 +47529,16 @@ func (c *Client) UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, c
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkManagedPolicyFromUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43455,7 +47548,11 @@ func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body Unli
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkNicWithBody request with arbitrary body returning *UnlinkNicResponse
@@ -43469,10 +47566,16 @@ func (c *Client) UnlinkNicWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43482,7 +47585,11 @@ func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkPolicyWithBody request with arbitrary body returning *UnlinkPolicyResponse
@@ -43496,10 +47603,16 @@ func (c *Client) UnlinkPolicyWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43509,7 +47622,11 @@ func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkPrivateIpsWithBody request with arbitrary body returning *UnlinkPrivateIpsResponse
@@ -43523,10 +47640,16 @@ func (c *Client) UnlinkPrivateIpsWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkPrivateIpsRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43536,7 +47659,11 @@ func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkPublicIpWithBody request with arbitrary body returning *UnlinkPublicIpResponse
@@ -43550,10 +47677,16 @@ func (c *Client) UnlinkPublicIpWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkPublicIpRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43563,7 +47696,11 @@ func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkRouteTableWithBody request with arbitrary body returning *UnlinkRouteTableResponse
@@ -43577,10 +47714,16 @@ func (c *Client) UnlinkRouteTableWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkRouteTableRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43590,7 +47733,11 @@ func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkVirtualGatewayWithBody request with arbitrary body returning *UnlinkVirtualGatewayResponse
@@ -43604,10 +47751,16 @@ func (c *Client) UnlinkVirtualGatewayWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkVirtualGatewayRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43617,7 +47770,11 @@ func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGat
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UnlinkVolumeWithBody request with arbitrary body returning *UnlinkVolumeResponse
@@ -43631,10 +47788,16 @@ func (c *Client) UnlinkVolumeWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UnlinkVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43644,7 +47807,11 @@ func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateAccessKeyWithBody request with arbitrary body returning *UpdateAccessKeyResponse
@@ -43658,10 +47825,16 @@ func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateAccessKeyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43671,7 +47844,11 @@ func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateAccountWithBody request with arbitrary body returning *UpdateAccountResponse
@@ -43685,10 +47862,16 @@ func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateAccountRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43698,7 +47881,11 @@ func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateApiAccessPolicyWithBody request with arbitrary body returning *UpdateApiAccessPolicyResponse
@@ -43712,10 +47899,16 @@ func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateApiAccessPolicyRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43725,7 +47918,11 @@ func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccess
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateApiAccessRuleWithBody request with arbitrary body returning *UpdateApiAccessRuleResponse
@@ -43739,10 +47936,16 @@ func (c *Client) UpdateApiAccessRuleWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateApiAccessRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43752,7 +47955,11 @@ func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRu
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateCaWithBody request with arbitrary body returning *UpdateCaResponse
@@ -43766,10 +47973,16 @@ func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateCaRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43779,7 +47992,11 @@ func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateDedicatedGroupWithBody request with arbitrary body returning *UpdateDedicatedGroupResponse
@@ -43793,10 +48010,16 @@ func (c *Client) UpdateDedicatedGroupWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateDedicatedGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43806,7 +48029,11 @@ func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedG
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateDirectLinkInterfaceWithBody request with arbitrary body returning *UpdateDirectLinkInterfaceResponse
@@ -43820,10 +48047,16 @@ func (c *Client) UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateDirectLinkInterfaceRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43833,7 +48066,11 @@ func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirec
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateFlexibleGpuWithBody request with arbitrary body returning *UpdateFlexibleGpuResponse
@@ -43847,10 +48084,16 @@ func (c *Client) UpdateFlexibleGpuWithBody(ctx context.Context, contentType stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateFlexibleGpuRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43860,7 +48103,11 @@ func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJS
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateImageWithBody request with arbitrary body returning *UpdateImageResponse
@@ -43874,10 +48121,16 @@ func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateImageRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43887,7 +48140,11 @@ func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateListenerRuleWithBody request with arbitrary body returning *UpdateListenerRuleResponse
@@ -43901,10 +48158,16 @@ func (c *Client) UpdateListenerRuleWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateListenerRuleRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43914,7 +48177,11 @@ func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRule
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateLoadBalancerWithBody request with arbitrary body returning *UpdateLoadBalancerResponse
@@ -43928,10 +48195,16 @@ func (c *Client) UpdateLoadBalancerWithBody(ctx context.Context, contentType str
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateLoadBalancerRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43941,7 +48214,11 @@ func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancer
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateNetWithBody request with arbitrary body returning *UpdateNetResponse
@@ -43955,10 +48232,16 @@ func (c *Client) UpdateNetWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateNetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43968,7 +48251,11 @@ func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateNetAccessPointWithBody request with arbitrary body returning *UpdateNetAccessPointResponse
@@ -43982,10 +48269,16 @@ func (c *Client) UpdateNetAccessPointWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateNetAccessPointRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -43995,7 +48288,11 @@ func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessP
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateNicWithBody request with arbitrary body returning *UpdateNicResponse
@@ -44009,10 +48306,16 @@ func (c *Client) UpdateNicWithBody(ctx context.Context, contentType string, body
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateNicRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44022,7 +48325,11 @@ func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateRouteWithBody request with arbitrary body returning *UpdateRouteResponse
@@ -44036,10 +48343,16 @@ func (c *Client) UpdateRouteWithBody(ctx context.Context, contentType string, bo
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateRouteRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44049,7 +48362,11 @@ func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateRoutePropagationWithBody request with arbitrary body returning *UpdateRoutePropagationResponse
@@ -44063,10 +48380,16 @@ func (c *Client) UpdateRoutePropagationWithBody(ctx context.Context, contentType
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateRoutePropagationRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44076,7 +48399,11 @@ func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePro
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateRouteTableLinkWithBody request with arbitrary body returning *UpdateRouteTableLinkResponse
@@ -44090,10 +48417,16 @@ func (c *Client) UpdateRouteTableLinkWithBody(ctx context.Context, contentType s
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateRouteTableLinkRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44103,7 +48436,11 @@ func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTable
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateServerCertificateWithBody request with arbitrary body returning *UpdateServerCertificateResponse
@@ -44117,10 +48454,16 @@ func (c *Client) UpdateServerCertificateWithBody(ctx context.Context, contentTyp
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateServerCertificateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44130,7 +48473,11 @@ func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerC
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateSnapshotWithBody request with arbitrary body returning *UpdateSnapshotResponse
@@ -44144,10 +48491,16 @@ func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateSnapshotRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44157,7 +48510,11 @@ func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequ
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateSubnetWithBody request with arbitrary body returning *UpdateSubnetResponse
@@ -44171,10 +48528,16 @@ func (c *Client) UpdateSubnetWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateSubnetRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44184,7 +48547,11 @@ func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateUserWithBody request with arbitrary body returning *UpdateUserResponse
@@ -44198,10 +48565,16 @@ func (c *Client) UpdateUserWithBody(ctx context.Context, contentType string, bod
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateUserRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44211,7 +48584,11 @@ func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody,
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateUserGroupWithBody request with arbitrary body returning *UpdateUserGroupResponse
@@ -44225,10 +48602,16 @@ func (c *Client) UpdateUserGroupWithBody(ctx context.Context, contentType string
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateUserGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44238,7 +48621,11 @@ func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRe
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateVmWithBody request with arbitrary body returning *UpdateVmResponse
@@ -44252,10 +48639,16 @@ func (c *Client) UpdateVmWithBody(ctx context.Context, contentType string, body 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateVmRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44265,7 +48658,11 @@ func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, req
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateVmGroupWithBody request with arbitrary body returning *UpdateVmGroupResponse
@@ -44279,10 +48676,16 @@ func (c *Client) UpdateVmGroupWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateVmGroupRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44292,7 +48695,11 @@ func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateVmTemplateWithBody request with arbitrary body returning *UpdateVmTemplateResponse
@@ -44306,10 +48713,16 @@ func (c *Client) UpdateVmTemplateWithBody(ctx context.Context, contentType strin
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateVmTemplateRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44319,7 +48732,11 @@ func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSON
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateVolumeWithBody request with arbitrary body returning *UpdateVolumeResponse
@@ -44333,10 +48750,16 @@ func (c *Client) UpdateVolumeWithBody(ctx context.Context, contentType string, b
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateVolumeRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44346,7 +48769,11 @@ func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestB
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateVpnConnectionWithBody request with arbitrary body returning *UpdateVpnConnectionResponse
@@ -44360,10 +48787,16 @@ func (c *Client) UpdateVpnConnectionWithBody(ctx context.Context, contentType st
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateVpnConnectionRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -44373,7 +48806,11 @@ func (c *Client) UpdateVpnConnection(ctx context.Context, body UpdateVpnConnecti
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ParseAcceptNetPeeringResp parses an HTTP response from a AcceptNetPeering call

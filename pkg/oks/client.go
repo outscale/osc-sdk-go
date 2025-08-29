@@ -2,9 +2,9 @@ package oks
 
 import (
 	"fmt"
-	"log/slog"
 
 	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
@@ -26,7 +26,7 @@ func newClientRaw(
 		middleware.FromProfile(userProfile, profile.OscServiceOKS),
 		utils.WithRatelimit(5),
 		utils.WithRetry(nil, nil, nil),
-		utils.WithLogging(slog.Default()),
+		utils.WithLogging(logger.Default()),
 		utils.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", utils.SdkVersion())),
 	}, opts...)
 

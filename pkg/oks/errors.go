@@ -20,3 +20,47 @@ func (e *HTTPValidationError) Error() string {
 
 	return msg
 }
+
+type responseInterface interface {
+	Status() string
+	StatusCode() int
+	DeepError() error
+}
+
+func HTTPValidationErrorHelper(e error) *HTTPValidationError {
+	httpVal, ok := e.(*HTTPValidationError)
+	if !ok {
+		return nil
+	}
+
+	return httpVal
+}
+
+func StatusHelper(e error) *string {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
+	}
+
+	status := resp.Status()
+	return &status
+}
+
+func StatusCodeHelper(e error) *int {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
+	}
+
+	statusCode := resp.StatusCode()
+	return &statusCode
+}
+
+func DeepErrorHelper(e error) error {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
+	}
+
+	return resp.DeepError()
+}

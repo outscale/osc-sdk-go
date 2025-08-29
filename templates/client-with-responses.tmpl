@@ -13,7 +13,6 @@ func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOptio
     return &Client{client}, nil
 }
 
-{{$clientTypeName := opts.OutputOptions.ClientTypeName -}}
 
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
@@ -75,25 +74,31 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{.Schema.TypeDecl}}
     if r.JSON200 != nil {
         return r.JSON200, nil
     }
-    {{- range $responseTypeDefinitions}}
-    {{ if ne .TypeName "JSON200" }}
-    if r.{{.TypeName}} != nil {
-        return nil, r.{{.TypeName}}
-    }
-    {{ end }}
-    {{- end}}
 
-
-    errMsg := string(r.Body)
-    if errMsg != "" {
-        return nil, errors.New(errMsg)
-    }
-
-    return nil, errors.New(r.Status())
+    return nil, r
 }
 {{ end }}
 {{ end}}
 
+func (r {{genResponseTypeName $opid | ucFirst}}) DeepError() error {
+    {{- range $responseTypeDefinitions}}
+    {{ if ne .TypeName "JSON200" }}
+    if r.{{.TypeName}} != nil {
+        return r.{{.TypeName}}
+    }
+    {{ end }}
+    {{- end}}
+
+    return nil
+}
+
+func (r {{genResponseTypeName $opid | ucFirst}}) Error() string {
+    body := string(r.Body)
+    if body != "" {
+        return body
+    }
+    return r.Status()
+}
 
 {{ if opts.OutputOptions.ClientResponseBytesFunction }}
 // Bytes is a convenience method to retrieve the raw bytes from the HTTP response
@@ -121,8 +126,12 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
     if err != nil {
         return nil, err
     }
-   
-    return obj.Expect()
+
+    resp, err := obj.Expect()
+    if resp != nil {
+        c.LogResponse(ctx, resp)
+    }
+    return resp, err
 }
 
 {{$hasParams := $op.RequiresParamObject -}}
@@ -131,6 +140,8 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{range $op.Bodies}}
 {{if .IsSupportedByClient -}}
 func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
+    c.LogRequest(ctx, body)
+    
     rsp, err := c.{{$opid}}{{.Suffix}}Raw(ctx{{genParamNames $pathParams}}{{if $hasParams}}, params{{end}}, body, reqEditors...)
     if err != nil {
         return nil, err
@@ -139,8 +150,12 @@ func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathPar
     if err != nil {
         return nil, err
     }
-   
-    return obj.Expect()
+    
+    resp, err := obj.Expect()
+    if resp != nil {
+        c.LogResponse(ctx, resp)
+    }
+    return resp, err
 }
 {{end}}
 {{end}}

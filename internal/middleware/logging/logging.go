@@ -1,21 +1,14 @@
 package logging
 
 import (
-	"bytes"
-	"context"
-	"io"
 	"net/http"
 	"time"
+
+	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 )
 
-type Logger interface {
-	DebugContext(ctx context.Context, msg string, args ...any)
-	ErrorContext(ctx context.Context, msg string, args ...any)
-	InfoContext(ctx context.Context, msg string, args ...any)
-}
-
 type LoggingMiddleware struct {
-	Logger Logger
+	logger.Logger
 }
 
 func (l *LoggingMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
@@ -24,37 +17,22 @@ func (l *LoggingMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
 
 type innerLogger struct {
 	inner  http.RoundTripper
-	logger Logger
+	logger logger.Logger
 }
 
 func (l *innerLogger) RoundTrip(req *http.Request) (*http.Response, error) {
 	context := req.Context()
 
-	if getBody := req.GetBody; getBody != nil {
-		reader, _ := getBody()
-		l.logger.DebugContext(context, "request", req.Method, req.URL, reader)
-	} else {
-		l.logger.DebugContext(context, "request", req.Method, req.URL)
-	}
+	l.logger.RequestHttp(context, req)
 
 	start := time.Now()
 	resp, err := l.inner.RoundTrip(req)
 	duration := time.Since(start)
 	if err != nil {
-		l.logger.ErrorContext(context, "error", err.Error())
+		l.logger.Error(context, err)
 	}
 
-	respBodyBytes, _ := io.ReadAll(resp.Body)
-	l.logger.InfoContext(
-		context,
-		"response",
-		req.Method,
-		req.URL,
-		resp.StatusCode,
-		duration,
-		respBodyBytes,
-	)
-	resp.Body = io.NopCloser(bytes.NewBuffer(respBodyBytes))
+	l.logger.ResponseHttp(context, resp, duration)
 
 	return resp, err
 }

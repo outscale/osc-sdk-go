@@ -27,6 +27,9 @@ type clientInterfaceRaw interface {
     {{end -}}
 {{end}}{{/* range .Bodies */}}
 {{end}}{{/* range . $opid := .OperationId */}}
+
+    LogRequest(ctx context.Context, req any)
+    LogResponse(ctx context.Context, resp any)
 }
 
 
@@ -58,6 +61,7 @@ func (c *{{ $clientTypeName }}) {{$opid}}{{.Suffix}}Raw(ctx context.Context{{gen
     if err != nil {
         return nil, err
     }
+    req = req.WithContext(ctx)
 
     client, err := c.Client.WithOptions(reqEditors...)
     if err != nil {
@@ -243,3 +247,11 @@ func New{{$opid}}Request{{if .HasBody}}WithBody{{end}}(server string{{genParamAr
 }
 
 {{end}}{{/* Range */}}
+
+func (c *{{ $clientTypeName}}) LogRequest(ctx context.Context, req any) {
+    c.Client.LogRequest(ctx, req)
+}
+
+func (c *{{ $clientTypeName}}) LogResponse(ctx context.Context, resp any) {
+    c.Client.LogResponse(ctx, resp)
+}

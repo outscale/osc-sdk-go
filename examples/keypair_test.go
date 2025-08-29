@@ -1,11 +1,11 @@
 package examples_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestKeypair(t *testing.T) {
@@ -14,12 +14,12 @@ func TestKeypair(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := osc.NewClient(userProfile)
+	client, err := osc.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}
 
-	ctx := context.Background()
+	ctx := t.Context()
 
 	keypairName := "osc-sdk-go-example"
 	faux := false
@@ -31,7 +31,7 @@ func TestKeypair(t *testing.T) {
 		panic(err)
 	}
 
-	t.Logf("Keypair created: %v", keypair)
+	t.Logf("Keypair created: %v", *keypair)
 
 	_, err = client.DeleteKeypair(ctx, osc.DeleteKeypairRequest{
 		KeypairId: keypair.Keypair.KeypairId,

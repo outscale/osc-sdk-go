@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -1153,6 +1152,9 @@ type clientInterfaceRaw interface {
 
 	// GetProjectTemplateRaw request
 	GetProjectTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	LogRequest(ctx context.Context, req any)
+	LogResponse(ctx context.Context, resp any)
 }
 
 func (c *ClientRaw) ListClustersByProjectIDRaw(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
@@ -1190,6 +1192,7 @@ func (c *ClientRaw) CreateClusterRaw(ctx context.Context, body CreateClusterJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -1309,6 +1312,7 @@ func (c *ClientRaw) UpdateClusterRaw(ctx context.Context, clusterId string, body
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -1398,6 +1402,7 @@ func (c *ClientRaw) CreateProjectRaw(ctx context.Context, body CreateProjectJSON
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -1457,6 +1462,7 @@ func (c *ClientRaw) UpdateProjectRaw(ctx context.Context, projectId string, body
 	if err != nil {
 		return nil, err
 	}
+	req = req.WithContext(ctx)
 
 	client, err := c.Client.WithOptions(reqEditors...)
 	if err != nil {
@@ -2719,6 +2725,14 @@ func NewGetProjectTemplateRequest(server string) (*http.Request, error) {
 	return req, nil
 }
 
+func (c *ClientRaw) LogRequest(ctx context.Context, req any) {
+	c.Client.LogRequest(ctx, req)
+}
+
+func (c *ClientRaw) LogResponse(ctx context.Context, resp any) {
+	c.Client.LogResponse(ctx, resp)
+}
+
 // Client builds on ClientInterface to offer response payloads
 type Client struct {
 	clientInterfaceRaw
@@ -2846,16 +2860,24 @@ func (r ListClustersByProjectIDResponse) Expect() (*ClusterResponseList, error) 
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ListClustersByProjectIDResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ListClustersByProjectIDResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateClusterResponse struct {
@@ -2886,16 +2908,24 @@ func (r CreateClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateClusterResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateClusterResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ListAllClustersResponse struct {
@@ -2926,16 +2956,24 @@ func (r ListAllClustersResponse) Expect() (*ClusterResponseList, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ListAllClustersResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ListAllClustersResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetControlPlanePlansResponse struct {
@@ -2966,16 +3004,24 @@ func (r GetControlPlanePlansResponse) Expect() (*ControlPlanesResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetControlPlanePlansResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetControlPlanePlansResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetCPSubregionsResponse struct {
@@ -3006,16 +3052,24 @@ func (r GetCPSubregionsResponse) Expect() (*CPSubregionsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetCPSubregionsResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetCPSubregionsResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetKubenetesVersionsResponse struct {
@@ -3046,16 +3100,24 @@ func (r GetKubenetesVersionsResponse) Expect() (*KubernetesVersionsResponse, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetKubenetesVersionsResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetKubenetesVersionsResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteClusterResponse struct {
@@ -3086,16 +3148,24 @@ func (r DeleteClusterResponse) Expect() (*DetailResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteClusterResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteClusterResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetClusterResponse struct {
@@ -3126,16 +3196,24 @@ func (r GetClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetClusterResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetClusterResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateClusterResponse struct {
@@ -3166,16 +3244,24 @@ func (r UpdateClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateClusterResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateClusterResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetKubeconfigResponse struct {
@@ -3206,16 +3292,24 @@ func (r GetKubeconfigResponse) Expect() (*KubeconfigResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetKubeconfigResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetKubeconfigResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetKubeconfigWithPubkeyNACLResponse struct {
@@ -3246,16 +3340,24 @@ func (r GetKubeconfigWithPubkeyNACLResponse) Expect() (*KubeconfigResponse, erro
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetKubeconfigWithPubkeyNACLResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetKubeconfigWithPubkeyNACLResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpgradeClusterResponse struct {
@@ -3286,16 +3388,24 @@ func (r UpgradeClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpgradeClusterResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpgradeClusterResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type ListProjectsResponse struct {
@@ -3326,16 +3436,24 @@ func (r ListProjectsResponse) Expect() (*ProjectResponseList, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r ListProjectsResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r ListProjectsResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type CreateProjectResponse struct {
@@ -3366,16 +3484,24 @@ func (r CreateProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r CreateProjectResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r CreateProjectResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type DeleteProjectResponse struct {
@@ -3406,16 +3532,24 @@ func (r DeleteProjectResponse) Expect() (*DetailResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r DeleteProjectResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r DeleteProjectResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetProjectResponse struct {
@@ -3446,16 +3580,24 @@ func (r GetProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetProjectResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetProjectResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type UpdateProjectResponse struct {
@@ -3486,16 +3628,24 @@ func (r UpdateProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r UpdateProjectResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r UpdateProjectResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetProjectPublicIpsResponse struct {
@@ -3526,16 +3676,24 @@ func (r GetProjectPublicIpsResponse) Expect() (*PublicIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetProjectPublicIpsResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetProjectPublicIpsResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetProjectQuotasResponse struct {
@@ -3566,16 +3724,24 @@ func (r GetProjectQuotasResponse) Expect() (*ProjectsProjectSchemaQuotasResponse
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetProjectQuotasResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetProjectQuotasResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetProjectSnapshotsResponse struct {
@@ -3606,16 +3772,24 @@ func (r GetProjectSnapshotsResponse) Expect() (*SnapshotsResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetProjectSnapshotsResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetProjectSnapshotsResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetQuotasResponse struct {
@@ -3646,16 +3820,24 @@ func (r GetQuotasResponse) Expect() (*QuotasQuotaSchemaQuotasResponse, error) {
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetQuotasResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetQuotasResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetClusterTemplateResponse struct {
@@ -3686,16 +3868,24 @@ func (r GetClusterTemplateResponse) Expect() (*TemplateResponseClusterInputTempl
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetClusterTemplateResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetClusterTemplateResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetNodepoolTemplateResponse struct {
@@ -3726,16 +3916,24 @@ func (r GetNodepoolTemplateResponse) Expect() (*TemplateResponseNodepool, error)
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetNodepoolTemplateResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetNodepoolTemplateResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 type GetProjectTemplateResponse struct {
@@ -3766,16 +3964,24 @@ func (r GetProjectTemplateResponse) Expect() (*TemplateResponseProjectInput, err
 		return r.JSON200, nil
 	}
 
+	return nil, r
+}
+
+func (r GetProjectTemplateResponse) DeepError() error {
+
 	if r.JSON422 != nil {
-		return nil, r.JSON422
+		return r.JSON422
 	}
 
-	errMsg := string(r.Body)
-	if errMsg != "" {
-		return nil, errors.New(errMsg)
-	}
+	return nil
+}
 
-	return nil, errors.New(r.Status())
+func (r GetProjectTemplateResponse) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
 }
 
 // ListClustersByProjectID request returning *ClusterResponseList
@@ -3789,7 +3995,11 @@ func (c *Client) ListClustersByProjectID(ctx context.Context, params *ListCluste
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateClusterWithBody request with arbitrary body returning *ClusterResponse
@@ -3803,10 +4013,16 @@ func (c *Client) CreateClusterWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateClusterRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3816,7 +4032,11 @@ func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ListAllClusters request returning *ClusterResponseList
@@ -3830,7 +4050,11 @@ func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersPar
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetControlPlanePlans request returning *ControlPlanesResponse
@@ -3844,7 +4068,11 @@ func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...middlew
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetCPSubregions request returning *CPSubregionsResponse
@@ -3858,7 +4086,11 @@ func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...middleware.M
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetKubenetesVersions request returning *KubernetesVersionsResponse
@@ -3872,7 +4104,11 @@ func (c *Client) GetKubenetesVersions(ctx context.Context, reqEditors ...middlew
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteCluster request returning *DetailResponse
@@ -3886,7 +4122,11 @@ func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetCluster request returning *ClusterResponse
@@ -3900,7 +4140,11 @@ func (c *Client) GetCluster(ctx context.Context, clusterId string, reqEditors ..
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateClusterWithBody request with arbitrary body returning *ClusterResponse
@@ -3914,10 +4158,16 @@ func (c *Client) UpdateClusterWithBody(ctx context.Context, clusterId string, co
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateClusterRaw(ctx, clusterId, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3927,7 +4177,11 @@ func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body Updat
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetKubeconfig request returning *KubeconfigResponse
@@ -3941,7 +4195,11 @@ func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *Ge
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetKubeconfigWithPubkeyNACL request returning *KubeconfigResponse
@@ -3955,7 +4213,11 @@ func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId stri
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpgradeCluster request returning *ClusterResponse
@@ -3969,7 +4231,11 @@ func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditor
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ListProjects request returning *ProjectResponseList
@@ -3983,7 +4249,11 @@ func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, r
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // CreateProjectWithBody request with arbitrary body returning *ProjectResponse
@@ -3997,10 +4267,16 @@ func (c *Client) CreateProjectWithBody(ctx context.Context, contentType string, 
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.CreateProjectRaw(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4010,7 +4286,11 @@ func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONReques
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // DeleteProject request returning *DetailResponse
@@ -4024,7 +4304,11 @@ func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetProject request returning *ProjectResponse
@@ -4038,7 +4322,11 @@ func (c *Client) GetProject(ctx context.Context, projectId string, reqEditors ..
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // UpdateProjectWithBody request with arbitrary body returning *ProjectResponse
@@ -4052,10 +4340,16 @@ func (c *Client) UpdateProjectWithBody(ctx context.Context, projectId string, co
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 func (c *Client) UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
+	c.LogRequest(ctx, body)
+
 	rsp, err := c.UpdateProjectRaw(ctx, projectId, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4065,7 +4359,11 @@ func (c *Client) UpdateProject(ctx context.Context, projectId string, body Updat
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetProjectPublicIps request returning *PublicIpsResponse
@@ -4079,7 +4377,11 @@ func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqE
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetProjectQuotas request returning *ProjectsProjectSchemaQuotasResponse
@@ -4093,7 +4395,11 @@ func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEdit
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetProjectSnapshots request returning *SnapshotsResponse
@@ -4107,7 +4413,11 @@ func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqE
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetQuotas request returning *QuotasQuotaSchemaQuotasResponse
@@ -4121,7 +4431,11 @@ func (c *Client) GetQuotas(ctx context.Context, reqEditors ...middleware.Middlew
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetClusterTemplate request returning *TemplateResponseClusterInputTemplate
@@ -4135,7 +4449,11 @@ func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTempl
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetNodepoolTemplate request returning *TemplateResponseNodepool
@@ -4149,7 +4467,11 @@ func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...middlewa
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // GetProjectTemplate request returning *TemplateResponseProjectInput
@@ -4163,7 +4485,11 @@ func (c *Client) GetProjectTemplate(ctx context.Context, reqEditors ...middlewar
 		return nil, err
 	}
 
-	return obj.Expect()
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
 }
 
 // ParseListClustersByProjectIDResponse parses an HTTP response from a ListClustersByProjectID call

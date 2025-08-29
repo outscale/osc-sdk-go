@@ -2,16 +2,13 @@ package utils
 
 import (
 	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware/logging"
+	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 )
 
 func WithoutLogging() middleware.MiddlewareChainOption {
-	return middleware.WithMiddleware(middleware.MiddlewareSlotLogging, nil)
+	return middleware.WithLogger(nil)
 }
 
-func WithLogging(logger logging.Logger) middleware.MiddlewareChainOption {
-	return middleware.WithMiddleware(
-		middleware.MiddlewareSlotLogging,
-		&logging.LoggingMiddleware{Logger: logger},
-	)
+func WithLogging(logger logger.Logger) middleware.MiddlewareChainOption {
+	return middleware.WithLogger(logger)
 }

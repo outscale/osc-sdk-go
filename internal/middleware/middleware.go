@@ -3,10 +3,14 @@
 package middleware
 
 import (
+	"context"
 	"crypto/tls"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/outscale/osc-sdk-go/v3/internal/middleware/logging"
+	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 )
 
 type Middleware interface {
@@ -20,7 +24,6 @@ const (
 	MiddlewareSlotRateLimit
 	MiddlewareSlotRetry
 	MiddlewareSlotUseragent
-	MiddlewareSlotLogging
 	middlewareChainSize
 )
 
@@ -49,6 +52,7 @@ type MiddlewareChain struct {
 	slots    []Middleware
 	Base     *http.Transport
 	composed http.RoundTripper
+	logger   logger.Logger
 }
 
 type MiddlewareChainOption func(*MiddlewareChain) error
@@ -82,14 +86,22 @@ func WithBaseTransport(base *http.Transport) MiddlewareChainOption {
 	}
 }
 
+func WithLogger(log logger.Logger) MiddlewareChainOption {
+	return func(mc *MiddlewareChain) error {
+		mc.logger = log
+		return nil
+	}
+}
+
 func (mc *MiddlewareChain) WithOptions(opts ...MiddlewareChainOption) (*MiddlewareChain, error) {
 	if len(opts) == 0 {
 		return mc, nil
 	}
 
 	mcp := MiddlewareChain{
-		slots: make([]Middleware, middlewareChainSize),
-		Base:  mc.Base,
+		slots:  make([]Middleware, middlewareChainSize),
+		Base:   mc.Base,
+		logger: mc.logger,
 	}
 
 	_ = copy(mcp.slots, mc.slots)
@@ -116,6 +128,11 @@ func (mc *MiddlewareChain) rebuild() {
 	var composed http.RoundTripper
 	composed = mc.Base
 
+	if mc.logger != nil {
+		tmp := logging.LoggingMiddleware{Logger: mc.logger}
+		composed = tmp.Decorate(composed)
+	}
+
 	for i := middlewareChainSize - 1; i >= 0; i-- {
 		if mc.slots[i] != nil {
 			composed = mc.slots[i].Decorate(composed)
@@ -127,4 +144,21 @@ func (mc *MiddlewareChain) rebuild() {
 
 func (mc *MiddlewareChain) RoundTrip(req *http.Request) (*http.Response, error) {
 	return mc.composed.RoundTrip(req)
+}
+
+// Proxy for internal logger
+func (mc *MiddlewareChain) LogRequest(ctx context.Context, req any) {
+	if mc.logger == nil {
+		return
+	}
+
+	mc.logger.Request(ctx, req)
+}
+
+func (mc *MiddlewareChain) LogResponse(ctx context.Context, resp any) {
+	if mc.logger == nil {
+		return
+	}
+
+	mc.logger.Response(ctx, resp)
 }

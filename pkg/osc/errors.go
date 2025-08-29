@@ -1,12 +1,5 @@
 package osc
 
-import (
-	"context"
-	"net/http"
-
-	"github.com/hashicorp/go-retryablehttp"
-)
-
 func (e *ErrorResponse) Error() string {
 	var msg string
 
@@ -23,28 +16,54 @@ func (e *ErrorResponse) Error() string {
 	return msg
 }
 
-func ErrorHelper(e error) string {
-	err, ok := e.(*ErrorResponse)
-	if !ok {
-		return "not a OAPI error"
+func (e *ErrorResponse) GetCode() string {
+	for _, v := range *e.Errors {
+		return *v.Code
 	}
 
-	for _, err := range *err.Errors {
-		return *err.Code
-	}
-
-	return "no error"
+	return ""
 }
 
-func RetryPolicy(ctx context.Context, resp *http.Response, err error) (bool, error) {
-	shouldRetry, err := retryablehttp.DefaultRetryPolicy(ctx, resp, err)
-	if shouldRetry {
-		return shouldRetry, err
+type responseInterface interface {
+	Status() string
+	StatusCode() int
+	DeepError() error
+}
+
+func ErrorResponseHelper(e error) *ErrorResponse {
+	httpVal, ok := e.(*ErrorResponse)
+	if !ok {
+		return nil
 	}
 
-	if resp.StatusCode == http.StatusConflict {
-		return true, nil
+	return httpVal
+}
+
+func StatusHelper(e error) *string {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
 	}
 
-	return shouldRetry, nil
+	status := resp.Status()
+	return &status
+}
+
+func StatusCodeHelper(e error) *int {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
+	}
+
+	statusCode := resp.StatusCode()
+	return &statusCode
+}
+
+func DeepErrorHelper(e error) error {
+	resp, ok := e.(responseInterface)
+	if !ok {
+		return nil
+	}
+
+	return resp.DeepError()
 }

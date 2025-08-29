@@ -1,13 +1,13 @@
 package examples_test
 
 import (
-	"context"
 	"testing"
 	"time"
 
 	"dario.cat/mergo"
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestProject(t *testing.T) {
@@ -16,12 +16,12 @@ func TestProject(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := oks.NewClient(userProfile)
+	client, err := oks.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}
 
-	ctx := context.TODO()
+	ctx := t.Context()
 
 	name := "test"
 	_, err = client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
@@ -42,6 +42,7 @@ func TestProject(t *testing.T) {
 
 	createProject, err := client.CreateProject(ctx, project)
 	if err != nil {
+		t.Log(*oks.StatusCodeHelper(err))
 		panic(err)
 	}
 
