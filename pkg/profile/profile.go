@@ -89,6 +89,11 @@ func LoadProfileFromEnv() Profile {
 	profile.Region = os.Getenv("OSC_REGION")
 	profile.Endpoints.API = os.Getenv("OSC_ENDPOINT_API")
 	profile.Endpoints.OKS = os.Getenv("OSC_ENDPOINT_OKS")
+	profile.Endpoints.LBU = os.Getenv("OSC_ENDPOINT_LBU")
+	profile.Endpoints.OOS = os.Getenv("OSC_ENDPOINT_OOS")
+	profile.Endpoints.FCU = os.Getenv("OSC_ENDPOINT_FCU")
+	profile.Endpoints.EIM = os.Getenv("OSC_ENDPOINT_EIM")
+	profile.Endpoints.DirectLink = os.Getenv("OSC_ENDPOINT_DIRECT_LINK")
 
 	return profile
 }
