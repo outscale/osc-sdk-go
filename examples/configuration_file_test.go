@@ -40,7 +40,7 @@ import (
 )
 
 // This example shows how load credentials from a local configuration file.
-func ExampleConfigurationFile() {
+func ExampleConfigFile() {
 	// When running those examples, configuration file may not exist.
 	// It can be manually created or generated depending of your application.
 	// Here we are creating it for simplicity sake.
@@ -65,7 +65,9 @@ func ExampleConfigurationFile() {
 		os.Exit(1)
 	}
 	client := osc.NewAPIClient(config)
-	_, httpRes, err := client.SecurityGroupApi.ReadSecurityGroups(ctx).ReadSecurityGroupsRequest(osc.ReadSecurityGroupsRequest{}).Execute()
+	_, httpRes, err := client.SecurityGroupApi.ReadSecurityGroups(ctx).
+		ReadSecurityGroupsRequest(osc.ReadSecurityGroupsRequest{}).
+		Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading security groups")
 		if httpRes != nil {

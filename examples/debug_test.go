@@ -46,7 +46,7 @@ import (
 A quick example which show how to enable SDK debugging in case you have to see what's happening in requests.
 This examples just list existing volumes and shows HTTP details.
 */
-func ExampleDebug() {
+func ExampleConfiguration_debug() {
 	// few things which might be useful for debugging
 	configEnv := osc.NewConfigEnv()
 	config, err := configEnv.Configuration()
@@ -66,7 +66,9 @@ func ExampleDebug() {
 		os.Exit(1)
 	}
 
-	volumes, httpRes, err := client.VolumeApi.ReadVolumes(ctx).ReadVolumesRequest(osc.ReadVolumesRequest{}).Execute()
+	volumes, httpRes, err := client.VolumeApi.ReadVolumes(ctx).
+		ReadVolumesRequest(osc.ReadVolumesRequest{}).
+		Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error while reading volumes")
 		if httpRes != nil {
