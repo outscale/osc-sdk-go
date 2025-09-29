@@ -16,3 +16,10 @@ updates:
       interval: "daily"
     commit-message:
       prefix: "⬆️ deps: "
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "v2"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "⬆️ ci: "
