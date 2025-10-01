@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **string** | The state of the OMI (&#x60;pending&#x60; \\| &#x60;available&#x60; \\| &#x60;failed&#x60;). | [optional] 
 **StateComment** | Pointer to [**StateComment**](StateComment.md) |  | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the OMI. | [optional] 
+**TpmMandatory** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI. If false, a vTPM is not mandatory. | [optional] 
 
 ## Methods
 
@@ -517,6 +518,31 @@ SetTags sets Tags field to given value.
 `func (o *Image) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetTpmMandatory
+
+`func (o *Image) GetTpmMandatory() bool`
+
+GetTpmMandatory returns the TpmMandatory field if non-nil, zero value otherwise.
+
+### GetTpmMandatoryOk
+
+`func (o *Image) GetTpmMandatoryOk() (*bool, bool)`
+
+GetTpmMandatoryOk returns a tuple with the TpmMandatory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmMandatory
+
+`func (o *Image) SetTpmMandatory(v bool)`
+
+SetTpmMandatory sets TpmMandatory field to given value.
+
+### HasTpmMandatory
+
+`func (o *Image) HasTpmMandatory() bool`
+
+HasTpmMandatory returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
