@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **TagKeys** | Pointer to **[]string** | The keys of the tags associated with the OMIs. | [optional] 
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the OMIs. | [optional] 
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the OMIs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
+**TpmMandatory** | Pointer to **bool** | Whether a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI (true) or not (false). | [optional] 
 **VirtualizationTypes** | Pointer to **[]string** | The virtualization types (always &#x60;hvm&#x60;). | [optional] 
 
 ## Methods
@@ -674,6 +675,31 @@ SetTags sets Tags field to given value.
 `func (o *FiltersImage) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetTpmMandatory
+
+`func (o *FiltersImage) GetTpmMandatory() bool`
+
+GetTpmMandatory returns the TpmMandatory field if non-nil, zero value otherwise.
+
+### GetTpmMandatoryOk
+
+`func (o *FiltersImage) GetTpmMandatoryOk() (*bool, bool)`
+
+GetTpmMandatoryOk returns a tuple with the TpmMandatory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmMandatory
+
+`func (o *FiltersImage) SetTpmMandatory(v bool)`
+
+SetTpmMandatory sets TpmMandatory field to given value.
+
+### HasTpmMandatory
+
+`func (o *FiltersImage) HasTpmMandatory() bool`
+
+HasTpmMandatory returns a boolean if a field has been set.
 
 ### GetVirtualizationTypes
 

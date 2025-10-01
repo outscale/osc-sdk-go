@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **RootDeviceName** | Pointer to **string** | **(required) When registering from a snapshot:** The name of the root device for the new OMI. | [optional] 
 **SourceImageId** | Pointer to **string** | **(required) When copying an OMI:** The ID of the OMI you want to copy. | [optional] 
 **SourceRegionName** | Pointer to **string** | **(required) When copying an OMI:** The name of the source Region (always the same as the Region of your account). | [optional] 
+**TpmMandatory** | Pointer to **bool** | By default or if set to false, a virtual Trusted Platform Module (vTPM) is not mandatory on VMs created from this OMI. If true, VMs created from this OMI must have a vTPM enabled. | [optional] 
 **VmId** | Pointer to **string** | **(required) When creating from a VM:** The ID of the VM from which you want to create the OMI. | [optional] 
 
 ## Methods
@@ -336,6 +337,31 @@ SetSourceRegionName sets SourceRegionName field to given value.
 `func (o *CreateImageRequest) HasSourceRegionName() bool`
 
 HasSourceRegionName returns a boolean if a field has been set.
+
+### GetTpmMandatory
+
+`func (o *CreateImageRequest) GetTpmMandatory() bool`
+
+GetTpmMandatory returns the TpmMandatory field if non-nil, zero value otherwise.
+
+### GetTpmMandatoryOk
+
+`func (o *CreateImageRequest) GetTpmMandatoryOk() (*bool, bool)`
+
+GetTpmMandatoryOk returns a tuple with the TpmMandatory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmMandatory
+
+`func (o *CreateImageRequest) SetTpmMandatory(v bool)`
+
+SetTpmMandatory sets TpmMandatory field to given value.
+
+### HasTpmMandatory
+
+`func (o *CreateImageRequest) HasTpmMandatory() bool`
+
+HasTpmMandatory returns a boolean if a field has been set.
 
 ### GetVmId
 

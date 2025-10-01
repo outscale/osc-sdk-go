@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **string** | The state of the volume (&#x60;creating&#x60; \\| &#x60;available&#x60; \\| &#x60;in-use&#x60; \\| &#x60;deleting&#x60; \\| &#x60;error&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The Subregion in which the volume was created. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the volume. | [optional] 
+**TaskId** | Pointer to **NullableString** | The ID of the volume update task in progress. Otherwise, it is not returned. | [optional] 
 **VolumeId** | Pointer to **string** | The ID of the volume. | [optional] 
 **VolumeType** | Pointer to **string** | The type of the volume (&#x60;standard&#x60; \\| &#x60;gp2&#x60; \\| &#x60;io1&#x60;). | [optional] 
 
@@ -260,6 +261,41 @@ SetTags sets Tags field to given value.
 
 HasTags returns a boolean if a field has been set.
 
+### GetTaskId
+
+`func (o *Volume) GetTaskId() string`
+
+GetTaskId returns the TaskId field if non-nil, zero value otherwise.
+
+### GetTaskIdOk
+
+`func (o *Volume) GetTaskIdOk() (*string, bool)`
+
+GetTaskIdOk returns a tuple with the TaskId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTaskId
+
+`func (o *Volume) SetTaskId(v string)`
+
+SetTaskId sets TaskId field to given value.
+
+### HasTaskId
+
+`func (o *Volume) HasTaskId() bool`
+
+HasTaskId returns a boolean if a field has been set.
+
+### SetTaskIdNil
+
+`func (o *Volume) SetTaskIdNil(b bool)`
+
+ SetTaskIdNil sets the value for TaskId to be an explicit nil
+
+### UnsetTaskId
+`func (o *Volume) UnsetTaskId()`
+
+UnsetTaskId ensures that no value is present for TaskId, not even an explicit nil
 ### GetVolumeId
 
 `func (o *Volume) GetVolumeId() string`

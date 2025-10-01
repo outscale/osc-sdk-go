@@ -63,6 +63,7 @@ Name | Type | Description | Notes
 **TagValues** | Pointer to **[]string** | The values of the tags associated with the VMs. | [optional] 
 **Tags** | Pointer to **[]string** | The key/value combination of the tags associated with the VMs, in the following format: &amp;quot;Filters&amp;quot;:{&amp;quot;Tags&amp;quot;:[&amp;quot;TAGKEY&#x3D;TAGVALUE&amp;quot;]}. | [optional] 
 **Tenancies** | Pointer to **[]string** | The tenancies of the VMs (&#x60;dedicated&#x60; \\| &#x60;default&#x60; \\| &#x60;host&#x60;). | [optional] 
+**TpmEnabled** | Pointer to **bool** | Whether a virtual Trusted Platform Module (vTPM) is enabled (true) or disabled (false) on the VM. | [optional] 
 **VmIds** | Pointer to **[]string** | One or more IDs of VMs. | [optional] 
 **VmSecurityGroupIds** | Pointer to **[]string** | The IDs of the security groups for the VMs. | [optional] 
 **VmSecurityGroupNames** | Pointer to **[]string** | The names of the security group for the VMs. | [optional] 
@@ -1563,6 +1564,31 @@ SetTenancies sets Tenancies field to given value.
 `func (o *FiltersVm) HasTenancies() bool`
 
 HasTenancies returns a boolean if a field has been set.
+
+### GetTpmEnabled
+
+`func (o *FiltersVm) GetTpmEnabled() bool`
+
+GetTpmEnabled returns the TpmEnabled field if non-nil, zero value otherwise.
+
+### GetTpmEnabledOk
+
+`func (o *FiltersVm) GetTpmEnabledOk() (*bool, bool)`
+
+GetTpmEnabledOk returns a tuple with the TpmEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmEnabled
+
+`func (o *FiltersVm) SetTpmEnabled(v bool)`
+
+SetTpmEnabled sets TpmEnabled field to given value.
+
+### HasTpmEnabled
+
+`func (o *FiltersVm) HasTpmEnabled() bool`
+
+HasTpmEnabled returns a boolean if a field has been set.
 
 ### GetVmIds
 

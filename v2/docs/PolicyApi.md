@@ -712,7 +712,7 @@ import (
 )
 
 func main() {
-    readEntitiesLinkedToPolicyRequest := *openapiclient.NewReadEntitiesLinkedToPolicyRequest() // ReadEntitiesLinkedToPolicyRequest |  (optional)
+    readEntitiesLinkedToPolicyRequest := *openapiclient.NewReadEntitiesLinkedToPolicyRequest("PolicyOrn_example") // ReadEntitiesLinkedToPolicyRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

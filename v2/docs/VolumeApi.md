@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateVolume**](VolumeApi.md#CreateVolume) | **Post** /CreateVolume | 
 [**DeleteVolume**](VolumeApi.md#DeleteVolume) | **Post** /DeleteVolume | 
 [**LinkVolume**](VolumeApi.md#LinkVolume) | **Post** /LinkVolume | 
+[**ReadVolumeUpdateTasks**](VolumeApi.md#ReadVolumeUpdateTasks) | **Post** /ReadVolumeUpdateTasks | Lists one or more update tasks of volumes
 [**ReadVolumes**](VolumeApi.md#ReadVolumes) | **Post** /ReadVolumes | 
 [**UnlinkVolume**](VolumeApi.md#UnlinkVolume) | **Post** /UnlinkVolume | 
 [**UpdateVolume**](VolumeApi.md#UpdateVolume) | **Post** /UpdateVolume | 
@@ -196,6 +197,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**LinkVolumeResponse**](LinkVolumeResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadVolumeUpdateTasks
+
+> ReadVolumeUpdateTasksResponse ReadVolumeUpdateTasks(ctx).ReadVolumeUpdateTasksRequest(readVolumeUpdateTasksRequest).Execute()
+
+Lists one or more update tasks of volumes
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readVolumeUpdateTasksRequest := *openapiclient.NewReadVolumeUpdateTasksRequest() // ReadVolumeUpdateTasksRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VolumeApi.ReadVolumeUpdateTasks(context.Background()).ReadVolumeUpdateTasksRequest(readVolumeUpdateTasksRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VolumeApi.ReadVolumeUpdateTasks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadVolumeUpdateTasks`: ReadVolumeUpdateTasksResponse
+    fmt.Fprintf(os.Stdout, "Response from `VolumeApi.ReadVolumeUpdateTasks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadVolumeUpdateTasksRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readVolumeUpdateTasksRequest** | [**ReadVolumeUpdateTasksRequest**](ReadVolumeUpdateTasksRequest.md) |  | 
+
+### Return type
+
+[**ReadVolumeUpdateTasksResponse**](ReadVolumeUpdateTasksResponse.md)
 
 ### Authorization
 

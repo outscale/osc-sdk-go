@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security group for the VMs. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more names of security groups for the VMs. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the &#x60;Nics&#x60; parameter. | [optional] 
+**TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not. | [optional] 
 **UserData** | Pointer to **string** | Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html). | [optional] 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] [default to "stop"]
 **VmType** | Pointer to **string** | The type of VM. You can specify a TINA type (in the &#x60;tinavW.cXrYpZ&#x60; or &#x60;tinavW.cXrY&#x60; format), or an AWS type (for example, &#x60;t2.small&#x60;, which is the default value).&lt;br /&gt; If you specify an AWS type, it is converted in the background to its corresponding TINA type, but the AWS type is still returned. If the specified or converted TINA type includes a performance flag, this performance flag is applied regardless of the value you may have provided in the &#x60;Performance&#x60; parameter. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
@@ -541,6 +542,31 @@ SetSubnetId sets SubnetId field to given value.
 `func (o *CreateVmsRequest) HasSubnetId() bool`
 
 HasSubnetId returns a boolean if a field has been set.
+
+### GetTpmEnabled
+
+`func (o *CreateVmsRequest) GetTpmEnabled() bool`
+
+GetTpmEnabled returns the TpmEnabled field if non-nil, zero value otherwise.
+
+### GetTpmEnabledOk
+
+`func (o *CreateVmsRequest) GetTpmEnabledOk() (*bool, bool)`
+
+GetTpmEnabledOk returns a tuple with the TpmEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmEnabled
+
+`func (o *CreateVmsRequest) SetTpmEnabled(v bool)`
+
+SetTpmEnabled sets TpmEnabled field to given value.
+
+### HasTpmEnabled
+
+`func (o *CreateVmsRequest) HasTpmEnabled() bool`
+
+HasTpmEnabled returns a boolean if a field has been set.
 
 ### GetUserData
 

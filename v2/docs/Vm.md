@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **StateReason** | Pointer to **string** | The reason explaining the current state of the VM. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet for the VM. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VM. | [optional] 
+**TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 
@@ -859,6 +860,31 @@ SetTags sets Tags field to given value.
 `func (o *Vm) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetTpmEnabled
+
+`func (o *Vm) GetTpmEnabled() bool`
+
+GetTpmEnabled returns the TpmEnabled field if non-nil, zero value otherwise.
+
+### GetTpmEnabledOk
+
+`func (o *Vm) GetTpmEnabledOk() (*bool, bool)`
+
+GetTpmEnabledOk returns a tuple with the TpmEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTpmEnabled
+
+`func (o *Vm) SetTpmEnabled(v bool)`
+
+SetTpmEnabled sets TpmEnabled field to given value.
+
+### HasTpmEnabled
+
+`func (o *Vm) HasTpmEnabled() bool`
+
+HasTpmEnabled returns a boolean if a field has been set.
 
 ### GetUserData
 

@@ -335,6 +335,7 @@ docs/FiltersSnapshot.md
 docs/FiltersSubnet.md
 docs/FiltersSubregion.md
 docs/FiltersTag.md
+docs/FiltersUpdateVolumeTask.md
 docs/FiltersUserGroup.md
 docs/FiltersUsers.md
 docs/FiltersVirtualGateway.md
@@ -588,6 +589,8 @@ docs/ReadVmsRequest.md
 docs/ReadVmsResponse.md
 docs/ReadVmsStateRequest.md
 docs/ReadVmsStateResponse.md
+docs/ReadVolumeUpdateTasksRequest.md
+docs/ReadVolumeUpdateTasksResponse.md
 docs/ReadVolumesRequest.md
 docs/ReadVolumesResponse.md
 docs/ReadVpnConnectionsRequest.md
@@ -739,6 +742,9 @@ docs/VmTemplateApi.md
 docs/VmType.md
 docs/Volume.md
 docs/VolumeApi.md
+docs/VolumeUpdate.md
+docs/VolumeUpdateParameters.md
+docs/VolumeUpdateTask.md
 docs/VpnConnection.md
 docs/VpnConnectionApi.md
 docs/VpnOptions.md
@@ -1014,6 +1020,7 @@ model_filters_snapshot.go
 model_filters_subnet.go
 model_filters_subregion.go
 model_filters_tag.go
+model_filters_update_volume_task.go
 model_filters_user_group.go
 model_filters_users.go
 model_filters_virtual_gateway.go
@@ -1248,6 +1255,8 @@ model_read_vms_request.go
 model_read_vms_response.go
 model_read_vms_state_request.go
 model_read_vms_state_response.go
+model_read_volume_update_tasks_request.go
+model_read_volume_update_tasks_response.go
 model_read_volumes_request.go
 model_read_volumes_response.go
 model_read_vpn_connections_request.go
@@ -1381,6 +1390,9 @@ model_vm_states.go
 model_vm_template.go
 model_vm_type.go
 model_volume.go
+model_volume_update.go
+model_volume_update_parameters.go
+model_volume_update_task.go
 model_vpn_connection.go
 model_vpn_options.go
 model_with.go

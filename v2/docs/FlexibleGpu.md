@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **ModelName** | Pointer to **string** | The model of fGPU. For more information, see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html). | [optional] 
 **State** | Pointer to **string** | The state of the fGPU (&#x60;allocated&#x60; \\| &#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The Subregion where the fGPU is located. | [optional] 
+**Tags** | Pointer to [**[]Tag**](Tag.md) | One or more tags associated with the fGPU. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM the fGPU is attached to, if any. | [optional] 
 
 ## Methods
@@ -180,6 +181,31 @@ SetSubregionName sets SubregionName field to given value.
 `func (o *FlexibleGpu) HasSubregionName() bool`
 
 HasSubregionName returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *FlexibleGpu) GetTags() []Tag`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *FlexibleGpu) GetTagsOk() (*[]Tag, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *FlexibleGpu) SetTags(v []Tag)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *FlexibleGpu) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetVmId
 
