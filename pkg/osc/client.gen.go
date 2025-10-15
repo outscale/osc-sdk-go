@@ -74,10 +74,11 @@ const (
 
 // Defines values for SecureBootAction.
 const (
-	Disable   SecureBootAction = "disable"
-	Enable    SecureBootAction = "enable"
-	None      SecureBootAction = "none"
-	SetupMode SecureBootAction = "setup-mode"
+	Disable            SecureBootAction = "disable"
+	Enable             SecureBootAction = "enable"
+	None               SecureBootAction = "none"
+	RestoreFactoryKeys SecureBootAction = "restore-factory-keys"
+	SetupMode          SecureBootAction = "setup-mode"
 )
 
 // Defines values for UpdateDirectLinkInterfaceRequestMtu.
@@ -920,6 +921,9 @@ type CreateImageRequest struct {
 
 	// SourceRegionName **(required) When copying an OMI:** The name of the source Region (always the same as the Region of your account).
 	SourceRegionName *string `json:"SourceRegionName,omitempty"`
+
+	// TpmMandatory By default or if set to false, a virtual Trusted Platform Module (vTPM) is not mandatory on VMs created from this OMI. If true, VMs created from this OMI must have a vTPM enabled.
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 
 	// VmId **(required) When creating from a VM:** The ID of the VM from which you want to create the OMI.
 	VmId *string `json:"VmId,omitempty"`
@@ -1778,6 +1782,9 @@ type CreateVmsRequest struct {
 
 	// SubnetId The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the `Nics` parameter.
 	SubnetId *string `json:"SubnetId,omitempty"`
+
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
 
 	// UserData Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html).
 	UserData *string `json:"UserData,omitempty"`
@@ -3108,6 +3115,9 @@ type FiltersFlexibleGpu struct {
 	// SubregionNames The Subregions where the fGPUs are located.
 	SubregionNames *[]string `json:"SubregionNames,omitempty"`
 
+	// Tags One or more tags associated with the fGPUs.
+	Tags *[]Tag `json:"Tags,omitempty"`
+
 	// VmIds One or more IDs of VMs.
 	VmIds *[]string `json:"VmIds,omitempty"`
 }
@@ -3188,6 +3198,9 @@ type FiltersImage struct {
 
 	// Tags The key/value combination of the tags associated with the OMIs, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
 	Tags *[]string `json:"Tags,omitempty"`
+
+	// TpmMandatory Whether a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI (true) or not (false).
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 
 	// VirtualizationTypes The virtualization types (always `hvm`).
 	VirtualizationTypes *[]string `json:"VirtualizationTypes,omitempty"`
@@ -3753,11 +3766,17 @@ type FiltersTag struct {
 	// ResourceIds The IDs of the resources with which the tags are associated.
 	ResourceIds *[]string `json:"ResourceIds,omitempty"`
 
-	// ResourceTypes The resource type (`customer-gateway` \| `dhcpoptions` \| `image` \| `instance` \| `keypair` \| `natgateway` \| `network-interface` \| `public-ip` \| `route-table` \| `security-group` \| `snapshot` \| `subnet` \| `task` \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint` \| `vpc-peering-connection`\| `vpn-connection`).
+	// ResourceTypes The resource type (`customer-gateway` \| `dhcpoptions` \| `flexible-gpu` \| `image` \| `instance` \| `keypair` \| `natgateway` \| `network-interface` \| `public-ip` \| `route-table` \| `security-group` \| `snapshot` \| `subnet` \| `task` \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint` \| `vpc-peering-connection`\| `vpn-connection`).
 	ResourceTypes *[]string `json:"ResourceTypes,omitempty"`
 
 	// Values The values of the tags that are assigned to the resources. You can use this filter alongside the `TagKeys` filter. In that case, you filter the resources corresponding to each tag, regardless of the other filter.
 	Values *[]string `json:"Values,omitempty"`
+}
+
+// FiltersUpdateVolumeTask One or more filters.
+type FiltersUpdateVolumeTask struct {
+	// TaskIds The IDs of the volume update tasks.
+	TaskIds *[]string `json:"TaskIds,omitempty"`
 }
 
 // FiltersUserGroup One or more filters.
@@ -3980,6 +3999,9 @@ type FiltersVm struct {
 
 	// Tenancies The tenancies of the VMs (`dedicated` \| `default` \| `host`).
 	Tenancies *[]string `json:"Tenancies,omitempty"`
+
+	// TpmEnabled Whether a virtual Trusted Platform Module (vTPM) is enabled (true) or disabled (false) on the VM.
+	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
 
 	// VmIds One or more IDs of VMs.
 	VmIds *[]string `json:"VmIds,omitempty"`
@@ -4233,6 +4255,9 @@ type FlexibleGpu struct {
 	// SubregionName The Subregion where the fGPU is located.
 	SubregionName *string `json:"SubregionName,omitempty"`
 
+	// Tags One or more tags associated with the fGPU.
+	Tags *[]Tag `json:"Tags,omitempty"`
+
 	// VmId The ID of the VM the fGPU is attached to, if any.
 	VmId *string `json:"VmId,omitempty"`
 }
@@ -4337,6 +4362,9 @@ type Image struct {
 
 	// Tags One or more tags associated with the OMI.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
+
+	// TpmMandatory If true, a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI. If false, a vTPM is not mandatory.
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 }
 
 // ImageExportTask Information about the OMI export task.
@@ -6017,7 +6045,10 @@ type ReadEntitiesLinkedToPolicyRequest struct {
 	FirstItem *int `json:"FirstItem,omitempty"`
 
 	// PolicyOrn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
-	PolicyOrn *string `json:"PolicyOrn,omitempty"`
+	PolicyOrn string `json:"PolicyOrn"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 
 	// ResultsPerPage The maximum number of items that can be returned in a single response (by default, 100).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7347,6 +7378,33 @@ type ReadVmsStateResponse struct {
 
 	// VmStates Information about one or more VM states.
 	VmStates *[]VmStates `json:"VmStates,omitempty"`
+}
+
+// ReadVolumeUpdateTasksRequest defines model for ReadVolumeUpdateTasksRequest.
+type ReadVolumeUpdateTasksRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+
+	// Filters One or more filters.
+	Filters *FiltersUpdateVolumeTask `json:"Filters,omitempty"`
+
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
+}
+
+// ReadVolumeUpdateTasksResponse defines model for ReadVolumeUpdateTasksResponse.
+type ReadVolumeUpdateTasksResponse struct {
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+
+	// VolumeUpdateTasks Information about one or more volume update tasks.
+	VolumeUpdateTasks *[]VolumeUpdateTask `json:"VolumeUpdateTasks,omitempty"`
 }
 
 // ReadVolumesRequest defines model for ReadVolumesRequest.
@@ -8852,20 +8910,16 @@ type UpdateVolumeRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// Iops **Cold volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume or if you change the type of the volume for an `io1`. This modification is instantaneous. <br />
-	// **Hot volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume. This modification is not instantaneous. <br /><br />
-	// The maximum number of IOPS allowed for `io1` volumes is `13000` with a maximum performance ratio of 300 IOPS per gibibyte.
+	// Iops The new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume or if you change the type of the volume for an `io1`.
 	Iops *int `json:"Iops,omitempty"`
 
-	// Size **Cold volume**: the new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous. <br />
-	// **Hot volume**: you cannot change the size of a hot volume.
+	// Size The new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous.
 	Size *int `json:"Size,omitempty"`
 
 	// VolumeId The ID of the volume you want to update.
 	VolumeId string `json:"VolumeId"`
 
-	// VolumeType **Cold volume**: the new type of the volume (`standard` \| `io1` \| `gp2`). This modification is instantaneous. If you update to an `io1` volume, you must also specify the `Iops` parameter.<br />
-	// **Hot volume**: you cannot change the type of a hot volume.
+	// VolumeType The new type of the volume (`standard` \| `io1` \| `gp2`). If you update to an `io1` volume, you must also specify the `Iops` parameter.
 	VolumeType *string `json:"VolumeType,omitempty"`
 }
 
@@ -9084,6 +9138,9 @@ type Vm struct {
 	// Tags One or more tags associated with the VM.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
+
 	// UserData The Base64-encoded MIME user data.
 	UserData *string `json:"UserData,omitempty"`
 
@@ -9272,11 +9329,67 @@ type Volume struct {
 	// Tags One or more tags associated with the volume.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 
+	// TaskId The ID of the volume update task in progress. Otherwise, it is not returned.
+	TaskId *string `json:"TaskId"`
+
 	// VolumeId The ID of the volume.
 	VolumeId *string `json:"VolumeId,omitempty"`
 
 	// VolumeType The type of the volume (`standard` \| `gp2` \| `io1`).
 	VolumeType *string `json:"VolumeType,omitempty"`
+}
+
+// VolumeUpdate Information about the update of a volume.
+type VolumeUpdate struct {
+	// Origin Information about the parameters of the update of a volume.
+	Origin *VolumeUpdateParameters `json:"Origin,omitempty"`
+
+	// Target Information about the parameters of the update of a volume.
+	Target *VolumeUpdateParameters `json:"Target,omitempty"`
+}
+
+// VolumeUpdateParameters Information about the parameters of the update of a volume.
+type VolumeUpdateParameters struct {
+	// Iops The new number of I/O operations per second (IOPS):<br />
+	// - For `io1` volumes, the number of provisioned IOPS.<br />
+	// - For `gp2` volumes, the baseline performance of the volume.
+	Iops *int `json:"Iops"`
+
+	// Size The new size of the volume, in gibibytes (GiB).
+	Size int `json:"Size"`
+
+	// VolumeType The type of the volume (`standard` \| `io1` \| `gp2`).
+	VolumeType string `json:"VolumeType"`
+}
+
+// VolumeUpdateTask Information about the volume update task.
+type VolumeUpdateTask struct {
+	// Comment If the update volume task fails, an error message appears.
+	Comment *string `json:"Comment,omitempty"`
+
+	// CompletionDate The date at which the volume update task was marked as completed.
+	CompletionDate *iso8601.Time `json:"CompletionDate,omitempty"`
+
+	// Progress The progress of the volume update task, as a percentage.
+	Progress *int `json:"Progress,omitempty"`
+
+	// StartDate The creation date of the volume update task.
+	StartDate *iso8601.Time `json:"StartDate,omitempty"`
+
+	// State The state of the volume (`pending` \| `active` \| `completed` \| `failed` \| `canceled`).
+	State *string `json:"State,omitempty"`
+
+	// Tags One or more tags associated with the volume update task.
+	Tags *[]ResourceTag `json:"Tags,omitempty"`
+
+	// TaskId The ID of the volume update task in progress. Otherwise, it is not returned.
+	TaskId *string `json:"TaskId,omitempty"`
+
+	// VolumeId The ID of the updated volume.
+	VolumeId *string `json:"VolumeId,omitempty"`
+
+	// VolumeUpdate Information about the update of a volume.
+	VolumeUpdate *VolumeUpdate `json:"VolumeUpdate,omitempty"`
 }
 
 // VpnConnection Information about a VPN connection.
@@ -9929,6 +10042,9 @@ type ReadVmsHealthJSONRequestBody = ReadVmsHealthRequest
 
 // ReadVmsStateJSONRequestBody defines body for ReadVmsState for application/json ContentType.
 type ReadVmsStateJSONRequestBody = ReadVmsStateRequest
+
+// ReadVolumeUpdateTasksJSONRequestBody defines body for ReadVolumeUpdateTasks for application/json ContentType.
+type ReadVolumeUpdateTasksJSONRequestBody = ReadVolumeUpdateTasksRequest
 
 // ReadVolumesJSONRequestBody defines body for ReadVolumes for application/json ContentType.
 type ReadVolumesJSONRequestBody = ReadVolumesRequest
@@ -11011,6 +11127,11 @@ type clientInterfaceRaw interface {
 	ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	// ReadVolumeUpdateTasksWithBodyRaw request with any body
+	ReadVolumeUpdateTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	ReadVolumeUpdateTasksRaw(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVolumesWithBodyRaw request with any body
 	ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
@@ -16768,6 +16889,36 @@ func (c *ClientRaw) ReadVmsStateWithBodyRaw(ctx context.Context, contentType str
 
 func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsStateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVolumeUpdateTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVolumeUpdateTasksRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVolumeUpdateTasksRaw(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVolumeUpdateTasksRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -25611,6 +25762,46 @@ func NewReadVmsStateRequestWithBody(server string, contentType string, body io.R
 	return req, nil
 }
 
+// NewReadVolumeUpdateTasksRequest calls the generic ReadVolumeUpdateTasks builder with application/json body
+func NewReadVolumeUpdateTasksRequest(server string, body ReadVolumeUpdateTasksJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReadVolumeUpdateTasksRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewReadVolumeUpdateTasksRequestWithBody generates requests for ReadVolumeUpdateTasks with any type of body
+func NewReadVolumeUpdateTasksRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ReadVolumeUpdateTasks")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewReadVolumesRequest calls the generic ReadVolumes builder with application/json body
 func NewReadVolumesRequest(server string, body ReadVolumesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -28516,6 +28707,11 @@ type ClientInterface interface {
 	ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
 
 	ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
+
+	// ReadVolumeUpdateTasksWithBody request with any body
+	ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error)
+
+	ReadVolumeUpdateTasks(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error)
 
 	// ReadVolumesWithBody request with any body
 	ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error)
@@ -37683,6 +37879,64 @@ func (r ReadVmsStateResp) DeepError() error {
 }
 
 func (r ReadVmsStateResp) Error() string {
+	body := string(r.Body)
+	if body != "" {
+		return body
+	}
+	return r.Status()
+}
+
+type ReadVolumeUpdateTasksResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ReadVolumeUpdateTasksResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON500      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ReadVolumeUpdateTasksResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReadVolumeUpdateTasksResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r ReadVolumeUpdateTasksResp) Expect() (*ReadVolumeUpdateTasksResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r
+}
+
+func (r ReadVolumeUpdateTasksResp) DeepError() error {
+
+	if r.JSON400 != nil {
+		return r.JSON400
+	}
+
+	if r.JSON401 != nil {
+		return r.JSON401
+	}
+
+	if r.JSON500 != nil {
+		return r.JSON500
+	}
+
+	return nil
+}
+
+func (r ReadVolumeUpdateTasksResp) Error() string {
 	body := string(r.Body)
 	if body != "" {
 		return body
@@ -47000,6 +47254,43 @@ func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestB
 	return resp, err
 }
 
+// ReadVolumeUpdateTasksWithBody request with arbitrary body returning *ReadVolumeUpdateTasksResponse
+func (c *Client) ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error) {
+	rsp, err := c.ReadVolumeUpdateTasksWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVolumeUpdateTasksResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+func (c *Client) ReadVolumeUpdateTasks(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error) {
+	c.LogRequest(ctx, body)
+
+	rsp, err := c.ReadVolumeUpdateTasksRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVolumeUpdateTasksResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
 // ReadVolumesWithBody request with arbitrary body returning *ReadVolumesResponse
 func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error) {
 	rsp, err := c.ReadVolumesWithBodyRaw(ctx, contentType, body, reqEditors...)
@@ -54987,6 +55278,53 @@ func ParseReadVmsStateResp(rsp *http.Response) (*ReadVmsStateResp, error) {
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ReadVmsStateResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReadVolumeUpdateTasksResp parses an HTTP response from a ReadVolumeUpdateTasks call
+func ParseReadVolumeUpdateTasksResp(rsp *http.Response) (*ReadVolumeUpdateTasksResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReadVolumeUpdateTasksResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ReadVolumeUpdateTasksResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
