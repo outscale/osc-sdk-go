@@ -8,12 +8,19 @@ actions:
   update:
     x-go-type: iso8601.Time
     x-go-type-import:
-      path: github.com/relvacode/iso8601
+      path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
+      name: iso8601
+- target: $.components.schemas.*.*.*[?(@.format == 'date-time')]
+  description: Remove date-time format
+  update:
+    x-go-type: iso8601.Time
+    x-go-type-import:
+      path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
       name: iso8601
 - target: $.components.schemas.*.*.*[?(@.format == 'date')]
   description: Remove date format
   update:
     x-go-type: iso8601.Time
     x-go-type-import:
-      path: github.com/relvacode/iso8601
+      path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
       name: iso8601

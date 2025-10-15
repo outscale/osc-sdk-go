@@ -16,8 +16,8 @@ import (
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
+	iso8601 "github.com/outscale/osc-sdk-go/v3/pkg/iso8601"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
-	iso8601 "github.com/relvacode/iso8601"
 )
 
 const (
@@ -490,13 +490,13 @@ type Catalogs struct {
 	Entries *[]CatalogEntry `json:"Entries,omitempty"`
 
 	// FromDate The beginning of the time period (UTC).
-	FromDate *time.Time `json:"FromDate,omitempty"`
+	FromDate *iso8601.Time `json:"FromDate,omitempty"`
 
 	// State The state of the catalog.
 	State *CatalogsState `json:"State,omitempty"`
 
 	// ToDate The end of the time period (UTC).
-	ToDate *time.Time `json:"ToDate,omitempty"`
+	ToDate *iso8601.Time `json:"ToDate,omitempty"`
 }
 
 // CatalogsState The state of the catalog.
@@ -3667,7 +3667,7 @@ type FiltersSnapshot struct {
 	Descriptions *[]string `json:"Descriptions,omitempty"`
 
 	// FromCreationDate The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
-	FromCreationDate *time.Time `json:"FromCreationDate,omitempty"`
+	FromCreationDate *iso8601.Time `json:"FromCreationDate,omitempty"`
 
 	// PermissionsToCreateVolumeAccountIds The account IDs which have permissions to create volumes.
 	PermissionsToCreateVolumeAccountIds *[]string `json:"PermissionsToCreateVolumeAccountIds,omitempty"`
@@ -3694,7 +3694,7 @@ type FiltersSnapshot struct {
 	Tags *[]string `json:"Tags,omitempty"`
 
 	// ToCreationDate The end of the time period, in ISO 8601 date-time format (for example, `2020-06-30T00:00:00.000Z`).
-	ToCreationDate *time.Time `json:"ToCreationDate,omitempty"`
+	ToCreationDate *iso8601.Time `json:"ToCreationDate,omitempty"`
 
 	// VolumeIds The IDs of the volumes used to create the snapshots.
 	VolumeIds *[]string `json:"VolumeIds,omitempty"`
@@ -4761,10 +4761,10 @@ type LinkVolumeResponse struct {
 // LinkedPolicy Information about the linked policy.
 type LinkedPolicy struct {
 	// CreationDate The date and time (UTC) at which the linked policy was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) at which the linked policy was last modified.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// Orn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
 	Orn *string `json:"Orn,omitempty"`
@@ -5129,7 +5129,7 @@ type NetPeering struct {
 	AccepterNet *AccepterNet `json:"AccepterNet,omitempty"`
 
 	// ExpirationDate The date and time (UTC) at which the Net peerings expire.
-	ExpirationDate *time.Time `json:"ExpirationDate"`
+	ExpirationDate *iso8601.Time `json:"ExpirationDate"`
 
 	// NetPeeringId The ID of the Net peering.
 	NetPeeringId *string `json:"NetPeeringId,omitempty"`
@@ -5414,7 +5414,7 @@ type Placement struct {
 // Policy Information about the policy.
 type Policy struct {
 	// CreationDate The date and time (UTC) at which the policy was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// Description A friendly name for the policy (between 0 and 1000 characters).
 	Description *string `json:"Description,omitempty"`
@@ -5423,7 +5423,7 @@ type Policy struct {
 	IsLinkable *bool `json:"IsLinkable,omitempty"`
 
 	// LastModificationDate The date and time (UTC) at which the policy was last modified.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// Orn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
 	Orn *string `json:"Orn,omitempty"`
@@ -5474,7 +5474,7 @@ type PolicyVersion struct {
 	Body *string `json:"Body,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the version was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// DefaultVersion If true, the version is the default one.
 	DefaultVersion *bool `json:"DefaultVersion,omitempty"`
@@ -8908,10 +8908,10 @@ type UpdateVpnConnectionResponse struct {
 // User Information about the EIM user.
 type User struct {
 	// CreationDate The date and time (UTC) of creation of the EIM user.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) of the last modification of the EIM user.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// OutscaleLoginAllowed Whether the user is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated.
 	OutscaleLoginAllowed *bool `json:"OutscaleLoginAllowed,omitempty"`
@@ -8932,10 +8932,10 @@ type User struct {
 // UserGroup Information about the user group.
 type UserGroup struct {
 	// CreationDate The date and time (UTC) of creation of the user group.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// LastModificationDate The date and time (UTC) of the last modification of the user group.
-	LastModificationDate *time.Time `json:"LastModificationDate,omitempty"`
+	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// Name The name of the user group.
 	Name *string `json:"Name,omitempty"`
@@ -9181,7 +9181,7 @@ type VmTemplate struct {
 	CpuPerformance *VmTemplateCpuPerformance `json:"CpuPerformance,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the VM was created.
-	CreationDate *time.Time `json:"CreationDate,omitempty"`
+	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
 
 	// Description The description of the VM template.
 	Description *string `json:"Description,omitempty"`
