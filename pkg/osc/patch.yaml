@@ -129,3 +129,31 @@ actions:
     required:
     - DeleteOnVmDeletion
     - VolumeId
+- target: $.components.schemas.SecurityGroup
+  description: Required fields for SecurityGroup
+  update:
+    required:
+    - AccountId
+    - Description
+    - InboundRules
+    - OutboundRules
+    - SecurityGroupId
+    - SecurityGroupName
+    - Tags
+- target: $.components.schemas.SecurityGroupRule.*.*
+  description: Remove pointer from SecurityGroupRule attributes
+  update:
+    x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.SecurityGroupsMember
+  description: Required fields for SecurityGroupsMember
+  update:
+    required:
+    - SecurityGroupId
+- target: $.components.schemas.CreateSecurityGroupRuleRequest.*.Rules
+  description: Remove pointer from CreateSecurityGroupRuleRequest attributes
+  update:
+    x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.DeleteSecurityGroupRuleRequest.*.Rules
+  description: Remove pointer from DeleteSecurityGroupRuleRequest attributes
+  update:
+    x-go-type-skip-optional-pointer: true
