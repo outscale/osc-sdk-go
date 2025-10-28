@@ -25,6 +25,6 @@ func TestReadVms(t *testing.T) {
 	}
 
 	for i, vm := range *read.Vms {
-		t.Logf("[%d] Id: %s; ImageId: %s", i, *vm.VmId, *vm.ImageId)
+		t.Logf("[%d] Id: %s; ImageId: %s", i, vm.VmId, vm.ImageId)
 	}
 }

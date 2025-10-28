@@ -343,10 +343,10 @@ type BackendVmHealth struct {
 // BlockDeviceMappingCreated Information about the created block device mapping.
 type BlockDeviceMappingCreated struct {
 	// Bsu Information about the created BSU volume.
-	Bsu *BsuCreated `json:"Bsu,omitempty"`
+	Bsu BsuCreated `json:"Bsu"`
 
 	// DeviceName The name of the device.
-	DeviceName *string `json:"DeviceName,omitempty"`
+	DeviceName string `json:"DeviceName"`
 }
 
 // BlockDeviceMappingImage One or more parameters used to automatically set up volumes when the VM is created.
@@ -397,16 +397,16 @@ type BootMode string
 // BsuCreated Information about the created BSU volume.
 type BsuCreated struct {
 	// DeleteOnVmDeletion If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// LinkDate The date and time (UTC) at which the volume was attached to the VM, in ISO 8601 date-time format.
-	LinkDate *iso8601.Time `json:"LinkDate,omitempty"`
+	LinkDate iso8601.Time `json:"LinkDate"`
 
 	// State The state of the volume.
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// VolumeId The ID of the volume.
-	VolumeId *string `json:"VolumeId,omitempty"`
+	VolumeId string `json:"VolumeId"`
 }
 
 // BsuToCreate Information about the BSU volume to create.
@@ -433,10 +433,10 @@ type BsuToCreate struct {
 // BsuToUpdateVm Information about the BSU volume.
 type BsuToUpdateVm struct {
 	// DeleteOnVmDeletion If set to true, the volume is deleted when terminating the VM. If set to false, the volume is not deleted when terminating the VM.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// VolumeId The ID of the volume.
-	VolumeId *string `json:"VolumeId,omitempty"`
+	VolumeId string `json:"VolumeId"`
 }
 
 // Ca Information about the Client Certificate Authority (CA).
@@ -1723,7 +1723,7 @@ type CreateVmsRequest struct {
 	ActionsOnNextBoot *ActionsOnNextBoot `json:"ActionsOnNextBoot,omitempty"`
 
 	// BlockDeviceMappings One or more block device mappings.
-	BlockDeviceMappings *[]BlockDeviceMappingVmCreation `json:"BlockDeviceMappings,omitempty"`
+	BlockDeviceMappings []BlockDeviceMappingVmCreation `json:"BlockDeviceMappings,omitempty"`
 
 	// BootMode Information about the boot mode of the VM.
 	BootMode *BootMode `json:"BootMode,omitempty"`
@@ -1759,7 +1759,7 @@ type CreateVmsRequest struct {
 	NestedVirtualization *bool `json:"NestedVirtualization,omitempty"`
 
 	// Nics One or more NICs. If you specify this parameter, you must not specify the `SubnetId` and `SubregionName` parameters. You also must define one NIC as the primary network interface of the VM with `0` as its device number.
-	Nics *[]NicForVmCreation `json:"Nics,omitempty"`
+	Nics []NicForVmCreation `json:"Nics,omitempty"`
 
 	// Performance The performance of the VM. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
 	Performance *CreateVmsRequestPerformance `json:"Performance,omitempty"`
@@ -1768,13 +1768,13 @@ type CreateVmsRequest struct {
 	Placement *Placement `json:"Placement,omitempty"`
 
 	// PrivateIps One or more private IPs of the VM.
-	PrivateIps *[]string `json:"PrivateIps,omitempty"`
+	PrivateIps []string `json:"PrivateIps,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security group for the VMs.
-	SecurityGroupIds *[]string `json:"SecurityGroupIds,omitempty"`
+	SecurityGroupIds []string `json:"SecurityGroupIds,omitempty"`
 
 	// SecurityGroups One or more names of security groups for the VMs.
-	SecurityGroups *[]string `json:"SecurityGroups,omitempty"`
+	SecurityGroups []string `json:"SecurityGroups,omitempty"`
 
 	// SubnetId The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the `Nics` parameter.
 	SubnetId *string `json:"SubnetId,omitempty"`
@@ -4525,16 +4525,16 @@ type LinkNic struct {
 // LinkNicLight Information about the network interface card (NIC).
 type LinkNicLight struct {
 	// DeleteOnVmDeletion If true, the NIC is deleted when the VM is terminated.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// DeviceNumber The device index for the NIC attachment (between `1` and `7`, both included).
-	DeviceNumber *int `json:"DeviceNumber,omitempty"`
+	DeviceNumber int `json:"DeviceNumber"`
 
 	// LinkNicId The ID of the NIC to attach.
-	LinkNicId *string `json:"LinkNicId,omitempty"`
+	LinkNicId string `json:"LinkNicId"`
 
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 }
 
 // LinkNicRequest defines model for LinkNicRequest.
@@ -4633,13 +4633,13 @@ type LinkPublicIp struct {
 // LinkPublicIpLightForVm Information about the public IP associated with the NIC.
 type LinkPublicIpLightForVm struct {
 	// PublicDnsName The name of the public DNS.
-	PublicDnsName *string `json:"PublicDnsName,omitempty"`
+	PublicDnsName string `json:"PublicDnsName"`
 
 	// PublicIp The public IP associated with the NIC.
-	PublicIp *string `json:"PublicIp,omitempty"`
+	PublicIp string `json:"PublicIp"`
 
 	// PublicIpAccountId The account ID of the owner of the public IP.
-	PublicIpAccountId *string `json:"PublicIpAccountId,omitempty"`
+	PublicIpAccountId string `json:"PublicIpAccountId"`
 }
 
 // LinkPublicIpRequest defines model for LinkPublicIpRequest.
@@ -5240,43 +5240,43 @@ type NicForVmCreation struct {
 // NicLight Information about the network interface card (NIC).
 type NicLight struct {
 	// AccountId The account ID of the owner of the NIC.
-	AccountId *string `json:"AccountId,omitempty"`
+	AccountId string `json:"AccountId"`
 
 	// Description The description of the NIC.
-	Description *string `json:"Description,omitempty"`
+	Description string `json:"Description"`
 
 	// IsSourceDestChecked (Net only) If true, the source/destination check is enabled. If false, it is disabled.
-	IsSourceDestChecked *bool `json:"IsSourceDestChecked,omitempty"`
+	IsSourceDestChecked bool `json:"IsSourceDestChecked"`
 
 	// LinkNic Information about the network interface card (NIC).
-	LinkNic *LinkNicLight `json:"LinkNic,omitempty"`
+	LinkNic LinkNicLight `json:"LinkNic"`
 
 	// LinkPublicIp Information about the public IP associated with the NIC.
 	LinkPublicIp *LinkPublicIpLightForVm `json:"LinkPublicIp,omitempty"`
 
 	// MacAddress The Media Access Control (MAC) address of the NIC.
-	MacAddress *string `json:"MacAddress,omitempty"`
+	MacAddress string `json:"MacAddress"`
 
 	// NetId The ID of the Net for the NIC.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// NicId The ID of the NIC.
-	NicId *string `json:"NicId,omitempty"`
+	NicId string `json:"NicId"`
 
 	// PrivateDnsName The name of the private DNS.
-	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
+	PrivateDnsName string `json:"PrivateDnsName"`
 
 	// PrivateIps The private IP or IPs of the NIC.
-	PrivateIps *[]PrivateIpLightForVm `json:"PrivateIps,omitempty"`
+	PrivateIps []PrivateIpLightForVm `json:"PrivateIps"`
 
 	// SecurityGroups One or more IDs of security groups for the NIC.
-	SecurityGroups *[]SecurityGroupLight `json:"SecurityGroups,omitempty"`
+	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
 	// State The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// SubnetId The ID of the Subnet for the NIC.
-	SubnetId *string `json:"SubnetId,omitempty"`
+	SubnetId string `json:"SubnetId"`
 }
 
 // OsuApiKey Information about the OOS API key.
@@ -5510,16 +5510,16 @@ type PrivateIpLight struct {
 // PrivateIpLightForVm Information about the private IP of the NIC.
 type PrivateIpLightForVm struct {
 	// IsPrimary If true, the IP is the primary private IP of the NIC.
-	IsPrimary *bool `json:"IsPrimary,omitempty"`
+	IsPrimary bool `json:"IsPrimary"`
 
 	// LinkPublicIp Information about the public IP associated with the NIC.
 	LinkPublicIp *LinkPublicIpLightForVm `json:"LinkPublicIp,omitempty"`
 
 	// PrivateDnsName The name of the private DNS.
-	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
+	PrivateDnsName string `json:"PrivateDnsName"`
 
 	// PrivateIp The private IP.
-	PrivateIp *string `json:"PrivateIp,omitempty"`
+	PrivateIp string `json:"PrivateIp"`
 }
 
 // ProductType Information about the product type.
@@ -7650,10 +7650,10 @@ type SecurityGroup struct {
 // SecurityGroupLight Information about the security group.
 type SecurityGroupLight struct {
 	// SecurityGroupId The ID of the security group.
-	SecurityGroupId *string `json:"SecurityGroupId,omitempty"`
+	SecurityGroupId string `json:"SecurityGroupId"`
 
 	// SecurityGroupName The name of the security group.
-	SecurityGroupName *string `json:"SecurityGroupName,omitempty"`
+	SecurityGroupName string `json:"SecurityGroupName"`
 }
 
 // SecurityGroupRule Information about the security group rule.
@@ -8768,7 +8768,7 @@ type UpdateVmRequest struct {
 	ActionsOnNextBoot *ActionsOnNextBoot `json:"ActionsOnNextBoot,omitempty"`
 
 	// BlockDeviceMappings One or more block device mappings of the VM.
-	BlockDeviceMappings *[]BlockDeviceMappingVmUpdate `json:"BlockDeviceMappings,omitempty"`
+	BlockDeviceMappings []BlockDeviceMappingVmUpdate `json:"BlockDeviceMappings,omitempty"`
 
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
@@ -8793,7 +8793,7 @@ type UpdateVmRequest struct {
 	Performance *UpdateVmRequestPerformance `json:"Performance,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security groups for the VM.
-	SecurityGroupIds *[]string `json:"SecurityGroupIds,omitempty"`
+	SecurityGroupIds []string `json:"SecurityGroupIds,omitempty"`
 
 	// UserData The Base64-encoded MIME user data, limited to 500 kibibytes (KiB).
 	UserData *string `json:"UserData,omitempty"`
@@ -8989,16 +8989,16 @@ type VirtualGateway struct {
 // Vm Information about the VM.
 type Vm struct {
 	// ActionsOnNextBoot The action to perform on the next boot of the VM.
-	ActionsOnNextBoot *ActionsOnNextBoot `json:"ActionsOnNextBoot,omitempty"`
+	ActionsOnNextBoot ActionsOnNextBoot `json:"ActionsOnNextBoot"`
 
 	// Architecture The architecture of the VM (`i386` \| `x86_64`).
-	Architecture *string `json:"Architecture,omitempty"`
+	Architecture string `json:"Architecture"`
 
 	// BlockDeviceMappings The block device mapping of the VM.
-	BlockDeviceMappings *[]BlockDeviceMappingCreated `json:"BlockDeviceMappings,omitempty"`
+	BlockDeviceMappings []BlockDeviceMappingCreated `json:"BlockDeviceMappings"`
 
 	// BootMode Information about the boot mode of the VM.
-	BootMode *BootMode `json:"BootMode,omitempty"`
+	BootMode BootMode `json:"BootMode"`
 
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
@@ -9007,16 +9007,16 @@ type Vm struct {
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the VM was created.
-	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
+	CreationDate iso8601.Time `json:"CreationDate"`
 
 	// DeletionProtection If true, you cannot delete the VM unless you change this parameter back to false.
-	DeletionProtection *bool `json:"DeletionProtection,omitempty"`
+	DeletionProtection bool `json:"DeletionProtection"`
 
 	// Hypervisor The hypervisor type of the VMs (`ovm` \| `xen`).
-	Hypervisor *string `json:"Hypervisor,omitempty"`
+	Hypervisor string `json:"Hypervisor"`
 
 	// ImageId The ID of the OMI used to create the VM.
-	ImageId *string `json:"ImageId,omitempty"`
+	ImageId string `json:"ImageId"`
 
 	// IsSourceDestChecked (Net only) If true, the source/destination check is enabled. If false, it is disabled.
 	IsSourceDestChecked *bool `json:"IsSourceDestChecked,omitempty"`
@@ -9025,34 +9025,34 @@ type Vm struct {
 	KeypairName *string `json:"KeypairName,omitempty"`
 
 	// LaunchNumber The number for the VM when launching a group of several VMs (for example, `0`, `1`, `2`, and so on).
-	LaunchNumber *int `json:"LaunchNumber,omitempty"`
+	LaunchNumber int `json:"LaunchNumber"`
 
 	// NestedVirtualization If true, nested virtualization is enabled. If false, it is disabled.
-	NestedVirtualization *bool `json:"NestedVirtualization,omitempty"`
+	NestedVirtualization bool `json:"NestedVirtualization"`
 
 	// NetId The ID of the Net in which the VM is running.
 	NetId *string `json:"NetId,omitempty"`
 
 	// Nics (Net only) The network interface cards (NICs) the VMs are attached to.
-	Nics *[]NicLight `json:"Nics,omitempty"`
+	Nics []NicLight `json:"Nics"`
 
 	// OsFamily Indicates the operating system (OS) of the VM.
-	OsFamily *string `json:"OsFamily,omitempty"`
+	OsFamily string `json:"OsFamily"`
 
 	// Performance The performance of the VM.
-	Performance *string `json:"Performance,omitempty"`
+	Performance string `json:"Performance"`
 
 	// Placement Information about the placement of the VM.
-	Placement *Placement `json:"Placement,omitempty"`
+	Placement Placement `json:"Placement"`
 
 	// PrivateDnsName The name of the private DNS.
 	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
 
 	// PrivateIp The primary private IP of the VM.
-	PrivateIp *string `json:"PrivateIp,omitempty"`
+	PrivateIp string `json:"PrivateIp"`
 
 	// ProductCodes The product codes associated with the OMI used to create the VM.
-	ProductCodes *[]string `json:"ProductCodes,omitempty"`
+	ProductCodes []string `json:"ProductCodes"`
 
 	// PublicDnsName The name of the public DNS.
 	PublicDnsName *string `json:"PublicDnsName,omitempty"`
@@ -9061,40 +9061,40 @@ type Vm struct {
 	PublicIp *string `json:"PublicIp,omitempty"`
 
 	// ReservationId The reservation ID of the VM.
-	ReservationId *string `json:"ReservationId,omitempty"`
+	ReservationId string `json:"ReservationId"`
 
 	// RootDeviceName The name of the root device for the VM (for example, `/dev/sda1`).
-	RootDeviceName *string `json:"RootDeviceName,omitempty"`
+	RootDeviceName string `json:"RootDeviceName"`
 
 	// RootDeviceType The type of root device used by the VM (always `bsu`).
-	RootDeviceType *string `json:"RootDeviceType,omitempty"`
+	RootDeviceType string `json:"RootDeviceType"`
 
 	// SecurityGroups One or more security groups associated with the VM.
-	SecurityGroups *[]SecurityGroupLight `json:"SecurityGroups,omitempty"`
+	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
 	// State The state of the VM (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// StateReason The reason explaining the current state of the VM.
-	StateReason *string `json:"StateReason,omitempty"`
+	StateReason string `json:"StateReason"`
 
 	// SubnetId The ID of the Subnet for the VM.
 	SubnetId *string `json:"SubnetId,omitempty"`
 
 	// Tags One or more tags associated with the VM.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// UserData The Base64-encoded MIME user data.
-	UserData *string `json:"UserData,omitempty"`
+	UserData string `json:"UserData"`
 
 	// VmId The ID of the VM.
-	VmId *string `json:"VmId,omitempty"`
+	VmId string `json:"VmId"`
 
 	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted.
-	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
+	VmInitiatedShutdownBehavior string `json:"VmInitiatedShutdownBehavior"`
 
 	// VmType The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
-	VmType *string `json:"VmType,omitempty"`
+	VmType string `json:"VmType"`
 }
 
 // VmGroup Information about the VM group.

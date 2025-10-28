@@ -24,3 +24,108 @@ actions:
     x-go-type-import:
       path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
       name: iso8601
+- target: $.components.schemas.Vm
+  description: Required fields for Vm
+  update:
+    required:
+    - ActionsOnNextBoot
+    - Architecture
+    - BlockDeviceMappings
+    - BootMode
+    - CreationDate
+    - DeletionProtection
+    - Hypervisor
+    - ImageId
+    - LaunchNumber
+    - NestedVirtualization
+    - Nics
+    - OsFamily
+    - Performance
+    - Placement
+    - PrivateIp
+    - ProductCodes
+    - ReservationId
+    - RootDeviceName
+    - RootDeviceType
+    - SecurityGroups
+    - State
+    - StateReason
+    - Tags
+    - TpmEnabled
+    - UserData
+    - VmId
+    - VmInitiatedShutdownBehavior
+    - VmType
+- target: $.components.schemas.BlockDeviceMappingCreated
+  description: Required fields for BlockDeviceMappingCreated
+  update:
+    required:
+    - Bsu
+    - DeviceName
+- target: $.components.schemas.BsuCreated
+  description: Required fields for BsuCreated
+  update:
+    required:
+    - DeleteOnVmDeletion
+    - LinkDate
+    - State
+    - VolumeId
+- target: $.components.schemas.NicLight
+  description: Required fields for NicLight
+  update:
+    required:
+    - AccountId
+    - Description
+    - IsSourceDestChecked
+    - LinkNic
+    - MacAddress
+    - NetId
+    - NicId
+    - PrivateDnsName
+    - PrivateIps
+    - SecurityGroups
+    - State
+    - SubnetId
+- target: $.components.schemas.LinkNicLight
+  description: Required fields for LinkNicLight
+  update:
+    required:
+    - DeleteOnVmDeletion
+    - DeviceNumber
+    - MacAddress
+    - LinkNicId
+    - State
+- target: $.components.schemas.LinkPublicIpLightForVm
+  description: Required fields for LinkPublicIpLightForVm
+  update:
+    required:
+    - PublicDnsName
+    - PublicIp
+    - PublicIpAccountId
+- target: $.components.schemas.PrivateIpLightForVm
+  description: Required fields for PrivateIpLightForVm
+  update:
+    required:
+    - IsPrimary
+    - PrivateDnsName
+    - PrivateIp
+- target: $.components.schemas.SecurityGroupLight
+  description: Required fields for SecurityGroupLight
+  update:
+    required:
+    - SecurityGroupId
+    - SecurityGroupName
+- target: $.components.schemas.CreateVmsRequest.*.*[?(@.type == 'array')]
+  description: Remove pointer from CreateVmsRequest attributes
+  update:
+    x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.UpdateVmRequest.*.*[?(@.type == 'array')]
+  description: Remove pointer from UpdateVmRequest attributes
+  update:
+    x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.BsuToUpdateVm
+  description: Required fields for BsuToUpdateVm
+  update:
+    required:
+    - DeleteOnVmDeletion
+    - VolumeId
