@@ -1413,7 +1413,7 @@ type CreateSecurityGroupRuleRequest struct {
 	IpRange *string `json:"IpRange,omitempty"`
 
 	// Rules Information about the security group rule to create. If you specify this parent parameter and its subparameters, you cannot specify the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`, and `ToPortRange`.
-	Rules *[]SecurityGroupRule `json:"Rules,omitempty"`
+	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
 	// SecurityGroupAccountIdToLink The account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.
 	SecurityGroupAccountIdToLink *string `json:"SecurityGroupAccountIdToLink,omitempty"`
@@ -2412,7 +2412,7 @@ type DeleteSecurityGroupRuleRequest struct {
 	IpRange *string `json:"IpRange,omitempty"`
 
 	// Rules One or more rules you want to delete from the security group.
-	Rules *[]SecurityGroupRule `json:"Rules,omitempty"`
+	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
 	// SecurityGroupAccountIdToUnlink The account ID of the owner of the security group you want to delete a rule from.
 	SecurityGroupAccountIdToUnlink *string `json:"SecurityGroupAccountIdToUnlink,omitempty"`
@@ -7623,28 +7623,28 @@ type SecureBootAction string
 // SecurityGroup Information about the security group.
 type SecurityGroup struct {
 	// AccountId The account ID that has been granted permission.
-	AccountId *string `json:"AccountId,omitempty"`
+	AccountId string `json:"AccountId"`
 
 	// Description The description of the security group.
-	Description *string `json:"Description,omitempty"`
+	Description string `json:"Description"`
 
 	// InboundRules The inbound rules associated with the security group.
-	InboundRules *[]SecurityGroupRule `json:"InboundRules,omitempty"`
+	InboundRules []SecurityGroupRule `json:"InboundRules"`
 
 	// NetId The ID of the Net for the security group.
 	NetId *string `json:"NetId,omitempty"`
 
 	// OutboundRules The outbound rules associated with the security group.
-	OutboundRules *[]SecurityGroupRule `json:"OutboundRules,omitempty"`
+	OutboundRules []SecurityGroupRule `json:"OutboundRules"`
 
 	// SecurityGroupId The ID of the security group.
-	SecurityGroupId *string `json:"SecurityGroupId,omitempty"`
+	SecurityGroupId string `json:"SecurityGroupId"`
 
 	// SecurityGroupName The name of the security group.
-	SecurityGroupName *string `json:"SecurityGroupName,omitempty"`
+	SecurityGroupName string `json:"SecurityGroupName"`
 
 	// Tags One or more tags associated with the security group.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // SecurityGroupLight Information about the security group.
@@ -7659,22 +7659,22 @@ type SecurityGroupLight struct {
 // SecurityGroupRule Information about the security group rule.
 type SecurityGroupRule struct {
 	// FromPortRange The beginning of the port range for the TCP and UDP protocols, or an ICMP type number.
-	FromPortRange *int `json:"FromPortRange,omitempty"`
+	FromPortRange int `json:"FromPortRange,omitempty"`
 
 	// IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all protocols). By default, `-1`. In a Net, this can also be an IP protocol number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
-	IpProtocol *string `json:"IpProtocol,omitempty"`
+	IpProtocol string `json:"IpProtocol,omitempty"`
 
 	// IpRanges One or more IP ranges for the security group rules, in CIDR notation (for example, `10.0.0.0/16`).
-	IpRanges *[]string `json:"IpRanges,omitempty"`
+	IpRanges []string `json:"IpRanges,omitempty"`
 
 	// SecurityGroupsMembers Information about one or more source or destination security groups.
-	SecurityGroupsMembers *[]SecurityGroupsMember `json:"SecurityGroupsMembers,omitempty"`
+	SecurityGroupsMembers []SecurityGroupsMember `json:"SecurityGroupsMembers,omitempty"`
 
 	// ServiceIds One or more service IDs to allow traffic from a Net to access the corresponding OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices).
-	ServiceIds *[]string `json:"ServiceIds,omitempty"`
+	ServiceIds []string `json:"ServiceIds,omitempty"`
 
 	// ToPortRange The end of the port range for the TCP and UDP protocols, or an ICMP code number.
-	ToPortRange *int `json:"ToPortRange,omitempty"`
+	ToPortRange int `json:"ToPortRange,omitempty"`
 }
 
 // SecurityGroupsMember Information about a source or destination security group.
@@ -7683,7 +7683,7 @@ type SecurityGroupsMember struct {
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// SecurityGroupId The ID of a source or destination security group that you want to link to the security group of the rule.
-	SecurityGroupId *string `json:"SecurityGroupId,omitempty"`
+	SecurityGroupId string `json:"SecurityGroupId"`
 
 	// SecurityGroupName (Public Cloud only) The name of a source or destination security group that you want to link to the security group of the rule.
 	SecurityGroupName *string `json:"SecurityGroupName,omitempty"`
