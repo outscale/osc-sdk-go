@@ -109,6 +109,12 @@ actions:
     - IsPrimary
     - PrivateDnsName
     - PrivateIp
+- target: $.components.schemas.Placement
+  description: Required fields for Placement
+  update:
+    required:
+    - SubregionName
+    - Tenancy
 - target: $.components.schemas.SecurityGroupLight
   description: Required fields for SecurityGroupLight
   update:
@@ -157,3 +163,63 @@ actions:
   description: Remove pointer from DeleteSecurityGroupRuleRequest attributes
   update:
     x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.SecurityGroupsMember
+  description: Required fields for SecurityGroupsMember
+  update:
+    required:
+    - SecurityGroupId
+- target: $.components.schemas.Net
+  description: Required fields for Net
+  update:
+    required:
+    - DhcpOptionsSetId
+    - IpRange
+    - NetId
+    - State
+    - Tags
+    - Tenancy
+- target: $.components.schemas.Subnet
+  description: Required fields for Subnet
+  update:
+    required:
+    - AvailableIpsCount
+    - IpRange
+    - MapPublicIpOnLaunch
+    - NetId
+    - State
+    - SubnetId
+    - SubregionName
+    - Tags
+- target: $.components.schemas.InternetService
+  description: Required fields for InternetService
+  update:
+    required:
+    - InternetServiceId
+    - NetId
+    - State
+    - Tags
+- target: $.components.schemas.NatService
+  description: Required fields for NatService
+  update:
+    required:
+    - NatServiceId
+    - NetId
+    - PublicIps
+    - State
+    - SubnetId
+    - Tags
+- target: $.components.schemas.NetPeering
+  description: Required fields for NetPeering
+  update:
+    required:
+    - AccepterNet
+    - NetPeeringId
+    - SourceNet
+    - State
+    - Tags
+- target: $.components.schemas.NetPeeringState
+  description: Required fields for NetPeeringState
+  update:
+    required:
+    - Message
+    - Name

@@ -4375,16 +4375,16 @@ type InlinePolicy struct {
 // InternetService Information about the internet service.
 type InternetService struct {
 	// InternetServiceId The ID of the internet service.
-	InternetServiceId *string `json:"InternetServiceId,omitempty"`
+	InternetServiceId string `json:"InternetServiceId"`
 
 	// NetId The ID of the Net attached to the internet service.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// State The state of the attachment of the internet service to the Net (always `available`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// Tags One or more tags associated with the internet service.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // Keypair Information about the keypair.
@@ -5063,43 +5063,43 @@ type NatService struct {
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// NatServiceId The ID of the NAT service.
-	NatServiceId *string `json:"NatServiceId,omitempty"`
+	NatServiceId string `json:"NatServiceId"`
 
 	// NetId The ID of the Net in which the NAT service is.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// PublicIps Information about the public IP or IPs associated with the NAT service.
-	PublicIps *[]PublicIpLight `json:"PublicIps,omitempty"`
+	PublicIps []PublicIpLight `json:"PublicIps"`
 
 	// State The state of the NAT service (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// SubnetId The ID of the Subnet in which the NAT service is.
-	SubnetId *string `json:"SubnetId,omitempty"`
+	SubnetId string `json:"SubnetId"`
 
 	// Tags One or more tags associated with the NAT service.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // Net Information about the Net.
 type Net struct {
 	// DhcpOptionsSetId The ID of the DHCP options set (or `default` if you want to associate the default one).
-	DhcpOptionsSetId *string `json:"DhcpOptionsSetId,omitempty"`
+	DhcpOptionsSetId string `json:"DhcpOptionsSetId"`
 
 	// IpRange The IP range for the Net, in CIDR notation (for example, `10.0.0.0/16`).
-	IpRange *string `json:"IpRange,omitempty"`
+	IpRange string `json:"IpRange"`
 
 	// NetId The ID of the Net.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// State The state of the Net (`pending` \| `available` \| `deleting`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// Tags One or more tags associated with the Net.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// Tenancy The VM tenancy in a Net.
-	Tenancy *string `json:"Tenancy,omitempty"`
+	Tenancy string `json:"Tenancy"`
 }
 
 // NetAccessPoint Information about the Net access point.
@@ -5126,31 +5126,31 @@ type NetAccessPoint struct {
 // NetPeering Information about the Net peering.
 type NetPeering struct {
 	// AccepterNet Information about the accepter Net.
-	AccepterNet *AccepterNet `json:"AccepterNet,omitempty"`
+	AccepterNet AccepterNet `json:"AccepterNet"`
 
 	// ExpirationDate The date and time (UTC) at which the Net peerings expire.
 	ExpirationDate *iso8601.Time `json:"ExpirationDate"`
 
 	// NetPeeringId The ID of the Net peering.
-	NetPeeringId *string `json:"NetPeeringId,omitempty"`
+	NetPeeringId string `json:"NetPeeringId"`
 
 	// SourceNet Information about the source Net.
-	SourceNet *SourceNet `json:"SourceNet,omitempty"`
+	SourceNet SourceNet `json:"SourceNet"`
 
 	// State Information about the state of the Net peering.
-	State *NetPeeringState `json:"State,omitempty"`
+	State NetPeeringState `json:"State"`
 
 	// Tags One or more tags associated with the Net peering.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // NetPeeringState Information about the state of the Net peering.
 type NetPeeringState struct {
 	// Message Additional information about the state of the Net peering.
-	Message *string `json:"Message,omitempty"`
+	Message string `json:"Message"`
 
 	// Name The state of the Net peering (`pending-acceptance` \| `active` \| `rejected` \| `failed` \| `expired` \| `deleted`).
-	Name *string `json:"Name,omitempty"`
+	Name string `json:"Name"`
 }
 
 // NetToVirtualGatewayLink Information about the attachment.
@@ -5405,10 +5405,10 @@ type Phase2Options struct {
 // Placement Information about the placement of the VM.
 type Placement struct {
 	// SubregionName The name of the Subregion. If you specify this parameter, you must not specify the `Nics` parameter.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// Tenancy The tenancy of the VM (`default`, `dedicated`, or a dedicated group ID).
-	Tenancy *string `json:"Tenancy,omitempty"`
+	Tenancy string `json:"Tenancy"`
 }
 
 // Policy Information about the policy.
@@ -7873,28 +7873,28 @@ type StopVmsResponse struct {
 // Subnet Information about the Subnet.
 type Subnet struct {
 	// AvailableIpsCount The number of available IPs in the Subnets.
-	AvailableIpsCount *int `json:"AvailableIpsCount,omitempty"`
+	AvailableIpsCount int `json:"AvailableIpsCount"`
 
 	// IpRange The IP range in the Subnet, in CIDR notation (for example, `10.0.0.0/16`).
-	IpRange *string `json:"IpRange,omitempty"`
+	IpRange string `json:"IpRange"`
 
 	// MapPublicIpOnLaunch If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet.
-	MapPublicIpOnLaunch *bool `json:"MapPublicIpOnLaunch,omitempty"`
+	MapPublicIpOnLaunch bool `json:"MapPublicIpOnLaunch"`
 
 	// NetId The ID of the Net in which the Subnet is.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// State The state of the Subnet (`pending` \| `available` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// SubnetId The ID of the Subnet.
-	SubnetId *string `json:"SubnetId,omitempty"`
+	SubnetId string `json:"SubnetId"`
 
 	// SubregionName The name of the Subregion in which the Subnet is located.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// Tags One or more tags associated with the Subnet.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // Subregion Information about the Subregion.
