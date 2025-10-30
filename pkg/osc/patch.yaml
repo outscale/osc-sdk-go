@@ -223,3 +223,25 @@ actions:
     required:
     - Message
     - Name
+- target: $.components.schemas.Image
+  description: Required fields for Image
+  update:
+    required:
+    - Architecture
+    - BlockDeviceMapping
+    - CreationDate
+    - ImageId
+    - State
+    - BootModes
+    - RootDeviceType
+    - AccountId
+- target: $.components.schemas.Snapshot
+  description: Required fields for Snapshot
+  update:
+    required:
+    - CreationDate
+    - SnapshotId
+    - State
+    - AccountId
+    - VolumeId
+    - VolumeSize
