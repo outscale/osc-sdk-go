@@ -4285,19 +4285,19 @@ type Image struct {
 	AccountAlias *string `json:"AccountAlias,omitempty"`
 
 	// AccountId The account ID of the owner of the OMI.
-	AccountId *string `json:"AccountId,omitempty"`
+	AccountId string `json:"AccountId"`
 
 	// Architecture The architecture of the OMI.
-	Architecture *string `json:"Architecture,omitempty"`
+	Architecture string `json:"Architecture"`
 
 	// BlockDeviceMappings One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
 
 	// BootModes The boot modes compatible with the OMI.
-	BootModes *[]BootMode `json:"BootModes,omitempty"`
+	BootModes []BootMode `json:"BootModes"`
 
 	// CreationDate The date and time (UTC) at which the OMI was created.
-	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
+	CreationDate iso8601.Time `json:"CreationDate"`
 
 	// Description The description of the OMI.
 	Description *string `json:"Description,omitempty"`
@@ -4306,7 +4306,7 @@ type Image struct {
 	FileLocation *string `json:"FileLocation,omitempty"`
 
 	// ImageId The ID of the OMI.
-	ImageId *string `json:"ImageId,omitempty"`
+	ImageId string `json:"ImageId"`
 
 	// ImageName The name of the OMI.
 	ImageName *string `json:"ImageName,omitempty"`
@@ -4324,13 +4324,13 @@ type Image struct {
 	RootDeviceName *string `json:"RootDeviceName,omitempty"`
 
 	// RootDeviceType The type of root device used by the OMI (always `bsu`).
-	RootDeviceType *string `json:"RootDeviceType,omitempty"`
+	RootDeviceType string `json:"RootDeviceType"`
 
 	// SecureBoot Whether secure boot is activated or not.
 	SecureBoot *bool `json:"SecureBoot,omitempty"`
 
 	// State The state of the OMI (`pending` \| `available` \| `failed`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// StateComment Information about the change of state.
 	StateComment *StateComment `json:"StateComment,omitempty"`
@@ -7743,13 +7743,13 @@ type Snapshot struct {
 	AccountAlias *string `json:"AccountAlias,omitempty"`
 
 	// AccountId The account ID of the owner of the snapshot.
-	AccountId *string `json:"AccountId,omitempty"`
+	AccountId string `json:"AccountId"`
 
 	// ClientToken The idempotency token provided when creating the snapshot.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the snapshot was created.
-	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
+	CreationDate iso8601.Time `json:"CreationDate"`
 
 	// Description The description of the snapshot.
 	Description *string `json:"Description,omitempty"`
@@ -7761,19 +7761,19 @@ type Snapshot struct {
 	Progress *int `json:"Progress,omitempty"`
 
 	// SnapshotId The ID of the snapshot.
-	SnapshotId *string `json:"SnapshotId,omitempty"`
+	SnapshotId string `json:"SnapshotId"`
 
 	// State The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// Tags One or more tags associated with the snapshot.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 
 	// VolumeId The ID of the volume used to create the snapshot.
-	VolumeId *string `json:"VolumeId,omitempty"`
+	VolumeId string `json:"VolumeId"`
 
 	// VolumeSize The size of the volume used to create the snapshot, in gibibytes (GiB).
-	VolumeSize *int `json:"VolumeSize,omitempty"`
+	VolumeSize int `json:"VolumeSize"`
 }
 
 // SnapshotExportTask Information about the snapshot export task.
