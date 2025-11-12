@@ -30,9 +30,10 @@ func (l *innerLogger) RoundTrip(req *http.Request) (*http.Response, error) {
 	duration := time.Since(start)
 	if err != nil {
 		l.logger.Error(context, err)
+		return nil, err
 	}
 
 	l.logger.ResponseHttp(context, resp, duration)
 
-	return resp, err
+	return resp, nil
 }
