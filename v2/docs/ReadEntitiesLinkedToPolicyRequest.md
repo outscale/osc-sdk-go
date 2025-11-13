@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **EntitiesType** | Pointer to **[]string** | The type of entity linked to the policy you want to get information about. | [optional] 
 **FirstItem** | Pointer to **int32** | The item starting the list of entities requested. | [optional] 
 **PolicyOrn** | **string** | The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html). | 
-**ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 **ResultsPerPage** | Pointer to **int32** | The maximum number of items that can be returned in a single response (by default, 100). | [optional] 
 
 ## Methods
@@ -98,31 +97,6 @@ and a boolean to check if the value has been set.
 
 SetPolicyOrn sets PolicyOrn field to given value.
 
-
-### GetResponseContext
-
-`func (o *ReadEntitiesLinkedToPolicyRequest) GetResponseContext() ResponseContext`
-
-GetResponseContext returns the ResponseContext field if non-nil, zero value otherwise.
-
-### GetResponseContextOk
-
-`func (o *ReadEntitiesLinkedToPolicyRequest) GetResponseContextOk() (*ResponseContext, bool)`
-
-GetResponseContextOk returns a tuple with the ResponseContext field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResponseContext
-
-`func (o *ReadEntitiesLinkedToPolicyRequest) SetResponseContext(v ResponseContext)`
-
-SetResponseContext sets ResponseContext field to given value.
-
-### HasResponseContext
-
-`func (o *ReadEntitiesLinkedToPolicyRequest) HasResponseContext() bool`
-
-HasResponseContext returns a boolean if a field has been set.
 
 ### GetResultsPerPage
 
