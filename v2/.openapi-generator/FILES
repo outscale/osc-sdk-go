@@ -82,6 +82,9 @@ docs/BootMode.md
 docs/BsuCreated.md
 docs/BsuToCreate.md
 docs/BsuToUpdateVm.md
+docs/CO2CategoryDistribution.md
+docs/CO2EmissionEntry.md
+docs/CO2FactorDistribution.md
 docs/Ca.md
 docs/CaApi.md
 docs/Catalog.md
@@ -461,6 +464,8 @@ docs/ReadApiAccessRulesRequest.md
 docs/ReadApiAccessRulesResponse.md
 docs/ReadApiLogsRequest.md
 docs/ReadApiLogsResponse.md
+docs/ReadCO2EmissionAccountRequest.md
+docs/ReadCO2EmissionAccountResponse.md
 docs/ReadCasRequest.md
 docs/ReadCasResponse.md
 docs/ReadCatalogRequest.md
@@ -781,6 +786,9 @@ model_catalogs.go
 model_check_authentication_request.go
 model_check_authentication_response.go
 model_client_gateway.go
+model_co2_category_distribution.go
+model_co2_emission_entry.go
+model_co2_factor_distribution.go
 model_consumption_entry.go
 model_create_access_key_request.go
 model_create_access_key_response.go
@@ -1135,6 +1143,8 @@ model_read_catalogs_request.go
 model_read_catalogs_response.go
 model_read_client_gateways_request.go
 model_read_client_gateways_response.go
+model_read_co2_emission_account_request.go
+model_read_co2_emission_account_response.go
 model_read_console_output_request.go
 model_read_console_output_response.go
 model_read_consumption_account_request.go

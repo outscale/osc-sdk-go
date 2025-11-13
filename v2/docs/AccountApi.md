@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CheckAuthentication**](AccountApi.md#CheckAuthentication) | **Post** /CheckAuthentication | 
 [**CreateAccount**](AccountApi.md#CreateAccount) | **Post** /CreateAccount | 
 [**ReadAccounts**](AccountApi.md#ReadAccounts) | **Post** /ReadAccounts | 
+[**ReadCO2EmissionAccount**](AccountApi.md#ReadCO2EmissionAccount) | **Post** /ReadCO2EmissionAccount | 
 [**ReadConsumptionAccount**](AccountApi.md#ReadConsumptionAccount) | **Post** /ReadConsumptionAccount | 
 [**UpdateAccount**](AccountApi.md#UpdateAccount) | **Post** /UpdateAccount | 
 
@@ -195,6 +196,73 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadAccountsResponse**](ReadAccountsResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadCO2EmissionAccount
+
+> ReadCO2EmissionAccountResponse ReadCO2EmissionAccount(ctx).ReadCO2EmissionAccountRequest(readCO2EmissionAccountRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readCO2EmissionAccountRequest := *openapiclient.NewReadCO2EmissionAccountRequest(time.Now(), time.Now()) // ReadCO2EmissionAccountRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountApi.ReadCO2EmissionAccount(context.Background()).ReadCO2EmissionAccountRequest(readCO2EmissionAccountRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountApi.ReadCO2EmissionAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadCO2EmissionAccount`: ReadCO2EmissionAccountResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountApi.ReadCO2EmissionAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadCO2EmissionAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readCO2EmissionAccountRequest** | [**ReadCO2EmissionAccountRequest**](ReadCO2EmissionAccountRequest.md) |  | 
+
+### Return type
+
+[**ReadCO2EmissionAccountResponse**](ReadCO2EmissionAccountResponse.md)
 
 ### Authorization
 
