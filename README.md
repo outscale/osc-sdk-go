@@ -61,7 +61,6 @@ You will need an OUTSCALE account and API credentials to use this SDK.
 Add the module to your project:
 
 ```bash
-export GO111MODULE=on
 go get github.com/outscale/osc-sdk-go/v2
 ```
 
