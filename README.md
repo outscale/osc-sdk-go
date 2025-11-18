@@ -47,7 +47,7 @@ You will need an OUTSCALE account and API credentials to use this SDK.
 
 ## ✅ Requirements
 
-* Go 1.18+ with modules enabled (`GO111MODULE=on` recommended).
+* Go 1.24+.
 * Git (if you plan to clone the repository).
 * Access to the OUTSCALE API (valid access key / secret key or basic auth).
 * Network access to OUTSCALE API endpoints.
@@ -66,13 +66,6 @@ go get github.com/outscale/osc-sdk-go/v2
 
 This will add `github.com/outscale/osc-sdk-go/v2` to your `go.mod` file.
 
-### Option 2: Install from source
-
-```bash
-git clone https://github.com/outscale/osc-sdk-go.git
-cd osc-sdk-go
-# use as a local module, or reference it via your go.mod 'replace' directive
-```
 
 ---
 
