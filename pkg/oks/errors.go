@@ -1,5 +1,7 @@
 package oks
 
+import "errors"
+
 func (e *HTTPValidationError) Error() string {
 	var msg string
 
@@ -21,46 +23,39 @@ func (e *HTTPValidationError) Error() string {
 	return msg
 }
 
-type responseInterface interface {
-	Status() string
-	StatusCode() int
-	DeepError() error
-}
-
 func HTTPValidationErrorHelper(e error) *HTTPValidationError {
-	httpVal, ok := e.(*HTTPValidationError)
-	if !ok {
-		return nil
+	var err *HTTPValidationError
+
+	if errors.As(e, &err) {
+		return err
 	}
 
-	return httpVal
+	return nil
 }
 
-func StatusHelper(e error) *string {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
+func isErrorType(err error, code string) bool {
+	if err := HTTPValidationErrorHelper(err); err != nil {
+		for _, error := range *err.Errors {
+			details, convErr := error.Details.AsHTTPValidationErrorErrorsDetails0()
+			if convErr != nil {
+				continue
+			}
+
+			for _, detail := range details {
+				if detail.Type == code {
+					return true
+				}
+			}
+		}
 	}
 
-	status := resp.Status()
-	return &status
+	return false
 }
 
-func StatusCodeHelper(e error) *int {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
-	}
-
-	statusCode := resp.StatusCode()
-	return &statusCode
+func IsNotFound(err error) bool {
+	return isErrorType(err, "404")
 }
 
-func DeepErrorHelper(e error) error {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
-	}
-
-	return resp.DeepError()
+func IsConflict(err error) bool {
+	return isErrorType(err, "409")
 }

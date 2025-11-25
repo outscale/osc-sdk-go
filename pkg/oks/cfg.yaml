@@ -9,3 +9,5 @@ output-options:
   user-templates:
     client.tmpl: ../../templates/client.tmpl
     client-with-responses.tmpl: ../../templates/client-with-responses.tmpl
+  overlay:
+    path: patch.yaml 

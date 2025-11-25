@@ -24,12 +24,6 @@ func (e *ErrorResponse) GetCode() string {
 	return ""
 }
 
-type responseInterface interface {
-	Status() string
-	StatusCode() int
-	DeepError() error
-}
-
 func ErrorResponseHelper(e error) *ErrorResponse {
 	httpVal, ok := e.(*ErrorResponse)
 	if !ok {
@@ -37,33 +31,4 @@ func ErrorResponseHelper(e error) *ErrorResponse {
 	}
 
 	return httpVal
-}
-
-func StatusHelper(e error) *string {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
-	}
-
-	status := resp.Status()
-	return &status
-}
-
-func StatusCodeHelper(e error) *int {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
-	}
-
-	statusCode := resp.StatusCode()
-	return &statusCode
-}
-
-func DeepErrorHelper(e error) error {
-	resp, ok := e.(responseInterface)
-	if !ok {
-		return nil
-	}
-
-	return resp.DeepError()
 }

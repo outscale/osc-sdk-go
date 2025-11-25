@@ -28972,36 +28972,28 @@ func (r AcceptNetPeeringResp) Expect() (*AcceptNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r AcceptNetPeeringResp) DeepError() error {
+func (r AcceptNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r AcceptNetPeeringResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type AddUserToUserGroupResp struct {
@@ -29031,20 +29023,12 @@ func (r AddUserToUserGroupResp) Expect() (*AddUserToUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r AddUserToUserGroupResp) DeepError() error {
+func (r AddUserToUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r AddUserToUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CheckAuthenticationResp struct {
@@ -29074,20 +29058,12 @@ func (r CheckAuthenticationResp) Expect() (*CheckAuthenticationResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CheckAuthenticationResp) DeepError() error {
+func (r CheckAuthenticationResp) genError() error {
 
-	return nil
-}
-
-func (r CheckAuthenticationResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateAccessKeyResp struct {
@@ -29117,20 +29093,12 @@ func (r CreateAccessKeyResp) Expect() (*CreateAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateAccessKeyResp) DeepError() error {
+func (r CreateAccessKeyResp) genError() error {
 
-	return nil
-}
-
-func (r CreateAccessKeyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateAccountResp struct {
@@ -29160,20 +29128,12 @@ func (r CreateAccountResp) Expect() (*CreateAccountResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateAccountResp) DeepError() error {
+func (r CreateAccountResp) genError() error {
 
-	return nil
-}
-
-func (r CreateAccountResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateApiAccessRuleResp struct {
@@ -29203,20 +29163,12 @@ func (r CreateApiAccessRuleResp) Expect() (*CreateApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateApiAccessRuleResp) DeepError() error {
+func (r CreateApiAccessRuleResp) genError() error {
 
-	return nil
-}
-
-func (r CreateApiAccessRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateCaResp struct {
@@ -29246,20 +29198,12 @@ func (r CreateCaResp) Expect() (*CreateCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateCaResp) DeepError() error {
+func (r CreateCaResp) genError() error {
 
-	return nil
-}
-
-func (r CreateCaResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateClientGatewayResp struct {
@@ -29289,20 +29233,12 @@ func (r CreateClientGatewayResp) Expect() (*CreateClientGatewayResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateClientGatewayResp) DeepError() error {
+func (r CreateClientGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r CreateClientGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateDedicatedGroupResp struct {
@@ -29335,32 +29271,24 @@ func (r CreateDedicatedGroupResp) Expect() (*CreateDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateDedicatedGroupResp) DeepError() error {
+func (r CreateDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateDedicatedGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateDhcpOptionsResp struct {
@@ -29390,20 +29318,12 @@ func (r CreateDhcpOptionsResp) Expect() (*CreateDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateDhcpOptionsResp) DeepError() error {
+func (r CreateDhcpOptionsResp) genError() error {
 
-	return nil
-}
-
-func (r CreateDhcpOptionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateDirectLinkResp struct {
@@ -29433,20 +29353,12 @@ func (r CreateDirectLinkResp) Expect() (*CreateDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateDirectLinkResp) DeepError() error {
+func (r CreateDirectLinkResp) genError() error {
 
-	return nil
-}
-
-func (r CreateDirectLinkResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateDirectLinkInterfaceResp struct {
@@ -29476,20 +29388,12 @@ func (r CreateDirectLinkInterfaceResp) Expect() (*CreateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateDirectLinkInterfaceResp) DeepError() error {
+func (r CreateDirectLinkInterfaceResp) genError() error {
 
-	return nil
-}
-
-func (r CreateDirectLinkInterfaceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateFlexibleGpuResp struct {
@@ -29519,20 +29423,12 @@ func (r CreateFlexibleGpuResp) Expect() (*CreateFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateFlexibleGpuResp) DeepError() error {
+func (r CreateFlexibleGpuResp) genError() error {
 
-	return nil
-}
-
-func (r CreateFlexibleGpuResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateImageResp struct {
@@ -29565,32 +29461,24 @@ func (r CreateImageResp) Expect() (*CreateImageResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateImageResp) DeepError() error {
+func (r CreateImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateImageResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateImageExportTaskResp struct {
@@ -29620,20 +29508,12 @@ func (r CreateImageExportTaskResp) Expect() (*CreateImageExportTaskResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateImageExportTaskResp) DeepError() error {
+func (r CreateImageExportTaskResp) genError() error {
 
-	return nil
-}
-
-func (r CreateImageExportTaskResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateInternetServiceResp struct {
@@ -29666,32 +29546,24 @@ func (r CreateInternetServiceResp) Expect() (*CreateInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateInternetServiceResp) DeepError() error {
+func (r CreateInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateInternetServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateKeypairResp struct {
@@ -29725,36 +29597,28 @@ func (r CreateKeypairResp) Expect() (*CreateKeypairResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateKeypairResp) DeepError() error {
+func (r CreateKeypairResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateKeypairResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateListenerRuleResp struct {
@@ -29784,20 +29648,12 @@ func (r CreateListenerRuleResp) Expect() (*CreateListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateListenerRuleResp) DeepError() error {
+func (r CreateListenerRuleResp) genError() error {
 
-	return nil
-}
-
-func (r CreateListenerRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateLoadBalancerResp struct {
@@ -29827,20 +29683,12 @@ func (r CreateLoadBalancerResp) Expect() (*CreateLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateLoadBalancerResp) DeepError() error {
+func (r CreateLoadBalancerResp) genError() error {
 
-	return nil
-}
-
-func (r CreateLoadBalancerResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateLoadBalancerListenersResp struct {
@@ -29870,20 +29718,12 @@ func (r CreateLoadBalancerListenersResp) Expect() (*CreateLoadBalancerListenersR
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateLoadBalancerListenersResp) DeepError() error {
+func (r CreateLoadBalancerListenersResp) genError() error {
 
-	return nil
-}
-
-func (r CreateLoadBalancerListenersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateLoadBalancerPolicyResp struct {
@@ -29913,20 +29753,12 @@ func (r CreateLoadBalancerPolicyResp) Expect() (*CreateLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateLoadBalancerPolicyResp) DeepError() error {
+func (r CreateLoadBalancerPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r CreateLoadBalancerPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateLoadBalancerTagsResp struct {
@@ -29956,20 +29788,12 @@ func (r CreateLoadBalancerTagsResp) Expect() (*CreateLoadBalancerTagsResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateLoadBalancerTagsResp) DeepError() error {
+func (r CreateLoadBalancerTagsResp) genError() error {
 
-	return nil
-}
-
-func (r CreateLoadBalancerTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateNatServiceResp struct {
@@ -30002,32 +29826,24 @@ func (r CreateNatServiceResp) Expect() (*CreateNatServiceResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateNatServiceResp) DeepError() error {
+func (r CreateNatServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateNatServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateNetResp struct {
@@ -30061,36 +29877,28 @@ func (r CreateNetResp) Expect() (*CreateNetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateNetResp) DeepError() error {
+func (r CreateNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateNetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateNetAccessPointResp struct {
@@ -30120,20 +29928,12 @@ func (r CreateNetAccessPointResp) Expect() (*CreateNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateNetAccessPointResp) DeepError() error {
+func (r CreateNetAccessPointResp) genError() error {
 
-	return nil
-}
-
-func (r CreateNetAccessPointResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateNetPeeringResp struct {
@@ -30166,32 +29966,24 @@ func (r CreateNetPeeringResp) Expect() (*CreateNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateNetPeeringResp) DeepError() error {
+func (r CreateNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateNetPeeringResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateNicResp struct {
@@ -30224,32 +30016,24 @@ func (r CreateNicResp) Expect() (*CreateNicResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateNicResp) DeepError() error {
+func (r CreateNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateNicResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreatePolicyResp struct {
@@ -30279,20 +30063,12 @@ func (r CreatePolicyResp) Expect() (*CreatePolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreatePolicyResp) DeepError() error {
+func (r CreatePolicyResp) genError() error {
 
-	return nil
-}
-
-func (r CreatePolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreatePolicyVersionResp struct {
@@ -30322,20 +30098,12 @@ func (r CreatePolicyVersionResp) Expect() (*CreatePolicyVersionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreatePolicyVersionResp) DeepError() error {
+func (r CreatePolicyVersionResp) genError() error {
 
-	return nil
-}
-
-func (r CreatePolicyVersionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateProductTypeResp struct {
@@ -30365,20 +30133,12 @@ func (r CreateProductTypeResp) Expect() (*CreateProductTypeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateProductTypeResp) DeepError() error {
+func (r CreateProductTypeResp) genError() error {
 
-	return nil
-}
-
-func (r CreateProductTypeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreatePublicIpResp struct {
@@ -30411,32 +30171,24 @@ func (r CreatePublicIpResp) Expect() (*CreatePublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreatePublicIpResp) DeepError() error {
+func (r CreatePublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreatePublicIpResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateRouteResp struct {
@@ -30469,32 +30221,24 @@ func (r CreateRouteResp) Expect() (*CreateRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateRouteResp) DeepError() error {
+func (r CreateRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateRouteResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateRouteTableResp struct {
@@ -30527,32 +30271,24 @@ func (r CreateRouteTableResp) Expect() (*CreateRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateRouteTableResp) DeepError() error {
+func (r CreateRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateRouteTableResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateSecurityGroupResp struct {
@@ -30585,32 +30321,24 @@ func (r CreateSecurityGroupResp) Expect() (*CreateSecurityGroupResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateSecurityGroupResp) DeepError() error {
+func (r CreateSecurityGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateSecurityGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateSecurityGroupRuleResp struct {
@@ -30643,32 +30371,24 @@ func (r CreateSecurityGroupRuleResp) Expect() (*CreateSecurityGroupRuleResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateSecurityGroupRuleResp) DeepError() error {
+func (r CreateSecurityGroupRuleResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateSecurityGroupRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateServerCertificateResp struct {
@@ -30698,20 +30418,12 @@ func (r CreateServerCertificateResp) Expect() (*CreateServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateServerCertificateResp) DeepError() error {
+func (r CreateServerCertificateResp) genError() error {
 
-	return nil
-}
-
-func (r CreateServerCertificateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateSnapshotResp struct {
@@ -30744,32 +30456,24 @@ func (r CreateSnapshotResp) Expect() (*CreateSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateSnapshotResp) DeepError() error {
+func (r CreateSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateSnapshotResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateSnapshotExportTaskResp struct {
@@ -30799,20 +30503,12 @@ func (r CreateSnapshotExportTaskResp) Expect() (*CreateSnapshotExportTaskRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateSnapshotExportTaskResp) DeepError() error {
+func (r CreateSnapshotExportTaskResp) genError() error {
 
-	return nil
-}
-
-func (r CreateSnapshotExportTaskResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateSubnetResp struct {
@@ -30846,36 +30542,28 @@ func (r CreateSubnetResp) Expect() (*CreateSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateSubnetResp) DeepError() error {
+func (r CreateSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateSubnetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateTagsResp struct {
@@ -30908,32 +30596,24 @@ func (r CreateTagsResp) Expect() (*CreateTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateTagsResp) DeepError() error {
+func (r CreateTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateUserResp struct {
@@ -30963,20 +30643,12 @@ func (r CreateUserResp) Expect() (*CreateUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateUserResp) DeepError() error {
+func (r CreateUserResp) genError() error {
 
-	return nil
-}
-
-func (r CreateUserResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateUserGroupResp struct {
@@ -31006,20 +30678,12 @@ func (r CreateUserGroupResp) Expect() (*CreateUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateUserGroupResp) DeepError() error {
+func (r CreateUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r CreateUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVirtualGatewayResp struct {
@@ -31049,20 +30713,12 @@ func (r CreateVirtualGatewayResp) Expect() (*CreateVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVirtualGatewayResp) DeepError() error {
+func (r CreateVirtualGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r CreateVirtualGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVmGroupResp struct {
@@ -31095,32 +30751,24 @@ func (r CreateVmGroupResp) Expect() (*CreateVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVmGroupResp) DeepError() error {
+func (r CreateVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateVmGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVmTemplateResp struct {
@@ -31150,20 +30798,12 @@ func (r CreateVmTemplateResp) Expect() (*CreateVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVmTemplateResp) DeepError() error {
+func (r CreateVmTemplateResp) genError() error {
 
-	return nil
-}
-
-func (r CreateVmTemplateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVmsResp struct {
@@ -31196,32 +30836,24 @@ func (r CreateVmsResp) Expect() (*CreateVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVmsResp) DeepError() error {
+func (r CreateVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVolumeResp struct {
@@ -31254,32 +30886,24 @@ func (r CreateVolumeResp) Expect() (*CreateVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVolumeResp) DeepError() error {
+func (r CreateVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r CreateVolumeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVpnConnectionResp struct {
@@ -31309,20 +30933,12 @@ func (r CreateVpnConnectionResp) Expect() (*CreateVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVpnConnectionResp) DeepError() error {
+func (r CreateVpnConnectionResp) genError() error {
 
-	return nil
-}
-
-func (r CreateVpnConnectionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateVpnConnectionRouteResp struct {
@@ -31352,20 +30968,12 @@ func (r CreateVpnConnectionRouteResp) Expect() (*CreateVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateVpnConnectionRouteResp) DeepError() error {
+func (r CreateVpnConnectionRouteResp) genError() error {
 
-	return nil
-}
-
-func (r CreateVpnConnectionRouteResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteAccessKeyResp struct {
@@ -31395,20 +31003,12 @@ func (r DeleteAccessKeyResp) Expect() (*DeleteAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteAccessKeyResp) DeepError() error {
+func (r DeleteAccessKeyResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteAccessKeyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteApiAccessRuleResp struct {
@@ -31438,20 +31038,12 @@ func (r DeleteApiAccessRuleResp) Expect() (*DeleteApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteApiAccessRuleResp) DeepError() error {
+func (r DeleteApiAccessRuleResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteApiAccessRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteCaResp struct {
@@ -31481,20 +31073,12 @@ func (r DeleteCaResp) Expect() (*DeleteCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteCaResp) DeepError() error {
+func (r DeleteCaResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteCaResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteClientGatewayResp struct {
@@ -31524,20 +31108,12 @@ func (r DeleteClientGatewayResp) Expect() (*DeleteClientGatewayResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteClientGatewayResp) DeepError() error {
+func (r DeleteClientGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteClientGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteDedicatedGroupResp struct {
@@ -31570,32 +31146,24 @@ func (r DeleteDedicatedGroupResp) Expect() (*DeleteDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteDedicatedGroupResp) DeepError() error {
+func (r DeleteDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteDedicatedGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteDhcpOptionsResp struct {
@@ -31625,20 +31193,12 @@ func (r DeleteDhcpOptionsResp) Expect() (*DeleteDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteDhcpOptionsResp) DeepError() error {
+func (r DeleteDhcpOptionsResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteDhcpOptionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteDirectLinkResp struct {
@@ -31668,20 +31228,12 @@ func (r DeleteDirectLinkResp) Expect() (*DeleteDirectLinkResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteDirectLinkResp) DeepError() error {
+func (r DeleteDirectLinkResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteDirectLinkResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteDirectLinkInterfaceResp struct {
@@ -31711,20 +31263,12 @@ func (r DeleteDirectLinkInterfaceResp) Expect() (*DeleteDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteDirectLinkInterfaceResp) DeepError() error {
+func (r DeleteDirectLinkInterfaceResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteDirectLinkInterfaceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteExportTaskResp struct {
@@ -31754,20 +31298,12 @@ func (r DeleteExportTaskResp) Expect() (*DeleteExportTaskResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteExportTaskResp) DeepError() error {
+func (r DeleteExportTaskResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteExportTaskResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteFlexibleGpuResp struct {
@@ -31797,20 +31333,12 @@ func (r DeleteFlexibleGpuResp) Expect() (*DeleteFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteFlexibleGpuResp) DeepError() error {
+func (r DeleteFlexibleGpuResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteFlexibleGpuResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteImageResp struct {
@@ -31843,32 +31371,24 @@ func (r DeleteImageResp) Expect() (*DeleteImageResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteImageResp) DeepError() error {
+func (r DeleteImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteImageResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteInternetServiceResp struct {
@@ -31901,32 +31421,24 @@ func (r DeleteInternetServiceResp) Expect() (*DeleteInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteInternetServiceResp) DeepError() error {
+func (r DeleteInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteInternetServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteKeypairResp struct {
@@ -31959,32 +31471,24 @@ func (r DeleteKeypairResp) Expect() (*DeleteKeypairResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteKeypairResp) DeepError() error {
+func (r DeleteKeypairResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteKeypairResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteListenerRuleResp struct {
@@ -32014,20 +31518,12 @@ func (r DeleteListenerRuleResp) Expect() (*DeleteListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteListenerRuleResp) DeepError() error {
+func (r DeleteListenerRuleResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteListenerRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteLoadBalancerResp struct {
@@ -32057,20 +31553,12 @@ func (r DeleteLoadBalancerResp) Expect() (*DeleteLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteLoadBalancerResp) DeepError() error {
+func (r DeleteLoadBalancerResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteLoadBalancerResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteLoadBalancerListenersResp struct {
@@ -32100,20 +31588,12 @@ func (r DeleteLoadBalancerListenersResp) Expect() (*DeleteLoadBalancerListenersR
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteLoadBalancerListenersResp) DeepError() error {
+func (r DeleteLoadBalancerListenersResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteLoadBalancerListenersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteLoadBalancerPolicyResp struct {
@@ -32143,20 +31623,12 @@ func (r DeleteLoadBalancerPolicyResp) Expect() (*DeleteLoadBalancerPolicyRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteLoadBalancerPolicyResp) DeepError() error {
+func (r DeleteLoadBalancerPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteLoadBalancerPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteLoadBalancerTagsResp struct {
@@ -32186,20 +31658,12 @@ func (r DeleteLoadBalancerTagsResp) Expect() (*DeleteLoadBalancerTagsResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteLoadBalancerTagsResp) DeepError() error {
+func (r DeleteLoadBalancerTagsResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteLoadBalancerTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteNatServiceResp struct {
@@ -32232,32 +31696,24 @@ func (r DeleteNatServiceResp) Expect() (*DeleteNatServiceResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteNatServiceResp) DeepError() error {
+func (r DeleteNatServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteNatServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteNetResp struct {
@@ -32290,32 +31746,24 @@ func (r DeleteNetResp) Expect() (*DeleteNetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteNetResp) DeepError() error {
+func (r DeleteNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteNetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteNetAccessPointResp struct {
@@ -32345,20 +31793,12 @@ func (r DeleteNetAccessPointResp) Expect() (*DeleteNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteNetAccessPointResp) DeepError() error {
+func (r DeleteNetAccessPointResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteNetAccessPointResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteNetPeeringResp struct {
@@ -32392,36 +31832,28 @@ func (r DeleteNetPeeringResp) Expect() (*DeleteNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteNetPeeringResp) DeepError() error {
+func (r DeleteNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteNetPeeringResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteNicResp struct {
@@ -32454,32 +31886,24 @@ func (r DeleteNicResp) Expect() (*DeleteNicResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteNicResp) DeepError() error {
+func (r DeleteNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteNicResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeletePolicyResp struct {
@@ -32509,20 +31933,12 @@ func (r DeletePolicyResp) Expect() (*DeletePolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeletePolicyResp) DeepError() error {
+func (r DeletePolicyResp) genError() error {
 
-	return nil
-}
-
-func (r DeletePolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeletePolicyVersionResp struct {
@@ -32552,20 +31968,12 @@ func (r DeletePolicyVersionResp) Expect() (*DeletePolicyVersionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeletePolicyVersionResp) DeepError() error {
+func (r DeletePolicyVersionResp) genError() error {
 
-	return nil
-}
-
-func (r DeletePolicyVersionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteProductTypeResp struct {
@@ -32598,32 +32006,24 @@ func (r DeleteProductTypeResp) Expect() (*DeleteProductTypeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteProductTypeResp) DeepError() error {
+func (r DeleteProductTypeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteProductTypeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeletePublicIpResp struct {
@@ -32656,32 +32056,24 @@ func (r DeletePublicIpResp) Expect() (*DeletePublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeletePublicIpResp) DeepError() error {
+func (r DeletePublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeletePublicIpResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteRouteResp struct {
@@ -32714,32 +32106,24 @@ func (r DeleteRouteResp) Expect() (*DeleteRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteRouteResp) DeepError() error {
+func (r DeleteRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteRouteResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteRouteTableResp struct {
@@ -32772,32 +32156,24 @@ func (r DeleteRouteTableResp) Expect() (*DeleteRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteRouteTableResp) DeepError() error {
+func (r DeleteRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteRouteTableResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteSecurityGroupResp struct {
@@ -32830,32 +32206,24 @@ func (r DeleteSecurityGroupResp) Expect() (*DeleteSecurityGroupResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteSecurityGroupResp) DeepError() error {
+func (r DeleteSecurityGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteSecurityGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteSecurityGroupRuleResp struct {
@@ -32888,32 +32256,24 @@ func (r DeleteSecurityGroupRuleResp) Expect() (*DeleteSecurityGroupRuleResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteSecurityGroupRuleResp) DeepError() error {
+func (r DeleteSecurityGroupRuleResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteSecurityGroupRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteServerCertificateResp struct {
@@ -32943,20 +32303,12 @@ func (r DeleteServerCertificateResp) Expect() (*DeleteServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteServerCertificateResp) DeepError() error {
+func (r DeleteServerCertificateResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteServerCertificateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteSnapshotResp struct {
@@ -32989,32 +32341,24 @@ func (r DeleteSnapshotResp) Expect() (*DeleteSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteSnapshotResp) DeepError() error {
+func (r DeleteSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteSnapshotResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteSubnetResp struct {
@@ -33047,32 +32391,24 @@ func (r DeleteSubnetResp) Expect() (*DeleteSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteSubnetResp) DeepError() error {
+func (r DeleteSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteSubnetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteTagsResp struct {
@@ -33105,32 +32441,24 @@ func (r DeleteTagsResp) Expect() (*DeleteTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteTagsResp) DeepError() error {
+func (r DeleteTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteUserResp struct {
@@ -33160,20 +32488,12 @@ func (r DeleteUserResp) Expect() (*DeleteUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteUserResp) DeepError() error {
+func (r DeleteUserResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteUserResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteUserGroupResp struct {
@@ -33203,20 +32523,12 @@ func (r DeleteUserGroupResp) Expect() (*DeleteUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteUserGroupResp) DeepError() error {
+func (r DeleteUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteUserGroupPolicyResp struct {
@@ -33246,20 +32558,12 @@ func (r DeleteUserGroupPolicyResp) Expect() (*DeleteUserGroupPolicyResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteUserGroupPolicyResp) DeepError() error {
+func (r DeleteUserGroupPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteUserGroupPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteUserPolicyResp struct {
@@ -33289,20 +32593,12 @@ func (r DeleteUserPolicyResp) Expect() (*DeleteUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteUserPolicyResp) DeepError() error {
+func (r DeleteUserPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteUserPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVirtualGatewayResp struct {
@@ -33332,20 +32628,12 @@ func (r DeleteVirtualGatewayResp) Expect() (*DeleteVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVirtualGatewayResp) DeepError() error {
+func (r DeleteVirtualGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteVirtualGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVmGroupResp struct {
@@ -33378,32 +32666,24 @@ func (r DeleteVmGroupResp) Expect() (*DeleteVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVmGroupResp) DeepError() error {
+func (r DeleteVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteVmGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVmTemplateResp struct {
@@ -33433,20 +32713,12 @@ func (r DeleteVmTemplateResp) Expect() (*DeleteVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVmTemplateResp) DeepError() error {
+func (r DeleteVmTemplateResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteVmTemplateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVmsResp struct {
@@ -33479,32 +32751,24 @@ func (r DeleteVmsResp) Expect() (*DeleteVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVmsResp) DeepError() error {
+func (r DeleteVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVolumeResp struct {
@@ -33537,32 +32801,24 @@ func (r DeleteVolumeResp) Expect() (*DeleteVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVolumeResp) DeepError() error {
+func (r DeleteVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r DeleteVolumeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVpnConnectionResp struct {
@@ -33592,20 +32848,12 @@ func (r DeleteVpnConnectionResp) Expect() (*DeleteVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVpnConnectionResp) DeepError() error {
+func (r DeleteVpnConnectionResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteVpnConnectionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteVpnConnectionRouteResp struct {
@@ -33635,20 +32883,12 @@ func (r DeleteVpnConnectionRouteResp) Expect() (*DeleteVpnConnectionRouteRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteVpnConnectionRouteResp) DeepError() error {
+func (r DeleteVpnConnectionRouteResp) genError() error {
 
-	return nil
-}
-
-func (r DeleteVpnConnectionRouteResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeregisterVmsInLoadBalancerResp struct {
@@ -33678,20 +32918,12 @@ func (r DeregisterVmsInLoadBalancerResp) Expect() (*DeregisterVmsInLoadBalancerR
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeregisterVmsInLoadBalancerResp) DeepError() error {
+func (r DeregisterVmsInLoadBalancerResp) genError() error {
 
-	return nil
-}
-
-func (r DeregisterVmsInLoadBalancerResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DisableOutscaleLoginResp struct {
@@ -33721,20 +32953,12 @@ func (r DisableOutscaleLoginResp) Expect() (*DisableOutscaleLoginResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DisableOutscaleLoginResp) DeepError() error {
+func (r DisableOutscaleLoginResp) genError() error {
 
-	return nil
-}
-
-func (r DisableOutscaleLoginResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DisableOutscaleLoginForUsersResp struct {
@@ -33764,20 +32988,12 @@ func (r DisableOutscaleLoginForUsersResp) Expect() (*DisableOutscaleLoginRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DisableOutscaleLoginForUsersResp) DeepError() error {
+func (r DisableOutscaleLoginForUsersResp) genError() error {
 
-	return nil
-}
-
-func (r DisableOutscaleLoginForUsersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DisableOutscaleLoginPerUsersResp struct {
@@ -33807,20 +33023,12 @@ func (r DisableOutscaleLoginPerUsersResp) Expect() (*DisableOutscaleLoginPerUser
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DisableOutscaleLoginPerUsersResp) DeepError() error {
+func (r DisableOutscaleLoginPerUsersResp) genError() error {
 
-	return nil
-}
-
-func (r DisableOutscaleLoginPerUsersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type EnableOutscaleLoginResp struct {
@@ -33850,20 +33058,12 @@ func (r EnableOutscaleLoginResp) Expect() (*EnableOutscaleLoginResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r EnableOutscaleLoginResp) DeepError() error {
+func (r EnableOutscaleLoginResp) genError() error {
 
-	return nil
-}
-
-func (r EnableOutscaleLoginResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type EnableOutscaleLoginForUsersResp struct {
@@ -33893,20 +33093,12 @@ func (r EnableOutscaleLoginForUsersResp) Expect() (*EnableOutscaleLoginForUsersR
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r EnableOutscaleLoginForUsersResp) DeepError() error {
+func (r EnableOutscaleLoginForUsersResp) genError() error {
 
-	return nil
-}
-
-func (r EnableOutscaleLoginForUsersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type EnableOutscaleLoginPerUsersResp struct {
@@ -33936,20 +33128,12 @@ func (r EnableOutscaleLoginPerUsersResp) Expect() (*EnableOutscaleLoginPerUsersR
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r EnableOutscaleLoginPerUsersResp) DeepError() error {
+func (r EnableOutscaleLoginPerUsersResp) genError() error {
 
-	return nil
-}
-
-func (r EnableOutscaleLoginPerUsersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkFlexibleGpuResp struct {
@@ -33979,20 +33163,12 @@ func (r LinkFlexibleGpuResp) Expect() (*LinkFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkFlexibleGpuResp) DeepError() error {
+func (r LinkFlexibleGpuResp) genError() error {
 
-	return nil
-}
-
-func (r LinkFlexibleGpuResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkInternetServiceResp struct {
@@ -34025,32 +33201,24 @@ func (r LinkInternetServiceResp) Expect() (*LinkInternetServiceResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkInternetServiceResp) DeepError() error {
+func (r LinkInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkInternetServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkLoadBalancerBackendMachinesResp struct {
@@ -34080,20 +33248,12 @@ func (r LinkLoadBalancerBackendMachinesResp) Expect() (*LinkLoadBalancerBackendM
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkLoadBalancerBackendMachinesResp) DeepError() error {
+func (r LinkLoadBalancerBackendMachinesResp) genError() error {
 
-	return nil
-}
-
-func (r LinkLoadBalancerBackendMachinesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkManagedPolicyToUserGroupResp struct {
@@ -34123,20 +33283,12 @@ func (r LinkManagedPolicyToUserGroupResp) Expect() (*LinkManagedPolicyToUserGrou
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkManagedPolicyToUserGroupResp) DeepError() error {
+func (r LinkManagedPolicyToUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r LinkManagedPolicyToUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkNicResp struct {
@@ -34169,32 +33321,24 @@ func (r LinkNicResp) Expect() (*LinkNicResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkNicResp) DeepError() error {
+func (r LinkNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkNicResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkPolicyResp struct {
@@ -34224,20 +33368,12 @@ func (r LinkPolicyResp) Expect() (*LinkPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkPolicyResp) DeepError() error {
+func (r LinkPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r LinkPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkPrivateIpsResp struct {
@@ -34270,32 +33406,24 @@ func (r LinkPrivateIpsResp) Expect() (*LinkPrivateIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkPrivateIpsResp) DeepError() error {
+func (r LinkPrivateIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkPrivateIpsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkPublicIpResp struct {
@@ -34328,32 +33456,24 @@ func (r LinkPublicIpResp) Expect() (*LinkPublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkPublicIpResp) DeepError() error {
+func (r LinkPublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkPublicIpResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkRouteTableResp struct {
@@ -34386,32 +33506,24 @@ func (r LinkRouteTableResp) Expect() (*LinkRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkRouteTableResp) DeepError() error {
+func (r LinkRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkRouteTableResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkVirtualGatewayResp struct {
@@ -34441,20 +33553,12 @@ func (r LinkVirtualGatewayResp) Expect() (*LinkVirtualGatewayResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkVirtualGatewayResp) DeepError() error {
+func (r LinkVirtualGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r LinkVirtualGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type LinkVolumeResp struct {
@@ -34487,32 +33591,24 @@ func (r LinkVolumeResp) Expect() (*LinkVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r LinkVolumeResp) DeepError() error {
+func (r LinkVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r LinkVolumeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type PutUserGroupPolicyResp struct {
@@ -34542,20 +33638,12 @@ func (r PutUserGroupPolicyResp) Expect() (*PutUserGroupPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r PutUserGroupPolicyResp) DeepError() error {
+func (r PutUserGroupPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r PutUserGroupPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type PutUserPolicyResp struct {
@@ -34585,20 +33673,12 @@ func (r PutUserPolicyResp) Expect() (*PutUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r PutUserPolicyResp) DeepError() error {
+func (r PutUserPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r PutUserPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadAccessKeysResp struct {
@@ -34628,20 +33708,12 @@ func (r ReadAccessKeysResp) Expect() (*ReadAccessKeysResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadAccessKeysResp) DeepError() error {
+func (r ReadAccessKeysResp) genError() error {
 
-	return nil
-}
-
-func (r ReadAccessKeysResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadAccountsResp struct {
@@ -34671,20 +33743,12 @@ func (r ReadAccountsResp) Expect() (*ReadAccountsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadAccountsResp) DeepError() error {
+func (r ReadAccountsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadAccountsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadAdminPasswordResp struct {
@@ -34717,32 +33781,24 @@ func (r ReadAdminPasswordResp) Expect() (*ReadAdminPasswordResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadAdminPasswordResp) DeepError() error {
+func (r ReadAdminPasswordResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadAdminPasswordResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadApiAccessPolicyResp struct {
@@ -34775,32 +33831,24 @@ func (r ReadApiAccessPolicyResp) Expect() (*ReadApiAccessPolicyResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadApiAccessPolicyResp) DeepError() error {
+func (r ReadApiAccessPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadApiAccessPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadApiAccessRulesResp struct {
@@ -34830,20 +33878,12 @@ func (r ReadApiAccessRulesResp) Expect() (*ReadApiAccessRulesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadApiAccessRulesResp) DeepError() error {
+func (r ReadApiAccessRulesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadApiAccessRulesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadApiLogsResp struct {
@@ -34873,20 +33913,12 @@ func (r ReadApiLogsResp) Expect() (*ReadApiLogsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadApiLogsResp) DeepError() error {
+func (r ReadApiLogsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadApiLogsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadCasResp struct {
@@ -34916,20 +33948,12 @@ func (r ReadCasResp) Expect() (*ReadCasResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadCasResp) DeepError() error {
+func (r ReadCasResp) genError() error {
 
-	return nil
-}
-
-func (r ReadCasResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadCatalogResp struct {
@@ -34959,20 +33983,12 @@ func (r ReadCatalogResp) Expect() (*ReadCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadCatalogResp) DeepError() error {
+func (r ReadCatalogResp) genError() error {
 
-	return nil
-}
-
-func (r ReadCatalogResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadCatalogsResp struct {
@@ -35002,20 +34018,12 @@ func (r ReadCatalogsResp) Expect() (*ReadCatalogsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadCatalogsResp) DeepError() error {
+func (r ReadCatalogsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadCatalogsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadClientGatewaysResp struct {
@@ -35045,20 +34053,12 @@ func (r ReadClientGatewaysResp) Expect() (*ReadClientGatewaysResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadClientGatewaysResp) DeepError() error {
+func (r ReadClientGatewaysResp) genError() error {
 
-	return nil
-}
-
-func (r ReadClientGatewaysResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadConsoleOutputResp struct {
@@ -35091,32 +34091,24 @@ func (r ReadConsoleOutputResp) Expect() (*ReadConsoleOutputResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadConsoleOutputResp) DeepError() error {
+func (r ReadConsoleOutputResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadConsoleOutputResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadConsumptionAccountResp struct {
@@ -35146,20 +34138,12 @@ func (r ReadConsumptionAccountResp) Expect() (*ReadConsumptionAccountResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadConsumptionAccountResp) DeepError() error {
+func (r ReadConsumptionAccountResp) genError() error {
 
-	return nil
-}
-
-func (r ReadConsumptionAccountResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadDedicatedGroupsResp struct {
@@ -35192,32 +34176,24 @@ func (r ReadDedicatedGroupsResp) Expect() (*ReadDedicatedGroupsResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadDedicatedGroupsResp) DeepError() error {
+func (r ReadDedicatedGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadDedicatedGroupsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadDhcpOptionsResp struct {
@@ -35247,20 +34223,12 @@ func (r ReadDhcpOptionsResp) Expect() (*ReadDhcpOptionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadDhcpOptionsResp) DeepError() error {
+func (r ReadDhcpOptionsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadDhcpOptionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadDirectLinkInterfacesResp struct {
@@ -35290,20 +34258,12 @@ func (r ReadDirectLinkInterfacesResp) Expect() (*ReadDirectLinkInterfacesRespons
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadDirectLinkInterfacesResp) DeepError() error {
+func (r ReadDirectLinkInterfacesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadDirectLinkInterfacesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadDirectLinksResp struct {
@@ -35333,20 +34293,12 @@ func (r ReadDirectLinksResp) Expect() (*ReadDirectLinksResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadDirectLinksResp) DeepError() error {
+func (r ReadDirectLinksResp) genError() error {
 
-	return nil
-}
-
-func (r ReadDirectLinksResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadEntitiesLinkedToPolicyResp struct {
@@ -35376,20 +34328,12 @@ func (r ReadEntitiesLinkedToPolicyResp) Expect() (*ReadEntitiesLinkedToPolicyRes
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadEntitiesLinkedToPolicyResp) DeepError() error {
+func (r ReadEntitiesLinkedToPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r ReadEntitiesLinkedToPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadFlexibleGpuCatalogResp struct {
@@ -35419,20 +34363,12 @@ func (r ReadFlexibleGpuCatalogResp) Expect() (*ReadFlexibleGpuCatalogResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadFlexibleGpuCatalogResp) DeepError() error {
+func (r ReadFlexibleGpuCatalogResp) genError() error {
 
-	return nil
-}
-
-func (r ReadFlexibleGpuCatalogResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadFlexibleGpusResp struct {
@@ -35462,20 +34398,12 @@ func (r ReadFlexibleGpusResp) Expect() (*ReadFlexibleGpusResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadFlexibleGpusResp) DeepError() error {
+func (r ReadFlexibleGpusResp) genError() error {
 
-	return nil
-}
-
-func (r ReadFlexibleGpusResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadImageExportTasksResp struct {
@@ -35505,20 +34433,12 @@ func (r ReadImageExportTasksResp) Expect() (*ReadImageExportTasksResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadImageExportTasksResp) DeepError() error {
+func (r ReadImageExportTasksResp) genError() error {
 
-	return nil
-}
-
-func (r ReadImageExportTasksResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadImagesResp struct {
@@ -35551,32 +34471,24 @@ func (r ReadImagesResp) Expect() (*ReadImagesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadImagesResp) DeepError() error {
+func (r ReadImagesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadImagesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadInternetServicesResp struct {
@@ -35609,32 +34521,24 @@ func (r ReadInternetServicesResp) Expect() (*ReadInternetServicesResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadInternetServicesResp) DeepError() error {
+func (r ReadInternetServicesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadInternetServicesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadKeypairsResp struct {
@@ -35667,32 +34571,24 @@ func (r ReadKeypairsResp) Expect() (*ReadKeypairsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadKeypairsResp) DeepError() error {
+func (r ReadKeypairsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadKeypairsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadLinkedPoliciesResp struct {
@@ -35722,20 +34618,12 @@ func (r ReadLinkedPoliciesResp) Expect() (*ReadLinkedPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadLinkedPoliciesResp) DeepError() error {
+func (r ReadLinkedPoliciesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadLinkedPoliciesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadListenerRulesResp struct {
@@ -35765,20 +34653,12 @@ func (r ReadListenerRulesResp) Expect() (*ReadListenerRulesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadListenerRulesResp) DeepError() error {
+func (r ReadListenerRulesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadListenerRulesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadLoadBalancerTagsResp struct {
@@ -35808,20 +34688,12 @@ func (r ReadLoadBalancerTagsResp) Expect() (*ReadLoadBalancerTagsResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadLoadBalancerTagsResp) DeepError() error {
+func (r ReadLoadBalancerTagsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadLoadBalancerTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadLoadBalancersResp struct {
@@ -35851,20 +34723,12 @@ func (r ReadLoadBalancersResp) Expect() (*ReadLoadBalancersResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadLoadBalancersResp) DeepError() error {
+func (r ReadLoadBalancersResp) genError() error {
 
-	return nil
-}
-
-func (r ReadLoadBalancersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadLocationsResp struct {
@@ -35894,20 +34758,12 @@ func (r ReadLocationsResp) Expect() (*ReadLocationsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadLocationsResp) DeepError() error {
+func (r ReadLocationsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadLocationsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadManagedPoliciesLinkedToUserGroupResp struct {
@@ -35937,20 +34793,12 @@ func (r ReadManagedPoliciesLinkedToUserGroupResp) Expect() (*ReadManagedPolicies
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadManagedPoliciesLinkedToUserGroupResp) DeepError() error {
+func (r ReadManagedPoliciesLinkedToUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r ReadManagedPoliciesLinkedToUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNatServicesResp struct {
@@ -35983,32 +34831,24 @@ func (r ReadNatServicesResp) Expect() (*ReadNatServicesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNatServicesResp) DeepError() error {
+func (r ReadNatServicesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadNatServicesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNetAccessPointServicesResp struct {
@@ -36038,20 +34878,12 @@ func (r ReadNetAccessPointServicesResp) Expect() (*ReadNetAccessPointServicesRes
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNetAccessPointServicesResp) DeepError() error {
+func (r ReadNetAccessPointServicesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadNetAccessPointServicesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNetAccessPointsResp struct {
@@ -36081,20 +34913,12 @@ func (r ReadNetAccessPointsResp) Expect() (*ReadNetAccessPointsResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNetAccessPointsResp) DeepError() error {
+func (r ReadNetAccessPointsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadNetAccessPointsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNetPeeringsResp struct {
@@ -36127,32 +34951,24 @@ func (r ReadNetPeeringsResp) Expect() (*ReadNetPeeringsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNetPeeringsResp) DeepError() error {
+func (r ReadNetPeeringsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadNetPeeringsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNetsResp struct {
@@ -36185,32 +35001,24 @@ func (r ReadNetsResp) Expect() (*ReadNetsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNetsResp) DeepError() error {
+func (r ReadNetsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadNetsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadNicsResp struct {
@@ -36243,32 +35051,24 @@ func (r ReadNicsResp) Expect() (*ReadNicsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadNicsResp) DeepError() error {
+func (r ReadNicsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadNicsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPoliciesResp struct {
@@ -36298,20 +35098,12 @@ func (r ReadPoliciesResp) Expect() (*ReadPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPoliciesResp) DeepError() error {
+func (r ReadPoliciesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPoliciesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPolicyResp struct {
@@ -36341,20 +35133,12 @@ func (r ReadPolicyResp) Expect() (*ReadPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPolicyResp) DeepError() error {
+func (r ReadPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPolicyVersionResp struct {
@@ -36384,20 +35168,12 @@ func (r ReadPolicyVersionResp) Expect() (*ReadPolicyVersionResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPolicyVersionResp) DeepError() error {
+func (r ReadPolicyVersionResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPolicyVersionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPolicyVersionsResp struct {
@@ -36427,20 +35203,12 @@ func (r ReadPolicyVersionsResp) Expect() (*ReadPolicyVersionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPolicyVersionsResp) DeepError() error {
+func (r ReadPolicyVersionsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPolicyVersionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadProductTypesResp struct {
@@ -36470,20 +35238,12 @@ func (r ReadProductTypesResp) Expect() (*ReadProductTypesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadProductTypesResp) DeepError() error {
+func (r ReadProductTypesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadProductTypesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPublicCatalogResp struct {
@@ -36513,20 +35273,12 @@ func (r ReadPublicCatalogResp) Expect() (*ReadPublicCatalogResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPublicCatalogResp) DeepError() error {
+func (r ReadPublicCatalogResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPublicCatalogResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPublicIpRangesResp struct {
@@ -36556,20 +35308,12 @@ func (r ReadPublicIpRangesResp) Expect() (*ReadPublicIpRangesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPublicIpRangesResp) DeepError() error {
+func (r ReadPublicIpRangesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadPublicIpRangesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadPublicIpsResp struct {
@@ -36602,32 +35346,24 @@ func (r ReadPublicIpsResp) Expect() (*ReadPublicIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadPublicIpsResp) DeepError() error {
+func (r ReadPublicIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadPublicIpsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadQuotasResp struct {
@@ -36657,20 +35393,12 @@ func (r ReadQuotasResp) Expect() (*ReadQuotasResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadQuotasResp) DeepError() error {
+func (r ReadQuotasResp) genError() error {
 
-	return nil
-}
-
-func (r ReadQuotasResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadRegionsResp struct {
@@ -36700,20 +35428,12 @@ func (r ReadRegionsResp) Expect() (*ReadRegionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadRegionsResp) DeepError() error {
+func (r ReadRegionsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadRegionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadRouteTablesResp struct {
@@ -36746,32 +35466,24 @@ func (r ReadRouteTablesResp) Expect() (*ReadRouteTablesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadRouteTablesResp) DeepError() error {
+func (r ReadRouteTablesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadRouteTablesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadSecurityGroupsResp struct {
@@ -36804,32 +35516,24 @@ func (r ReadSecurityGroupsResp) Expect() (*ReadSecurityGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadSecurityGroupsResp) DeepError() error {
+func (r ReadSecurityGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadSecurityGroupsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadServerCertificatesResp struct {
@@ -36859,20 +35563,12 @@ func (r ReadServerCertificatesResp) Expect() (*ReadServerCertificatesResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadServerCertificatesResp) DeepError() error {
+func (r ReadServerCertificatesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadServerCertificatesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadSnapshotExportTasksResp struct {
@@ -36902,20 +35598,12 @@ func (r ReadSnapshotExportTasksResp) Expect() (*ReadSnapshotExportTasksResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadSnapshotExportTasksResp) DeepError() error {
+func (r ReadSnapshotExportTasksResp) genError() error {
 
-	return nil
-}
-
-func (r ReadSnapshotExportTasksResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadSnapshotsResp struct {
@@ -36948,32 +35636,24 @@ func (r ReadSnapshotsResp) Expect() (*ReadSnapshotsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadSnapshotsResp) DeepError() error {
+func (r ReadSnapshotsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadSnapshotsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadSubnetsResp struct {
@@ -37006,32 +35686,24 @@ func (r ReadSubnetsResp) Expect() (*ReadSubnetsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadSubnetsResp) DeepError() error {
+func (r ReadSubnetsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadSubnetsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadSubregionsResp struct {
@@ -37061,20 +35733,12 @@ func (r ReadSubregionsResp) Expect() (*ReadSubregionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadSubregionsResp) DeepError() error {
+func (r ReadSubregionsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadSubregionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadTagsResp struct {
@@ -37107,32 +35771,24 @@ func (r ReadTagsResp) Expect() (*ReadTagsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadTagsResp) DeepError() error {
+func (r ReadTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadTagsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUnitPriceResp struct {
@@ -37162,20 +35818,12 @@ func (r ReadUnitPriceResp) Expect() (*ReadUnitPriceResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUnitPriceResp) DeepError() error {
+func (r ReadUnitPriceResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUnitPriceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserGroupResp struct {
@@ -37205,20 +35853,12 @@ func (r ReadUserGroupResp) Expect() (*ReadUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserGroupResp) DeepError() error {
+func (r ReadUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserGroupPoliciesResp struct {
@@ -37248,20 +35888,12 @@ func (r ReadUserGroupPoliciesResp) Expect() (*ReadUserGroupPoliciesResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserGroupPoliciesResp) DeepError() error {
+func (r ReadUserGroupPoliciesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserGroupPoliciesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserGroupPolicyResp struct {
@@ -37291,20 +35923,12 @@ func (r ReadUserGroupPolicyResp) Expect() (*ReadUserGroupPolicyResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserGroupPolicyResp) DeepError() error {
+func (r ReadUserGroupPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserGroupPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserGroupsResp struct {
@@ -37334,20 +35958,12 @@ func (r ReadUserGroupsResp) Expect() (*ReadUserGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserGroupsResp) DeepError() error {
+func (r ReadUserGroupsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserGroupsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserGroupsPerUserResp struct {
@@ -37377,20 +35993,12 @@ func (r ReadUserGroupsPerUserResp) Expect() (*ReadUserGroupsPerUserResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserGroupsPerUserResp) DeepError() error {
+func (r ReadUserGroupsPerUserResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserGroupsPerUserResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserPoliciesResp struct {
@@ -37420,20 +36028,12 @@ func (r ReadUserPoliciesResp) Expect() (*ReadUserPoliciesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserPoliciesResp) DeepError() error {
+func (r ReadUserPoliciesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserPoliciesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUserPolicyResp struct {
@@ -37463,20 +36063,12 @@ func (r ReadUserPolicyResp) Expect() (*ReadUserPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUserPolicyResp) DeepError() error {
+func (r ReadUserPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUserPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadUsersResp struct {
@@ -37506,20 +36098,12 @@ func (r ReadUsersResp) Expect() (*ReadUsersResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadUsersResp) DeepError() error {
+func (r ReadUsersResp) genError() error {
 
-	return nil
-}
-
-func (r ReadUsersResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVirtualGatewaysResp struct {
@@ -37549,20 +36133,12 @@ func (r ReadVirtualGatewaysResp) Expect() (*ReadVirtualGatewaysResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVirtualGatewaysResp) DeepError() error {
+func (r ReadVirtualGatewaysResp) genError() error {
 
-	return nil
-}
-
-func (r ReadVirtualGatewaysResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmGroupsResp struct {
@@ -37595,32 +36171,24 @@ func (r ReadVmGroupsResp) Expect() (*ReadVmGroupsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmGroupsResp) DeepError() error {
+func (r ReadVmGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadVmGroupsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmTemplatesResp struct {
@@ -37650,20 +36218,12 @@ func (r ReadVmTemplatesResp) Expect() (*ReadVmTemplatesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmTemplatesResp) DeepError() error {
+func (r ReadVmTemplatesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadVmTemplatesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmTypesResp struct {
@@ -37693,20 +36253,12 @@ func (r ReadVmTypesResp) Expect() (*ReadVmTypesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmTypesResp) DeepError() error {
+func (r ReadVmTypesResp) genError() error {
 
-	return nil
-}
-
-func (r ReadVmTypesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmsResp struct {
@@ -37739,32 +36291,24 @@ func (r ReadVmsResp) Expect() (*ReadVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmsResp) DeepError() error {
+func (r ReadVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmsHealthResp struct {
@@ -37794,20 +36338,12 @@ func (r ReadVmsHealthResp) Expect() (*ReadVmsHealthResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmsHealthResp) DeepError() error {
+func (r ReadVmsHealthResp) genError() error {
 
-	return nil
-}
-
-func (r ReadVmsHealthResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVmsStateResp struct {
@@ -37840,32 +36376,24 @@ func (r ReadVmsStateResp) Expect() (*ReadVmsStateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVmsStateResp) DeepError() error {
+func (r ReadVmsStateResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadVmsStateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVolumesResp struct {
@@ -37898,32 +36426,24 @@ func (r ReadVolumesResp) Expect() (*ReadVolumesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVolumesResp) DeepError() error {
+func (r ReadVolumesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ReadVolumesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ReadVpnConnectionsResp struct {
@@ -37953,20 +36473,12 @@ func (r ReadVpnConnectionsResp) Expect() (*ReadVpnConnectionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ReadVpnConnectionsResp) DeepError() error {
+func (r ReadVpnConnectionsResp) genError() error {
 
-	return nil
-}
-
-func (r ReadVpnConnectionsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type RebootVmsResp struct {
@@ -37999,32 +36511,24 @@ func (r RebootVmsResp) Expect() (*RebootVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r RebootVmsResp) DeepError() error {
+func (r RebootVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r RebootVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type RegisterVmsInLoadBalancerResp struct {
@@ -38054,20 +36558,12 @@ func (r RegisterVmsInLoadBalancerResp) Expect() (*RegisterVmsInLoadBalancerRespo
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r RegisterVmsInLoadBalancerResp) DeepError() error {
+func (r RegisterVmsInLoadBalancerResp) genError() error {
 
-	return nil
-}
-
-func (r RegisterVmsInLoadBalancerResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type RejectNetPeeringResp struct {
@@ -38101,36 +36597,28 @@ func (r RejectNetPeeringResp) Expect() (*RejectNetPeeringResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r RejectNetPeeringResp) DeepError() error {
+func (r RejectNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return r.JSON409
+		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r RejectNetPeeringResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type RemoveUserFromUserGroupResp struct {
@@ -38160,20 +36648,12 @@ func (r RemoveUserFromUserGroupResp) Expect() (*RemoveUserFromUserGroupResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r RemoveUserFromUserGroupResp) DeepError() error {
+func (r RemoveUserFromUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r RemoveUserFromUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ScaleDownVmGroupResp struct {
@@ -38206,32 +36686,24 @@ func (r ScaleDownVmGroupResp) Expect() (*ScaleDownVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ScaleDownVmGroupResp) DeepError() error {
+func (r ScaleDownVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ScaleDownVmGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ScaleUpVmGroupResp struct {
@@ -38264,32 +36736,24 @@ func (r ScaleUpVmGroupResp) Expect() (*ScaleUpVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ScaleUpVmGroupResp) DeepError() error {
+func (r ScaleUpVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r ScaleUpVmGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type SetDefaultPolicyVersionResp struct {
@@ -38319,20 +36783,12 @@ func (r SetDefaultPolicyVersionResp) Expect() (*SetDefaultPolicyVersionResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r SetDefaultPolicyVersionResp) DeepError() error {
+func (r SetDefaultPolicyVersionResp) genError() error {
 
-	return nil
-}
-
-func (r SetDefaultPolicyVersionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type StartVmsResp struct {
@@ -38365,32 +36821,24 @@ func (r StartVmsResp) Expect() (*StartVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r StartVmsResp) DeepError() error {
+func (r StartVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r StartVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type StopVmsResp struct {
@@ -38423,32 +36871,24 @@ func (r StopVmsResp) Expect() (*StopVmsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r StopVmsResp) DeepError() error {
+func (r StopVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r StopVmsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkFlexibleGpuResp struct {
@@ -38478,20 +36918,12 @@ func (r UnlinkFlexibleGpuResp) Expect() (*UnlinkFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkFlexibleGpuResp) DeepError() error {
+func (r UnlinkFlexibleGpuResp) genError() error {
 
-	return nil
-}
-
-func (r UnlinkFlexibleGpuResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkInternetServiceResp struct {
@@ -38524,32 +36956,24 @@ func (r UnlinkInternetServiceResp) Expect() (*UnlinkInternetServiceResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkInternetServiceResp) DeepError() error {
+func (r UnlinkInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkInternetServiceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkLoadBalancerBackendMachinesResp struct {
@@ -38579,20 +37003,12 @@ func (r UnlinkLoadBalancerBackendMachinesResp) Expect() (*UnlinkLoadBalancerBack
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkLoadBalancerBackendMachinesResp) DeepError() error {
+func (r UnlinkLoadBalancerBackendMachinesResp) genError() error {
 
-	return nil
-}
-
-func (r UnlinkLoadBalancerBackendMachinesResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkManagedPolicyFromUserGroupResp struct {
@@ -38622,20 +37038,12 @@ func (r UnlinkManagedPolicyFromUserGroupResp) Expect() (*UnlinkManagedPolicyFrom
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkManagedPolicyFromUserGroupResp) DeepError() error {
+func (r UnlinkManagedPolicyFromUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r UnlinkManagedPolicyFromUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkNicResp struct {
@@ -38668,32 +37076,24 @@ func (r UnlinkNicResp) Expect() (*UnlinkNicResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkNicResp) DeepError() error {
+func (r UnlinkNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkNicResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkPolicyResp struct {
@@ -38723,20 +37123,12 @@ func (r UnlinkPolicyResp) Expect() (*UnlinkPolicyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkPolicyResp) DeepError() error {
+func (r UnlinkPolicyResp) genError() error {
 
-	return nil
-}
-
-func (r UnlinkPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkPrivateIpsResp struct {
@@ -38769,32 +37161,24 @@ func (r UnlinkPrivateIpsResp) Expect() (*UnlinkPrivateIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkPrivateIpsResp) DeepError() error {
+func (r UnlinkPrivateIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkPrivateIpsResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkPublicIpResp struct {
@@ -38827,32 +37211,24 @@ func (r UnlinkPublicIpResp) Expect() (*UnlinkPublicIpResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkPublicIpResp) DeepError() error {
+func (r UnlinkPublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkPublicIpResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkRouteTableResp struct {
@@ -38885,32 +37261,24 @@ func (r UnlinkRouteTableResp) Expect() (*UnlinkRouteTableResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkRouteTableResp) DeepError() error {
+func (r UnlinkRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkRouteTableResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkVirtualGatewayResp struct {
@@ -38940,20 +37308,12 @@ func (r UnlinkVirtualGatewayResp) Expect() (*UnlinkVirtualGatewayResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkVirtualGatewayResp) DeepError() error {
+func (r UnlinkVirtualGatewayResp) genError() error {
 
-	return nil
-}
-
-func (r UnlinkVirtualGatewayResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UnlinkVolumeResp struct {
@@ -38986,32 +37346,24 @@ func (r UnlinkVolumeResp) Expect() (*UnlinkVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UnlinkVolumeResp) DeepError() error {
+func (r UnlinkVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UnlinkVolumeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateAccessKeyResp struct {
@@ -39041,20 +37393,12 @@ func (r UpdateAccessKeyResp) Expect() (*UpdateAccessKeyResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateAccessKeyResp) DeepError() error {
+func (r UpdateAccessKeyResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateAccessKeyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateAccountResp struct {
@@ -39084,20 +37428,12 @@ func (r UpdateAccountResp) Expect() (*UpdateAccountResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateAccountResp) DeepError() error {
+func (r UpdateAccountResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateAccountResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateApiAccessPolicyResp struct {
@@ -39130,32 +37466,24 @@ func (r UpdateApiAccessPolicyResp) Expect() (*UpdateApiAccessPolicyResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateApiAccessPolicyResp) DeepError() error {
+func (r UpdateApiAccessPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateApiAccessPolicyResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateApiAccessRuleResp struct {
@@ -39185,20 +37513,12 @@ func (r UpdateApiAccessRuleResp) Expect() (*UpdateApiAccessRuleResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateApiAccessRuleResp) DeepError() error {
+func (r UpdateApiAccessRuleResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateApiAccessRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateCaResp struct {
@@ -39228,20 +37548,12 @@ func (r UpdateCaResp) Expect() (*UpdateCaResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateCaResp) DeepError() error {
+func (r UpdateCaResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateCaResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateDedicatedGroupResp struct {
@@ -39274,32 +37586,24 @@ func (r UpdateDedicatedGroupResp) Expect() (*UpdateDedicatedGroupResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateDedicatedGroupResp) DeepError() error {
+func (r UpdateDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateDedicatedGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateDirectLinkInterfaceResp struct {
@@ -39329,20 +37633,12 @@ func (r UpdateDirectLinkInterfaceResp) Expect() (*UpdateDirectLinkInterfaceRespo
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateDirectLinkInterfaceResp) DeepError() error {
+func (r UpdateDirectLinkInterfaceResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateDirectLinkInterfaceResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateFlexibleGpuResp struct {
@@ -39372,20 +37668,12 @@ func (r UpdateFlexibleGpuResp) Expect() (*UpdateFlexibleGpuResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateFlexibleGpuResp) DeepError() error {
+func (r UpdateFlexibleGpuResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateFlexibleGpuResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateImageResp struct {
@@ -39418,32 +37706,24 @@ func (r UpdateImageResp) Expect() (*UpdateImageResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateImageResp) DeepError() error {
+func (r UpdateImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateImageResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateListenerRuleResp struct {
@@ -39473,20 +37753,12 @@ func (r UpdateListenerRuleResp) Expect() (*UpdateListenerRuleResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateListenerRuleResp) DeepError() error {
+func (r UpdateListenerRuleResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateListenerRuleResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateLoadBalancerResp struct {
@@ -39516,20 +37788,12 @@ func (r UpdateLoadBalancerResp) Expect() (*UpdateLoadBalancerResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateLoadBalancerResp) DeepError() error {
+func (r UpdateLoadBalancerResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateLoadBalancerResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateNetResp struct {
@@ -39562,32 +37826,24 @@ func (r UpdateNetResp) Expect() (*UpdateNetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateNetResp) DeepError() error {
+func (r UpdateNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateNetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateNetAccessPointResp struct {
@@ -39617,20 +37873,12 @@ func (r UpdateNetAccessPointResp) Expect() (*UpdateNetAccessPointResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateNetAccessPointResp) DeepError() error {
+func (r UpdateNetAccessPointResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateNetAccessPointResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateNicResp struct {
@@ -39663,32 +37911,24 @@ func (r UpdateNicResp) Expect() (*UpdateNicResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateNicResp) DeepError() error {
+func (r UpdateNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateNicResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateRouteResp struct {
@@ -39721,32 +37961,24 @@ func (r UpdateRouteResp) Expect() (*UpdateRouteResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateRouteResp) DeepError() error {
+func (r UpdateRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateRouteResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateRoutePropagationResp struct {
@@ -39776,20 +38008,12 @@ func (r UpdateRoutePropagationResp) Expect() (*UpdateRoutePropagationResponse, e
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateRoutePropagationResp) DeepError() error {
+func (r UpdateRoutePropagationResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateRoutePropagationResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateRouteTableLinkResp struct {
@@ -39822,32 +38046,24 @@ func (r UpdateRouteTableLinkResp) Expect() (*UpdateRouteTableLinkResponse, error
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateRouteTableLinkResp) DeepError() error {
+func (r UpdateRouteTableLinkResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateRouteTableLinkResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateServerCertificateResp struct {
@@ -39877,20 +38093,12 @@ func (r UpdateServerCertificateResp) Expect() (*UpdateServerCertificateResponse,
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateServerCertificateResp) DeepError() error {
+func (r UpdateServerCertificateResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateServerCertificateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateSnapshotResp struct {
@@ -39923,32 +38131,24 @@ func (r UpdateSnapshotResp) Expect() (*UpdateSnapshotResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateSnapshotResp) DeepError() error {
+func (r UpdateSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateSnapshotResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateSubnetResp struct {
@@ -39981,32 +38181,24 @@ func (r UpdateSubnetResp) Expect() (*UpdateSubnetResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateSubnetResp) DeepError() error {
+func (r UpdateSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateSubnetResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateUserResp struct {
@@ -40036,20 +38228,12 @@ func (r UpdateUserResp) Expect() (*UpdateUserResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateUserResp) DeepError() error {
+func (r UpdateUserResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateUserResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateUserGroupResp struct {
@@ -40079,20 +38263,12 @@ func (r UpdateUserGroupResp) Expect() (*UpdateUserGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateUserGroupResp) DeepError() error {
+func (r UpdateUserGroupResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateUserGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateVmResp struct {
@@ -40125,32 +38301,24 @@ func (r UpdateVmResp) Expect() (*UpdateVmResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateVmResp) DeepError() error {
+func (r UpdateVmResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateVmResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateVmGroupResp struct {
@@ -40183,32 +38351,24 @@ func (r UpdateVmGroupResp) Expect() (*UpdateVmGroupResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateVmGroupResp) DeepError() error {
+func (r UpdateVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateVmGroupResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateVmTemplateResp struct {
@@ -40238,20 +38398,12 @@ func (r UpdateVmTemplateResp) Expect() (*UpdateVmTemplateResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateVmTemplateResp) DeepError() error {
+func (r UpdateVmTemplateResp) genError() error {
 
-	return nil
-}
-
-func (r UpdateVmTemplateResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateVolumeResp struct {
@@ -40284,32 +38436,24 @@ func (r UpdateVolumeResp) Expect() (*UpdateVolumeResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateVolumeResp) DeepError() error {
+func (r UpdateVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateVolumeResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateVpnConnectionResp struct {
@@ -40342,32 +38486,24 @@ func (r UpdateVpnConnectionResp) Expect() (*UpdateVpnConnectionResponse, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateVpnConnectionResp) DeepError() error {
+func (r UpdateVpnConnectionResp) genError() error {
 
 	if r.JSON400 != nil {
-		return r.JSON400
+		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return r.JSON401
+		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return r.JSON500
+		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
 	}
 
-	return nil
-}
-
-func (r UpdateVpnConnectionResp) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
-	}
-	return r.Status()
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 // AcceptNetPeeringWithBody request with arbitrary body returning *AcceptNetPeeringResponse
