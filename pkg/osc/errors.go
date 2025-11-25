@@ -3,13 +3,13 @@ package osc
 func (e *ErrorResponse) Error() string {
 	var msg string
 
-	for i, v := range *e.Errors {
+	for i, v := range e.Errors {
 		if i != 0 {
 			msg += "\n"
 		}
-		msg += "[" + *v.Code + "] " + *v.Type
-		if v.Details != nil {
-			msg += ", " + *v.Details
+		msg += "[" + v.Code + "] " + v.Type
+		if v.Details != "" {
+			msg += ", " + v.Details
 		}
 	}
 
@@ -17,8 +17,8 @@ func (e *ErrorResponse) Error() string {
 }
 
 func (e *ErrorResponse) GetCode() string {
-	for _, v := range *e.Errors {
-		return *v.Code
+	for _, v := range e.Errors {
+		return v.Code
 	}
 
 	return ""

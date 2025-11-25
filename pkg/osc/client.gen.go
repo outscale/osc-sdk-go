@@ -2896,7 +2896,7 @@ type EnableOutscaleLoginResponse struct {
 // ErrorResponse defines model for ErrorResponse.
 type ErrorResponse struct {
 	// Errors One or more errors.
-	Errors *[]Errors `json:"Errors,omitempty"`
+	Errors []Errors `json:"Errors"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -2905,13 +2905,13 @@ type ErrorResponse struct {
 // Errors Information about the errors.
 type Errors struct {
 	// Code The code of the error (for example, `4078`). You can search for this returned code in the [errors page](api-errors.html) to find more details about the error.
-	Code *string `json:"Code,omitempty"`
+	Code string `json:"Code"`
 
 	// Details A description providing more details about the error.
-	Details *string `json:"Details,omitempty"`
+	Details string `json:"Details"`
 
 	// Type The type of the error (for example, `InvalidParameterValue`).
-	Type *string `json:"Type,omitempty"`
+	Type string `json:"Type"`
 }
 
 // FiltersAccessKeys One or more filters.
