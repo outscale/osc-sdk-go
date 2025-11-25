@@ -75,29 +75,21 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{.Schema.TypeDecl}}
         return r.JSON200, nil
     }
 
-    return nil, r
+    return nil, r.genError()
 }
 {{ end }}
 {{ end}}
 
-func (r {{genResponseTypeName $opid | ucFirst}}) DeepError() error {
+func (r {{genResponseTypeName $opid | ucFirst}}) genError() error {
     {{- range $responseTypeDefinitions}}
     {{ if ne .TypeName "JSON200" }}
     if r.{{.TypeName}} != nil {
-        return r.{{.TypeName}}
+        return fmt.Errorf("Api returned {{.TypeName}} error: %w", r.{{.TypeName}})
     }
     {{ end }}
     {{- end}}
 
-    return nil
-}
-
-func (r {{genResponseTypeName $opid | ucFirst}}) Error() string {
-    body := string(r.Body)
-    if body != "" {
-        return body
-    }
-    return r.Status()
+    return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 {{ if opts.OutputOptions.ClientResponseBytesFunction }}

@@ -2837,6 +2837,7 @@ type ListClustersByProjectIDResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponseList
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -2860,24 +2861,20 @@ func (r ListClustersByProjectIDResponse) Expect() (*ClusterResponseList, error) 
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ListClustersByProjectIDResponse) DeepError() error {
+func (r ListClustersByProjectIDResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r ListClustersByProjectIDResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateClusterResponse struct {
@@ -2885,6 +2882,7 @@ type CreateClusterResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -2908,24 +2906,20 @@ func (r CreateClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateClusterResponse) DeepError() error {
+func (r CreateClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r CreateClusterResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ListAllClustersResponse struct {
@@ -2933,6 +2927,7 @@ type ListAllClustersResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponseList
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -2956,24 +2951,20 @@ func (r ListAllClustersResponse) Expect() (*ClusterResponseList, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ListAllClustersResponse) DeepError() error {
+func (r ListAllClustersResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r ListAllClustersResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetControlPlanePlansResponse struct {
@@ -2981,6 +2972,7 @@ type GetControlPlanePlansResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ControlPlanesResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3004,24 +2996,20 @@ func (r GetControlPlanePlansResponse) Expect() (*ControlPlanesResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetControlPlanePlansResponse) DeepError() error {
+func (r GetControlPlanePlansResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetControlPlanePlansResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetCPSubregionsResponse struct {
@@ -3029,6 +3017,7 @@ type GetCPSubregionsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *CPSubregionsResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3052,24 +3041,20 @@ func (r GetCPSubregionsResponse) Expect() (*CPSubregionsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetCPSubregionsResponse) DeepError() error {
+func (r GetCPSubregionsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetCPSubregionsResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetKubenetesVersionsResponse struct {
@@ -3077,6 +3062,7 @@ type GetKubenetesVersionsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *KubernetesVersionsResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3100,24 +3086,20 @@ func (r GetKubenetesVersionsResponse) Expect() (*KubernetesVersionsResponse, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetKubenetesVersionsResponse) DeepError() error {
+func (r GetKubenetesVersionsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetKubenetesVersionsResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteClusterResponse struct {
@@ -3125,6 +3107,7 @@ type DeleteClusterResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *DetailResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3148,24 +3131,20 @@ func (r DeleteClusterResponse) Expect() (*DetailResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteClusterResponse) DeepError() error {
+func (r DeleteClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r DeleteClusterResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetClusterResponse struct {
@@ -3173,6 +3152,7 @@ type GetClusterResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3196,24 +3176,20 @@ func (r GetClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetClusterResponse) DeepError() error {
+func (r GetClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetClusterResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateClusterResponse struct {
@@ -3221,6 +3197,7 @@ type UpdateClusterResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3244,24 +3221,20 @@ func (r UpdateClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateClusterResponse) DeepError() error {
+func (r UpdateClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r UpdateClusterResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetKubeconfigResponse struct {
@@ -3269,6 +3242,7 @@ type GetKubeconfigResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *KubeconfigResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3292,24 +3266,20 @@ func (r GetKubeconfigResponse) Expect() (*KubeconfigResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetKubeconfigResponse) DeepError() error {
+func (r GetKubeconfigResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetKubeconfigResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetKubeconfigWithPubkeyNACLResponse struct {
@@ -3317,6 +3287,7 @@ type GetKubeconfigWithPubkeyNACLResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *KubeconfigResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3340,24 +3311,20 @@ func (r GetKubeconfigWithPubkeyNACLResponse) Expect() (*KubeconfigResponse, erro
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetKubeconfigWithPubkeyNACLResponse) DeepError() error {
+func (r GetKubeconfigWithPubkeyNACLResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetKubeconfigWithPubkeyNACLResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpgradeClusterResponse struct {
@@ -3365,6 +3332,7 @@ type UpgradeClusterResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3388,24 +3356,20 @@ func (r UpgradeClusterResponse) Expect() (*ClusterResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpgradeClusterResponse) DeepError() error {
+func (r UpgradeClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r UpgradeClusterResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type ListProjectsResponse struct {
@@ -3413,6 +3377,7 @@ type ListProjectsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponseList
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3436,24 +3401,20 @@ func (r ListProjectsResponse) Expect() (*ProjectResponseList, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r ListProjectsResponse) DeepError() error {
+func (r ListProjectsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r ListProjectsResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type CreateProjectResponse struct {
@@ -3461,6 +3422,7 @@ type CreateProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3484,24 +3446,20 @@ func (r CreateProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r CreateProjectResponse) DeepError() error {
+func (r CreateProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r CreateProjectResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type DeleteProjectResponse struct {
@@ -3509,6 +3467,7 @@ type DeleteProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *DetailResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3532,24 +3491,20 @@ func (r DeleteProjectResponse) Expect() (*DetailResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r DeleteProjectResponse) DeepError() error {
+func (r DeleteProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r DeleteProjectResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetProjectResponse struct {
@@ -3557,6 +3512,7 @@ type GetProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3580,24 +3536,20 @@ func (r GetProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetProjectResponse) DeepError() error {
+func (r GetProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetProjectResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type UpdateProjectResponse struct {
@@ -3605,6 +3557,7 @@ type UpdateProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3628,24 +3581,20 @@ func (r UpdateProjectResponse) Expect() (*ProjectResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r UpdateProjectResponse) DeepError() error {
+func (r UpdateProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r UpdateProjectResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetProjectPublicIpsResponse struct {
@@ -3653,6 +3602,7 @@ type GetProjectPublicIpsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *PublicIpsResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3676,24 +3626,20 @@ func (r GetProjectPublicIpsResponse) Expect() (*PublicIpsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetProjectPublicIpsResponse) DeepError() error {
+func (r GetProjectPublicIpsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetProjectPublicIpsResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetProjectQuotasResponse struct {
@@ -3701,6 +3647,7 @@ type GetProjectQuotasResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *ProjectsProjectSchemaQuotasResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3724,24 +3671,20 @@ func (r GetProjectQuotasResponse) Expect() (*ProjectsProjectSchemaQuotasResponse
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetProjectQuotasResponse) DeepError() error {
+func (r GetProjectQuotasResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetProjectQuotasResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetProjectSnapshotsResponse struct {
@@ -3749,6 +3692,7 @@ type GetProjectSnapshotsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *SnapshotsResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3772,24 +3716,20 @@ func (r GetProjectSnapshotsResponse) Expect() (*SnapshotsResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetProjectSnapshotsResponse) DeepError() error {
+func (r GetProjectSnapshotsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetProjectSnapshotsResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetQuotasResponse struct {
@@ -3797,6 +3737,7 @@ type GetQuotasResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *QuotasQuotaSchemaQuotasResponse
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3820,24 +3761,20 @@ func (r GetQuotasResponse) Expect() (*QuotasQuotaSchemaQuotasResponse, error) {
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetQuotasResponse) DeepError() error {
+func (r GetQuotasResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetQuotasResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetClusterTemplateResponse struct {
@@ -3845,6 +3782,7 @@ type GetClusterTemplateResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseClusterInputTemplate
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3868,24 +3806,20 @@ func (r GetClusterTemplateResponse) Expect() (*TemplateResponseClusterInputTempl
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetClusterTemplateResponse) DeepError() error {
+func (r GetClusterTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetClusterTemplateResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetNodepoolTemplateResponse struct {
@@ -3893,6 +3827,7 @@ type GetNodepoolTemplateResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseNodepool
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3916,24 +3851,20 @@ func (r GetNodepoolTemplateResponse) Expect() (*TemplateResponseNodepool, error)
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetNodepoolTemplateResponse) DeepError() error {
+func (r GetNodepoolTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetNodepoolTemplateResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 type GetProjectTemplateResponse struct {
@@ -3941,6 +3872,7 @@ type GetProjectTemplateResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseProjectInput
 	JSON422      *HTTPValidationError
+	JSONDefault  *HTTPValidationError
 }
 
 // Status returns HTTPResponse.Status
@@ -3964,24 +3896,20 @@ func (r GetProjectTemplateResponse) Expect() (*TemplateResponseProjectInput, err
 		return r.JSON200, nil
 	}
 
-	return nil, r
+	return nil, r.genError()
 }
 
-func (r GetProjectTemplateResponse) DeepError() error {
+func (r GetProjectTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return r.JSON422
+		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
 	}
 
-	return nil
-}
-
-func (r GetProjectTemplateResponse) Error() string {
-	body := string(r.Body)
-	if body != "" {
-		return body
+	if r.JSONDefault != nil {
+		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
 	}
-	return r.Status()
+
+	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
 // ListClustersByProjectID request returning *ClusterResponseList
@@ -4520,6 +4448,13 @@ func ParseListClustersByProjectIDResponse(rsp *http.Response) (*ListClustersByPr
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4552,6 +4487,13 @@ func ParseCreateClusterResponse(rsp *http.Response) (*CreateClusterResponse, err
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4586,6 +4528,13 @@ func ParseListAllClustersResponse(rsp *http.Response) (*ListAllClustersResponse,
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4618,6 +4567,13 @@ func ParseGetControlPlanePlansResponse(rsp *http.Response) (*GetControlPlanePlan
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4652,6 +4608,13 @@ func ParseGetCPSubregionsResponse(rsp *http.Response) (*GetCPSubregionsResponse,
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4684,6 +4647,13 @@ func ParseGetKubenetesVersionsResponse(rsp *http.Response) (*GetKubenetesVersion
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4718,6 +4688,13 @@ func ParseDeleteClusterResponse(rsp *http.Response) (*DeleteClusterResponse, err
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4750,6 +4727,13 @@ func ParseGetClusterResponse(rsp *http.Response) (*GetClusterResponse, error) {
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4784,6 +4768,13 @@ func ParseUpdateClusterResponse(rsp *http.Response) (*UpdateClusterResponse, err
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4816,6 +4807,13 @@ func ParseGetKubeconfigResponse(rsp *http.Response) (*GetKubeconfigResponse, err
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4850,6 +4848,13 @@ func ParseGetKubeconfigWithPubkeyNACLResponse(rsp *http.Response) (*GetKubeconfi
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4882,6 +4887,13 @@ func ParseUpgradeClusterResponse(rsp *http.Response) (*UpgradeClusterResponse, e
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4916,6 +4928,13 @@ func ParseListProjectsResponse(rsp *http.Response) (*ListProjectsResponse, error
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -4948,6 +4967,13 @@ func ParseCreateProjectResponse(rsp *http.Response) (*CreateProjectResponse, err
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -4982,6 +5008,13 @@ func ParseDeleteProjectResponse(rsp *http.Response) (*DeleteProjectResponse, err
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -5014,6 +5047,13 @@ func ParseGetProjectResponse(rsp *http.Response) (*GetProjectResponse, error) {
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -5048,6 +5088,13 @@ func ParseUpdateProjectResponse(rsp *http.Response) (*UpdateProjectResponse, err
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -5080,6 +5127,13 @@ func ParseGetProjectPublicIpsResponse(rsp *http.Response) (*GetProjectPublicIpsR
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -5114,6 +5168,13 @@ func ParseGetProjectQuotasResponse(rsp *http.Response) (*GetProjectQuotasRespons
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -5146,6 +5207,13 @@ func ParseGetProjectSnapshotsResponse(rsp *http.Response) (*GetProjectSnapshotsR
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -5180,6 +5248,13 @@ func ParseGetQuotasResponse(rsp *http.Response) (*GetQuotasResponse, error) {
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -5212,6 +5287,13 @@ func ParseGetClusterTemplateResponse(rsp *http.Response) (*GetClusterTemplateRes
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
@@ -5246,6 +5328,13 @@ func ParseGetNodepoolTemplateResponse(rsp *http.Response) (*GetNodepoolTemplateR
 		}
 		response.JSON422 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
 	}
 
 	return response, nil
@@ -5278,6 +5367,13 @@ func ParseGetProjectTemplateResponse(rsp *http.Response) (*GetProjectTemplateRes
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
 
 	}
 
