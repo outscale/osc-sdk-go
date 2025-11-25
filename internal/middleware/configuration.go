@@ -84,6 +84,8 @@ func FromProfile(userProfile *profile.Profile, service profile.OscService) Middl
 	}
 
 	// 1. Check authentication
+	ak, sk := userProfile.GetAccessKeys(service)
+
 	if userProfile.X509ClientCert != "" && userProfile.X509ClientKey != "" {
 		opts = append(
 			opts,
@@ -94,10 +96,10 @@ func FromProfile(userProfile *profile.Profile, service profile.OscService) Middl
 			opts,
 			withClientCertificatBase64(userProfile.X509ClientCertB64, userProfile.X509ClientKeyB64),
 		)
-	} else if userProfile.AccessKey != "" && userProfile.SecretKey != "" && userProfile.Region != "" {
+	} else if ak != "" && sk != "" && userProfile.Region != "" {
 		opts = append(
 			opts,
-			withAkSk(userProfile.AccessKey, userProfile.SecretKey, userProfile.Region, service),
+			withAkSk(ak, sk, userProfile.Region, service),
 		)
 	} else if userProfile.Login != "" && userProfile.Password != "" {
 		opts = append(

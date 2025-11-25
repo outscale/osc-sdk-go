@@ -4,10 +4,10 @@ type OscService = string
 
 const (
 	OscServiceApi        OscService = "osc"
-	OscServiceOKS                   = "oks"
-	OscServiceLBU                   = "lbu"
-	OscServiceOOS                   = "oos"
-	OscServiceFCU                   = "fcu"
-	OscServiceEIM                   = "eim"
-	OscServiceDirectLink            = "directlink"
+	OscServiceOKS        OscService = "oks"
+	OscServiceLBU        OscService = "lbu"
+	OscServiceOOS        OscService = "oos"
+	OscServiceFCU        OscService = "fcu"
+	OscServiceEIM        OscService = "eim"
+	OscServiceDirectLink OscService = "directlink"
 )
