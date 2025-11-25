@@ -245,3 +245,15 @@ actions:
     - AccountId
     - VolumeId
     - VolumeSize
+- target: $.components.schemas.ErrorResponse
+  description: Required fields for ErrorResponse
+  update:
+    required:
+    - Errors
+- target: $.components.schemas.Errors
+  description: Required fields for Errors
+  update:
+    required:
+    - Code
+    - Details
+    - Type
