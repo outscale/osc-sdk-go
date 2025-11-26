@@ -56,6 +56,41 @@ actions:
     - VmId
     - VmInitiatedShutdownBehavior
     - VmType
+- target: $.components.schemas.VmState
+  description: Rename VmState type
+  update:
+    x-go-name: VmStateInfo
+- target: $.components.schemas.Vm.*.State
+  description: Type for Vm.State
+  update:
+    enum:
+    - pending
+    - running
+    - stopping
+    - stopped
+    - shutting-down
+    - terminated
+    - quarantine
+- target: $.components.schemas.FiltersVm.*.VmStateNames.items
+  description:
+  update:
+    x-go-type: VmState
+- target: $.components.schemas.VmStates
+  description: Required fields for VmStates
+  update:
+    required:
+    - MaintenanceEvents
+    - SubregionName
+    - VmId
+    - VmState
+- target: $.components.schemas.VmStates.*.VmState
+  description:
+  update:
+    x-go-type: VmState
+- target: $.components.schemas.FiltersVmsState.*.VmStates.items
+  description:
+  update:
+    x-go-type: VmState
 - target: $.components.schemas.BlockDeviceMappingCreated
   description: Required fields for BlockDeviceMappingCreated
   update:
@@ -178,6 +213,17 @@ actions:
     - State
     - Tags
     - Tenancy
+- target: $.components.schemas.Net.*.State
+  description: Type for Net.State
+  update:
+    enum:
+    - pending
+    - available
+    - deleting
+- target: $.components.schemas.FiltersNet.*.States.items
+  description:
+  update:
+    x-go-type: NetState
 - target: $.components.schemas.Subnet
   description: Required fields for Subnet
   update:
@@ -190,6 +236,17 @@ actions:
     - SubnetId
     - SubregionName
     - Tags
+- target: $.components.schemas.Subnet.*.State
+  description: Type for Subnet.State
+  update:
+    enum:
+    - pending
+    - available
+    - deleted
+- target: $.components.schemas.FiltersSubnet.*.States.items
+  description:
+  update:
+    x-go-type: SubnetState
 - target: $.components.schemas.InternetService
   description: Required fields for InternetService
   update:
@@ -208,6 +265,18 @@ actions:
     - State
     - SubnetId
     - Tags
+- target: $.components.schemas.NatService.*.State
+  description: Type for NatService.State
+  update:
+    enum:
+    - pending
+    - available
+    - deleting
+    - deleted
+- target: $.components.schemas.FiltersNatService.*.States.items
+  description:
+  update:
+    x-go-type: NatServiceState
 - target: $.components.schemas.NetPeering
   description: Required fields for NetPeering
   update:
@@ -223,6 +292,20 @@ actions:
     required:
     - Message
     - Name
+- target: $.components.schemas.NetPeeringState.*.Name
+  description: Type for NetPeeringState.Name
+  update:
+    enum:
+    - pending-acceptance
+    - active
+    - rejected
+    - failed
+    - expired
+    - deleted
+- target: $.components.schemas.FiltersNetPeering.*.StateNames.items
+  description:
+  update:
+    x-go-type: NetPeeringStateName
 - target: $.components.schemas.Image
   description: Required fields for Image
   update:
@@ -235,6 +318,17 @@ actions:
     - BootModes
     - RootDeviceType
     - AccountId
+- target: $.components.schemas.Image.*.State
+  description: Type for Image.State
+  update:
+    enum:
+    - pending
+    - available
+    - failed
+- target: $.components.schemas.FiltersImage.*.States.items
+  description:
+  update:
+    x-go-type: ImageState
 - target: $.components.schemas.Snapshot
   description: Required fields for Snapshot
   update:
@@ -245,6 +339,38 @@ actions:
     - AccountId
     - VolumeId
     - VolumeSize
+- target: $.components.schemas.Snapshot.*.State
+  description: Type for Snapshot.State
+  update:
+    enum:
+    - in-queue
+    - pending
+    - completed
+    - error
+    - deleting
+- target: $.components.schemas.FiltersSnapshot.*.States.items
+  description:
+  update:
+    x-go-type: SnapshotState
+- target: $.components.schemas.SnapshotExportTask
+  description: Required fields for SnapshotExportTask
+  update:
+    required:
+    - Comment
+    - Progress
+    - SnapshotId
+    - State
+    - Tags
+    - TaskId
+- target: $.components.schemas.SnapshotExportTask.*.State
+  description: Type for SnapshotExportTask.State
+  update:
+    enum:
+    - pending
+    - active
+    - completed
+    - cancelled
+    - failed
 - target: $.components.schemas.ErrorResponse
   description: Required fields for ErrorResponse
   update:
@@ -257,3 +383,147 @@ actions:
     - Code
     - Details
     - Type
+- target: $.components.schemas.BackendVmHealth.*.State
+  description: Type for BackendVmHealth.State
+  update:
+    enum:
+    - InService
+    - OutOfService
+    - Unknown
+- target: $.components.schemas.Volume
+  description: Required fields for Volume
+  update:
+    required:
+    - VolumeId
+    - CreationDate
+    - Iops
+    - Size
+    - State
+    - SubregionName
+    - Tags
+    - VolumeType
+- target: $.components.schemas.Volume.*.State
+  description: Type for Volume.State
+  update:
+    enum:
+    - creating
+    - available
+    - in-use
+    - deleting
+    - error
+- target: $.components.schemas.FiltersVolume.*.VolumeStates.items
+  description:
+  update:
+    x-go-type: VolumeState
+- target: $.components.schemas.BlockDeviceMappingCreated
+  description: Required fields for BlockDeviceMappingCreated
+  update:
+    required:
+    - Bsu
+    - DeviceName
+- target: $.components.schemas.BsuCreated
+  description: Required fields for BsuCreated
+  update:
+    required:
+    - VolumeId
+    - DeleteOnVmDeletion
+    - LinkDate
+    - State
+- target: $.components.schemas.BsuCreated.*.State
+  description:
+  update:
+    x-go-type: VolumeState
+- target: $.components.schemas.LinkedVolume.*.State
+  description: Type for LinkedVolume.State
+  update:
+    enum:
+    - attaching
+    - detaching
+    - attached
+    - detached
+- target: $.components.schemas.FiltersVolume.*.LinkVolumeLinkStates.items
+  description:
+  update:
+    x-go-type: LinkedVolumeState
+- target: $.components.schemas.FlexibleGpu.*.State
+  description: Type for FlexibleGpu.State
+  update:
+    enum:
+    - allocated
+    - attaching
+    - attached
+    - detaching
+- target: $.components.schemas.FiltersFlexibleGpu.*.States.items
+  description:
+  update:
+    x-go-type: FlexibleGpuState
+- target: $.components.schemas.NetAccessPoint.*.State
+  description: Type for NetAccessPoint.State
+  update:
+    enum:
+    - pending
+    - available
+    - deleting
+    - deleted
+- target: $.components.schemas.FiltersNetAccessPoint.*.States.items
+  description:
+  update:
+    x-go-type: NetAccessPointState
+- target: $.components.schemas.AccessKey.*.State
+  description: Type for AccessKey.State
+  update:
+    enum:
+    - ACTIVE
+    - INACTIVE
+- target: $.components.schemas.FiltersAccessKeys.*.States.items
+  description:
+  update:
+    x-go-type: AccessKeyState
+- target: $.components.schemas.Nic.*.State
+  description: Type for Nic.State
+  update:
+    enum:
+    - available
+    - attaching
+    - in-use
+    - detaching
+- target: $.components.schemas.NicLight.*.State
+  description:
+  update:
+    x-go-type: NicState
+- target: $.components.schemas.FiltersNic.*.States.items
+  description:
+  update:
+    x-go-type: NicState
+- target: $.components.schemas.LinkNic.*.State
+  description: Type for LinkNic.State
+  update:
+    enum:
+    - attaching
+    - attached
+    - detaching
+    - detached
+- target: $.components.schemas.LinkNicLight.*.State
+  description:
+  update:
+    x-go-type: LinkNicState
+- target: $.components.schemas.PublicIp
+  description: Required fields for PublicIp
+  update:
+    required:
+    - PublicIpId
+    - PublicIp
+    - Tags
+- target: $.components.schemas.LinkPublicIpLightForVm
+  description: Required fields for LinkPublicIpLightForVm
+  update:
+    required:
+    - PublicDnsName
+    - PublicIp
+- target: $.components.schemas.PrivateIpLightForVm
+  description: Required fields for PrivateIpLightForVm
+  update:
+    required:
+    - IsPrimary
+    - PrivateDnsName
+    - PrivateIp
