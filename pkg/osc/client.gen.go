@@ -26,6 +26,19 @@ const (
 	BasicAuthScopes     = "BasicAuth.Scopes"
 )
 
+// Defines values for AccessKeyState.
+const (
+	ACTIVE   AccessKeyState = "ACTIVE"
+	INACTIVE AccessKeyState = "INACTIVE"
+)
+
+// Defines values for BackendVmHealthState.
+const (
+	InService    BackendVmHealthState = "InService"
+	OutOfService BackendVmHealthState = "OutOfService"
+	Unknown      BackendVmHealthState = "Unknown"
+)
+
 // Defines values for BootMode.
 const (
 	Legacy BootMode = "legacy"
@@ -59,6 +72,78 @@ const (
 	CreateVmsRequestPerformanceMedium  CreateVmsRequestPerformance = "medium"
 )
 
+// Defines values for FlexibleGpuState.
+const (
+	FlexibleGpuStateAllocated FlexibleGpuState = "allocated"
+	FlexibleGpuStateAttached  FlexibleGpuState = "attached"
+	FlexibleGpuStateAttaching FlexibleGpuState = "attaching"
+	FlexibleGpuStateDetaching FlexibleGpuState = "detaching"
+)
+
+// Defines values for ImageState.
+const (
+	ImageStateAvailable ImageState = "available"
+	ImageStateFailed    ImageState = "failed"
+	ImageStatePending   ImageState = "pending"
+)
+
+// Defines values for LinkNicState.
+const (
+	LinkNicStateAttached  LinkNicState = "attached"
+	LinkNicStateAttaching LinkNicState = "attaching"
+	LinkNicStateDetached  LinkNicState = "detached"
+	LinkNicStateDetaching LinkNicState = "detaching"
+)
+
+// Defines values for LinkedVolumeState.
+const (
+	LinkedVolumeStateAttached  LinkedVolumeState = "attached"
+	LinkedVolumeStateAttaching LinkedVolumeState = "attaching"
+	LinkedVolumeStateDetached  LinkedVolumeState = "detached"
+	LinkedVolumeStateDetaching LinkedVolumeState = "detaching"
+)
+
+// Defines values for NatServiceState.
+const (
+	NatServiceStateAvailable NatServiceState = "available"
+	NatServiceStateDeleted   NatServiceState = "deleted"
+	NatServiceStateDeleting  NatServiceState = "deleting"
+	NatServiceStatePending   NatServiceState = "pending"
+)
+
+// Defines values for NetState.
+const (
+	NetStateAvailable NetState = "available"
+	NetStateDeleting  NetState = "deleting"
+	NetStatePending   NetState = "pending"
+)
+
+// Defines values for NetAccessPointState.
+const (
+	NetAccessPointStateAvailable NetAccessPointState = "available"
+	NetAccessPointStateDeleted   NetAccessPointState = "deleted"
+	NetAccessPointStateDeleting  NetAccessPointState = "deleting"
+	NetAccessPointStatePending   NetAccessPointState = "pending"
+)
+
+// Defines values for NetPeeringStateName.
+const (
+	NetPeeringStateNameActive            NetPeeringStateName = "active"
+	NetPeeringStateNameDeleted           NetPeeringStateName = "deleted"
+	NetPeeringStateNameExpired           NetPeeringStateName = "expired"
+	NetPeeringStateNameFailed            NetPeeringStateName = "failed"
+	NetPeeringStateNamePendingAcceptance NetPeeringStateName = "pending-acceptance"
+	NetPeeringStateNameRejected          NetPeeringStateName = "rejected"
+)
+
+// Defines values for NicState.
+const (
+	NicStateAttaching NicState = "attaching"
+	NicStateAvailable NicState = "available"
+	NicStateDetaching NicState = "detaching"
+	NicStateInUse     NicState = "in-use"
+)
+
 // Defines values for ReadEntitiesLinkedToPolicyRequestEntitiesType.
 const (
 	ACCOUNT ReadEntitiesLinkedToPolicyRequestEntitiesType = "ACCOUNT"
@@ -80,6 +165,31 @@ const (
 	SetupMode SecureBootAction = "setup-mode"
 )
 
+// Defines values for SnapshotState.
+const (
+	SnapshotStateCompleted SnapshotState = "completed"
+	SnapshotStateDeleting  SnapshotState = "deleting"
+	SnapshotStateError     SnapshotState = "error"
+	SnapshotStateInQueue   SnapshotState = "in-queue"
+	SnapshotStatePending   SnapshotState = "pending"
+)
+
+// Defines values for SnapshotExportTaskState.
+const (
+	SnapshotExportTaskStateActive    SnapshotExportTaskState = "active"
+	SnapshotExportTaskStateCancelled SnapshotExportTaskState = "cancelled"
+	SnapshotExportTaskStateCompleted SnapshotExportTaskState = "completed"
+	SnapshotExportTaskStateFailed    SnapshotExportTaskState = "failed"
+	SnapshotExportTaskStatePending   SnapshotExportTaskState = "pending"
+)
+
+// Defines values for SubnetState.
+const (
+	SubnetStateAvailable SubnetState = "available"
+	SubnetStateDeleted   SubnetState = "deleted"
+	SubnetStatePending   SubnetState = "pending"
+)
+
 // Defines values for UpdateDirectLinkInterfaceRequestMtu.
 const (
 	N1500 UpdateDirectLinkInterfaceRequestMtu = 1500
@@ -92,6 +202,17 @@ const (
 	UpdateVmRequestPerformanceMedium  UpdateVmRequestPerformance = "medium"
 )
 
+// Defines values for VmState.
+const (
+	VmStatePending      VmState = "pending"
+	VmStateQuarantine   VmState = "quarantine"
+	VmStateRunning      VmState = "running"
+	VmStateShuttingDown VmState = "shutting-down"
+	VmStateStopped      VmState = "stopped"
+	VmStateStopping     VmState = "stopping"
+	VmStateTerminated   VmState = "terminated"
+)
+
 // Defines values for VmGroupPositioningStrategy.
 const (
 	VmGroupPositioningStrategyAttract    VmGroupPositioningStrategy = "attract"
@@ -101,12 +222,12 @@ const (
 
 // Defines values for VmGroupState.
 const (
-	Available   VmGroupState = "available"
-	Deleted     VmGroupState = "deleted"
-	Deleting    VmGroupState = "deleting"
-	Pending     VmGroupState = "pending"
-	ScalingDown VmGroupState = "scaling down"
-	ScalingUp   VmGroupState = "scaling up"
+	VmGroupStateAvailable   VmGroupState = "available"
+	VmGroupStateDeleted     VmGroupState = "deleted"
+	VmGroupStateDeleting    VmGroupState = "deleting"
+	VmGroupStatePending     VmGroupState = "pending"
+	VmGroupStateScalingDown VmGroupState = "scaling down"
+	VmGroupStateScalingUp   VmGroupState = "scaling up"
 )
 
 // Defines values for VmTemplateCpuPerformance.
@@ -114,6 +235,15 @@ const (
 	VmTemplateCpuPerformanceHigh    VmTemplateCpuPerformance = "high"
 	VmTemplateCpuPerformanceHighest VmTemplateCpuPerformance = "highest"
 	VmTemplateCpuPerformanceMedium  VmTemplateCpuPerformance = "medium"
+)
+
+// Defines values for VolumeState.
+const (
+	Available VolumeState = "available"
+	Creating  VolumeState = "creating"
+	Deleting  VolumeState = "deleting"
+	Error     VolumeState = "error"
+	InUse     VolumeState = "in-use"
 )
 
 // AcceptNetPeeringRequest defines model for AcceptNetPeeringRequest.
@@ -161,11 +291,14 @@ type AccessKey struct {
 	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// State The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
-	State *string `json:"State,omitempty"`
+	State *AccessKeyState `json:"State,omitempty"`
 
 	// Tag The tag added to the access key.
 	Tag *string `json:"Tag,omitempty"`
 }
+
+// AccessKeyState The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
+type AccessKeyState string
 
 // AccessKeySecretKey Information about the access key.
 type AccessKeySecretKey struct {
@@ -330,7 +463,7 @@ type BackendVmHealth struct {
 	Description *string `json:"Description,omitempty"`
 
 	// State The state of the backend VM (`InService` \| `OutOfService` \| `Unknown`).
-	State *string `json:"State,omitempty"`
+	State *BackendVmHealthState `json:"State,omitempty"`
 
 	// StateReason Information about the cause of `OutOfService` VMs.<br />
 	// Specifically, whether the cause is Elastic Load Balancing or the VM (`ELB` \| `Instance` \| `N/A`).
@@ -339,6 +472,9 @@ type BackendVmHealth struct {
 	// VmId The ID of the backend VM.
 	VmId *string `json:"VmId,omitempty"`
 }
+
+// BackendVmHealthState The state of the backend VM (`InService` \| `OutOfService` \| `Unknown`).
+type BackendVmHealthState string
 
 // BlockDeviceMappingCreated Information about the created block device mapping.
 type BlockDeviceMappingCreated struct {
@@ -403,7 +539,7 @@ type BsuCreated struct {
 	LinkDate iso8601.Time `json:"LinkDate"`
 
 	// State The state of the volume.
-	State string `json:"State"`
+	State VolumeState `json:"State"`
 
 	// VolumeId The ID of the volume.
 	VolumeId string `json:"VolumeId"`
@@ -2634,7 +2770,7 @@ type DeleteVmsResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 
 	// Vms Information about one or more terminated VMs.
-	Vms *[]VmState `json:"Vms,omitempty"`
+	Vms *[]VmStateInfo `json:"Vms,omitempty"`
 }
 
 // DeleteVolumeRequest defines model for DeleteVolumeRequest.
@@ -2920,7 +3056,7 @@ type FiltersAccessKeys struct {
 	AccessKeyIds *[]string `json:"AccessKeyIds,omitempty"`
 
 	// States The states of the access keys (`ACTIVE` \| `INACTIVE`).
-	States *[]string `json:"States,omitempty"`
+	States *[]AccessKeyState `json:"States,omitempty"`
 }
 
 // FiltersApiAccessRule One or more filters.
@@ -3103,7 +3239,7 @@ type FiltersFlexibleGpu struct {
 	ModelNames *[]string `json:"ModelNames,omitempty"`
 
 	// States The states of the fGPUs (`allocated` \| `attaching` \| `attached` \| `detaching`).
-	States *[]string `json:"States,omitempty"`
+	States *[]FlexibleGpuState `json:"States,omitempty"`
 
 	// SubregionNames The Subregions where the fGPUs are located.
 	SubregionNames *[]string `json:"SubregionNames,omitempty"`
@@ -3178,7 +3314,7 @@ type FiltersImage struct {
 	SecureBoot *bool `json:"SecureBoot,omitempty"`
 
 	// States The states of the OMIs (`pending` \| `available` \| `failed`).
-	States *[]string `json:"States,omitempty"`
+	States *[]ImageState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the OMIs.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -3262,7 +3398,7 @@ type FiltersNatService struct {
 	NetIds *[]string `json:"NetIds,omitempty"`
 
 	// States The states of the NAT services (`pending` \| `available` \| `deleting` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]NatServiceState `json:"States,omitempty"`
 
 	// SubnetIds The IDs of the Subnets in which the NAT services are.
 	SubnetIds *[]string `json:"SubnetIds,omitempty"`
@@ -3292,7 +3428,7 @@ type FiltersNet struct {
 	NetIds *[]string `json:"NetIds,omitempty"`
 
 	// States The states of the Nets (`pending` \| `available` \| `deleting`).
-	States *[]string `json:"States,omitempty"`
+	States *[]NetState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the Nets.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -3316,7 +3452,7 @@ type FiltersNetAccessPoint struct {
 	ServiceNames *[]string `json:"ServiceNames,omitempty"`
 
 	// States The states of the Net access points (`pending` \| `available` \| `deleting` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]NetAccessPointState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the Net access points.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -3358,7 +3494,7 @@ type FiltersNetPeering struct {
 	StateMessages *[]string `json:"StateMessages,omitempty"`
 
 	// StateNames The states of the Net peerings (`pending-acceptance` \| `active` \| `rejected` \| `failed` \| `expired` \| `deleted`).
-	StateNames *[]string `json:"StateNames,omitempty"`
+	StateNames *[]NetPeeringStateName `json:"StateNames,omitempty"`
 
 	// TagKeys The keys of the tags associated with the Net peerings.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -3442,7 +3578,7 @@ type FiltersNic struct {
 	SecurityGroupNames *[]string `json:"SecurityGroupNames,omitempty"`
 
 	// States The states of the NICs.
-	States *[]string `json:"States,omitempty"`
+	States *[]NicState `json:"States,omitempty"`
 
 	// SubnetIds The IDs of the Subnets for the NICs.
 	SubnetIds *[]string `json:"SubnetIds,omitempty"`
@@ -3682,7 +3818,7 @@ type FiltersSnapshot struct {
 	SnapshotIds *[]string `json:"SnapshotIds,omitempty"`
 
 	// States The states of the snapshots (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
-	States *[]string `json:"States,omitempty"`
+	States *[]SnapshotState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the snapshots.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -3715,7 +3851,7 @@ type FiltersSubnet struct {
 	NetIds *[]string `json:"NetIds,omitempty"`
 
 	// States The states of the Subnets (`pending` \| `available` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]SubnetState `json:"States,omitempty"`
 
 	// SubnetIds The IDs of the Subnets.
 	SubnetIds *[]string `json:"SubnetIds,omitempty"`
@@ -3994,7 +4130,7 @@ type FiltersVm struct {
 	VmStateCodes *[]int `json:"VmStateCodes,omitempty"`
 
 	// VmStateNames The state names of the VMs (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
-	VmStateNames *[]string `json:"VmStateNames,omitempty"`
+	VmStateNames *[]VmState `json:"VmStateNames,omitempty"`
 
 	// VmTypes The VM types (for example, t2.micro). For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
 	VmTypes *[]string `json:"VmTypes,omitempty"`
@@ -4123,7 +4259,7 @@ type FiltersVmsState struct {
 	VmIds *[]string `json:"VmIds,omitempty"`
 
 	// VmStates The states of the VMs (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
-	VmStates *[]string `json:"VmStates,omitempty"`
+	VmStates *[]VmState `json:"VmStates,omitempty"`
 }
 
 // FiltersVolume One or more filters.
@@ -4144,7 +4280,7 @@ type FiltersVolume struct {
 	LinkVolumeLinkDates *[]time.Time `json:"LinkVolumeLinkDates,omitempty"`
 
 	// LinkVolumeLinkStates The attachment states of the volumes (`attaching` \| `detaching` \| `attached` \| `detached`).
-	LinkVolumeLinkStates *[]string `json:"LinkVolumeLinkStates,omitempty"`
+	LinkVolumeLinkStates *[]LinkedVolumeState `json:"LinkVolumeLinkStates,omitempty"`
 
 	// LinkVolumeVmIds One or more IDs of VMs.
 	LinkVolumeVmIds *[]string `json:"LinkVolumeVmIds,omitempty"`
@@ -4171,7 +4307,7 @@ type FiltersVolume struct {
 	VolumeSizes *[]int `json:"VolumeSizes,omitempty"`
 
 	// VolumeStates The states of the volumes (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
-	VolumeStates *[]string `json:"VolumeStates,omitempty"`
+	VolumeStates *[]VolumeState `json:"VolumeStates,omitempty"`
 
 	// VolumeTypes The types of the volumes (`standard` \| `gp2` \| `io1`).
 	VolumeTypes *[]string `json:"VolumeTypes,omitempty"`
@@ -4228,7 +4364,7 @@ type FlexibleGpu struct {
 	ModelName *string `json:"ModelName,omitempty"`
 
 	// State The state of the fGPU (`allocated` \| `attaching` \| `attached` \| `detaching`).
-	State *string `json:"State,omitempty"`
+	State *FlexibleGpuState `json:"State,omitempty"`
 
 	// SubregionName The Subregion where the fGPU is located.
 	SubregionName *string `json:"SubregionName,omitempty"`
@@ -4236,6 +4372,9 @@ type FlexibleGpu struct {
 	// VmId The ID of the VM the fGPU is attached to, if any.
 	VmId *string `json:"VmId,omitempty"`
 }
+
+// FlexibleGpuState The state of the fGPU (`allocated` \| `attaching` \| `attached` \| `detaching`).
+type FlexibleGpuState string
 
 // FlexibleGpuCatalog Information about the flexible GPU (fGPU) that is available in the public catalog.
 type FlexibleGpuCatalog struct {
@@ -4330,7 +4469,7 @@ type Image struct {
 	SecureBoot *bool `json:"SecureBoot,omitempty"`
 
 	// State The state of the OMI (`pending` \| `available` \| `failed`).
-	State string `json:"State"`
+	State ImageState `json:"State"`
 
 	// StateComment Information about the change of state.
 	StateComment *StateComment `json:"StateComment,omitempty"`
@@ -4338,6 +4477,9 @@ type Image struct {
 	// Tags One or more tags associated with the OMI.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 }
+
+// ImageState The state of the OMI (`pending` \| `available` \| `failed`).
+type ImageState string
 
 // ImageExportTask Information about the OMI export task.
 type ImageExportTask struct {
@@ -4513,7 +4655,7 @@ type LinkNic struct {
 	LinkNicId *string `json:"LinkNicId,omitempty"`
 
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
-	State *string `json:"State,omitempty"`
+	State *LinkNicState `json:"State,omitempty"`
 
 	// VmAccountId The account ID of the owner of the VM.
 	VmAccountId *string `json:"VmAccountId,omitempty"`
@@ -4521,6 +4663,9 @@ type LinkNic struct {
 	// VmId The ID of the VM.
 	VmId *string `json:"VmId,omitempty"`
 }
+
+// LinkNicState The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
+type LinkNicState string
 
 // LinkNicLight Information about the network interface card (NIC).
 type LinkNicLight struct {
@@ -4534,7 +4679,7 @@ type LinkNicLight struct {
 	LinkNicId string `json:"LinkNicId"`
 
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
-	State string `json:"State"`
+	State LinkNicState `json:"State"`
 }
 
 // LinkNicRequest defines model for LinkNicRequest.
@@ -4785,7 +4930,7 @@ type LinkedVolume struct {
 	DeviceName *string `json:"DeviceName,omitempty"`
 
 	// State The state of the attachment of the volume (`attaching` \| `detaching` \| `attached` \| `detached`).
-	State *string `json:"State,omitempty"`
+	State *LinkedVolumeState `json:"State,omitempty"`
 
 	// VmId The ID of the VM.
 	VmId *string `json:"VmId,omitempty"`
@@ -4793,6 +4938,9 @@ type LinkedVolume struct {
 	// VolumeId The ID of the volume.
 	VolumeId *string `json:"VolumeId,omitempty"`
 }
+
+// LinkedVolumeState The state of the attachment of the volume (`attaching` \| `detaching` \| `attached` \| `detached`).
+type LinkedVolumeState string
 
 // Listener Information about the listener.
 type Listener struct {
@@ -5072,7 +5220,7 @@ type NatService struct {
 	PublicIps []PublicIpLight `json:"PublicIps"`
 
 	// State The state of the NAT service (`pending` \| `available` \| `deleting` \| `deleted`).
-	State string `json:"State"`
+	State NatServiceState `json:"State"`
 
 	// SubnetId The ID of the Subnet in which the NAT service is.
 	SubnetId string `json:"SubnetId"`
@@ -5080,6 +5228,9 @@ type NatService struct {
 	// Tags One or more tags associated with the NAT service.
 	Tags []ResourceTag `json:"Tags"`
 }
+
+// NatServiceState The state of the NAT service (`pending` \| `available` \| `deleting` \| `deleted`).
+type NatServiceState string
 
 // Net Information about the Net.
 type Net struct {
@@ -5093,7 +5244,7 @@ type Net struct {
 	NetId string `json:"NetId"`
 
 	// State The state of the Net (`pending` \| `available` \| `deleting`).
-	State string `json:"State"`
+	State NetState `json:"State"`
 
 	// Tags One or more tags associated with the Net.
 	Tags []ResourceTag `json:"Tags"`
@@ -5101,6 +5252,9 @@ type Net struct {
 	// Tenancy The VM tenancy in a Net.
 	Tenancy string `json:"Tenancy"`
 }
+
+// NetState The state of the Net (`pending` \| `available` \| `deleting`).
+type NetState string
 
 // NetAccessPoint Information about the Net access point.
 type NetAccessPoint struct {
@@ -5117,11 +5271,14 @@ type NetAccessPoint struct {
 	ServiceName *string `json:"ServiceName,omitempty"`
 
 	// State The state of the Net access point (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State *NetAccessPointState `json:"State,omitempty"`
 
 	// Tags One or more tags associated with the Net access point.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 }
+
+// NetAccessPointState The state of the Net access point (`pending` \| `available` \| `deleting` \| `deleted`).
+type NetAccessPointState string
 
 // NetPeering Information about the Net peering.
 type NetPeering struct {
@@ -5150,8 +5307,11 @@ type NetPeeringState struct {
 	Message string `json:"Message"`
 
 	// Name The state of the Net peering (`pending-acceptance` \| `active` \| `rejected` \| `failed` \| `expired` \| `deleted`).
-	Name string `json:"Name"`
+	Name NetPeeringStateName `json:"Name"`
 }
+
+// NetPeeringStateName The state of the Net peering (`pending-acceptance` \| `active` \| `rejected` \| `failed` \| `expired` \| `deleted`).
+type NetPeeringStateName string
 
 // NetToVirtualGatewayLink Information about the attachment.
 type NetToVirtualGatewayLink struct {
@@ -5198,7 +5358,7 @@ type Nic struct {
 	SecurityGroups *[]SecurityGroupLight `json:"SecurityGroups,omitempty"`
 
 	// State The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
-	State *string `json:"State,omitempty"`
+	State *NicState `json:"State,omitempty"`
 
 	// SubnetId The ID of the Subnet.
 	SubnetId *string `json:"SubnetId,omitempty"`
@@ -5209,6 +5369,9 @@ type Nic struct {
 	// Tags One or more tags associated with the NIC.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
 }
+
+// NicState The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
+type NicState string
 
 // NicForVmCreation Information about the network interface card (NIC) when creating a virtual machine (VM).
 type NicForVmCreation struct {
@@ -5273,7 +5436,7 @@ type NicLight struct {
 	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
 	// State The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
-	State string `json:"State"`
+	State NicState `json:"State"`
 
 	// SubnetId The ID of the Subnet for the NIC.
 	SubnetId string `json:"SubnetId"`
@@ -5549,13 +5712,13 @@ type PublicIp struct {
 	PrivateIp *string `json:"PrivateIp,omitempty"`
 
 	// PublicIp The public IP.
-	PublicIp *string `json:"PublicIp,omitempty"`
+	PublicIp string `json:"PublicIp"`
 
 	// PublicIpId The allocation ID of the public IP.
-	PublicIpId *string `json:"PublicIpId,omitempty"`
+	PublicIpId string `json:"PublicIpId"`
 
 	// Tags One or more tags associated with the public IP.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// VmId The ID of the VM the public IP is associated with (if any).
 	VmId *string `json:"VmId,omitempty"`
@@ -7764,7 +7927,7 @@ type Snapshot struct {
 	SnapshotId string `json:"SnapshotId"`
 
 	// State The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
-	State string `json:"State"`
+	State SnapshotState `json:"State"`
 
 	// Tags One or more tags associated with the snapshot.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
@@ -7776,29 +7939,35 @@ type Snapshot struct {
 	VolumeSize int `json:"VolumeSize"`
 }
 
+// SnapshotState The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
+type SnapshotState string
+
 // SnapshotExportTask Information about the snapshot export task.
 type SnapshotExportTask struct {
 	// Comment If the snapshot export task fails, an error message appears.
-	Comment *string `json:"Comment,omitempty"`
+	Comment string `json:"Comment"`
 
 	// OsuExport Information about the snapshot export task.
 	OsuExport *OsuExportSnapshotExportTask `json:"OsuExport,omitempty"`
 
 	// Progress The progress of the snapshot export task, as a percentage.
-	Progress *int `json:"Progress,omitempty"`
+	Progress int `json:"Progress"`
 
 	// SnapshotId The ID of the snapshot to be exported.
-	SnapshotId *string `json:"SnapshotId,omitempty"`
+	SnapshotId string `json:"SnapshotId"`
 
 	// State The state of the snapshot export task (`pending` \| `active` \| `completed` \| `cancelled` \| `failed`).
-	State *string `json:"State,omitempty"`
+	State SnapshotExportTaskState `json:"State"`
 
 	// Tags One or more tags associated with the snapshot export task.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// TaskId The ID of the snapshot export task.
-	TaskId *string `json:"TaskId,omitempty"`
+	TaskId string `json:"TaskId"`
 }
+
+// SnapshotExportTaskState The state of the snapshot export task (`pending` \| `active` \| `completed` \| `cancelled` \| `failed`).
+type SnapshotExportTaskState string
 
 // SourceNet Information about the source Net.
 type SourceNet struct {
@@ -7837,7 +8006,7 @@ type StartVmsResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 
 	// Vms Information about one or more started VMs.
-	Vms *[]VmState `json:"Vms,omitempty"`
+	Vms *[]VmStateInfo `json:"Vms,omitempty"`
 }
 
 // StateComment Information about the change of state.
@@ -7867,7 +8036,7 @@ type StopVmsResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 
 	// Vms Information about one or more stopped VMs.
-	Vms *[]VmState `json:"Vms,omitempty"`
+	Vms *[]VmStateInfo `json:"Vms,omitempty"`
 }
 
 // Subnet Information about the Subnet.
@@ -7885,7 +8054,7 @@ type Subnet struct {
 	NetId string `json:"NetId"`
 
 	// State The state of the Subnet (`pending` \| `available` \| `deleted`).
-	State string `json:"State"`
+	State SubnetState `json:"State"`
 
 	// SubnetId The ID of the Subnet.
 	SubnetId string `json:"SubnetId"`
@@ -7896,6 +8065,9 @@ type Subnet struct {
 	// Tags One or more tags associated with the Subnet.
 	Tags []ResourceTag `json:"Tags"`
 }
+
+// SubnetState The state of the Subnet (`pending` \| `available` \| `deleted`).
+type SubnetState string
 
 // Subregion Information about the Subregion.
 type Subregion struct {
@@ -9073,7 +9245,7 @@ type Vm struct {
 	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
 	// State The state of the VM (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
-	State string `json:"State"`
+	State VmState `json:"State"`
 
 	// StateReason The reason explaining the current state of the VM.
 	StateReason string `json:"StateReason"`
@@ -9096,6 +9268,9 @@ type Vm struct {
 	// VmType The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
 	VmType string `json:"VmType"`
 }
+
+// VmState The state of the VM (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
+type VmState string
 
 // VmGroup Information about the VM group.
 type VmGroup struct {
@@ -9142,8 +9317,8 @@ type VmGroupPositioningStrategy string
 // VmGroupState The state of the VM group.
 type VmGroupState string
 
-// VmState Information about the state of the VM.
-type VmState struct {
+// VmStateInfo Information about the state of the VM.
+type VmStateInfo struct {
 	// CurrentState The current state of the VM (`InService` \| `OutOfService` \| `Unknown`).
 	CurrentState *string `json:"CurrentState,omitempty"`
 
@@ -9157,16 +9332,16 @@ type VmState struct {
 // VmStates Information about the states of the VMs.
 type VmStates struct {
 	// MaintenanceEvents One or more scheduled events associated with the VM.
-	MaintenanceEvents *[]MaintenanceEvent `json:"MaintenanceEvents,omitempty"`
+	MaintenanceEvents []MaintenanceEvent `json:"MaintenanceEvents"`
 
 	// SubregionName The name of the Subregion of the VM.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// VmId The ID of the VM.
-	VmId *string `json:"VmId,omitempty"`
+	VmId string `json:"VmId"`
 
 	// VmState The state of the VM (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
-	VmState *string `json:"VmState,omitempty"`
+	VmState VmState `json:"VmState"`
 }
 
 // VmTemplate Information about the VM template.
@@ -9247,37 +9422,40 @@ type Volume struct {
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// CreationDate The date and time (UTC) at which the volume was created.
-	CreationDate *iso8601.Time `json:"CreationDate,omitempty"`
+	CreationDate iso8601.Time `json:"CreationDate"`
 
 	// Iops The number of I/O operations per second (IOPS):<br />
 	// - For `io1` volumes, the number of provisioned IOPS<br />
 	// - For `gp2` volumes, the baseline performance of the volume
-	Iops *int `json:"Iops,omitempty"`
+	Iops int `json:"Iops"`
 
 	// LinkedVolumes Information about your volume attachment.
 	LinkedVolumes *[]LinkedVolume `json:"LinkedVolumes,omitempty"`
 
 	// Size The size of the volume, in gibibytes (GiB).
-	Size *int `json:"Size,omitempty"`
+	Size int `json:"Size"`
 
 	// SnapshotId The snapshot from which the volume was created.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
 
 	// State The state of the volume (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
-	State *string `json:"State,omitempty"`
+	State VolumeState `json:"State"`
 
 	// SubregionName The Subregion in which the volume was created.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// Tags One or more tags associated with the volume.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// VolumeId The ID of the volume.
-	VolumeId *string `json:"VolumeId,omitempty"`
+	VolumeId string `json:"VolumeId"`
 
 	// VolumeType The type of the volume (`standard` \| `gp2` \| `io1`).
-	VolumeType *string `json:"VolumeType,omitempty"`
+	VolumeType string `json:"VolumeType"`
 }
+
+// VolumeState The state of the volume (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
+type VolumeState string
 
 // VpnConnection Information about a VPN connection.
 type VpnConnection struct {
