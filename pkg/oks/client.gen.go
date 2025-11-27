@@ -51,6 +51,33 @@ const (
 	MaintenanceWindowWeekDayWed    MaintenanceWindowWeekDay = "Wed"
 )
 
+// Defines values for ProjectStatus.
+const (
+	ProjectStatusDeleting  ProjectStatus = "deleting"
+	ProjectStatusDeploying ProjectStatus = "deploying"
+	ProjectStatusFailed    ProjectStatus = "failed"
+	ProjectStatusPending   ProjectStatus = "pending"
+	ProjectStatusReady     ProjectStatus = "ready"
+	ProjectStatusUpdating  ProjectStatus = "updating"
+	ProjectStatusUpgrading ProjectStatus = "upgrading"
+)
+
+// Defines values for SnapshotState.
+const (
+	SnapshotStateCompleted SnapshotState = "completed"
+	SnapshotStateDeleting  SnapshotState = "deleting"
+	SnapshotStateError     SnapshotState = "error"
+	SnapshotStateInQueue   SnapshotState = "in-queue"
+	SnapshotStatePending   SnapshotState = "pending"
+)
+
+// Defines values for VolumeType.
+const (
+	Gp2      VolumeType = "gp2"
+	Io1      VolumeType = "io1"
+	Standard VolumeType = "standard"
+)
+
 // AdmissionFlags Information about the Kubernetes admission plugins configuration.
 type AdmissionFlags struct {
 	// AppliedAdmissionPlugins The list of admission plugins that are currently applied to the cluster.
@@ -424,10 +451,8 @@ type Project struct {
 	Name string `json:"name"`
 
 	// Region The Region on which the project is deployed.
-	Region string `json:"region"`
-
-	// Status The status of the project (`pending` | `ready` | `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
-	Status string `json:"status"`
+	Region string        `json:"region"`
+	Status ProjectStatus `json:"status"`
 
 	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags map[string]string `json:"tags"`
@@ -475,6 +500,9 @@ type ProjectResponseList struct {
 	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
+
+// ProjectStatus defines model for ProjectStatus.
+type ProjectStatus string
 
 // ProjectUpdate Information about the updated project configuration.
 type ProjectUpdate struct {
@@ -568,7 +596,7 @@ type Snapshot struct {
 	SnapshotId string `json:"SnapshotId"`
 
 	// State The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
-	State string `json:"State"`
+	State SnapshotState `json:"State"`
 
 	// Tags One or more tags associated with the snapshot.
 	Tags []ResourceTag `json:"Tags"`
@@ -579,6 +607,9 @@ type Snapshot struct {
 	// VolumeSize The size of the volume used to create the snapshot, in gibibytes (GiB).
 	VolumeSize int `json:"VolumeSize"`
 }
+
+// SnapshotState The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
+type SnapshotState string
 
 // SnapshotsResponse defines model for SnapshotsResponse.
 type SnapshotsResponse struct {
@@ -717,8 +748,11 @@ type Volume struct {
 	Size int `json:"size"`
 
 	// Type The type of the volume (`gp2`, `io1`, `standard`).
-	Type string `json:"type"`
+	Type VolumeType `json:"type"`
 }
+
+// VolumeType The type of the volume (`gp2`, `io1`, `standard`).
+type VolumeType string
 
 // ClustersClusterSchemaRPCResponse defines model for clusters__cluster_schema__RPCResponse.
 type ClustersClusterSchemaRPCResponse struct {
@@ -846,7 +880,7 @@ type ListProjectsParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
 	// Status The status of the projects (`pending` | `ready` | `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
-	Status *string `form:"status,omitempty" json:"status,omitempty"`
+	Status *ProjectStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// Cidr The IP ranges for the projects, IN CIDR notation (for example, `192.0.2.0/16`).
 	Cidr *string `form:"cidr,omitempty" json:"cidr,omitempty"`
