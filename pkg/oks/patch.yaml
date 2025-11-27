@@ -10,4 +10,22 @@ actions:
           application/json:
             schema:
               "$ref": "#/components/schemas/HTTPValidationError"
-      
+  - target: $.components.schemas.ValidationError
+    update:
+      properties:
+        Details:
+          type: string
+          title: Message
+        Code:
+          type: string
+      required:
+        - Code
+        - Details
+  - target: $.components.schemas.HTTPValidationError.properties.detail
+    delete: true
+  - target: $.components.schemas.HTTPValidationError.properties
+    update:
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'

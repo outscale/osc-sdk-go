@@ -1,6 +1,7 @@
 package examples_test
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -23,6 +24,14 @@ func TestProject(t *testing.T) {
 
 	ctx := t.Context()
 
+	_, err = client.GetProject(ctx, "a-non-existing-project")
+	if err == nil {
+		panic("a-non-existing-project should not exist")
+	}
+	if !oks.IsNotFound(err) {
+		panic(fmt.Errorf("a-non-existing-project should be not found: %w", err))
+	}
+
 	name := "test"
 	_, err = client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
 	if err != nil {
@@ -40,14 +49,27 @@ func TestProject(t *testing.T) {
 		panic(err)
 	}
 
+	var projectID string
 	createProject, err := client.CreateProject(ctx, project)
 	if err != nil {
-		t.Log(*oks.StatusCodeHelper(err))
-		panic(err)
+		if oks.IsConflict(err) {
+			readtProject, errList := client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
+			if errList != nil {
+				panic(err)
+			}
+			if len(readtProject.Projects) != 1 {
+				panic(fmt.Errorf("expected 1 project, got %d", len(readtProject.Projects)))
+			}
+			projectID = readtProject.Projects[0].Id
+		} else {
+			panic(err)
+		}
+	} else {
+		projectID = createProject.Project.Id
 	}
 
 	for {
-		readProject, err := client.GetProject(ctx, createProject.Project.Id)
+		readProject, err := client.GetProject(ctx, projectID)
 		if err != nil {
 			panic(err)
 		}
@@ -59,7 +81,7 @@ func TestProject(t *testing.T) {
 		time.Sleep(10 * time.Second)
 	}
 
-	_, err = client.DeleteProject(ctx, createProject.Project.Id)
+	_, err = client.DeleteProject(ctx, projectID)
 	if err != nil {
 		panic(err)
 	}

@@ -110,7 +110,7 @@ type Cluster struct {
 	// AdminLbu If true, load balancer administration is enabled for cluster management. If false, it is disabled.
 	AdminLbu bool `json:"admin_lbu"`
 
-	// AdminWhitelist The list of CIDR blocks or IP addresses allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
 	AdminWhitelist []string `json:"admin_whitelist"`
 
 	// AdmissionFlags The configuration of the Kubernetes admission controllers.
@@ -118,15 +118,9 @@ type Cluster struct {
 
 	// AutoMaintenances The configuration of the automated maintenance windows.
 	AutoMaintenances AutoMaintenances `json:"auto_maintenances"`
-
-	// CidrPods The CIDR block of the Kubernetes pods' network.
-	CidrPods *string `json:"cidr_pods"`
-
-	// CidrService The CIDR block of the Kubernetes services' network.
-	CidrService *string `json:"cidr_service"`
-
-	// ClusterDns The IP of the cluster's DNS service.
-	ClusterDns *string `json:"cluster_dns"`
+	CidrPods         *string          `json:"cidr_pods"`
+	CidrService      *string          `json:"cidr_service"`
+	ClusterDns       *string          `json:"cluster_dns"`
 
 	// Cni The Container Network Interface (CNI) used in the cluster.
 	Cni string `json:"cni"`
@@ -139,18 +133,12 @@ type Cluster struct {
 
 	// CpSubregions The Subregions on which the control plane components are deployed.
 	CpSubregions []string `json:"cp_subregions"`
-
-	// Description An optional description of the cluster.
-	Description *string `json:"description"`
+	Description  *string  `json:"description"`
 
 	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
-	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
-
-	// ExpectedControlPlanes The type of control plane size that is expected.
+	DisableApiTermination *bool   `json:"disable_api_termination,omitempty"`
 	ExpectedControlPlanes *string `json:"expected_control_planes"`
-
-	// ExpectedVersion The version of Kubernetes that is expected to be deployed during maintenance.
-	ExpectedVersion *string `json:"expected_version"`
+	ExpectedVersion       *string `json:"expected_version"`
 
 	// Id The Universally Unique Identifier (UUID) of the cluster.
 	Id string `json:"id"`
@@ -167,7 +155,7 @@ type Cluster struct {
 	// Tags The key/value combinations of the tags associated with the cluster, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags map[string]string `json:"tags"`
 
-	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
 	Version string `json:"version"`
 }
 
@@ -202,9 +190,7 @@ type ClusterInput struct {
 
 	// CpSubregions The list of Subregions where control plane components are deployed.
 	CpSubregions *[]string `json:"cp_subregions,omitempty"`
-
-	// Description A description of the cluster.
-	Description *string `json:"description"`
+	Description  *string   `json:"description"`
 
 	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
@@ -213,15 +199,13 @@ type ClusterInput struct {
 	Name string `json:"name"`
 
 	// ProjectId The ID of the project in which you want to create a cluster.
-	ProjectId string `json:"project_id"`
-
-	// Quirks The list of special configurations or behaviors for the cluster.
-	Quirks *[]string `json:"quirks"`
+	ProjectId string    `json:"project_id"`
+	Quirks    *[]string `json:"quirks"`
 
 	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags *map[string]string `json:"tags,omitempty"`
 
-	// Version The Kubernetes version to be deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+	// Version The Kubernetes version to be deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
 	Version string `json:"version"`
 }
 
@@ -256,23 +240,19 @@ type ClusterInputTemplate struct {
 
 	// CpSubregions A list of Subregions where control plane components are deployed.
 	CpSubregions *[]string `json:"cp_subregions,omitempty"`
-
-	// Description The description of the cluster.
-	Description *string `json:"description"`
+	Description  *string   `json:"description"`
 
 	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
 	// ProjectId The ID of the project to which this cluster belongs to.
-	ProjectId string `json:"project_id"`
-
-	// Quirks A list of special configurations or behaviors for the cluster.
-	Quirks *[]string `json:"quirks"`
+	ProjectId string    `json:"project_id"`
+	Quirks    *[]string `json:"quirks"`
 
 	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
 	Tags *map[string]string `json:"tags,omitempty"`
 
-	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
 	Version string `json:"version"`
 }
 
@@ -296,32 +276,17 @@ type ClusterResponseList struct {
 
 // ClusterUpdate Information about the updated cluster configuration.
 type ClusterUpdate struct {
-	// AdminWhitelist The updated list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
-	AdminWhitelist *[]string `json:"admin_whitelist"`
-
-	// AdmissionFlags Information about the Kubernetes admission plugins.
-	AdmissionFlags *AdmissionFlagsInput `json:"admission_flags,omitempty"`
-
-	// AutoMaintenances Information about the automated maintenance windows.
-	AutoMaintenances *AutoMaintenances `json:"auto_maintenances,omitempty"`
+	AdminWhitelist   *[]string            `json:"admin_whitelist"`
+	AdmissionFlags   *AdmissionFlagsInput `json:"admission_flags"`
+	AutoMaintenances *AutoMaintenances    `json:"auto_maintenances"`
 
 	// ControlPlanes The size of the control plane deployment for the cluster.
-	ControlPlanes *string `json:"control_planes,omitempty"`
-
-	// Description The updated description of the cluster.
-	Description *string `json:"description"`
-
-	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
-	DisableApiTermination *bool `json:"disable_api_termination"`
-
-	// Quirks The updated list of special configurations or behaviors for the cluster.
-	Quirks *[]string `json:"quirks"`
-
-	// Tags The updated key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
-	Tags *map[string]string `json:"tags"`
-
-	// Version The updated version of Kubernetes for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
-	Version *string `json:"version"`
+	ControlPlanes         *string            `json:"control_planes,omitempty"`
+	Description           *string            `json:"description"`
+	DisableApiTermination *bool              `json:"disable_api_termination"`
+	Quirks                *[]string          `json:"quirks"`
+	Tags                  *map[string]string `json:"tags"`
+	Version               *string            `json:"version"`
 }
 
 // ControlPlanesResponse defines model for ControlPlanesResponse.
@@ -342,22 +307,12 @@ type DetailResponse struct {
 	Detail string `json:"detail"`
 }
 
-// HTTPValidationError defines model for HTTPValidationError.
+// HTTPValidationError Information about the HTTP 422 validation error.
 type HTTPValidationError struct {
-	Errors *[]struct {
-		Details *HTTPValidationError_Errors_Details `json:"Details,omitempty"`
-	} `json:"Errors,omitempty"`
-}
+	Errors *[]ValidationError `json:"Errors,omitempty"`
 
-// HTTPValidationErrorErrorsDetails0 defines model for .
-type HTTPValidationErrorErrorsDetails0 = []ValidationError
-
-// HTTPValidationErrorErrorsDetails1 defines model for .
-type HTTPValidationErrorErrorsDetails1 = string
-
-// HTTPValidationError_Errors_Details defines model for HTTPValidationError.Errors.Details.
-type HTTPValidationError_Errors_Details struct {
-	union json.RawMessage
+	// Detail The details of the HTTP 422 validation error.
+	Detail *[]ValidationError `json:"detail,omitempty"`
 }
 
 // KubeconfigData Information about the kubeconfig for the cluster.
@@ -455,13 +410,9 @@ type Project struct {
 	Cidr string `json:"cidr"`
 
 	// CreatedAt The timestamp when the project was created.
-	CreatedAt time.Time `json:"created_at"`
-
-	// DeletedAt The timestamp when the project was deleted (if applicable).
-	DeletedAt *time.Time `json:"deleted_at"`
-
-	// Description A description for the project.
-	Description *string `json:"description"`
+	CreatedAt   time.Time  `json:"created_at"`
+	DeletedAt   *time.Time `json:"deleted_at"`
+	Description *string    `json:"description"`
 
 	// DisableApiTermination If true, project deletion through the API is disabled. If false, it is enabled.
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
@@ -475,7 +426,7 @@ type Project struct {
 	// Region The Region on which the project is deployed.
 	Region string `json:"region"`
 
-	// Status The status of the project.
+	// Status The status of the project (`pending` | `ready` | `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
 	Status string `json:"status"`
 
 	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
@@ -497,9 +448,7 @@ type ProjectInput struct {
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
 	// Name A unique name for the project. Must start with a letter and contain only lowercase letters, numbers, or hyphens.
-	Name string `json:"name"`
-
-	// Quirks A list of special configurations or behaviors for the project.
+	Name   string    `json:"name"`
 	Quirks *[]string `json:"quirks"`
 
 	// Region The Region on which the project is deployed.
@@ -529,17 +478,10 @@ type ProjectResponseList struct {
 
 // ProjectUpdate Information about the updated project configuration.
 type ProjectUpdate struct {
-	// Description The updated description for the project.
-	Description *string `json:"description"`
-
-	// DisableApiTermination If true, project deletion through the API is disabled. If false, it is enabled.
-	DisableApiTermination *bool `json:"disable_api_termination"`
-
-	// Quirks The updated list of special configurations or behaviors for the project.
-	Quirks *[]string `json:"quirks"`
-
-	// Tags The updated key/value combinations of the tags associated with the project's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
-	Tags *map[string]string `json:"tags"`
+	Description           *string            `json:"description"`
+	DisableApiTermination *bool              `json:"disable_api_termination"`
+	Quirks                *[]string          `json:"quirks"`
+	Tags                  *map[string]string `json:"tags"`
 }
 
 // PublicIp Information about the public IP.
@@ -670,19 +612,13 @@ type Spec struct {
 
 // Statuses Information about the status of the cluster.
 type Statuses struct {
-	// AvailableUpgrade Any available version of Kubernetes for upgrade (if applicable). For more information, see [GetKubernetesVersions](#getkubenetesversions).
+	// AvailableUpgrade Any available version of Kubernetes for upgrade (if applicable). For more information, see [GetKubernetesVersions](#getkubernetesversions).
 	AvailableUpgrade *string `json:"available_upgrade,omitempty"`
 
 	// CreatedAt The timestamp when the cluster was created.
-	CreatedAt time.Time `json:"created_at"`
-
-	// DeletedAt The timestamp when the cluster was deleted (if applicable).
+	CreatedAt time.Time  `json:"created_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
-
-	// Status The status of the cluster.
-	Status *string `json:"status"`
-
-	// UpdatedAt The timestamp when the cluster was last updated.
+	Status    *string    `json:"status"`
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
@@ -745,6 +681,9 @@ type UpgradeStrategy struct {
 
 // ValidationError Information about the validation error.
 type ValidationError struct {
+	Code    string `json:"Code"`
+	Details string `json:"Details"`
+
 	// Loc The location of the validation error in the request.
 	Loc []ValidationError_Loc_Item `json:"loc"`
 
@@ -906,7 +845,7 @@ type ListProjectsParams struct {
 	// Name The name of the projects.
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
-	// Status The status of the projects.
+	// Status The status of the projects (`pending` | `ready` | `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
 	Status *string `form:"status,omitempty" json:"status,omitempty"`
 
 	// Cidr The IP ranges for the projects, IN CIDR notation (for example, `192.0.2.0/16`).
@@ -933,68 +872,6 @@ type CreateProjectJSONRequestBody = ProjectInput
 
 // UpdateProjectJSONRequestBody defines body for UpdateProject for application/json ContentType.
 type UpdateProjectJSONRequestBody = ProjectUpdate
-
-// AsHTTPValidationErrorErrorsDetails0 returns the union data inside the HTTPValidationError_Errors_Details as a HTTPValidationErrorErrorsDetails0
-func (t HTTPValidationError_Errors_Details) AsHTTPValidationErrorErrorsDetails0() (HTTPValidationErrorErrorsDetails0, error) {
-	var body HTTPValidationErrorErrorsDetails0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromHTTPValidationErrorErrorsDetails0 overwrites any union data inside the HTTPValidationError_Errors_Details as the provided HTTPValidationErrorErrorsDetails0
-func (t *HTTPValidationError_Errors_Details) FromHTTPValidationErrorErrorsDetails0(v HTTPValidationErrorErrorsDetails0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeHTTPValidationErrorErrorsDetails0 performs a merge with any union data inside the HTTPValidationError_Errors_Details, using the provided HTTPValidationErrorErrorsDetails0
-func (t *HTTPValidationError_Errors_Details) MergeHTTPValidationErrorErrorsDetails0(v HTTPValidationErrorErrorsDetails0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsHTTPValidationErrorErrorsDetails1 returns the union data inside the HTTPValidationError_Errors_Details as a HTTPValidationErrorErrorsDetails1
-func (t HTTPValidationError_Errors_Details) AsHTTPValidationErrorErrorsDetails1() (HTTPValidationErrorErrorsDetails1, error) {
-	var body HTTPValidationErrorErrorsDetails1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromHTTPValidationErrorErrorsDetails1 overwrites any union data inside the HTTPValidationError_Errors_Details as the provided HTTPValidationErrorErrorsDetails1
-func (t *HTTPValidationError_Errors_Details) FromHTTPValidationErrorErrorsDetails1(v HTTPValidationErrorErrorsDetails1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeHTTPValidationErrorErrorsDetails1 performs a merge with any union data inside the HTTPValidationError_Errors_Details, using the provided HTTPValidationErrorErrorsDetails1
-func (t *HTTPValidationError_Errors_Details) MergeHTTPValidationErrorErrorsDetails1(v HTTPValidationErrorErrorsDetails1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t HTTPValidationError_Errors_Details) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	return b, err
-}
-
-func (t *HTTPValidationError_Errors_Details) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	return err
-}
 
 // AsValidationErrorLoc0 returns the union data inside the ValidationError_Loc_Item as a ValidationErrorLoc0
 func (t ValidationError_Loc_Item) AsValidationErrorLoc0() (ValidationErrorLoc0, error) {
@@ -1090,8 +967,8 @@ type clientInterfaceRaw interface {
 	// GetCPSubregionsRaw request
 	GetCPSubregionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
-	// GetKubenetesVersionsRaw request
-	GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+	// GetKubernetesVersionsRaw request
+	GetKubernetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// DeleteClusterRaw request
 	DeleteClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
@@ -1247,8 +1124,8 @@ func (c *ClientRaw) GetCPSubregionsRaw(ctx context.Context, reqEditors ...middle
 	return client.RoundTrip(req)
 }
 
-func (c *ClientRaw) GetKubenetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
-	req, err := NewGetKubenetesVersionsRequest(c.Server)
+func (c *ClientRaw) GetKubernetesVersionsRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewGetKubernetesVersionsRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -1881,8 +1758,8 @@ func NewGetCPSubregionsRequest(server string) (*http.Request, error) {
 	return req, nil
 }
 
-// NewGetKubenetesVersionsRequest generates requests for GetKubenetesVersions
-func NewGetKubenetesVersionsRequest(server string) (*http.Request, error) {
+// NewGetKubernetesVersionsRequest generates requests for GetKubernetesVersions
+func NewGetKubernetesVersionsRequest(server string) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -2768,8 +2645,8 @@ type ClientInterface interface {
 	// GetCPSubregions request
 	GetCPSubregions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*CPSubregionsResponse, error)
 
-	// GetKubenetesVersions request
-	GetKubenetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error)
+	// GetKubernetesVersions request
+	GetKubernetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error)
 
 	// DeleteCluster request
 	DeleteCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error)
@@ -3057,7 +2934,7 @@ func (r GetCPSubregionsResponse) genError() error {
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
 }
 
-type GetKubenetesVersionsResponse struct {
+type GetKubernetesVersionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *KubernetesVersionsResponse
@@ -3066,7 +2943,7 @@ type GetKubenetesVersionsResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r GetKubenetesVersionsResponse) Status() string {
+func (r GetKubernetesVersionsResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -3074,14 +2951,14 @@ func (r GetKubenetesVersionsResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetKubenetesVersionsResponse) StatusCode() int {
+func (r GetKubernetesVersionsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-func (r GetKubenetesVersionsResponse) Expect() (*KubernetesVersionsResponse, error) {
+func (r GetKubernetesVersionsResponse) Expect() (*KubernetesVersionsResponse, error) {
 	if r.JSON200 != nil {
 		return r.JSON200, nil
 	}
@@ -3089,7 +2966,7 @@ func (r GetKubenetesVersionsResponse) Expect() (*KubernetesVersionsResponse, err
 	return nil, r.genError()
 }
 
-func (r GetKubenetesVersionsResponse) genError() error {
+func (r GetKubernetesVersionsResponse) genError() error {
 
 	if r.JSON422 != nil {
 		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
@@ -4021,13 +3898,13 @@ func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...middleware.M
 	return resp, err
 }
 
-// GetKubenetesVersions request returning *KubernetesVersionsResponse
-func (c *Client) GetKubenetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error) {
-	rsp, err := c.GetKubenetesVersionsRaw(ctx, reqEditors...)
+// GetKubernetesVersions request returning *KubernetesVersionsResponse
+func (c *Client) GetKubernetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error) {
+	rsp, err := c.GetKubernetesVersionsRaw(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	obj, err := ParseGetKubenetesVersionsResponse(rsp)
+	obj, err := ParseGetKubernetesVersionsResponse(rsp)
 	if err != nil {
 		return nil, err
 	}
@@ -4620,15 +4497,15 @@ func ParseGetCPSubregionsResponse(rsp *http.Response) (*GetCPSubregionsResponse,
 	return response, nil
 }
 
-// ParseGetKubenetesVersionsResponse parses an HTTP response from a GetKubenetesVersions call
-func ParseGetKubenetesVersionsResponse(rsp *http.Response) (*GetKubenetesVersionsResponse, error) {
+// ParseGetKubernetesVersionsResponse parses an HTTP response from a GetKubernetesVersions call
+func ParseGetKubernetesVersionsResponse(rsp *http.Response) (*GetKubernetesVersionsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetKubenetesVersionsResponse{
+	response := &GetKubernetesVersionsResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: OKS API
   description: |-
@@ -40,40 +40,39 @@ paths:
       tags:
       - Projects
       summary: Get Projects
-      description: Lists one or more of your projects. The response can be filtered using the parameters.
+      description: Lists one or more of your projects. The response can be 
+        filtered using the parameters.
       operationId: ListProjects
       parameters:
       - name: name
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Name
+          nullable: true
         description: The name of the projects.
       - name: status
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Status
-        description: The status of the projects.
+          nullable: true
+        description: The status of the projects (`pending` | `ready` | 
+          `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
       - name: cidr
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Cidr
-        description: The IP ranges for the projects, IN CIDR notation (for example, `192.0.2.0/16`).
+          nullable: true
+        description: The IP ranges for the projects, IN CIDR notation (for 
+          example, `192.0.2.0/16`).
       - name: deleted
         in: query
         required: false
         schema:
-          nullable: true
           type: boolean
-          title: Deleted
+          nullable: true
         description: If true, returns deleted projects.
       responses:
         '200':
@@ -209,7 +208,9 @@ paths:
       tags:
       - Projects
       summary: Get Project Snapshots
-      description: Retrieves the snapshot details for a specific project by its ID. Returns the snapshot information associated with the specified project.
+      description: Retrieves the snapshot details for a specific project by its 
+        ID. Returns the snapshot information associated with the specified 
+        project.
       operationId: GetProjectSnapshots
       parameters:
       - name: project_id
@@ -237,7 +238,9 @@ paths:
       tags:
       - Projects
       summary: Get Project Quotas
-      description: Retrieves the Public IP details for a specific project by its ID. Returns the public IP information associated with the specified project.
+      description: Retrieves the Public IP details for a specific project by its
+        ID. Returns the public IP information associated with the specified 
+        project.
       operationId: GetProjectPublicIps
       parameters:
       - name: project_id
@@ -291,48 +294,44 @@ paths:
       tags:
       - Clusters
       summary: Get Clusters
-      description: Lists one or more clusters associated with a project. The response can be filtered using the parameters.
+      description: Lists one or more clusters associated with a project. The 
+        response can be filtered using the parameters.
       operationId: ListClustersByProjectID
       parameters:
       - name: project_id
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Project Id
+          nullable: true
         description: The ID of the project.
       - name: name
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Name
+          nullable: true
         description: The name of the clusters.
       - name: status
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Status
+          nullable: true
         description: The status of the clusters.
       - name: version
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Version
+          nullable: true
         description: The version of the clusters.
       - name: deleted
         in: query
         required: false
         schema:
-          nullable: true
           type: boolean
-          title: Deleted
+          nullable: true
         description: If true, returns deleted clusters.
       responses:
         '200':
@@ -352,40 +351,37 @@ paths:
       tags:
       - Clusters
       summary: Get All Clusters
-      description: Lists one or more of your clusters. The response can be filtered using the parameters.
+      description: Lists one or more of your clusters. The response can be 
+        filtered using the parameters.
       operationId: ListAllClusters
       parameters:
       - name: name
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Name
+          nullable: true
         description: The name of the clusters.
       - name: status
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Status
+          nullable: true
         description: The status of the clusters.
       - name: version
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Version
+          nullable: true
         description: The version of the clusters.
       - name: deleted
         in: query
         required: false
         schema:
-          nullable: true
           type: boolean
-          title: Deleted
+          nullable: true
         description: If true, returns deleted clusters.
       responses:
         '200':
@@ -493,7 +489,8 @@ paths:
       tags:
       - Clusters
       summary: Get Cluster Kubeconfig
-      description: Gets the kubeconfig file for a specific cluster. You can specify query parameters for the kubeconfig file.
+      description: Gets the kubeconfig file for a specific cluster. You can 
+        specify query parameters for the kubeconfig file.
       operationId: GetKubeconfig
       parameters:
       - name: cluster_id
@@ -507,25 +504,22 @@ paths:
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: User
+          nullable: true
         description: The user of the kubeconfig file.
       - name: group
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Group
+          nullable: true
         description: The group of the kubeconfig file.
       - name: ttl
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Ttl
+          nullable: true
         description: The time to live (TTL) of the kubeconfig file.
       responses:
         '200':
@@ -544,7 +538,10 @@ paths:
       tags:
       - Clusters
       summary: Post Cluster Kubeconfig
-      description: Gets the kubeconfig file for a specific cluster, optionally encrypted with a NaCl public key. For more information, see the [NaCl website](https://nacl.cr.yp.to/). You can specify query parameters for the kubeconfig file.
+      description: Gets the kubeconfig file for a specific cluster, optionally 
+        encrypted with a NaCl public key. For more information, see the [NaCl 
+        website](https://nacl.cr.yp.to/). You can specify query parameters for 
+        the kubeconfig file.
       operationId: GetKubeconfigWithPubkeyNACL
       parameters:
       - name: cluster_id
@@ -558,33 +555,29 @@ paths:
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: User
+          nullable: true
         description: The user of the kubeconfig file.
       - name: group
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Group
+          nullable: true
         description: The group of the kubeconfig file.
       - name: ttl
         in: query
         required: false
         schema:
-          nullable: true
           type: string
-          title: Ttl
+          nullable: true
         description: The time to live (TTL) of the kubeconfig file.
       - name: x-encrypt-nacl
         in: header
         required: false
         schema:
-          nullable: true
           type: string
-          title: X-Encrypt-Nacl
+          nullable: true
         description: The header to encrypt the kubeconfig file.
       responses:
         '200':
@@ -604,7 +597,9 @@ paths:
       tags:
       - Clusters
       summary: Upgrade Cluster
-      description: Upgrades a specific cluster to the latest available version of Kubernetes. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+      description: Upgrades a specific cluster to the latest available version 
+        of Kubernetes. For more information, see 
+        [GetKubernetesVersions](#getkubernetesversions).
       operationId: UpgradeCluster
       parameters:
       - name: cluster_id
@@ -632,8 +627,9 @@ paths:
       tags:
       - Clusters
       summary: Get Kubernetes Versions
-      description: Gets the available Kubernetes versions for cluster creation or upgrades.
-      operationId: GetKubenetesVersions
+      description: Gets the available Kubernetes versions for cluster creation 
+        or upgrades.
+      operationId: GetKubernetesVersions
       parameters: []
       responses:
         '200':
@@ -653,7 +649,8 @@ paths:
       tags:
       - Clusters
       summary: Get Cp Subregions
-      description: Gets the Subregions where you can deploy control planes for your clusters.
+      description: Gets the Subregions where you can deploy control planes for 
+        your clusters.
       operationId: GetCPSubregions
       parameters: []
       responses:
@@ -674,7 +671,8 @@ paths:
       tags:
       - Clusters
       summary: Get Control Plane Plans
-      description: Gets the control plane types that you can use to create your clusters.
+      description: Gets the control plane types that you can use to create your 
+        clusters.
       operationId: GetControlPlanePlans
       parameters: []
       responses:
@@ -695,7 +693,8 @@ paths:
       tags:
       - Templates
       summary: Get Project Template
-      description: Gets the default project template, including the predefined network configurations, Region, and metadata.
+      description: Gets the default project template, including the predefined 
+        network configurations, Region, and metadata.
       operationId: GetProjectTemplate
       parameters: []
       responses:
@@ -716,16 +715,17 @@ paths:
       tags:
       - Templates
       summary: Get Cluster Template
-      description: Gets the default cluster template, including the predefined control plane configurations, networking settings, and maintenance schedules.
+      description: Gets the default cluster template, including the predefined 
+        control plane configurations, networking settings, and maintenance 
+        schedules.
       operationId: GetClusterTemplate
       parameters:
       - name: X-Real-IP
         in: header
         required: false
         schema:
-          nullable: true
           type: string
-          title: X-Real-Ip
+          nullable: true
         description: A header with the IP of the client making the request.
       responses:
         '200':
@@ -745,7 +745,8 @@ paths:
       tags:
       - Templates
       summary: Get Nodepool Template
-      description: Gets the default node pool template, including the predefined configurations for node scaling, storage, and upgrade strategies.
+      description: Gets the default node pool template, including the predefined
+        configurations for node scaling, storage, and upgrade strategies.
       operationId: GetNodepoolTemplate
       parameters: []
       responses:
@@ -791,21 +792,24 @@ components:
             type: string
           type: array
           title: Disable Admission Plugins
-          description: The list of Kubernetes admission plugins that are disabled.
+          description: The list of Kubernetes admission plugins that are 
+            disabled.
           default: []
         enable_admission_plugins:
           items:
             type: string
           type: array
           title: Enable Admission Plugins
-          description: The list of Kubernetes admission plugins that are enabled.
+          description: The list of Kubernetes admission plugins that are 
+            enabled.
           default: []
         applied_admission_plugins:
           items:
             type: string
           type: array
           title: Applied Admission Plugins
-          description: The list of admission plugins that are currently applied to the cluster.
+          description: The list of admission plugins that are currently applied 
+            to the cluster.
           default:
           - CertificateApproval
           - CertificateSigning
@@ -829,7 +833,8 @@ components:
           - ValidatingAdmissionWebhook
       type: object
       title: AdmissionFlags
-      description: Information about the Kubernetes admission plugins configuration.
+      description: Information about the Kubernetes admission plugins 
+        configuration.
     AdmissionFlagsInput:
       properties:
         disable_admission_plugins:
@@ -853,12 +858,14 @@ components:
           allOf:
           - $ref: '#/components/schemas/MaintenanceWindow'
           title: Minor Upgrade Maintenance
-          description: The maintenance window configuration for minor Kubernetes upgrades.
+          description: The maintenance window configuration for minor Kubernetes
+            upgrades.
         patch_upgrade_maintenance:
           allOf:
           - $ref: '#/components/schemas/MaintenanceWindow'
           title: Patch Upgrade Maintenance
-          description: The maintenance window configuration for patch Kubernetes upgrades.
+          description: The maintenance window configuration for patch Kubernetes
+            upgrades.
       type: object
       required:
       - minor_upgrade_maintenance
@@ -895,7 +902,8 @@ components:
       - startHour
       - weekDay
       title: AutoUpgradeMaintenance
-      description: Information about the window of the automated upgrade maintenance.
+      description: Information about the window of the automated upgrade 
+        maintenance.
     CPSubregionsResponse:
       properties:
         ResponseContext:
@@ -906,7 +914,8 @@ components:
             type: string
           type: array
           title: CP Subregions
-          description: The list of Subregions where you can deploy control planes for your clusters.
+          description: The list of Subregions where you can deploy control 
+            planes for your clusters.
       type: object
       required:
       - ResponseContext
@@ -927,43 +936,44 @@ components:
           title: Cluster Name
           description: A unique name for the cluster within the project.
         description:
-          nullable: true
           type: string
-          title: Description
-          description: An optional description of the cluster.
-          default: ''
+          nullable: true
         cp_multi_az:
           type: boolean
           title: Control Plane Multi-AZ
-          description: If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+          description: If true, multi-Subregion deployment is enabled for the 
+            control plane. If false, it is disabled.
         cp_subregions:
           items:
             type: string
           type: array
           title: Control Plane Subregions
-          description: The Subregions on which the control plane components are deployed.
+          description: The Subregions on which the control plane components are 
+            deployed.
         version:
           type: string
           title: Kubernetes Version
-          description: The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+          description: The Kubernetes version deployed for the cluster. For more
+            information, see [GetKubernetesVersions](#getkubernetesversions).
         expected_version:
-          nullable: true
           type: string
-          title: Expected Kubernetes Version
-          description: The version of Kubernetes that is expected to be deployed during maintenance.
+          nullable: true
         cni:
           type: string
           title: CNI
-          description: The Container Network Interface (CNI) used in the cluster.
+          description: The Container Network Interface (CNI) used in the 
+            cluster.
         admin_lbu:
           type: boolean
           title: Admin LBU
-          description: If true, load balancer administration is enabled for cluster management. If false, it is disabled.
+          description: If true, load balancer administration is enabled for 
+            cluster management. If false, it is disabled.
         admission_flags:
           allOf:
           - $ref: '#/components/schemas/AdmissionFlags'
           title: Admission Flags
-          description: The configuration of the Kubernetes admission controllers.
+          description: The configuration of the Kubernetes admission 
+            controllers.
           default:
             disable_admission_plugins: []
             enable_admission_plugins: []
@@ -989,26 +999,22 @@ components:
             - ValidatingAdmissionPolicy
             - ValidatingAdmissionWebhook
         cidr_pods:
-          nullable: true
           type: string
-          title: Pods CIDR
-          description: The CIDR block of the Kubernetes pods' network.
+          nullable: true
         cidr_service:
-          nullable: true
           type: string
-          title: Service CIDR
-          description: The CIDR block of the Kubernetes services' network.
+          nullable: true
         cluster_dns:
-          nullable: true
           type: string
-          title: Cluster DNS
-          description: The IP of the cluster's DNS service.
+          nullable: true
         tags:
           additionalProperties:
             type: string
           type: object
           title: Tags
-          description: The key/value combinations of the tags associated with the cluster, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          description: The key/value combinations of the tags associated with 
+            the cluster, in the following format&#58; 
+            `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
           example:
             key: value
         auto_maintenances:
@@ -1021,16 +1027,15 @@ components:
           title: Control Planes
           description: The control plane sizing of the cluster.
         expected_control_planes:
-          nullable: true
           type: string
-          title: Expected Control Planes
-          description: The type of control plane size that is expected.
+          nullable: true
         admin_whitelist:
           items:
             type: string
           type: array
           title: Admin Whitelist
-          description: The list of CIDR blocks or IP addresses allowed to access the cluster via the Kubernetes API.
+          description: The list of CIDR blocks or IPs allowed to access the 
+            cluster via the Kubernetes API.
         statuses:
           description: The status information of the cluster.
           allOf:
@@ -1038,7 +1043,8 @@ components:
         disable_api_termination:
           type: boolean
           title: Disable API Termination
-          description: If true, cluster deletion through the API is disabled. If false, it is enabled.
+          description: If true, cluster deletion through the API is disabled. If
+            false, it is enabled.
           default: false
           example: false
       type: object
@@ -1074,33 +1080,36 @@ components:
         project_id:
           type: string
           title: Project ID
-          description: The ID of the project in which you want to create a cluster.
+          description: The ID of the project in which you want to create a 
+            cluster.
         description:
-          nullable: true
           type: string
-          title: Description
-          description: A description of the cluster.
-          default: ''
+          nullable: true
         cp_multi_az:
           type: boolean
           title: Control Plane Multi-AZ
-          description: If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+          description: If true, multi-Subregion deployment is enabled for the 
+            control plane. If false, it is disabled.
           default: false
         cp_subregions:
           items:
             type: string
           type: array
           title: Control Plane Subregions
-          description: The list of Subregions where control plane components are deployed.
+          description: The list of Subregions where control plane components are
+            deployed.
           default: []
         version:
           type: string
           title: Kubernetes Version
-          description: The Kubernetes version to be deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+          description: The Kubernetes version to be deployed for the cluster. 
+            For more information, see 
+            [GetKubernetesVersions](#getkubernetesversions).
         admin_lbu:
           type: boolean
           title: Admin LBU
-          description: If true, load balancer administration is enabled for cluster management. If false, it is disabled.
+          description: If true, load balancer administration is enabled for 
+            cluster management. If false, it is disabled.
           default: false
         admission_flags:
           allOf:
@@ -1128,7 +1137,9 @@ components:
             type: string
           type: object
           title: Tags
-          description: The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          description: The key/value combinations of the tags associated with 
+            the cluster's metadata, in the following format&#58; 
+            `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
           example:
             key: value
         auto_maintenances:
@@ -1139,25 +1150,27 @@ components:
         control_planes:
           type: string
           title: Control Planes
-          description: The size of control plane deployment for the cluster. For more information, see [About OKS > Control Planes](https://docs.outscale.com/en/userguide/About-OKS.html#_control_planes).
+          description: The size of control plane deployment for the cluster. For
+            more information, see [About OKS > Control 
+            Planes](https://docs.outscale.com/en/userguide/About-OKS.html#_control_planes).
           default: cp.3.masters.small
         admin_whitelist:
           items:
             type: string
           type: array
           title: Admin Whitelist
-          description: The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+          description: The list of CIDR blocks or IPs allowed to access the 
+            cluster via the Kubernetes API.
         quirks:
-          nullable: true
           items:
-              type: string
+            type: string
           type: array
-          title: Quirks
-          description: The list of special configurations or behaviors for the cluster.
+          nullable: true
         disable_api_termination:
           type: boolean
           title: Disable API Termination
-          description: If true, cluster deletion through the API is disabled. If false, it is enabled.
+          description: If true, cluster deletion through the API is disabled. If
+            false, it is enabled.
           default: false
           example: false
       type: object
@@ -1176,37 +1189,39 @@ components:
           title: Project ID
           description: The ID of the project to which this cluster belongs to.
         description:
-          nullable: true
           type: string
-          title: Description
-          description: The description of the cluster.
-          default: ''
+          nullable: true
         cp_multi_az:
           type: boolean
           title: Control Plane Multi-AZ
-          description: If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+          description: If true, multi-Subregion deployment is enabled for the 
+            control plane. If false, it is disabled.
           default: false
         cp_subregions:
           items:
             type: string
           type: array
           title: Control Plane Subregions
-          description: A list of Subregions where control plane components are deployed.
+          description: A list of Subregions where control plane components are 
+            deployed.
           default: []
         version:
           type: string
           title: Kubernetes Version
-          description: The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+          description: The Kubernetes version deployed for the cluster. For more
+            information, see [GetKubernetesVersions](#getkubernetesversions).
         admin_lbu:
           type: boolean
           title: Admin LBU
-          description: If true, the admin load balancer for cluster management is enabled. If false, it is disabled.
+          description: If true, the admin load balancer for cluster management 
+            is enabled. If false, it is disabled.
           default: false
         admission_flags:
           allOf:
           - $ref: '#/components/schemas/AdmissionFlagsInput'
           title: Admission Flags
-          description: The configuration for the Kubernetes admission controllers.
+          description: The configuration for the Kubernetes admission 
+            controllers.
           default: {}
         cidr_pods:
           type: string
@@ -1228,7 +1243,9 @@ components:
             type: string
           type: object
           title: Tags
-          description: The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          description: The key/value combinations of the tags associated with 
+            the cluster's metadata, in the following format&#58; 
+            `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
           example:
             key: value
         auto_maintenances:
@@ -1246,18 +1263,18 @@ components:
             type: string
           type: array
           title: Admin Whitelist
-          description: The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+          description: The list of CIDR blocks or IPs allowed to access the 
+            cluster via the Kubernetes API.
         quirks:
-          nullable: true
           items:
             type: string
           type: array
-          title: Quirks
-          description: A list of special configurations or behaviors for the cluster.
+          nullable: true
         disable_api_termination:
           type: boolean
           title: Disable API Termination
-          description: If true, cluster deletion through the API is disabled. If false, it is enabled.
+          description: If true, cluster deletion through the API is disabled. If
+            false, it is enabled.
           default: false
           example: false
       type: object
@@ -1301,51 +1318,37 @@ components:
     ClusterUpdate:
       properties:
         description:
-          nullable: true
           type: string
-          title: Description
-          description: The updated description of the cluster.
+          nullable: true
         admission_flags:
+          allOf:
+          - $ref: '#/components/schemas/AdmissionFlagsInput'
           nullable: true
-          $ref: '#/components/schemas/AdmissionFlagsInput'
-          title: Admission Flags
-          description: The updated configuration for the Kubernetes admission controllers.
         tags:
-          nullable: true
           additionalProperties:
             type: string
           type: object
-          title: Tags
-          description: The updated key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          nullable: true
         auto_maintenances:
+          allOf:
+          - $ref: '#/components/schemas/AutoMaintenances'
           nullable: true
-          $ref: '#/components/schemas/AutoMaintenances'
-          title: Auto Maintenances
-          description: The updated configuration for the automated maintenance windows.
         admin_whitelist:
-          nullable: true
           items:
             type: string
           type: array
-          title: Admin Whitelist
-          description: The updated list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+          nullable: true
         quirks:
-          nullable: true
           items:
             type: string
           type: array
-          title: Quirks
-          description: The updated list of special configurations or behaviors for the cluster.
+          nullable: true
         disable_api_termination:
           type: boolean
           nullable: true
-          title: Disable API Termination
-          description: If true, cluster deletion through the API is disabled. If false, it is enabled.
         version:
-          nullable: true
           type: string
-          title: Kubernetes Version
-          description: The updated version of Kubernetes for the cluster. For more information, see [GetKubernetesVersions](#getkubenetesversions).
+          nullable: true
         control_planes:
           type: string
           title: Control Planes
@@ -1385,18 +1388,15 @@ components:
       title: DetailResponse
     HTTPValidationError:
       properties:
-        Errors:
-          type: array
+        detail:
           items:
-            type: object
-            properties:
-              Details:
-                oneOf:
-                - items:
-                    $ref: '#/components/schemas/ValidationError'
-                  title: Detail
-                  type: array
-                - type: string
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+          description: The details of the HTTP 422 validation error.
+      type: object
+      title: HTTPValidationError
+      description: Information about the HTTP 422 validation error.
     KubeconfigData:
       properties:
         kubeconfig:
@@ -1500,7 +1500,8 @@ components:
         kind:
           type: string
           title: Kind
-          description: The resource type, always `Nodepool` for node pool resources.
+          description: The resource type, always `Nodepool` for node pool 
+            resources.
         metadata:
           description: The metadata information for the node pool.
           allOf:
@@ -1558,7 +1559,8 @@ components:
             type: string
           type: array
           title: Account IDs
-          description: One or more account IDs that the permission is associated with.
+          description: One or more account IDs that the permission is associated
+            with.
       type: object
       required:
       - GlobalPermission
@@ -1576,11 +1578,8 @@ components:
           title: Project Name
           description: The name of the project.
         description:
-          nullable: true
           type: string
-          title: Description
-          description: A description for the project.
-          default: ''
+          nullable: true
         cidr:
           type: string
           title: VPC CIDR
@@ -1592,17 +1591,21 @@ components:
         status:
           type: string
           title: Status
-          description: The status of the project.
+          description: The status of the project (`pending` | `ready` | 
+            `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
         tags:
           additionalProperties:
             type: string
           type: object
           title: Tags
-          description: The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          description: The key/value combinations of the tags associated with 
+            the resource, in the following format&#58; 
+            `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
         disable_api_termination:
           type: boolean
           title: Disable API Termination
-          description: If true, project deletion through the API is disabled. If false, it is enabled.
+          description: If true, project deletion through the API is disabled. If
+            false, it is enabled.
           default: false
           example: false
         created_at:
@@ -1616,11 +1619,9 @@ components:
           title: Updated At
           description: The timestamp when the project was last updated.
         deleted_at:
-          nullable: true
           type: string
           format: date-time
-          title: Deleted At
-          description: The timestamp when the project was deleted (if applicable).
+          nullable: true
       type: object
       required:
       - id
@@ -1641,7 +1642,8 @@ components:
           minLength: 1
           pattern: ^[a-z][a-z0-9-]*[a-z0-9]$
           title: Project Name
-          description: A unique name for the project. Must start with a letter and contain only lowercase letters, numbers, or hyphens.
+          description: A unique name for the project. Must start with a letter 
+            and contain only lowercase letters, numbers, or hyphens.
           example: awesome-project
         description:
           type: string
@@ -1661,20 +1663,21 @@ components:
             type: string
           type: object
           title: Tags
-          description: The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+          description: The key/value combinations of the tags associated with 
+            the resource, in the following format&#58; 
+            `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
           example:
             key: value
         quirks:
-          nullable: true
           items:
             type: string
           type: array
-          title: Quirks
-          description: A list of special configurations or behaviors for the project.
+          nullable: true
         disable_api_termination:
           type: boolean
           title: Disable API Termination
-          description: If true, project deletion through the API is disabled. If false, it is enabled.
+          description: If true, project deletion through the API is disabled. If
+            false, it is enabled.
           default: false
           example: false
       type: object
@@ -1717,31 +1720,21 @@ components:
     ProjectUpdate:
       properties:
         description:
-          nullable: true
           type: string
-          title: Description
-          description: The updated description for the project.
-        tags:
           nullable: true
+        tags:
           additionalProperties:
             type: string
           type: object
-          title: Tags
-          description: The updated key/value combinations of the tags associated with the project's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
-          example:
-            key: value
-        quirks:
           nullable: true
+        quirks:
           items:
             type: string
           type: array
-          title: Quirks
-          description: The updated list of special configurations or behaviors for the project.
-        disable_api_termination:
           nullable: true
+        disable_api_termination:
           type: boolean
-          title: Disable API Termination
-          description: If true, project deletion through the API is disabled. If false, it is enabled.
+          nullable: true
       type: object
       title: ProjectUpdate
       description: Information about the updated project configuration.
@@ -1866,7 +1859,8 @@ components:
         VolumeSize:
           type: integer
           title: Volume Size
-          description: The size of the volume used to create the snapshot, in gibibytes (GiB).
+          description: The size of the volume used to create the snapshot, in 
+            gibibytes (GiB).
         AccountId:
           type: string
           title: Account ID
@@ -1878,7 +1872,8 @@ components:
         CreationDate:
           type: string
           title: Creation Date
-          description: The date and time (UTC) at which the snapshot was created.
+          description: The date and time (UTC) at which the snapshot was 
+            created.
         Progress:
           type: integer
           title: Progress
@@ -1890,7 +1885,8 @@ components:
         State:
           type: string
           title: State
-          description: The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
+          description: The state of the snapshot (`in-queue` | `pending` | 
+            `completed` | `error` | `deleting`).
         Description:
           type: string
           title: Description
@@ -1966,7 +1962,8 @@ components:
         autoHealing:
           type: boolean
           title: Auto Healing
-          description: If true, the automatic healing of failed nodes is enabled.
+          description: If true, the automatic healing of failed nodes is 
+            enabled.
       type: object
       required:
       - desiredNodes
@@ -1976,7 +1973,8 @@ components:
       - upgradeStrategy
       - autoHealing
       title: Spec
-      description: Information about the specification for the node pool configuration.
+      description: Information about the specification for the node pool 
+        configuration.
     Statuses:
       properties:
         created_at:
@@ -1985,26 +1983,22 @@ components:
           title: Created At
           description: The timestamp when the cluster was created.
         deleted_at:
-          nullable: true
           type: string
           format: date-time
-          title: Deleted At
-          description: The timestamp when the cluster was deleted (if applicable).
+          nullable: true
         updated_at:
-          nullable: true
           type: string
           format: date-time
-          title: Updated At
-          description: The timestamp when the cluster was last updated.
-        status:
           nullable: true
+        status:
           type: string
-          title: Status
-          description: The status of the cluster.
+          nullable: true
         available_upgrade:
           type: string
           title: Available Upgrade
-          description: Any available version of Kubernetes for upgrade (if applicable). For more information, see [GetKubernetesVersions](#getkubenetesversions).
+          description: Any available version of Kubernetes for upgrade (if 
+            applicable). For more information, see 
+            [GetKubernetesVersions](#getkubernetesversions).
           default: ''
       type: object
       required:
@@ -2090,20 +2084,24 @@ components:
         maxUnavailable:
           type: integer
           title: Max Unavailable
-          description: The maximum number of nodes that can be unavailable during an upgrade.
+          description: The maximum number of nodes that can be unavailable 
+            during an upgrade.
         maxSurge:
           type: integer
           title: Max Surge
-          description: The maximum number of extra nodes that can be created during an upgrade.
+          description: The maximum number of extra nodes that can be created 
+            during an upgrade.
         autoUpgradeEnabled:
           type: boolean
           title: Auto Upgrade Enabled
-          description: If true, automatic upgrades for the node pool are enabled.
+          description: If true, automatic upgrades for the node pool are 
+            enabled.
         autoUpgradeMaintenance:
           allOf:
           - $ref: '#/components/schemas/AutoUpgradeMaintenance'
           title: Auto Upgrade Maintenance
-          description: The configuration for the automated upgrade maintenance window.
+          description: The configuration for the automated upgrade maintenance 
+            window.
       type: object
       required:
       - maxUnavailable
@@ -2271,12 +2269,16 @@ components:
     BasicAuth:
       type: http
       scheme: basic
-      description: A header in the form `Basic XXXX`, where `XXXX` is the Base64 encoding of your root account's login and password joined by a colon (`:`). Note that with Curl, you can use the `--user LOGIN:PASSWORD` option as a shortcut for this and Curl will format the header for you.
+      description: A header in the form `Basic XXXX`, where `XXXX` is the Base64
+        encoding of your root account's login and password joined by a colon 
+        (`:`). Note that with Curl, you can use the `--user LOGIN:PASSWORD` 
+        option as a shortcut for this and Curl will format the header for you.
     AccessKeyAuth:
       type: apiKey
       in: header
       name: AccessKey
-      description: A header with an access key of your root account. You cannot use EIM users' access keys with OKS.
+      description: A header with an access key of your root account. You cannot 
+        use EIM users' access keys with OKS.
     SecretKeyAuth:
       type: apiKey
       in: header
@@ -2286,17 +2288,20 @@ components:
       type: apiKey
       in: header
       name: AccessToken
-      description: In the case of JWT authentication, a header with an access token.
+      description: In the case of JWT authentication, a header with an access 
+        token.
     RefreshTokenAuth:
       type: apiKey
       in: header
       name: RefreshToken
-      description: In the case of JWT authentication, a header with the corresponding refresh token.
+      description: In the case of JWT authentication, a header with the 
+        corresponding refresh token.
     OTPCodeAuth:
       type: apiKey
       in: header
       name: X-OTP-Code
-      description: (optional) If multi-factor authentication (MFA) is set up on your account, a header with your OTP token.
+      description: (optional) If multi-factor authentication (MFA) is set up on 
+        your account, a header with your OTP token.
 security:
 - BasicAuth: []
   OTPCodeAuth: []
