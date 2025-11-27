@@ -1,23 +1,22 @@
 package oks
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
+
+func (e *ValidationError) Error() string {
+	return fmt.Sprintf("[%s] %s", e.Type, e.Details)
+}
 
 func (e *HTTPValidationError) Error() string {
 	var msg string
 
 	for i, err := range *e.Errors {
-		d, _ := err.Details.AsHTTPValidationErrorErrorsDetails0()
-		for _, v := range d {
-			if i != 0 {
-				msg += "\n"
-			}
-			msg += "[" + v.Type + "] " + v.Msg
+		if i != 0 {
+			msg += "\n"
 		}
-
-		s, _ := err.Details.AsHTTPValidationErrorErrorsDetails1()
-		if s != "" {
-			msg += s
-		}
+		msg += err.Error()
 	}
 
 	return msg
@@ -36,15 +35,8 @@ func HTTPValidationErrorHelper(e error) *HTTPValidationError {
 func isErrorType(err error, code string) bool {
 	if err := HTTPValidationErrorHelper(err); err != nil {
 		for _, error := range *err.Errors {
-			details, convErr := error.Details.AsHTTPValidationErrorErrorsDetails0()
-			if convErr != nil {
-				continue
-			}
-
-			for _, detail := range details {
-				if detail.Type == code {
-					return true
-				}
+			if error.Code == code {
+				return true
 			}
 		}
 	}
