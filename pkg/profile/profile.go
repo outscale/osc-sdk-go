@@ -27,7 +27,7 @@ type Profile struct {
 	SecretKey         string   `json:"secret_key"`
 	AccessKeyV2       string   `json:"access_key_v2"`
 	SecretKeyV2       string   `json:"secret_key_v2"`
-	IAMV2Sevices      []string `json:"iam_v2_services"`
+	IAMV2Services     []string `json:"iam_v2_services"`
 	X509ClientCert    string   `json:"x509_client_cert"`
 	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
 	X509ClientKey     string   `json:"x509_client_key"`
@@ -82,8 +82,8 @@ func LoadProfileFromEnv() Profile {
 
 	profile.AccessKey = os.Getenv("OSC_ACCESS_KEY")
 	profile.SecretKey = os.Getenv("OSC_SECRET_KEY")
-	profile.AccessKey = os.Getenv("OSC_ACCESS_KEY_V2")
-	profile.SecretKey = os.Getenv("OSC_SECRET_KEY_V2")
+	profile.AccessKeyV2 = os.Getenv("OSC_ACCESS_KEY_V2")
+	profile.SecretKeyV2 = os.Getenv("OSC_SECRET_KEY_V2")
 	profile.X509ClientCert = os.Getenv("OSC_X509_CLIENT_CERT")
 	profile.X509ClientCertB64 = os.Getenv("OSC_X509_CLIENT_CERT_B64")
 	profile.X509ClientKey = os.Getenv("OSC_X509_CLIENT_KEY")
@@ -102,7 +102,7 @@ func LoadProfileFromEnv() Profile {
 	profile.Endpoints.DirectLink = os.Getenv("OSC_ENDPOINT_DIRECT_LINK")
 
 	if iamV2Services, ok := os.LookupEnv("OSC_IAM_V2_SERVICES"); ok {
-		profile.IAMV2Sevices = strings.Split(iamV2Services, ",")
+		profile.IAMV2Services = strings.Split(iamV2Services, ",")
 	}
 
 	return profile

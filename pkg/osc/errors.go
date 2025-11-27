@@ -1,5 +1,7 @@
 package osc
 
+import "errors"
+
 func (e *ErrorResponse) Error() string {
 	var msg string
 
@@ -24,11 +26,12 @@ func (e *ErrorResponse) GetCode() string {
 	return ""
 }
 
-func ErrorResponseHelper(e error) *ErrorResponse {
-	httpVal, ok := e.(*ErrorResponse)
-	if !ok {
-		return nil
+func AsErrorResponse(e error) *ErrorResponse {
+	var err *ErrorResponse
+
+	if errors.As(e, &err) {
+		return err
 	}
 
-	return httpVal
+	return nil
 }

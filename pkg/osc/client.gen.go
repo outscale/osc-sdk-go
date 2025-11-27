@@ -28800,19 +28800,19 @@ func (r AcceptNetPeeringResp) Expect() (*AcceptNetPeeringResponse, error) {
 func (r AcceptNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29099,15 +29099,15 @@ func (r CreateDedicatedGroupResp) Expect() (*CreateDedicatedGroupResponse, error
 func (r CreateDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29289,15 +29289,15 @@ func (r CreateImageResp) Expect() (*CreateImageResponse, error) {
 func (r CreateImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29374,15 +29374,15 @@ func (r CreateInternetServiceResp) Expect() (*CreateInternetServiceResponse, err
 func (r CreateInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29425,19 +29425,19 @@ func (r CreateKeypairResp) Expect() (*CreateKeypairResponse, error) {
 func (r CreateKeypairResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29654,15 +29654,15 @@ func (r CreateNatServiceResp) Expect() (*CreateNatServiceResponse, error) {
 func (r CreateNatServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29705,19 +29705,19 @@ func (r CreateNetResp) Expect() (*CreateNetResponse, error) {
 func (r CreateNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29794,15 +29794,15 @@ func (r CreateNetPeeringResp) Expect() (*CreateNetPeeringResponse, error) {
 func (r CreateNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29844,15 +29844,15 @@ func (r CreateNicResp) Expect() (*CreateNicResponse, error) {
 func (r CreateNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -29999,15 +29999,15 @@ func (r CreatePublicIpResp) Expect() (*CreatePublicIpResponse, error) {
 func (r CreatePublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30049,15 +30049,15 @@ func (r CreateRouteResp) Expect() (*CreateRouteResponse, error) {
 func (r CreateRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30099,15 +30099,15 @@ func (r CreateRouteTableResp) Expect() (*CreateRouteTableResponse, error) {
 func (r CreateRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30149,15 +30149,15 @@ func (r CreateSecurityGroupResp) Expect() (*CreateSecurityGroupResponse, error) 
 func (r CreateSecurityGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30199,15 +30199,15 @@ func (r CreateSecurityGroupRuleResp) Expect() (*CreateSecurityGroupRuleResponse,
 func (r CreateSecurityGroupRuleResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30284,15 +30284,15 @@ func (r CreateSnapshotResp) Expect() (*CreateSnapshotResponse, error) {
 func (r CreateSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30370,19 +30370,19 @@ func (r CreateSubnetResp) Expect() (*CreateSubnetResponse, error) {
 func (r CreateSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30424,15 +30424,15 @@ func (r CreateTagsResp) Expect() (*CreateTagsResponse, error) {
 func (r CreateTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30579,15 +30579,15 @@ func (r CreateVmGroupResp) Expect() (*CreateVmGroupResponse, error) {
 func (r CreateVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30664,15 +30664,15 @@ func (r CreateVmsResp) Expect() (*CreateVmsResponse, error) {
 func (r CreateVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30714,15 +30714,15 @@ func (r CreateVolumeResp) Expect() (*CreateVolumeResponse, error) {
 func (r CreateVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -30974,15 +30974,15 @@ func (r DeleteDedicatedGroupResp) Expect() (*DeleteDedicatedGroupResponse, error
 func (r DeleteDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31199,15 +31199,15 @@ func (r DeleteImageResp) Expect() (*DeleteImageResponse, error) {
 func (r DeleteImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31249,15 +31249,15 @@ func (r DeleteInternetServiceResp) Expect() (*DeleteInternetServiceResponse, err
 func (r DeleteInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31299,15 +31299,15 @@ func (r DeleteKeypairResp) Expect() (*DeleteKeypairResponse, error) {
 func (r DeleteKeypairResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31524,15 +31524,15 @@ func (r DeleteNatServiceResp) Expect() (*DeleteNatServiceResponse, error) {
 func (r DeleteNatServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31574,15 +31574,15 @@ func (r DeleteNetResp) Expect() (*DeleteNetResponse, error) {
 func (r DeleteNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31660,19 +31660,19 @@ func (r DeleteNetPeeringResp) Expect() (*DeleteNetPeeringResponse, error) {
 func (r DeleteNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31714,15 +31714,15 @@ func (r DeleteNicResp) Expect() (*DeleteNicResponse, error) {
 func (r DeleteNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31834,15 +31834,15 @@ func (r DeleteProductTypeResp) Expect() (*DeleteProductTypeResponse, error) {
 func (r DeleteProductTypeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31884,15 +31884,15 @@ func (r DeletePublicIpResp) Expect() (*DeletePublicIpResponse, error) {
 func (r DeletePublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31934,15 +31934,15 @@ func (r DeleteRouteResp) Expect() (*DeleteRouteResponse, error) {
 func (r DeleteRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -31984,15 +31984,15 @@ func (r DeleteRouteTableResp) Expect() (*DeleteRouteTableResponse, error) {
 func (r DeleteRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32034,15 +32034,15 @@ func (r DeleteSecurityGroupResp) Expect() (*DeleteSecurityGroupResponse, error) 
 func (r DeleteSecurityGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32084,15 +32084,15 @@ func (r DeleteSecurityGroupRuleResp) Expect() (*DeleteSecurityGroupRuleResponse,
 func (r DeleteSecurityGroupRuleResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32169,15 +32169,15 @@ func (r DeleteSnapshotResp) Expect() (*DeleteSnapshotResponse, error) {
 func (r DeleteSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32219,15 +32219,15 @@ func (r DeleteSubnetResp) Expect() (*DeleteSubnetResponse, error) {
 func (r DeleteSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32269,15 +32269,15 @@ func (r DeleteTagsResp) Expect() (*DeleteTagsResponse, error) {
 func (r DeleteTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32494,15 +32494,15 @@ func (r DeleteVmGroupResp) Expect() (*DeleteVmGroupResponse, error) {
 func (r DeleteVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32579,15 +32579,15 @@ func (r DeleteVmsResp) Expect() (*DeleteVmsResponse, error) {
 func (r DeleteVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -32629,15 +32629,15 @@ func (r DeleteVolumeResp) Expect() (*DeleteVolumeResponse, error) {
 func (r DeleteVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33029,15 +33029,15 @@ func (r LinkInternetServiceResp) Expect() (*LinkInternetServiceResponse, error) 
 func (r LinkInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33149,15 +33149,15 @@ func (r LinkNicResp) Expect() (*LinkNicResponse, error) {
 func (r LinkNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33234,15 +33234,15 @@ func (r LinkPrivateIpsResp) Expect() (*LinkPrivateIpsResponse, error) {
 func (r LinkPrivateIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33284,15 +33284,15 @@ func (r LinkPublicIpResp) Expect() (*LinkPublicIpResponse, error) {
 func (r LinkPublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33334,15 +33334,15 @@ func (r LinkRouteTableResp) Expect() (*LinkRouteTableResponse, error) {
 func (r LinkRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33419,15 +33419,15 @@ func (r LinkVolumeResp) Expect() (*LinkVolumeResponse, error) {
 func (r LinkVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33609,15 +33609,15 @@ func (r ReadAdminPasswordResp) Expect() (*ReadAdminPasswordResponse, error) {
 func (r ReadAdminPasswordResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33659,15 +33659,15 @@ func (r ReadApiAccessPolicyResp) Expect() (*ReadApiAccessPolicyResponse, error) 
 func (r ReadApiAccessPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -33919,15 +33919,15 @@ func (r ReadConsoleOutputResp) Expect() (*ReadConsoleOutputResponse, error) {
 func (r ReadConsoleOutputResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34004,15 +34004,15 @@ func (r ReadDedicatedGroupsResp) Expect() (*ReadDedicatedGroupsResponse, error) 
 func (r ReadDedicatedGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34299,15 +34299,15 @@ func (r ReadImagesResp) Expect() (*ReadImagesResponse, error) {
 func (r ReadImagesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34349,15 +34349,15 @@ func (r ReadInternetServicesResp) Expect() (*ReadInternetServicesResponse, error
 func (r ReadInternetServicesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34399,15 +34399,15 @@ func (r ReadKeypairsResp) Expect() (*ReadKeypairsResponse, error) {
 func (r ReadKeypairsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34659,15 +34659,15 @@ func (r ReadNatServicesResp) Expect() (*ReadNatServicesResponse, error) {
 func (r ReadNatServicesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34779,15 +34779,15 @@ func (r ReadNetPeeringsResp) Expect() (*ReadNetPeeringsResponse, error) {
 func (r ReadNetPeeringsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34829,15 +34829,15 @@ func (r ReadNetsResp) Expect() (*ReadNetsResponse, error) {
 func (r ReadNetsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -34879,15 +34879,15 @@ func (r ReadNicsResp) Expect() (*ReadNicsResponse, error) {
 func (r ReadNicsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35174,15 +35174,15 @@ func (r ReadPublicIpsResp) Expect() (*ReadPublicIpsResponse, error) {
 func (r ReadPublicIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35294,15 +35294,15 @@ func (r ReadRouteTablesResp) Expect() (*ReadRouteTablesResponse, error) {
 func (r ReadRouteTablesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35344,15 +35344,15 @@ func (r ReadSecurityGroupsResp) Expect() (*ReadSecurityGroupsResponse, error) {
 func (r ReadSecurityGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35464,15 +35464,15 @@ func (r ReadSnapshotsResp) Expect() (*ReadSnapshotsResponse, error) {
 func (r ReadSnapshotsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35514,15 +35514,15 @@ func (r ReadSubnetsResp) Expect() (*ReadSubnetsResponse, error) {
 func (r ReadSubnetsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35599,15 +35599,15 @@ func (r ReadTagsResp) Expect() (*ReadTagsResponse, error) {
 func (r ReadTagsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -35999,15 +35999,15 @@ func (r ReadVmGroupsResp) Expect() (*ReadVmGroupsResponse, error) {
 func (r ReadVmGroupsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36119,15 +36119,15 @@ func (r ReadVmsResp) Expect() (*ReadVmsResponse, error) {
 func (r ReadVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36204,15 +36204,15 @@ func (r ReadVmsStateResp) Expect() (*ReadVmsStateResponse, error) {
 func (r ReadVmsStateResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36254,15 +36254,15 @@ func (r ReadVolumesResp) Expect() (*ReadVolumesResponse, error) {
 func (r ReadVolumesResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36339,15 +36339,15 @@ func (r RebootVmsResp) Expect() (*RebootVmsResponse, error) {
 func (r RebootVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36425,19 +36425,19 @@ func (r RejectNetPeeringResp) Expect() (*RejectNetPeeringResponse, error) {
 func (r RejectNetPeeringResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON409 != nil {
-		return fmt.Errorf("Api returned JSON409 error: %w", r.JSON409)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36514,15 +36514,15 @@ func (r ScaleDownVmGroupResp) Expect() (*ScaleDownVmGroupResponse, error) {
 func (r ScaleDownVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36564,15 +36564,15 @@ func (r ScaleUpVmGroupResp) Expect() (*ScaleUpVmGroupResponse, error) {
 func (r ScaleUpVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36649,15 +36649,15 @@ func (r StartVmsResp) Expect() (*StartVmsResponse, error) {
 func (r StartVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36699,15 +36699,15 @@ func (r StopVmsResp) Expect() (*StopVmsResponse, error) {
 func (r StopVmsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36784,15 +36784,15 @@ func (r UnlinkInternetServiceResp) Expect() (*UnlinkInternetServiceResponse, err
 func (r UnlinkInternetServiceResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36904,15 +36904,15 @@ func (r UnlinkNicResp) Expect() (*UnlinkNicResponse, error) {
 func (r UnlinkNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -36989,15 +36989,15 @@ func (r UnlinkPrivateIpsResp) Expect() (*UnlinkPrivateIpsResponse, error) {
 func (r UnlinkPrivateIpsResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37039,15 +37039,15 @@ func (r UnlinkPublicIpResp) Expect() (*UnlinkPublicIpResponse, error) {
 func (r UnlinkPublicIpResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37089,15 +37089,15 @@ func (r UnlinkRouteTableResp) Expect() (*UnlinkRouteTableResponse, error) {
 func (r UnlinkRouteTableResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37174,15 +37174,15 @@ func (r UnlinkVolumeResp) Expect() (*UnlinkVolumeResponse, error) {
 func (r UnlinkVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37294,15 +37294,15 @@ func (r UpdateApiAccessPolicyResp) Expect() (*UpdateApiAccessPolicyResponse, err
 func (r UpdateApiAccessPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37414,15 +37414,15 @@ func (r UpdateDedicatedGroupResp) Expect() (*UpdateDedicatedGroupResponse, error
 func (r UpdateDedicatedGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37534,15 +37534,15 @@ func (r UpdateImageResp) Expect() (*UpdateImageResponse, error) {
 func (r UpdateImageResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37654,15 +37654,15 @@ func (r UpdateNetResp) Expect() (*UpdateNetResponse, error) {
 func (r UpdateNetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37739,15 +37739,15 @@ func (r UpdateNicResp) Expect() (*UpdateNicResponse, error) {
 func (r UpdateNicResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37789,15 +37789,15 @@ func (r UpdateRouteResp) Expect() (*UpdateRouteResponse, error) {
 func (r UpdateRouteResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37874,15 +37874,15 @@ func (r UpdateRouteTableLinkResp) Expect() (*UpdateRouteTableLinkResponse, error
 func (r UpdateRouteTableLinkResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -37959,15 +37959,15 @@ func (r UpdateSnapshotResp) Expect() (*UpdateSnapshotResponse, error) {
 func (r UpdateSnapshotResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -38009,15 +38009,15 @@ func (r UpdateSubnetResp) Expect() (*UpdateSubnetResponse, error) {
 func (r UpdateSubnetResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -38129,15 +38129,15 @@ func (r UpdateVmResp) Expect() (*UpdateVmResponse, error) {
 func (r UpdateVmResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -38179,15 +38179,15 @@ func (r UpdateVmGroupResp) Expect() (*UpdateVmGroupResponse, error) {
 func (r UpdateVmGroupResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -38264,15 +38264,15 @@ func (r UpdateVolumeResp) Expect() (*UpdateVolumeResponse, error) {
 func (r UpdateVolumeResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -38314,15 +38314,15 @@ func (r UpdateVpnConnectionResp) Expect() (*UpdateVpnConnectionResponse, error) 
 func (r UpdateVpnConnectionResp) genError() error {
 
 	if r.JSON400 != nil {
-		return fmt.Errorf("Api returned JSON400 error: %w", r.JSON400)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
 	if r.JSON401 != nil {
-		return fmt.Errorf("Api returned JSON401 error: %w", r.JSON401)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
 	}
 
 	if r.JSON500 != nil {
-		return fmt.Errorf("Api returned JSON500 error: %w", r.JSON500)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
