@@ -25,7 +25,47 @@ actions:
     delete: true
   - target: $.components.schemas.HTTPValidationError.properties
     update:
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
+      Errors:
+        type: array
+        items:
+          $ref: '#/components/schemas/ValidationError'
+  - target: $.components.schemas.Snapshot.properties.State
+    update:
+      enum:
+      - in-queue
+      - pending
+      - completed
+      - error
+      - deleting
+  - target: $.components.schemas.Volume.properties.type
+    update:
+      enum:
+        - gp2
+        - io1
+        - standard
+  - target: $.paths./projects.get.parameters
+  - target: $.components.schemas
+    update:
+      ProjectStatus:
+        type: string
+        enum:
+          - pending
+          - ready
+          - deploying
+          - updating
+          - upgrading
+          - failed
+          - deleting
+  - target: $.components.schemas.Project.properties.status
+    delete: true
+  - target: $.components.schemas.Project.properties
+    update:
+      status:
+        $ref: '#/components/schemas/ProjectStatus'
+  - target: $.paths./projects.get.parameters.*[?(@.name == "status")].schema
+    delete: true
+  - target: $.paths./projects.get.parameters.*[?(@.name == "status")]
+    update:
+        schema:
+          $ref: '#/components/schemas/ProjectStatus'
+          

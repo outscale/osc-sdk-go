@@ -74,7 +74,7 @@ func TestProject(t *testing.T) {
 			panic(err)
 		}
 
-		if readProject.Project.Status == "ready" {
+		if readProject.Project.Status == oks.ProjectStatusReady {
 			break
 		}
 
