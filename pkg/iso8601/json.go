@@ -11,7 +11,7 @@ type Time struct {
 
 func (t *Time) MarshalJSON() ([]byte, error) {
 	// Let's try to aim for a format that is RFC3339 and ISO8601 compatible
-	s := fmt.Sprintf("\"%s\"", t.Format("2006-01-02T15:04:05Z"))
+	s := fmt.Sprintf("\"%s\"", t.In(time.UTC).Format("2006-01-02T15:04:05Z"))
 	return []byte(s), nil
 }
 

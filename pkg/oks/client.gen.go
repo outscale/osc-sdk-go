@@ -2778,11 +2778,11 @@ func (r ListClustersByProjectIDResponse) Expect() (*ClusterResponseList, error) 
 func (r ListClustersByProjectIDResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -2823,11 +2823,11 @@ func (r CreateClusterResponse) Expect() (*ClusterResponse, error) {
 func (r CreateClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -2868,11 +2868,11 @@ func (r ListAllClustersResponse) Expect() (*ClusterResponseList, error) {
 func (r ListAllClustersResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -2913,11 +2913,11 @@ func (r GetControlPlanePlansResponse) Expect() (*ControlPlanesResponse, error) {
 func (r GetControlPlanePlansResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -2958,11 +2958,11 @@ func (r GetCPSubregionsResponse) Expect() (*CPSubregionsResponse, error) {
 func (r GetCPSubregionsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3003,11 +3003,11 @@ func (r GetKubernetesVersionsResponse) Expect() (*KubernetesVersionsResponse, er
 func (r GetKubernetesVersionsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3048,11 +3048,11 @@ func (r DeleteClusterResponse) Expect() (*DetailResponse, error) {
 func (r DeleteClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3093,11 +3093,11 @@ func (r GetClusterResponse) Expect() (*ClusterResponse, error) {
 func (r GetClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3138,11 +3138,11 @@ func (r UpdateClusterResponse) Expect() (*ClusterResponse, error) {
 func (r UpdateClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3183,11 +3183,11 @@ func (r GetKubeconfigResponse) Expect() (*KubeconfigResponse, error) {
 func (r GetKubeconfigResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3228,11 +3228,11 @@ func (r GetKubeconfigWithPubkeyNACLResponse) Expect() (*KubeconfigResponse, erro
 func (r GetKubeconfigWithPubkeyNACLResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3273,11 +3273,11 @@ func (r UpgradeClusterResponse) Expect() (*ClusterResponse, error) {
 func (r UpgradeClusterResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3318,11 +3318,11 @@ func (r ListProjectsResponse) Expect() (*ProjectResponseList, error) {
 func (r ListProjectsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3363,11 +3363,11 @@ func (r CreateProjectResponse) Expect() (*ProjectResponse, error) {
 func (r CreateProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3408,11 +3408,11 @@ func (r DeleteProjectResponse) Expect() (*DetailResponse, error) {
 func (r DeleteProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3453,11 +3453,11 @@ func (r GetProjectResponse) Expect() (*ProjectResponse, error) {
 func (r GetProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3498,11 +3498,11 @@ func (r UpdateProjectResponse) Expect() (*ProjectResponse, error) {
 func (r UpdateProjectResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3543,11 +3543,11 @@ func (r GetProjectPublicIpsResponse) Expect() (*PublicIpsResponse, error) {
 func (r GetProjectPublicIpsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3588,11 +3588,11 @@ func (r GetProjectQuotasResponse) Expect() (*ProjectsProjectSchemaQuotasResponse
 func (r GetProjectQuotasResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3633,11 +3633,11 @@ func (r GetProjectSnapshotsResponse) Expect() (*SnapshotsResponse, error) {
 func (r GetProjectSnapshotsResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3678,11 +3678,11 @@ func (r GetQuotasResponse) Expect() (*QuotasQuotaSchemaQuotasResponse, error) {
 func (r GetQuotasResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3723,11 +3723,11 @@ func (r GetClusterTemplateResponse) Expect() (*TemplateResponseClusterInputTempl
 func (r GetClusterTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3768,11 +3768,11 @@ func (r GetNodepoolTemplateResponse) Expect() (*TemplateResponseNodepool, error)
 func (r GetNodepoolTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
@@ -3813,11 +3813,11 @@ func (r GetProjectTemplateResponse) Expect() (*TemplateResponseProjectInput, err
 func (r GetProjectTemplateResponse) genError() error {
 
 	if r.JSON422 != nil {
-		return fmt.Errorf("Api returned JSON422 error: %w", r.JSON422)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
 	if r.JSONDefault != nil {
-		return fmt.Errorf("Api returned JSONDefault error: %w", r.JSONDefault)
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)

@@ -84,7 +84,7 @@ func (r {{genResponseTypeName $opid | ucFirst}}) genError() error {
     {{- range $responseTypeDefinitions}}
     {{ if ne .TypeName "JSON200" }}
     if r.{{.TypeName}} != nil {
-        return fmt.Errorf("Api returned {{.TypeName}} error: %w", r.{{.TypeName}})
+        return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.{{.TypeName}})
     }
     {{ end }}
     {{- end}}

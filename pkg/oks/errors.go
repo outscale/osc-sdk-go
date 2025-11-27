@@ -22,7 +22,7 @@ func (e *HTTPValidationError) Error() string {
 	return msg
 }
 
-func HTTPValidationErrorHelper(e error) *HTTPValidationError {
+func AsHTTPValidationError(e error) *HTTPValidationError {
 	var err *HTTPValidationError
 
 	if errors.As(e, &err) {
@@ -33,7 +33,7 @@ func HTTPValidationErrorHelper(e error) *HTTPValidationError {
 }
 
 func isErrorType(err error, code string) bool {
-	if err := HTTPValidationErrorHelper(err); err != nil {
+	if err := AsHTTPValidationError(err); err != nil {
 		for _, error := range *err.Errors {
 			if error.Code == code {
 				return true
