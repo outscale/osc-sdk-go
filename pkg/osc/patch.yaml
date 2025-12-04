@@ -310,6 +310,7 @@ actions:
   description: Required fields for Image
   update:
     required:
+    - AccountId
     - Architecture
     - BlockDeviceMapping
     - CreationDate
@@ -317,7 +318,8 @@ actions:
     - State
     - BootModes
     - RootDeviceType
-    - AccountId
+    - SecureBoot
+    - Tags
 - target: $.components.schemas.Image.*.State
   description: Type for Image.State
   update:
@@ -527,3 +529,43 @@ actions:
     - IsPrimary
     - PrivateDnsName
     - PrivateIp
+- target: $.components.schemas.Listener
+  description: Required fields for Listener
+  update:
+    required:
+    - BackendPort
+    - BackendProtocol
+    - LoadBalancerPort
+    - LoadBalancerProtocol
+- target: $.components.schemas.Listener.*.PolicyNames
+  description: Remove pointer from Listener attributes
+  update:
+    x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.AccessLog
+  description: Required fields for AccessLog
+  update:
+    required:
+    - IsEnabled
+- target: $.components.schemas.LoadBalancer
+  description: Required fields for LoadBalancer
+  update:
+    required:
+    - AccessLog
+    - ApplicationStickyCookiePolicies
+    - BackendIps
+    - BackendVmIds
+    - DnsName
+    - HealthCheck
+    - Listeners
+    - LoadBalancerName
+    - LoadBalancerStickyCookiePolicies
+    - LoadBalancerType
+    - SecuredCookies
+    - SecurityGroups
+    - SourceSecurityGroup
+    - SubregionNames
+    - Tags
+- target: $.components.schemas.LoadBalancer.*.Subnets
+  description: Remove pointer from LoadBalancer attributes
+  update:
+    x-go-type-skip-optional-pointer: true

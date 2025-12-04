@@ -327,7 +327,7 @@ type AccessKeySecretKey struct {
 // AccessLog Information about access logs.
 type AccessLog struct {
 	// IsEnabled If true, access logs are enabled for your load balancer. If false, they are not. If you set this to true in your request, the `OsuBucketName` parameter is required.
-	IsEnabled *bool `json:"IsEnabled,omitempty"`
+	IsEnabled bool `json:"IsEnabled"`
 
 	// OsuBucketName The name of the OOS bucket for the access logs.
 	OsuBucketName *string `json:"OsuBucketName,omitempty"`
@@ -4466,7 +4466,7 @@ type Image struct {
 	RootDeviceType string `json:"RootDeviceType"`
 
 	// SecureBoot Whether secure boot is activated or not.
-	SecureBoot *bool `json:"SecureBoot,omitempty"`
+	SecureBoot bool `json:"SecureBoot"`
 
 	// State The state of the OMI (`pending` \| `available` \| `failed`).
 	State ImageState `json:"State"`
@@ -4475,7 +4475,7 @@ type Image struct {
 	StateComment *StateComment `json:"StateComment,omitempty"`
 
 	// Tags One or more tags associated with the OMI.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // ImageState The state of the OMI (`pending` \| `available` \| `failed`).
@@ -4945,19 +4945,19 @@ type LinkedVolumeState string
 // Listener Information about the listener.
 type Listener struct {
 	// BackendPort The port on which the backend VM is listening (between `1` and `65535`, both included).
-	BackendPort *int `json:"BackendPort,omitempty"`
+	BackendPort int `json:"BackendPort"`
 
 	// BackendProtocol The protocol for routing traffic to backend VMs (`HTTP` \| `HTTPS` \| `TCP` \| `SSL`).
-	BackendProtocol *string `json:"BackendProtocol,omitempty"`
+	BackendProtocol string `json:"BackendProtocol"`
 
 	// LoadBalancerPort The port on which the load balancer is listening (between `1` and `65535`, both included).
-	LoadBalancerPort *int `json:"LoadBalancerPort,omitempty"`
+	LoadBalancerPort int `json:"LoadBalancerPort"`
 
 	// LoadBalancerProtocol The routing protocol (`HTTP` \| `HTTPS` \| `TCP` \| `SSL`).
-	LoadBalancerProtocol *string `json:"LoadBalancerProtocol,omitempty"`
+	LoadBalancerProtocol string `json:"LoadBalancerProtocol"`
 
 	// PolicyNames The names of the policies. If there are no policies enabled, the list is empty.
-	PolicyNames *[]string `json:"PolicyNames,omitempty"`
+	PolicyNames []string `json:"PolicyNames,omitempty"`
 
 	// ServerCertificateId The OUTSCALE Resource Name (ORN) of the server certificate. For more information, see [Resource Identifiers > OUTSCALE Resource Names (ORNs)](https://docs.outscale.com/en/userguide/Resource-Identifiers.html#_outscale_resource_names_orns).
 	ServerCertificateId *string `json:"ServerCertificateId,omitempty"`
@@ -5030,36 +5030,36 @@ type ListenerRuleForCreation struct {
 // LoadBalancer Information about the load balancer.
 type LoadBalancer struct {
 	// AccessLog Information about access logs.
-	AccessLog *AccessLog `json:"AccessLog,omitempty"`
+	AccessLog AccessLog `json:"AccessLog"`
 
 	// ApplicationStickyCookiePolicies The stickiness policies defined for the load balancer.
-	ApplicationStickyCookiePolicies *[]ApplicationStickyCookiePolicy `json:"ApplicationStickyCookiePolicies,omitempty"`
+	ApplicationStickyCookiePolicies []ApplicationStickyCookiePolicy `json:"ApplicationStickyCookiePolicies"`
 
 	// BackendIps One or more public IPs of backend VMs.
-	BackendIps *[]string `json:"BackendIps,omitempty"`
+	BackendIps []string `json:"BackendIps"`
 
 	// BackendVmIds One or more IDs of backend VMs for the load balancer.
-	BackendVmIds *[]string `json:"BackendVmIds,omitempty"`
+	BackendVmIds []string `json:"BackendVmIds"`
 
 	// DnsName The DNS name of the load balancer.
-	DnsName *string `json:"DnsName,omitempty"`
+	DnsName string `json:"DnsName"`
 
 	// HealthCheck Information about the health check configuration.
-	HealthCheck *HealthCheck `json:"HealthCheck,omitempty"`
+	HealthCheck HealthCheck `json:"HealthCheck"`
 
 	// Listeners The listeners for the load balancer.
-	Listeners *[]Listener `json:"Listeners,omitempty"`
+	Listeners []Listener `json:"Listeners"`
 
 	// LoadBalancerName The name of the load balancer.
-	LoadBalancerName *string `json:"LoadBalancerName,omitempty"`
+	LoadBalancerName string `json:"LoadBalancerName"`
 
 	// LoadBalancerStickyCookiePolicies The policies defined for the load balancer.
-	LoadBalancerStickyCookiePolicies *[]LoadBalancerStickyCookiePolicy `json:"LoadBalancerStickyCookiePolicies,omitempty"`
+	LoadBalancerStickyCookiePolicies []LoadBalancerStickyCookiePolicy `json:"LoadBalancerStickyCookiePolicies"`
 
 	// LoadBalancerType The type of load balancer. Valid only for load balancers in a Net.<br />
 	// If `LoadBalancerType` is `internet-facing`, the load balancer has a public DNS name that resolves to a public IP.<br />
 	// If `LoadBalancerType` is `internal`, the load balancer has a public DNS name that resolves to a private IP.
-	LoadBalancerType *string `json:"LoadBalancerType,omitempty"`
+	LoadBalancerType string `json:"LoadBalancerType"`
 
 	// NetId The ID of the Net for the load balancer.
 	NetId *string `json:"NetId,omitempty"`
@@ -5068,23 +5068,23 @@ type LoadBalancer struct {
 	PublicIp *string `json:"PublicIp,omitempty"`
 
 	// SecuredCookies Whether secure cookies are enabled for the load balancer.
-	SecuredCookies *bool `json:"SecuredCookies,omitempty"`
+	SecuredCookies bool `json:"SecuredCookies"`
 
 	// SecurityGroups One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net.
-	SecurityGroups *[]string `json:"SecurityGroups,omitempty"`
+	SecurityGroups []string `json:"SecurityGroups"`
 
 	// SourceSecurityGroup Information about the source security group of the load balancer, which you can use as part of your inbound rules for your registered VMs.<br />
 	// To only allow traffic from load balancers, add a security group rule that specifies this source security group as the inbound source.
-	SourceSecurityGroup *SourceSecurityGroup `json:"SourceSecurityGroup,omitempty"`
+	SourceSecurityGroup SourceSecurityGroup `json:"SourceSecurityGroup"`
 
 	// Subnets The ID of the Subnet in which the load balancer was created.
-	Subnets *[]string `json:"Subnets,omitempty"`
+	Subnets []string `json:"Subnets,omitempty"`
 
 	// SubregionNames The ID of the Subregion in which the load balancer was created.
-	SubregionNames *[]string `json:"SubregionNames,omitempty"`
+	SubregionNames []string `json:"SubregionNames"`
 
 	// Tags One or more tags associated with the load balancer.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // LoadBalancerLight Information about the load balancer.
