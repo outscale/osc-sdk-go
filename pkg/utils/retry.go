@@ -3,8 +3,8 @@ package utils
 import (
 	"time"
 
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware/retry"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware/retry"
 )
 
 func WithoutRetry() middleware.MiddlewareChainOption {

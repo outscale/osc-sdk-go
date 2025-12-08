@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/oapi-codegen/runtime"
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 

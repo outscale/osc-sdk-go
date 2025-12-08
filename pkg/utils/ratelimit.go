@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
-	mrt "github.com/outscale/osc-sdk-go/v3/internal/middleware/ratelimit"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
+	mrt "github.com/outscale/osc-sdk-go/v3/pkg/middleware/ratelimit"
 	"go.uber.org/ratelimit"
 )
 

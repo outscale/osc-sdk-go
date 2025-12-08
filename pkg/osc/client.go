@@ -3,8 +3,8 @@ package osc
 import (
 	"fmt"
 
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )

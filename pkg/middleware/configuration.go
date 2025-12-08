@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware/auth"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware/auth"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 

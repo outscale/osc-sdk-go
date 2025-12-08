@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware/logging"
 	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware/logging"
 )
 
 type Middleware interface {
@@ -146,7 +146,7 @@ func (mc *MiddlewareChain) RoundTrip(req *http.Request) (*http.Response, error) 
 	return mc.composed.RoundTrip(req)
 }
 
-// Proxy for internal logger
+// Proxy for pkg logger
 func (mc *MiddlewareChain) LogRequest(ctx context.Context, req any) {
 	if mc.logger == nil {
 		return
