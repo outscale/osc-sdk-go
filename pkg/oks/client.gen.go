@@ -73,9 +73,9 @@ const (
 
 // Defines values for VolumeType.
 const (
-	Gp2      VolumeType = "gp2"
-	Io1      VolumeType = "io1"
-	Standard VolumeType = "standard"
+	VolumeTypeGp2      VolumeType = "gp2"
+	VolumeTypeIo1      VolumeType = "io1"
+	VolumeTypeStandard VolumeType = "standard"
 )
 
 // AdmissionFlags Information about the Kubernetes admission plugins configuration.

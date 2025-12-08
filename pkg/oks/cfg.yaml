@@ -4,6 +4,8 @@ output: client.gen.go
 generate:
   models: true
   client: true
+compatibility:
+  always-prefix-enum-values: true
 output-options:
   client-type-name: ClientRaw
   user-templates:
