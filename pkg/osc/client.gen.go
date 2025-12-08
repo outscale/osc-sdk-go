@@ -15,8 +15,8 @@ import (
 	"time"
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
-	"github.com/outscale/osc-sdk-go/v3/internal/middleware"
 	iso8601 "github.com/outscale/osc-sdk-go/v3/pkg/iso8601"
+	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 )
 
