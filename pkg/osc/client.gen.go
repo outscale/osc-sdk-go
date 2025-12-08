@@ -28,27 +28,27 @@ const (
 
 // Defines values for AccessKeyState.
 const (
-	ACTIVE   AccessKeyState = "ACTIVE"
-	INACTIVE AccessKeyState = "INACTIVE"
+	AccessKeyStateACTIVE   AccessKeyState = "ACTIVE"
+	AccessKeyStateINACTIVE AccessKeyState = "INACTIVE"
 )
 
 // Defines values for BackendVmHealthState.
 const (
-	InService    BackendVmHealthState = "InService"
-	OutOfService BackendVmHealthState = "OutOfService"
-	Unknown      BackendVmHealthState = "Unknown"
+	BackendVmHealthStateInService    BackendVmHealthState = "InService"
+	BackendVmHealthStateOutOfService BackendVmHealthState = "OutOfService"
+	BackendVmHealthStateUnknown      BackendVmHealthState = "Unknown"
 )
 
 // Defines values for BootMode.
 const (
-	Legacy BootMode = "legacy"
-	Uefi   BootMode = "uefi"
+	BootModeLegacy BootMode = "legacy"
+	BootModeUefi   BootMode = "uefi"
 )
 
 // Defines values for CatalogsState.
 const (
-	CURRENT  CatalogsState = "CURRENT"
-	OBSOLETE CatalogsState = "OBSOLETE"
+	CatalogsStateCURRENT  CatalogsState = "CURRENT"
+	CatalogsStateOBSOLETE CatalogsState = "OBSOLETE"
 )
 
 // Defines values for CreateVmGroupRequestPositioningStrategy.
@@ -146,23 +146,23 @@ const (
 
 // Defines values for ReadEntitiesLinkedToPolicyRequestEntitiesType.
 const (
-	ACCOUNT ReadEntitiesLinkedToPolicyRequestEntitiesType = "ACCOUNT"
-	GROUP   ReadEntitiesLinkedToPolicyRequestEntitiesType = "GROUP"
-	USER    ReadEntitiesLinkedToPolicyRequestEntitiesType = "USER"
+	ReadEntitiesLinkedToPolicyRequestEntitiesTypeACCOUNT ReadEntitiesLinkedToPolicyRequestEntitiesType = "ACCOUNT"
+	ReadEntitiesLinkedToPolicyRequestEntitiesTypeGROUP   ReadEntitiesLinkedToPolicyRequestEntitiesType = "GROUP"
+	ReadEntitiesLinkedToPolicyRequestEntitiesTypeUSER    ReadEntitiesLinkedToPolicyRequestEntitiesType = "USER"
 )
 
 // Defines values for ReadPoliciesFiltersScope.
 const (
-	LOCAL ReadPoliciesFiltersScope = "LOCAL"
-	OWS   ReadPoliciesFiltersScope = "OWS"
+	ReadPoliciesFiltersScopeLOCAL ReadPoliciesFiltersScope = "LOCAL"
+	ReadPoliciesFiltersScopeOWS   ReadPoliciesFiltersScope = "OWS"
 )
 
 // Defines values for SecureBootAction.
 const (
-	Disable   SecureBootAction = "disable"
-	Enable    SecureBootAction = "enable"
-	None      SecureBootAction = "none"
-	SetupMode SecureBootAction = "setup-mode"
+	SecureBootActionDisable   SecureBootAction = "disable"
+	SecureBootActionEnable    SecureBootAction = "enable"
+	SecureBootActionNone      SecureBootAction = "none"
+	SecureBootActionSetupMode SecureBootAction = "setup-mode"
 )
 
 // Defines values for SnapshotState.
@@ -192,7 +192,7 @@ const (
 
 // Defines values for UpdateDirectLinkInterfaceRequestMtu.
 const (
-	N1500 UpdateDirectLinkInterfaceRequestMtu = 1500
+	UpdateDirectLinkInterfaceRequestMtuN1500 UpdateDirectLinkInterfaceRequestMtu = 1500
 )
 
 // Defines values for UpdateVmRequestPerformance.
@@ -239,11 +239,11 @@ const (
 
 // Defines values for VolumeState.
 const (
-	Available VolumeState = "available"
-	Creating  VolumeState = "creating"
-	Deleting  VolumeState = "deleting"
-	Error     VolumeState = "error"
-	InUse     VolumeState = "in-use"
+	VolumeStateAvailable VolumeState = "available"
+	VolumeStateCreating  VolumeState = "creating"
+	VolumeStateDeleting  VolumeState = "deleting"
+	VolumeStateError     VolumeState = "error"
+	VolumeStateInUse     VolumeState = "in-use"
 )
 
 // AcceptNetPeeringRequest defines model for AcceptNetPeeringRequest.
