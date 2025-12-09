@@ -4849,19 +4849,19 @@ type LinkPublicIpResponse struct {
 // LinkRouteTable One or more associations between the route table and the Subnets.
 type LinkRouteTable struct {
 	// LinkRouteTableId The ID of the association between the route table and the Net or Subnet.
-	LinkRouteTableId *string `json:"LinkRouteTableId,omitempty"`
+	LinkRouteTableId string `json:"LinkRouteTableId"`
 
 	// Main If true, the route table is the main one.
-	Main *bool `json:"Main,omitempty"`
+	Main bool `json:"Main"`
 
 	// NetId The ID of the Net, if the route table is not explicitly linked to a Subnet.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// RouteTableId The ID of the route table.
-	RouteTableId *string `json:"RouteTableId,omitempty"`
+	RouteTableId string `json:"RouteTableId"`
 
 	// SubnetId The ID of the Subnet, if the route table is explicitly linked to a Subnet.
-	SubnetId *string `json:"SubnetId,omitempty"`
+	SubnetId string `json:"SubnetId"`
 }
 
 // LinkRouteTableRequest defines model for LinkRouteTableRequest.
@@ -7696,10 +7696,10 @@ type ResponseContext struct {
 // Route Information about the route.
 type Route struct {
 	// CreationMethod The method used to create the route.
-	CreationMethod *string `json:"CreationMethod,omitempty"`
+	CreationMethod string `json:"CreationMethod"`
 
 	// DestinationIpRange The IP range used for the destination match, in CIDR notation (for example, `10.0.0.0/24`).
-	DestinationIpRange *string `json:"DestinationIpRange,omitempty"`
+	DestinationIpRange string `json:"DestinationIpRange"`
 
 	// DestinationServiceId The ID of the OUTSCALE service.
 	DestinationServiceId *string `json:"DestinationServiceId,omitempty"`
@@ -7720,7 +7720,7 @@ type Route struct {
 	NicId *string `json:"NicId,omitempty"`
 
 	// State The state of a route in the route table (always `active`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// VmAccountId The account ID of the owner of the VM.
 	VmAccountId *string `json:"VmAccountId,omitempty"`
@@ -7732,13 +7732,13 @@ type Route struct {
 // RouteLight Information about the route.
 type RouteLight struct {
 	// DestinationIpRange The IP range used for the destination match, in CIDR notation (for example, `10.0.0.0/24`).
-	DestinationIpRange *string `json:"DestinationIpRange,omitempty"`
+	DestinationIpRange string `json:"DestinationIpRange"`
 
 	// RouteType The type of route (always `static`).
-	RouteType *string `json:"RouteType,omitempty"`
+	RouteType string `json:"RouteType"`
 
 	// State The current state of the static route (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 }
 
 // RoutePropagatingVirtualGateway Information about the route propagating virtual gateway.
@@ -7750,22 +7750,22 @@ type RoutePropagatingVirtualGateway struct {
 // RouteTable Information about the route table.
 type RouteTable struct {
 	// LinkRouteTables One or more associations between the route table and Subnets.
-	LinkRouteTables *[]LinkRouteTable `json:"LinkRouteTables,omitempty"`
+	LinkRouteTables []LinkRouteTable `json:"LinkRouteTables"`
 
 	// NetId The ID of the Net for the route table.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// RoutePropagatingVirtualGateways Information about virtual gateways propagating routes.
-	RoutePropagatingVirtualGateways *[]RoutePropagatingVirtualGateway `json:"RoutePropagatingVirtualGateways,omitempty"`
+	RoutePropagatingVirtualGateways []RoutePropagatingVirtualGateway `json:"RoutePropagatingVirtualGateways"`
 
 	// RouteTableId The ID of the route table.
-	RouteTableId *string `json:"RouteTableId,omitempty"`
+	RouteTableId string `json:"RouteTableId"`
 
 	// Routes One or more routes in the route table.
-	Routes *[]Route `json:"Routes,omitempty"`
+	Routes []Route `json:"Routes"`
 
 	// Tags One or more tags associated with the route table.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // ScaleDownVmGroupRequest defines model for ScaleDownVmGroupRequest.

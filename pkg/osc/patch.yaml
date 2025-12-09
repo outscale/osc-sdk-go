@@ -629,3 +629,36 @@ actions:
     - NetEndpoint
     - NetPeering
     - vpn-connection
+- target: $.components.schemas.RouteTable
+  description: Required fields for RouteTable
+  update:
+    required:
+    - LinkRouteTables
+    - NetId
+    - RoutePropagatingVirtualGateways
+    - RouteTableId
+    - Routes
+    - Tags
+- target: $.components.schemas.LinkRouteTable
+  description: Required fields for LinkRouteTable
+  update:
+    required:
+    - LinkRouteTableId
+    - Main
+    - NetId
+    - RouteTableId
+    - SubnetId
+- target: $.components.schemas.Route
+  description: Required fields for Route
+  update:
+    required:
+    - CreationMethod
+    - DestinationIpRange
+    - State
+- target: $.components.schemas.RouteLight
+  description: Required fields for RouteLight
+  update:
+    required:
+    - DestinationIpRange
+    - RouteType
+    - State
