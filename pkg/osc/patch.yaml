@@ -569,3 +569,63 @@ actions:
   description: Remove pointer from LoadBalancer attributes
   update:
     x-go-type-skip-optional-pointer: true
+- target: $.components.schemas.LoadBalancerTag
+  description: Required fields for LoadBalancerTag
+  update:
+    required:
+    - LoadBalancerName
+    - Key
+    - Value
+- target: $.components.schemas.Tag
+  description: Required fields for Tag
+  update:
+    required:
+    - ResourceId
+    - ResourceType
+    - Key
+    - Value
+- target: $.components.schemas.Tag.*.ResourceType
+  description: Enum for Tag.ResourceType
+  update:
+    enum:
+    - customer-gateway
+    - dhcpoptions
+    - flexible-gpu
+    - image
+    - instance
+    - keypair
+    - natgateway
+    - network-interface
+    - public-ip
+    - route-table
+    - security-group
+    - snapshot
+    - subnet
+    - task
+    - virtual-private-gateway
+    - volume
+    - vpc
+    - vpc-endpoint
+    - vpc-peering-connection
+    - vpn-connection
+    x-enum-varnames:
+    - ClientGateway
+    - DHCPOptions
+    - flexible-gpu
+    - image
+    - vm
+    - keypair
+    - NatServiceOrNetAccessPoint
+    - nic
+    - public-ip
+    - route-table
+    - security-group
+    - snapshot
+    - subnet
+    - task
+    - VirtualGateway
+    - volume
+    - Net
+    - NetEndpoint
+    - NetPeering
+    - vpn-connection
