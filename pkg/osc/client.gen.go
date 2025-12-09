@@ -190,6 +190,30 @@ const (
 	SubnetStatePending   SubnetState = "pending"
 )
 
+// Defines values for TagResourceType.
+const (
+	TagResourceTypeClientGateway              TagResourceType = "customer-gateway"
+	TagResourceTypeDHCPOptions                TagResourceType = "dhcpoptions"
+	TagResourceTypeFlexibleGpu                TagResourceType = "flexible-gpu"
+	TagResourceTypeImage                      TagResourceType = "image"
+	TagResourceTypeKeypair                    TagResourceType = "keypair"
+	TagResourceTypeNatServiceOrNetAccessPoint TagResourceType = "natgateway"
+	TagResourceTypeNet                        TagResourceType = "vpc"
+	TagResourceTypeNetEndpoint                TagResourceType = "vpc-endpoint"
+	TagResourceTypeNetPeering                 TagResourceType = "vpc-peering-connection"
+	TagResourceTypeNic                        TagResourceType = "network-interface"
+	TagResourceTypePublicIp                   TagResourceType = "public-ip"
+	TagResourceTypeRouteTable                 TagResourceType = "route-table"
+	TagResourceTypeSecurityGroup              TagResourceType = "security-group"
+	TagResourceTypeSnapshot                   TagResourceType = "snapshot"
+	TagResourceTypeSubnet                     TagResourceType = "subnet"
+	TagResourceTypeTask                       TagResourceType = "task"
+	TagResourceTypeVirtualGateway             TagResourceType = "virtual-private-gateway"
+	TagResourceTypeVm                         TagResourceType = "instance"
+	TagResourceTypeVolume                     TagResourceType = "volume"
+	TagResourceTypeVpnConnection              TagResourceType = "vpn-connection"
+)
+
 // Defines values for UpdateDirectLinkInterfaceRequestMtu.
 const (
 	UpdateDirectLinkInterfaceRequestMtuN1500 UpdateDirectLinkInterfaceRequestMtu = 1500
@@ -5109,13 +5133,13 @@ type LoadBalancerStickyCookiePolicy struct {
 // LoadBalancerTag Information about the load balancer tag.
 type LoadBalancerTag struct {
 	// Key The key of the tag.
-	Key *string `json:"Key,omitempty"`
+	Key string `json:"Key"`
 
 	// LoadBalancerName The name of the load balancer.
-	LoadBalancerName *string `json:"LoadBalancerName,omitempty"`
+	LoadBalancerName string `json:"LoadBalancerName"`
 
 	// Value The value of the tag.
-	Value *string `json:"Value,omitempty"`
+	Value string `json:"Value"`
 }
 
 // Location Information about the DirectLink location.
@@ -8087,17 +8111,20 @@ type Subregion struct {
 // Tag Information about the tag.
 type Tag struct {
 	// Key The key of the tag, with a minimum of 1 character.
-	Key *string `json:"Key,omitempty"`
+	Key string `json:"Key"`
 
 	// ResourceId The ID of the resource.
-	ResourceId *string `json:"ResourceId,omitempty"`
+	ResourceId string `json:"ResourceId"`
 
 	// ResourceType The type of the resource.
-	ResourceType *string `json:"ResourceType,omitempty"`
+	ResourceType TagResourceType `json:"ResourceType"`
 
 	// Value The value of the tag, between 0 and 255 characters.
-	Value *string `json:"Value,omitempty"`
+	Value string `json:"Value"`
 }
+
+// TagResourceType The type of the resource.
+type TagResourceType string
 
 // UnitPriceEntry Information about the unit price entry.
 type UnitPriceEntry struct {
