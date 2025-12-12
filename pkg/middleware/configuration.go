@@ -3,7 +3,6 @@ package middleware
 import (
 	"crypto/tls"
 	"encoding/base64"
-	"fmt"
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware/auth"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
@@ -108,7 +107,6 @@ func FromProfile(userProfile *profile.Profile, service profile.OscService) Middl
 		)
 	}
 
-	fmt.Printf("%+v\n", opts)
 	return func(mc *MiddlewareChain) error {
 		return mc.applyOptions(opts...)
 	}
