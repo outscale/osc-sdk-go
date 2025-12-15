@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: ⬇️ Checkout repository
-        uses: actions/checkout@v4
-      - name: 🧪 Reuse specification test
-        run: make reuse-test
+        uses: actions/checkout@v5
+      - name: 🔎 Reuse check
+        run: |
+          docker run --rm --volume $PWD:/data fsfe/reuse:5.1 lint
   examples-test:
     runs-on: [self-hosted, linux, eu-west-2]
     steps:

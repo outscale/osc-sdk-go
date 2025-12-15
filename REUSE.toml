@@ -1,0 +1,22 @@
+version = 1
+SPDX-PackageName = "osc-sdk-go"
+SPDX-PackageSupplier = "Outscale <opensource@outscale.com>"
+SPDX-PackageDownloadLocation = "https://github.com/outscale/osc-sdk-go/"
+
+[[annotations]]
+path = "**.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Outscale SAS <opensource@outscale.com>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["Makefile", "sdk_version", "api_version", "**.go", ".git**", "pkgs/**", "examples/**", "internals/**", "**.yml", "**.yaml", "**.sum", "**.mod"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Outscale SAS <support@outscale.com>"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+[[annotations]]
+path = ["templates/**", "**.tmpl"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Outscale SAS <support@outscale.com>"
+SPDX-License-Identifier = "Apache-2.0"
