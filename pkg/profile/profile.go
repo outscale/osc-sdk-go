@@ -108,7 +108,7 @@ func LoadProfileFromEnv() Profile {
 	return profile
 }
 
-func NewProfileFromStrandardConfiguration(profile, path string) (*Profile, error) {
+func NewProfileFromStandardConfiguration(profile, path string) (*Profile, error) {
 	// 1. Load profile from environment
 	mergedProfile := LoadProfileFromEnv()
 

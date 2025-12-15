@@ -12,7 +12,7 @@ import (
 )
 
 func TestProject(t *testing.T) {
-	userProfile, err := profile.NewProfileFromStrandardConfiguration("", "")
+	userProfile, err := profile.NewProfileFromStandardConfiguration("", "")
 	if err != nil {
 		panic(err)
 	}
