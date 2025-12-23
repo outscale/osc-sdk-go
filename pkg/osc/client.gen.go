@@ -270,6 +270,13 @@ const (
 	VolumeStateInUse     VolumeState = "in-use"
 )
 
+// Defines values for VolumeType.
+const (
+	VolumeTypeGp2      VolumeType = "gp2"
+	VolumeTypeIo1      VolumeType = "io1"
+	VolumeTypeStandard VolumeType = "standard"
+)
+
 // AcceptNetPeeringRequest defines model for AcceptNetPeeringRequest.
 type AcceptNetPeeringRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -587,7 +594,7 @@ type BsuToCreate struct {
 
 	// VolumeType The type of the volume (`standard` \| `io1` \| `gp2`). If not specified in the request, a `standard` volume is created.<br />
 	// For more information about volume types, see [About Volumes > Volume Types and IOPS](https://docs.outscale.com/en/userguide/About-Volumes.html#_volume_types_and_iops).
-	VolumeType *string `json:"VolumeType,omitempty"`
+	VolumeType *VolumeType `json:"VolumeType,omitempty"`
 }
 
 // BsuToUpdateVm Information about the BSU volume.
@@ -1984,7 +1991,7 @@ type CreateVolumeRequest struct {
 
 	// VolumeType The type of volume you want to create (`io1` \| `gp2` \| `standard`). If not specified, a `standard` volume is created.<br />
 	// For more information about volume types, see [About Volumes > Volume Types and IOPS](https://docs.outscale.com/en/userguide/About-Volumes.html#_volume_types_and_iops).
-	VolumeType *string `json:"VolumeType,omitempty"`
+	VolumeType *VolumeType `json:"VolumeType,omitempty"`
 }
 
 // CreateVolumeResponse defines model for CreateVolumeResponse.
@@ -3296,7 +3303,7 @@ type FiltersImage struct {
 	BlockDeviceMappingVolumeSizes *[]int `json:"BlockDeviceMappingVolumeSizes,omitempty"`
 
 	// BlockDeviceMappingVolumeTypes The types of volumes (`standard` \| `gp2` \| `io1`).
-	BlockDeviceMappingVolumeTypes *[]string `json:"BlockDeviceMappingVolumeTypes,omitempty"`
+	BlockDeviceMappingVolumeTypes *[]VolumeType `json:"BlockDeviceMappingVolumeTypes,omitempty"`
 
 	// BootModes The boot modes compatible with the OMIs.
 	BootModes *[]BootMode `json:"BootModes,omitempty"`
@@ -4334,7 +4341,7 @@ type FiltersVolume struct {
 	VolumeStates *[]VolumeState `json:"VolumeStates,omitempty"`
 
 	// VolumeTypes The types of the volumes (`standard` \| `gp2` \| `io1`).
-	VolumeTypes *[]string `json:"VolumeTypes,omitempty"`
+	VolumeTypes *[]VolumeType `json:"VolumeTypes,omitempty"`
 }
 
 // FiltersVpnConnection One or more filters.
@@ -4948,19 +4955,19 @@ type LinkedPolicy struct {
 // LinkedVolume Information about volume attachment.
 type LinkedVolume struct {
 	// DeleteOnVmDeletion If true, the volume is deleted when terminating the VM. If false, the volume is not deleted when terminating the VM.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// DeviceName The name of the device.
-	DeviceName *string `json:"DeviceName,omitempty"`
+	DeviceName string `json:"DeviceName"`
 
 	// State The state of the attachment of the volume (`attaching` \| `detaching` \| `attached` \| `detached`).
-	State *LinkedVolumeState `json:"State,omitempty"`
+	State LinkedVolumeState `json:"State"`
 
 	// VmId The ID of the VM.
-	VmId *string `json:"VmId,omitempty"`
+	VmId string `json:"VmId"`
 
 	// VolumeId The ID of the volume.
-	VolumeId *string `json:"VolumeId,omitempty"`
+	VolumeId string `json:"VolumeId"`
 }
 
 // LinkedVolumeState The state of the attachment of the volume (`attaching` \| `detaching` \| `attached` \| `detached`).
@@ -6018,7 +6025,7 @@ type ReadClientGatewaysRequest struct {
 	Filters *FiltersClientGateway `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6030,7 +6037,7 @@ type ReadClientGatewaysResponse struct {
 	ClientGateways *[]ClientGateway `json:"ClientGateways,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6096,7 +6103,7 @@ type ReadDedicatedGroupsRequest struct {
 	Filters *FiltersDedicatedGroup `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6108,7 +6115,7 @@ type ReadDedicatedGroupsResponse struct {
 	DedicatedGroups *[]DedicatedGroup `json:"DedicatedGroups,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6123,7 +6130,7 @@ type ReadDhcpOptionsRequest struct {
 	Filters *FiltersDhcpOptions `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6135,7 +6142,7 @@ type ReadDhcpOptionsResponse struct {
 	DhcpOptionsSets *[]DhcpOptionsSet `json:"DhcpOptionsSets,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6150,7 +6157,7 @@ type ReadDirectLinkInterfacesRequest struct {
 	Filters *FiltersDirectLinkInterface `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6162,7 +6169,7 @@ type ReadDirectLinkInterfacesResponse struct {
 	DirectLinkInterfaces *[]DirectLinkInterfaces `json:"DirectLinkInterfaces,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6177,7 +6184,7 @@ type ReadDirectLinksRequest struct {
 	Filters *FiltersDirectLink `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6189,7 +6196,7 @@ type ReadDirectLinksResponse struct {
 	DirectLinks *[]DirectLink `json:"DirectLinks,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6264,7 +6271,7 @@ type ReadImageExportTasksRequest struct {
 	Filters *FiltersExportTask `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6276,7 +6283,7 @@ type ReadImageExportTasksResponse struct {
 	ImageExportTasks *[]ImageExportTask `json:"ImageExportTasks,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6291,7 +6298,7 @@ type ReadImagesRequest struct {
 	Filters *FiltersImage `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6303,7 +6310,7 @@ type ReadImagesResponse struct {
 	Images *[]Image `json:"Images,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6318,7 +6325,7 @@ type ReadInternetServicesRequest struct {
 	Filters *FiltersInternetService `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6330,7 +6337,7 @@ type ReadInternetServicesResponse struct {
 	InternetServices *[]InternetService `json:"InternetServices,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6345,7 +6352,7 @@ type ReadKeypairsRequest struct {
 	Filters *FiltersKeypair `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6357,7 +6364,7 @@ type ReadKeypairsResponse struct {
 	Keypairs *[]Keypair `json:"Keypairs,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6465,7 +6472,7 @@ type ReadLocationsRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6477,7 +6484,7 @@ type ReadLocationsResponse struct {
 	Locations *[]Location `json:"Locations,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6528,7 +6535,7 @@ type ReadNatServicesRequest struct {
 	Filters *FiltersNatService `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6540,7 +6547,7 @@ type ReadNatServicesResponse struct {
 	NatServices *[]NatService `json:"NatServices,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6555,7 +6562,7 @@ type ReadNetAccessPointServicesRequest struct {
 	Filters *FiltersService `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6564,7 +6571,7 @@ type ReadNetAccessPointServicesRequest struct {
 // ReadNetAccessPointServicesResponse defines model for ReadNetAccessPointServicesResponse.
 type ReadNetAccessPointServicesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6582,7 +6589,7 @@ type ReadNetAccessPointsRequest struct {
 	Filters *FiltersNetAccessPoint `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6594,7 +6601,7 @@ type ReadNetAccessPointsResponse struct {
 	NetAccessPoints *[]NetAccessPoint `json:"NetAccessPoints,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6609,7 +6616,7 @@ type ReadNetPeeringsRequest struct {
 	Filters *FiltersNetPeering `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6621,7 +6628,7 @@ type ReadNetPeeringsResponse struct {
 	NetPeerings *[]NetPeering `json:"NetPeerings,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6636,7 +6643,7 @@ type ReadNetsRequest struct {
 	Filters *FiltersNet `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6648,7 +6655,7 @@ type ReadNetsResponse struct {
 	Nets *[]Net `json:"Nets,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6663,7 +6670,7 @@ type ReadNicsRequest struct {
 	Filters *FiltersNic `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6672,7 +6679,7 @@ type ReadNicsRequest struct {
 // ReadNicsResponse defines model for ReadNicsResponse.
 type ReadNicsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// Nics Information about one or more NICs.
 	Nics *[]Nic `json:"Nics,omitempty"`
@@ -6798,7 +6805,7 @@ type ReadProductTypesRequest struct {
 	Filters *FiltersProductType `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6807,7 +6814,7 @@ type ReadProductTypesRequest struct {
 // ReadProductTypesResponse defines model for ReadProductTypesResponse.
 type ReadProductTypesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ProductTypes Information about one or more product types.
 	ProductTypes *[]ProductType `json:"ProductTypes,omitempty"`
@@ -6837,7 +6844,7 @@ type ReadPublicIpRangesRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6846,7 +6853,7 @@ type ReadPublicIpRangesRequest struct {
 // ReadPublicIpRangesResponse defines model for ReadPublicIpRangesResponse.
 type ReadPublicIpRangesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// PublicIps The list of public IPv4 addresses used in the Region, in CIDR notation.
 	PublicIps *[]string `json:"PublicIps,omitempty"`
@@ -6864,7 +6871,7 @@ type ReadPublicIpsRequest struct {
 	Filters *FiltersPublicIp `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6873,7 +6880,7 @@ type ReadPublicIpsRequest struct {
 // ReadPublicIpsResponse defines model for ReadPublicIpsResponse.
 type ReadPublicIpsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// PublicIps Information about one or more public IPs.
 	PublicIps *[]PublicIp `json:"PublicIps,omitempty"`
@@ -6891,7 +6898,7 @@ type ReadQuotasRequest struct {
 	Filters *FiltersQuota `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6900,7 +6907,7 @@ type ReadQuotasRequest struct {
 // ReadQuotasResponse defines model for ReadQuotasResponse.
 type ReadQuotasResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// QuotaTypes Information about one or more quotas.
 	QuotaTypes *[]QuotaTypes `json:"QuotaTypes,omitempty"`
@@ -6933,7 +6940,7 @@ type ReadRouteTablesRequest struct {
 	Filters *FiltersRouteTable `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6942,7 +6949,7 @@ type ReadRouteTablesRequest struct {
 // ReadRouteTablesResponse defines model for ReadRouteTablesResponse.
 type ReadRouteTablesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -6960,7 +6967,7 @@ type ReadSecurityGroupsRequest struct {
 	Filters *FiltersSecurityGroup `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -6969,7 +6976,7 @@ type ReadSecurityGroupsRequest struct {
 // ReadSecurityGroupsResponse defines model for ReadSecurityGroupsResponse.
 type ReadSecurityGroupsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7005,7 +7012,7 @@ type ReadSnapshotExportTasksRequest struct {
 	Filters *FiltersExportTask `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7014,7 +7021,7 @@ type ReadSnapshotExportTasksRequest struct {
 // ReadSnapshotExportTasksResponse defines model for ReadSnapshotExportTasksResponse.
 type ReadSnapshotExportTasksResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7032,7 +7039,7 @@ type ReadSnapshotsRequest struct {
 	Filters *FiltersSnapshot `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7041,7 +7048,7 @@ type ReadSnapshotsRequest struct {
 // ReadSnapshotsResponse defines model for ReadSnapshotsResponse.
 type ReadSnapshotsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7059,7 +7066,7 @@ type ReadSubnetsRequest struct {
 	Filters *FiltersSubnet `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7068,7 +7075,7 @@ type ReadSubnetsRequest struct {
 // ReadSubnetsResponse defines model for ReadSubnetsResponse.
 type ReadSubnetsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7086,7 +7093,7 @@ type ReadSubregionsRequest struct {
 	Filters *FiltersSubregion `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7095,7 +7102,7 @@ type ReadSubregionsRequest struct {
 // ReadSubregionsResponse defines model for ReadSubregionsResponse.
 type ReadSubregionsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7113,7 +7120,7 @@ type ReadTagsRequest struct {
 	Filters *FiltersTag `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7122,7 +7129,7 @@ type ReadTagsRequest struct {
 // ReadTagsResponse defines model for ReadTagsResponse.
 type ReadTagsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7377,7 +7384,7 @@ type ReadVirtualGatewaysRequest struct {
 	Filters *FiltersVirtualGateway `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7386,7 +7393,7 @@ type ReadVirtualGatewaysRequest struct {
 // ReadVirtualGatewaysResponse defines model for ReadVirtualGatewaysResponse.
 type ReadVirtualGatewaysResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7440,7 +7447,7 @@ type ReadVmTypesRequest struct {
 	Filters *FiltersVmType `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7449,7 +7456,7 @@ type ReadVmTypesRequest struct {
 // ReadVmTypesResponse defines model for ReadVmTypesResponse.
 type ReadVmTypesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7488,7 +7495,7 @@ type ReadVmsRequest struct {
 	Filters *FiltersVm `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7497,7 +7504,7 @@ type ReadVmsRequest struct {
 // ReadVmsResponse defines model for ReadVmsResponse.
 type ReadVmsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7518,7 +7525,7 @@ type ReadVmsStateRequest struct {
 	Filters *FiltersVmsState `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7527,7 +7534,7 @@ type ReadVmsStateRequest struct {
 // ReadVmsStateResponse defines model for ReadVmsStateResponse.
 type ReadVmsStateResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7545,7 +7552,7 @@ type ReadVolumesRequest struct {
 	Filters *FiltersVolume `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7554,7 +7561,7 @@ type ReadVolumesRequest struct {
 // ReadVolumesResponse defines model for ReadVolumesResponse.
 type ReadVolumesResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7572,7 +7579,7 @@ type ReadVpnConnectionsRequest struct {
 	Filters *FiltersVpnConnection `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7581,7 +7588,7 @@ type ReadVpnConnectionsRequest struct {
 // ReadVpnConnectionsResponse defines model for ReadVpnConnectionsResponse.
 type ReadVpnConnectionsResponse struct {
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
-	NextPageToken *[]byte `json:"NextPageToken,omitempty"`
+	NextPageToken *string `json:"NextPageToken,omitempty"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -9065,7 +9072,7 @@ type UpdateVolumeRequest struct {
 
 	// VolumeType **Cold volume**: the new type of the volume (`standard` \| `io1` \| `gp2`). This modification is instantaneous. If you update to an `io1` volume, you must also specify the `Iops` parameter.<br />
 	// **Hot volume**: you cannot change the type of a hot volume.
-	VolumeType *string `json:"VolumeType,omitempty"`
+	VolumeType *VolumeType `json:"VolumeType,omitempty"`
 }
 
 // UpdateVolumeResponse defines model for UpdateVolumeResponse.
@@ -9457,7 +9464,7 @@ type Volume struct {
 	Iops int `json:"Iops"`
 
 	// LinkedVolumes Information about your volume attachment.
-	LinkedVolumes *[]LinkedVolume `json:"LinkedVolumes,omitempty"`
+	LinkedVolumes []LinkedVolume `json:"LinkedVolumes"`
 
 	// Size The size of the volume, in gibibytes (GiB).
 	Size int `json:"Size"`
@@ -9478,11 +9485,14 @@ type Volume struct {
 	VolumeId string `json:"VolumeId"`
 
 	// VolumeType The type of the volume (`standard` \| `gp2` \| `io1`).
-	VolumeType string `json:"VolumeType"`
+	VolumeType VolumeType `json:"VolumeType"`
 }
 
 // VolumeState The state of the volume (`creating` \| `available` \| `in-use` \| `deleting` \| `error`).
 type VolumeState string
+
+// VolumeType defines model for VolumeType.
+type VolumeType string
 
 // VpnConnection Information about a VPN connection.
 type VpnConnection struct {

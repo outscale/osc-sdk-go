@@ -404,6 +404,40 @@ actions:
     - SubregionName
     - Tags
     - VolumeType
+    - LinkedVolumes
+- target: $.components.schemas
+  description: Create type VolumeType
+  update:
+    VolumeType:
+      type: string
+      enum:
+      - io1
+      - gp2
+      - standard
+- target: $.components.schemas.Volume.*.VolumeType
+  description: Type for Volume.VolumeType
+  update:
+    x-go-type: VolumeType
+- target: $.components.schemas.FiltersImage.*.BlockDeviceMappingVolumeTypes.items
+  description:
+  update:
+    $ref: "#/components/schemas/VolumeType"
+- target: $.components.schemas.FiltersVolume.*.VolumeTypes.items
+  description:
+  update:
+    $ref: "#/components/schemas/VolumeType"
+- target: $.components.schemas.CreateVolumeRequest.*.VolumeType
+  description:
+  update:
+    x-go-type: VolumeType
+- target: $.components.schemas.UpdateVolumeRequest.*.VolumeType
+  description:
+  update:
+    x-go-type: VolumeType
+- target: $.components.schemas.BsuToCreate.*.VolumeType
+  description:
+  update:
+    x-go-type: VolumeType
 - target: $.components.schemas.Volume.*.State
   description: Type for Volume.State
   update:
@@ -435,6 +469,15 @@ actions:
   description:
   update:
     x-go-type: VolumeState
+- target: $.components.schemas.LinkedVolume
+  description: Required fields for LinkedVolume
+  update:
+    required:
+    - DeleteOnVmDeletion
+    - DeviceName
+    - State
+    - VmId
+    - VolumeId
 - target: $.components.schemas.LinkedVolume.*.State
   description: Type for LinkedVolume.State
   update:
@@ -662,3 +705,6 @@ actions:
     - DestinationIpRange
     - RouteType
     - State
+- target: $.components.schemas.*.*.NextPageToken.format
+  description: Switch pagination to string
+  remove: true
