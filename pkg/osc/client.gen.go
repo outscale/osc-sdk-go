@@ -7979,7 +7979,7 @@ type SnapshotExportTask struct {
 	Comment string `json:"Comment"`
 
 	// OsuExport Information about the snapshot export task.
-	OsuExport *OsuExportSnapshotExportTask `json:"OsuExport,omitempty"`
+	OsuExport OsuExportSnapshotExportTask `json:"OsuExport"`
 
 	// Progress The progress of the snapshot export task, as a percentage.
 	Progress int `json:"Progress"`

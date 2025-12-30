@@ -359,6 +359,7 @@ actions:
   update:
     required:
     - Comment
+    - OsuExport
     - Progress
     - SnapshotId
     - State
