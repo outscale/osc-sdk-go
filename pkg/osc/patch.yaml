@@ -105,14 +105,13 @@ actions:
     - LinkDate
     - State
     - VolumeId
-- target: $.components.schemas.NicLight
-  description: Required fields for NicLight
+- target: $.components.schemas.Nic
+  description: Required fields for Nic
   update:
     required:
     - AccountId
     - Description
     - IsSourceDestChecked
-    - LinkNic
     - MacAddress
     - NetId
     - NicId
@@ -121,6 +120,35 @@ actions:
     - SecurityGroups
     - State
     - SubnetId
+    - SubregionName
+    - Tags
+- target: $.components.schemas.NicLight
+  description: Required fields for NicLight
+  update:
+    required:
+    - AccountId
+    - Description
+    - IsSourceDestChecked
+    - MacAddress
+    - NetId
+    - NicId
+    - PrivateDnsName
+    - PrivateIps
+    - SecurityGroups
+    - State
+    - SubnetId
+- target: $.components.schemas.LinkNic
+  description: Required fields for LinkNic
+  update:
+    required:
+    - LinkNicId
+    - DeleteOnVmDeletion
+    - DeviceNumber
+    - MacAddress
+    - LinkNicId
+    - State
+    - VmAccountId
+    - VmId
 - target: $.components.schemas.LinkNicLight
   description: Required fields for LinkNicLight
   update:
@@ -130,6 +158,15 @@ actions:
     - MacAddress
     - LinkNicId
     - State
+- target: $.components.schemas.LinkPublicIp
+  description: Required fields for LinkPublicIp
+  update:
+    required:
+    - LinkPublicIpId
+    - PublicIpId
+    - PublicDnsName
+    - PublicIp
+    - PublicIpAccountId
 - target: $.components.schemas.LinkPublicIpLightForVm
   description: Required fields for LinkPublicIpLightForVm
   update:
@@ -137,6 +174,20 @@ actions:
     - PublicDnsName
     - PublicIp
     - PublicIpAccountId
+- target: $.components.schemas.PrivateIp
+  description: Required fields for PrivateIp
+  update:
+    required:
+    - IsPrimary
+    - PrivateDnsName
+    - PrivateIp
+- target: $.components.schemas.PrivateIpLight
+  description: Required fields for PrivateIpLight
+  update:
+    required:
+    - IsPrimary
+    - PrivateDnsName
+    - PrivateIp
 - target: $.components.schemas.PrivateIpLightForVm
   description: Required fields for PrivateIpLightForVm
   update:
