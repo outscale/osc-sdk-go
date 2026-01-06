@@ -4677,22 +4677,22 @@ type LinkManagedPolicyToUserGroupResponse struct {
 // LinkNic Information about the NIC attachment.
 type LinkNic struct {
 	// DeleteOnVmDeletion If true, the NIC is deleted when the VM is terminated.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// DeviceNumber The device index for the NIC attachment (between `1` and `7`, both included).
-	DeviceNumber *int `json:"DeviceNumber,omitempty"`
+	DeviceNumber int `json:"DeviceNumber"`
 
 	// LinkNicId The ID of the NIC to attach.
-	LinkNicId *string `json:"LinkNicId,omitempty"`
+	LinkNicId string `json:"LinkNicId"`
 
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
-	State *LinkNicState `json:"State,omitempty"`
+	State LinkNicState `json:"State"`
 
 	// VmAccountId The account ID of the owner of the VM.
-	VmAccountId *string `json:"VmAccountId,omitempty"`
+	VmAccountId string `json:"VmAccountId"`
 
 	// VmId The ID of the VM.
-	VmId *string `json:"VmId,omitempty"`
+	VmId string `json:"VmId"`
 }
 
 // LinkNicState The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
@@ -4791,19 +4791,19 @@ type LinkPrivateIpsResponse struct {
 // LinkPublicIp Information about the public IP association.
 type LinkPublicIp struct {
 	// LinkPublicIpId (Required in a Net) The ID representing the association of the public IP with the VM or the NIC.
-	LinkPublicIpId *string `json:"LinkPublicIpId,omitempty"`
+	LinkPublicIpId string `json:"LinkPublicIpId"`
 
 	// PublicDnsName The name of the public DNS.
-	PublicDnsName *string `json:"PublicDnsName,omitempty"`
+	PublicDnsName string `json:"PublicDnsName"`
 
 	// PublicIp The public IP associated with the NIC.
-	PublicIp *string `json:"PublicIp,omitempty"`
+	PublicIp string `json:"PublicIp"`
 
 	// PublicIpAccountId The account ID of the owner of the public IP.
-	PublicIpAccountId *string `json:"PublicIpAccountId,omitempty"`
+	PublicIpAccountId string `json:"PublicIpAccountId"`
 
 	// PublicIpId The allocation ID of the public IP.
-	PublicIpId *string `json:"PublicIpId,omitempty"`
+	PublicIpId string `json:"PublicIpId"`
 }
 
 // LinkPublicIpLightForVm Information about the public IP associated with the NIC.
@@ -5356,13 +5356,13 @@ type NetToVirtualGatewayLink struct {
 // Nic Information about the NIC.
 type Nic struct {
 	// AccountId The account ID of the owner of the NIC.
-	AccountId *string `json:"AccountId,omitempty"`
+	AccountId string `json:"AccountId"`
 
 	// Description The description of the NIC.
-	Description *string `json:"Description,omitempty"`
+	Description string `json:"Description"`
 
 	// IsSourceDestChecked (Net only) If true, the source/destination check is enabled. If false, it is disabled.
-	IsSourceDestChecked *bool `json:"IsSourceDestChecked,omitempty"`
+	IsSourceDestChecked bool `json:"IsSourceDestChecked"`
 
 	// LinkNic Information about the NIC attachment.
 	LinkNic *LinkNic `json:"LinkNic,omitempty"`
@@ -5371,34 +5371,34 @@ type Nic struct {
 	LinkPublicIp *LinkPublicIp `json:"LinkPublicIp,omitempty"`
 
 	// MacAddress The Media Access Control (MAC) address of the NIC.
-	MacAddress *string `json:"MacAddress,omitempty"`
+	MacAddress string `json:"MacAddress"`
 
 	// NetId The ID of the Net for the NIC.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// NicId The ID of the NIC.
-	NicId *string `json:"NicId,omitempty"`
+	NicId string `json:"NicId"`
 
 	// PrivateDnsName The name of the private DNS.
-	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
+	PrivateDnsName string `json:"PrivateDnsName"`
 
 	// PrivateIps The private IPs of the NIC.
-	PrivateIps *[]PrivateIp `json:"PrivateIps,omitempty"`
+	PrivateIps []PrivateIp `json:"PrivateIps"`
 
 	// SecurityGroups One or more IDs of security groups for the NIC.
-	SecurityGroups *[]SecurityGroupLight `json:"SecurityGroups,omitempty"`
+	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
 	// State The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
-	State *NicState `json:"State,omitempty"`
+	State NicState `json:"State"`
 
 	// SubnetId The ID of the Subnet.
-	SubnetId *string `json:"SubnetId,omitempty"`
+	SubnetId string `json:"SubnetId"`
 
 	// SubregionName The Subregion in which the NIC is located.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// Tags One or more tags associated with the NIC.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // NicState The state of the NIC (`available` \| `attaching` \| `in-use` \| `detaching`).
@@ -5443,7 +5443,7 @@ type NicLight struct {
 	IsSourceDestChecked bool `json:"IsSourceDestChecked"`
 
 	// LinkNic Information about the network interface card (NIC).
-	LinkNic LinkNicLight `json:"LinkNic"`
+	LinkNic *LinkNicLight `json:"LinkNic,omitempty"`
 
 	// LinkPublicIp Information about the public IP associated with the NIC.
 	LinkPublicIp *LinkPublicIpLightForVm `json:"LinkPublicIp,omitempty"`
@@ -5680,25 +5680,25 @@ type PolicyVersion struct {
 // PrivateIp Information about the private IP.
 type PrivateIp struct {
 	// IsPrimary If true, the IP is the primary private IP of the NIC.
-	IsPrimary *bool `json:"IsPrimary,omitempty"`
+	IsPrimary bool `json:"IsPrimary"`
 
 	// LinkPublicIp Information about the public IP association.
 	LinkPublicIp *LinkPublicIp `json:"LinkPublicIp,omitempty"`
 
 	// PrivateDnsName The name of the private DNS.
-	PrivateDnsName *string `json:"PrivateDnsName,omitempty"`
+	PrivateDnsName string `json:"PrivateDnsName"`
 
 	// PrivateIp The private IP of the NIC.
-	PrivateIp *string `json:"PrivateIp,omitempty"`
+	PrivateIp string `json:"PrivateIp"`
 }
 
 // PrivateIpLight Information about the private IP.
 type PrivateIpLight struct {
 	// IsPrimary If true, the IP is the primary private IP of the NIC.
-	IsPrimary *bool `json:"IsPrimary,omitempty"`
+	IsPrimary bool `json:"IsPrimary"`
 
 	// PrivateIp The private IP of the NIC.
-	PrivateIp *string `json:"PrivateIp,omitempty"`
+	PrivateIp string `json:"PrivateIp"`
 }
 
 // PrivateIpLightForVm Information about the private IP of the NIC.

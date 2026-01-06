@@ -78,3 +78,7 @@ func IsAuthError(err error) bool {
 		"1", "5", "7", "14", "20", "4120", "4000",
 	})
 }
+
+func IsQuotaOrCapacity(err error) bool {
+	return hasErrorCodeRange(err, 10000, 10999)
+}
