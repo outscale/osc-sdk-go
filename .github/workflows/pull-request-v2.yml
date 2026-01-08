@@ -26,7 +26,7 @@ jobs:
       - name: ⬇️ Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: 1.24
+          go-version: 1.25
       - name: 🧪 Tests
         env:
           OSC_ACCESS_KEY: ${{ secrets.OSC_ACCESS_KEY }}
@@ -42,6 +42,6 @@ jobs:
       - name: ⬇️ Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: 1.24
+          go-version: 1.25
       - name: 🧪 SDK re-generation test
         run: make regen-test
