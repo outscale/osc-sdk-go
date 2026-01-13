@@ -9,7 +9,7 @@ import (
 )
 
 func TestKeypair(t *testing.T) {
-	userProfile, err := profile.NewProfileFromStandardConfiguration("", "")
+	userProfile, err := profile.New()
 	if err != nil {
 		panic(err)
 	}
@@ -23,7 +23,7 @@ func TestKeypair(t *testing.T) {
 
 	keypairName := "osc-sdk-go-example"
 	faux := false
-	keypair, err := client.CreateKeypair(ctx, osc.CreateKeypairRequest{
+	resp, err := client.CreateKeypair(ctx, osc.CreateKeypairRequest{
 		DryRun:      &faux,
 		KeypairName: keypairName,
 	})
@@ -31,10 +31,10 @@ func TestKeypair(t *testing.T) {
 		panic(err)
 	}
 
-	t.Logf("Keypair created: %v", *keypair)
+	t.Logf("Keypair created: %s", *resp.Keypair.KeypairId)
 
 	_, err = client.DeleteKeypair(ctx, osc.DeleteKeypairRequest{
-		KeypairId: keypair.Keypair.KeypairId,
+		KeypairId: resp.Keypair.KeypairId,
 	})
 	if err != nil {
 		panic(err)
