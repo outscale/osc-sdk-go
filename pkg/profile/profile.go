@@ -40,6 +40,8 @@ type Profile struct {
 	Endpoints         Endpoint `json:"endpoints"`
 }
 
+type Option func(*Profile) error
+
 func newConfigFile() *configFile {
 	return &configFile{
 		profiles: make(map[string]Profile),
@@ -108,28 +110,32 @@ func LoadProfileFromEnv() Profile {
 	return profile
 }
 
-func NewProfileFromStandardConfiguration(profile, path string) (*Profile, error) {
+// New loads the profile from the environment or a profile file.
+// The profile file name is fetched from the OSC_CONFIG_FILE env var, or `~/.osc/config.json` if not set.
+// The profile name is fetched from OSC_PROFILE, or `default` if not set.
+func New(opts ...Option) (*Profile, error) {
+	var profile string
+	if value, present := os.LookupEnv("OSC_PROFILE"); present {
+		profile = value
+	} else {
+		profile = defaultProfile
+	}
+
+	var path string
+	if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
+		path = value
+	} else {
+		path, _ = defaultConfigPath()
+	}
+	return NewFrom(profile, path, opts...)
+}
+
+// NewFrom loads the profile from the environment or a profile file.
+func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 	// 1. Load profile from environment
 	mergedProfile := LoadProfileFromEnv()
 
-	// 2. Load additional config from environment
-	if profile == "" {
-		if value, present := os.LookupEnv("OSC_PROFILE"); present {
-			profile = value
-		} else {
-			profile = defaultProfile
-		}
-	}
-
-	if path == "" {
-		if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
-			path = value
-		} else {
-			path, _ = defaultConfigPath()
-		}
-	}
-
-	// 3. Load profile for config file
+	// 2. Load profile for config file and merge
 	configFile, err := loadConfigFile(path)
 	if err == nil {
 		if fileprofile, ok := configFile.profiles[profile]; ok {
@@ -142,7 +148,15 @@ func NewProfileFromStandardConfiguration(profile, path string) (*Profile, error)
 		}
 	}
 
-	// 4. Load default
+	// 3. Apply options
+	for _, opt := range opts {
+		err := opt(&mergedProfile)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// 4. Set defaults
 	if mergedProfile.Protocol == "" {
 		mergedProfile.Protocol = "https"
 	}
