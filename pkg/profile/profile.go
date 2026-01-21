@@ -114,28 +114,34 @@ func LoadProfileFromEnv() Profile {
 // The profile file name is fetched from the OSC_CONFIG_FILE env var, or `~/.osc/config.json` if not set.
 // The profile name is fetched from OSC_PROFILE, or `default` if not set.
 func New(opts ...Option) (*Profile, error) {
-	var profile string
-	if value, present := os.LookupEnv("OSC_PROFILE"); present {
-		profile = value
-	} else {
-		profile = defaultProfile
-	}
-
-	var path string
-	if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
-		path = value
-	} else {
-		path, _ = defaultConfigPath()
-	}
-	return NewFrom(profile, path, opts...)
+	return NewFrom("", "", opts...)
 }
 
 // NewFrom loads the profile from the environment or a profile file.
+// If empty, the profile file name is fetched from the OSC_CONFIG_FILE env var, or `~/.osc/config.json` if not set.
+// If empty, the profile name is fetched from OSC_PROFILE, or `default` if not set.
 func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 	// 1. Load profile from environment
 	mergedProfile := LoadProfileFromEnv()
 
-	// 2. Load profile for config file and merge
+	// 2. Load additional config from environment
+	if profile == "" {
+		if value, present := os.LookupEnv("OSC_PROFILE"); present {
+			profile = value
+		} else {
+			profile = defaultProfile
+		}
+	}
+
+	if path == "" {
+		if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
+			path = value
+		} else {
+			path, _ = defaultConfigPath()
+		}
+	}
+
+	// 3. Load profile for config file and merge
 	configFile, err := loadConfigFile(path)
 	if err == nil {
 		if fileprofile, ok := configFile.profiles[profile]; ok {
@@ -148,7 +154,7 @@ func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 		}
 	}
 
-	// 3. Apply options
+	// 4. Apply options
 	for _, opt := range opts {
 		err := opt(&mergedProfile)
 		if err != nil {
@@ -156,7 +162,7 @@ func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 		}
 	}
 
-	// 4. Set defaults
+	// 5. Set defaults
 	if mergedProfile.Protocol == "" {
 		mergedProfile.Protocol = "https"
 	}
