@@ -7,7 +7,8 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FromDate** | **string** | The beginning of the time period, in ISO 8601 date format (for example, &#x60;2020-06-14&#x60;). The date-time format is also accepted, but only with a time set to midnight (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). This value is included in the time period. | 
 **Overall** | Pointer to **bool** | If false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account). | [optional] [default to false]
-**ShowPrice** | Pointer to **bool** | If true, the response also includes the unit price of the consumed resource (&#x60;UnitPrice&#x60;) and the total price of the consumed resource during the specified time period (&#x60;Price&#x60;), in the currency of your account. | [optional] 
+**ShowPrice** | Pointer to **bool** | If true, the response also includes the unit price of the consumed resource (&#x60;UnitPrice&#x60;) and the total price of the consumed resource during the specified time period (&#x60;Price&#x60;), in the currency of the Region&#39;s catalog. | [optional] 
+**ShowResourceDetails** | Pointer to **bool** | By default or if false, returns the consumption aggregated by resource type. If true, the response returns the consumption per &#x60;ResourceId&#x60;. | [optional] [default to false]
 **ToDate** | **string** | The end of the time period, in ISO 8601 date format (for example, &#x60;2020-06-30&#x60;). The date-time format is also accepted, but only with a time set to midnight (for example, &#x60;2020-06-30T00:00:00.000Z&#x60;). This value is excluded from the time period, and must be set to a later date than &#x60;FromDate&#x60;. | 
 
 ## Methods
@@ -123,6 +124,31 @@ SetShowPrice sets ShowPrice field to given value.
 `func (o *ReadConsumptionAccountRequest) HasShowPrice() bool`
 
 HasShowPrice returns a boolean if a field has been set.
+
+### GetShowResourceDetails
+
+`func (o *ReadConsumptionAccountRequest) GetShowResourceDetails() bool`
+
+GetShowResourceDetails returns the ShowResourceDetails field if non-nil, zero value otherwise.
+
+### GetShowResourceDetailsOk
+
+`func (o *ReadConsumptionAccountRequest) GetShowResourceDetailsOk() (*bool, bool)`
+
+GetShowResourceDetailsOk returns a tuple with the ShowResourceDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShowResourceDetails
+
+`func (o *ReadConsumptionAccountRequest) SetShowResourceDetails(v bool)`
+
+SetShowResourceDetails sets ShowResourceDetails field to given value.
+
+### HasShowResourceDetails
+
+`func (o *ReadConsumptionAccountRequest) HasShowResourceDetails() bool`
+
+HasShowResourceDetails returns a boolean if a field has been set.
 
 ### GetToDate
 

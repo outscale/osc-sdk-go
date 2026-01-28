@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Architecture** | Pointer to **string** | **When registering from a snapshot:** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x86_64&#x60;). | [optional] 
+**Architecture** | Pointer to **string** | **When registering from a snapshot:** The architecture of the OMI (&#x60;i386&#x60; or &#x60;x86_64&#x60;). By default, set to &#x60;x86_64&#x60;. | [optional] 
 **BlockDeviceMappings** | Pointer to [**[]BlockDeviceMappingImage**](BlockDeviceMappingImage.md) | **(required) When registering from a snapshot:** One or more block device mappings. | [optional] 
 **BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMI. | [optional] 
 **Description** | Pointer to **string** | A description for the new OMI. | [optional] 

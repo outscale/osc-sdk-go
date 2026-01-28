@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CookieName** | Pointer to **string** | The name of the application cookie used for stickiness. | [optional] 
+**CookieName** | Pointer to **string** | The name of the application cookie used for stickiness, between 1 and 255 characters. | [optional] 
 **PolicyName** | Pointer to **string** | The mnemonic name for the policy being created. The name must be unique within a set of policies for this load balancer. | [optional] 
 
 ## Methods
