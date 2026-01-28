@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FromPortRange** | Pointer to **int32** | The beginning of the port range for the TCP and UDP protocols, or an ICMP type number. | [optional] 
 **IpProtocol** | Pointer to **string** | The IP protocol name (&#x60;tcp&#x60;, &#x60;udp&#x60;, &#x60;icmp&#x60;, or &#x60;-1&#x60; for all protocols). By default, &#x60;-1&#x60;. In a Net, this can also be an IP protocol number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). | [optional] 
-**IpRanges** | Pointer to **[]string** | One or more IP ranges for the security group rules, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
+**IpRanges** | Pointer to **[]string** | One or more IP ranges for the security group rules, in CIDR notation (for example, &#x60;[&amp;quot;10.0.0.0/24&amp;quot; , &amp;quot;10.0.1.0/24&amp;quot;]&#x60;). | [optional] 
+**SecurityGroupRuleId** | Pointer to **string** | The ID of the security group rule. | [optional] 
 **SecurityGroupsMembers** | Pointer to [**[]SecurityGroupsMember**](SecurityGroupsMember.md) | Information about one or more source or destination security groups. | [optional] 
 **ServiceIds** | Pointer to **[]string** | One or more service IDs to allow traffic from a Net to access the corresponding OUTSCALE services. For more information, see [ReadNetAccessPointServices](#readnetaccesspointservices). | [optional] 
 **ToPortRange** | Pointer to **int32** | The end of the port range for the TCP and UDP protocols, or an ICMP code number. | [optional] 
@@ -104,6 +105,31 @@ SetIpRanges sets IpRanges field to given value.
 `func (o *SecurityGroupRule) HasIpRanges() bool`
 
 HasIpRanges returns a boolean if a field has been set.
+
+### GetSecurityGroupRuleId
+
+`func (o *SecurityGroupRule) GetSecurityGroupRuleId() string`
+
+GetSecurityGroupRuleId returns the SecurityGroupRuleId field if non-nil, zero value otherwise.
+
+### GetSecurityGroupRuleIdOk
+
+`func (o *SecurityGroupRule) GetSecurityGroupRuleIdOk() (*string, bool)`
+
+GetSecurityGroupRuleIdOk returns a tuple with the SecurityGroupRuleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecurityGroupRuleId
+
+`func (o *SecurityGroupRule) SetSecurityGroupRuleId(v string)`
+
+SetSecurityGroupRuleId sets SecurityGroupRuleId field to given value.
+
+### HasSecurityGroupRuleId
+
+`func (o *SecurityGroupRule) HasSecurityGroupRuleId() bool`
+
+HasSecurityGroupRuleId returns a boolean if a field has been set.
 
 ### GetSecurityGroupsMembers
 

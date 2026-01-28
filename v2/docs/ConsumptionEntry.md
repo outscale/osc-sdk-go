@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
 **PayingAccountId** | Pointer to **string** | The ID of the TINA account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
 **Price** | Pointer to **float64** | The total price of the consumed resource during the specified time period, in the currency of the Region&#39;s catalog. | [optional] 
+**ResourceId** | Pointer to **string** | The ID of the consumed resource. | [optional] 
 **Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, &#x60;TinaOS-OSU&#x60;, or &#x60;OKS&#x60;). | [optional] 
 **SubregionName** | Pointer to **string** | The name of the Subregion. | [optional] 
 **Title** | Pointer to **string** | A description of the consumed resource. | [optional] 
@@ -186,6 +187,31 @@ SetPrice sets Price field to given value.
 `func (o *ConsumptionEntry) HasPrice() bool`
 
 HasPrice returns a boolean if a field has been set.
+
+### GetResourceId
+
+`func (o *ConsumptionEntry) GetResourceId() string`
+
+GetResourceId returns the ResourceId field if non-nil, zero value otherwise.
+
+### GetResourceIdOk
+
+`func (o *ConsumptionEntry) GetResourceIdOk() (*string, bool)`
+
+GetResourceIdOk returns a tuple with the ResourceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceId
+
+`func (o *ConsumptionEntry) SetResourceId(v string)`
+
+SetResourceId sets ResourceId field to given value.
+
+### HasResourceId
+
+`func (o *ConsumptionEntry) HasResourceId() bool`
+
+HasResourceId returns a boolean if a field has been set.
 
 ### GetService
 

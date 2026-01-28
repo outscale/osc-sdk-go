@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | The key of the tag, with a minimum of 1 character. | 
+**Key** | **string** | The key of the tag, between 1 and 255 characters. | 
 **Value** | **string** | The value of the tag, between 0 and 255 characters. | 
 
 ## Methods

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** | The key of the tag, with a minimum of 1 character. | [optional] 
+**Key** | Pointer to **string** | The key of the tag, between 1 and 255 characters. | [optional] 
 **ResourceId** | Pointer to **string** | The ID of the resource. | [optional] 
 **ResourceType** | Pointer to **string** | The type of the resource. | [optional] 
 **Value** | Pointer to **string** | The value of the tag, between 0 and 255 characters. | [optional] 
