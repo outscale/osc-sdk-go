@@ -1,10 +1,16 @@
 name: osc-sdk-go release build
+
 on:
   workflow_dispatch:
     inputs:
       api_version:
         description: 'Outscale API version'
         required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
 
 jobs:
   auto-build-v2:
@@ -14,23 +20,33 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           ref: v2
+      - uses: chainguard-dev/actions/setup-gitsign@main
+
       - name: Set up Go
         uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6
         with:
           go-version: 1.25
+
       - name: Write Outscale API version to use
         run: echo "${{ github.event.inputs.api_version }}" > api_version
-      - name: check for release duplicate
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: make release-check-duplicate
       - name: auto-generate release
         run: make release-build
-      - name: push release branch
-        run: make release-push
+
+      - name: Get SDK version
+        id: get-sdk-version
+        run: |
+          echo "sdk_version=$(cat ./sdk_version)" >> "$GITHUB_OUTPUT"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8.1.0
+        with:
+          committer: "Outscale Bot <opensource+bot@outscale.com>"
+          author: "Outscale Bot <opensource+bot@outscale.com>"
+          commit-message: "🔖 release: osc-sdk-go v${{ env.sdk_version }}"
+          body: |
+            Automatic build of SDK v${{ env.sdk_version }} version based on Outscale API ${{ env.api_version }}.
+          title: "SDK v${{ env.sdk_version }}"
+          token: "${{ env.token }}"
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: create pull request
-        run: make release-pr
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          sdk_version: ${{ steps.get-sdk-version.outputs.sdk_version }}
+          api_version: ${{ github.event.inputs.api_version }}
+          token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
