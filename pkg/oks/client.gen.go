@@ -39,6 +39,18 @@ const (
 	AutoUpgradeMaintenanceWeekDayWed AutoUpgradeMaintenanceWeekDay = "Wed"
 )
 
+// Defines values for MaintenanceWeekDay.
+const (
+	MaintenanceWeekDayFri    MaintenanceWeekDay = "Fri"
+	MaintenanceWeekDayMon    MaintenanceWeekDay = "Mon"
+	MaintenanceWeekDaySat    MaintenanceWeekDay = "Sat"
+	MaintenanceWeekDayString MaintenanceWeekDay = "string"
+	MaintenanceWeekDaySun    MaintenanceWeekDay = "Sun"
+	MaintenanceWeekDayThu    MaintenanceWeekDay = "Thu"
+	MaintenanceWeekDayTue    MaintenanceWeekDay = "Tue"
+	MaintenanceWeekDayWed    MaintenanceWeekDay = "Wed"
+)
+
 // Defines values for MaintenanceWindowWeekDay.
 const (
 	MaintenanceWindowWeekDayFri    MaintenanceWindowWeekDay = "Fri"
@@ -78,239 +90,245 @@ const (
 	VolumeTypeStandard VolumeType = "standard"
 )
 
-// AdmissionFlags Information about the Kubernetes admission plugins configuration.
+// AdmissionFlags defines model for AdmissionFlags.
 type AdmissionFlags struct {
-	// AppliedAdmissionPlugins The list of admission plugins that are currently applied to the cluster.
+	// AppliedAdmissionPlugins List of admission plugins currently applied to the cluster
 	AppliedAdmissionPlugins *[]string `json:"applied_admission_plugins,omitempty"`
 
-	// DisableAdmissionPlugins The list of Kubernetes admission plugins that are disabled.
+	// DisableAdmissionPlugins List of Kubernetes admission plugins that are disabled
 	DisableAdmissionPlugins *[]string `json:"disable_admission_plugins,omitempty"`
 
-	// EnableAdmissionPlugins The list of Kubernetes admission plugins that are enabled.
+	// EnableAdmissionPlugins List of Kubernetes admission plugins that are enabled
 	EnableAdmissionPlugins *[]string `json:"enable_admission_plugins,omitempty"`
 }
 
-// AdmissionFlagsInput Information about the Kubernetes admission plugins.
+// AdmissionFlagsInput defines model for AdmissionFlagsInput.
 type AdmissionFlagsInput struct {
-	// DisableAdmissionPlugins The list of Kubernetes admission plugins to disable.
+	// DisableAdmissionPlugins List of Kubernetes admission plugins to disable
 	DisableAdmissionPlugins *[]string `json:"disable_admission_plugins,omitempty"`
 
-	// EnableAdmissionPlugins The list of Kubernetes admission plugins to enable.
+	// EnableAdmissionPlugins List of Kubernetes admission plugins to enable
 	EnableAdmissionPlugins *[]string `json:"enable_admission_plugins,omitempty"`
 }
 
-// AutoMaintenances Information about the automated maintenance windows.
+// AuthStrategy defines model for AuthStrategy.
+type AuthStrategy struct {
+	// Oidc Configuration for authenticating to the cluster using OpenID Connect (OIDC).
+	Oidc OpenIdConnectConfig `json:"oidc"`
+}
+
+// AutoMaintenances defines model for AutoMaintenances.
 type AutoMaintenances struct {
-	// MinorUpgradeMaintenance The maintenance window configuration for minor Kubernetes upgrades.
+	// MinorUpgradeMaintenance Maintenance window configuration for minor Kubernetes upgrades
 	MinorUpgradeMaintenance MaintenanceWindow `json:"minor_upgrade_maintenance"`
 
-	// PatchUpgradeMaintenance The maintenance window configuration for patch Kubernetes upgrades.
+	// PatchUpgradeMaintenance Maintenance window configuration for patch Kubernetes upgrades
 	PatchUpgradeMaintenance MaintenanceWindow `json:"patch_upgrade_maintenance"`
 }
 
-// AutoUpgradeMaintenance Information about the window of the automated upgrade maintenance.
+// AutoUpgradeMaintenance defines model for AutoUpgradeMaintenance.
 type AutoUpgradeMaintenance struct {
-	// DurationHours The duration of the maintenance window, in hours.
+	// DurationHours Duration of the maintenance window in hours
 	DurationHours int `json:"durationHours"`
 
-	// StartHour The starting time of the maintenance window, in hours.
+	// StartHour Hour of the day when maintenance window starts (0-23)
 	StartHour int `json:"startHour"`
 
-	// WeekDay The weekday on which the maintenance window begins.
+	// WeekDay Day of the week for the maintenance window (e.g., Mon, Tue)
 	WeekDay AutoUpgradeMaintenanceWeekDay `json:"weekDay"`
 }
 
-// AutoUpgradeMaintenanceWeekDay The weekday on which the maintenance window begins.
+// AutoUpgradeMaintenanceWeekDay Day of the week for the maintenance window (e.g., Mon, Tue)
 type AutoUpgradeMaintenanceWeekDay string
 
 // CPSubregionsResponse defines model for CPSubregionsResponse.
 type CPSubregionsResponse struct {
-	// CPSubregions The list of Subregions where you can deploy control planes for your clusters.
-	CPSubregions []string `json:"CPSubregions"`
-
-	// ResponseContext Information about the context of the response.
+	// CPSubregions List of available control plane subregions
+	CPSubregions    []string                             `json:"CPSubregions"`
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// Cluster Information about the cluster.
+// Cluster defines model for Cluster.
 type Cluster struct {
-	// AdminLbu If true, load balancer administration is enabled for cluster management. If false, it is disabled.
+	// AdminLbu Flag indicating if admin load balancer is enabled for cluster management
 	AdminLbu bool `json:"admin_lbu"`
 
-	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist List of CIDR blocks or IP addresses allowed to access the Kubernetes API
 	AdminWhitelist []string `json:"admin_whitelist"`
 
-	// AdmissionFlags The configuration of the Kubernetes admission controllers.
-	AdmissionFlags *AdmissionFlags `json:"admission_flags,omitempty"`
+	// AdmissionFlags Configuration for Kubernetes admission controllers
+	AdmissionFlags   AdmissionFlags    `json:"admission_flags"`
+	Auth             *AuthStrategy     `json:"auth"`
+	AutoMaintenances *AutoMaintenances `json:"auto_maintenances"`
 
-	// AutoMaintenances The configuration of the automated maintenance windows.
-	AutoMaintenances AutoMaintenances `json:"auto_maintenances"`
-	CidrPods         *string          `json:"cidr_pods"`
-	CidrService      *string          `json:"cidr_service"`
-	ClusterDns       *string          `json:"cluster_dns"`
+	// CidrPods CIDR block for Kubernetes pods network
+	CidrPods string `json:"cidr_pods"`
 
-	// Cni The Container Network Interface (CNI) used in the cluster.
+	// CidrService CIDR block for Kubernetes services network
+	CidrService string `json:"cidr_service"`
+
+	// ClusterDns IP address for cluster DNS service
+	ClusterDns string `json:"cluster_dns"`
+
+	// Cni Container Network Interface used in the cluster
 	Cni string `json:"cni"`
 
-	// ControlPlanes The control plane sizing of the cluster.
+	// ControlPlanes Type of control plane deployment for the cluster
 	ControlPlanes string `json:"control_planes"`
 
-	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+	// CpMultiAz Flag indicating if multi-availability zone is enabled for the control plane
 	CpMultiAz bool `json:"cp_multi_az"`
 
-	// CpSubregions The Subregions on which the control plane components are deployed.
+	// CpSubregions Subregions where control plane components are deployed
 	CpSubregions []string `json:"cp_subregions"`
-	Description  *string  `json:"description"`
 
-	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
+	// Description Optional description of the cluster
+	Description *string `json:"description,omitempty"`
+
+	// DisableApiTermination Flag to prevent accidental cluster deletion
 	DisableApiTermination *bool   `json:"disable_api_termination,omitempty"`
 	ExpectedControlPlanes *string `json:"expected_control_planes"`
 	ExpectedVersion       *string `json:"expected_version"`
 
-	// Id The Universally Unique Identifier (UUID) of the cluster.
-	Id string `json:"id"`
+	// Id Unique UUID of the cluster
+	Id                string       `json:"id"`
+	MaintenanceWindow *Maintenance `json:"maintenance_window"`
 
-	// Name A unique name for the cluster within the project.
+	// Name Unique cluster name per project
 	Name string `json:"name"`
 
-	// ProjectId The ID of the project this cluster belongs to.
+	// ProjectId Unique identifier of the project this cluster belongs to
 	ProjectId string `json:"project_id"`
 
-	// Statuses The status information of the cluster.
+	// Statuses Current status information about the cluster
 	Statuses Statuses `json:"statuses"`
 
-	// Tags The key/value combinations of the tags associated with the cluster, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	// Tags Key-value pairs for cluster metadata
 	Tags map[string]string `json:"tags"`
 
-	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
+	// Version Version of Kubernetes deployed in the cluster
 	Version string `json:"version"`
 }
 
-// ClusterInput Information about the cluster configuration.
+// ClusterInput defines model for ClusterInput.
 type ClusterInput struct {
-	// AdminLbu If true, load balancer administration is enabled for cluster management. If false, it is disabled.
+	// AdminLbu Flag to enable admin load balancer for cluster management
 	AdminLbu *bool `json:"admin_lbu,omitempty"`
 
-	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist List of CIDR blocks or IP addresses allowed to access the Kubernetes API
 	AdminWhitelist []string `json:"admin_whitelist"`
 
-	// AdmissionFlags The configuration for Kubernetes admission controllers.
+	// AdmissionFlags Configuration for Kubernetes admission controllers
 	AdmissionFlags *AdmissionFlagsInput `json:"admission_flags,omitempty"`
+	Auth           *AuthStrategy        `json:"auth"`
 
-	// AutoMaintenances The configurations for automated maintenance windows.
-	AutoMaintenances AutoMaintenances `json:"auto_maintenances"`
+	// AutoMaintenances Use 'maintenance_window' instead
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	AutoMaintenances *AutoMaintenances `json:"auto_maintenances,omitempty"`
 
-	// CidrPods The CIDR block for Kubernetes pods' network.
-	CidrPods *string `json:"cidr_pods,omitempty"`
+	// CidrPods CIDR block for Kubernetes pods network
+	CidrPods string `json:"cidr_pods"`
 
-	// CidrService The CIDR block for the Kubernetes services' network.
-	CidrService *string `json:"cidr_service,omitempty"`
+	// CidrService CIDR block for Kubernetes services network
+	CidrService string `json:"cidr_service"`
 
-	// ClusterDns The IP for the cluster's DNS service.
+	// ClusterDns IP address for cluster DNS service
 	ClusterDns *string `json:"cluster_dns,omitempty"`
 
-	// ControlPlanes The size of control plane deployment for the cluster. For more information, see [About OKS > Control Planes](https://docs.outscale.com/en/userguide/About-OKS.html#_control_planes).
+	// ControlPlanes Size of control plane deployment for the cluster
 	ControlPlanes *string `json:"control_planes,omitempty"`
 
-	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
+	// CpMultiAz Flag to enable multi-availability zone for the control plane
 	CpMultiAz *bool `json:"cp_multi_az,omitempty"`
 
-	// CpSubregions The list of Subregions where control plane components are deployed.
+	// CpSubregions List of subregions where control plane components are deployed
 	CpSubregions *[]string `json:"cp_subregions,omitempty"`
 	Description  *string   `json:"description"`
 
-	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
+	// DisableApiTermination Flag to prevent accidental cluster deletion
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
-	// Name A unique name for the cluster within the project.
+	// MaintenanceWindow Configuration for automated maintenance windows
+	MaintenanceWindow *Maintenance `json:"maintenance_window,omitempty"`
+
+	// Name Unique cluster name per project, must start with a letter and contain only lowercase letters, numbers, or hyphens
 	Name string `json:"name"`
 
-	// ProjectId The ID of the project in which you want to create a cluster.
-	ProjectId string    `json:"project_id"`
-	Quirks    *[]string `json:"quirks"`
+	// ProjectId Unique identifier of the project this cluster belongs to
+	ProjectId string             `json:"project_id"`
+	Quirks    *[]string          `json:"quirks"`
+	Tags      *map[string]string `json:"tags"`
 
-	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
-	Tags *map[string]string `json:"tags,omitempty"`
-
-	// Version The Kubernetes version to be deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
+	// Version Version of Kubernetes to be deployed
 	Version string `json:"version"`
 }
 
-// ClusterInputTemplate Information about the default cluster template.
+// ClusterInputTemplate defines model for ClusterInputTemplate.
 type ClusterInputTemplate struct {
-	// AdminLbu If true, the admin load balancer for cluster management is enabled. If false, it is disabled.
+	// AdminLbu Flag to enable admin load balancer for cluster management
 	AdminLbu *bool `json:"admin_lbu,omitempty"`
 
-	// AdminWhitelist The list of CIDR blocks or IPs allowed to access the cluster via the Kubernetes API.
+	// AdminWhitelist List of CIDR blocks or IP addresses allowed to access the Kubernetes API
 	AdminWhitelist []string `json:"admin_whitelist"`
 
-	// AdmissionFlags The configuration for the Kubernetes admission controllers.
-	AdmissionFlags *AdmissionFlagsInput `json:"admission_flags,omitempty"`
+	// AdmissionFlags Configuration for Kubernetes admission controllers
+	AdmissionFlags   *AdmissionFlagsInput `json:"admission_flags,omitempty"`
+	AutoMaintenances *AutoMaintenances    `json:"auto_maintenances"`
 
-	// AutoMaintenances The configuration for the automated maintenance windows.
-	AutoMaintenances AutoMaintenances `json:"auto_maintenances"`
-
-	// CidrPods The CIDR block of the Kubernetes pods' network.
+	// CidrPods CIDR block for Kubernetes pods network
 	CidrPods *string `json:"cidr_pods,omitempty"`
 
-	// CidrService The CIDR block of the Kubernetes pods' network.
+	// CidrService CIDR block for Kubernetes services network
 	CidrService *string `json:"cidr_service,omitempty"`
 
-	// ClusterDns The IP for the cluster DNS service.
+	// ClusterDns IP address for cluster DNS service
 	ClusterDns *string `json:"cluster_dns,omitempty"`
 
-	// ControlPlanes The control plane type of the cluster.
+	// ControlPlanes Size of control plane deployment for the cluster
 	ControlPlanes *string `json:"control_planes,omitempty"`
+	Description   *string `json:"description"`
 
-	// CpMultiAz If true, multi-Subregion deployment is enabled for the control plane. If false, it is disabled.
-	CpMultiAz *bool `json:"cp_multi_az,omitempty"`
+	// DisableApiTermination Flag to prevent accidental cluster deletion
+	DisableApiTermination *bool        `json:"disable_api_termination,omitempty"`
+	MaintenanceWindow     *Maintenance `json:"maintenance_window"`
 
-	// CpSubregions A list of Subregions where control plane components are deployed.
-	CpSubregions *[]string `json:"cp_subregions,omitempty"`
-	Description  *string   `json:"description"`
-
-	// DisableApiTermination If true, cluster deletion through the API is disabled. If false, it is enabled.
-	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
-
-	// ProjectId The ID of the project to which this cluster belongs to.
+	// ProjectId Unique identifier of the project this cluster belongs to
 	ProjectId string    `json:"project_id"`
 	Quirks    *[]string `json:"quirks"`
 
-	// Tags The key/value combinations of the tags associated with the cluster's metadata, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	// Tags Key-value pairs for cluster metadata
 	Tags *map[string]string `json:"tags,omitempty"`
 
-	// Version The Kubernetes version deployed for the cluster. For more information, see [GetKubernetesVersions](#getkubernetesversions).
+	// Version Version of Kubernetes to be deployed
 	Version string `json:"version"`
 }
 
 // ClusterResponse defines model for ClusterResponse.
 type ClusterResponse struct {
-	// Cluster Information about the cluster.
-	Cluster Cluster `json:"Cluster"`
-
-	// ResponseContext Information about the context of the response.
+	Cluster         Cluster                              `json:"Cluster"`
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ClusterResponseList Information about the clusters associated with a project.
+// ClusterResponseList defines model for ClusterResponseList.
 type ClusterResponseList struct {
-	// Clusters Information about the clusters.
-	Clusters []Cluster `json:"Clusters"`
-
-	// ResponseContext Information about the context of the response.
+	// Clusters List of clusters retrieved from the API
+	Clusters        []Cluster                            `json:"Clusters"`
+	Pagination      Pagination                           `json:"Pagination"`
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ClusterUpdate Information about the updated cluster configuration.
+// ClusterUpdate defines model for ClusterUpdate.
 type ClusterUpdate struct {
 	AdminWhitelist   *[]string            `json:"admin_whitelist"`
 	AdmissionFlags   *AdmissionFlagsInput `json:"admission_flags"`
+	Auth             *AuthStrategy        `json:"auth"`
 	AutoMaintenances *AutoMaintenances    `json:"auto_maintenances"`
 
-	// ControlPlanes The size of the control plane deployment for the cluster.
+	// ControlPlanes Size of control plane deployment for the cluster
 	ControlPlanes         *string            `json:"control_planes,omitempty"`
 	Description           *string            `json:"description"`
 	DisableApiTermination *bool              `json:"disable_api_termination"`
+	MaintenanceWindow     *Maintenance       `json:"maintenance_window"`
 	Quirks                *[]string          `json:"quirks"`
 	Tags                  *map[string]string `json:"tags"`
 	Version               *string            `json:"version"`
@@ -318,111 +336,226 @@ type ClusterUpdate struct {
 
 // ControlPlanesResponse defines model for ControlPlanesResponse.
 type ControlPlanesResponse struct {
-	// ControlPlanes The list of available control plane types.
-	ControlPlanes []string `json:"ControlPlanes"`
-
-	// ResponseContext Information about the context of the response.
+	// ControlPlanes List of available control plane types
+	ControlPlanes   []string                             `json:"ControlPlanes"`
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
+}
+
+// Cursor defines model for Cursor.
+type Cursor struct {
+	NextCursor *string `json:"next_cursor"`
 }
 
 // DetailResponse defines model for DetailResponse.
 type DetailResponse struct {
-	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 
-	// Detail A detailed message related to the API response.
+	// Detail Detailed message related to the API response
 	Detail string `json:"detail"`
 }
 
-// HTTPValidationError Information about the HTTP 422 validation error.
-type HTTPValidationError struct {
-	Errors *[]ValidationError `json:"Errors,omitempty"`
-
-	// Detail The details of the HTTP 422 validation error.
-	Detail *[]ValidationError `json:"detail,omitempty"`
+// ErrorItem defines model for ErrorItem.
+type ErrorItem struct {
+	Code    string            `json:"Code"`
+	Details ErrorItem_Details `json:"Details"`
+	Type    string            `json:"Type"`
 }
 
-// KubeconfigData Information about the kubeconfig for the cluster.
+// ErrorItemDetails0 defines model for .
+type ErrorItemDetails0 = string
+
+// ErrorItemDetails1 defines model for .
+type ErrorItemDetails1 = []ValidationDetail
+
+// ErrorItem_Details defines model for ErrorItem.Details.
+type ErrorItem_Details struct {
+	union json.RawMessage
+}
+
+// ErrorResponse defines model for ErrorResponse.
+type ErrorResponse struct {
+	Errors          []ErrorItem          `json:"Errors"`
+	ResponseContext ResponseContextInput `json:"ResponseContext"`
+}
+
+// IPDetails defines model for IPDetails.
+type IPDetails struct {
+	XRealIp *string `json:"x_real_ip"`
+}
+
+// IPResponse defines model for IPResponse.
+type IPResponse struct {
+	IP              IPDetails                     `json:"IP"`
+	ResponseContext MyipMyipSchemaResponseContext `json:"ResponseContext"`
+}
+
+// KubeconfigData defines model for KubeconfigData.
 type KubeconfigData struct {
-	// Kubeconfig A file containing access configuration to the cluster.
+	// Kubeconfig Kubernetes configuration file content for cluster access
 	Kubeconfig string `json:"kubeconfig"`
 }
 
 // KubeconfigResponse defines model for KubeconfigResponse.
 type KubeconfigResponse struct {
-	Cluster ClustersClusterSchemaRPCResponse `json:"Cluster"`
-
-	// ResponseContext Information about the context of the response.
+	Cluster         ClustersClusterSchemaRPCResponse     `json:"Cluster"`
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 }
 
 // KubernetesVersionsResponse defines model for KubernetesVersionsResponse.
 type KubernetesVersionsResponse struct {
-	// ResponseContext Information about the context of the response.
 	ResponseContext ClustersClusterSchemaResponseContext `json:"ResponseContext"`
 
-	// Versions A list of available Kubernetes versions.
+	// Versions List of available Kubernetes versions
 	Versions []string `json:"Versions"`
 }
 
-// MaintenanceWindow Information about the maintenance window configuration.
-type MaintenanceWindow struct {
-	// DurationHours The duration of the maintenance window, in hours.
-	DurationHours *int `json:"duration_hours,omitempty"`
+// Maintenance defines model for Maintenance.
+type Maintenance struct {
+	// DurationHours Duration of the maintenance window in hours
+	DurationHours int `json:"duration_hours"`
 
-	// Enabled If true, a maintenance window is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
+	// StartHour Hour of the day when maintenance window starts (0-23)
+	StartHour int `json:"start_hour"`
 
-	// StartHour The starting time of the maintenance window, in hours.
-	StartHour *int `json:"start_hour,omitempty"`
-
-	// Tz The timezone for the maintenance window.
+	// Tz Timezone for the maintenance window
 	Tz *string `json:"tz,omitempty"`
 
-	// WeekDay The weekday on which the maintenance window begins.
+	// WeekDay Day of the week for the maintenance window
+	WeekDay MaintenanceWeekDay `json:"week_day"`
+}
+
+// MaintenanceWeekDay Day of the week for the maintenance window
+type MaintenanceWeekDay string
+
+// MaintenanceWindow defines model for MaintenanceWindow.
+type MaintenanceWindow struct {
+	// DurationHours Duration of the maintenance window in hours
+	DurationHours *int `json:"duration_hours,omitempty"`
+
+	// Enabled Flag to enable or disable the maintenance window
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// StartHour Hour of the day when maintenance window starts (0-23)
+	StartHour *int `json:"start_hour,omitempty"`
+
+	// Tz Timezone for the maintenance window
+	Tz *string `json:"tz,omitempty"`
+
+	// WeekDay Day of the week for the maintenance window
 	WeekDay *MaintenanceWindowWeekDay `json:"week_day,omitempty"`
 }
 
-// MaintenanceWindowWeekDay The weekday on which the maintenance window begins.
+// MaintenanceWindowWeekDay Day of the week for the maintenance window
 type MaintenanceWindowWeekDay string
 
-// Metadata Information about the node pool's metadata.
-type Metadata struct {
-	// Name An ID for the node pool.
-	Name string `json:"name"`
+// Net defines model for Net.
+type Net struct {
+	// DhcpOptionsSetId The ID of the DHCP options set (or default if you want to associate the default one).
+	DhcpOptionsSetId string `json:"DhcpOptionsSetId"`
+
+	// IpRange The IP range for the Net, in CIDR notation (for example, 10.0.0.0/16).
+	IpRange string `json:"IpRange"`
+
+	// NetId The ID of the Net.
+	NetId string `json:"NetId"`
+
+	// State The state of the Net (pending | available | deleting).
+	State string `json:"State"`
+
+	// Tenancy The VM tenancy in a Net.
+	Tenancy string `json:"Tenancy"`
 }
 
-// Nodepool Information about the node pool.
-type Nodepool struct {
-	// ApiVersion The node pool API version in use.
+// NetPeeringAcceptance defines model for NetPeeringAcceptance.
+type NetPeeringAcceptance struct {
+	// ApiVersion Version of the NetPeeringAcceptance API being used
 	ApiVersion string `json:"apiVersion"`
 
-	// Kind The resource type, always `Nodepool` for node pool resources.
+	// Kind Resource type, always 'NetPeeringAcceptance' for netpeering acceptance resources
 	Kind string `json:"kind"`
 
-	// Metadata The metadata information for the node pool.
-	Metadata Metadata `json:"metadata"`
+	// Metadata Metadata information for the netpeering acceptance
+	Metadata NetpeeringsNetpeeringSchemaMetadata `json:"metadata"`
 
-	// Spec The specification for the node pool configuration.
+	// Spec Specification of the netpeering acceptance configuration
+	Spec SpecNetPeeringAcceptance `json:"spec"`
+}
+
+// NetPeeringRequest defines model for NetPeeringRequest.
+type NetPeeringRequest struct {
+	// ApiVersion Version of the NetPeeringRequest API being used
+	ApiVersion string `json:"apiVersion"`
+
+	// Kind Resource type, always 'NetPeeringRequest' for netpeering request resources
+	Kind string `json:"kind"`
+
+	// Metadata Metadata information for the netpeering request
+	Metadata NetpeeringsNetpeeringSchemaMetadata `json:"metadata"`
+
+	// Spec Specification of the netpeering request configuration
+	Spec SpecNetPeeringRequest `json:"spec"`
+}
+
+// NetsResponse defines model for NetsResponse.
+type NetsResponse struct {
+	// Nets Information about the described Nets
+	Nets            []Net                                `json:"Nets"`
+	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
+}
+
+// Nodepool defines model for Nodepool.
+type Nodepool struct {
+	// ApiVersion Version of the Nodepool API being used
+	ApiVersion string `json:"apiVersion"`
+
+	// Kind Resource type, always 'Nodepool' for nodepool resources
+	Kind string `json:"kind"`
+
+	// Metadata Metadata information for the nodepool
+	Metadata NodepoolsNodepoolSchemaMetadata `json:"metadata"`
+
+	// Spec Specification of the nodepool configuration
 	Spec Spec `json:"spec"`
 }
 
-// OKSQuotas Information about your quotas.
+// OKSQuotas defines model for OKSQuotas.
 type OKSQuotas struct {
-	// CPSubregions The maximum allowed value for control plane Subregions.
-	CPSubregions []string `json:"CPSubregions"`
+	CPSubregions       []string `json:"CPSubregions"`
+	ClustersPerProject int      `json:"ClustersPerProject"`
 
-	// ClustersPerProject The maximum allowed number of clusters per project.
-	ClustersPerProject int `json:"ClustersPerProject"`
-
-	// KubeVersions The maximum allowed value for Kubernetes versions.
+	// KubeVersions Maximum allowed value for this quota
 	KubeVersions []string `json:"KubeVersions"`
-
-	// Projects The maximum allowed number of projects.
-	Projects int `json:"Projects"`
+	Projects     int      `json:"Projects"`
 }
 
-// PermissionsOnResource Information about the permissions for a resource.
+// Offset defines model for Offset.
+type Offset struct {
+	Limit *int `json:"limit"`
+	Page  *int `json:"page"`
+	Total *int `json:"total"`
+}
+
+// OpenIdConnectConfig defines model for OpenIdConnectConfig.
+type OpenIdConnectConfig struct {
+	// ClientId The client id that all tokens must be issued for.
+	ClientId     string    `json:"client-id"`
+	GroupsClaim  *[]string `json:"groups-claim"`
+	GroupsPrefix *string   `json:"groups-prefix"`
+
+	// IssuerUrl The URL of the provider that allows the API server to discover public signing keys.
+	IssuerUrl      string             `json:"issuer-url"`
+	RequiredClaim  *map[string]string `json:"required-claim"`
+	UsernameClaim  *string            `json:"username-claim"`
+	UsernamePrefix *string            `json:"username-prefix"`
+}
+
+// Pagination defines model for Pagination.
+type Pagination struct {
+	Cursor *Cursor `json:"cursor"`
+	Offset *Offset `json:"offset"`
+}
+
+// PermissionsOnResource defines model for PermissionsOnResource.
 type PermissionsOnResource struct {
 	// AccountIds One or more account IDs that the permission is associated with.
 	AccountIds []string `json:"AccountIds"`
@@ -431,80 +564,77 @@ type PermissionsOnResource struct {
 	GlobalPermission int `json:"GlobalPermission"`
 }
 
-// Project Information about the project.
+// Project defines model for Project.
 type Project struct {
-	// Cidr The CIDR block associated with the Net of the project.
+	// Cidr CIDR block associated with the project's VPC
 	Cidr string `json:"cidr"`
 
-	// CreatedAt The timestamp when the project was created.
-	CreatedAt   time.Time  `json:"created_at"`
-	DeletedAt   *time.Time `json:"deleted_at"`
-	Description *string    `json:"description"`
+	// CreatedAt Timestamp when the project was created
+	CreatedAt time.Time  `json:"created_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
 
-	// DisableApiTermination If true, project deletion through the API is disabled. If false, it is enabled.
+	// Description Optional description of the project
+	Description *string `json:"description,omitempty"`
+
+	// DisableApiTermination Flag to prevent accidental project deletion
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
-	// Id The ID of the project.
+	// Id Unique UUID of the project
 	Id string `json:"id"`
 
-	// Name The name of the project.
+	// Name Unique project name per account
 	Name string `json:"name"`
 
-	// Region The Region on which the project is deployed.
+	// Region Region where the project is deployed
 	Region string        `json:"region"`
 	Status ProjectStatus `json:"status"`
 
-	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
+	// Tags Key-value pairs tags
 	Tags map[string]string `json:"tags"`
 
-	// UpdatedAt The timestamp when the project was last updated.
+	// UpdatedAt Timestamp when the project was last updated
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-// ProjectInput Information about the project configuration.
+// ProjectInput defines model for ProjectInput.
 type ProjectInput struct {
-	// Cidr The CIDR block to associate with the Net of the project.
+	// Cidr CIDR block associated with the project's VPC
 	Cidr string `json:"cidr"`
 
-	// Description A description for the project.
+	// Description Optional description of the project
 	Description *string `json:"description,omitempty"`
 
-	// DisableApiTermination If true, project deletion through the API is disabled. If false, it is enabled.
+	// DisableApiTermination Flag to prevent accidental project deletion
 	DisableApiTermination *bool `json:"disable_api_termination,omitempty"`
 
-	// Name A unique name for the project. Must start with a letter and contain only lowercase letters, numbers, or hyphens.
+	// Name Unique name for the project, must start with a letter and contain only lowercase letters, numbers, or hyphens
 	Name   string    `json:"name"`
 	Quirks *[]string `json:"quirks"`
 
-	// Region The Region on which the project is deployed.
-	Region string `json:"region"`
-
-	// Tags The key/value combinations of the tags associated with the resource, in the following format&#58; `&quot;tags&quot;:{&quot;TAGKEY1&quot;:&quot;TAGVALUE1&quot;,&quot;TAGKEY2&quot;:&quot;TAGVALUE2&quot;}`.
-	Tags *map[string]string `json:"tags,omitempty"`
+	// Region Region where the project is deployed
+	Region string             `json:"region"`
+	Tags   *map[string]string `json:"tags"`
 }
 
 // ProjectResponse defines model for ProjectResponse.
 type ProjectResponse struct {
-	// Project Information about the project.
-	Project Project `json:"Project"`
-
-	// ResponseContext Information about the context of the response.
+	Project         Project                              `json:"Project"`
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
-// ProjectResponseList Information about the retrieved projects.
+// ProjectResponseList defines model for ProjectResponseList.
 type ProjectResponseList struct {
-	// Projects The list of retrieved projects.
-	Projects []Project `json:"Projects"`
+	Pagination Pagination `json:"Pagination"`
 
-	// ResponseContext Information about the context of the response.
+	// Projects List of projects retrieved from the API
+	Projects        []Project                            `json:"Projects"`
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
 // ProjectStatus defines model for ProjectStatus.
 type ProjectStatus string
 
-// ProjectUpdate Information about the updated project configuration.
+// ProjectUpdate defines model for ProjectUpdate.
 type ProjectUpdate struct {
 	Description           *string            `json:"description"`
 	DisableApiTermination *bool              `json:"disable_api_termination"`
@@ -512,9 +642,9 @@ type ProjectUpdate struct {
 	Tags                  *map[string]string `json:"tags"`
 }
 
-// PublicIp Information about the public IP.
+// PublicIp defines model for PublicIp.
 type PublicIp struct {
-	// PublicIp The address of the public IP.
+	// PublicIp The public IP.
 	PublicIp string `json:"PublicIp"`
 
 	// PublicIpId The allocation ID of the public IP.
@@ -526,56 +656,59 @@ type PublicIp struct {
 
 // PublicIpsResponse defines model for PublicIpsResponse.
 type PublicIpsResponse struct {
-	// PublicIps The public IP details associated with the project.
-	PublicIps []PublicIp `json:"PublicIps"`
-
-	// ResponseContext Information about the context of the response.
+	// PublicIps Public IP details associated with the project
+	PublicIps       []PublicIp                           `json:"PublicIps"`
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
-// Quotas Information about the quotas.
+// Quotas defines model for Quotas.
 type Quotas struct {
-	// AccountId The ID of the account.
+	// AccountId Unique identifier for the account
 	AccountId string `json:"AccountId"`
 
-	// Description A detailed description of the quota.
+	// Description Detailed description of the quota
 	Description string `json:"Description"`
 
-	// MaxValue The maximum allowed value for the quota.
+	// MaxValue Maximum allowed value for this quota
 	MaxValue int `json:"MaxValue"`
 
-	// Name The name of the quota.
+	// Name Quota name
 	Name string `json:"Name"`
 
-	// QuotaCollection A category or group to which the quota belongs to.
+	// QuotaCollection Category or group to which the quota belongs
 	QuotaCollection string `json:"QuotaCollection"`
 
-	// ShortDescription A brief summary of the quota.
+	// ShortDescription Brief summary of the quota
 	ShortDescription string `json:"ShortDescription"`
 
-	// UsedValue The current usage value for the quota.
+	// UsedValue Current usage value for this quota
 	UsedValue int `json:"UsedValue"`
 }
 
-// QuotasData Information about the quotas for a project.
+// QuotasData defines model for QuotasData.
 type QuotasData struct {
-	// Quotas A list of quota details.
+	// Quotas List of quota details
 	Quotas []Quotas `json:"quotas"`
 
-	// Subregions A list of Subregion details.
+	// Subregions List of subregion details
 	Subregions []Subregion `json:"subregions"`
 }
 
-// ResourceTag Information about the tags associated with a resource.
+// ResourceTag defines model for ResourceTag.
 type ResourceTag struct {
-	// Key The key for the tag.
+	// Key The key of the tag, with a minimum of 1 character.
 	Key string `json:"Key"`
 
-	// Value The value for the tag.
+	// Value The value of the tag, between 0 and 255 characters.
 	Value string `json:"Value"`
 }
 
-// Snapshot Information about the Snapshot.
+// ResponseContextInput defines model for ResponseContext-Input.
+type ResponseContextInput struct {
+	RequestId string `json:"RequestId"`
+}
+
+// Snapshot defines model for Snapshot.
 type Snapshot struct {
 	// AccountId The account ID of the owner of the snapshot.
 	AccountId string `json:"AccountId"`
@@ -595,7 +728,7 @@ type Snapshot struct {
 	// SnapshotId The ID of the snapshot.
 	SnapshotId string `json:"SnapshotId"`
 
-	// State The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
+	// State The state of the snapshot (in-queue | pending | completed | error | deleting).
 	State SnapshotState `json:"State"`
 
 	// Tags One or more tags associated with the snapshot.
@@ -608,290 +741,300 @@ type Snapshot struct {
 	VolumeSize int `json:"VolumeSize"`
 }
 
-// SnapshotState The state of the snapshot (`in-queue` | `pending` | `completed` | `error` | `deleting`).
+// SnapshotState The state of the snapshot (in-queue | pending | completed | error | deleting).
 type SnapshotState string
 
 // SnapshotsResponse defines model for SnapshotsResponse.
 type SnapshotsResponse struct {
-	// ResponseContext Information about the context of the response.
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 
 	// Snapshots Snapshot details associated with the project
 	Snapshots []Snapshot `json:"Snapshots"`
 }
 
-// Spec Information about the specification for the node pool configuration.
+// Spec defines model for Spec.
 type Spec struct {
-	// AutoHealing If true, the automatic healing of failed nodes is enabled.
+	// AutoHealing Flag to enable automatic healing of failed nodes
 	AutoHealing bool `json:"autoHealing"`
 
-	// DesiredNodes The number of desired nodes in the node pool.
+	// DesiredNodes Number of nodes desired in the nodepool
 	DesiredNodes string `json:"desiredNodes"`
 
-	// NodeType The type of VM for the nodes.
+	// NodeType Instance type for the nodes
 	NodeType string `json:"nodeType"`
 
-	// UpgradeStrategy The configuration for managing node pool upgrades.
+	// UpgradeStrategy Configuration for managing nodepool upgrades
 	UpgradeStrategy UpgradeStrategy `json:"upgradeStrategy"`
 
-	// Volumes A list of volume configurations for the nodes.
+	// Volumes List of volume configurations for the nodes
 	Volumes []Volume `json:"volumes"`
 
-	// Zones A list of Subregions where nodes should be deployed.
+	// Zones List of availability zones where nodes should be deployed
 	Zones []string `json:"zones"`
 }
 
-// Statuses Information about the status of the cluster.
+// SpecNetPeeringAcceptance defines model for SpecNetPeeringAcceptance.
+type SpecNetPeeringAcceptance struct {
+	// NetPeeringId Net Peering ID
+	NetPeeringId string `json:"netPeeringId"`
+}
+
+// SpecNetPeeringRequest defines model for SpecNetPeeringRequest.
+type SpecNetPeeringRequest struct {
+	// AccepterNetId NetID (VPC ID) of the target
+	AccepterNetId string `json:"accepterNetId"`
+
+	// AccepterOwnerId Owner ID (Account ID) of the target
+	AccepterOwnerId string `json:"accepterOwnerId"`
+}
+
+// Statuses defines model for Statuses.
 type Statuses struct {
-	// AvailableUpgrade Any available version of Kubernetes for upgrade (if applicable). For more information, see [GetKubernetesVersions](#getkubernetesversions).
+	// AvailableUpgrade Available Kubernetes version for upgrade if any
 	AvailableUpgrade *string `json:"available_upgrade,omitempty"`
 
-	// CreatedAt The timestamp when the cluster was created.
+	// CreatedAt Timestamp when the cluster was created
 	CreatedAt time.Time  `json:"created_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
 	Status    *string    `json:"status"`
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// Subregion Information about the Subregion.
+// Subregion defines model for Subregion.
 type Subregion struct {
-	// LocationCode The location code (physical zone) of the Subregion.
+	// LocationCode The location code (physical zone) of the Subregion
 	LocationCode string `json:"LocationCode"`
 
-	// RegionName The name of the Region containing the Subregion.
+	// RegionName The name of the Region containing the Subregion
 	RegionName string `json:"RegionName"`
 
-	// State The state of the Subregion.
+	// State The state of the Subregion
 	State string `json:"State"`
 
-	// SubregionName The name of the Subregion.
+	// SubregionName The name of the Subregion
 	SubregionName string `json:"SubregionName"`
 }
 
-// TemplateResponseClusterInputTemplate Information about the default cluster template.
+// TemplateResponseClusterInputTemplate defines model for TemplateResponse_ClusterInputTemplate_.
 type TemplateResponseClusterInputTemplate struct {
-	// ResponseContext Information about the context of the response.
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
-	// Template The returned template resource.
+	// Template Template resource returned by the API
 	Template ClusterInputTemplate `json:"Template"`
 }
 
-// TemplateResponseNodepool Information about the default node pool template.
-type TemplateResponseNodepool struct {
-	// ResponseContext Information about the context of the response.
+// TemplateResponseNetPeeringAcceptance defines model for TemplateResponse_NetPeeringAcceptance_.
+type TemplateResponseNetPeeringAcceptance struct {
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
-	// Template The returned template resource.
+	// Template Template resource returned by the API
+	Template NetPeeringAcceptance `json:"Template"`
+}
+
+// TemplateResponseNetPeeringRequest defines model for TemplateResponse_NetPeeringRequest_.
+type TemplateResponseNetPeeringRequest struct {
+	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
+
+	// Template Template resource returned by the API
+	Template NetPeeringRequest `json:"Template"`
+}
+
+// TemplateResponseNodepool defines model for TemplateResponse_Nodepool_.
+type TemplateResponseNodepool struct {
+	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
+
+	// Template Template resource returned by the API
 	Template Nodepool `json:"Template"`
 }
 
-// TemplateResponseProjectInput Information about the default project template.
+// TemplateResponseProjectInput defines model for TemplateResponse_ProjectInput_.
 type TemplateResponseProjectInput struct {
-	// ResponseContext Information about the context of the response.
 	ResponseContext TemplatesTemplateSchemaResponseContext `json:"ResponseContext"`
 
-	// Template The returned template resource.
+	// Template Template resource returned by the API
 	Template ProjectInput `json:"Template"`
 }
 
-// UpgradeStrategy Information for the management of node pool upgrades.
+// UpgradeStrategy defines model for UpgradeStrategy.
 type UpgradeStrategy struct {
-	// AutoUpgradeEnabled If true, automatic upgrades for the node pool are enabled.
+	// AutoUpgradeEnabled Flag to enable automatic upgrades for the nodepool
 	AutoUpgradeEnabled bool `json:"autoUpgradeEnabled"`
 
-	// AutoUpgradeMaintenance The configuration for the automated upgrade maintenance window.
+	// AutoUpgradeMaintenance Configuration for the automated upgrade maintenance window
 	AutoUpgradeMaintenance AutoUpgradeMaintenance `json:"autoUpgradeMaintenance"`
 
-	// MaxSurge The maximum number of extra nodes that can be created during an upgrade.
+	// MaxSurge Maximum number of extra nodes that can be created during an upgrade
 	MaxSurge int `json:"maxSurge"`
 
-	// MaxUnavailable The maximum number of nodes that can be unavailable during an upgrade.
+	// MaxUnavailable Maximum number of nodes that can be unavailable during an upgrade
 	MaxUnavailable int `json:"maxUnavailable"`
 }
 
-// ValidationError Information about the validation error.
-type ValidationError struct {
-	Code    string `json:"Code"`
-	Details string `json:"Details"`
-
-	// Loc The location of the validation error in the request.
-	Loc []ValidationError_Loc_Item `json:"loc"`
-
-	// Msg A descriptive message about the error.
-	Msg string `json:"msg"`
-
-	// Type The identifier for the type of validation error.
-	Type string `json:"type"`
+// ValidationDetail defines model for ValidationDetail.
+type ValidationDetail struct {
+	Loc  []ValidationDetail_Loc_Item `json:"loc"`
+	Msg  string                      `json:"msg"`
+	Type string                      `json:"type"`
 }
 
-// ValidationErrorLoc0 defines model for .
-type ValidationErrorLoc0 = string
+// ValidationDetailLoc0 defines model for .
+type ValidationDetailLoc0 = string
 
-// ValidationErrorLoc1 defines model for .
-type ValidationErrorLoc1 = int
+// ValidationDetailLoc1 defines model for .
+type ValidationDetailLoc1 = int
 
-// ValidationError_Loc_Item defines model for ValidationError.loc.Item.
-type ValidationError_Loc_Item struct {
+// ValidationDetail_Loc_Item defines model for ValidationDetail.loc.Item.
+type ValidationDetail_Loc_Item struct {
 	union json.RawMessage
 }
 
-// Volume Information about the volume configuration.
+// Volume defines model for Volume.
 type Volume struct {
-	// Device The device name for the volume.
+	// Device Device name for the volume
 	Device string `json:"device"`
 
-	// Dir The mount point directory path for the volume.
+	// Dir Mount point directory path for the volume
 	Dir string `json:"dir"`
 
-	// Size The size of the volume.
+	// Size Size of the volume
 	Size int `json:"size"`
 
-	// Type The type of the volume (`gp2`, `io1`, `standard`).
+	// Type Type of the volume (gp2, io1, standard)
 	Type VolumeType `json:"type"`
 }
 
-// VolumeType The type of the volume (`gp2`, `io1`, `standard`).
+// VolumeType Type of the volume (gp2, io1, standard)
 type VolumeType string
 
 // ClustersClusterSchemaRPCResponse defines model for clusters__cluster_schema__RPCResponse.
 type ClustersClusterSchemaRPCResponse struct {
-	// Data The kubeconfig data for the cluster.
+	// Data Kubeconfig data for the cluster
 	Data KubeconfigData `json:"data"`
 
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"request_id"`
 }
 
-// ClustersClusterSchemaResponseContext Information about the context of the response.
+// ClustersClusterSchemaResponseContext defines model for clusters__cluster_schema__ResponseContext.
 type ClustersClusterSchemaResponseContext struct {
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"RequestId"`
+}
+
+// MyipMyipSchemaResponseContext defines model for myip__myip_schema__ResponseContext.
+type MyipMyipSchemaResponseContext struct {
+	// RequestId Unique identifier for the API request
+	RequestId string `json:"RequestId"`
+}
+
+// NetpeeringsNetpeeringSchemaMetadata defines model for netpeerings__netpeering_schema__Metadata.
+type NetpeeringsNetpeeringSchemaMetadata struct {
+	// Name Unique name identifier for the netpeering
+	Name string `json:"name"`
+}
+
+// NodepoolsNodepoolSchemaMetadata defines model for nodepools__nodepool_schema__Metadata.
+type NodepoolsNodepoolSchemaMetadata struct {
+	// Name Unique name identifier for the nodepool
+	Name string `json:"name"`
 }
 
 // ProjectsProjectSchemaQuotasResponse defines model for projects__project_schema__QuotasResponse.
 type ProjectsProjectSchemaQuotasResponse struct {
-	// Project The quota details associated with the project.
-	Project ProjectsProjectSchemaRPCResponse `json:"Project"`
-
-	// ResponseContext Information about the context of the response.
+	// Project Quota details associated with the project
+	Project         ProjectsProjectSchemaRPCResponse     `json:"Project"`
 	ResponseContext ProjectsProjectSchemaResponseContext `json:"ResponseContext"`
 }
 
 // ProjectsProjectSchemaRPCResponse defines model for projects__project_schema__RPCResponse.
 type ProjectsProjectSchemaRPCResponse struct {
-	// Data The quota information related to the request.
+	// Data Quota information related to the request
 	Data QuotasData `json:"data"`
 
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"request_id"`
 }
 
-// ProjectsProjectSchemaResponseContext Information about the context of the response.
+// ProjectsProjectSchemaResponseContext defines model for projects__project_schema__ResponseContext.
 type ProjectsProjectSchemaResponseContext struct {
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"RequestId"`
 }
 
 // QuotasQuotaSchemaQuotasResponse defines model for quotas__quota_schema__QuotasResponse.
 type QuotasQuotaSchemaQuotasResponse struct {
-	// Quotas Information about your quotas.
-	Quotas OKSQuotas `json:"Quotas"`
-
-	// ResponseContext Information about the context of the response.
+	Quotas          OKSQuotas                        `json:"Quotas"`
 	ResponseContext QuotasQuotaSchemaResponseContext `json:"ResponseContext"`
 }
 
-// QuotasQuotaSchemaResponseContext Information about the context of the response.
+// QuotasQuotaSchemaResponseContext defines model for quotas__quota_schema__ResponseContext.
 type QuotasQuotaSchemaResponseContext struct {
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"RequestId"`
 }
 
-// TemplatesTemplateSchemaResponseContext Information about the context of the response.
+// TemplatesTemplateSchemaResponseContext defines model for templates__template_schema__ResponseContext.
 type TemplatesTemplateSchemaResponseContext struct {
-	// RequestId The ID of the API request.
+	// RequestId Unique identifier for the API request
 	RequestId string `json:"RequestId"`
 }
 
 // ListClustersByProjectIDParams defines parameters for ListClustersByProjectID.
 type ListClustersByProjectIDParams struct {
-	// ProjectId The ID of the project.
 	ProjectId *string `form:"project_id,omitempty" json:"project_id,omitempty"`
-
-	// Name The name of the clusters.
-	Name *string `form:"name,omitempty" json:"name,omitempty"`
-
-	// Status The status of the clusters.
-	Status *string `form:"status,omitempty" json:"status,omitempty"`
-
-	// Version The version of the clusters.
-	Version *string `form:"version,omitempty" json:"version,omitempty"`
-
-	// Deleted If true, returns deleted clusters.
-	Deleted *bool `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Name      *string `form:"name,omitempty" json:"name,omitempty"`
+	Status    *string `form:"status,omitempty" json:"status,omitempty"`
+	Version   *string `form:"version,omitempty" json:"version,omitempty"`
+	Deleted   *bool   `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Cursor    *string `form:"cursor,omitempty" json:"cursor,omitempty"`
+	Page      *int    `form:"page,omitempty" json:"page,omitempty"`
+	Limit     *int    `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // ListAllClustersParams defines parameters for ListAllClusters.
 type ListAllClustersParams struct {
-	// Name The name of the clusters.
-	Name *string `form:"name,omitempty" json:"name,omitempty"`
-
-	// Status The status of the clusters.
-	Status *string `form:"status,omitempty" json:"status,omitempty"`
-
-	// Version The version of the clusters.
+	Name    *string `form:"name,omitempty" json:"name,omitempty"`
+	Status  *string `form:"status,omitempty" json:"status,omitempty"`
 	Version *string `form:"version,omitempty" json:"version,omitempty"`
-
-	// Deleted If true, returns deleted clusters.
-	Deleted *bool `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Deleted *bool   `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Cursor  *string `form:"cursor,omitempty" json:"cursor,omitempty"`
+	Page    *int    `form:"page,omitempty" json:"page,omitempty"`
+	Limit   *int    `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // GetKubeconfigParams defines parameters for GetKubeconfig.
 type GetKubeconfigParams struct {
-	// User The user of the kubeconfig file.
-	User *string `form:"user,omitempty" json:"user,omitempty"`
-
-	// Group The group of the kubeconfig file.
+	User  *string `form:"user,omitempty" json:"user,omitempty"`
 	Group *string `form:"group,omitempty" json:"group,omitempty"`
-
-	// Ttl The time to live (TTL) of the kubeconfig file.
-	Ttl *string `form:"ttl,omitempty" json:"ttl,omitempty"`
+	Ttl   *string `form:"ttl,omitempty" json:"ttl,omitempty"`
 }
 
 // GetKubeconfigWithPubkeyNACLParams defines parameters for GetKubeconfigWithPubkeyNACL.
 type GetKubeconfigWithPubkeyNACLParams struct {
-	// User The user of the kubeconfig file.
-	User *string `form:"user,omitempty" json:"user,omitempty"`
-
-	// Group The group of the kubeconfig file.
-	Group *string `form:"group,omitempty" json:"group,omitempty"`
-
-	// Ttl The time to live (TTL) of the kubeconfig file.
-	Ttl *string `form:"ttl,omitempty" json:"ttl,omitempty"`
-
-	// XEncryptNacl The header to encrypt the kubeconfig file.
+	User         *string `form:"user,omitempty" json:"user,omitempty"`
+	Group        *string `form:"group,omitempty" json:"group,omitempty"`
+	Ttl          *string `form:"ttl,omitempty" json:"ttl,omitempty"`
 	XEncryptNacl *string `json:"x-encrypt-nacl,omitempty"`
+}
+
+// GetClientIPParams defines parameters for GetClientIP.
+type GetClientIPParams struct {
+	XRealIP *string `json:"X-Real-IP,omitempty"`
 }
 
 // ListProjectsParams defines parameters for ListProjects.
 type ListProjectsParams struct {
-	// Name The name of the projects.
-	Name *string `form:"name,omitempty" json:"name,omitempty"`
-
-	// Status The status of the projects (`pending` | `ready` | `deploying` | `updating` | `upgrading` | `failed` | `deleting`).
-	Status *ProjectStatus `form:"status,omitempty" json:"status,omitempty"`
-
-	// Cidr The IP ranges for the projects, IN CIDR notation (for example, `192.0.2.0/16`).
-	Cidr *string `form:"cidr,omitempty" json:"cidr,omitempty"`
-
-	// Deleted If true, returns deleted projects.
-	Deleted *bool `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Name    *string        `form:"name,omitempty" json:"name,omitempty"`
+	Status  *ProjectStatus `form:"status,omitempty" json:"status,omitempty"`
+	Cidr    *string        `form:"cidr,omitempty" json:"cidr,omitempty"`
+	Deleted *bool          `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Cursor  *string        `form:"cursor,omitempty" json:"cursor,omitempty"`
+	Page    *int           `form:"page,omitempty" json:"page,omitempty"`
+	Limit   *int           `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // GetClusterTemplateParams defines parameters for GetClusterTemplate.
 type GetClusterTemplateParams struct {
-	// XRealIP A header with the IP of the client making the request.
 	XRealIP *string `json:"X-Real-IP,omitempty"`
 }
 
@@ -907,22 +1050,22 @@ type CreateProjectJSONRequestBody = ProjectInput
 // UpdateProjectJSONRequestBody defines body for UpdateProject for application/json ContentType.
 type UpdateProjectJSONRequestBody = ProjectUpdate
 
-// AsValidationErrorLoc0 returns the union data inside the ValidationError_Loc_Item as a ValidationErrorLoc0
-func (t ValidationError_Loc_Item) AsValidationErrorLoc0() (ValidationErrorLoc0, error) {
-	var body ValidationErrorLoc0
+// AsErrorItemDetails0 returns the union data inside the ErrorItem_Details as a ErrorItemDetails0
+func (t ErrorItem_Details) AsErrorItemDetails0() (ErrorItemDetails0, error) {
+	var body ErrorItemDetails0
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromValidationErrorLoc0 overwrites any union data inside the ValidationError_Loc_Item as the provided ValidationErrorLoc0
-func (t *ValidationError_Loc_Item) FromValidationErrorLoc0(v ValidationErrorLoc0) error {
+// FromErrorItemDetails0 overwrites any union data inside the ErrorItem_Details as the provided ErrorItemDetails0
+func (t *ErrorItem_Details) FromErrorItemDetails0(v ErrorItemDetails0) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeValidationErrorLoc0 performs a merge with any union data inside the ValidationError_Loc_Item, using the provided ValidationErrorLoc0
-func (t *ValidationError_Loc_Item) MergeValidationErrorLoc0(v ValidationErrorLoc0) error {
+// MergeErrorItemDetails0 performs a merge with any union data inside the ErrorItem_Details, using the provided ErrorItemDetails0
+func (t *ErrorItem_Details) MergeErrorItemDetails0(v ErrorItemDetails0) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -933,22 +1076,22 @@ func (t *ValidationError_Loc_Item) MergeValidationErrorLoc0(v ValidationErrorLoc
 	return err
 }
 
-// AsValidationErrorLoc1 returns the union data inside the ValidationError_Loc_Item as a ValidationErrorLoc1
-func (t ValidationError_Loc_Item) AsValidationErrorLoc1() (ValidationErrorLoc1, error) {
-	var body ValidationErrorLoc1
+// AsErrorItemDetails1 returns the union data inside the ErrorItem_Details as a ErrorItemDetails1
+func (t ErrorItem_Details) AsErrorItemDetails1() (ErrorItemDetails1, error) {
+	var body ErrorItemDetails1
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromValidationErrorLoc1 overwrites any union data inside the ValidationError_Loc_Item as the provided ValidationErrorLoc1
-func (t *ValidationError_Loc_Item) FromValidationErrorLoc1(v ValidationErrorLoc1) error {
+// FromErrorItemDetails1 overwrites any union data inside the ErrorItem_Details as the provided ErrorItemDetails1
+func (t *ErrorItem_Details) FromErrorItemDetails1(v ErrorItemDetails1) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeValidationErrorLoc1 performs a merge with any union data inside the ValidationError_Loc_Item, using the provided ValidationErrorLoc1
-func (t *ValidationError_Loc_Item) MergeValidationErrorLoc1(v ValidationErrorLoc1) error {
+// MergeErrorItemDetails1 performs a merge with any union data inside the ErrorItem_Details, using the provided ErrorItemDetails1
+func (t *ErrorItem_Details) MergeErrorItemDetails1(v ErrorItemDetails1) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -959,12 +1102,74 @@ func (t *ValidationError_Loc_Item) MergeValidationErrorLoc1(v ValidationErrorLoc
 	return err
 }
 
-func (t ValidationError_Loc_Item) MarshalJSON() ([]byte, error) {
+func (t ErrorItem_Details) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	return b, err
 }
 
-func (t *ValidationError_Loc_Item) UnmarshalJSON(b []byte) error {
+func (t *ErrorItem_Details) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsValidationDetailLoc0 returns the union data inside the ValidationDetail_Loc_Item as a ValidationDetailLoc0
+func (t ValidationDetail_Loc_Item) AsValidationDetailLoc0() (ValidationDetailLoc0, error) {
+	var body ValidationDetailLoc0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromValidationDetailLoc0 overwrites any union data inside the ValidationDetail_Loc_Item as the provided ValidationDetailLoc0
+func (t *ValidationDetail_Loc_Item) FromValidationDetailLoc0(v ValidationDetailLoc0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeValidationDetailLoc0 performs a merge with any union data inside the ValidationDetail_Loc_Item, using the provided ValidationDetailLoc0
+func (t *ValidationDetail_Loc_Item) MergeValidationDetailLoc0(v ValidationDetailLoc0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsValidationDetailLoc1 returns the union data inside the ValidationDetail_Loc_Item as a ValidationDetailLoc1
+func (t ValidationDetail_Loc_Item) AsValidationDetailLoc1() (ValidationDetailLoc1, error) {
+	var body ValidationDetailLoc1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromValidationDetailLoc1 overwrites any union data inside the ValidationDetail_Loc_Item as the provided ValidationDetailLoc1
+func (t *ValidationDetail_Loc_Item) FromValidationDetailLoc1(v ValidationDetailLoc1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeValidationDetailLoc1 performs a merge with any union data inside the ValidationDetail_Loc_Item, using the provided ValidationDetailLoc1
+func (t *ValidationDetail_Loc_Item) MergeValidationDetailLoc1(v ValidationDetailLoc1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ValidationDetail_Loc_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ValidationDetail_Loc_Item) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -1024,6 +1229,9 @@ type clientInterfaceRaw interface {
 	// UpgradeClusterRaw request
 	UpgradeClusterRaw(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
+	// GetClientIPRaw request
+	GetClientIPRaw(ctx context.Context, params *GetClientIPParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
 	// ListProjectsRaw request
 	ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
@@ -1043,6 +1251,9 @@ type clientInterfaceRaw interface {
 
 	UpdateProjectRaw(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
+	// GetProjectNetsRaw request
+	GetProjectNetsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
 	// GetProjectPublicIpsRaw request
 	GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
@@ -1057,6 +1268,12 @@ type clientInterfaceRaw interface {
 
 	// GetClusterTemplateRaw request
 	GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	// GetNetPeeringAcceptanceTemplateRaw request
+	GetNetPeeringAcceptanceTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	// GetNetPeeringRequestTemplateRaw request
+	GetNetPeeringRequestTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// GetNodepoolTemplateRaw request
 	GetNodepoolTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
@@ -1278,6 +1495,21 @@ func (c *ClientRaw) UpgradeClusterRaw(ctx context.Context, clusterId string, req
 	return client.RoundTrip(req)
 }
 
+func (c *ClientRaw) GetClientIPRaw(ctx context.Context, params *GetClientIPParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewGetClientIPRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
 func (c *ClientRaw) ListProjectsRaw(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewListProjectsRequest(c.Server, params)
 	if err != nil {
@@ -1383,6 +1615,21 @@ func (c *ClientRaw) UpdateProjectRaw(ctx context.Context, projectId string, body
 	return client.RoundTrip(req)
 }
 
+func (c *ClientRaw) GetProjectNetsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewGetProjectNetsRequest(c.Server, projectId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
 func (c *ClientRaw) GetProjectPublicIpsRaw(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetProjectPublicIpsRequest(c.Server, projectId)
 	if err != nil {
@@ -1445,6 +1692,36 @@ func (c *ClientRaw) GetQuotasRaw(ctx context.Context, reqEditors ...middleware.M
 
 func (c *ClientRaw) GetClusterTemplateRaw(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewGetClusterTemplateRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) GetNetPeeringAcceptanceTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewGetNetPeeringAcceptanceTemplateRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) GetNetPeeringRequestTemplateRaw(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewGetNetPeeringRequestTemplateRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -1590,6 +1867,54 @@ func NewListClustersByProjectIDRequest(server string, params *ListClustersByProj
 
 		}
 
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cursor", runtime.ParamLocationQuery, *params.Cursor); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -1714,6 +2039,54 @@ func NewListAllClustersRequest(server string, params *ListAllClustersParams) (*h
 		if params.Deleted != nil {
 
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "deleted", runtime.ParamLocationQuery, *params.Deleted); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cursor", runtime.ParamLocationQuery, *params.Cursor); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -2159,6 +2532,48 @@ func NewUpgradeClusterRequest(server string, clusterId string) (*http.Request, e
 	return req, nil
 }
 
+// NewGetClientIPRequest generates requests for GetClientIP
+func NewGetClientIPRequest(server string, params *GetClientIPParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/myip")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XRealIP != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithLocation("simple", false, "X-Real-IP", runtime.ParamLocationHeader, *params.XRealIP)
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Real-IP", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListProjectsRequest generates requests for ListProjects
 func NewListProjectsRequest(server string, params *ListProjectsParams) (*http.Request, error) {
 	var err error
@@ -2232,6 +2647,54 @@ func NewListProjectsRequest(server string, params *ListProjectsParams) (*http.Re
 		if params.Deleted != nil {
 
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "deleted", runtime.ParamLocationQuery, *params.Deleted); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cursor", runtime.ParamLocationQuery, *params.Cursor); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -2411,6 +2874,40 @@ func NewUpdateProjectRequestWithBody(server string, projectId string, contentTyp
 	return req, nil
 }
 
+// NewGetProjectNetsRequest generates requests for GetProjectNets
+func NewGetProjectNetsRequest(server string, projectId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "project_id", runtime.ParamLocationPath, projectId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/projects/%s/nets", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetProjectPublicIpsRequest generates requests for GetProjectPublicIps
 func NewGetProjectPublicIpsRequest(server string, projectId string) (*http.Request, error) {
 	var err error
@@ -2582,6 +3079,60 @@ func NewGetClusterTemplateRequest(server string, params *GetClusterTemplateParam
 	return req, nil
 }
 
+// NewGetNetPeeringAcceptanceTemplateRequest generates requests for GetNetPeeringAcceptanceTemplate
+func NewGetNetPeeringAcceptanceTemplateRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/templates/netpeeringacceptance")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetNetPeeringRequestTemplateRequest generates requests for GetNetPeeringRequestTemplate
+func NewGetNetPeeringRequestTemplateRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/templates/netpeeringrequest")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetNodepoolTemplateRequest generates requests for GetNodepoolTemplate
 func NewGetNodepoolTemplateRequest(server string) (*http.Request, error) {
 	var err error
@@ -2702,6 +3253,9 @@ type ClientInterface interface {
 	// UpgradeCluster request
 	UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error)
 
+	// GetClientIP request
+	GetClientIP(ctx context.Context, params *GetClientIPParams, reqEditors ...middleware.MiddlewareChainOption) (*IPResponse, error)
+
 	// ListProjects request
 	ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponseList, error)
 
@@ -2721,6 +3275,9 @@ type ClientInterface interface {
 
 	UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error)
 
+	// GetProjectNets request
+	GetProjectNets(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*NetsResponse, error)
+
 	// GetProjectPublicIps request
 	GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*PublicIpsResponse, error)
 
@@ -2736,6 +3293,12 @@ type ClientInterface interface {
 	// GetClusterTemplate request
 	GetClusterTemplate(ctx context.Context, params *GetClusterTemplateParams, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseClusterInputTemplate, error)
 
+	// GetNetPeeringAcceptanceTemplate request
+	GetNetPeeringAcceptanceTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringAcceptance, error)
+
+	// GetNetPeeringRequestTemplate request
+	GetNetPeeringRequestTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringRequest, error)
+
 	// GetNodepoolTemplate request
 	GetNodepoolTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNodepool, error)
 
@@ -2747,8 +3310,10 @@ type ListClustersByProjectIDResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponseList
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -2777,23 +3342,38 @@ func (r ListClustersByProjectIDResponse) Expect() (*ClusterResponseList, error) 
 
 func (r ListClustersByProjectIDResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateClusterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON501      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -2822,23 +3402,53 @@ func (r CreateClusterResponse) Expect() (*ClusterResponse, error) {
 
 func (r CreateClusterResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON403 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON403)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON501 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON501)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ListAllClustersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponseList
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -2867,23 +3477,30 @@ func (r ListAllClustersResponse) Expect() (*ClusterResponseList, error) {
 
 func (r ListAllClustersResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetControlPlanePlansResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ControlPlanesResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -2916,19 +3533,14 @@ func (r GetControlPlanePlansResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
-	}
-
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetCPSubregionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *CPSubregionsResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -2961,19 +3573,14 @@ func (r GetCPSubregionsResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
-	}
-
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetKubernetesVersionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *KubernetesVersionsResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3006,19 +3613,20 @@ func (r GetKubernetesVersionsResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
-	}
-
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteClusterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DetailResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3047,23 +3655,45 @@ func (r DeleteClusterResponse) Expect() (*DetailResponse, error) {
 
 func (r DeleteClusterResponse) genError() error {
 
+	if r.JSON403 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON403)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetClusterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3092,23 +3722,36 @@ func (r GetClusterResponse) Expect() (*ClusterResponse, error) {
 
 func (r GetClusterResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateClusterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3137,23 +3780,48 @@ func (r UpdateClusterResponse) Expect() (*ClusterResponse, error) {
 
 func (r UpdateClusterResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetKubeconfigResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *KubeconfigResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3182,23 +3850,48 @@ func (r GetKubeconfigResponse) Expect() (*KubeconfigResponse, error) {
 
 func (r GetKubeconfigResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetKubeconfigWithPubkeyNACLResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *KubeconfigResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3227,23 +3920,47 @@ func (r GetKubeconfigWithPubkeyNACLResponse) Expect() (*KubeconfigResponse, erro
 
 func (r GetKubeconfigWithPubkeyNACLResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpgradeClusterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ClusterResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3272,23 +3989,79 @@ func (r UpgradeClusterResponse) Expect() (*ClusterResponse, error) {
 
 func (r UpgradeClusterResponse) genError() error {
 
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type GetClientIPResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *IPResponse
+	JSON422      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r GetClientIPResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetClientIPResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetClientIPResponse) Expect() (*IPResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r GetClientIPResponse) genError() error {
+
+	if r.JSON422 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ListProjectsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponseList
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3321,19 +4094,23 @@ func (r ListProjectsResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateProjectResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON403      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3362,23 +4139,43 @@ func (r CreateProjectResponse) Expect() (*ProjectResponse, error) {
 
 func (r CreateProjectResponse) genError() error {
 
+	if r.JSON403 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON403)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteProjectResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DetailResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3407,23 +4204,41 @@ func (r DeleteProjectResponse) Expect() (*DetailResponse, error) {
 
 func (r DeleteProjectResponse) genError() error {
 
+	if r.JSON403 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON403)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetProjectResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3452,23 +4267,35 @@ func (r GetProjectResponse) Expect() (*ProjectResponse, error) {
 
 func (r GetProjectResponse) genError() error {
 
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateProjectResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProjectResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON423      *ErrorResponse
+	JSON500      *ErrorResponse
+	JSON503      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3497,23 +4324,96 @@ func (r UpdateProjectResponse) Expect() (*ProjectResponse, error) {
 
 func (r UpdateProjectResponse) genError() error {
 
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON423 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON423)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	if r.JSON503 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON503)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type GetProjectNetsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *NetsResponse
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r GetProjectNetsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetProjectNetsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetProjectNetsResponse) Expect() (*NetsResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r GetProjectNetsResponse) genError() error {
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
+	if r.JSON422 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetProjectPublicIpsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *PublicIpsResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3542,23 +4442,33 @@ func (r GetProjectPublicIpsResponse) Expect() (*PublicIpsResponse, error) {
 
 func (r GetProjectPublicIpsResponse) genError() error {
 
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetProjectQuotasResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProjectsProjectSchemaQuotasResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3587,23 +4497,33 @@ func (r GetProjectQuotasResponse) Expect() (*ProjectsProjectSchemaQuotasResponse
 
 func (r GetProjectQuotasResponse) genError() error {
 
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetProjectSnapshotsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SnapshotsResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON404      *ErrorResponse
+	JSON408      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3632,23 +4552,31 @@ func (r GetProjectSnapshotsResponse) Expect() (*SnapshotsResponse, error) {
 
 func (r GetProjectSnapshotsResponse) genError() error {
 
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
+	}
+
+	if r.JSON408 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON408)
+	}
+
 	if r.JSON422 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetQuotasResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *QuotasQuotaSchemaQuotasResponse
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3681,19 +4609,18 @@ func (r GetQuotasResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetClusterTemplateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseClusterInputTemplate
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3726,19 +4653,94 @@ func (r GetClusterTemplateResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type GetNetPeeringAcceptanceTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TemplateResponseNetPeeringAcceptance
+	JSON422      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r GetNetPeeringAcceptanceTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetNetPeeringAcceptanceTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetNetPeeringAcceptanceTemplateResponse) Expect() (*TemplateResponseNetPeeringAcceptance, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return nil, r.genError()
+}
+
+func (r GetNetPeeringAcceptanceTemplateResponse) genError() error {
+
+	if r.JSON422 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type GetNetPeeringRequestTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TemplateResponseNetPeeringRequest
+	JSON422      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r GetNetPeeringRequestTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetNetPeeringRequestTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r GetNetPeeringRequestTemplateResponse) Expect() (*TemplateResponseNetPeeringRequest, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r GetNetPeeringRequestTemplateResponse) genError() error {
+
+	if r.JSON422 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetNodepoolTemplateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseNodepool
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3771,19 +4773,14 @@ func (r GetNodepoolTemplateResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
-	}
-
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type GetProjectTemplateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TemplateResponseProjectInput
-	JSON422      *HTTPValidationError
-	JSONDefault  *HTTPValidationError
+	JSON422      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -3816,11 +4813,7 @@ func (r GetProjectTemplateResponse) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON422)
 	}
 
-	if r.JSONDefault != nil {
-		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSONDefault)
-	}
-
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 // ListClustersByProjectID request returning *ClusterResponseList
@@ -4077,6 +5070,24 @@ func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditor
 	return resp, err
 }
 
+// GetClientIP request returning *IPResponse
+func (c *Client) GetClientIP(ctx context.Context, params *GetClientIPParams, reqEditors ...middleware.MiddlewareChainOption) (*IPResponse, error) {
+	rsp, err := c.GetClientIPRaw(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetClientIPResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
 // ListProjects request returning *ProjectResponseList
 func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponseList, error) {
 	rsp, err := c.ListProjectsRaw(ctx, params, reqEditors...)
@@ -4205,6 +5216,24 @@ func (c *Client) UpdateProject(ctx context.Context, projectId string, body Updat
 	return resp, err
 }
 
+// GetProjectNets request returning *NetsResponse
+func (c *Client) GetProjectNets(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*NetsResponse, error) {
+	rsp, err := c.GetProjectNetsRaw(ctx, projectId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetProjectNetsResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
 // GetProjectPublicIps request returning *PublicIpsResponse
 func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*PublicIpsResponse, error) {
 	rsp, err := c.GetProjectPublicIpsRaw(ctx, projectId, reqEditors...)
@@ -4295,6 +5324,42 @@ func (c *Client) GetClusterTemplate(ctx context.Context, params *GetClusterTempl
 	return resp, err
 }
 
+// GetNetPeeringAcceptanceTemplate request returning *TemplateResponseNetPeeringAcceptance
+func (c *Client) GetNetPeeringAcceptanceTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringAcceptance, error) {
+	rsp, err := c.GetNetPeeringAcceptanceTemplateRaw(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetNetPeeringAcceptanceTemplateResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+// GetNetPeeringRequestTemplate request returning *TemplateResponseNetPeeringRequest
+func (c *Client) GetNetPeeringRequestTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringRequest, error) {
+	rsp, err := c.GetNetPeeringRequestTemplateRaw(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseGetNetPeeringRequestTemplateResponse(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
 // GetNodepoolTemplate request returning *TemplateResponseNodepool
 func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNodepool, error) {
 	rsp, err := c.GetNodepoolTemplateRaw(ctx, reqEditors...)
@@ -4352,19 +5417,33 @@ func ParseListClustersByProjectIDResponse(rsp *http.Response) (*ListClustersByPr
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -4392,19 +5471,68 @@ func ParseCreateClusterResponse(rsp *http.Response) (*CreateClusterResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4432,19 +5560,33 @@ func ParseListAllClustersResponse(rsp *http.Response) (*ListAllClustersResponse,
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -4473,18 +5615,11 @@ func ParseGetControlPlanePlansResponse(rsp *http.Response) (*GetControlPlanePlan
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
 
 	}
 
@@ -4513,18 +5648,11 @@ func ParseGetCPSubregionsResponse(rsp *http.Response) (*GetCPSubregionsResponse,
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
 
 	}
 
@@ -4553,18 +5681,11 @@ func ParseGetKubernetesVersionsResponse(rsp *http.Response) (*GetKubernetesVersi
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
 
 	}
 
@@ -4592,19 +5713,54 @@ func ParseDeleteClusterResponse(rsp *http.Response) (*DeleteClusterResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4632,19 +5788,33 @@ func ParseGetClusterResponse(rsp *http.Response) (*GetClusterResponse, error) {
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -4672,19 +5842,54 @@ func ParseUpdateClusterResponse(rsp *http.Response) (*UpdateClusterResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4712,19 +5917,54 @@ func ParseGetKubeconfigResponse(rsp *http.Response) (*GetKubeconfigResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4752,19 +5992,54 @@ func ParseGetKubeconfigWithPubkeyNACLResponse(rsp *http.Response) (*GetKubeconfi
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4792,19 +6067,80 @@ func ParseUpgradeClusterResponse(rsp *http.Response) (*UpgradeClusterResponse, e
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetClientIPResponse parses an HTTP response from a GetClientIP call
+func ParseGetClientIPResponse(rsp *http.Response) (*GetClientIPResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetClientIPResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest IPResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	}
 
@@ -4833,18 +6169,18 @@ func ParseListProjectsResponse(rsp *http.Response) (*ListProjectsResponse, error
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -4872,19 +6208,47 @@ func ParseCreateProjectResponse(rsp *http.Response) (*CreateProjectResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4912,19 +6276,47 @@ func ParseDeleteProjectResponse(rsp *http.Response) (*DeleteProjectResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -4952,19 +6344,33 @@ func ParseGetProjectResponse(rsp *http.Response) (*GetProjectResponse, error) {
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -4992,19 +6398,101 @@ func ParseUpdateProjectResponse(rsp *http.Response) (*UpdateProjectResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetProjectNetsResponse parses an HTTP response from a GetProjectNets call
+func ParseGetProjectNetsResponse(rsp *http.Response) (*GetProjectNetsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetProjectNetsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NetsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -5032,19 +6520,33 @@ func ParseGetProjectPublicIpsResponse(rsp *http.Response) (*GetProjectPublicIpsR
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -5072,19 +6574,33 @@ func ParseGetProjectQuotasResponse(rsp *http.Response) (*GetProjectQuotasRespons
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -5112,19 +6628,33 @@ func ParseGetProjectSnapshotsResponse(rsp *http.Response) (*GetProjectSnapshotsR
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -5153,18 +6683,18 @@ func ParseGetQuotasResponse(rsp *http.Response) (*GetQuotasResponse, error) {
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON500 = &dest
 
 	}
 
@@ -5193,18 +6723,77 @@ func ParseGetClusterTemplateResponse(rsp *http.Response) (*GetClusterTemplateRes
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
+	}
+
+	return response, nil
+}
+
+// ParseGetNetPeeringAcceptanceTemplateResponse parses an HTTP response from a GetNetPeeringAcceptanceTemplate call
+func ParseGetNetPeeringAcceptanceTemplateResponse(rsp *http.Response) (*GetNetPeeringAcceptanceTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetNetPeeringAcceptanceTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TemplateResponseNetPeeringAcceptance
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
-		response.JSONDefault = &dest
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetNetPeeringRequestTemplateResponse parses an HTTP response from a GetNetPeeringRequestTemplate call
+func ParseGetNetPeeringRequestTemplateResponse(rsp *http.Response) (*GetNetPeeringRequestTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetNetPeeringRequestTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TemplateResponseNetPeeringRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	}
 
@@ -5233,18 +6822,11 @@ func ParseGetNodepoolTemplateResponse(rsp *http.Response) (*GetNodepoolTemplateR
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
 
 	}
 
@@ -5273,18 +6855,11 @@ func ParseGetProjectTemplateResponse(rsp *http.Response) (*GetProjectTemplateRes
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest ErrorResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
 
 	}
 

@@ -3,32 +3,6 @@ info:
   title: "Example to indicate how to use the OpenAPI Overlay specification (https://github.com/OAI/Overlay-Specification)"
   version: 1.0.0
 actions:
-  - target: $.paths.*.*.responses
-    update:
-      default:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/HTTPValidationError"
-  - target: $.components.schemas.ValidationError
-    update:
-      properties:
-        Details:
-          type: string
-          title: Message
-        Code:
-          type: string
-      required:
-        - Code
-        - Details
-  - target: $.components.schemas.HTTPValidationError.properties.detail
-    delete: true
-  - target: $.components.schemas.HTTPValidationError.properties
-    update:
-      Errors:
-        type: array
-        items:
-          $ref: '#/components/schemas/ValidationError'
   - target: $.components.schemas.Snapshot.properties.State
     update:
       enum:

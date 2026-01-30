@@ -19,8 +19,10 @@ components:
       properties:
         NetPeering:
           "$ref": "#/components/schemas/NetPeering"
+          description: Information about the Net peering.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     AccepterNet:
       additionalProperties: false
@@ -180,6 +182,8 @@ components:
       properties:
         SecureBoot:
           "$ref": "#/components/schemas/SecureBootAction"
+          description: One action to perform on the next boot of the VM. For more
+            information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
       type: object
     AddUserToUserGroupRequest:
       additionalProperties: false
@@ -211,6 +215,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ApiAccessPolicy:
       additionalProperties: false
@@ -260,7 +265,8 @@ components:
       description: Information about the stickiness policy.
       properties:
         CookieName:
-          description: The name of the application cookie used for stickiness.
+          description: The name of the application cookie used for stickiness, between
+            1 and 255 characters.
           type: string
         PolicyName:
           description: The mnemonic name for the policy being created. The name must
@@ -293,6 +299,7 @@ components:
       properties:
         Bsu:
           "$ref": "#/components/schemas/BsuCreated"
+          description: Information about the created BSU volume.
         DeviceName:
           description: The name of the device.
           type: string
@@ -304,6 +311,7 @@ components:
       properties:
         Bsu:
           "$ref": "#/components/schemas/BsuToCreate"
+          description: Information about the BSU volume to create.
         DeviceName:
           description: The device name for the volume. For a root device, you must
             use `/dev/sda1`. For other volumes, you must use `/dev/sdX`, `/dev/sdXX`,
@@ -320,6 +328,7 @@ components:
       properties:
         Bsu:
           "$ref": "#/components/schemas/BsuToCreate"
+          description: Information about the BSU volume to create.
         DeviceName:
           description: The device name for the volume. For a root device, you must
             use `/dev/sda1`. For other volumes, you must use `/dev/sdX`, `/dev/sdXX`,
@@ -340,6 +349,7 @@ components:
       properties:
         Bsu:
           "$ref": "#/components/schemas/BsuToUpdateVm"
+          description: Information about the BSU volume.
         DeviceName:
           description: The device name for the volume. For a root device, you must
             use `/dev/sda1`. For other volumes, you must use `/dev/sdX`, `/dev/sdXX`,
@@ -421,6 +431,61 @@ components:
         VolumeId:
           description: The ID of the volume.
           type: string
+      type: object
+    CO2CategoryDistribution:
+      additionalProperties: false
+      description: The allocation of the `Value` among categories.
+      properties:
+        Category:
+          description: The category of the resource (for example, `storage`).
+          type: string
+        Value:
+          description: The total CO2 emissions for the category.
+          format: double
+          type: number
+      type: object
+    CO2EmissionEntry:
+      additionalProperties: false
+      description: The CO2 emission by month and account, for the specified request.
+      properties:
+        AccountId:
+          description: The ID of the account associated with the consumption.
+          type: string
+        CategoryDistribution:
+          description: The allocation of the `Value` among categories.
+          items:
+            "$ref": "#/components/schemas/CO2CategoryDistribution"
+          type: array
+        FactorDistribution:
+          description: The allocation of the `Value` among factors.
+          items:
+            "$ref": "#/components/schemas/CO2FactorDistribution"
+          type: array
+        Month:
+          description: The month associated with the CO2 emission entry.
+          format: date
+          type: string
+        PayingAccountId:
+          description: The ID of the paying account related to the `AccountId` parameter.
+          type: string
+        Value:
+          description: The total CO2 emissions for the `Month` and `AccountId` specified.
+            This value corresponds to the sum of all entries in `CategoryDistribution`
+            and `FactorDistributionEntry`.
+          format: double
+          type: number
+      type: object
+    CO2FactorDistribution:
+      additionalProperties: false
+      description: The allocation of the `Value` among factors.
+      properties:
+        Factor:
+          description: The emission source (for example, `hardware`).
+          type: string
+        Value:
+          description: The total CO2 emissions for the factor.
+          format: double
+          type: number
       type: object
     Ca:
       additionalProperties: false
@@ -526,6 +591,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ClientGateway:
       additionalProperties: false
@@ -584,9 +650,12 @@ components:
             time period, in the currency of the Region's catalog.
           format: double
           type: number
+        ResourceId:
+          description: The ID of the consumed resource.
+          type: string
         Service:
           description: The service of the API call (`TinaOS-FCU`, `TinaOS-LBU`, `TinaOS-DirectLink`,
-            `TinaOS-OOS`, or `TinaOS-OSU`).
+            `TinaOS-OOS`, `TinaOS-OSU`, or `OKS`).
           type: string
         SubregionName:
           description: The name of the Subregion.
@@ -640,8 +709,10 @@ components:
       properties:
         AccessKey:
           "$ref": "#/components/schemas/AccessKeySecretKey"
+          description: Information about the access key.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateAccountRequest:
       additionalProperties: false
@@ -714,8 +785,10 @@ components:
       properties:
         Account:
           "$ref": "#/components/schemas/Account"
+          description: Information about the account.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateApiAccessRuleRequest:
       additionalProperties: false
@@ -749,8 +822,10 @@ components:
       properties:
         ApiAccessRule:
           "$ref": "#/components/schemas/ApiAccessRule"
+          description: Information about the API access rule.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateCaRequest:
       additionalProperties: false
@@ -775,8 +850,10 @@ components:
       properties:
         Ca:
           "$ref": "#/components/schemas/Ca"
+          description: Information about the Client Certificate Authority (CA).
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateClientGatewayRequest:
       additionalProperties: false
@@ -808,8 +885,10 @@ components:
       properties:
         ClientGateway:
           "$ref": "#/components/schemas/ClientGateway"
+          description: Information about the client gateway.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateDedicatedGroupRequest:
       additionalProperties: false
@@ -838,8 +917,10 @@ components:
       properties:
         DedicatedGroup:
           "$ref": "#/components/schemas/DedicatedGroup"
+          description: Information about the dedicated group.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateDhcpOptionsRequest:
       additionalProperties: false
@@ -882,8 +963,10 @@ components:
       properties:
         DhcpOptionsSet:
           "$ref": "#/components/schemas/DhcpOptionsSet"
+          description: Information about the DHCP options set.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateDirectLinkInterfaceRequest:
       additionalProperties: false
@@ -894,6 +977,7 @@ components:
           type: string
         DirectLinkInterface:
           "$ref": "#/components/schemas/DirectLinkInterface"
+          description: Information about the DirectLink interface.
         DryRun:
           description: If true, checks whether you have the required permissions to
             perform the action.
@@ -907,8 +991,10 @@ components:
       properties:
         DirectLinkInterface:
           "$ref": "#/components/schemas/DirectLinkInterfaces"
+          description: Information about the DirectLink interfaces.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateDirectLinkRequest:
       additionalProperties: false
@@ -937,8 +1023,10 @@ components:
       properties:
         DirectLink:
           "$ref": "#/components/schemas/DirectLink"
+          description: Information about the DirectLink.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateFlexibleGpuRequest:
       additionalProperties: false
@@ -973,8 +1061,10 @@ components:
       properties:
         FlexibleGpu:
           "$ref": "#/components/schemas/FlexibleGpu"
+          description: Information about the flexible GPU (fGPU).
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateImageExportTaskRequest:
       additionalProperties: false
@@ -988,6 +1078,7 @@ components:
           type: string
         OsuExport:
           "$ref": "#/components/schemas/OsuExportToCreate"
+          description: Information about the OOS export task to create.
       required:
       - OsuExport
       - ImageId
@@ -997,15 +1088,17 @@ components:
       properties:
         ImageExportTask:
           "$ref": "#/components/schemas/ImageExportTask"
+          description: Information about the OMI export task.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateImageRequest:
       additionalProperties: false
       properties:
         Architecture:
           description: "**When registering from a snapshot:** The architecture of
-            the OMI (`i386` or `x86_64`)."
+            the OMI (`i386` or `x86_64`). By default, set to `x86_64`."
           type: string
         BlockDeviceMappings:
           description: "**(required) When registering from a snapshot:** One or more
@@ -1056,6 +1149,11 @@ components:
           description: "**(required) When copying an OMI:** The name of the source
             Region (always the same as the Region of your account)."
           type: string
+        TpmMandatory:
+          description: By default or if set to false, a virtual Trusted Platform Module
+            (vTPM) is not mandatory on VMs created from this OMI. If true, VMs created
+            from this OMI must have a vTPM enabled.
+          type: boolean
         VmId:
           description: "**(required) When creating from a VM:** The ID of the VM from
             which you want to create the OMI."
@@ -1066,8 +1164,10 @@ components:
       properties:
         Image:
           "$ref": "#/components/schemas/Image"
+          description: Information about the OMI.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateInternetServiceRequest:
       additionalProperties: false
@@ -1082,8 +1182,10 @@ components:
       properties:
         InternetService:
           "$ref": "#/components/schemas/InternetService"
+          description: Information about the internet service.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateKeypairRequest:
       additionalProperties: false
@@ -1108,8 +1210,10 @@ components:
       properties:
         Keypair:
           "$ref": "#/components/schemas/KeypairCreated"
+          description: Information about the created keypair.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateListenerRuleRequest:
       additionalProperties: false
@@ -1120,8 +1224,10 @@ components:
           type: boolean
         Listener:
           "$ref": "#/components/schemas/LoadBalancerLight"
+          description: Information about the load balancer.
         ListenerRule:
           "$ref": "#/components/schemas/ListenerRuleForCreation"
+          description: Information about the listener rule.
         VmIds:
           description: The IDs of the backend VMs.
           items:
@@ -1137,8 +1243,10 @@ components:
       properties:
         ListenerRule:
           "$ref": "#/components/schemas/ListenerRule"
+          description: Information about the listener rule.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateLoadBalancerListenersRequest:
       additionalProperties: false
@@ -1165,8 +1273,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateLoadBalancerPolicyRequest:
       additionalProperties: false
@@ -1177,9 +1287,10 @@ components:
             lasts for the duration of the browser session.
           type: integer
         CookieName:
-          description: The name of the application cookie used for stickiness. This
-            parameter is required if you create a stickiness policy based on an application-generated
-            cookie.
+          description: The name of the application cookie used for stickiness, between
+            1 and 255 characters. This parameter is required if you create a stickiness
+            policy based on an application-generated cookie.
+          maxLength: 255
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -1207,8 +1318,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateLoadBalancerRequest:
       additionalProperties: false
@@ -1272,8 +1385,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateLoadBalancerTagsRequest:
       additionalProperties: false
@@ -1301,6 +1416,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateNatServiceRequest:
       additionalProperties: false
@@ -1329,8 +1445,10 @@ components:
       properties:
         NatService:
           "$ref": "#/components/schemas/NatService"
+          description: Information about the NAT service.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateNetAccessPointRequest:
       additionalProperties: false
@@ -1359,8 +1477,10 @@ components:
       properties:
         NetAccessPoint:
           "$ref": "#/components/schemas/NetAccessPoint"
+          description: Information about the Net access point.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateNetPeeringRequest:
       additionalProperties: false
@@ -1391,8 +1511,10 @@ components:
       properties:
         NetPeering:
           "$ref": "#/components/schemas/NetPeering"
+          description: Information about the Net peering.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateNetRequest:
       additionalProperties: false
@@ -1419,8 +1541,10 @@ components:
       properties:
         Net:
           "$ref": "#/components/schemas/Net"
+          description: Information about the Net.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateNicRequest:
       additionalProperties: false
@@ -1456,8 +1580,10 @@ components:
       properties:
         Nic:
           "$ref": "#/components/schemas/Nic"
+          description: Information about the NIC.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreatePolicyRequest:
       additionalProperties: false
@@ -1490,8 +1616,10 @@ components:
       properties:
         Policy:
           "$ref": "#/components/schemas/Policy"
+          description: Information about the policy.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreatePolicyVersionRequest:
       additionalProperties: false
@@ -1520,8 +1648,10 @@ components:
       properties:
         PolicyVersion:
           "$ref": "#/components/schemas/PolicyVersion"
+          description: Information about the policy version.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateProductTypeRequest:
       additionalProperties: false
@@ -1544,8 +1674,10 @@ components:
       properties:
         ProductType:
           "$ref": "#/components/schemas/ProductType"
+          description: Information about the product type.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreatePublicIpRequest:
       additionalProperties: false
@@ -1560,8 +1692,10 @@ components:
       properties:
         PublicIp:
           "$ref": "#/components/schemas/PublicIp"
+          description: Information about the public IP.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateRouteRequest:
       additionalProperties: false
@@ -1602,8 +1736,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTable:
           "$ref": "#/components/schemas/RouteTable"
+          description: Information about the route table.
       type: object
     CreateRouteTableRequest:
       additionalProperties: false
@@ -1623,8 +1759,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTable:
           "$ref": "#/components/schemas/RouteTable"
+          description: Information about the route table.
       type: object
     CreateSecurityGroupRequest:
       additionalProperties: false
@@ -1656,8 +1794,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SecurityGroup:
           "$ref": "#/components/schemas/SecurityGroup"
+          description: Information about the security group.
       type: object
     CreateSecurityGroupRuleRequest:
       additionalProperties: false
@@ -1684,7 +1824,7 @@ components:
           type: string
         IpRange:
           description: The IP range for the security group rule, in CIDR notation
-            (for example, 10.0.0.0/16). If you specify this parameter, you cannot
+            (for example, `10.0.0.0/16`). If you specify this parameter, you cannot
             specify the `Rules` parameter and its subparameters.
           type: string
         Rules:
@@ -1721,8 +1861,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SecurityGroup:
           "$ref": "#/components/schemas/SecurityGroup"
+          description: Information about the security group.
       type: object
     CreateServerCertificateRequest:
       additionalProperties: false
@@ -1765,8 +1907,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         ServerCertificate:
           "$ref": "#/components/schemas/ServerCertificate"
+          description: Information about the server certificate.
       type: object
     CreateSnapshotExportTaskRequest:
       additionalProperties: false
@@ -1777,6 +1921,7 @@ components:
           type: boolean
         OsuExport:
           "$ref": "#/components/schemas/OsuExportToCreate"
+          description: Information about the OOS export task to create.
         SnapshotId:
           description: The ID of the snapshot to export.
           type: string
@@ -1789,8 +1934,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SnapshotExportTask:
           "$ref": "#/components/schemas/SnapshotExportTask"
+          description: Information about the snapshot export task.
       type: object
     CreateSnapshotRequest:
       additionalProperties: false
@@ -1834,8 +1981,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Snapshot:
           "$ref": "#/components/schemas/Snapshot"
+          description: Information about the snapshot.
       type: object
     CreateSubnetRequest:
       additionalProperties: false
@@ -1864,8 +2013,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Subnet:
           "$ref": "#/components/schemas/Subnet"
+          description: Information about the Subnet.
       type: object
     CreateTagsRequest:
       additionalProperties: false
@@ -1893,6 +2044,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     CreateUserGroupRequest:
       additionalProperties: false
@@ -1916,8 +2068,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserGroup:
           "$ref": "#/components/schemas/UserGroup"
+          description: Information about the user group.
       type: object
     CreateUserRequest:
       additionalProperties: false
@@ -1948,8 +2102,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         User:
           "$ref": "#/components/schemas/User"
+          description: Information about the EIM user.
       type: object
     CreateVirtualGatewayRequest:
       additionalProperties: false
@@ -1970,8 +2126,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VirtualGateway:
           "$ref": "#/components/schemas/VirtualGateway"
+          description: Information about the virtual gateway.
       type: object
     CreateVmGroupRequest:
       additionalProperties: false
@@ -2029,8 +2187,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmGroup:
           "$ref": "#/components/schemas/VmGroup"
+          description: Information about the VM group.
       type: object
     CreateVmTemplateRequest:
       additionalProperties: false
@@ -2086,14 +2246,17 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmTemplate:
           "$ref": "#/components/schemas/VmTemplate"
+          description: Information about the VM template.
       type: object
     CreateVmsRequest:
       additionalProperties: false
       properties:
         ActionsOnNextBoot:
           "$ref": "#/components/schemas/ActionsOnNextBoot"
+          description: The action to perform on the next boot of the VM.
         BlockDeviceMappings:
           description: One or more block device mappings.
           items:
@@ -2101,6 +2264,7 @@ components:
           type: array
         BootMode:
           "$ref": "#/components/schemas/BootMode"
+          description: The boot mode of the VM.
         BootOnCreation:
           default: true
           description: If true, the VM is started on creation. If false, the VM is
@@ -2161,6 +2325,7 @@ components:
           type: string
         Placement:
           "$ref": "#/components/schemas/Placement"
+          description: Information about the placement of the VM.
         PrivateIps:
           description: One or more private IPs of the VM.
           items:
@@ -2180,6 +2345,10 @@ components:
           description: The ID of the Subnet in which you want to create the VM. If
             you specify this parameter, you must not specify the `Nics` parameter.
           type: string
+        TpmEnabled:
+          description: If true, a virtual Trusted Platform Module (vTPM) is enabled
+            on the VM. If false, it is not.
+          type: boolean
         UserData:
           description: Data or script used to add a specific configuration to the
             VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For
@@ -2205,6 +2374,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vms:
           description: Information about one or more created VMs.
           items:
@@ -2251,8 +2421,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Volume:
           "$ref": "#/components/schemas/Volume"
+          description: Information about the volume.
       type: object
     CreateVpnConnectionRequest:
       additionalProperties: false
@@ -2287,8 +2459,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VpnConnection:
           "$ref": "#/components/schemas/VpnConnection"
+          description: Information about a VPN connection.
       type: object
     CreateVpnConnectionRouteRequest:
       additionalProperties: false
@@ -2313,6 +2487,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DedicatedGroup:
       additionalProperties: false
@@ -2367,6 +2542,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteApiAccessRuleRequest:
       additionalProperties: false
@@ -2386,6 +2562,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteCaRequest:
       additionalProperties: false
@@ -2405,6 +2582,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteClientGatewayRequest:
       additionalProperties: false
@@ -2424,6 +2602,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteDedicatedGroupRequest:
       additionalProperties: false
@@ -2447,6 +2626,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteDhcpOptionsRequest:
       additionalProperties: false
@@ -2466,6 +2646,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteDirectLinkInterfaceRequest:
       additionalProperties: false
@@ -2485,6 +2666,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteDirectLinkRequest:
       additionalProperties: false
@@ -2504,6 +2686,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteExportTaskRequest:
       additionalProperties: false
@@ -2523,6 +2706,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteFlexibleGpuRequest:
       additionalProperties: false
@@ -2542,6 +2726,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteImageRequest:
       additionalProperties: false
@@ -2561,6 +2746,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteInternetServiceRequest:
       additionalProperties: false
@@ -2580,6 +2766,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteKeypairRequest:
       additionalProperties: false
@@ -2600,6 +2787,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteListenerRuleRequest:
       additionalProperties: false
@@ -2619,6 +2807,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteLoadBalancerListenersRequest:
       additionalProperties: false
@@ -2645,8 +2834,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteLoadBalancerPolicyRequest:
       additionalProperties: false
@@ -2671,8 +2862,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteLoadBalancerRequest:
       additionalProperties: false
@@ -2692,6 +2885,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteLoadBalancerTagsRequest:
       additionalProperties: false
@@ -2719,6 +2913,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteNatServiceRequest:
       additionalProperties: false
@@ -2738,6 +2933,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteNetAccessPointRequest:
       additionalProperties: false
@@ -2757,6 +2953,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteNetPeeringRequest:
       additionalProperties: false
@@ -2776,6 +2973,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteNetRequest:
       additionalProperties: false
@@ -2795,6 +2993,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteNicRequest:
       additionalProperties: false
@@ -2814,6 +3013,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeletePolicyRequest:
       additionalProperties: false
@@ -2835,6 +3035,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeletePolicyVersionRequest:
       additionalProperties: false
@@ -2856,6 +3057,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteProductTypeRequest:
       additionalProperties: false
@@ -2879,6 +3081,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeletePublicIpRequest:
       additionalProperties: false
@@ -2900,6 +3103,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteRouteRequest:
       additionalProperties: false
@@ -2923,8 +3127,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTable:
           "$ref": "#/components/schemas/RouteTable"
+          description: Information about the route table.
       type: object
     DeleteRouteTableRequest:
       additionalProperties: false
@@ -2944,6 +3150,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteSecurityGroupRequest:
       additionalProperties: false
@@ -2964,6 +3171,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteSecurityGroupRuleRequest:
       additionalProperties: false
@@ -3018,8 +3226,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SecurityGroup:
           "$ref": "#/components/schemas/SecurityGroup"
+          description: Information about the security group.
       type: object
     DeleteServerCertificateRequest:
       additionalProperties: false
@@ -3039,6 +3249,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteSnapshotRequest:
       additionalProperties: false
@@ -3058,6 +3269,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteSubnetRequest:
       additionalProperties: false
@@ -3077,6 +3289,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteTagsRequest:
       additionalProperties: false
@@ -3105,6 +3318,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteUserGroupPolicyRequest:
       additionalProperties: false
@@ -3132,6 +3346,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteUserGroupRequest:
       additionalProperties: false
@@ -3159,6 +3374,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteUserPolicyRequest:
       additionalProperties: false
@@ -3183,6 +3399,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteUserRequest:
       additionalProperties: false
@@ -3202,6 +3419,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVirtualGatewayRequest:
       additionalProperties: false
@@ -3221,6 +3439,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVmGroupRequest:
       additionalProperties: false
@@ -3240,6 +3459,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVmTemplateRequest:
       additionalProperties: false
@@ -3259,6 +3479,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVmsRequest:
       additionalProperties: false
@@ -3280,6 +3501,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vms:
           description: Information about one or more terminated VMs.
           items:
@@ -3304,6 +3526,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVpnConnectionRequest:
       additionalProperties: false
@@ -3323,6 +3546,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeleteVpnConnectionRouteRequest:
       additionalProperties: false
@@ -3348,6 +3572,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DeregisterVmsInLoadBalancerRequest:
       additionalProperties: false
@@ -3373,6 +3598,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DhcpOptionsSet:
       additionalProperties: false
@@ -3539,6 +3765,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DisableOutscaleLoginPerUsersRequest:
       additionalProperties: false
@@ -3561,6 +3788,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     DisableOutscaleLoginRequest:
       additionalProperties: false
@@ -3575,6 +3803,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     EnableOutscaleLoginForUsersRequest:
       additionalProperties: false
@@ -3589,6 +3818,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     EnableOutscaleLoginPerUsersRequest:
       additionalProperties: false
@@ -3611,6 +3841,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     EnableOutscaleLoginRequest:
       additionalProperties: false
@@ -3625,6 +3856,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ErrorResponse:
       additionalProperties: false
@@ -3636,6 +3868,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     Errors:
       additionalProperties: false
@@ -3992,6 +4225,11 @@ components:
           items:
             type: string
           type: array
+        Tags:
+          description: One or more tags associated with the fGPUs.
+          items:
+            "$ref": "#/components/schemas/Tag"
+          type: array
         VmIds:
           description: One or more IDs of VMs.
           items:
@@ -4125,6 +4363,10 @@ components:
           items:
             type: string
           type: array
+        TpmMandatory:
+          description: Whether a virtual Trusted Platform Module (vTPM) is mandatory
+            for VMs created from this OMI (true) or not (false).
+          type: boolean
         VirtualizationTypes:
           description: The virtualization types (always `hvm`).
           items:
@@ -5103,11 +5345,11 @@ components:
             type: string
           type: array
         ResourceTypes:
-          description: The resource type (`customer-gateway` \| `dhcpoptions` \| `image`
-            \| `instance` \| `keypair` \| `natgateway` \| `network-interface` \| `public-ip`
-            \| `route-table` \| `security-group` \| `snapshot` \| `subnet` \| `task`
-            \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint` \|
-            `vpc-peering-connection`\| `vpn-connection`).
+          description: The resource type (`customer-gateway` \| `dhcpoptions` \| `flexible-gpu`
+            \| `image` \| `instance` \| `keypair` \| `natgateway` \| `network-interface`
+            \| `public-ip` \| `route-table` \| `security-group` \| `snapshot` \| `subnet`
+            \| `task` \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint`
+            \| `vpc-peering-connection`\| `vpn-connection`).
           items:
             type: string
           type: array
@@ -5116,6 +5358,16 @@ components:
             You can use this filter alongside the `TagKeys` filter. In that case,
             you filter the resources corresponding to each tag, regardless of the
             other filter.
+          items:
+            type: string
+          type: array
+      type: object
+    FiltersUpdateVolumeTask:
+      additionalProperties: false
+      description: One or more filters.
+      properties:
+        TaskIds:
+          description: The IDs of the volume update tasks.
           items:
             type: string
           type: array
@@ -5506,6 +5758,10 @@ components:
           items:
             type: string
           type: array
+        TpmEnabled:
+          description: Whether a virtual Trusted Platform Module (vTPM) is enabled
+            (true) or disabled (false) on the VM.
+          type: boolean
         VmIds:
           description: One or more IDs of VMs.
           items:
@@ -5935,6 +6191,11 @@ components:
         SubregionName:
           description: The Subregion where the fGPU is located.
           type: string
+        Tags:
+          description: One or more tags associated with the fGPU.
+          items:
+            "$ref": "#/components/schemas/Tag"
+          type: array
         VmId:
           description: The ID of the VM the fGPU is attached to, if any.
           type: string
@@ -6047,6 +6308,7 @@ components:
           type: string
         PermissionsToLaunch:
           "$ref": "#/components/schemas/PermissionsOnResource"
+          description: Permissions for the resource.
         ProductCodes:
           description: The product codes associated with the OMI.
           items:
@@ -6066,11 +6328,16 @@ components:
           type: string
         StateComment:
           "$ref": "#/components/schemas/StateComment"
+          description: Information about the change of state.
         Tags:
           description: One or more tags associated with the OMI.
           items:
             "$ref": "#/components/schemas/ResourceTag"
           type: array
+        TpmMandatory:
+          description: If true, a virtual Trusted Platform Module (vTPM) is mandatory
+            for VMs created from this OMI. If false, a vTPM is not mandatory.
+          type: boolean
       type: object
     ImageExportTask:
       additionalProperties: false
@@ -6084,6 +6351,7 @@ components:
           type: string
         OsuExport:
           "$ref": "#/components/schemas/OsuExportImageExportTask"
+          description: Information about the OMI export task.
         Progress:
           description: The progress of the OMI export task, as a percentage.
           type: integer
@@ -6208,6 +6476,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkInternetServiceRequest:
       additionalProperties: false
@@ -6232,6 +6501,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkLoadBalancerBackendMachinesRequest:
       additionalProperties: false
@@ -6261,6 +6531,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkManagedPolicyToUserGroupRequest:
       additionalProperties: false
@@ -6285,6 +6556,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkNic:
       additionalProperties: false
@@ -6360,6 +6632,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkNicToUpdate:
       additionalProperties: false
@@ -6399,6 +6672,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkPrivateIpsRequest:
       additionalProperties: false
@@ -6431,6 +6705,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkPublicIp:
       additionalProperties: false
@@ -6515,6 +6790,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkRouteTable:
       additionalProperties: false
@@ -6564,6 +6840,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkVirtualGatewayRequest:
       additionalProperties: false
@@ -6587,8 +6864,10 @@ components:
       properties:
         NetToVirtualGatewayLink:
           "$ref": "#/components/schemas/NetToVirtualGatewayLink"
+          description: Information about the attachment.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkVolumeRequest:
       additionalProperties: false
@@ -6619,6 +6898,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     LinkedPolicy:
       additionalProperties: false
@@ -6798,6 +7078,7 @@ components:
       properties:
         AccessLog:
           "$ref": "#/components/schemas/AccessLog"
+          description: Information about access logs.
         ApplicationStickyCookiePolicies:
           description: The stickiness policies defined for the load balancer.
           items:
@@ -6818,6 +7099,7 @@ components:
           type: string
         HealthCheck:
           "$ref": "#/components/schemas/HealthCheck"
+          description: Information about the health check configuration.
         Listeners:
           description: The listeners for the load balancer.
           items:
@@ -6855,6 +7137,9 @@ components:
           type: array
         SourceSecurityGroup:
           "$ref": "#/components/schemas/SourceSecurityGroup"
+          description: |-
+            Information about the source security group of the load balancer, which you can use as part of your inbound rules for your registered VMs.<br />
+            To only allow traffic from load balancers, add a security group rule that specifies this source security group as the inbound source.
         Subnets:
           description: The ID of the Subnet in which the load balancer was created.
           items:
@@ -7110,6 +7395,7 @@ components:
       properties:
         AccepterNet:
           "$ref": "#/components/schemas/AccepterNet"
+          description: Information about the accepter Net.
         ExpirationDate:
           description: The date and time (UTC) at which the Net peerings expire.
           format: date-time
@@ -7120,8 +7406,10 @@ components:
           type: string
         SourceNet:
           "$ref": "#/components/schemas/SourceNet"
+          description: Information about the source Net.
         State:
           "$ref": "#/components/schemas/NetPeeringState"
+          description: Information about the state of the Net peering.
         Tags:
           description: One or more tags associated with the Net peering.
           items:
@@ -7168,8 +7456,10 @@ components:
           type: boolean
         LinkNic:
           "$ref": "#/components/schemas/LinkNic"
+          description: Information about the NIC attachment.
         LinkPublicIp:
           "$ref": "#/components/schemas/LinkPublicIp"
+          description: Information about the public IP association.
         MacAddress:
           description: The Media Access Control (MAC) address of the NIC.
           type: string
@@ -7271,8 +7561,10 @@ components:
           type: boolean
         LinkNic:
           "$ref": "#/components/schemas/LinkNicLight"
+          description: Information about the network interface card (NIC).
         LinkPublicIp:
           "$ref": "#/components/schemas/LinkPublicIpLightForVm"
+          description: Information about the public IP associated with the NIC.
         MacAddress:
           description: The Media Access Control (MAC) address of the NIC.
           type: string
@@ -7364,6 +7656,7 @@ components:
           type: string
         OsuApiKey:
           "$ref": "#/components/schemas/OsuApiKey"
+          description: Information about the OOS API key.
         OsuBucket:
           description: The name of the OOS bucket where you want to export the object.
           type: string
@@ -7401,8 +7694,10 @@ components:
       properties:
         Additions:
           "$ref": "#/components/schemas/PermissionsOnResource"
+          description: Permissions for the resource.
         Removals:
           "$ref": "#/components/schemas/PermissionsOnResource"
+          description: Permissions for the resource.
       type: object
     Phase1Options:
       additionalProperties: false
@@ -7601,6 +7896,7 @@ components:
           type: boolean
         LinkPublicIp:
           "$ref": "#/components/schemas/LinkPublicIp"
+          description: Information about the public IP association.
         PrivateDnsName:
           description: The name of the private DNS.
           type: string
@@ -7628,6 +7924,7 @@ components:
           type: boolean
         LinkPublicIp:
           "$ref": "#/components/schemas/LinkPublicIpLightForVm"
+          description: Information about the public IP associated with the NIC.
         PrivateDnsName:
           description: The name of the private DNS.
           type: string
@@ -7725,6 +8022,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     PutUserPolicyRequest:
       additionalProperties: false
@@ -7754,6 +8052,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     Quota:
       additionalProperties: false
@@ -7805,6 +8104,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersAccessKeys"
+          description: One or more filters.
         Tag:
           description: The tag added to the access key.
           type: string
@@ -7823,6 +8123,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadAccountsRequest:
       additionalProperties: false
@@ -7842,6 +8143,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadAdminPasswordRequest:
       additionalProperties: false
@@ -7865,6 +8167,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmId:
           description: The ID of the VM.
           type: string
@@ -7882,8 +8185,10 @@ components:
       properties:
         ApiAccessPolicy:
           "$ref": "#/components/schemas/ApiAccessPolicy"
+          description: Information about the API access policy.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadApiAccessRulesRequest:
       additionalProperties: false
@@ -7894,6 +8199,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersApiAccessRule"
+          description: One or more filters.
       type: object
     ReadApiAccessRulesResponse:
       additionalProperties: false
@@ -7905,6 +8211,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadApiLogsRequest:
       additionalProperties: false
@@ -7915,6 +8222,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersApiLog"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -7926,6 +8234,7 @@ components:
           type: integer
         With:
           "$ref": "#/components/schemas/With"
+          description: The information to display in each returned log.
       type: object
     ReadApiLogsResponse:
       additionalProperties: false
@@ -7941,6 +8250,55 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
+      type: object
+    ReadCO2EmissionAccountRequest:
+      additionalProperties: false
+      properties:
+        FromMonth:
+          description: The beginning of the time period, in ISO 8601 date format (for
+            example, `2020-06-01`). This value must correspond to the first day of
+            the month and is included in the time period.
+          format: date
+          type: string
+        Overall:
+          default: false
+          description: If false, returns only the CO2 emission of the specific account
+            that sends the request. If true, returns either the overall CO2 emission
+            of your paying account and all linked accounts (if the account that sends
+            this request is a paying account) or returns nothing (if the account that
+            sends this request is a linked account).
+          type: boolean
+        ToMonth:
+          description: The end of the time period, in ISO 8601 date format (for example,
+            `2020-06-14`). This value must correspond to the first day of the month
+            and is excluded from the time period. It must be set to a later date than
+            `FromMonth`.
+          format: date
+          type: string
+      required:
+      - FromMonth
+      - ToMonth
+      type: object
+    ReadCO2EmissionAccountResponse:
+      additionalProperties: false
+      properties:
+        CO2EmissionEntries:
+          description: The CO2 emission by month and account, for the specified request.
+          items:
+            "$ref": "#/components/schemas/CO2EmissionEntry"
+          type: array
+        ResponseContext:
+          "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
+        Unit:
+          description: The unit of all the `Value` fields of the response, expressed
+            in kgCO₂e.
+          type: string
+        Value:
+          description: The total CO2 emission for the specified request.
+          format: double
+          type: number
       type: object
     ReadCasRequest:
       additionalProperties: false
@@ -7951,6 +8309,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersCa"
+          description: One or more filters.
       type: object
     ReadCasResponse:
       additionalProperties: false
@@ -7962,6 +8321,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadCatalogRequest:
       additionalProperties: false
@@ -7976,8 +8336,10 @@ components:
       properties:
         Catalog:
           "$ref": "#/components/schemas/Catalog"
+          description: Information about our catalog of prices.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadCatalogsRequest:
       additionalProperties: false
@@ -7988,6 +8350,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersCatalogs"
+          description: One or more filters.
       type: object
     ReadCatalogsResponse:
       additionalProperties: false
@@ -7999,6 +8362,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadClientGatewaysRequest:
       additionalProperties: false
@@ -8009,6 +8373,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersClientGateway"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8034,6 +8399,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadConsoleOutputRequest:
       additionalProperties: false
@@ -8057,6 +8423,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmId:
           description: The ID of the VM.
           type: string
@@ -8086,7 +8453,12 @@ components:
         ShowPrice:
           description: If true, the response also includes the unit price of the consumed
             resource (`UnitPrice`) and the total price of the consumed resource during
-            the specified time period (`Price`), in the currency of your account.
+            the specified time period (`Price`), in the currency of the Region's catalog.
+          type: boolean
+        ShowResourceDetails:
+          default: false
+          description: By default or if false, returns the consumption aggregated
+            by resource type. If true, the response returns the consumption per `ResourceId`.
           type: boolean
         ToDate:
           description: The end of the time period, in ISO 8601 date format (for example,
@@ -8116,6 +8488,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadDedicatedGroupsRequest:
       additionalProperties: false
@@ -8126,6 +8499,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersDedicatedGroup"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8151,6 +8525,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadDhcpOptionsRequest:
       additionalProperties: false
@@ -8161,6 +8536,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersDhcpOptions"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8186,6 +8562,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadDirectLinkInterfacesRequest:
       additionalProperties: false
@@ -8196,6 +8573,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersDirectLinkInterface"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8221,6 +8599,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadDirectLinksRequest:
       additionalProperties: false
@@ -8231,6 +8610,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersDirectLink"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8256,6 +8636,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadEntitiesLinkedToPolicyRequest:
       additionalProperties: false
@@ -8282,14 +8663,18 @@ components:
           description: The maximum number of items that can be returned in a single
             response (by default, 100).
           type: integer
+      required:
+      - PolicyOrn
       type: object
     ReadEntitiesLinkedToPolicyResponse:
       additionalProperties: false
       properties:
         PolicyEntities:
           "$ref": "#/components/schemas/PolicyEntities"
+          description: Information about the policy entities.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadFlexibleGpuCatalogRequest:
       additionalProperties: false
@@ -8310,6 +8695,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadFlexibleGpusRequest:
       additionalProperties: false
@@ -8320,6 +8706,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersFlexibleGpu"
+          description: One or more filters.
       type: object
     ReadFlexibleGpusResponse:
       additionalProperties: false
@@ -8331,6 +8718,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadImageExportTasksRequest:
       additionalProperties: false
@@ -8341,6 +8729,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersExportTask"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8366,6 +8755,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadImagesRequest:
       additionalProperties: false
@@ -8376,6 +8766,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersImage"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8401,6 +8792,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadInternetServicesRequest:
       additionalProperties: false
@@ -8411,6 +8803,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersInternetService"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8436,6 +8829,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadKeypairsRequest:
       additionalProperties: false
@@ -8446,6 +8840,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersKeypair"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8471,6 +8866,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadLinkedPoliciesFilters:
       additionalProperties: false
@@ -8490,6 +8886,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/ReadLinkedPoliciesFilters"
+          description: One or more filters.
         FirstItem:
           description: The item starting the list of policies requested.
           type: integer
@@ -8524,6 +8921,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadListenerRulesRequest:
       additionalProperties: false
@@ -8534,6 +8932,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersListenerRule"
+          description: One or more filters.
       type: object
     ReadListenerRulesResponse:
       additionalProperties: false
@@ -8545,6 +8944,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadLoadBalancerTagsRequest:
       additionalProperties: false
@@ -8566,6 +8966,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Tags:
           description: Information about one or more load balancer tags.
           items:
@@ -8581,6 +8982,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersLoadBalancer"
+          description: One or more filters.
       type: object
     ReadLoadBalancersResponse:
       additionalProperties: false
@@ -8592,6 +8994,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadLocationsRequest:
       additionalProperties: false
@@ -8625,6 +9028,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadManagedPoliciesLinkedToUserGroupRequest:
       additionalProperties: false
@@ -8635,6 +9039,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersUserGroup"
+          description: One or more filters.
         FirstItem:
           description: The item starting the list of policies requested.
           type: integer
@@ -8669,6 +9074,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadNatServicesRequest:
       additionalProperties: false
@@ -8679,6 +9085,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersNatService"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8704,6 +9111,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadNetAccessPointServicesRequest:
       additionalProperties: false
@@ -8714,6 +9122,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersService"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8734,6 +9143,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Services:
           description: The names of the services you can use for Net access points.
           items:
@@ -8749,6 +9159,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersNetAccessPoint"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8774,6 +9185,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadNetPeeringsRequest:
       additionalProperties: false
@@ -8784,6 +9196,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersNetPeering"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8809,6 +9222,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadNetsRequest:
       additionalProperties: false
@@ -8819,6 +9233,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersNet"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8844,6 +9259,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadNicsRequest:
       additionalProperties: false
@@ -8854,6 +9270,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersNic"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -8879,6 +9296,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPoliciesFilters:
       additionalProperties: false
@@ -8909,6 +9327,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/ReadPoliciesFilters"
+          description: One or more filters.
         FirstItem:
           description: The item starting the list of policies requested.
           type: integer
@@ -8938,6 +9357,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPolicyRequest:
       additionalProperties: false
@@ -8955,8 +9375,10 @@ components:
       properties:
         Policy:
           "$ref": "#/components/schemas/Policy"
+          description: Information about the policy.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPolicyVersionRequest:
       additionalProperties: false
@@ -8978,8 +9400,10 @@ components:
       properties:
         PolicyVersion:
           "$ref": "#/components/schemas/PolicyVersion"
+          description: Information about the policy version.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPolicyVersionsRequest:
       additionalProperties: false
@@ -9016,6 +9440,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadProductTypesRequest:
       additionalProperties: false
@@ -9026,6 +9451,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersProductType"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9051,6 +9477,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPublicCatalogRequest:
       additionalProperties: false
@@ -9065,8 +9492,10 @@ components:
       properties:
         Catalog:
           "$ref": "#/components/schemas/Catalog"
+          description: Information about our catalog of prices.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPublicIpRangesRequest:
       additionalProperties: false
@@ -9101,6 +9530,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadPublicIpsRequest:
       additionalProperties: false
@@ -9111,6 +9541,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersPublicIp"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9136,6 +9567,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadQuotasRequest:
       additionalProperties: false
@@ -9146,6 +9578,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersQuota"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9171,6 +9604,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadRegionsRequest:
       additionalProperties: false
@@ -9190,6 +9624,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadRouteTablesRequest:
       additionalProperties: false
@@ -9200,6 +9635,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersRouteTable"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9220,6 +9656,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTables:
           description: Information about one or more route tables.
           items:
@@ -9235,6 +9672,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersSecurityGroup"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9255,6 +9693,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SecurityGroups:
           description: Information about one or more security groups.
           items:
@@ -9270,12 +9709,14 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersServerCertificate"
+          description: One or more filters.
       type: object
     ReadServerCertificatesResponse:
       additionalProperties: false
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         ServerCertificates:
           description: Information about one or more server certificates.
           items:
@@ -9291,6 +9732,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersExportTask"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9311,6 +9753,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         SnapshotExportTasks:
           description: Information about one or more snapshot export tasks.
           items:
@@ -9326,6 +9769,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersSnapshot"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9346,6 +9790,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Snapshots:
           description: Information about one or more snapshots and their permissions.
           items:
@@ -9361,6 +9806,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersSubnet"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9381,6 +9827,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Subnets:
           description: Information about one or more Subnets.
           items:
@@ -9396,6 +9843,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersSubregion"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9416,6 +9864,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Subregions:
           description: Information about one or more Subregions.
           items:
@@ -9431,6 +9880,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersTag"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9451,6 +9901,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Tags:
           description: Information about one or more tags.
           items:
@@ -9482,8 +9933,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UnitPriceEntry:
           "$ref": "#/components/schemas/UnitPriceEntry"
+          description: Information about the unit price entry.
       type: object
     ReadUserGroupPoliciesRequest:
       additionalProperties: false
@@ -9530,6 +9983,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadUserGroupPolicyRequest:
       additionalProperties: false
@@ -9557,8 +10011,10 @@ components:
       properties:
         Policy:
           "$ref": "#/components/schemas/InlinePolicy"
+          description: Information about an inline policy.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadUserGroupRequest:
       additionalProperties: false
@@ -9582,8 +10038,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserGroup:
           "$ref": "#/components/schemas/UserGroup"
+          description: Information about the user group.
         Users:
           description: A list of EIM users.
           items:
@@ -9611,6 +10069,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserGroups:
           description: A list of user groups.
           items:
@@ -9626,6 +10085,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersUserGroup"
+          description: One or more filters.
         FirstItem:
           description: The item starting the list of groups requested.
           type: integer
@@ -9650,6 +10110,7 @@ components:
           type: boolean
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserGroups:
           description: A list of user groups.
           items:
@@ -9677,6 +10138,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadUserPolicyRequest:
       properties:
@@ -9704,6 +10166,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserName:
           description: The name of the user in which the inline policy is included.
           type: string
@@ -9717,6 +10180,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersUsers"
+          description: One or more filters.
         FirstItem:
           description: The item starting the list of users requested.
           type: integer
@@ -9741,6 +10205,7 @@ components:
           type: boolean
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Users:
           description: A list of EIM users.
           items:
@@ -9756,6 +10221,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVirtualGateway"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9776,6 +10242,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VirtualGateways:
           description: Information about one or more virtual gateways.
           items:
@@ -9791,12 +10258,14 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVmGroup"
+          description: One or more filters.
       type: object
     ReadVmGroupsResponse:
       additionalProperties: false
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmGroups:
           description: Information about one or more VM groups.
           items:
@@ -9812,12 +10281,14 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVmTemplate"
+          description: One or more filters.
       type: object
     ReadVmTemplatesResponse:
       additionalProperties: false
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmTemplates:
           description: Information about one or more VM templates.
           items:
@@ -9833,6 +10304,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVmType"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9853,6 +10325,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmTypes:
           description: Information about one or more VM types.
           items:
@@ -9887,6 +10360,7 @@ components:
           type: array
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ReadVmsRequest:
       additionalProperties: false
@@ -9897,6 +10371,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVm"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9917,6 +10392,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vms:
           description: Information about one or more VMs.
           items:
@@ -9937,6 +10413,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVmsState"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9957,10 +10434,48 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmStates:
           description: Information about one or more VM states.
           items:
             "$ref": "#/components/schemas/VmStates"
+          type: array
+      type: object
+    ReadVolumeUpdateTasksRequest:
+      additionalProperties: false
+      properties:
+        DryRun:
+          description: If true, checks whether you have the required permissions to
+            perform the action.
+          type: boolean
+        Filters:
+          "$ref": "#/components/schemas/FiltersUpdateVolumeTask"
+          description: One or more filters.
+        NextPageToken:
+          description: The token to request the next page of results. Each token refers
+            to a specific page.
+          format: byte
+          type: string
+        ResultsPerPage:
+          description: The maximum number of logs returned in a single response (between
+            `1` and `1000`, both included). By default, `100`.
+          type: integer
+      type: object
+    ReadVolumeUpdateTasksResponse:
+      additionalProperties: false
+      properties:
+        NextPageToken:
+          description: The token to request the next page of results. Each token refers
+            to a specific page.
+          format: byte
+          type: string
+        ResponseContext:
+          "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
+        VolumeUpdateTasks:
+          description: Information about one or more volume update tasks.
+          items:
+            "$ref": "#/components/schemas/VolumeUpdateTask"
           type: array
       type: object
     ReadVolumesRequest:
@@ -9972,6 +10487,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVolume"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -9992,6 +10508,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Volumes:
           description: Information about one or more volumes.
           items:
@@ -10007,6 +10524,7 @@ components:
           type: boolean
         Filters:
           "$ref": "#/components/schemas/FiltersVpnConnection"
+          description: One or more filters.
         NextPageToken:
           description: The token to request the next page of results. Each token refers
             to a specific page.
@@ -10027,6 +10545,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VpnConnections:
           description: Information about one or more VPN connections.
           items:
@@ -10053,6 +10572,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     Region:
       additionalProperties: false
@@ -10091,6 +10611,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     RejectNetPeeringRequest:
       additionalProperties: false
@@ -10110,6 +10631,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     RemoveUserFromUserGroupRequest:
       additionalProperties: false
@@ -10140,6 +10662,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ResourceLoadBalancerTag:
       additionalProperties: false
@@ -10156,7 +10679,7 @@ components:
       description: Information about the tag.
       properties:
         Key:
-          description: The key of the tag, with a minimum of 1 character.
+          description: The key of the tag, between 1 and 255 characters.
           type: string
         Value:
           description: The value of the tag, between 0 and 255 characters.
@@ -10290,6 +10813,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     ScaleUpVmGroupRequest:
       additionalProperties: false
@@ -10313,15 +10837,17 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     SecureBootAction:
-      description: One action to perform on the next boot of the VM. For more information,
-        see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
+      description: One action to perform on the next boot of the VM (`enable` | `disable`
+        | `setup-mode` | `none`). For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
       enum:
       - enable
       - disable
       - setup-mode
       - none
+      - restore-factory-keys
       type: string
     SecurityGroup:
       additionalProperties: false
@@ -10384,10 +10910,13 @@ components:
           type: string
         IpRanges:
           description: One or more IP ranges for the security group rules, in CIDR
-            notation (for example, `10.0.0.0/16`).
+            notation (for example, `[&quot;10.0.0.0/24&quot; , &quot;10.0.1.0/24&quot;]`).
           items:
             type: string
           type: array
+        SecurityGroupRuleId:
+          description: The ID of the security group rule.
+          type: string
         SecurityGroupsMembers:
           description: Information about one or more source or destination security
             groups.
@@ -10418,8 +10947,8 @@ components:
             to link to the security group of the rule.
           type: string
         SecurityGroupName:
-          description: "(Public Cloud only) The name of a source or destination security
-            group that you want to link to the security group of the rule."
+          description: The name of a source or destination security group that you
+            want to link to the security group of the rule.
           type: string
       type: object
     ServerCertificate:
@@ -10427,8 +10956,8 @@ components:
       description: Information about the server certificate.
       properties:
         ExpirationDate:
-          description: The date on which the server certificate expires.
-          format: date
+          description: The date and time (UTC) on which the server certificate expires.
+          format: date-time
           type: string
         Id:
           description: The ID of the server certificate.
@@ -10445,8 +10974,9 @@ components:
           description: The path to the server certificate.
           type: string
         UploadDate:
-          description: The date on which the server certificate has been uploaded.
-          format: date
+          description: The date and time (UTC) on which the server certificate has
+            been uploaded.
+          format: date-time
           type: string
       type: object
     Service:
@@ -10485,6 +11015,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     Snapshot:
       additionalProperties: false
@@ -10508,6 +11039,7 @@ components:
           type: string
         PermissionsToCreateVolume:
           "$ref": "#/components/schemas/PermissionsOnResource"
+          description: Permissions for the resource.
         Progress:
           description: The progress of the snapshot, as a percentage.
           type: integer
@@ -10540,6 +11072,7 @@ components:
           type: string
         OsuExport:
           "$ref": "#/components/schemas/OsuExportSnapshotExportTask"
+          description: Information about the snapshot export task.
         Progress:
           description: The progress of the snapshot export task, as a percentage.
           type: integer
@@ -10607,6 +11140,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vms:
           description: Information about one or more started VMs.
           items:
@@ -10647,6 +11181,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vms:
           description: Information about one or more stopped VMs.
           items:
@@ -10710,7 +11245,7 @@ components:
       description: Information about the tag.
       properties:
         Key:
-          description: The key of the tag, with a minimum of 1 character.
+          description: The key of the tag, between 1 and 255 characters.
           type: string
         ResourceId:
           description: The ID of the resource.
@@ -10770,6 +11305,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkInternetServiceRequest:
       additionalProperties: false
@@ -10794,6 +11330,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkLoadBalancerBackendMachinesRequest:
       additionalProperties: false
@@ -10823,6 +11360,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkManagedPolicyFromUserGroupRequest:
       additionalProperties: false
@@ -10847,6 +11385,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkNicRequest:
       additionalProperties: false
@@ -10866,6 +11405,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkPolicyRequest:
       additionalProperties: false
@@ -10891,6 +11431,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkPrivateIpsRequest:
       additionalProperties: false
@@ -10917,6 +11458,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkPublicIpRequest:
       additionalProperties: false
@@ -10940,6 +11482,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkRouteTableRequest:
       additionalProperties: false
@@ -10959,6 +11502,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkVirtualGatewayRequest:
       additionalProperties: false
@@ -10983,6 +11527,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UnlinkVolumeRequest:
       additionalProperties: false
@@ -11006,6 +11551,7 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateAccessKeyRequest:
       additionalProperties: false
@@ -11043,8 +11589,10 @@ components:
       properties:
         AccessKey:
           "$ref": "#/components/schemas/AccessKey"
+          description: Information about the access key.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateAccountRequest:
       additionalProperties: false
@@ -11105,8 +11653,10 @@ components:
       properties:
         Account:
           "$ref": "#/components/schemas/Account"
+          description: Information about the account.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateApiAccessPolicyRequest:
       additionalProperties: false
@@ -11138,8 +11688,10 @@ components:
       properties:
         ApiAccessPolicy:
           "$ref": "#/components/schemas/ApiAccessPolicy"
+          description: Information about the API access policy.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateApiAccessRuleRequest:
       additionalProperties: false
@@ -11177,8 +11729,10 @@ components:
       properties:
         ApiAccessRule:
           "$ref": "#/components/schemas/ApiAccessRule"
+          description: Information about the API access rule.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateCaRequest:
       additionalProperties: false
@@ -11201,8 +11755,10 @@ components:
       properties:
         Ca:
           "$ref": "#/components/schemas/Ca"
+          description: Information about the Client Certificate Authority (CA).
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateDedicatedGroupRequest:
       additionalProperties: false
@@ -11226,8 +11782,10 @@ components:
       properties:
         DedicatedGroup:
           "$ref": "#/components/schemas/DedicatedGroup"
+          description: Information about the dedicated group.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateDirectLinkInterfaceRequest:
       additionalProperties: false
@@ -11254,8 +11812,10 @@ components:
       properties:
         DirectLinkInterface:
           "$ref": "#/components/schemas/DirectLinkInterfaces"
+          description: Information about the DirectLink interfaces.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateFlexibleGpuRequest:
       additionalProperties: false
@@ -11278,8 +11838,10 @@ components:
       properties:
         FlexibleGpu:
           "$ref": "#/components/schemas/FlexibleGpu"
+          description: Information about the flexible GPU (fGPU).
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateImageRequest:
       additionalProperties: false
@@ -11296,6 +11858,9 @@ components:
           type: string
         PermissionsToLaunch:
           "$ref": "#/components/schemas/PermissionsOnResourceCreation"
+          description: |-
+            Information about the permissions for the resource.<br />
+            Specify either the `Additions` or the `Removals` parameter.
         ProductCodes:
           description: The product codes associated with the OMI. Any previously set
             value is deleted. Make sure to specify all product codes you want to associate
@@ -11311,8 +11876,10 @@ components:
       properties:
         Image:
           "$ref": "#/components/schemas/Image"
+          description: Information about the OMI.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateListenerRuleRequest:
       additionalProperties: false
@@ -11344,20 +11911,24 @@ components:
       properties:
         ListenerRule:
           "$ref": "#/components/schemas/ListenerRule"
+          description: Information about the listener rule.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateLoadBalancerRequest:
       additionalProperties: false
       properties:
         AccessLog:
           "$ref": "#/components/schemas/AccessLog"
+          description: Information about access logs.
         DryRun:
           description: If true, checks whether you have the required permissions to
             perform the action.
           type: boolean
         HealthCheck:
           "$ref": "#/components/schemas/HealthCheck"
+          description: Information about the health check configuration.
         LoadBalancerName:
           description: The name of the load balancer.
           type: string
@@ -11405,8 +11976,10 @@ components:
       properties:
         LoadBalancer:
           "$ref": "#/components/schemas/LoadBalancer"
+          description: Information about the load balancer.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateNetAccessPointRequest:
       additionalProperties: false
@@ -11438,8 +12011,10 @@ components:
       properties:
         NetAccessPoint:
           "$ref": "#/components/schemas/NetAccessPoint"
+          description: Information about the Net access point.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateNetRequest:
       additionalProperties: false
@@ -11464,8 +12039,10 @@ components:
       properties:
         Net:
           "$ref": "#/components/schemas/Net"
+          description: Information about the Net.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateNicRequest:
       additionalProperties: false
@@ -11479,6 +12056,9 @@ components:
           type: boolean
         LinkNic:
           "$ref": "#/components/schemas/LinkNicToUpdate"
+          description: Information about the NIC attachment. If you are modifying
+            the `DeleteOnVmDeletion` attribute, you must specify the ID of the NIC
+            attachment.
         NicId:
           description: The ID of the NIC you want to modify.
           type: string
@@ -11497,8 +12077,10 @@ components:
       properties:
         Nic:
           "$ref": "#/components/schemas/Nic"
+          description: Information about the NIC.
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateRoutePropagationRequest:
       additionalProperties: false
@@ -11527,8 +12109,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTable:
           "$ref": "#/components/schemas/RouteTable"
+          description: Information about the route table.
       type: object
     UpdateRouteRequest:
       additionalProperties: false
@@ -11569,8 +12153,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         RouteTable:
           "$ref": "#/components/schemas/RouteTable"
+          description: Information about the route table.
       type: object
     UpdateRouteTableLinkRequest:
       additionalProperties: false
@@ -11597,6 +12183,7 @@ components:
           type: string
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
       type: object
     UpdateServerCertificateRequest:
       additionalProperties: false
@@ -11622,8 +12209,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         ServerCertificate:
           "$ref": "#/components/schemas/ServerCertificate"
+          description: Information about the server certificate.
       type: object
     UpdateSnapshotRequest:
       additionalProperties: false
@@ -11634,6 +12223,9 @@ components:
           type: boolean
         PermissionsToCreateVolume:
           "$ref": "#/components/schemas/PermissionsOnResourceCreation"
+          description: |-
+            Information about the permissions for the resource.<br />
+            Specify either the `Additions` or the `Removals` parameter.
         SnapshotId:
           description: The ID of the snapshot.
           type: string
@@ -11646,8 +12238,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Snapshot:
           "$ref": "#/components/schemas/Snapshot"
+          description: Information about the snapshot.
       type: object
     UpdateSubnetRequest:
       additionalProperties: false
@@ -11672,8 +12266,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Subnet:
           "$ref": "#/components/schemas/Subnet"
+          description: Information about the Subnet.
       type: object
     UpdateUserGroupRequest:
       additionalProperties: false
@@ -11704,8 +12300,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         UserGroup:
           "$ref": "#/components/schemas/UserGroup"
+          description: Information about the user group.
         Users:
           description: A list of EIM users.
           items:
@@ -11739,8 +12337,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         User:
           "$ref": "#/components/schemas/User"
+          description: Information about the EIM user.
       type: object
     UpdateVmGroupRequest:
       additionalProperties: false
@@ -11774,14 +12374,17 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmGroup:
           "$ref": "#/components/schemas/VmGroup"
+          description: Information about the VM group.
       type: object
     UpdateVmRequest:
       additionalProperties: false
       properties:
         ActionsOnNextBoot:
           "$ref": "#/components/schemas/ActionsOnNextBoot"
+          description: The action to perform on the next boot of the VM.
         BlockDeviceMappings:
           description: One or more block device mappings of the VM.
           items:
@@ -11847,8 +12450,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Vm:
           "$ref": "#/components/schemas/Vm"
+          description: Information about the VM.
       type: object
     UpdateVmTemplateRequest:
       additionalProperties: false
@@ -11879,8 +12484,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VmTemplate:
           "$ref": "#/components/schemas/VmTemplate"
+          description: Information about the VM template.
       type: object
     UpdateVolumeRequest:
       additionalProperties: false
@@ -11890,23 +12497,21 @@ components:
             perform the action.
           type: boolean
         Iops:
-          description: |-
-            **Cold volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume or if you change the type of the volume for an `io1`. This modification is instantaneous. <br />
-            **Hot volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume. This modification is not instantaneous. <br /><br />
-            The maximum number of IOPS allowed for `io1` volumes is `13000` with a maximum performance ratio of 300 IOPS per gibibyte.
+          description: The new number of I/O operations per second (IOPS). This parameter
+            can be specified only if you update an `io1` volume or if you change the
+            type of the volume for an `io1`.
           type: integer
         Size:
-          description: |-
-            **Cold volume**: the new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous. <br />
-            **Hot volume**: you cannot change the size of a hot volume.
+          description: The new size of the volume, in gibibytes (GiB). This value
+            must be equal to or greater than the current size of the volume. This
+            modification is not instantaneous.
           type: integer
         VolumeId:
           description: The ID of the volume you want to update.
           type: string
         VolumeType:
-          description: |-
-            **Cold volume**: the new type of the volume (`standard` \| `io1` \| `gp2`). This modification is instantaneous. If you update to an `io1` volume, you must also specify the `Iops` parameter.<br />
-            **Hot volume**: you cannot change the type of a hot volume.
+          description: The new type of the volume (`standard` \| `io1` \| `gp2`).
+            If you update to an `io1` volume, you must also specify the `Iops` parameter.
           type: string
       required:
       - VolumeId
@@ -11916,8 +12521,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         Volume:
           "$ref": "#/components/schemas/Volume"
+          description: Information about the volume.
       type: object
     UpdateVpnConnectionRequest:
       additionalProperties: false
@@ -11937,6 +12544,7 @@ components:
           type: string
         VpnOptions:
           "$ref": "#/components/schemas/VpnOptions"
+          description: Information about the VPN options.
       required:
       - VpnConnectionId
       type: object
@@ -11945,8 +12553,10 @@ components:
       properties:
         ResponseContext:
           "$ref": "#/components/schemas/ResponseContext"
+          description: Information about the context of the response.
         VpnConnection:
           "$ref": "#/components/schemas/VpnConnection"
+          description: Information about a VPN connection.
       type: object
     User:
       additionalProperties: false
@@ -12059,6 +12669,7 @@ components:
       properties:
         ActionsOnNextBoot:
           "$ref": "#/components/schemas/ActionsOnNextBoot"
+          description: The action to perform on the next boot of the VM.
         Architecture:
           description: The architecture of the VM (`i386` \| `x86_64`).
           type: string
@@ -12069,6 +12680,7 @@ components:
           type: array
         BootMode:
           "$ref": "#/components/schemas/BootMode"
+          description: The boot mode of the VM.
         BsuOptimized:
           description: This parameter is not available. It is present in our API for
             the sake of historical compatibility with AWS.
@@ -12122,6 +12734,7 @@ components:
           type: string
         Placement:
           "$ref": "#/components/schemas/Placement"
+          description: Information about the placement of the VM.
         PrivateDnsName:
           description: The name of the private DNS.
           type: string
@@ -12169,6 +12782,10 @@ components:
           items:
             "$ref": "#/components/schemas/ResourceTag"
           type: array
+        TpmEnabled:
+          description: If true, a virtual Trusted Platform Module (vTPM) is enabled
+            on the VM. If false, it is not.
+          type: boolean
         UserData:
           description: The Base64-encoded MIME user data.
           type: string
@@ -12413,12 +13030,96 @@ components:
           items:
             "$ref": "#/components/schemas/ResourceTag"
           type: array
+        TaskId:
+          description: The ID of the volume update task in progress. Otherwise, it
+            is not returned.
+          nullable: true
+          type: string
         VolumeId:
           description: The ID of the volume.
           type: string
         VolumeType:
           description: The type of the volume (`standard` \| `gp2` \| `io1`).
           type: string
+      type: object
+    VolumeUpdate:
+      additionalProperties: false
+      description: Information about the update of a volume.
+      properties:
+        Origin:
+          "$ref": "#/components/schemas/VolumeUpdateParameters"
+          description: Information about the parameters of the update of a volume.
+        Target:
+          "$ref": "#/components/schemas/VolumeUpdateParameters"
+          description: Information about the parameters of the update of a volume.
+      type: object
+    VolumeUpdateParameters:
+      additionalProperties: false
+      description: Information about the parameters of the update of a volume.
+      properties:
+        Iops:
+          description: |-
+            The new number of I/O operations per second (IOPS):<br />
+            - For `io1` volumes, the number of provisioned IOPS.<br />
+            - For `gp2` volumes, the baseline performance of the volume.
+          example: 200
+          nullable: true
+          type: integer
+        Size:
+          description: The new size of the volume, in gibibytes (GiB).
+          example: 50
+          type: integer
+        VolumeType:
+          description: The type of the volume (`standard` \| `io1` \| `gp2`).
+          example: io1
+          type: string
+      required:
+      - Iops
+      - Size
+      - VolumeType
+      type: object
+    VolumeUpdateTask:
+      additionalProperties: false
+      description: Information about the volume update task.
+      properties:
+        Comment:
+          description: If the update volume task fails, an error message appears.
+          example: Update of volume vol-12345678
+          type: string
+        CompletionDate:
+          description: The date at which the volume update task was marked as completed.
+          format: date-time
+          type: string
+        Progress:
+          description: The progress of the volume update task, as a percentage.
+          example: 100
+          type: integer
+        StartDate:
+          description: The creation date of the volume update task.
+          format: date-time
+          type: string
+        State:
+          description: The state of the volume (`pending` \| `active` \| `completed`
+            \| `failed` \| `canceled`).
+          example: completed
+          type: string
+        Tags:
+          description: One or more tags associated with the volume update task.
+          items:
+            "$ref": "#/components/schemas/ResourceTag"
+          type: array
+        TaskId:
+          description: The ID of the volume update task in progress. Otherwise, it
+            is not returned.
+          example: vol-update-12345678
+          type: string
+        VolumeId:
+          description: The ID of the updated volume.
+          example: vol-12345678
+          type: string
+        VolumeUpdate:
+          "$ref": "#/components/schemas/VolumeUpdate"
+          description: Information about the update of a volume.
       type: object
     VpnConnection:
       additionalProperties: false
@@ -12470,6 +13171,7 @@ components:
           type: string
         VpnOptions:
           "$ref": "#/components/schemas/VpnOptions"
+          description: Information about the VPN options.
       type: object
     VpnOptions:
       additionalProperties: false
@@ -12477,8 +13179,12 @@ components:
       properties:
         Phase1Options:
           "$ref": "#/components/schemas/Phase1Options"
+          description: This parameter is not available. It is present in our API for
+            the sake of historical compatibility with AWS.
         Phase2Options:
           "$ref": "#/components/schemas/Phase2Options"
+          description: Information about Phase 2 of the Internet Key Exchange (IKE)
+            negotiation.
         TunnelInsideIpRange:
           description: The range of inside IPs for the tunnel. This must be a /30
             CIDR block from the 169.254.254.0/24 range.
@@ -12634,10 +13340,12 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: 1.35.5
-  x-osc-api-osc-billing: 1.35.0
-  x-osc-api-osc-cloud-vision: 1.35.0
-  x-osc-api-osc-core-iaas: 1.35.5
+  version: 1.39.1
+  x-osc-api-osc-billing: 1.38.0
+  x-osc-api-osc-cloud-region: 1.36.1
+  x-osc-api-osc-cloud-vision: 1.36.0
+  x-osc-api-osc-core-iaas: 1.37.1
+  x-osc-api-osc-iam: 1.37.4
   x-osc-api-type: external
 openapi: 3.0.0
 paths:
@@ -13016,9 +13724,6 @@ paths:
   "/CreateDedicatedGroup":
     post:
       description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
         Creates a dedicated group for virtual machines (VMs).<br /><br />
         For more information, see [About Dedicated Groups](https://docs.outscale.com/en/userguide/About-Dedicated-Groups.html).
       operationId: CreateDedicatedGroup
@@ -13247,6 +13952,7 @@ paths:
                       ModelName: nvidia-p100
                       State: allocated
                       FlexibleGpuId: fgpu-12345678
+                      Tags: []
           description: The HTTP 200 response (OK).
       tags:
       - FlexibleGpu
@@ -13314,6 +14020,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Image:
+                      TpmMandatory: false
                       StateComment: {}
                       State: pending
                       RootDeviceType: bsu
@@ -13336,6 +14043,7 @@ paths:
                           SnapshotId: snap-12345678
                       BootModes:
                       - legacy
+                      SecureBoot: false
                       ImageType: machine
                       CreationDate: '2010-10-01T12:34:56.789Z'
                       FileLocation: 123456789012/create-image-example
@@ -13347,6 +14055,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Image:
+                      TpmMandatory: false
                       StateComment: {}
                       State: available
                       RootDeviceType: bsu
@@ -13369,6 +14078,7 @@ paths:
                           SnapshotId: snap-12345678
                       BootModes:
                       - legacy
+                      SecureBoot: false
                       ImageType: machine
                       CreationDate: '2010-10-01T12:34:56.789Z'
                       FileLocation: 123456789012/copy-image-example
@@ -13380,6 +14090,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Image:
+                      TpmMandatory: false
                       StateComment: {}
                       State: available
                       RootDeviceType: bsu
@@ -13403,6 +14114,7 @@ paths:
                           SnapshotId: snap-12345678
                       BootModes:
                       - legacy
+                      SecureBoot: false
                       ImageType: machine
                       CreationDate: '2010-10-01T12:34:56.789Z'
                       FileLocation: 123456789012/register-image-from-snapshot-example
@@ -13414,6 +14126,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Image:
+                      TpmMandatory: false
                       StateComment: {}
                       State: pending
                       RootDeviceType: bsu
@@ -13436,6 +14149,7 @@ paths:
                           SnapshotId: snap-12345678
                       BootModes:
                       - legacy
+                      SecureBoot: false
                       ImageType: machine
                       CreationDate: '2010-10-01T12:34:56.789Z'
                       FileLocation: https://oos.eu-west-2.outscale.com/BUCKET/KEY?AWSAccessKeyId=ABCDEFGHIJ0123456789&Expires=1493372309&Signature=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -13516,7 +14230,7 @@ paths:
     post:
       description: |-
         Creates an internet service you can use with a Net.<br />
-        An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows routing of incoming and outgoing Internet traffic and management of public IP addresses.<br /><br />
+        An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows routing of incoming and outgoing Internet traffic and management of public IPs.<br /><br />
         For more information, see [About Internet Services](https://docs.outscale.com/en/userguide/About-Internet-Services.html).
       operationId: CreateInternetService
       requestBody:
@@ -14306,7 +15020,6 @@ paths:
         This action creates a Net peering that remains in the `pending-acceptance` state until it is accepted by the owner of the peer Net. If the owner of the peer Net does not accept the request within 7 days, the state of the Net peering becomes `expired`. For more information, see [AcceptNetPeering](#acceptnetpeering).<br /><br />
 
         **[IMPORTANT]**<br />
-        * Peered Nets must contain at least one virtual machine (VM) each before the creation of the Net peering.<br />
         * The two Nets must not have overlapping IP ranges. Otherwise, the Net peering is in the `failed` state.<br />
         * A peering connection between two Nets works both ways. If an A-to-B connection is already created and accepted, creating a B-to-A connection is not necessary and would be automatically rejected.
 
@@ -14555,6 +15268,10 @@ paths:
       description: |-
         Creates a version of a specified managed policy.<br />
         A managed policy can have up to five versions.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: CreatePolicyVersion
       requestBody:
         content:
@@ -14885,7 +15602,7 @@ paths:
 
         (Net only) An outbound rule works similarly but allows the security group to send traffic rather than receive traffic.<br />
 
-        Alternatively, you can use the `Rules` parameter to add several rules at the same time.
+        Alternatively, you can use the `Rules` parameter to add several rules at the same time. Note that the `SecurityGroupName` subparameter can only be used for security groups in the public Cloud.
 
         **[NOTE]**<br />
         * The modifications are effective as quickly as possible, but a small delay may occur.<br />
@@ -15278,6 +15995,7 @@ paths:
 
         * Client gateways (cgw-xxxxxxxx)<br />
         * DHCP options (dopt-xxxxxxxx)<br />
+        * Flexible GPU (fgpu-xxxxxxxx)<br />
         * Images (ami-xxxxxxxx)<br />
         * Internet services (igw-xxxxxxxx)<br />
         * Keypairs (key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)<br />
@@ -15287,7 +16005,6 @@ paths:
         * Nets (vpc-xxxxxxxx)<br />
         * Network interface cards (NIC) (eni-xxxxxxxx)<br />
         * OMI export tasks (image-export-xxxxxxxx)<br />
-        * OMIs (ami-xxxxxxxx)<br />
         * Public IPs (eipalloc-xxxxxxxx)<br />
         * Route tables (rtb-xxxxxxxx)<br />
         * Security groups (sg-xxxxxxxx)<br />
@@ -15595,8 +16312,12 @@ paths:
         This action enables you to create a specified number of VMs using an OUTSCALE machine image (OMI) that you are allowed to use, and then to automatically launch them.<br />
         The VMs remain in the `pending` state until they are created and ready to be used. Once automatically launched, they are in the `running` state.<br />
         To check the state of your VMs, call the [ReadVms](#readvms) method.<br />
+        The metadata server enables you to get the public key provided when the VM is launched. Official OMIs contain a script to get this public key and put it inside the VM to provide secure access without password.<br />
         If not specified, the security group used by the service is the default one.<br />
-        The metadata server enables you to get the public key provided when the VM is launched. Official OMIs contain a script to get this public key and put it inside the VM to provide secure access without password.<br /><br />
+
+        **[NOTE]**<br />
+        When you attach a security group to a VM, it is actually attached to the primary network interface of the VM.<br />
+
         For more information, see [About VMs](https://docs.outscale.com/en/userguide/About-VMs.html).
       operationId: CreateVms
       requestBody:
@@ -15671,6 +16392,7 @@ paths:
                       ImageId: ami-12345678
                       DeletionProtection: false
                       BootMode: legacy
+                      TpmEnabled: false
                       Architecture: x86_64
                       NestedVirtualization: false
                       BlockDeviceMappings:
@@ -15718,6 +16440,7 @@ paths:
                       ImageId: ami-12345678
                       DeletionProtection: false
                       BootMode: legacy
+                      TpmEnabled: false
                       Architecture: x86_64
                       NestedVirtualization: false
                       BlockDeviceMappings:
@@ -15789,6 +16512,7 @@ paths:
                       ImageId: ami-12345678
                       DeletionProtection: false
                       BootMode: legacy
+                      TpmEnabled: false
                       Architecture: x86_64
                       NestedVirtualization: false
                       BlockDeviceMappings:
@@ -15866,6 +16590,7 @@ paths:
                       ImageId: ami-12345678
                       DeletionProtection: false
                       BootMode: legacy
+                      TpmEnabled: false
                       Architecture: x86_64
                       NestedVirtualization: false
                       BlockDeviceMappings:
@@ -16247,9 +16972,6 @@ paths:
   "/DeleteDedicatedGroup":
     post:
       description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
         Deletes a specified dedicated group of virtual machines (VMs).<br />
 
         **[WARNING]**<br />
@@ -17085,8 +17807,12 @@ paths:
       - Policy
   "/DeletePolicyVersion":
     post:
-      description: Deletes a specified version of a managed policy, if it is not set
-        as the default one.
+      description: |-
+        Deletes a specified version of a managed policy, if it is not set as the default one.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: DeletePolicyVersion
       requestBody:
         content:
@@ -17363,10 +18089,13 @@ paths:
   "/DeleteSecurityGroupRule":
     post:
       description: |-
-        Deletes one or more inbound or outbound rules from a security group. For the rule to be deleted, the values specified in the deletion request must exactly match the value of the existing rule.<br />
+        Deletes one or more inbound or outbound rules from a security group.<br />
+        For the rule to be deleted, the values specified in the deletion request must exactly match the value of the existing rule.<br />
         In case of TCP and UDP protocols, you have to indicate the destination port or range of ports. In case of ICMP protocol, you have to specify the ICMP type and code numbers.<br />
         Rules (IP permissions) consist of the protocol, IP range or source security group.<br />
-        To remove outbound access to a destination security group, we recommend to use a set of IP permissions. We also recommend to specify the protocol in a set of IP permissions.
+        To remove outbound access to a destination security group, we recommend to use a set of IP permissions. We also recommend to specify the protocol in a set of IP permissions.<br />
+
+        Alternatively, you can use the `Rules` parameter to delete several rules at the same time.
       operationId: DeleteSecurityGroupRule
       requestBody:
         content:
@@ -17700,7 +18429,12 @@ paths:
       - UserGroup
   "/DeleteUserGroupPolicy":
     post:
-      description: Deletes a specified inline policy from a specific group.
+      description: |-
+        Deletes a specified inline policy from a specific group.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when creating or deleting an inline policy.
       operationId: DeleteUserGroupPolicy
       requestBody:
         content:
@@ -17729,7 +18463,12 @@ paths:
       - Policy
   "/DeleteUserPolicy":
     post:
-      description: Deletes a specified inline policy from a specific user.
+      description: |-
+        Deletes a specified inline policy from a specific user.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when creating or deleting an inline policy.
       operationId: DeleteUserPolicy
       requestBody:
         content:
@@ -18058,11 +18797,8 @@ paths:
       - LoadBalancer
   "/DisableOutscaleLogin":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Disables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+      description: Disables the possibility of logging in using the Outscale credentials
+        of your root account when identity federation is activated.
       operationId: DisableOutscaleLogin
       requestBody:
         content:
@@ -18088,11 +18824,8 @@ paths:
       - IdentityProvider
   "/DisableOutscaleLoginForUsers":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Disables the possibility of logging in using the Outscale credentials of your EIM users when identity federation is activated.
+      description: Disables the possibility of logging in using the Outscale credentials
+        of your EIM users when identity federation is activated.
       operationId: DisableOutscaleLoginForUsers
       requestBody:
         content:
@@ -18118,11 +18851,8 @@ paths:
       - IdentityProvider
   "/DisableOutscaleLoginPerUsers":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Disables the possibility for one or more specific users to log in using their Outscale credentials when identity federation is activated.
+      description: Disables the possibility for one or more specific users to log
+        in using their Outscale credentials when identity federation is activated.
       operationId: DisableOutscaleLoginPerUsers
       requestBody:
         content:
@@ -18151,11 +18881,8 @@ paths:
       - IdentityProvider
   "/EnableOutscaleLogin":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Enables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+      description: Enables the possibility of logging in using the Outscale credentials
+        of your root account when identity federation is activated.
       operationId: EnableOutscaleLogin
       requestBody:
         content:
@@ -18181,11 +18908,8 @@ paths:
       - IdentityProvider
   "/EnableOutscaleLoginForUsers":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Enables the possibility for all your EIM users to log in using their Outscale credentials when identity federation is activated.
+      description: Enables the possibility for all your EIM users to log in using
+        their Outscale credentials when identity federation is activated.
       operationId: EnableOutscaleLoginForUsers
       requestBody:
         content:
@@ -18211,11 +18935,8 @@ paths:
       - IdentityProvider
   "/EnableOutscaleLoginPerUsers":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Enables the possibility for one or more specific users to log in using their Outscale credentials when identity federation is activated.
+      description: Enables the possibility for one or more specific users to log in
+        using their Outscale credentials when identity federation is activated.
       operationId: EnableOutscaleLoginPerUsers
       requestBody:
         content:
@@ -18371,8 +19092,12 @@ paths:
       - LoadBalancer
   "/LinkManagedPolicyToUserGroup":
     post:
-      description: Links a managed policy to a specific group. This policy applies
-        to all the users contained in this group.
+      description: |-
+        Links a managed policy to a specific group. This policy applies to all the users contained in this group.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: LinkManagedPolicyToUserGroup
       requestBody:
         content:
@@ -18450,7 +19175,12 @@ paths:
       - Nic
   "/LinkPolicy":
     post:
-      description: Links a managed policy to a specific user.
+      description: |-
+        Links a managed policy to a specific user.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: LinkPolicy
       requestBody:
         content:
@@ -18740,6 +19470,10 @@ paths:
       description: |-
         Creates or updates an inline policy included in a specified group.<br />
         The policy is automatically applied to all the users of the group after its creation.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when creating or deleting an inline policy.
       operationId: PutUserGroupPolicy
       requestBody:
         content:
@@ -18773,6 +19507,10 @@ paths:
       description: |-
         Creates or updates an inline policy included in a specified user.<br />
         The policy is automatically applied to the user after its creation.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when creating or deleting an inline policy.
       operationId: PutUserPolicy
       requestBody:
         content:
@@ -19081,6 +19819,49 @@ paths:
           description: The HTTP 200 response (OK).
       tags:
       - ApiLog
+  "/ReadCO2EmissionAccount":
+    post:
+      description: Gets information about the estimated carbon footprint of your account
+        for the current Region within the specified time period.
+      operationId: ReadCO2EmissionAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReadCO2EmissionAccountRequest"
+            examples:
+              ex1:
+                value:
+                  FromMonth: '2025-05-01'
+                  ToMonth: '2025-06-01'
+                  Overall: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReadCO2EmissionAccountResponse"
+              examples:
+                ex1:
+                  value:
+                    Unit: KG
+                    Value: 2.469
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
+                    CO2EmissionEntries:
+                    - Value: 2.469
+                      AccountId: '123456789012'
+                      CategoryDistribution:
+                      - Value: 1.2345
+                        Category: compute
+                      Month: '2025-05-01'
+                      PayingAccountId: '123456789012'
+                      FactorDistribution:
+                      - Value: 1.2345
+                        Factor: electricity
+          description: The HTTP 200 response (OK).
+      tags:
+      - Account
   "/ReadCas":
     post:
       description: Gets information about one or more of your Client Certificate Authorities
@@ -19307,7 +20088,14 @@ paths:
                 value:
                   FromDate: '2023-06-01'
                   ToDate: '2023-07-01'
+                  ShowPrice: false
+                  ShowResourceDetails: false
+              ex2:
+                value:
+                  FromDate: '2023-06-01'
+                  ToDate: '2023-07-01'
                   ShowPrice: true
+                  ShowResourceDetails: true
       responses:
         '200':
           content:
@@ -19316,35 +20104,70 @@ paths:
                 "$ref": "#/components/schemas/ReadConsumptionAccountResponse"
               examples:
                 ex1:
+                  summary: ReadConsumptionAccount with ShowPrice and ShowResourceDetails
+                    at false
                   value:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     ConsumptionEntries:
-                    - UnitPrice: 0.044
-                      Type: BoxUsage:tinav4.c1r1p2
-                      Operation: RunInstances-OD
+                    - UnitPrice: 0.18
+                      Type: BoxUsage:tinav5.c4r8p2
+                    - FromDate: 2023-06-01 00:00:00.000000000 +00:00
                       SubregionName: eu-west-2a
-                      Value: 1392
-                      Title: Instance - On demand - tinav4.c1r1 high performance -
+                      Value: 1488
+                      Title: Instance - On demand - tinav5.c4r8 high performance -
                         par heure
                       Category: compute
                       ToDate: 2023-06-30 00:00:00.000000000 +00:00
                       Service: TinaOS-FCU
                       AccountId: '123456789012'
                       PayingAccountId: '123456789012'
-                      FromDate: 2023-06-01 00:00:00.000000000 +00:00
-                      Price: 61.248
+                      Operation: RunInstances-OD
+                      Type: BoxUsage:tinav5.c4r8p2
+                ex2:
+                  summary: ReadConsumptionAccount with ShowPrice and ShowResourceDetails
+                    at true
+                  value:
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Currency: EUR
+                    ConsumptionEntries:
+                    - FromDate: 2023-06-01 00:00:00.000000000 +00:00
+                      SubregionName: eu-west-2a
+                      Value: 720
+                      Title: Instance - On demand - tinav5.c4r8 high performance -
+                        par heure
+                      Category: compute
+                      ToDate: 2023-06-30 00:00:00.000000000 +00:00
+                      Service: TinaOS-FCU
+                      AccountId: '123456789012'
+                      PayingAccountId: '123456789012'
+                      Operation: RunInstances-OD
+                      Type: BoxUsage:tinav5.c4r8p2
+                      UnitPrice: 0.18
+                      Price: 267.84
+                      ResourceId: i-12345678
+                    - FromDate: 2023-06-01 00:00:00.000000000 +00:00
+                      SubregionName: eu-west-2a
+                      Value: 1488
+                      Title: Instance - On demand - tinav5.c4r8p2 high performance
+                        - par heure
+                      Category: compute
+                      ToDate: 2023-06-30 00:00:00.000000000 +00:00
+                      Service: TinaOS-FCU
+                      AccountId: '123456789012'
+                      PayingAccountId: '123456789012'
+                      Operation: RunInstances-OD
+                      Type: BoxUsage:tinav5.c4r8p2
+                      UnitPrice: 0.18
+                      Price: 267.84
+                      ResourceId: i-87654321
           description: The HTTP 200 response (OK).
       tags:
       - Account
   "/ReadDedicatedGroups":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        List one or more dedicated groups of virtual machines (VMs).
+      description: List one or more dedicated groups of virtual machines (VMs).
       operationId: ReadDedicatedGroups
       requestBody:
         content:
@@ -19672,6 +20495,7 @@ paths:
                       State: attached
                       SubregionName: eu-west-2a
                       VmId: i-12345678
+                      Tags: []
           description: The HTTP 200 response (OK).
       tags:
       - FlexibleGpu
@@ -19753,7 +20577,8 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Images:
-                    - StateComment: {}
+                    - TpmMandatory: false
+                      StateComment: {}
                       State: available
                       RootDeviceType: bsu
                       RootDeviceName: "/dev/sda1"
@@ -19787,7 +20612,8 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                     Images:
-                    - StateComment: {}
+                    - TpmMandatory: false
+                      StateComment: {}
                       State: available
                       RootDeviceType: bsu
                       RootDeviceName: "/dev/sda1"
@@ -19813,7 +20639,8 @@ paths:
                       FileLocation: Outscale/Ubuntu-2010.10.01-0
                       Architecture: x86_64
                       ImageName: Ubuntu-2010.10.01-0
-                    - StateComment: {}
+                    - TpmMandatory: false
+                      StateComment: {}
                       State: available
                       RootDeviceType: bsu
                       RootDeviceName: "/dev/sda1"
@@ -19867,7 +20694,7 @@ paths:
     post:
       description: |-
         Lists one or more of your internet services.<br />
-        An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows routing of incoming and outgoing Internet traffic and management of public IP addresses.
+        An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows the routing of incoming and outgoing Internet traffic and management of public IPs.
       operationId: ReadInternetServices
       requestBody:
         content:
@@ -22118,6 +22945,7 @@ paths:
                           LinkDate: '2010-10-01T12:34:56.789Z'
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
+                      TpmEnabled: false
                       ReservationId: r-12345678
                       Hypervisor: xen
                       Placement:
@@ -22293,6 +23121,72 @@ paths:
           description: The HTTP 500 response (Internal Server Error).
       tags:
       - Vm
+  "/ReadVolumeUpdateTasks":
+    post:
+      description: Lists one or more specified tasks of volume update.
+      operationId: ReadVolumeUpdateTasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReadVolumeUpdateTasksRequest"
+            examples:
+              ex1:
+                summary: Read a specific volume update task
+                value:
+                  Filters:
+                    TaskIds:
+                    - vol-update-12345678
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReadVolumeUpdateTasksResponse"
+              examples:
+                ex1:
+                  summary: Read a specific volume update task
+                  value:
+                    VolumeUpdateTasks:
+                    - VolumeUpdate:
+                        Target:
+                          Iops: 200
+                          Size: 50
+                          VolumeType: io1
+                        Origin:
+                          Iops: 100
+                          Size: 25
+                          VolumeType: standard
+                      Tags: []
+                      TaskId: vol-update-12345678
+                      Comment: Update of volume vol-12345678
+                      VolumeId: vol-12345678
+                      State: completed
+                      Progress: 100
+                    ResponseContext:
+                      RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
+          description: The HTTP 200 response (OK).
+        '400':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: The HTTP 400 response (Bad Request).
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: The HTTP 401 response (Unauthorized).
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: The HTTP 500 response (Internal Server Error).
+      summary: Lists one or more update tasks of volumes
+      tags:
+      - Volume
   "/ReadVolumes":
     post:
       description: Lists one or more specified Block Storage Unit (BSU) volumes.
@@ -22690,6 +23584,10 @@ paths:
       description: |-
         Sets a specified version of a managed policy as the default (operative) one.<br />
         You can modify the default version of a policy at any time.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: SetDefaultPolicyVersion
       requestBody:
         content:
@@ -22944,7 +23842,12 @@ paths:
       - LoadBalancer
   "/UnlinkManagedPolicyFromUserGroup":
     post:
-      description: Unlinks a managed policy from a specific group.
+      description: |-
+        Unlinks a managed policy from a specific group.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: UnlinkManagedPolicyFromUserGroup
       requestBody:
         content:
@@ -23019,7 +23922,12 @@ paths:
       - Nic
   "/UnlinkPolicy":
     post:
-      description: Removes a managed policy from a specific user.
+      description: |-
+        Removes a managed policy from a specific user.
+        <br /><br />
+
+        **[IMPORTANT]**<br />
+        A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
       operationId: UnlinkPolicy
       requestBody:
         content:
@@ -23547,11 +24455,7 @@ paths:
       - Ca
   "/UpdateDedicatedGroup":
     post:
-      description: |-
-        > [WARNING]<br />
-        > This feature is currently in beta.<br />
-
-        Modifies the name of a specified dedicated group.<br />
+      description: Modifies the name of a specified dedicated group.
       operationId: UpdateDedicatedGroup
       requestBody:
         content:
@@ -23679,6 +24583,7 @@ paths:
                       ModelName: nvidia-p100
                       State: allocated
                       SubregionName: eu-west-2a
+                      Tags: []
           description: The HTTP 200 response (OK).
       tags:
       - FlexibleGpu
@@ -24644,14 +25549,14 @@ paths:
                       AccountIds:
                       - '987654321098'
               ex3:
-                summary: Making an image public to everyone
+                summary: Making a snapshot public to everyone
                 value:
                   SnapshotId: snap-12345678
                   PermissionsToCreateVolume:
                     Additions:
                       GlobalPermission: true
               ex4:
-                summary: Making an image private to everyone
+                summary: Making a snapshot private to everyone
                 value:
                   SnapshotId: snap-12345678
                   PermissionsToCreateVolume:
@@ -24702,7 +25607,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                 ex3:
-                  summary: Making an image public to everyone
+                  summary: Making a snapshot public to everyone
                   value:
                     Snapshot:
                       VolumeSize: 10
@@ -24720,7 +25625,7 @@ paths:
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                 ex4:
-                  summary: Making an image private to everyone
+                  summary: Making a snapshot private to everyone
                   value:
                     Snapshot:
                       VolumeSize: 10
@@ -25209,10 +26114,11 @@ paths:
     post:
       description: |-
         Modifies the specified attributes of a volume.<br />
-        Cold volumes are volumes that are attached to stopped or stopping VMs, or that are detached. Hot volumes are volumes that are attached to running VMs.<br /><br />
 
-        **[NOTE]**<br />
-        When the modification is not instantaneous, the response displays the previous value. You can use the [ReadVolumes](#readvolumes) method to see the new value.
+        **[WARNING]**<br />
+        - We recommend creating a snapshot of your volume before updating it, in case any issue occurs during the process. For more information, see [Creating a Snapshot of a Volume](https://docs.outscale.com/en/userguide/Creating-a-Snapshot-of-a-Volume.html).
+        - Do not shut down or restart the virtual machine (VM) from within the guest operating system while a volume update is in progress. This interrupts the process and compromises the integrity of the volume.
+        - When the modification is not instantaneous, the response displays the previous value. You can use the [ReadVolumeUpdateTasks](#readvolumeupdatetasks) method to see the progression of the update.<br />
       operationId: UpdateVolume
       requestBody:
         content:
@@ -25251,6 +26157,7 @@ paths:
                       Iops: 100
                       LinkedVolumes: []
                       Size: 10
+                      TaskId: vol-update-12345678
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
                 ex2:
@@ -25266,6 +26173,7 @@ paths:
                       Iops: 200
                       LinkedVolumes: []
                       Size: 10
+                      TaskId: vol-update-12345678
                     ResponseContext:
                       RequestId: 0475ca1e-d0c5-441d-712a-da55a4175157
           description: The HTTP 200 response (OK).
