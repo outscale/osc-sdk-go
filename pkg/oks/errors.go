@@ -5,25 +5,34 @@ import (
 	"fmt"
 )
 
-func (e *ValidationError) Error() string {
-	return fmt.Sprintf("[%s] %s", e.Type, e.Details)
-}
+func (e *ErrorResponse) Error() string {
+	var errror string
 
-func (e *HTTPValidationError) Error() string {
-	var msg string
-
-	for i, err := range *e.Errors {
-		if i != 0 {
-			msg += "\n"
-		}
-		msg += err.Error()
+	for _, e := range e.Errors {
+		errror += e.Error() + "\n"
 	}
 
-	return msg
+	return errror
 }
 
-func AsHTTPValidationError(e error) *HTTPValidationError {
-	var err *HTTPValidationError
+func (e *ErrorItem) Error() string {
+	var detail string
+
+	if v, err := e.Details.AsErrorItemDetails0(); err == nil {
+		detail = v
+	}
+
+	if v, err := e.Details.AsErrorItemDetails1(); err == nil {
+		for _, d := range v {
+			detail += fmt.Sprintf("%s: %s, ", d.Type, d.Msg)
+		}
+	}
+
+	return fmt.Sprintf("Error %s: %s", e.Code, detail)
+}
+
+func AsErrorResponse(e error) *ErrorResponse {
+	var err *ErrorResponse
 
 	if errors.As(e, &err) {
 		return err
@@ -33,8 +42,8 @@ func AsHTTPValidationError(e error) *HTTPValidationError {
 }
 
 func isErrorType(err error, code string) bool {
-	if err := AsHTTPValidationError(err); err != nil {
-		for _, error := range *err.Errors {
+	if err := AsErrorResponse(err); err != nil {
+		for _, error := range err.Errors {
 			if error.Code == code {
 				return true
 			}

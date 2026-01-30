@@ -3,14 +3,14 @@ info:
   title: "Example to indicate how to use the OpenAPI Overlay specification (https://github.com/OAI/Overlay-Specification)"
   version: 1.0.0
 actions:
-- target: $.components.schemas.*.*.*[?(@.format == 'datetime')]
-  description: Remove datetime format
+- target: $.components.schemas.*.*.*[?(@.format == 'date-time')]
+  description: Remove date-time format
   update:
     x-go-type: iso8601.Time
     x-go-type-import:
       path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
       name: iso8601
-- target: $.components.schemas.*.*.*[?(@.format == 'date-time')]
+- target: $.components.schemas.*.*.*[?(@.format == 'datetime')]
   description: Remove date-time format
   update:
     x-go-type: iso8601.Time

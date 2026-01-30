@@ -159,10 +159,11 @@ const (
 
 // Defines values for SecureBootAction.
 const (
-	SecureBootActionDisable   SecureBootAction = "disable"
-	SecureBootActionEnable    SecureBootAction = "enable"
-	SecureBootActionNone      SecureBootAction = "none"
-	SecureBootActionSetupMode SecureBootAction = "setup-mode"
+	SecureBootActionDisable            SecureBootAction = "disable"
+	SecureBootActionEnable             SecureBootAction = "enable"
+	SecureBootActionNone               SecureBootAction = "none"
+	SecureBootActionRestoreFactoryKeys SecureBootAction = "restore-factory-keys"
+	SecureBootActionSetupMode          SecureBootAction = "setup-mode"
 )
 
 // Defines values for SnapshotState.
@@ -423,7 +424,7 @@ type Account struct {
 
 // ActionsOnNextBoot The action to perform on the next boot of the VM.
 type ActionsOnNextBoot struct {
-	// SecureBoot One action to perform on the next boot of the VM. For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
+	// SecureBoot One action to perform on the next boot of the VM (`enable` | `disable` | `setup-mode` | `none`). For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
 	SecureBoot *SecureBootAction `json:"SecureBoot,omitempty"`
 }
 
@@ -481,7 +482,7 @@ type ApiAccessRule struct {
 
 // ApplicationStickyCookiePolicy Information about the stickiness policy.
 type ApplicationStickyCookiePolicy struct {
-	// CookieName The name of the application cookie used for stickiness.
+	// CookieName The name of the application cookie used for stickiness, between 1 and 255 characters.
 	CookieName *string `json:"CookieName,omitempty"`
 
 	// PolicyName The mnemonic name for the policy being created. The name must be unique within a set of policies for this load balancer.
@@ -606,6 +607,45 @@ type BsuToUpdateVm struct {
 	VolumeId string `json:"VolumeId"`
 }
 
+// CO2CategoryDistribution The allocation of the `Value` among categories.
+type CO2CategoryDistribution struct {
+	// Category The category of the resource (for example, `storage`).
+	Category *string `json:"Category,omitempty"`
+
+	// Value The total CO2 emissions for the category.
+	Value *float64 `json:"Value,omitempty"`
+}
+
+// CO2EmissionEntry The CO2 emission by month and account, for the specified request.
+type CO2EmissionEntry struct {
+	// AccountId The ID of the account associated with the consumption.
+	AccountId *string `json:"AccountId,omitempty"`
+
+	// CategoryDistribution The allocation of the `Value` among categories.
+	CategoryDistribution *[]CO2CategoryDistribution `json:"CategoryDistribution,omitempty"`
+
+	// FactorDistribution The allocation of the `Value` among factors.
+	FactorDistribution *[]CO2FactorDistribution `json:"FactorDistribution,omitempty"`
+
+	// Month The month associated with the CO2 emission entry.
+	Month *iso8601.Time `json:"Month,omitempty"`
+
+	// PayingAccountId The ID of the paying account related to the `AccountId` parameter.
+	PayingAccountId *string `json:"PayingAccountId,omitempty"`
+
+	// Value The total CO2 emissions for the `Month` and `AccountId` specified. This value corresponds to the sum of all entries in `CategoryDistribution` and `FactorDistributionEntry`.
+	Value *float64 `json:"Value,omitempty"`
+}
+
+// CO2FactorDistribution The allocation of the `Value` among factors.
+type CO2FactorDistribution struct {
+	// Factor The emission source (for example, `hardware`).
+	Factor *string `json:"Factor,omitempty"`
+
+	// Value The total CO2 emissions for the factor.
+	Value *float64 `json:"Value,omitempty"`
+}
+
 // Ca Information about the Client Certificate Authority (CA).
 type Ca struct {
 	// CaFingerprint The fingerprint of the CA.
@@ -728,7 +768,10 @@ type ConsumptionEntry struct {
 	// Price The total price of the consumed resource during the specified time period, in the currency of the Region's catalog.
 	Price *float64 `json:"Price,omitempty"`
 
-	// Service The service of the API call (`TinaOS-FCU`, `TinaOS-LBU`, `TinaOS-DirectLink`, `TinaOS-OOS`, or `TinaOS-OSU`).
+	// ResourceId The ID of the consumed resource.
+	ResourceId *string `json:"ResourceId,omitempty"`
+
+	// Service The service of the API call (`TinaOS-FCU`, `TinaOS-LBU`, `TinaOS-DirectLink`, `TinaOS-OOS`, `TinaOS-OSU`, or `OKS`).
 	Service *string `json:"Service,omitempty"`
 
 	// SubregionName The name of the Subregion.
@@ -1051,7 +1094,7 @@ type CreateImageExportTaskResponse struct {
 
 // CreateImageRequest defines model for CreateImageRequest.
 type CreateImageRequest struct {
-	// Architecture **When registering from a snapshot:** The architecture of the OMI (`i386` or `x86_64`).
+	// Architecture **When registering from a snapshot:** The architecture of the OMI (`i386` or `x86_64`). By default, set to `x86_64`.
 	Architecture *string `json:"Architecture,omitempty"`
 
 	// BlockDeviceMappings **(required) When registering from a snapshot:** One or more block device mappings.
@@ -1087,6 +1130,9 @@ type CreateImageRequest struct {
 
 	// SourceRegionName **(required) When copying an OMI:** The name of the source Region (always the same as the Region of your account).
 	SourceRegionName *string `json:"SourceRegionName,omitempty"`
+
+	// TpmMandatory By default or if set to false, a virtual Trusted Platform Module (vTPM) is not mandatory on VMs created from this OMI. If true, VMs created from this OMI must have a vTPM enabled.
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 
 	// VmId **(required) When creating from a VM:** The ID of the VM from which you want to create the OMI.
 	VmId *string `json:"VmId,omitempty"`
@@ -1187,7 +1233,7 @@ type CreateLoadBalancerPolicyRequest struct {
 	// CookieExpirationPeriod The lifetime of the cookie, in seconds. If not specified, the default value of this parameter is `1`, which means that the sticky session lasts for the duration of the browser session.
 	CookieExpirationPeriod *int `json:"CookieExpirationPeriod,omitempty"`
 
-	// CookieName The name of the application cookie used for stickiness. This parameter is required if you create a stickiness policy based on an application-generated cookie.
+	// CookieName The name of the application cookie used for stickiness, between 1 and 255 characters. This parameter is required if you create a stickiness policy based on an application-generated cookie.
 	CookieName *string `json:"CookieName,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -1576,7 +1622,7 @@ type CreateSecurityGroupRuleRequest struct {
 	// IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all protocols). By default, `-1`. In a Net, this can also be an IP protocol number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). If you specify this parameter, you cannot specify the `Rules` parameter and its subparameters.
 	IpProtocol *string `json:"IpProtocol,omitempty"`
 
-	// IpRange The IP range for the security group rule, in CIDR notation (for example, 10.0.0.0/16). If you specify this parameter, you cannot specify the `Rules` parameter and its subparameters.
+	// IpRange The IP range for the security group rule, in CIDR notation (for example, `10.0.0.0/16`). If you specify this parameter, you cannot specify the `Rules` parameter and its subparameters.
 	IpRange *string `json:"IpRange,omitempty"`
 
 	// Rules Information about the security group rule to create. If you specify this parent parameter and its subparameters, you cannot specify the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`, and `ToPortRange`.
@@ -1945,6 +1991,9 @@ type CreateVmsRequest struct {
 
 	// SubnetId The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the `Nics` parameter.
 	SubnetId *string `json:"SubnetId,omitempty"`
+
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
 
 	// UserData Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html).
 	UserData *string `json:"UserData,omitempty"`
@@ -3275,6 +3324,9 @@ type FiltersFlexibleGpu struct {
 	// SubregionNames The Subregions where the fGPUs are located.
 	SubregionNames *[]string `json:"SubregionNames,omitempty"`
 
+	// Tags One or more tags associated with the fGPUs.
+	Tags *[]Tag `json:"Tags,omitempty"`
+
 	// VmIds One or more IDs of VMs.
 	VmIds *[]string `json:"VmIds,omitempty"`
 }
@@ -3355,6 +3407,9 @@ type FiltersImage struct {
 
 	// Tags The key/value combination of the tags associated with the OMIs, in the following format: &quot;Filters&quot;:{&quot;Tags&quot;:[&quot;TAGKEY=TAGVALUE&quot;]}.
 	Tags *[]string `json:"Tags,omitempty"`
+
+	// TpmMandatory Whether a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI (true) or not (false).
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 
 	// VirtualizationTypes The virtualization types (always `hvm`).
 	VirtualizationTypes *[]string `json:"VirtualizationTypes,omitempty"`
@@ -3920,11 +3975,17 @@ type FiltersTag struct {
 	// ResourceIds The IDs of the resources with which the tags are associated.
 	ResourceIds *[]string `json:"ResourceIds,omitempty"`
 
-	// ResourceTypes The resource type (`customer-gateway` \| `dhcpoptions` \| `image` \| `instance` \| `keypair` \| `natgateway` \| `network-interface` \| `public-ip` \| `route-table` \| `security-group` \| `snapshot` \| `subnet` \| `task` \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint` \| `vpc-peering-connection`\| `vpn-connection`).
+	// ResourceTypes The resource type (`customer-gateway` \| `dhcpoptions` \| `flexible-gpu` \| `image` \| `instance` \| `keypair` \| `natgateway` \| `network-interface` \| `public-ip` \| `route-table` \| `security-group` \| `snapshot` \| `subnet` \| `task` \| `virtual-private-gateway` \| `volume` \| `vpc` \| `vpc-endpoint` \| `vpc-peering-connection`\| `vpn-connection`).
 	ResourceTypes *[]string `json:"ResourceTypes,omitempty"`
 
 	// Values The values of the tags that are assigned to the resources. You can use this filter alongside the `TagKeys` filter. In that case, you filter the resources corresponding to each tag, regardless of the other filter.
 	Values *[]string `json:"Values,omitempty"`
+}
+
+// FiltersUpdateVolumeTask One or more filters.
+type FiltersUpdateVolumeTask struct {
+	// TaskIds The IDs of the volume update tasks.
+	TaskIds *[]string `json:"TaskIds,omitempty"`
 }
 
 // FiltersUserGroup One or more filters.
@@ -4147,6 +4208,9 @@ type FiltersVm struct {
 
 	// Tenancies The tenancies of the VMs (`dedicated` \| `default` \| `host`).
 	Tenancies *[]string `json:"Tenancies,omitempty"`
+
+	// TpmEnabled Whether a virtual Trusted Platform Module (vTPM) is enabled (true) or disabled (false) on the VM.
+	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
 
 	// VmIds One or more IDs of VMs.
 	VmIds *[]string `json:"VmIds,omitempty"`
@@ -4400,6 +4464,9 @@ type FlexibleGpu struct {
 	// SubregionName The Subregion where the fGPU is located.
 	SubregionName *string `json:"SubregionName,omitempty"`
 
+	// Tags One or more tags associated with the fGPU.
+	Tags *[]Tag `json:"Tags,omitempty"`
+
 	// VmId The ID of the VM the fGPU is attached to, if any.
 	VmId *string `json:"VmId,omitempty"`
 }
@@ -4507,6 +4574,9 @@ type Image struct {
 
 	// Tags One or more tags associated with the OMI.
 	Tags []ResourceTag `json:"Tags"`
+
+	// TpmMandatory If true, a virtual Trusted Platform Module (vTPM) is mandatory for VMs created from this OMI. If false, a vTPM is not mandatory.
+	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 }
 
 // ImageState The state of the OMI (`pending` \| `available` \| `failed`).
@@ -5965,6 +6035,33 @@ type ReadApiLogsResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
+// ReadCO2EmissionAccountRequest defines model for ReadCO2EmissionAccountRequest.
+type ReadCO2EmissionAccountRequest struct {
+	// FromMonth The beginning of the time period, in ISO 8601 date format (for example, `2020-06-01`). This value must correspond to the first day of the month and is included in the time period.
+	FromMonth iso8601.Time `json:"FromMonth"`
+
+	// Overall If false, returns only the CO2 emission of the specific account that sends the request. If true, returns either the overall CO2 emission of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
+	Overall *bool `json:"Overall,omitempty"`
+
+	// ToMonth The end of the time period, in ISO 8601 date format (for example, `2020-06-14`). This value must correspond to the first day of the month and is excluded from the time period. It must be set to a later date than `FromMonth`.
+	ToMonth iso8601.Time `json:"ToMonth"`
+}
+
+// ReadCO2EmissionAccountResponse defines model for ReadCO2EmissionAccountResponse.
+type ReadCO2EmissionAccountResponse struct {
+	// CO2EmissionEntries The CO2 emission by month and account, for the specified request.
+	CO2EmissionEntries *[]CO2EmissionEntry `json:"CO2EmissionEntries,omitempty"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+
+	// Unit The unit of all the `Value` fields of the response, expressed in kgCO₂e.
+	Unit *string `json:"Unit,omitempty"`
+
+	// Value The total CO2 emission for the specified request.
+	Value *float64 `json:"Value,omitempty"`
+}
+
 // ReadCasRequest defines model for ReadCasRequest.
 type ReadCasRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -6075,8 +6172,11 @@ type ReadConsumptionAccountRequest struct {
 	// Overall If false, returns only the consumption of the specific account that sends this request. If true, returns either the overall consumption of your paying account and all linked accounts (if the account that sends this request is a paying account) or returns nothing (if the account that sends this request is a linked account).
 	Overall *bool `json:"Overall,omitempty"`
 
-	// ShowPrice If true, the response also includes the unit price of the consumed resource (`UnitPrice`) and the total price of the consumed resource during the specified time period (`Price`), in the currency of your account.
+	// ShowPrice If true, the response also includes the unit price of the consumed resource (`UnitPrice`) and the total price of the consumed resource during the specified time period (`Price`), in the currency of the Region's catalog.
 	ShowPrice *bool `json:"ShowPrice,omitempty"`
+
+	// ShowResourceDetails By default or if false, returns the consumption aggregated by resource type. If true, the response returns the consumption per `ResourceId`.
+	ShowResourceDetails *bool `json:"ShowResourceDetails,omitempty"`
 
 	// ToDate The end of the time period, in ISO 8601 date format (for example, `2020-06-30`). The date-time format is also accepted, but only with a time set to midnight (for example, `2020-06-30T00:00:00.000Z`). This value is excluded from the time period, and must be set to a later date than `FromDate`.
 	ToDate iso8601.Time `json:"ToDate"`
@@ -6211,7 +6311,7 @@ type ReadEntitiesLinkedToPolicyRequest struct {
 	FirstItem *int `json:"FirstItem,omitempty"`
 
 	// PolicyOrn The OUTSCALE Resource Name (ORN) of the policy. For more information, see [Resource Identifiers](https://docs.outscale.com/en/userguide/Resource-Identifiers.html).
-	PolicyOrn *string `json:"PolicyOrn,omitempty"`
+	PolicyOrn string `json:"PolicyOrn"`
 
 	// ResultsPerPage The maximum number of items that can be returned in a single response (by default, 100).
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
@@ -7543,6 +7643,33 @@ type ReadVmsStateResponse struct {
 	VmStates *[]VmStates `json:"VmStates,omitempty"`
 }
 
+// ReadVolumeUpdateTasksRequest defines model for ReadVolumeUpdateTasksRequest.
+type ReadVolumeUpdateTasksRequest struct {
+	// DryRun If true, checks whether you have the required permissions to perform the action.
+	DryRun *bool `json:"DryRun,omitempty"`
+
+	// Filters One or more filters.
+	Filters *FiltersUpdateVolumeTask `json:"Filters,omitempty"`
+
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *string `json:"NextPageToken,omitempty"`
+
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included). By default, `100`.
+	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
+}
+
+// ReadVolumeUpdateTasksResponse defines model for ReadVolumeUpdateTasksResponse.
+type ReadVolumeUpdateTasksResponse struct {
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *string `json:"NextPageToken,omitempty"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+
+	// VolumeUpdateTasks Information about one or more volume update tasks.
+	VolumeUpdateTasks *[]VolumeUpdateTask `json:"VolumeUpdateTasks,omitempty"`
+}
+
 // ReadVolumesRequest defines model for ReadVolumesRequest.
 type ReadVolumesRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -7687,7 +7814,7 @@ type ResourceLoadBalancerTag struct {
 
 // ResourceTag Information about the tag.
 type ResourceTag struct {
-	// Key The key of the tag, with a minimum of 1 character.
+	// Key The key of the tag, between 1 and 255 characters.
 	Key string `json:"Key"`
 
 	// Value The value of the tag, between 0 and 255 characters.
@@ -7811,7 +7938,7 @@ type ScaleUpVmGroupResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
-// SecureBootAction One action to perform on the next boot of the VM. For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
+// SecureBootAction One action to perform on the next boot of the VM (`enable` | `disable` | `setup-mode` | `none`). For more information, see [About Secure Boot](https://docs.outscale.com/en/userguide/About-Secure-Boot.html#_secure_boot_actions).
 type SecureBootAction string
 
 // SecurityGroup Information about the security group.
@@ -7858,8 +7985,11 @@ type SecurityGroupRule struct {
 	// IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`, or `-1` for all protocols). By default, `-1`. In a Net, this can also be an IP protocol number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
 	IpProtocol string `json:"IpProtocol,omitempty"`
 
-	// IpRanges One or more IP ranges for the security group rules, in CIDR notation (for example, `10.0.0.0/16`).
+	// IpRanges One or more IP ranges for the security group rules, in CIDR notation (for example, `[&quot;10.0.0.0/24&quot; , &quot;10.0.1.0/24&quot;]`).
 	IpRanges []string `json:"IpRanges,omitempty"`
+
+	// SecurityGroupRuleId The ID of the security group rule.
+	SecurityGroupRuleId string `json:"SecurityGroupRuleId,omitempty"`
 
 	// SecurityGroupsMembers Information about one or more source or destination security groups.
 	SecurityGroupsMembers []SecurityGroupsMember `json:"SecurityGroupsMembers,omitempty"`
@@ -7879,13 +8009,13 @@ type SecurityGroupsMember struct {
 	// SecurityGroupId The ID of a source or destination security group that you want to link to the security group of the rule.
 	SecurityGroupId string `json:"SecurityGroupId"`
 
-	// SecurityGroupName (Public Cloud only) The name of a source or destination security group that you want to link to the security group of the rule.
+	// SecurityGroupName The name of a source or destination security group that you want to link to the security group of the rule.
 	SecurityGroupName *string `json:"SecurityGroupName,omitempty"`
 }
 
 // ServerCertificate Information about the server certificate.
 type ServerCertificate struct {
-	// ExpirationDate The date on which the server certificate expires.
+	// ExpirationDate The date and time (UTC) on which the server certificate expires.
 	ExpirationDate *iso8601.Time `json:"ExpirationDate,omitempty"`
 
 	// Id The ID of the server certificate.
@@ -7900,7 +8030,7 @@ type ServerCertificate struct {
 	// Path The path to the server certificate.
 	Path *string `json:"Path,omitempty"`
 
-	// UploadDate The date on which the server certificate has been uploaded.
+	// UploadDate The date and time (UTC) on which the server certificate has been uploaded.
 	UploadDate *iso8601.Time `json:"UploadDate,omitempty"`
 }
 
@@ -8117,7 +8247,7 @@ type Subregion struct {
 
 // Tag Information about the tag.
 type Tag struct {
-	// Key The key of the tag, with a minimum of 1 character.
+	// Key The key of the tag, between 1 and 255 characters.
 	Key string `json:"Key"`
 
 	// ResourceId The ID of the resource.
@@ -9058,20 +9188,16 @@ type UpdateVolumeRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// Iops **Cold volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume or if you change the type of the volume for an `io1`. This modification is instantaneous. <br />
-	// **Hot volume**: the new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume. This modification is not instantaneous. <br /><br />
-	// The maximum number of IOPS allowed for `io1` volumes is `13000` with a maximum performance ratio of 300 IOPS per gibibyte.
+	// Iops The new number of I/O operations per second (IOPS). This parameter can be specified only if you update an `io1` volume or if you change the type of the volume for an `io1`.
 	Iops *int `json:"Iops,omitempty"`
 
-	// Size **Cold volume**: the new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous. <br />
-	// **Hot volume**: you cannot change the size of a hot volume.
+	// Size The new size of the volume, in gibibytes (GiB). This value must be equal to or greater than the current size of the volume. This modification is not instantaneous.
 	Size *int `json:"Size,omitempty"`
 
 	// VolumeId The ID of the volume you want to update.
 	VolumeId string `json:"VolumeId"`
 
-	// VolumeType **Cold volume**: the new type of the volume (`standard` \| `io1` \| `gp2`). This modification is instantaneous. If you update to an `io1` volume, you must also specify the `Iops` parameter.<br />
-	// **Hot volume**: you cannot change the type of a hot volume.
+	// VolumeType The new type of the volume (`standard` \| `io1` \| `gp2`). If you update to an `io1` volume, you must also specify the `Iops` parameter.
 	VolumeType *VolumeType `json:"VolumeType,omitempty"`
 }
 
@@ -9290,6 +9416,9 @@ type Vm struct {
 	// Tags One or more tags associated with the VM.
 	Tags []ResourceTag `json:"Tags"`
 
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	TpmEnabled bool `json:"TpmEnabled"`
+
 	// UserData The Base64-encoded MIME user data.
 	UserData string `json:"UserData"`
 
@@ -9481,6 +9610,9 @@ type Volume struct {
 	// Tags One or more tags associated with the volume.
 	Tags []ResourceTag `json:"Tags"`
 
+	// TaskId The ID of the volume update task in progress. Otherwise, it is not returned.
+	TaskId *string `json:"TaskId"`
+
 	// VolumeId The ID of the volume.
 	VolumeId string `json:"VolumeId"`
 
@@ -9493,6 +9625,59 @@ type VolumeState string
 
 // VolumeType defines model for VolumeType.
 type VolumeType string
+
+// VolumeUpdate Information about the update of a volume.
+type VolumeUpdate struct {
+	// Origin Information about the parameters of the update of a volume.
+	Origin *VolumeUpdateParameters `json:"Origin,omitempty"`
+
+	// Target Information about the parameters of the update of a volume.
+	Target *VolumeUpdateParameters `json:"Target,omitempty"`
+}
+
+// VolumeUpdateParameters Information about the parameters of the update of a volume.
+type VolumeUpdateParameters struct {
+	// Iops The new number of I/O operations per second (IOPS):<br />
+	// - For `io1` volumes, the number of provisioned IOPS.<br />
+	// - For `gp2` volumes, the baseline performance of the volume.
+	Iops *int `json:"Iops"`
+
+	// Size The new size of the volume, in gibibytes (GiB).
+	Size int `json:"Size"`
+
+	// VolumeType The type of the volume (`standard` \| `io1` \| `gp2`).
+	VolumeType string `json:"VolumeType"`
+}
+
+// VolumeUpdateTask Information about the volume update task.
+type VolumeUpdateTask struct {
+	// Comment If the update volume task fails, an error message appears.
+	Comment *string `json:"Comment,omitempty"`
+
+	// CompletionDate The date at which the volume update task was marked as completed.
+	CompletionDate *iso8601.Time `json:"CompletionDate,omitempty"`
+
+	// Progress The progress of the volume update task, as a percentage.
+	Progress *int `json:"Progress,omitempty"`
+
+	// StartDate The creation date of the volume update task.
+	StartDate *iso8601.Time `json:"StartDate,omitempty"`
+
+	// State The state of the volume (`pending` \| `active` \| `completed` \| `failed` \| `canceled`).
+	State *string `json:"State,omitempty"`
+
+	// Tags One or more tags associated with the volume update task.
+	Tags *[]ResourceTag `json:"Tags,omitempty"`
+
+	// TaskId The ID of the volume update task in progress. Otherwise, it is not returned.
+	TaskId *string `json:"TaskId,omitempty"`
+
+	// VolumeId The ID of the updated volume.
+	VolumeId *string `json:"VolumeId,omitempty"`
+
+	// VolumeUpdate Information about the update of a volume.
+	VolumeUpdate *VolumeUpdate `json:"VolumeUpdate,omitempty"`
+}
 
 // VpnConnection Information about a VPN connection.
 type VpnConnection struct {
@@ -9956,6 +10141,9 @@ type ReadApiAccessRulesJSONRequestBody = ReadApiAccessRulesRequest
 // ReadApiLogsJSONRequestBody defines body for ReadApiLogs for application/json ContentType.
 type ReadApiLogsJSONRequestBody = ReadApiLogsRequest
 
+// ReadCO2EmissionAccountJSONRequestBody defines body for ReadCO2EmissionAccount for application/json ContentType.
+type ReadCO2EmissionAccountJSONRequestBody = ReadCO2EmissionAccountRequest
+
 // ReadCasJSONRequestBody defines body for ReadCas for application/json ContentType.
 type ReadCasJSONRequestBody = ReadCasRequest
 
@@ -10144,6 +10332,9 @@ type ReadVmsHealthJSONRequestBody = ReadVmsHealthRequest
 
 // ReadVmsStateJSONRequestBody defines body for ReadVmsState for application/json ContentType.
 type ReadVmsStateJSONRequestBody = ReadVmsStateRequest
+
+// ReadVolumeUpdateTasksJSONRequestBody defines body for ReadVolumeUpdateTasks for application/json ContentType.
+type ReadVolumeUpdateTasksJSONRequestBody = ReadVolumeUpdateTasksRequest
 
 // ReadVolumesJSONRequestBody defines body for ReadVolumes for application/json ContentType.
 type ReadVolumesJSONRequestBody = ReadVolumesRequest
@@ -10912,6 +11103,11 @@ type clientInterfaceRaw interface {
 
 	ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
+	// ReadCO2EmissionAccountWithBodyRaw request with any body
+	ReadCO2EmissionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	ReadCO2EmissionAccountRaw(ctx context.Context, body ReadCO2EmissionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
 	// ReadCasWithBodyRaw request with any body
 	ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
@@ -11226,6 +11422,11 @@ type clientInterfaceRaw interface {
 	ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	// ReadVolumeUpdateTasksWithBodyRaw request with any body
+	ReadVolumeUpdateTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	ReadVolumeUpdateTasksRaw(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVolumesWithBodyRaw request with any body
 	ReadVolumesWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
@@ -15106,6 +15307,36 @@ func (c *ClientRaw) ReadApiLogsRaw(ctx context.Context, body ReadApiLogsJSONRequ
 	return client.RoundTrip(req)
 }
 
+func (c *ClientRaw) ReadCO2EmissionAccountWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadCO2EmissionAccountRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadCO2EmissionAccountRaw(ctx context.Context, body ReadCO2EmissionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadCO2EmissionAccountRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
 func (c *ClientRaw) ReadCasWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadCasRequestWithBody(c.Server, contentType, body)
 	if err != nil {
@@ -16983,6 +17214,36 @@ func (c *ClientRaw) ReadVmsStateWithBodyRaw(ctx context.Context, contentType str
 
 func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsStateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVolumeUpdateTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVolumeUpdateTasksRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVolumeUpdateTasksRaw(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVolumeUpdateTasksRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -23306,6 +23567,46 @@ func NewReadApiLogsRequestWithBody(server string, contentType string, body io.Re
 	return req, nil
 }
 
+// NewReadCO2EmissionAccountRequest calls the generic ReadCO2EmissionAccount builder with application/json body
+func NewReadCO2EmissionAccountRequest(server string, body ReadCO2EmissionAccountJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReadCO2EmissionAccountRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewReadCO2EmissionAccountRequestWithBody generates requests for ReadCO2EmissionAccount with any type of body
+func NewReadCO2EmissionAccountRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ReadCO2EmissionAccount")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewReadCasRequest calls the generic ReadCas builder with application/json body
 func NewReadCasRequest(server string, body ReadCasJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -25807,6 +26108,46 @@ func NewReadVmsStateRequestWithBody(server string, contentType string, body io.R
 	}
 
 	operationPath := fmt.Sprintf("/ReadVmsState")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewReadVolumeUpdateTasksRequest calls the generic ReadVolumeUpdateTasks builder with application/json body
+func NewReadVolumeUpdateTasksRequest(server string, body ReadVolumeUpdateTasksJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReadVolumeUpdateTasksRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewReadVolumeUpdateTasksRequestWithBody generates requests for ReadVolumeUpdateTasks with any type of body
+func NewReadVolumeUpdateTasksRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ReadVolumeUpdateTasks")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -28417,6 +28758,11 @@ type ClientInterface interface {
 
 	ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error)
 
+	// ReadCO2EmissionAccountWithBody request with any body
+	ReadCO2EmissionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCO2EmissionAccountResponse, error)
+
+	ReadCO2EmissionAccount(ctx context.Context, body ReadCO2EmissionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCO2EmissionAccountResponse, error)
+
 	// ReadCasWithBody request with any body
 	ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error)
 
@@ -28732,6 +29078,11 @@ type ClientInterface interface {
 
 	ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
 
+	// ReadVolumeUpdateTasksWithBody request with any body
+	ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error)
+
+	ReadVolumeUpdateTasks(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error)
+
 	// ReadVolumesWithBody request with any body
 	ReadVolumesWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error)
 
@@ -29030,7 +29381,7 @@ func (r AcceptNetPeeringResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type AddUserToUserGroupResp struct {
@@ -29065,7 +29416,7 @@ func (r AddUserToUserGroupResp) Expect() (*AddUserToUserGroupResponse, error) {
 
 func (r AddUserToUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CheckAuthenticationResp struct {
@@ -29100,7 +29451,7 @@ func (r CheckAuthenticationResp) Expect() (*CheckAuthenticationResponse, error) 
 
 func (r CheckAuthenticationResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateAccessKeyResp struct {
@@ -29135,7 +29486,7 @@ func (r CreateAccessKeyResp) Expect() (*CreateAccessKeyResponse, error) {
 
 func (r CreateAccessKeyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateAccountResp struct {
@@ -29170,7 +29521,7 @@ func (r CreateAccountResp) Expect() (*CreateAccountResponse, error) {
 
 func (r CreateAccountResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateApiAccessRuleResp struct {
@@ -29205,7 +29556,7 @@ func (r CreateApiAccessRuleResp) Expect() (*CreateApiAccessRuleResponse, error) 
 
 func (r CreateApiAccessRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateCaResp struct {
@@ -29240,7 +29591,7 @@ func (r CreateCaResp) Expect() (*CreateCaResponse, error) {
 
 func (r CreateCaResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateClientGatewayResp struct {
@@ -29275,7 +29626,7 @@ func (r CreateClientGatewayResp) Expect() (*CreateClientGatewayResponse, error) 
 
 func (r CreateClientGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateDedicatedGroupResp struct {
@@ -29325,7 +29676,7 @@ func (r CreateDedicatedGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateDhcpOptionsResp struct {
@@ -29360,7 +29711,7 @@ func (r CreateDhcpOptionsResp) Expect() (*CreateDhcpOptionsResponse, error) {
 
 func (r CreateDhcpOptionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateDirectLinkResp struct {
@@ -29395,7 +29746,7 @@ func (r CreateDirectLinkResp) Expect() (*CreateDirectLinkResponse, error) {
 
 func (r CreateDirectLinkResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateDirectLinkInterfaceResp struct {
@@ -29430,7 +29781,7 @@ func (r CreateDirectLinkInterfaceResp) Expect() (*CreateDirectLinkInterfaceRespo
 
 func (r CreateDirectLinkInterfaceResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateFlexibleGpuResp struct {
@@ -29465,7 +29816,7 @@ func (r CreateFlexibleGpuResp) Expect() (*CreateFlexibleGpuResponse, error) {
 
 func (r CreateFlexibleGpuResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateImageResp struct {
@@ -29515,7 +29866,7 @@ func (r CreateImageResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateImageExportTaskResp struct {
@@ -29550,7 +29901,7 @@ func (r CreateImageExportTaskResp) Expect() (*CreateImageExportTaskResponse, err
 
 func (r CreateImageExportTaskResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateInternetServiceResp struct {
@@ -29600,7 +29951,7 @@ func (r CreateInternetServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateKeypairResp struct {
@@ -29655,7 +30006,7 @@ func (r CreateKeypairResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateListenerRuleResp struct {
@@ -29690,7 +30041,7 @@ func (r CreateListenerRuleResp) Expect() (*CreateListenerRuleResponse, error) {
 
 func (r CreateListenerRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateLoadBalancerResp struct {
@@ -29725,7 +30076,7 @@ func (r CreateLoadBalancerResp) Expect() (*CreateLoadBalancerResponse, error) {
 
 func (r CreateLoadBalancerResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateLoadBalancerListenersResp struct {
@@ -29760,7 +30111,7 @@ func (r CreateLoadBalancerListenersResp) Expect() (*CreateLoadBalancerListenersR
 
 func (r CreateLoadBalancerListenersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateLoadBalancerPolicyResp struct {
@@ -29795,7 +30146,7 @@ func (r CreateLoadBalancerPolicyResp) Expect() (*CreateLoadBalancerPolicyRespons
 
 func (r CreateLoadBalancerPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateLoadBalancerTagsResp struct {
@@ -29830,7 +30181,7 @@ func (r CreateLoadBalancerTagsResp) Expect() (*CreateLoadBalancerTagsResponse, e
 
 func (r CreateLoadBalancerTagsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateNatServiceResp struct {
@@ -29880,7 +30231,7 @@ func (r CreateNatServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateNetResp struct {
@@ -29935,7 +30286,7 @@ func (r CreateNetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateNetAccessPointResp struct {
@@ -29970,7 +30321,7 @@ func (r CreateNetAccessPointResp) Expect() (*CreateNetAccessPointResponse, error
 
 func (r CreateNetAccessPointResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateNetPeeringResp struct {
@@ -30020,7 +30371,7 @@ func (r CreateNetPeeringResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateNicResp struct {
@@ -30070,7 +30421,7 @@ func (r CreateNicResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreatePolicyResp struct {
@@ -30105,7 +30456,7 @@ func (r CreatePolicyResp) Expect() (*CreatePolicyResponse, error) {
 
 func (r CreatePolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreatePolicyVersionResp struct {
@@ -30140,7 +30491,7 @@ func (r CreatePolicyVersionResp) Expect() (*CreatePolicyVersionResponse, error) 
 
 func (r CreatePolicyVersionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateProductTypeResp struct {
@@ -30175,7 +30526,7 @@ func (r CreateProductTypeResp) Expect() (*CreateProductTypeResponse, error) {
 
 func (r CreateProductTypeResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreatePublicIpResp struct {
@@ -30225,7 +30576,7 @@ func (r CreatePublicIpResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateRouteResp struct {
@@ -30275,7 +30626,7 @@ func (r CreateRouteResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateRouteTableResp struct {
@@ -30325,7 +30676,7 @@ func (r CreateRouteTableResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateSecurityGroupResp struct {
@@ -30375,7 +30726,7 @@ func (r CreateSecurityGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateSecurityGroupRuleResp struct {
@@ -30425,7 +30776,7 @@ func (r CreateSecurityGroupRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateServerCertificateResp struct {
@@ -30460,7 +30811,7 @@ func (r CreateServerCertificateResp) Expect() (*CreateServerCertificateResponse,
 
 func (r CreateServerCertificateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateSnapshotResp struct {
@@ -30510,7 +30861,7 @@ func (r CreateSnapshotResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateSnapshotExportTaskResp struct {
@@ -30545,7 +30896,7 @@ func (r CreateSnapshotExportTaskResp) Expect() (*CreateSnapshotExportTaskRespons
 
 func (r CreateSnapshotExportTaskResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateSubnetResp struct {
@@ -30600,7 +30951,7 @@ func (r CreateSubnetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateTagsResp struct {
@@ -30650,7 +31001,7 @@ func (r CreateTagsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateUserResp struct {
@@ -30685,7 +31036,7 @@ func (r CreateUserResp) Expect() (*CreateUserResponse, error) {
 
 func (r CreateUserResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateUserGroupResp struct {
@@ -30720,7 +31071,7 @@ func (r CreateUserGroupResp) Expect() (*CreateUserGroupResponse, error) {
 
 func (r CreateUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVirtualGatewayResp struct {
@@ -30755,7 +31106,7 @@ func (r CreateVirtualGatewayResp) Expect() (*CreateVirtualGatewayResponse, error
 
 func (r CreateVirtualGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVmGroupResp struct {
@@ -30805,7 +31156,7 @@ func (r CreateVmGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVmTemplateResp struct {
@@ -30840,7 +31191,7 @@ func (r CreateVmTemplateResp) Expect() (*CreateVmTemplateResponse, error) {
 
 func (r CreateVmTemplateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVmsResp struct {
@@ -30890,7 +31241,7 @@ func (r CreateVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVolumeResp struct {
@@ -30940,7 +31291,7 @@ func (r CreateVolumeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVpnConnectionResp struct {
@@ -30975,7 +31326,7 @@ func (r CreateVpnConnectionResp) Expect() (*CreateVpnConnectionResponse, error) 
 
 func (r CreateVpnConnectionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type CreateVpnConnectionRouteResp struct {
@@ -31010,7 +31361,7 @@ func (r CreateVpnConnectionRouteResp) Expect() (*CreateVpnConnectionRouteRespons
 
 func (r CreateVpnConnectionRouteResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteAccessKeyResp struct {
@@ -31045,7 +31396,7 @@ func (r DeleteAccessKeyResp) Expect() (*DeleteAccessKeyResponse, error) {
 
 func (r DeleteAccessKeyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteApiAccessRuleResp struct {
@@ -31080,7 +31431,7 @@ func (r DeleteApiAccessRuleResp) Expect() (*DeleteApiAccessRuleResponse, error) 
 
 func (r DeleteApiAccessRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteCaResp struct {
@@ -31115,7 +31466,7 @@ func (r DeleteCaResp) Expect() (*DeleteCaResponse, error) {
 
 func (r DeleteCaResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteClientGatewayResp struct {
@@ -31150,7 +31501,7 @@ func (r DeleteClientGatewayResp) Expect() (*DeleteClientGatewayResponse, error) 
 
 func (r DeleteClientGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteDedicatedGroupResp struct {
@@ -31200,7 +31551,7 @@ func (r DeleteDedicatedGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteDhcpOptionsResp struct {
@@ -31235,7 +31586,7 @@ func (r DeleteDhcpOptionsResp) Expect() (*DeleteDhcpOptionsResponse, error) {
 
 func (r DeleteDhcpOptionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteDirectLinkResp struct {
@@ -31270,7 +31621,7 @@ func (r DeleteDirectLinkResp) Expect() (*DeleteDirectLinkResponse, error) {
 
 func (r DeleteDirectLinkResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteDirectLinkInterfaceResp struct {
@@ -31305,7 +31656,7 @@ func (r DeleteDirectLinkInterfaceResp) Expect() (*DeleteDirectLinkInterfaceRespo
 
 func (r DeleteDirectLinkInterfaceResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteExportTaskResp struct {
@@ -31340,7 +31691,7 @@ func (r DeleteExportTaskResp) Expect() (*DeleteExportTaskResponse, error) {
 
 func (r DeleteExportTaskResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteFlexibleGpuResp struct {
@@ -31375,7 +31726,7 @@ func (r DeleteFlexibleGpuResp) Expect() (*DeleteFlexibleGpuResponse, error) {
 
 func (r DeleteFlexibleGpuResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteImageResp struct {
@@ -31425,7 +31776,7 @@ func (r DeleteImageResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteInternetServiceResp struct {
@@ -31475,7 +31826,7 @@ func (r DeleteInternetServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteKeypairResp struct {
@@ -31525,7 +31876,7 @@ func (r DeleteKeypairResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteListenerRuleResp struct {
@@ -31560,7 +31911,7 @@ func (r DeleteListenerRuleResp) Expect() (*DeleteListenerRuleResponse, error) {
 
 func (r DeleteListenerRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteLoadBalancerResp struct {
@@ -31595,7 +31946,7 @@ func (r DeleteLoadBalancerResp) Expect() (*DeleteLoadBalancerResponse, error) {
 
 func (r DeleteLoadBalancerResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteLoadBalancerListenersResp struct {
@@ -31630,7 +31981,7 @@ func (r DeleteLoadBalancerListenersResp) Expect() (*DeleteLoadBalancerListenersR
 
 func (r DeleteLoadBalancerListenersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteLoadBalancerPolicyResp struct {
@@ -31665,7 +32016,7 @@ func (r DeleteLoadBalancerPolicyResp) Expect() (*DeleteLoadBalancerPolicyRespons
 
 func (r DeleteLoadBalancerPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteLoadBalancerTagsResp struct {
@@ -31700,7 +32051,7 @@ func (r DeleteLoadBalancerTagsResp) Expect() (*DeleteLoadBalancerTagsResponse, e
 
 func (r DeleteLoadBalancerTagsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteNatServiceResp struct {
@@ -31750,7 +32101,7 @@ func (r DeleteNatServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteNetResp struct {
@@ -31800,7 +32151,7 @@ func (r DeleteNetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteNetAccessPointResp struct {
@@ -31835,7 +32186,7 @@ func (r DeleteNetAccessPointResp) Expect() (*DeleteNetAccessPointResponse, error
 
 func (r DeleteNetAccessPointResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteNetPeeringResp struct {
@@ -31890,7 +32241,7 @@ func (r DeleteNetPeeringResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteNicResp struct {
@@ -31940,7 +32291,7 @@ func (r DeleteNicResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeletePolicyResp struct {
@@ -31975,7 +32326,7 @@ func (r DeletePolicyResp) Expect() (*DeletePolicyResponse, error) {
 
 func (r DeletePolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeletePolicyVersionResp struct {
@@ -32010,7 +32361,7 @@ func (r DeletePolicyVersionResp) Expect() (*DeletePolicyVersionResponse, error) 
 
 func (r DeletePolicyVersionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteProductTypeResp struct {
@@ -32060,7 +32411,7 @@ func (r DeleteProductTypeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeletePublicIpResp struct {
@@ -32110,7 +32461,7 @@ func (r DeletePublicIpResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteRouteResp struct {
@@ -32160,7 +32511,7 @@ func (r DeleteRouteResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteRouteTableResp struct {
@@ -32210,7 +32561,7 @@ func (r DeleteRouteTableResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteSecurityGroupResp struct {
@@ -32260,7 +32611,7 @@ func (r DeleteSecurityGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteSecurityGroupRuleResp struct {
@@ -32310,7 +32661,7 @@ func (r DeleteSecurityGroupRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteServerCertificateResp struct {
@@ -32345,7 +32696,7 @@ func (r DeleteServerCertificateResp) Expect() (*DeleteServerCertificateResponse,
 
 func (r DeleteServerCertificateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteSnapshotResp struct {
@@ -32395,7 +32746,7 @@ func (r DeleteSnapshotResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteSubnetResp struct {
@@ -32445,7 +32796,7 @@ func (r DeleteSubnetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteTagsResp struct {
@@ -32495,7 +32846,7 @@ func (r DeleteTagsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteUserResp struct {
@@ -32530,7 +32881,7 @@ func (r DeleteUserResp) Expect() (*DeleteUserResponse, error) {
 
 func (r DeleteUserResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteUserGroupResp struct {
@@ -32565,7 +32916,7 @@ func (r DeleteUserGroupResp) Expect() (*DeleteUserGroupResponse, error) {
 
 func (r DeleteUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteUserGroupPolicyResp struct {
@@ -32600,7 +32951,7 @@ func (r DeleteUserGroupPolicyResp) Expect() (*DeleteUserGroupPolicyResponse, err
 
 func (r DeleteUserGroupPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteUserPolicyResp struct {
@@ -32635,7 +32986,7 @@ func (r DeleteUserPolicyResp) Expect() (*DeleteUserPolicyResponse, error) {
 
 func (r DeleteUserPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVirtualGatewayResp struct {
@@ -32670,7 +33021,7 @@ func (r DeleteVirtualGatewayResp) Expect() (*DeleteVirtualGatewayResponse, error
 
 func (r DeleteVirtualGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVmGroupResp struct {
@@ -32720,7 +33071,7 @@ func (r DeleteVmGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVmTemplateResp struct {
@@ -32755,7 +33106,7 @@ func (r DeleteVmTemplateResp) Expect() (*DeleteVmTemplateResponse, error) {
 
 func (r DeleteVmTemplateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVmsResp struct {
@@ -32805,7 +33156,7 @@ func (r DeleteVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVolumeResp struct {
@@ -32855,7 +33206,7 @@ func (r DeleteVolumeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVpnConnectionResp struct {
@@ -32890,7 +33241,7 @@ func (r DeleteVpnConnectionResp) Expect() (*DeleteVpnConnectionResponse, error) 
 
 func (r DeleteVpnConnectionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeleteVpnConnectionRouteResp struct {
@@ -32925,7 +33276,7 @@ func (r DeleteVpnConnectionRouteResp) Expect() (*DeleteVpnConnectionRouteRespons
 
 func (r DeleteVpnConnectionRouteResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DeregisterVmsInLoadBalancerResp struct {
@@ -32960,7 +33311,7 @@ func (r DeregisterVmsInLoadBalancerResp) Expect() (*DeregisterVmsInLoadBalancerR
 
 func (r DeregisterVmsInLoadBalancerResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DisableOutscaleLoginResp struct {
@@ -32995,7 +33346,7 @@ func (r DisableOutscaleLoginResp) Expect() (*DisableOutscaleLoginResponse, error
 
 func (r DisableOutscaleLoginResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DisableOutscaleLoginForUsersResp struct {
@@ -33030,7 +33381,7 @@ func (r DisableOutscaleLoginForUsersResp) Expect() (*DisableOutscaleLoginRespons
 
 func (r DisableOutscaleLoginForUsersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type DisableOutscaleLoginPerUsersResp struct {
@@ -33065,7 +33416,7 @@ func (r DisableOutscaleLoginPerUsersResp) Expect() (*DisableOutscaleLoginPerUser
 
 func (r DisableOutscaleLoginPerUsersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type EnableOutscaleLoginResp struct {
@@ -33100,7 +33451,7 @@ func (r EnableOutscaleLoginResp) Expect() (*EnableOutscaleLoginResponse, error) 
 
 func (r EnableOutscaleLoginResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type EnableOutscaleLoginForUsersResp struct {
@@ -33135,7 +33486,7 @@ func (r EnableOutscaleLoginForUsersResp) Expect() (*EnableOutscaleLoginForUsersR
 
 func (r EnableOutscaleLoginForUsersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type EnableOutscaleLoginPerUsersResp struct {
@@ -33170,7 +33521,7 @@ func (r EnableOutscaleLoginPerUsersResp) Expect() (*EnableOutscaleLoginPerUsersR
 
 func (r EnableOutscaleLoginPerUsersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkFlexibleGpuResp struct {
@@ -33205,7 +33556,7 @@ func (r LinkFlexibleGpuResp) Expect() (*LinkFlexibleGpuResponse, error) {
 
 func (r LinkFlexibleGpuResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkInternetServiceResp struct {
@@ -33255,7 +33606,7 @@ func (r LinkInternetServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkLoadBalancerBackendMachinesResp struct {
@@ -33290,7 +33641,7 @@ func (r LinkLoadBalancerBackendMachinesResp) Expect() (*LinkLoadBalancerBackendM
 
 func (r LinkLoadBalancerBackendMachinesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkManagedPolicyToUserGroupResp struct {
@@ -33325,7 +33676,7 @@ func (r LinkManagedPolicyToUserGroupResp) Expect() (*LinkManagedPolicyToUserGrou
 
 func (r LinkManagedPolicyToUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkNicResp struct {
@@ -33375,7 +33726,7 @@ func (r LinkNicResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkPolicyResp struct {
@@ -33410,7 +33761,7 @@ func (r LinkPolicyResp) Expect() (*LinkPolicyResponse, error) {
 
 func (r LinkPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkPrivateIpsResp struct {
@@ -33460,7 +33811,7 @@ func (r LinkPrivateIpsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkPublicIpResp struct {
@@ -33510,7 +33861,7 @@ func (r LinkPublicIpResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkRouteTableResp struct {
@@ -33560,7 +33911,7 @@ func (r LinkRouteTableResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkVirtualGatewayResp struct {
@@ -33595,7 +33946,7 @@ func (r LinkVirtualGatewayResp) Expect() (*LinkVirtualGatewayResponse, error) {
 
 func (r LinkVirtualGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type LinkVolumeResp struct {
@@ -33645,7 +33996,7 @@ func (r LinkVolumeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type PutUserGroupPolicyResp struct {
@@ -33680,7 +34031,7 @@ func (r PutUserGroupPolicyResp) Expect() (*PutUserGroupPolicyResponse, error) {
 
 func (r PutUserGroupPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type PutUserPolicyResp struct {
@@ -33715,7 +34066,7 @@ func (r PutUserPolicyResp) Expect() (*PutUserPolicyResponse, error) {
 
 func (r PutUserPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadAccessKeysResp struct {
@@ -33750,7 +34101,7 @@ func (r ReadAccessKeysResp) Expect() (*ReadAccessKeysResponse, error) {
 
 func (r ReadAccessKeysResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadAccountsResp struct {
@@ -33785,7 +34136,7 @@ func (r ReadAccountsResp) Expect() (*ReadAccountsResponse, error) {
 
 func (r ReadAccountsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadAdminPasswordResp struct {
@@ -33835,7 +34186,7 @@ func (r ReadAdminPasswordResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadApiAccessPolicyResp struct {
@@ -33885,7 +34236,7 @@ func (r ReadApiAccessPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadApiAccessRulesResp struct {
@@ -33920,7 +34271,7 @@ func (r ReadApiAccessRulesResp) Expect() (*ReadApiAccessRulesResponse, error) {
 
 func (r ReadApiAccessRulesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadApiLogsResp struct {
@@ -33955,7 +34306,42 @@ func (r ReadApiLogsResp) Expect() (*ReadApiLogsResponse, error) {
 
 func (r ReadApiLogsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type ReadCO2EmissionAccountResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ReadCO2EmissionAccountResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ReadCO2EmissionAccountResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReadCO2EmissionAccountResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r ReadCO2EmissionAccountResp) Expect() (*ReadCO2EmissionAccountResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r ReadCO2EmissionAccountResp) genError() error {
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadCasResp struct {
@@ -33990,7 +34376,7 @@ func (r ReadCasResp) Expect() (*ReadCasResponse, error) {
 
 func (r ReadCasResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadCatalogResp struct {
@@ -34025,7 +34411,7 @@ func (r ReadCatalogResp) Expect() (*ReadCatalogResponse, error) {
 
 func (r ReadCatalogResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadCatalogsResp struct {
@@ -34060,7 +34446,7 @@ func (r ReadCatalogsResp) Expect() (*ReadCatalogsResponse, error) {
 
 func (r ReadCatalogsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadClientGatewaysResp struct {
@@ -34095,7 +34481,7 @@ func (r ReadClientGatewaysResp) Expect() (*ReadClientGatewaysResponse, error) {
 
 func (r ReadClientGatewaysResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadConsoleOutputResp struct {
@@ -34145,7 +34531,7 @@ func (r ReadConsoleOutputResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadConsumptionAccountResp struct {
@@ -34180,7 +34566,7 @@ func (r ReadConsumptionAccountResp) Expect() (*ReadConsumptionAccountResponse, e
 
 func (r ReadConsumptionAccountResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadDedicatedGroupsResp struct {
@@ -34230,7 +34616,7 @@ func (r ReadDedicatedGroupsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadDhcpOptionsResp struct {
@@ -34265,7 +34651,7 @@ func (r ReadDhcpOptionsResp) Expect() (*ReadDhcpOptionsResponse, error) {
 
 func (r ReadDhcpOptionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadDirectLinkInterfacesResp struct {
@@ -34300,7 +34686,7 @@ func (r ReadDirectLinkInterfacesResp) Expect() (*ReadDirectLinkInterfacesRespons
 
 func (r ReadDirectLinkInterfacesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadDirectLinksResp struct {
@@ -34335,7 +34721,7 @@ func (r ReadDirectLinksResp) Expect() (*ReadDirectLinksResponse, error) {
 
 func (r ReadDirectLinksResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadEntitiesLinkedToPolicyResp struct {
@@ -34370,7 +34756,7 @@ func (r ReadEntitiesLinkedToPolicyResp) Expect() (*ReadEntitiesLinkedToPolicyRes
 
 func (r ReadEntitiesLinkedToPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadFlexibleGpuCatalogResp struct {
@@ -34405,7 +34791,7 @@ func (r ReadFlexibleGpuCatalogResp) Expect() (*ReadFlexibleGpuCatalogResponse, e
 
 func (r ReadFlexibleGpuCatalogResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadFlexibleGpusResp struct {
@@ -34440,7 +34826,7 @@ func (r ReadFlexibleGpusResp) Expect() (*ReadFlexibleGpusResponse, error) {
 
 func (r ReadFlexibleGpusResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadImageExportTasksResp struct {
@@ -34475,7 +34861,7 @@ func (r ReadImageExportTasksResp) Expect() (*ReadImageExportTasksResponse, error
 
 func (r ReadImageExportTasksResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadImagesResp struct {
@@ -34525,7 +34911,7 @@ func (r ReadImagesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadInternetServicesResp struct {
@@ -34575,7 +34961,7 @@ func (r ReadInternetServicesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadKeypairsResp struct {
@@ -34625,7 +35011,7 @@ func (r ReadKeypairsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadLinkedPoliciesResp struct {
@@ -34660,7 +35046,7 @@ func (r ReadLinkedPoliciesResp) Expect() (*ReadLinkedPoliciesResponse, error) {
 
 func (r ReadLinkedPoliciesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadListenerRulesResp struct {
@@ -34695,7 +35081,7 @@ func (r ReadListenerRulesResp) Expect() (*ReadListenerRulesResponse, error) {
 
 func (r ReadListenerRulesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadLoadBalancerTagsResp struct {
@@ -34730,7 +35116,7 @@ func (r ReadLoadBalancerTagsResp) Expect() (*ReadLoadBalancerTagsResponse, error
 
 func (r ReadLoadBalancerTagsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadLoadBalancersResp struct {
@@ -34765,7 +35151,7 @@ func (r ReadLoadBalancersResp) Expect() (*ReadLoadBalancersResponse, error) {
 
 func (r ReadLoadBalancersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadLocationsResp struct {
@@ -34800,7 +35186,7 @@ func (r ReadLocationsResp) Expect() (*ReadLocationsResponse, error) {
 
 func (r ReadLocationsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadManagedPoliciesLinkedToUserGroupResp struct {
@@ -34835,7 +35221,7 @@ func (r ReadManagedPoliciesLinkedToUserGroupResp) Expect() (*ReadManagedPolicies
 
 func (r ReadManagedPoliciesLinkedToUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNatServicesResp struct {
@@ -34885,7 +35271,7 @@ func (r ReadNatServicesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNetAccessPointServicesResp struct {
@@ -34920,7 +35306,7 @@ func (r ReadNetAccessPointServicesResp) Expect() (*ReadNetAccessPointServicesRes
 
 func (r ReadNetAccessPointServicesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNetAccessPointsResp struct {
@@ -34955,7 +35341,7 @@ func (r ReadNetAccessPointsResp) Expect() (*ReadNetAccessPointsResponse, error) 
 
 func (r ReadNetAccessPointsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNetPeeringsResp struct {
@@ -35005,7 +35391,7 @@ func (r ReadNetPeeringsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNetsResp struct {
@@ -35055,7 +35441,7 @@ func (r ReadNetsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadNicsResp struct {
@@ -35105,7 +35491,7 @@ func (r ReadNicsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPoliciesResp struct {
@@ -35140,7 +35526,7 @@ func (r ReadPoliciesResp) Expect() (*ReadPoliciesResponse, error) {
 
 func (r ReadPoliciesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPolicyResp struct {
@@ -35175,7 +35561,7 @@ func (r ReadPolicyResp) Expect() (*ReadPolicyResponse, error) {
 
 func (r ReadPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPolicyVersionResp struct {
@@ -35210,7 +35596,7 @@ func (r ReadPolicyVersionResp) Expect() (*ReadPolicyVersionResponse, error) {
 
 func (r ReadPolicyVersionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPolicyVersionsResp struct {
@@ -35245,7 +35631,7 @@ func (r ReadPolicyVersionsResp) Expect() (*ReadPolicyVersionsResponse, error) {
 
 func (r ReadPolicyVersionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadProductTypesResp struct {
@@ -35280,7 +35666,7 @@ func (r ReadProductTypesResp) Expect() (*ReadProductTypesResponse, error) {
 
 func (r ReadProductTypesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPublicCatalogResp struct {
@@ -35315,7 +35701,7 @@ func (r ReadPublicCatalogResp) Expect() (*ReadPublicCatalogResponse, error) {
 
 func (r ReadPublicCatalogResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPublicIpRangesResp struct {
@@ -35350,7 +35736,7 @@ func (r ReadPublicIpRangesResp) Expect() (*ReadPublicIpRangesResponse, error) {
 
 func (r ReadPublicIpRangesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadPublicIpsResp struct {
@@ -35400,7 +35786,7 @@ func (r ReadPublicIpsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadQuotasResp struct {
@@ -35435,7 +35821,7 @@ func (r ReadQuotasResp) Expect() (*ReadQuotasResponse, error) {
 
 func (r ReadQuotasResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadRegionsResp struct {
@@ -35470,7 +35856,7 @@ func (r ReadRegionsResp) Expect() (*ReadRegionsResponse, error) {
 
 func (r ReadRegionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadRouteTablesResp struct {
@@ -35520,7 +35906,7 @@ func (r ReadRouteTablesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadSecurityGroupsResp struct {
@@ -35570,7 +35956,7 @@ func (r ReadSecurityGroupsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadServerCertificatesResp struct {
@@ -35605,7 +35991,7 @@ func (r ReadServerCertificatesResp) Expect() (*ReadServerCertificatesResponse, e
 
 func (r ReadServerCertificatesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadSnapshotExportTasksResp struct {
@@ -35640,7 +36026,7 @@ func (r ReadSnapshotExportTasksResp) Expect() (*ReadSnapshotExportTasksResponse,
 
 func (r ReadSnapshotExportTasksResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadSnapshotsResp struct {
@@ -35690,7 +36076,7 @@ func (r ReadSnapshotsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadSubnetsResp struct {
@@ -35740,7 +36126,7 @@ func (r ReadSubnetsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadSubregionsResp struct {
@@ -35775,7 +36161,7 @@ func (r ReadSubregionsResp) Expect() (*ReadSubregionsResponse, error) {
 
 func (r ReadSubregionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadTagsResp struct {
@@ -35825,7 +36211,7 @@ func (r ReadTagsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUnitPriceResp struct {
@@ -35860,7 +36246,7 @@ func (r ReadUnitPriceResp) Expect() (*ReadUnitPriceResponse, error) {
 
 func (r ReadUnitPriceResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserGroupResp struct {
@@ -35895,7 +36281,7 @@ func (r ReadUserGroupResp) Expect() (*ReadUserGroupResponse, error) {
 
 func (r ReadUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserGroupPoliciesResp struct {
@@ -35930,7 +36316,7 @@ func (r ReadUserGroupPoliciesResp) Expect() (*ReadUserGroupPoliciesResponse, err
 
 func (r ReadUserGroupPoliciesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserGroupPolicyResp struct {
@@ -35965,7 +36351,7 @@ func (r ReadUserGroupPolicyResp) Expect() (*ReadUserGroupPolicyResponse, error) 
 
 func (r ReadUserGroupPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserGroupsResp struct {
@@ -36000,7 +36386,7 @@ func (r ReadUserGroupsResp) Expect() (*ReadUserGroupsResponse, error) {
 
 func (r ReadUserGroupsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserGroupsPerUserResp struct {
@@ -36035,7 +36421,7 @@ func (r ReadUserGroupsPerUserResp) Expect() (*ReadUserGroupsPerUserResponse, err
 
 func (r ReadUserGroupsPerUserResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserPoliciesResp struct {
@@ -36070,7 +36456,7 @@ func (r ReadUserPoliciesResp) Expect() (*ReadUserPoliciesResponse, error) {
 
 func (r ReadUserPoliciesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUserPolicyResp struct {
@@ -36105,7 +36491,7 @@ func (r ReadUserPolicyResp) Expect() (*ReadUserPolicyResponse, error) {
 
 func (r ReadUserPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadUsersResp struct {
@@ -36140,7 +36526,7 @@ func (r ReadUsersResp) Expect() (*ReadUsersResponse, error) {
 
 func (r ReadUsersResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVirtualGatewaysResp struct {
@@ -36175,7 +36561,7 @@ func (r ReadVirtualGatewaysResp) Expect() (*ReadVirtualGatewaysResponse, error) 
 
 func (r ReadVirtualGatewaysResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmGroupsResp struct {
@@ -36225,7 +36611,7 @@ func (r ReadVmGroupsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmTemplatesResp struct {
@@ -36260,7 +36646,7 @@ func (r ReadVmTemplatesResp) Expect() (*ReadVmTemplatesResponse, error) {
 
 func (r ReadVmTemplatesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmTypesResp struct {
@@ -36295,7 +36681,7 @@ func (r ReadVmTypesResp) Expect() (*ReadVmTypesResponse, error) {
 
 func (r ReadVmTypesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmsResp struct {
@@ -36345,7 +36731,7 @@ func (r ReadVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmsHealthResp struct {
@@ -36380,7 +36766,7 @@ func (r ReadVmsHealthResp) Expect() (*ReadVmsHealthResponse, error) {
 
 func (r ReadVmsHealthResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVmsStateResp struct {
@@ -36430,7 +36816,57 @@ func (r ReadVmsStateResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
+type ReadVolumeUpdateTasksResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ReadVolumeUpdateTasksResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON500      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ReadVolumeUpdateTasksResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReadVolumeUpdateTasksResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r ReadVolumeUpdateTasksResp) Expect() (*ReadVolumeUpdateTasksResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r ReadVolumeUpdateTasksResp) genError() error {
+
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON401 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVolumesResp struct {
@@ -36480,7 +36916,7 @@ func (r ReadVolumesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ReadVpnConnectionsResp struct {
@@ -36515,7 +36951,7 @@ func (r ReadVpnConnectionsResp) Expect() (*ReadVpnConnectionsResponse, error) {
 
 func (r ReadVpnConnectionsResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type RebootVmsResp struct {
@@ -36565,7 +37001,7 @@ func (r RebootVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type RegisterVmsInLoadBalancerResp struct {
@@ -36600,7 +37036,7 @@ func (r RegisterVmsInLoadBalancerResp) Expect() (*RegisterVmsInLoadBalancerRespo
 
 func (r RegisterVmsInLoadBalancerResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type RejectNetPeeringResp struct {
@@ -36655,7 +37091,7 @@ func (r RejectNetPeeringResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type RemoveUserFromUserGroupResp struct {
@@ -36690,7 +37126,7 @@ func (r RemoveUserFromUserGroupResp) Expect() (*RemoveUserFromUserGroupResponse,
 
 func (r RemoveUserFromUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ScaleDownVmGroupResp struct {
@@ -36740,7 +37176,7 @@ func (r ScaleDownVmGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type ScaleUpVmGroupResp struct {
@@ -36790,7 +37226,7 @@ func (r ScaleUpVmGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type SetDefaultPolicyVersionResp struct {
@@ -36825,7 +37261,7 @@ func (r SetDefaultPolicyVersionResp) Expect() (*SetDefaultPolicyVersionResponse,
 
 func (r SetDefaultPolicyVersionResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type StartVmsResp struct {
@@ -36875,7 +37311,7 @@ func (r StartVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type StopVmsResp struct {
@@ -36925,7 +37361,7 @@ func (r StopVmsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkFlexibleGpuResp struct {
@@ -36960,7 +37396,7 @@ func (r UnlinkFlexibleGpuResp) Expect() (*UnlinkFlexibleGpuResponse, error) {
 
 func (r UnlinkFlexibleGpuResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkInternetServiceResp struct {
@@ -37010,7 +37446,7 @@ func (r UnlinkInternetServiceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkLoadBalancerBackendMachinesResp struct {
@@ -37045,7 +37481,7 @@ func (r UnlinkLoadBalancerBackendMachinesResp) Expect() (*UnlinkLoadBalancerBack
 
 func (r UnlinkLoadBalancerBackendMachinesResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkManagedPolicyFromUserGroupResp struct {
@@ -37080,7 +37516,7 @@ func (r UnlinkManagedPolicyFromUserGroupResp) Expect() (*UnlinkManagedPolicyFrom
 
 func (r UnlinkManagedPolicyFromUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkNicResp struct {
@@ -37130,7 +37566,7 @@ func (r UnlinkNicResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkPolicyResp struct {
@@ -37165,7 +37601,7 @@ func (r UnlinkPolicyResp) Expect() (*UnlinkPolicyResponse, error) {
 
 func (r UnlinkPolicyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkPrivateIpsResp struct {
@@ -37215,7 +37651,7 @@ func (r UnlinkPrivateIpsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkPublicIpResp struct {
@@ -37265,7 +37701,7 @@ func (r UnlinkPublicIpResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkRouteTableResp struct {
@@ -37315,7 +37751,7 @@ func (r UnlinkRouteTableResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkVirtualGatewayResp struct {
@@ -37350,7 +37786,7 @@ func (r UnlinkVirtualGatewayResp) Expect() (*UnlinkVirtualGatewayResponse, error
 
 func (r UnlinkVirtualGatewayResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UnlinkVolumeResp struct {
@@ -37400,7 +37836,7 @@ func (r UnlinkVolumeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateAccessKeyResp struct {
@@ -37435,7 +37871,7 @@ func (r UpdateAccessKeyResp) Expect() (*UpdateAccessKeyResponse, error) {
 
 func (r UpdateAccessKeyResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateAccountResp struct {
@@ -37470,7 +37906,7 @@ func (r UpdateAccountResp) Expect() (*UpdateAccountResponse, error) {
 
 func (r UpdateAccountResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateApiAccessPolicyResp struct {
@@ -37520,7 +37956,7 @@ func (r UpdateApiAccessPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateApiAccessRuleResp struct {
@@ -37555,7 +37991,7 @@ func (r UpdateApiAccessRuleResp) Expect() (*UpdateApiAccessRuleResponse, error) 
 
 func (r UpdateApiAccessRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateCaResp struct {
@@ -37590,7 +38026,7 @@ func (r UpdateCaResp) Expect() (*UpdateCaResponse, error) {
 
 func (r UpdateCaResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateDedicatedGroupResp struct {
@@ -37640,7 +38076,7 @@ func (r UpdateDedicatedGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateDirectLinkInterfaceResp struct {
@@ -37675,7 +38111,7 @@ func (r UpdateDirectLinkInterfaceResp) Expect() (*UpdateDirectLinkInterfaceRespo
 
 func (r UpdateDirectLinkInterfaceResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateFlexibleGpuResp struct {
@@ -37710,7 +38146,7 @@ func (r UpdateFlexibleGpuResp) Expect() (*UpdateFlexibleGpuResponse, error) {
 
 func (r UpdateFlexibleGpuResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateImageResp struct {
@@ -37760,7 +38196,7 @@ func (r UpdateImageResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateListenerRuleResp struct {
@@ -37795,7 +38231,7 @@ func (r UpdateListenerRuleResp) Expect() (*UpdateListenerRuleResponse, error) {
 
 func (r UpdateListenerRuleResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateLoadBalancerResp struct {
@@ -37830,7 +38266,7 @@ func (r UpdateLoadBalancerResp) Expect() (*UpdateLoadBalancerResponse, error) {
 
 func (r UpdateLoadBalancerResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateNetResp struct {
@@ -37880,7 +38316,7 @@ func (r UpdateNetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateNetAccessPointResp struct {
@@ -37915,7 +38351,7 @@ func (r UpdateNetAccessPointResp) Expect() (*UpdateNetAccessPointResponse, error
 
 func (r UpdateNetAccessPointResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateNicResp struct {
@@ -37965,7 +38401,7 @@ func (r UpdateNicResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateRouteResp struct {
@@ -38015,7 +38451,7 @@ func (r UpdateRouteResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateRoutePropagationResp struct {
@@ -38050,7 +38486,7 @@ func (r UpdateRoutePropagationResp) Expect() (*UpdateRoutePropagationResponse, e
 
 func (r UpdateRoutePropagationResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateRouteTableLinkResp struct {
@@ -38100,7 +38536,7 @@ func (r UpdateRouteTableLinkResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateServerCertificateResp struct {
@@ -38135,7 +38571,7 @@ func (r UpdateServerCertificateResp) Expect() (*UpdateServerCertificateResponse,
 
 func (r UpdateServerCertificateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateSnapshotResp struct {
@@ -38185,7 +38621,7 @@ func (r UpdateSnapshotResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateSubnetResp struct {
@@ -38235,7 +38671,7 @@ func (r UpdateSubnetResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateUserResp struct {
@@ -38270,7 +38706,7 @@ func (r UpdateUserResp) Expect() (*UpdateUserResponse, error) {
 
 func (r UpdateUserResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateUserGroupResp struct {
@@ -38305,7 +38741,7 @@ func (r UpdateUserGroupResp) Expect() (*UpdateUserGroupResponse, error) {
 
 func (r UpdateUserGroupResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateVmResp struct {
@@ -38355,7 +38791,7 @@ func (r UpdateVmResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateVmGroupResp struct {
@@ -38405,7 +38841,7 @@ func (r UpdateVmGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateVmTemplateResp struct {
@@ -38440,7 +38876,7 @@ func (r UpdateVmTemplateResp) Expect() (*UpdateVmTemplateResponse, error) {
 
 func (r UpdateVmTemplateResp) genError() error {
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateVolumeResp struct {
@@ -38490,7 +38926,7 @@ func (r UpdateVolumeResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 type UpdateVpnConnectionResp struct {
@@ -38540,7 +38976,7 @@ func (r UpdateVpnConnectionResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
-	return fmt.Errorf("unexpected response status %s: %w", r.Status(), r.HTTPResponse.Body)
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
 // AcceptNetPeeringWithBody request with arbitrary body returning *AcceptNetPeeringResponse
@@ -43020,6 +43456,43 @@ func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBod
 	return resp, err
 }
 
+// ReadCO2EmissionAccountWithBody request with arbitrary body returning *ReadCO2EmissionAccountResponse
+func (c *Client) ReadCO2EmissionAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCO2EmissionAccountResponse, error) {
+	rsp, err := c.ReadCO2EmissionAccountWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadCO2EmissionAccountResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+func (c *Client) ReadCO2EmissionAccount(ctx context.Context, body ReadCO2EmissionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCO2EmissionAccountResponse, error) {
+	c.LogRequest(ctx, body)
+
+	rsp, err := c.ReadCO2EmissionAccountRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadCO2EmissionAccountResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
 // ReadCasWithBody request with arbitrary body returning *ReadCasResponse
 func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
 	rsp, err := c.ReadCasWithBodyRaw(ctx, contentType, body, reqEditors...)
@@ -45340,6 +45813,43 @@ func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestB
 		return nil, err
 	}
 	obj, err := ParseReadVmsStateResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+// ReadVolumeUpdateTasksWithBody request with arbitrary body returning *ReadVolumeUpdateTasksResponse
+func (c *Client) ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error) {
+	rsp, err := c.ReadVolumeUpdateTasksWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVolumeUpdateTasksResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+func (c *Client) ReadVolumeUpdateTasks(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error) {
+	c.LogRequest(ctx, body)
+
+	rsp, err := c.ReadVolumeUpdateTasksRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVolumeUpdateTasksResp(rsp)
 	if err != nil {
 		return nil, err
 	}
@@ -51353,6 +51863,32 @@ func ParseReadApiLogsResp(rsp *http.Response) (*ReadApiLogsResp, error) {
 	return response, nil
 }
 
+// ParseReadCO2EmissionAccountResp parses an HTTP response from a ReadCO2EmissionAccount call
+func ParseReadCO2EmissionAccountResp(rsp *http.Response) (*ReadCO2EmissionAccountResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReadCO2EmissionAccountResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ReadCO2EmissionAccountResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseReadCasResp parses an HTTP response from a ReadCas call
 func ParseReadCasResp(rsp *http.Response) (*ReadCasResp, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -53338,6 +53874,53 @@ func ParseReadVmsStateResp(rsp *http.Response) (*ReadVmsStateResp, error) {
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ReadVmsStateResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReadVolumeUpdateTasksResp parses an HTTP response from a ReadVolumeUpdateTasks call
+func ParseReadVolumeUpdateTasksResp(rsp *http.Response) (*ReadVolumeUpdateTasksResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReadVolumeUpdateTasksResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ReadVolumeUpdateTasksResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
