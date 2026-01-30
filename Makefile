@@ -74,32 +74,10 @@ gofmt:
 	@find $(PWD)/v2/ -type f -name "*.go" -exec gofmt -l {} \;
 	@find $(PWD)/v2/ -type f -name "*.go" -exec gofmt -w {} \;
 
-# Used by bot to auto-release
-# GH_TOKEN and SSH_PRIVATE_KEY are needed
-.PHONY: auto-release
-auto-release: auto-release-cleanup osc-api-check release-check-duplicate release-build release-push release-pr
-	@echo OK
-
-.PHONY: auto-release-cleanup
-auto-release-cleanup:
-	rm -rf .auto-release-abort || true
-
 .PHONY: osc-api-check
 osc-api-check:
 	bash .github/scripts/osc-api-check.sh
 
-.PHONY: release-check-duplicate
-release-check-duplicate:
-	bash .github/scripts/release-check-duplicate.sh
-
 .PHONY: release-build
 release-build:
 	bash .github/scripts/release-build.sh
-
-.PHONY: release-push
-release-push:
-	bash .github/scripts/release-push.sh
-
-.PHONY: release-pr
-release-pr:
-	bash .github/scripts/release-pr.sh
