@@ -32,6 +32,14 @@ const (
 	AccessKeyStateINACTIVE AccessKeyState = "INACTIVE"
 )
 
+// Method to return the list of values
+func (AccessKeyState) Values() []string {
+	return []string{
+		"ACTIVE",
+		"INACTIVE",
+	}
+}
+
 // Defines values for BackendVmHealthState.
 const (
 	BackendVmHealthStateInService    BackendVmHealthState = "InService"
@@ -39,17 +47,42 @@ const (
 	BackendVmHealthStateUnknown      BackendVmHealthState = "Unknown"
 )
 
+// Method to return the list of values
+func (BackendVmHealthState) Values() []string {
+	return []string{
+		"InService",
+		"OutOfService",
+		"Unknown",
+	}
+}
+
 // Defines values for BootMode.
 const (
 	BootModeLegacy BootMode = "legacy"
 	BootModeUefi   BootMode = "uefi"
 )
 
+// Method to return the list of values
+func (BootMode) Values() []string {
+	return []string{
+		"legacy",
+		"uefi",
+	}
+}
+
 // Defines values for CatalogsState.
 const (
 	CatalogsStateCURRENT  CatalogsState = "CURRENT"
 	CatalogsStateOBSOLETE CatalogsState = "OBSOLETE"
 )
+
+// Method to return the list of values
+func (CatalogsState) Values() []string {
+	return []string{
+		"CURRENT",
+		"OBSOLETE",
+	}
+}
 
 // Defines values for CreateVmGroupRequestPositioningStrategy.
 const (
@@ -58,6 +91,15 @@ const (
 	CreateVmGroupRequestPositioningStrategyRepulse    CreateVmGroupRequestPositioningStrategy = "repulse"
 )
 
+// Method to return the list of values
+func (CreateVmGroupRequestPositioningStrategy) Values() []string {
+	return []string{
+		"attract",
+		"no-strategy",
+		"repulse",
+	}
+}
+
 // Defines values for CreateVmTemplateRequestCpuPerformance.
 const (
 	CreateVmTemplateRequestCpuPerformanceHigh    CreateVmTemplateRequestCpuPerformance = "high"
@@ -65,12 +107,30 @@ const (
 	CreateVmTemplateRequestCpuPerformanceMedium  CreateVmTemplateRequestCpuPerformance = "medium"
 )
 
+// Method to return the list of values
+func (CreateVmTemplateRequestCpuPerformance) Values() []string {
+	return []string{
+		"high",
+		"highest",
+		"medium",
+	}
+}
+
 // Defines values for CreateVmsRequestPerformance.
 const (
 	CreateVmsRequestPerformanceHigh    CreateVmsRequestPerformance = "high"
 	CreateVmsRequestPerformanceHighest CreateVmsRequestPerformance = "highest"
 	CreateVmsRequestPerformanceMedium  CreateVmsRequestPerformance = "medium"
 )
+
+// Method to return the list of values
+func (CreateVmsRequestPerformance) Values() []string {
+	return []string{
+		"high",
+		"highest",
+		"medium",
+	}
+}
 
 // Defines values for FlexibleGpuState.
 const (
@@ -80,12 +140,31 @@ const (
 	FlexibleGpuStateDetaching FlexibleGpuState = "detaching"
 )
 
+// Method to return the list of values
+func (FlexibleGpuState) Values() []string {
+	return []string{
+		"allocated",
+		"attached",
+		"attaching",
+		"detaching",
+	}
+}
+
 // Defines values for ImageState.
 const (
 	ImageStateAvailable ImageState = "available"
 	ImageStateFailed    ImageState = "failed"
 	ImageStatePending   ImageState = "pending"
 )
+
+// Method to return the list of values
+func (ImageState) Values() []string {
+	return []string{
+		"available",
+		"failed",
+		"pending",
+	}
+}
 
 // Defines values for LinkNicState.
 const (
@@ -95,6 +174,16 @@ const (
 	LinkNicStateDetaching LinkNicState = "detaching"
 )
 
+// Method to return the list of values
+func (LinkNicState) Values() []string {
+	return []string{
+		"attached",
+		"attaching",
+		"detached",
+		"detaching",
+	}
+}
+
 // Defines values for LinkedVolumeState.
 const (
 	LinkedVolumeStateAttached  LinkedVolumeState = "attached"
@@ -102,6 +191,16 @@ const (
 	LinkedVolumeStateDetached  LinkedVolumeState = "detached"
 	LinkedVolumeStateDetaching LinkedVolumeState = "detaching"
 )
+
+// Method to return the list of values
+func (LinkedVolumeState) Values() []string {
+	return []string{
+		"attached",
+		"attaching",
+		"detached",
+		"detaching",
+	}
+}
 
 // Defines values for NatServiceState.
 const (
@@ -111,12 +210,31 @@ const (
 	NatServiceStatePending   NatServiceState = "pending"
 )
 
+// Method to return the list of values
+func (NatServiceState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+	}
+}
+
 // Defines values for NetState.
 const (
 	NetStateAvailable NetState = "available"
 	NetStateDeleting  NetState = "deleting"
 	NetStatePending   NetState = "pending"
 )
+
+// Method to return the list of values
+func (NetState) Values() []string {
+	return []string{
+		"available",
+		"deleting",
+		"pending",
+	}
+}
 
 // Defines values for NetAccessPointState.
 const (
@@ -125,6 +243,16 @@ const (
 	NetAccessPointStateDeleting  NetAccessPointState = "deleting"
 	NetAccessPointStatePending   NetAccessPointState = "pending"
 )
+
+// Method to return the list of values
+func (NetAccessPointState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+	}
+}
 
 // Defines values for NetPeeringStateName.
 const (
@@ -136,6 +264,18 @@ const (
 	NetPeeringStateNameRejected          NetPeeringStateName = "rejected"
 )
 
+// Method to return the list of values
+func (NetPeeringStateName) Values() []string {
+	return []string{
+		"active",
+		"deleted",
+		"expired",
+		"failed",
+		"pending-acceptance",
+		"rejected",
+	}
+}
+
 // Defines values for NicState.
 const (
 	NicStateAttaching NicState = "attaching"
@@ -144,6 +284,16 @@ const (
 	NicStateInUse     NicState = "in-use"
 )
 
+// Method to return the list of values
+func (NicState) Values() []string {
+	return []string{
+		"attaching",
+		"available",
+		"detaching",
+		"in-use",
+	}
+}
+
 // Defines values for ReadEntitiesLinkedToPolicyRequestEntitiesType.
 const (
 	ReadEntitiesLinkedToPolicyRequestEntitiesTypeACCOUNT ReadEntitiesLinkedToPolicyRequestEntitiesType = "ACCOUNT"
@@ -151,11 +301,28 @@ const (
 	ReadEntitiesLinkedToPolicyRequestEntitiesTypeUSER    ReadEntitiesLinkedToPolicyRequestEntitiesType = "USER"
 )
 
+// Method to return the list of values
+func (ReadEntitiesLinkedToPolicyRequestEntitiesType) Values() []string {
+	return []string{
+		"ACCOUNT",
+		"GROUP",
+		"USER",
+	}
+}
+
 // Defines values for ReadPoliciesFiltersScope.
 const (
 	ReadPoliciesFiltersScopeLOCAL ReadPoliciesFiltersScope = "LOCAL"
 	ReadPoliciesFiltersScopeOWS   ReadPoliciesFiltersScope = "OWS"
 )
+
+// Method to return the list of values
+func (ReadPoliciesFiltersScope) Values() []string {
+	return []string{
+		"LOCAL",
+		"OWS",
+	}
+}
 
 // Defines values for SecureBootAction.
 const (
@@ -166,6 +333,17 @@ const (
 	SecureBootActionSetupMode          SecureBootAction = "setup-mode"
 )
 
+// Method to return the list of values
+func (SecureBootAction) Values() []string {
+	return []string{
+		"disable",
+		"enable",
+		"none",
+		"restore-factory-keys",
+		"setup-mode",
+	}
+}
+
 // Defines values for SnapshotState.
 const (
 	SnapshotStateCompleted SnapshotState = "completed"
@@ -174,6 +352,17 @@ const (
 	SnapshotStateInQueue   SnapshotState = "in-queue"
 	SnapshotStatePending   SnapshotState = "pending"
 )
+
+// Method to return the list of values
+func (SnapshotState) Values() []string {
+	return []string{
+		"completed",
+		"deleting",
+		"error",
+		"in-queue",
+		"pending",
+	}
+}
 
 // Defines values for SnapshotExportTaskState.
 const (
@@ -184,12 +373,32 @@ const (
 	SnapshotExportTaskStatePending   SnapshotExportTaskState = "pending"
 )
 
+// Method to return the list of values
+func (SnapshotExportTaskState) Values() []string {
+	return []string{
+		"active",
+		"cancelled",
+		"completed",
+		"failed",
+		"pending",
+	}
+}
+
 // Defines values for SubnetState.
 const (
 	SubnetStateAvailable SubnetState = "available"
 	SubnetStateDeleted   SubnetState = "deleted"
 	SubnetStatePending   SubnetState = "pending"
 )
+
+// Method to return the list of values
+func (SubnetState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"pending",
+	}
+}
 
 // Defines values for TagResourceType.
 const (
@@ -215,6 +424,32 @@ const (
 	TagResourceTypeVpnConnection              TagResourceType = "vpn-connection"
 )
 
+// Method to return the list of values
+func (TagResourceType) Values() []string {
+	return []string{
+		"customer-gateway",
+		"dhcpoptions",
+		"flexible-gpu",
+		"image",
+		"keypair",
+		"natgateway",
+		"vpc",
+		"vpc-endpoint",
+		"vpc-peering-connection",
+		"network-interface",
+		"public-ip",
+		"route-table",
+		"security-group",
+		"snapshot",
+		"subnet",
+		"task",
+		"virtual-private-gateway",
+		"instance",
+		"volume",
+		"vpn-connection",
+	}
+}
+
 // Defines values for UpdateDirectLinkInterfaceRequestMtu.
 const (
 	UpdateDirectLinkInterfaceRequestMtuN1500 UpdateDirectLinkInterfaceRequestMtu = 1500
@@ -227,6 +462,15 @@ const (
 	UpdateVmRequestPerformanceMedium  UpdateVmRequestPerformance = "medium"
 )
 
+// Method to return the list of values
+func (UpdateVmRequestPerformance) Values() []string {
+	return []string{
+		"high",
+		"highest",
+		"medium",
+	}
+}
+
 // Defines values for VmState.
 const (
 	VmStatePending      VmState = "pending"
@@ -238,12 +482,34 @@ const (
 	VmStateTerminated   VmState = "terminated"
 )
 
+// Method to return the list of values
+func (VmState) Values() []string {
+	return []string{
+		"pending",
+		"quarantine",
+		"running",
+		"shutting-down",
+		"stopped",
+		"stopping",
+		"terminated",
+	}
+}
+
 // Defines values for VmGroupPositioningStrategy.
 const (
 	VmGroupPositioningStrategyAttract    VmGroupPositioningStrategy = "attract"
 	VmGroupPositioningStrategyNoStrategy VmGroupPositioningStrategy = "no-strategy"
 	VmGroupPositioningStrategyRepulse    VmGroupPositioningStrategy = "repulse"
 )
+
+// Method to return the list of values
+func (VmGroupPositioningStrategy) Values() []string {
+	return []string{
+		"attract",
+		"no-strategy",
+		"repulse",
+	}
+}
 
 // Defines values for VmGroupState.
 const (
@@ -255,12 +521,33 @@ const (
 	VmGroupStateScalingUp   VmGroupState = "scaling up"
 )
 
+// Method to return the list of values
+func (VmGroupState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+		"scaling down",
+		"scaling up",
+	}
+}
+
 // Defines values for VmTemplateCpuPerformance.
 const (
 	VmTemplateCpuPerformanceHigh    VmTemplateCpuPerformance = "high"
 	VmTemplateCpuPerformanceHighest VmTemplateCpuPerformance = "highest"
 	VmTemplateCpuPerformanceMedium  VmTemplateCpuPerformance = "medium"
 )
+
+// Method to return the list of values
+func (VmTemplateCpuPerformance) Values() []string {
+	return []string{
+		"high",
+		"highest",
+		"medium",
+	}
+}
 
 // Defines values for VolumeState.
 const (
@@ -271,12 +558,32 @@ const (
 	VolumeStateInUse     VolumeState = "in-use"
 )
 
+// Method to return the list of values
+func (VolumeState) Values() []string {
+	return []string{
+		"available",
+		"creating",
+		"deleting",
+		"error",
+		"in-use",
+	}
+}
+
 // Defines values for VolumeType.
 const (
 	VolumeTypeGp2      VolumeType = "gp2"
 	VolumeTypeIo1      VolumeType = "io1"
 	VolumeTypeStandard VolumeType = "standard"
 )
+
+// Method to return the list of values
+func (VolumeType) Values() []string {
+	return []string{
+		"gp2",
+		"io1",
+		"standard",
+	}
+}
 
 // AcceptNetPeeringRequest defines model for AcceptNetPeeringRequest.
 type AcceptNetPeeringRequest struct {
