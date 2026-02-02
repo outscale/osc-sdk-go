@@ -39,6 +39,19 @@ const (
 	AutoUpgradeMaintenanceWeekDayWed AutoUpgradeMaintenanceWeekDay = "Wed"
 )
 
+// Method to return the list of values
+func (AutoUpgradeMaintenanceWeekDay) Values() []string {
+	return []string{
+		"Fri",
+		"Mon",
+		"Sat",
+		"Sun",
+		"Thu",
+		"Tue",
+		"Wed",
+	}
+}
+
 // Defines values for MaintenanceWeekDay.
 const (
 	MaintenanceWeekDayFri    MaintenanceWeekDay = "Fri"
@@ -50,6 +63,20 @@ const (
 	MaintenanceWeekDayTue    MaintenanceWeekDay = "Tue"
 	MaintenanceWeekDayWed    MaintenanceWeekDay = "Wed"
 )
+
+// Method to return the list of values
+func (MaintenanceWeekDay) Values() []string {
+	return []string{
+		"Fri",
+		"Mon",
+		"Sat",
+		"string",
+		"Sun",
+		"Thu",
+		"Tue",
+		"Wed",
+	}
+}
 
 // Defines values for MaintenanceWindowWeekDay.
 const (
@@ -63,6 +90,20 @@ const (
 	MaintenanceWindowWeekDayWed    MaintenanceWindowWeekDay = "Wed"
 )
 
+// Method to return the list of values
+func (MaintenanceWindowWeekDay) Values() []string {
+	return []string{
+		"Fri",
+		"Mon",
+		"Sat",
+		"string",
+		"Sun",
+		"Thu",
+		"Tue",
+		"Wed",
+	}
+}
+
 // Defines values for ProjectStatus.
 const (
 	ProjectStatusDeleting  ProjectStatus = "deleting"
@@ -74,6 +115,19 @@ const (
 	ProjectStatusUpgrading ProjectStatus = "upgrading"
 )
 
+// Method to return the list of values
+func (ProjectStatus) Values() []string {
+	return []string{
+		"deleting",
+		"deploying",
+		"failed",
+		"pending",
+		"ready",
+		"updating",
+		"upgrading",
+	}
+}
+
 // Defines values for SnapshotState.
 const (
 	SnapshotStateCompleted SnapshotState = "completed"
@@ -83,12 +137,32 @@ const (
 	SnapshotStatePending   SnapshotState = "pending"
 )
 
+// Method to return the list of values
+func (SnapshotState) Values() []string {
+	return []string{
+		"completed",
+		"deleting",
+		"error",
+		"in-queue",
+		"pending",
+	}
+}
+
 // Defines values for VolumeType.
 const (
 	VolumeTypeGp2      VolumeType = "gp2"
 	VolumeTypeIo1      VolumeType = "io1"
 	VolumeTypeStandard VolumeType = "standard"
 )
+
+// Method to return the list of values
+func (VolumeType) Values() []string {
+	return []string{
+		"gp2",
+		"io1",
+		"standard",
+	}
+}
 
 // AdmissionFlags defines model for AdmissionFlags.
 type AdmissionFlags struct {
