@@ -19,6 +19,12 @@ pkg/osc/client.gen.go: $(tmpl_srcs) pkg/osc/api.yaml pkg/osc/cfg.yaml pkg/osc/pa
 .PHONY: gen
 gen: pkg/oks/client.gen.go pkg/osc/client.gen.go
 	go mod tidy
+ifdef SDK_VERSION
+	sed -i 's/SDKVersion = "[^"]\+"/SDKVersion = "$(SDK_VERSION)"/' pkg/version/version.go
+endif
+ifdef API_VERSION
+	sed -i 's/APIVersion = "[^"]\+"/APIVersion = "$(API_VERSION)"/' pkg/version/version.go
+endif
 
 .PHONY: test
 test: gen
