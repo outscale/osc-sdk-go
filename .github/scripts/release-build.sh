@@ -27,7 +27,7 @@ echo "$release_notes$(cat $root/changelog.md)" > $root/changelog.md
 
 # generate SDK
 cd "$root"
-API_VERSION=$new_api_version SDK_VERSION=$new_sdk_version make gen
+OAPI_VERSION=$new_api_version SDK_VERSION=$new_sdk_version make gen
 
 # setup git && commit
 git config user.name "Outscale Bot"

@@ -28,7 +28,7 @@ func newClientRaw(
 		utils.WithRatelimit(5),
 		utils.WithRetry(nil, nil, nil),
 		utils.WithLogging(logger.Default()),
-		utils.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", version.SDKVersion)),
+		utils.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", version.Version)),
 	}, opts...)
 
 	m, err := middleware.NewMiddlewareChain(opts...)
