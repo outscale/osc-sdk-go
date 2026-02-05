@@ -13,7 +13,6 @@ func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOptio
     return &Client{client}, nil
 }
 
-
 // ClientInterface is the interface specification for the client with responses above.
 type ClientInterface interface {
 {{range . -}}
@@ -131,6 +130,7 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{$bodyRequired := $op.BodyRequired -}}
 {{range $op.Bodies}}
 {{if .IsSupportedByClient -}}
+{{ toGoComment $op.Spec.Description $opid }}
 func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
     c.LogRequest(ctx, body)
     
@@ -155,7 +155,7 @@ func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathPar
 {{end}}{{end}}{{/* range type */}}
 {{end}}{{/* operations */}}
 
-{{/* Generate parse functions for responses*/}}
+{{/* Generate parse functions for responses */}}
 {{range .}}{{$opid := .OperationId}}
 
 // Parse{{genResponseTypeName $opid | ucFirst}} parses an HTTP response from a {{$opid}} call
