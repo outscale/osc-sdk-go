@@ -5,7 +5,7 @@ go 1.24
 require (
 	dario.cat/mergo v1.0.2
 	github.com/aws/smithy-go/aws-http-auth v1.1.1
-	github.com/getkin/kin-openapi v0.132.0
+	github.com/getkin/kin-openapi v0.133.0
 	github.com/hashicorp/go-retryablehttp v0.7.8
 	github.com/oapi-codegen/runtime v1.1.2
 	go.uber.org/ratelimit v0.3.1
@@ -29,6 +29,7 @@ require (
 	github.com/speakeasy-api/jsonpath v0.6.0 // indirect
 	github.com/speakeasy-api/openapi-overlay v0.10.2 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
+	github.com/woodsbury/decimal128 v1.3.0 // indirect
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/text v0.20.0 // indirect
 	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
