@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	defaultProfile = "default"
+	DefaultProfile = "default"
 )
 
 type configFile struct {
@@ -48,7 +48,7 @@ func newConfigFile() *configFile {
 	}
 }
 
-func defaultConfigPath() (string, error) {
+func DefaultConfigPath() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
@@ -129,7 +129,7 @@ func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 		if value, present := os.LookupEnv("OSC_PROFILE"); present {
 			profile = value
 		} else {
-			profile = defaultProfile
+			profile = DefaultProfile
 		}
 	}
 
@@ -137,7 +137,7 @@ func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 		if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
 			path = value
 		} else {
-			path, _ = defaultConfigPath()
+			path, _ = DefaultConfigPath()
 		}
 	}
 
@@ -149,7 +149,7 @@ func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
 			if err != nil {
 				return nil, err
 			}
-		} else if profile != defaultProfile {
+		} else if profile != DefaultProfile {
 			return nil, errors.New("specified profile not found")
 		}
 	}
