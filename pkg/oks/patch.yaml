@@ -42,4 +42,7 @@ actions:
     update:
         schema:
           $ref: '#/components/schemas/ProjectStatus'
-          
+  - target: $.paths./myip
+    remove: true
+  - target: $.paths["/templates/cluster"].get.parameters.*[?(@.name == "X-Real-IP")]
+    remove: true
