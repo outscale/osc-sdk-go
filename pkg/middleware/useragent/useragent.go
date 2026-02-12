@@ -2,6 +2,8 @@ package useragent
 
 import "net/http"
 
+const userAgentHeader = "User-Agent"
+
 type UseragentMiddleware struct {
 	Useragent string
 }
@@ -19,7 +21,10 @@ type innerUseragent struct {
 }
 
 func (u *innerUseragent) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Add("User-Agent", u.Useragent)
+	if req.Header.Get(userAgentHeader) == "" {
+		req.Header.Add(userAgentHeader, u.Useragent)
+	} else {
+		req.Header.Set(userAgentHeader, u.Useragent)
+	}
 	return u.inner.RoundTrip(req)
 }
-
