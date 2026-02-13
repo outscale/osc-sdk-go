@@ -6,13 +6,13 @@ import (
 )
 
 type Endpoint struct {
-	API        string `json:"api"`
-	OKS        string `json:"oks"`
-	LBU        string `json:"lbu"`
-	OOS        string `json:"oos"`
-	FCU        string `json:"fcu"`
-	EIM        string `json:"eim"`
-	DirectLink string `json:"direct_link"`
+	API        string `json:"api,omitempty"`
+	OKS        string `json:"oks,omitempty"`
+	LBU        string `json:"lbu,omitempty"`
+	OOS        string `json:"oos,omitempty"`
+	FCU        string `json:"fcu,omitempty"`
+	EIM        string `json:"eim,omitempty"`
+	DirectLink string `json:"direct_link,omitempty"`
 }
 
 func getDefaultEndpointTemplate(service OscService) (string, error) {
