@@ -5,8 +5,6 @@
 package profile
 
 import (
-	"encoding/json"
-	"errors"
 	"os"
 	"path"
 	"strings"
@@ -18,35 +16,30 @@ const (
 	DefaultProfile = "default"
 )
 
-type configFile struct {
-	profiles map[string]Profile
+type Profile struct {
+	Default           bool     `json:"default,omitempty"`
+	AccessKey         string   `json:"access_key,omitempty"`
+	SecretKey         string   `json:"secret_key,omitempty"`
+	AccessKeyV2       string   `json:"access_key_v2,omitempty"`
+	SecretKeyV2       string   `json:"secret_key_v2,omitempty"`
+	IAMV2Services     []string `json:"iam_v2_services,omitempty"`
+	X509ClientCert    string   `json:"x509_client_cert,omitempty"`
+	X509ClientCertB64 string   `json:"x509_client_cert_b64,omitempty"`
+	X509ClientKey     string   `json:"x509_client_key,omitempty"`
+	X509ClientKeyB64  string   `json:"x509_client_key_b64,omitempty"`
+	TlsSkipVerify     bool     `json:"tls_skip_verify,omitempty"`
+	Login             string   `json:"login,omitempty"`
+	Password          string   `json:"password,omitempty"`
+	Protocol          string   `json:"protocol,omitempty"`
+	Region            string   `json:"region,omitempty"`
+	Endpoints         Endpoint `json:"endpoints,omitempty"`
 }
 
-type Profile struct {
-	AccessKey         string   `json:"access_key"`
-	SecretKey         string   `json:"secret_key"`
-	AccessKeyV2       string   `json:"access_key_v2"`
-	SecretKeyV2       string   `json:"secret_key_v2"`
-	IAMV2Services     []string `json:"iam_v2_services"`
-	X509ClientCert    string   `json:"x509_client_cert"`
-	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
-	X509ClientKey     string   `json:"x509_client_key"`
-	X509ClientKeyB64  string   `json:"x509_client_key_b64"`
-	TlsSkipVerify     bool     `json:"tls_skip_verify"`
-	Login             string
-	Password          string
-	Protocol          string   `json:"protocol"`
-	Region            string   `json:"region"`
-	Endpoints         Endpoint `json:"endpoints"`
+func (p *Profile) IsSet() bool {
+	return (p.AccessKey != "" && p.SecretKey != "") || (p.AccessKeyV2 != "" && p.SecretKeyV2 != "")
 }
 
 type Option func(*Profile) error
-
-func newConfigFile() *configFile {
-	return &configFile{
-		profiles: make(map[string]Profile),
-	}
-}
 
 func DefaultConfigPath() (string, error) {
 	home, err := os.UserHomeDir()
@@ -56,120 +49,121 @@ func DefaultConfigPath() (string, error) {
 	return path.Join(home, ".osc", "config.json"), nil
 }
 
-func loadConfigFile(path string) (*configFile, error) {
-	if path == "" {
-		return nil, errors.New("no path provided")
-	}
+// FromFile is an option that loads env from a file.
+func FromFile(profile, path string) Option {
+	return func(p *Profile) error {
+		if p.IsSet() {
+			return nil
+		}
 
-	configJSON, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
+		if profile == "" {
+			profile = os.Getenv("OSC_PROFILE")
+		}
+		if path == "" {
+			path = os.Getenv("OSC_CONFIG_FILE")
+		}
+		configFile, err := LoadConfigFile(path)
+		switch {
+		// no path/profile given, do not fail if default file is missing
+		case path == "" && profile == "" && err != nil:
+			return nil
+		case err != nil:
+			return err
+		}
+		cfp, err := configFile.Profile(profile)
+		switch {
+		// no path/profile given, do not fail if default profile is missing
+		case path == "" && profile == "" && err != nil:
+			return nil
+		case err != nil:
+			return err
+		}
+		*p = cfp
+		return nil
 	}
-
-	configFile := newConfigFile()
-	if err := json.Unmarshal(configJSON, &configFile.profiles); err != nil {
-		return nil, err
-	}
-
-	return configFile, nil
 }
 
 func getenvBool(key string) bool {
-	env := os.Getenv(key)
-	return env == "yes" || env == "Yes" || env == "true" || env == "True"
+	env := strings.ToLower(os.Getenv(key))
+	return env == "yes" || env == "true"
 }
 
-func LoadProfileFromEnv() Profile {
-	var profile Profile
+// FromEnv is an option that loads a profile from env vars.
+func FromEnv() Option {
+	return func(p *Profile) error {
+		if p.IsSet() {
+			return nil
+		}
 
-	profile.AccessKey = os.Getenv("OSC_ACCESS_KEY")
-	profile.SecretKey = os.Getenv("OSC_SECRET_KEY")
-	profile.AccessKeyV2 = os.Getenv("OSC_ACCESS_KEY_V2")
-	profile.SecretKeyV2 = os.Getenv("OSC_SECRET_KEY_V2")
-	profile.X509ClientCert = os.Getenv("OSC_X509_CLIENT_CERT")
-	profile.X509ClientCertB64 = os.Getenv("OSC_X509_CLIENT_CERT_B64")
-	profile.X509ClientKey = os.Getenv("OSC_X509_CLIENT_KEY")
-	profile.X509ClientKeyB64 = os.Getenv("OSC_X509_CLIENT_KEY_B64")
-	profile.TlsSkipVerify = getenvBool("OSC_TLS_SKIP_VERIFY")
-	profile.Login = os.Getenv("OSC_LOGIN")
-	profile.Password = os.Getenv("OSC_PASSWORD")
-	profile.Protocol = os.Getenv("OSC_PROTOCOL")
-	profile.Region = os.Getenv("OSC_REGION")
-	profile.Endpoints.API = os.Getenv("OSC_ENDPOINT_API")
-	profile.Endpoints.OKS = os.Getenv("OSC_ENDPOINT_OKS")
-	profile.Endpoints.LBU = os.Getenv("OSC_ENDPOINT_LBU")
-	profile.Endpoints.OOS = os.Getenv("OSC_ENDPOINT_OOS")
-	profile.Endpoints.FCU = os.Getenv("OSC_ENDPOINT_FCU")
-	profile.Endpoints.EIM = os.Getenv("OSC_ENDPOINT_EIM")
-	profile.Endpoints.DirectLink = os.Getenv("OSC_ENDPOINT_DIRECT_LINK")
+		p.AccessKey = os.Getenv("OSC_ACCESS_KEY")
+		p.SecretKey = os.Getenv("OSC_SECRET_KEY")
+		p.AccessKeyV2 = os.Getenv("OSC_ACCESS_KEY_V2")
+		p.SecretKeyV2 = os.Getenv("OSC_SECRET_KEY_V2")
+		p.X509ClientCert = os.Getenv("OSC_X509_CLIENT_CERT")
+		p.X509ClientCertB64 = os.Getenv("OSC_X509_CLIENT_CERT_B64")
+		p.X509ClientKey = os.Getenv("OSC_X509_CLIENT_KEY")
+		p.X509ClientKeyB64 = os.Getenv("OSC_X509_CLIENT_KEY_B64")
+		p.TlsSkipVerify = getenvBool("OSC_TLS_SKIP_VERIFY")
+		p.Login = os.Getenv("OSC_LOGIN")
+		p.Password = os.Getenv("OSC_PASSWORD")
+		p.Protocol = os.Getenv("OSC_PROTOCOL")
+		p.Region = os.Getenv("OSC_REGION")
+		p.Endpoints.API = os.Getenv("OSC_ENDPOINT_API")
+		p.Endpoints.OKS = os.Getenv("OSC_ENDPOINT_OKS")
+		p.Endpoints.LBU = os.Getenv("OSC_ENDPOINT_LBU")
+		p.Endpoints.OOS = os.Getenv("OSC_ENDPOINT_OOS")
+		p.Endpoints.FCU = os.Getenv("OSC_ENDPOINT_FCU")
+		p.Endpoints.EIM = os.Getenv("OSC_ENDPOINT_EIM")
+		p.Endpoints.DirectLink = os.Getenv("OSC_ENDPOINT_DIRECT_LINK")
 
-	if iamV2Services, ok := os.LookupEnv("OSC_IAM_V2_SERVICES"); ok {
-		profile.IAMV2Services = strings.Split(iamV2Services, ",")
+		if iamV2Services, ok := os.LookupEnv("OSC_IAM_V2_SERVICES"); ok {
+			p.IAMV2Services = strings.Split(iamV2Services, ",")
+		}
+
+		return nil
 	}
+}
 
-	return profile
+// MergeWith is a profile option that merges any previously loaded profile with
+// another.
+func MergeWith(opt Option) Option {
+	return func(p *Profile) error {
+		var other Profile
+		err := opt(&other)
+		if err != nil {
+			return err
+		}
+		return mergo.Merge(p, other)
+	}
 }
 
 // New loads the profile from the environment or a profile file.
 // The profile file name is fetched from the OSC_CONFIG_FILE env var, or `~/.osc/config.json` if not set.
 // The profile name is fetched from OSC_PROFILE, or `default` if not set.
 func New(opts ...Option) (*Profile, error) {
-	return NewFrom("", "", opts...)
+	if len(opts) == 0 {
+		opts = []Option{FromEnv(), MergeWith(FromFile("", ""))}
+	}
+	var p Profile
+	for _, opt := range opts {
+		err := opt(&p)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if p.Protocol == "" {
+		p.Protocol = "https"
+	}
+
+	if p.Region == "" {
+		p.Region = "eu-west-2"
+	}
+	return &p, nil
 }
 
 // NewFrom loads the profile from the environment or a profile file.
 // If empty, the profile file name is fetched from the OSC_CONFIG_FILE env var, or `~/.osc/config.json` if not set.
 // If empty, the profile name is fetched from OSC_PROFILE, or `default` if not set.
-func NewFrom(profile, path string, opts ...Option) (*Profile, error) {
-	// 1. Load profile from environment
-	mergedProfile := LoadProfileFromEnv()
-
-	// 2. Load additional config from environment
-	if profile == "" {
-		if value, present := os.LookupEnv("OSC_PROFILE"); present {
-			profile = value
-		} else {
-			profile = DefaultProfile
-		}
-	}
-
-	if path == "" {
-		if value, present := os.LookupEnv("OSC_CONFIG_FILE"); present {
-			path = value
-		} else {
-			path, _ = DefaultConfigPath()
-		}
-	}
-
-	// 3. Load profile for config file and merge
-	configFile, err := loadConfigFile(path)
-	if err == nil {
-		if fileprofile, ok := configFile.profiles[profile]; ok {
-			err := mergo.Merge(&mergedProfile, fileprofile)
-			if err != nil {
-				return nil, err
-			}
-		} else if profile != DefaultProfile {
-			return nil, errors.New("specified profile not found")
-		}
-	}
-
-	// 4. Apply options
-	for _, opt := range opts {
-		err := opt(&mergedProfile)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	// 5. Set defaults
-	if mergedProfile.Protocol == "" {
-		mergedProfile.Protocol = "https"
-	}
-
-	if mergedProfile.Region == "" {
-		mergedProfile.Region = "eu-west-2"
-	}
-
-	return &mergedProfile, nil
+func NewFrom(profile, path string) (*Profile, error) {
+	return New(FromEnv(), MergeWith(FromFile(profile, path)))
 }
