@@ -2,6 +2,7 @@
 package retry
 
 import (
+	"context"
 	"net/http"
 	"time"
 
@@ -12,6 +13,18 @@ type RetryMiddleware struct {
 	RetryWaitMin *time.Duration // Minimum time to wait
 	RetryWaitMax *time.Duration // Maximum time to wait
 	RetryMax     *int           // Maximum number of retries
+	RetryTimeout *time.Duration // Maximum time to retry for
+}
+
+type timeoutInjector struct {
+	inner   http.RoundTripper
+	timeout time.Duration
+}
+
+func (t *timeoutInjector) RoundTrip(req *http.Request) (*http.Response, error) {
+	ctx, cancel := context.WithTimeout(req.Context(), t.timeout)
+	defer cancel()
+	return t.inner.RoundTrip(req.WithContext(ctx))
 }
 
 func (r *RetryMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
@@ -33,5 +46,15 @@ func (r *RetryMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
 		rc.RetryMax = *r.RetryMax
 	}
 
-	return &retryablehttp.RoundTripper{Client: rc}
+	var roundTripper http.RoundTripper
+	roundTripper = &retryablehttp.RoundTripper{Client: rc}
+
+	if r.RetryTimeout != nil {
+		roundTripper = &timeoutInjector{
+			inner:   roundTripper,
+			timeout: *r.RetryTimeout,
+		}
+	}
+
+	return roundTripper
 }

@@ -3,9 +3,9 @@ package examples_test
 import (
 	"testing"
 
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
-	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestReadVms(t *testing.T) {
@@ -14,7 +14,7 @@ func TestReadVms(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := osc.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
+	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}

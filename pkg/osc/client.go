@@ -5,8 +5,8 @@ import (
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
-	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 	"github.com/outscale/osc-sdk-go/v3/pkg/version"
 )
 
@@ -25,10 +25,10 @@ func newClientRaw(
 
 	opts = append([]middleware.MiddlewareChainOption{
 		middleware.FromProfile(userProfile, profile.OscServiceApi),
-		utils.WithRatelimit(5),
-		utils.WithRetry(nil, nil, nil),
-		utils.WithLogging(logger.Default()),
-		utils.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", version.Version)),
+		options.WithRatelimit(5),
+		options.WithRetry(nil, nil, nil),
+		options.WithLogging(logger.Default()),
+		options.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", version.Version)),
 	}, opts...)
 
 	m, err := middleware.NewMiddlewareChain(opts...)

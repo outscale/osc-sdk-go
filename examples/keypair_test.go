@@ -2,10 +2,11 @@ package examples_test
 
 import (
 	"testing"
+	"time"
 
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
-	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestKeypair(t *testing.T) {
@@ -14,7 +15,7 @@ func TestKeypair(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := osc.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
+	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +27,7 @@ func TestKeypair(t *testing.T) {
 	resp, err := client.CreateKeypair(ctx, osc.CreateKeypairRequest{
 		DryRun:      &faux,
 		KeypairName: keypairName,
-	})
+	}, options.WithRetryTimeout(time.Minute*10))
 	if err != nil {
 		panic(err)
 	}

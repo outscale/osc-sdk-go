@@ -21,8 +21,8 @@ type MiddlewareSlot = int
 
 const (
 	MiddlewareSlotAuth MiddlewareSlot = iota
-	MiddlewareSlotRateLimit
 	MiddlewareSlotRetry
+	MiddlewareSlotRateLimit
 	MiddlewareSlotUseragent
 	middlewareChainSize
 )

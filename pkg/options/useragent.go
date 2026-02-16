@@ -1,4 +1,4 @@
-package utils
+package options
 
 import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
