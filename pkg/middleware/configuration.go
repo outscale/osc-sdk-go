@@ -95,7 +95,9 @@ func FromProfile(userProfile *profile.Profile, service profile.OscService) Middl
 			opts,
 			withClientCertificatBase64(userProfile.X509ClientCertB64, userProfile.X509ClientKeyB64),
 		)
-	} else if ak != "" && sk != "" && userProfile.Region != "" {
+	}
+
+	if ak != "" && sk != "" && userProfile.Region != "" {
 		opts = append(
 			opts,
 			withAkSk(ak, sk, userProfile.Region, service),
