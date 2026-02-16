@@ -7,8 +7,8 @@ import (
 
 	"dario.cat/mergo"
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
-	"github.com/outscale/osc-sdk-go/v3/pkg/utils"
 )
 
 func TestProject(t *testing.T) {
@@ -17,7 +17,7 @@ func TestProject(t *testing.T) {
 		panic(err)
 	}
 
-	client, err := oks.NewClient(userProfile, utils.WithLogging(&testingLogger{t}))
+	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
 	if err != nil {
 		panic(err)
 	}
