@@ -46,3 +46,17 @@ actions:
     remove: true
   - target: $.paths["/templates/cluster"].get.parameters.*[?(@.name == "X-Real-IP")]
     remove: true
+  - target: $.components.schemas
+    update:
+      ResponseContext:
+        additionalProperties: false
+        description: Information about the context of the response.
+        properties:
+          RequestId:
+            description: The ID of the request.
+            type: string
+        type: object
+  - target: $.components.schemas.*.properties.ResponseContext
+    update:
+      "$ref": "#/components/schemas/ResponseContext"
+
