@@ -1,23 +1,15 @@
 package iso8601
 
-import (
-	"fmt"
-	"time"
-)
+import "encoding/json"
 
-type Time struct {
-	time.Time
-}
-
-func (t *Time) MarshalJSON() ([]byte, error) {
-	// Let's try to aim for a format that is RFC3339 and ISO8601 compatible
-	s := fmt.Sprintf("\"%s\"", t.In(time.UTC).Format("2006-01-02T15:04:05Z"))
-	return []byte(s), nil
+func (t Time) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + t.String() + `"`), nil
 }
 
 func (t *Time) UnmarshalJSON(data []byte) error {
 	// try to be stupid
 	if err := t.Time.UnmarshalJSON(data); err == nil {
+		t.Format = DateTime
 		return nil
 	}
 
@@ -33,11 +25,14 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 		return ErrNotString
 	}
 
-	tmp, err := ParseInLocation(data, time.UTC)
+	tmp, err := ParseString(string(data))
 	if err != nil {
 		return err
 	}
 
-	t.Time = tmp
+	*t = tmp
 	return nil
 }
+
+var _ json.Marshaler = Time{}
+var _ json.Unmarshaler = (*Time)(nil)

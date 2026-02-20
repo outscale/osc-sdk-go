@@ -1,3 +1,3 @@
 # ISO8601
 
-this is a vendored vertion of [ISO8601](https://github.com/relvacode/iso8601).
+This is based on the [github.com/relvacode/iso8601](https://github.com/relvacode/iso8601) package.
