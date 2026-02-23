@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path/filepath"
 )
 
 var ErrNoDefaultProfile = errors.New("no default profile found")
@@ -64,6 +65,13 @@ func LoadConfigFile(path string) (*ConfigFile, error) {
 }
 
 func (cf *ConfigFile) Save() error {
+	dir := filepath.Dir(cf.Path)
+	if _, err := os.Stat(dir); errors.Is(err, fs.ErrNotExist) {
+		err := os.MkdirAll(dir, 0700)
+		if err != nil {
+			return fmt.Errorf("unable to save config file: %w", err)
+		}
+	}
 	tmpFile := cf.Path + ".tmp"
 	fd, err := os.OpenFile(tmpFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
