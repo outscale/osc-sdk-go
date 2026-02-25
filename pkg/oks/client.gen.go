@@ -4795,6 +4795,8 @@ func (c *Client) CreateClusterWithBody(ctx context.Context, contentType string, 
 }
 
 // CreateCluster Creates a new cluster with the provided configuration. The request must include the cluster details in the request body. all clusters are associated to a project
+//
+//sdk:group Clusters
 func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -4941,6 +4943,8 @@ func (c *Client) UpdateClusterWithBody(ctx context.Context, clusterId string, co
 }
 
 // UpdateCluster Updates the configuration of an existing cluster by its ID. The request must include the updated cluster details in the request body. Returns the updated cluster information
+//
+//sdk:group Clusters
 func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body UpdateClusterJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -5051,6 +5055,8 @@ func (c *Client) CreateProjectWithBody(ctx context.Context, contentType string, 
 }
 
 // CreateProject Creates a new project with the provided details. The request must include the project data in the request body. Returns the details of the created project.
+//
+//sdk:group Projects
 func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -5125,6 +5131,8 @@ func (c *Client) UpdateProjectWithBody(ctx context.Context, projectId string, co
 }
 
 // UpdateProject Updates the details of an existing project by its ID. The request must include the updated project data in the request body. Returns the updated project information.
+//
+//sdk:group Projects
 func (c *Client) UpdateProject(ctx context.Context, projectId string, body UpdateProjectJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	c.LogRequest(ctx, body)
 

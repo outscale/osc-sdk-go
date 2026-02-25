@@ -131,6 +131,10 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{range $op.Bodies}}
 {{if .IsSupportedByClient -}}
 {{ toGoComment $op.Spec.Description $opid }}
+//
+{{range $op.Spec.Tags -}}
+//sdk:group {{.}}
+{{end -}}
 func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
     c.LogRequest(ctx, body)
     

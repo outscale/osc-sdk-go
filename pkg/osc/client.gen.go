@@ -40043,6 +40043,8 @@ func (c *Client) AcceptNetPeeringWithBody(ctx context.Context, contentType strin
 //
 // **[NOTE]**<br />
 // A peering connection between two Nets works both ways. Therefore, when an A-to-B peering connection is accepted, any pending B-to-A peering connection is automatically rejected as redundant.
+//
+//sdk:group NetPeering
 func (c *Client) AcceptNetPeering(ctx context.Context, body AcceptNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AcceptNetPeeringResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40081,6 +40083,8 @@ func (c *Client) AddUserToUserGroupWithBody(ctx context.Context, contentType str
 }
 
 // AddUserToUserGroup Adds a user to a specified group.
+//
+//sdk:group UserGroup
 func (c *Client) AddUserToUserGroup(ctx context.Context, body AddUserToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*AddUserToUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40119,6 +40123,8 @@ func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType st
 }
 
 // CheckAuthentication Validates the authenticity of the account.
+//
+//sdk:group Account
 func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40158,6 +40164,8 @@ func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string
 
 // CreateAccessKey Creates an access key for either your root account or an EIM user. The new key is automatically set to `ACTIVE`.<br /><br />
 // For more information, see [About Access Keys](https://docs.outscale.com/en/userguide/About-Access-Keys.html).
+//
+//sdk:group AccessKey
 func (c *Client) CreateAccessKey(ctx context.Context, body CreateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccessKeyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40202,6 +40210,8 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 // * If you want to pass a numeral value as a string instead of an integer, you must wrap your string in additional quotes (for example, `'&quot;92000&quot;'`).
 //
 // For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-Account.html).
+//
+//sdk:group Account
 func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40245,6 +40255,8 @@ func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType st
 // **[NOTE]**<br />
 // By default, your account has a set of rules allowing global access, that you can delete.<br /><br />
 // For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).
+//
+//sdk:group ApiAccessRule
 func (c *Client) CreateApiAccessRule(ctx context.Context, body CreateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateApiAccessRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40284,6 +40296,8 @@ func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body 
 
 // CreateCa Creates a Client Certificate Authority (CA).<br /><br />
 // For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).
+//
+//sdk:group Ca
 func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40325,6 +40339,8 @@ func (c *Client) CreateClientGatewayWithBody(ctx context.Context, contentType st
 // This action registers information to identify the client gateway that you deployed in your network.<br />
 // To open a tunnel to the client gateway, you must provide the communication protocol type, the fixed public IP of the gateway, and an Autonomous System Number (ASN).<br /><br />
 // For more information, see [About Client Gateways](https://docs.outscale.com/en/userguide/About-Client-Gateways.html).
+//
+//sdk:group ClientGateway
 func (c *Client) CreateClientGateway(ctx context.Context, body CreateClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateClientGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40364,6 +40380,8 @@ func (c *Client) CreateDedicatedGroupWithBody(ctx context.Context, contentType s
 
 // CreateDedicatedGroup Creates a dedicated group for virtual machines (VMs).<br /><br />
 // For more information, see [About Dedicated Groups](https://docs.outscale.com/en/userguide/About-Dedicated-Groups.html).
+//
+//sdk:group DedicatedGroup
 func (c *Client) CreateDedicatedGroup(ctx context.Context, body CreateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDedicatedGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40403,6 +40421,8 @@ func (c *Client) CreateDhcpOptionsWithBody(ctx context.Context, contentType stri
 
 // CreateDhcpOptions Creates a set of DHCP options, that you can then associate with a Net using the [UpdateNet](#updatenet) method.<br /><br />
 // For more information, see [About DHCP Options](https://docs.outscale.com/en/userguide/About-DHCP-Options.html).
+//
+//sdk:group DhcpOption
 func (c *Client) CreateDhcpOptions(ctx context.Context, body CreateDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDhcpOptionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40442,6 +40462,8 @@ func (c *Client) CreateDirectLinkWithBody(ctx context.Context, contentType strin
 
 // CreateDirectLink Creates a DirectLink between a customer network and a specified DirectLink location.<br /><br />
 // For more information, see [About DirectLink](https://docs.outscale.com/en/userguide/About-DirectLink.html).
+//
+//sdk:group DirectLink
 func (c *Client) CreateDirectLink(ctx context.Context, body CreateDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40482,6 +40504,8 @@ func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 // CreateDirectLinkInterface Creates a DirectLink interface.<br />
 // DirectLink interfaces enable you to reach one of your Nets through a virtual gateway.<br /><br />
 // For more information, see [About DirectLink](https://docs.outscale.com/en/userguide/About-DirectLink.html).
+//
+//sdk:group DirectLinkInterface
 func (c *Client) CreateDirectLinkInterface(ctx context.Context, body CreateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateDirectLinkInterfaceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40522,6 +40546,8 @@ func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType stri
 // CreateFlexibleGpu Allocates a flexible GPU (fGPU) to your account.<br />
 // You can then attach this fGPU to a virtual machine (VM).<br /><br />
 // For more information, see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html).
+//
+//sdk:group FlexibleGpu
 func (c *Client) CreateFlexibleGpu(ctx context.Context, body CreateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateFlexibleGpuResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40570,6 +40596,8 @@ func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, bo
 // Registering from a bucket enables you to copy an OMI across Regions.
 //
 // For more information, see [About OMIs](https://docs.outscale.com/en/userguide/About-OMIs.html).
+//
+//sdk:group Image
 func (c *Client) CreateImage(ctx context.Context, body CreateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40615,6 +40643,8 @@ func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType 
 // **[IMPORTANT]**<br />
 // You cannot export a shared or public OMI, as they do not belong to you. To do so, you must first copy it to your account. The copy then belongs to you and you can export it.<br /><br />
 // For more information, see [About OMIs](https://docs.outscale.com/en/userguide/About-OMIs.html).
+//
+//sdk:group Image
 func (c *Client) CreateImageExportTask(ctx context.Context, body CreateImageExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateImageExportTaskResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40655,6 +40685,8 @@ func (c *Client) CreateInternetServiceWithBody(ctx context.Context, contentType 
 // CreateInternetService Creates an internet service you can use with a Net.<br />
 // An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows routing of incoming and outgoing Internet traffic and management of public IPs.<br /><br />
 // For more information, see [About Internet Services](https://docs.outscale.com/en/userguide/About-Internet-Services.html).
+//
+//sdk:group InternetService
 func (c *Client) CreateInternetService(ctx context.Context, body CreateInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateInternetServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40699,6 +40731,8 @@ func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, 
 // * **Importing a keypair created locally**: If you already have a keypair that you have created locally with a third-party tool, you can import its public key in your account. The following types of key can be imported: RSA (2048 bits or preferably 4096 bits), Ed25519, and ECDSA (256 bits, 384 bits, or 521 bits). The following formats can be used: PEM, PKCS8, RFC4716, and OpenSSH.
 //
 // For more information, see [About Keypairs](https://docs.outscale.com/en/userguide/About-Keypairs.html).
+//
+//sdk:group Keypair
 func (c *Client) CreateKeypair(ctx context.Context, body CreateKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateKeypairResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40739,6 +40773,8 @@ func (c *Client) CreateListenerRuleWithBody(ctx context.Context, contentType str
 // CreateListenerRule Creates a rule for traffic redirection for the specified listener. Each rule must have either the `HostNamePattern` or `PathPattern` parameter specified. Rules are treated in priority order, from the highest value to the lowest value.<br />
 // Once the rule is created, you need to register backend VMs with it. For more information, see the [RegisterVmsInLoadBalancer](#registervmsinloadbalancer) method.<br /><br />
 // For more information, see [About Load Balancers](https://docs.outscale.com/en/userguide/About-Load-Balancers.html).
+//
+//sdk:group Listener
 func (c *Client) CreateListenerRule(ctx context.Context, body CreateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateListenerRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40781,6 +40817,8 @@ func (c *Client) CreateLoadBalancerWithBody(ctx context.Context, contentType str
 // By default, this action creates an Internet-facing load balancer, resolving to public IPs. To create an internal load balancer in a Net, resolving to private IPs, use the `LoadBalancerType` parameter.<br />
 // You must specify either the `Subnets` or the `SubregionNames` parameters.<br /><br />
 // For more information, see [About Load Balancers](https://docs.outscale.com/en/userguide/About-Load-Balancers.html).
+//
+//sdk:group LoadBalancer
 func (c *Client) CreateLoadBalancer(ctx context.Context, body CreateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40820,6 +40858,8 @@ func (c *Client) CreateLoadBalancerListenersWithBody(ctx context.Context, conten
 
 // CreateLoadBalancerListeners Creates one or more listeners for a specified load balancer.<br /><br />
 // For more information, see [About Load Balancers](https://docs.outscale.com/en/userguide/About-Load-Balancers.html).
+//
+//sdk:group Listener
 func (c *Client) CreateLoadBalancerListeners(ctx context.Context, body CreateLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerListenersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40865,6 +40905,8 @@ func (c *Client) CreateLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 // Unlike the other type of stickiness policy, the lifetime of the special Load Balancer Unit (LBU) cookie follows the lifetime of the application-generated cookie specified in the policy configuration. The load balancer inserts a new stickiness cookie only when the application response includes a new application cookie.<br />
 // The session stops being sticky if the application cookie is removed or expires, until a new application cookie is issued.<br /><br />
 // For more information, see [About Load Balancers](https://docs.outscale.com/en/userguide/About-Load-Balancers.html).
+//
+//sdk:group LoadBalancerPolicy
 func (c *Client) CreateLoadBalancerPolicy(ctx context.Context, body CreateLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40905,6 +40947,8 @@ func (c *Client) CreateLoadBalancerTagsWithBody(ctx context.Context, contentType
 // CreateLoadBalancerTags Adds one or more tags to the specified load balancers.<br />
 // If a tag with the same key already exists for the load balancer, the tag value is replaced.<br /><br />
 // For more information, see [About Tags](https://docs.outscale.com/en/userguide/About-Tags.html).
+//
+//sdk:group LoadBalancer
 func (c *Client) CreateLoadBalancerTags(ctx context.Context, body CreateLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateLoadBalancerTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40950,6 +40994,8 @@ func (c *Client) CreateNatServiceWithBody(ctx context.Context, contentType strin
 // **[IMPORTANT]**<br />
 // You cannot modify the public IP associated with a NAT service after its creation. To do so, you need to delete the NAT service and create a new one with another public IP.<br /><br />
 // For more information, see [About NAT Services](https://docs.outscale.com/en/userguide/About-NAT-Services.html).
+//
+//sdk:group NatService
 func (c *Client) CreateNatService(ctx context.Context, body CreateNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNatServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -40990,6 +41036,8 @@ func (c *Client) CreateNetWithBody(ctx context.Context, contentType string, body
 // CreateNet Creates a Net with a specified IP range.<br />
 // The IP range (network range) of your Net must be between a /28 netmask (16 IPs) and a /16 netmask (65536 IPs).<br /><br />
 // For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html).
+//
+//sdk:group Net
 func (c *Client) CreateNet(ctx context.Context, body CreateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41032,6 +41080,8 @@ func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType s
 // To control the routing of traffic between the Net and the specified service, you can specify one or more route tables. Virtual machines placed in Subnets associated with the specified route table thus use the Net access point to access the service. When you specify a route table, a route is automatically added to it with the destination set to the prefix list ID of the service, and the target set to the ID of the access point.<br /><br />
 // When a Net access point is created, a public IP is automatically allocated to your account and used for the Net access point. This public IP is not connected to the Internet. It is counted in your quota, but it is not billed.<br /> <br />
 // For more information, see [About Net Access Points](https://docs.outscale.com/en/userguide/About-Net-Access-Points.html).
+//
+//sdk:group NetAccessPoint
 func (c *Client) CreateNetAccessPoint(ctx context.Context, body CreateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetAccessPointResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41077,6 +41127,8 @@ func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType strin
 // * A peering connection between two Nets works both ways. If an A-to-B connection is already created and accepted, creating a B-to-A connection is not necessary and would be automatically rejected.
 //
 // For more information, see [About Net Peerings](https://docs.outscale.com/en/userguide/About-Net-Peerings.html).
+//
+//sdk:group NetPeering
 func (c *Client) CreateNetPeering(ctx context.Context, body CreateNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNetPeeringResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41116,6 +41168,8 @@ func (c *Client) CreateNicWithBody(ctx context.Context, contentType string, body
 
 // CreateNic Creates a network interface card (NIC) in the specified Subnet.<br /><br />
 // For more information, see [About NICs](https://docs.outscale.com/en/userguide/About-NICs.html).
+//
+//sdk:group Nic
 func (c *Client) CreateNic(ctx context.Context, body CreateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateNicResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41155,6 +41209,8 @@ func (c *Client) CreatePolicyWithBody(ctx context.Context, contentType string, b
 
 // CreatePolicy Creates a managed policy to apply to a user.<br />
 // This action creates a policy version and sets v1 as the default one.
+//
+//sdk:group Policy
 func (c *Client) CreatePolicy(ctx context.Context, body CreatePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41198,6 +41254,8 @@ func (c *Client) CreatePolicyVersionWithBody(ctx context.Context, contentType st
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) CreatePolicyVersion(ctx context.Context, body CreatePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePolicyVersionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41236,6 +41294,8 @@ func (c *Client) CreateProductTypeWithBody(ctx context.Context, contentType stri
 }
 
 // CreateProductType Creates a product type you can associate with an OMI for consumption monitoring and billing purposes.
+//
+//sdk:group ProductType
 func (c *Client) CreateProductType(ctx context.Context, body CreateProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateProductTypeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41276,6 +41336,8 @@ func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string,
 // CreatePublicIp Acquires a public IP for your account.<br />
 // A public IP is a static IP designed for dynamic Cloud computing. It can be associated with a virtual machine (VM) in the public Cloud or in a Net, a network interface card (NIC), a NAT service.<br /><br />
 // For more information, see [About Public IPs](https://docs.outscale.com/en/userguide/About-Public-IPs.html).
+//
+//sdk:group PublicIp
 func (c *Client) CreatePublicIp(ctx context.Context, body CreatePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreatePublicIpResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41325,6 +41387,8 @@ func (c *Client) CreateRouteWithBody(ctx context.Context, contentType string, bo
 //
 // The routing algorithm is based on the most specific match.<br /><br />
 // For more information, see [About Route Tables](https://docs.outscale.com/en/userguide/About-Route-Tables.html).
+//
+//sdk:group Route
 func (c *Client) CreateRoute(ctx context.Context, body CreateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41365,6 +41429,8 @@ func (c *Client) CreateRouteTableWithBody(ctx context.Context, contentType strin
 // CreateRouteTable Creates a route table for a specified Net.<br />
 // You can then add routes and associate this route table with a Subnet.<br /><br />
 // For more information, see [About Route Tables](https://docs.outscale.com/en/userguide/About-Route-Tables.html).
+//
+//sdk:group RouteTable
 func (c *Client) CreateRouteTable(ctx context.Context, body CreateRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateRouteTableResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41409,6 +41475,8 @@ func (c *Client) CreateSecurityGroupWithBody(ctx context.Context, contentType st
 // You can have up to 500 security groups in the public Cloud. You can create up to 500 security groups per Net.<br />
 // To add or remove rules, use the [CreateSecurityGroupRule](#createsecuritygrouprule) method.<br /><br />
 // For more information, see [About Security Groups](https://docs.outscale.com/en/userguide/About-Security-Groups.html).
+//
+//sdk:group SecurityGroup
 func (c *Client) CreateSecurityGroup(ctx context.Context, body CreateSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41462,6 +41530,8 @@ func (c *Client) CreateSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 // * By default, traffic between two security groups is allowed through both public and private IPs. To restrict traffic to private IPs only, contact our Support team at support@outscale.com.
 //
 // For more information, see [About Security Group Rules](https://docs.outscale.com/en/userguide/About-Security-Group-Rules.html).
+//
+//sdk:group SecurityGroupRule
 func (c *Client) CreateSecurityGroupRule(ctx context.Context, body CreateSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSecurityGroupRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41506,6 +41576,8 @@ func (c *Client) CreateServerCertificateWithBody(ctx context.Context, contentTyp
 // [IMPORTANT]<br /><br />
 // This private key must not be protected by a password or a passphrase.<br /><br />
 // For more information, see [About Server Certificates in EIM](https://docs.outscale.com/en/userguide/About-Server-Certificates-in-EIM.html).
+//
+//sdk:group ServerCertificate
 func (c *Client) CreateServerCertificate(ctx context.Context, body CreateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateServerCertificateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41553,6 +41625,8 @@ func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string,
 // In case of excessive use of the snapshot creation feature on the same volume over a short period of time, 3DS OUTSCALE reserves the right to temporarily block the feature.
 //
 // For more information, see [About Snapshots](https://docs.outscale.com/en/userguide/About-Snapshots.html).
+//
+//sdk:group Snapshot
 func (c *Client) CreateSnapshot(ctx context.Context, body CreateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41593,6 +41667,8 @@ func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentTy
 // CreateSnapshotExportTask Exports a snapshot to an OUTSCALE Object Storage (OOS) bucket that belongs to you. This action enables you to create a backup of your snapshot.<br /><br />
 // You can share this snapshot with others accounts by granting permission to read it via pre-signed URLs. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).<br /><br />
 // For more information, see [About Snapshots](https://docs.outscale.com/en/userguide/About-Snapshots.html).
+//
+//sdk:group Snapshot
 func (c *Client) CreateSnapshotExportTask(ctx context.Context, body CreateSnapshotExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSnapshotExportTaskResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41633,6 +41709,8 @@ func (c *Client) CreateSubnetWithBody(ctx context.Context, contentType string, b
 // CreateSubnet Creates a Subnet in an existing Net.<br />
 // To create a Subnet in a Net, you have to provide the ID of the Net and the IP range for the Subnet (its network range). Once the Subnet is created, you cannot modify its IP range.<br /><br />
 // For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html).
+//
+//sdk:group Subnet
 func (c *Client) CreateSubnet(ctx context.Context, body CreateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateSubnetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41698,6 +41776,8 @@ func (c *Client) CreateTagsWithBody(ctx context.Context, contentType string, bod
 // * VPN connections (vpn-xxxxxxxx)<br />
 //
 // For more information, see [About Tags](https://docs.outscale.com/en/userguide/About-Tags.html).
+//
+//sdk:group Tag
 func (c *Client) CreateTags(ctx context.Context, body CreateTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41737,6 +41817,8 @@ func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, bod
 
 // CreateUser Creates an EIM user for your account.<br /><br />
 // For more information, see [About EIM Users](https://docs.outscale.com/en/userguide/About-EIM-Users.html).
+//
+//sdk:group User
 func (c *Client) CreateUser(ctx context.Context, body CreateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41776,6 +41858,8 @@ func (c *Client) CreateUserGroupWithBody(ctx context.Context, contentType string
 
 // CreateUserGroup Creates a group to which you can add users.<br />
 // You can also add an inline policy or link a managed policy to the group, which is applied to all its users.
+//
+//sdk:group UserGroup
 func (c *Client) CreateUserGroup(ctx context.Context, body CreateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41816,6 +41900,8 @@ func (c *Client) CreateVirtualGatewayWithBody(ctx context.Context, contentType s
 // CreateVirtualGateway Creates a virtual gateway.<br />
 // A virtual gateway is the access point on the Net side of a VPN connection.<br /><br />
 // For more information, see [About Virtual Gateways](https://docs.outscale.com/en/userguide/About-Virtual-Gateways.html).
+//
+//sdk:group VirtualGateway
 func (c *Client) CreateVirtualGateway(ctx context.Context, body CreateVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVirtualGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41858,6 +41944,8 @@ func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, 
 //
 // Creates a group of virtual machines (VMs) containing the same characteristics as a specified VM template, and then launches them.<br />
 // You can create up to 100 VM groups in your account.
+//
+//sdk:group VmGroup
 func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41900,6 +41988,8 @@ func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType strin
 //
 // Creates a virtual machine (VM) template. You can then use the VM template to create VM groups.<br />
 // You can create up to 50 VM templates in your account.
+//
+//sdk:group VmTemplate
 func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41948,6 +42038,8 @@ func (c *Client) CreateVmsWithBody(ctx context.Context, contentType string, body
 // When you attach a security group to a VM, it is actually attached to the primary network interface of the VM.<br />
 //
 // For more information, see [About VMs](https://docs.outscale.com/en/userguide/About-VMs.html).
+//
+//sdk:group Vm
 func (c *Client) CreateVms(ctx context.Context, body CreateVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -41989,6 +42081,8 @@ func (c *Client) CreateVolumeWithBody(ctx context.Context, contentType string, b
 // BSU volumes can be attached to a virtual machine (VM) in the same Subregion. You can create an empty volume or restore a volume from an existing snapshot.<br />
 // You can create the following volume types: Enterprise (`io1`) for provisioned IOPS SSD volumes, Performance (`gp2`) for general purpose SSD volumes, or Magnetic (`standard`) volumes.<br /><br />
 // For more information, see [About Volumes](https://docs.outscale.com/en/userguide/About-Volumes.html).
+//
+//sdk:group Volume
 func (c *Client) CreateVolume(ctx context.Context, body CreateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVolumeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42032,6 +42126,8 @@ func (c *Client) CreateVpnConnectionWithBody(ctx context.Context, contentType st
 // **[IMPORTANT]**<br />
 // This action can be done only if the virtual gateway is in the `available` state.<br /><br />
 // For more information, see [About VPN Connections](https://docs.outscale.com/en/userguide/About-VPN-Connections.html).
+//
+//sdk:group VpnConnection
 func (c *Client) CreateVpnConnection(ctx context.Context, body CreateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42072,6 +42168,8 @@ func (c *Client) CreateVpnConnectionRouteWithBody(ctx context.Context, contentTy
 // CreateVpnConnectionRoute Creates a static route to a VPN connection.<br />
 // This enables you to select the network flows sent by the virtual gateway to the target VPN connection.<br /><br />
 // For more information, see [About Routing Configuration for VPN Connections](https://docs.outscale.com/en/userguide/About-Routing-Configuration-for-VPN-Connections.html).
+//
+//sdk:group VpnConnection
 func (c *Client) CreateVpnConnectionRoute(ctx context.Context, body CreateVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVpnConnectionRouteResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42111,6 +42209,8 @@ func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string
 
 // DeleteAccessKey Deletes the specified access key of either your root account or an EIM user.<br /><br />
 // The access key of an EIM user must be in the `INACTIVE` state to be deleted.
+//
+//sdk:group AccessKey
 func (c *Client) DeleteAccessKey(ctx context.Context, body DeleteAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteAccessKeyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42152,6 +42252,8 @@ func (c *Client) DeleteApiAccessRuleWithBody(ctx context.Context, contentType st
 //
 // **[IMPORTANT]**<br />
 // You cannot delete the last remaining API access rule. However, if you delete all the API access rules that allow you to access the APIs, you need to contact the Support team to regain access. For more information, see [Technical Support](https://docs.outscale.com/en/userguide/Technical-Support.html).
+//
+//sdk:group ApiAccessRule
 func (c *Client) DeleteApiAccessRule(ctx context.Context, body DeleteApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteApiAccessRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42190,6 +42292,8 @@ func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body 
 }
 
 // DeleteCa Deletes a specified Client Certificate Authority (CA).
+//
+//sdk:group Ca
 func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42229,6 +42333,8 @@ func (c *Client) DeleteClientGatewayWithBody(ctx context.Context, contentType st
 
 // DeleteClientGateway Deletes a client gateway.<br />
 // You must delete the VPN connection before deleting the client gateway.
+//
+//sdk:group ClientGateway
 func (c *Client) DeleteClientGateway(ctx context.Context, body DeleteClientGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteClientGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42273,6 +42379,8 @@ func (c *Client) DeleteDedicatedGroupWithBody(ctx context.Context, contentType s
 // If you force the deletion:<br />
 // - all VMs are terminated.<br />
 // - all Nets are deleted, and all resources associated with Nets are detached.
+//
+//sdk:group DedicatedGroup
 func (c *Client) DeleteDedicatedGroup(ctx context.Context, body DeleteDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDedicatedGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42315,6 +42423,8 @@ func (c *Client) DeleteDhcpOptionsWithBody(ctx context.Context, contentType stri
 //
 // **[IMPORTANT]**<br />
 // You cannot delete the `default` set.
+//
+//sdk:group DhcpOption
 func (c *Client) DeleteDhcpOptions(ctx context.Context, body DeleteDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDhcpOptionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42354,6 +42464,8 @@ func (c *Client) DeleteDirectLinkWithBody(ctx context.Context, contentType strin
 
 // DeleteDirectLink Deletes a specified DirectLink.<br />
 // Before deleting a DirectLink, ensure that all your DirectLink interfaces related to this DirectLink are deleted.
+//
+//sdk:group DirectLink
 func (c *Client) DeleteDirectLink(ctx context.Context, body DeleteDirectLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42392,6 +42504,8 @@ func (c *Client) DeleteDirectLinkInterfaceWithBody(ctx context.Context, contentT
 }
 
 // DeleteDirectLinkInterface Deletes a specified DirectLink interface.
+//
+//sdk:group DirectLinkInterface
 func (c *Client) DeleteDirectLinkInterface(ctx context.Context, body DeleteDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteDirectLinkInterfaceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42431,6 +42545,8 @@ func (c *Client) DeleteExportTaskWithBody(ctx context.Context, contentType strin
 
 // DeleteExportTask Deletes an export task.<br />
 // If the export task is not in the `active` or `pending` state, the command fails and an error is returned.
+//
+//sdk:group Task
 func (c *Client) DeleteExportTask(ctx context.Context, body DeleteExportTaskJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteExportTaskResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42470,6 +42586,8 @@ func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType stri
 
 // DeleteFlexibleGpu Releases a flexible GPU (fGPU) from your account.<br />
 // The fGPU becomes free to be used by someone else.
+//
+//sdk:group FlexibleGpu
 func (c *Client) DeleteFlexibleGpu(ctx context.Context, body DeleteFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteFlexibleGpuResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42508,6 +42626,8 @@ func (c *Client) DeleteImageWithBody(ctx context.Context, contentType string, bo
 }
 
 // DeleteImage Deletes an OUTSCALE machine image (OMI) so that you cannot use it anymore to launch virtual machines (VMs). However, you can still use VMs already launched from this OMI.
+//
+//sdk:group Image
 func (c *Client) DeleteImage(ctx context.Context, body DeleteImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteImageResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42547,6 +42667,8 @@ func (c *Client) DeleteInternetServiceWithBody(ctx context.Context, contentType 
 
 // DeleteInternetService Deletes an internet service.<br />
 // Before deleting an internet service, you must detach it from any Net it is attached to.
+//
+//sdk:group InternetService
 func (c *Client) DeleteInternetService(ctx context.Context, body DeleteInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteInternetServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42586,6 +42708,8 @@ func (c *Client) DeleteKeypairWithBody(ctx context.Context, contentType string, 
 
 // DeleteKeypair Deletes the specified keypair.<br />
 // This action deletes the public key stored by 3DS OUTSCALE, thus deleting the keypair.
+//
+//sdk:group Keypair
 func (c *Client) DeleteKeypair(ctx context.Context, body DeleteKeypairJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteKeypairResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42625,6 +42749,8 @@ func (c *Client) DeleteListenerRuleWithBody(ctx context.Context, contentType str
 
 // DeleteListenerRule Deletes a listener rule.<br />
 // The previously active rule is disabled after deletion.
+//
+//sdk:group Listener
 func (c *Client) DeleteListenerRule(ctx context.Context, body DeleteListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteListenerRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42663,6 +42789,8 @@ func (c *Client) DeleteLoadBalancerWithBody(ctx context.Context, contentType str
 }
 
 // DeleteLoadBalancer Deletes a specified load balancer.
+//
+//sdk:group LoadBalancer
 func (c *Client) DeleteLoadBalancer(ctx context.Context, body DeleteLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42701,6 +42829,8 @@ func (c *Client) DeleteLoadBalancerListenersWithBody(ctx context.Context, conten
 }
 
 // DeleteLoadBalancerListeners Deletes listeners of a specified load balancer.
+//
+//sdk:group Listener
 func (c *Client) DeleteLoadBalancerListeners(ctx context.Context, body DeleteLoadBalancerListenersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerListenersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42740,6 +42870,8 @@ func (c *Client) DeleteLoadBalancerPolicyWithBody(ctx context.Context, contentTy
 
 // DeleteLoadBalancerPolicy Deletes a specified policy from a load balancer.<br />
 // In order to be deleted, the policy must not be enabled for any listener.
+//
+//sdk:group LoadBalancerPolicy
 func (c *Client) DeleteLoadBalancerPolicy(ctx context.Context, body DeleteLoadBalancerPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42778,6 +42910,8 @@ func (c *Client) DeleteLoadBalancerTagsWithBody(ctx context.Context, contentType
 }
 
 // DeleteLoadBalancerTags Deletes one or more tags from the specified load balancers.
+//
+//sdk:group LoadBalancer
 func (c *Client) DeleteLoadBalancerTags(ctx context.Context, body DeleteLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteLoadBalancerTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42817,6 +42951,8 @@ func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType strin
 
 // DeleteNatService Deletes a specified network address translation (NAT) service.<br />
 // This action disassociates the public IP from the NAT service, but does not release this public IP from your account. However, it does not delete any NAT service routes in your route tables.
+//
+//sdk:group NatService
 func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42866,6 +43002,8 @@ func (c *Client) DeleteNetWithBody(ctx context.Context, contentType string, body
 // * Load balancers<br />
 // * Security groups<br />
 // * Subnets
+//
+//sdk:group Net
 func (c *Client) DeleteNet(ctx context.Context, body DeleteNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42905,6 +43043,8 @@ func (c *Client) DeleteNetAccessPointWithBody(ctx context.Context, contentType s
 
 // DeleteNetAccessPoint Deletes a specified Net access point.<br />
 // This action also deletes the corresponding routes added to the route tables you specified for the Net access point.
+//
+//sdk:group NetAccessPoint
 func (c *Client) DeleteNetAccessPoint(ctx context.Context, body DeleteNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetAccessPointResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42946,6 +43086,8 @@ func (c *Client) DeleteNetPeeringWithBody(ctx context.Context, contentType strin
 // If the Net peering is in the `active` state, it can be deleted either by the owner of the requester Net or the owner of the peer Net.<br />
 // If it is in the `pending-acceptance` state, it can be deleted only by the owner of the requester Net.<br />
 // If it is in the `rejected`, `failed`, or `expired` states, it cannot be deleted.
+//
+//sdk:group NetPeering
 func (c *Client) DeleteNetPeering(ctx context.Context, body DeleteNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNetPeeringResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -42985,6 +43127,8 @@ func (c *Client) DeleteNicWithBody(ctx context.Context, contentType string, body
 
 // DeleteNic Deletes the specified network interface card (NIC).<br />
 // The network interface must not be attached to any virtual machine (VM).
+//
+//sdk:group Nic
 func (c *Client) DeleteNic(ctx context.Context, body DeleteNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNicResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43024,6 +43168,8 @@ func (c *Client) DeletePolicyWithBody(ctx context.Context, contentType string, b
 
 // DeletePolicy Deletes a managed policy.<br />
 // Before deleting a managed policy, you must unlink all users linked to it and delete all the versions of the policy, except the default one, using the `DeletePolicyVersion` method.
+//
+//sdk:group Policy
 func (c *Client) DeletePolicy(ctx context.Context, body DeletePolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43066,6 +43212,8 @@ func (c *Client) DeletePolicyVersionWithBody(ctx context.Context, contentType st
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) DeletePolicyVersion(ctx context.Context, body DeletePolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePolicyVersionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43108,6 +43256,8 @@ func (c *Client) DeleteProductTypeWithBody(ctx context.Context, contentType stri
 // **[WARNING]**<br />
 // The product type must not be associated with one or more OMIs to be deleted. Otherwise, you need to force the deletion.<br />
 // If you force the deletion, the product type is deleted and remains associated with the OMIs.<br />
+//
+//sdk:group ProductType
 func (c *Client) DeleteProductType(ctx context.Context, body DeleteProductTypeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteProductTypeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43147,6 +43297,8 @@ func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string,
 
 // DeletePublicIp Releases a public IP.<br />
 // You can release a public IP associated with your account. This address is released in the public IP pool and can be used by someone else. Before releasing a public IP, ensure you updated all your resources communicating with this address.
+//
+//sdk:group PublicIp
 func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43185,6 +43337,8 @@ func (c *Client) DeleteRouteWithBody(ctx context.Context, contentType string, bo
 }
 
 // DeleteRoute Deletes a route from a specified route table.
+//
+//sdk:group Route
 func (c *Client) DeleteRoute(ctx context.Context, body DeleteRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43224,6 +43378,8 @@ func (c *Client) DeleteRouteTableWithBody(ctx context.Context, contentType strin
 
 // DeleteRouteTable Deletes a specified route table.<br />
 // Before deleting a route table, you must disassociate it from any Subnet. You cannot delete the main route table.
+//
+//sdk:group RouteTable
 func (c *Client) DeleteRouteTable(ctx context.Context, body DeleteRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteRouteTableResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43264,6 +43420,8 @@ func (c *Client) DeleteSecurityGroupWithBody(ctx context.Context, contentType st
 // DeleteSecurityGroup Deletes a specified security group.<br />
 // You can specify either the name of the security group or its ID.<br />
 // This action fails if the specified group is associated with a virtual machine (VM) or referenced by another security group.
+//
+//sdk:group SecurityGroup
 func (c *Client) DeleteSecurityGroup(ctx context.Context, body DeleteSecurityGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43308,6 +43466,8 @@ func (c *Client) DeleteSecurityGroupRuleWithBody(ctx context.Context, contentTyp
 // To remove outbound access to a destination security group, we recommend to use a set of IP permissions. We also recommend to specify the protocol in a set of IP permissions.<br />
 //
 // Alternatively, you can use the `Rules` parameter to delete several rules at the same time.
+//
+//sdk:group SecurityGroupRule
 func (c *Client) DeleteSecurityGroupRule(ctx context.Context, body DeleteSecurityGroupRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSecurityGroupRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43346,6 +43506,8 @@ func (c *Client) DeleteServerCertificateWithBody(ctx context.Context, contentTyp
 }
 
 // DeleteServerCertificate Deletes a specified server certificate.
+//
+//sdk:group ServerCertificate
 func (c *Client) DeleteServerCertificate(ctx context.Context, body DeleteServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteServerCertificateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43385,6 +43547,8 @@ func (c *Client) DeleteSnapshotWithBody(ctx context.Context, contentType string,
 
 // DeleteSnapshot Deletes a specified snapshot.<br />
 // You cannot delete a snapshot that is currently used by an OUTSCALE machine image (OMI). To do so, you first need to delete the corresponding OMI. For more information, see the [DeleteImage](#deleteimage) method.
+//
+//sdk:group Snapshot
 func (c *Client) DeleteSnapshot(ctx context.Context, body DeleteSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSnapshotResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43429,6 +43593,8 @@ func (c *Client) DeleteSubnetWithBody(ctx context.Context, contentType string, b
 // * Network Interface Cards (NICs)<br />
 // * NAT services<br />
 // * Load balancers
+//
+//sdk:group Subnet
 func (c *Client) DeleteSubnet(ctx context.Context, body DeleteSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteSubnetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43467,6 +43633,8 @@ func (c *Client) DeleteTagsWithBody(ctx context.Context, contentType string, bod
 }
 
 // DeleteTags Deletes one or more tags from the specified resources.
+//
+//sdk:group Tag
 func (c *Client) DeleteTags(ctx context.Context, body DeleteTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43505,6 +43673,8 @@ func (c *Client) DeleteUserWithBody(ctx context.Context, contentType string, bod
 }
 
 // DeleteUser Deletes a specified EIM user. The EIM user must not belong to any group, nor have any key or linked policy.
+//
+//sdk:group User
 func (c *Client) DeleteUser(ctx context.Context, body DeleteUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43547,6 +43717,8 @@ func (c *Client) DeleteUserGroupWithBody(ctx context.Context, contentType string
 // **[WARNING]**<br />
 // The user group must be empty of any user and must not have any linked policy. Otherwise, you need to force the deletion.<br />
 // If you force the deletion, all inline policies will be deleted with the user group.<br />
+//
+//sdk:group UserGroup
 func (c *Client) DeleteUserGroup(ctx context.Context, body DeleteUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43589,6 +43761,8 @@ func (c *Client) DeleteUserGroupPolicyWithBody(ctx context.Context, contentType 
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when creating or deleting an inline policy.
+//
+//sdk:group Policy
 func (c *Client) DeleteUserGroupPolicy(ctx context.Context, body DeleteUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserGroupPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43631,6 +43805,8 @@ func (c *Client) DeleteUserPolicyWithBody(ctx context.Context, contentType strin
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when creating or deleting an inline policy.
+//
+//sdk:group Policy
 func (c *Client) DeleteUserPolicy(ctx context.Context, body DeleteUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteUserPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43670,6 +43846,8 @@ func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType s
 
 // DeleteVirtualGateway Deletes a specified virtual gateway.<br />
 // Before deleting a virtual gateway, we recommend to detach it from the Net and delete the VPN connection.
+//
+//sdk:group VirtualGateway
 func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43711,6 +43889,8 @@ func (c *Client) DeleteVmGroupWithBody(ctx context.Context, contentType string, 
 // > This feature is currently under development and may not function properly.<br />
 //
 // Deletes a specified VM group.
+//
+//sdk:group VmGroup
 func (c *Client) DeleteVmGroup(ctx context.Context, body DeleteVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43753,6 +43933,8 @@ func (c *Client) DeleteVmTemplateWithBody(ctx context.Context, contentType strin
 //
 // Deletes a virtual machine (VM) template.<br />
 // You cannot delete a template currently used by a VM group.
+//
+//sdk:group VmTemplate
 func (c *Client) DeleteVmTemplate(ctx context.Context, body DeleteVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmTemplateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43792,6 +43974,8 @@ func (c *Client) DeleteVmsWithBody(ctx context.Context, contentType string, body
 
 // DeleteVms Terminates one or more virtual machines (VMs).<br />
 // This operation is idempotent, that means that all calls succeed if you terminate a VM more than once.
+//
+//sdk:group Vm
 func (c *Client) DeleteVms(ctx context.Context, body DeleteVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43831,6 +44015,8 @@ func (c *Client) DeleteVolumeWithBody(ctx context.Context, contentType string, b
 
 // DeleteVolume Deletes a specified Block Storage Unit (BSU) volume.<br />
 // You can delete available volumes only, that is, volumes that are not attached to a virtual machine (VM).
+//
+//sdk:group Volume
 func (c *Client) DeleteVolume(ctx context.Context, body DeleteVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVolumeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43870,6 +44056,8 @@ func (c *Client) DeleteVpnConnectionWithBody(ctx context.Context, contentType st
 
 // DeleteVpnConnection Deletes a specified VPN connection.<br />
 // If you want to delete a Net and all its dependencies, we recommend to detach the virtual gateway from the Net and delete the Net before deleting the VPN connection. This enables you to delete the Net without waiting for the VPN connection to be deleted.
+//
+//sdk:group VpnConnection
 func (c *Client) DeleteVpnConnection(ctx context.Context, body DeleteVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43908,6 +44096,8 @@ func (c *Client) DeleteVpnConnectionRouteWithBody(ctx context.Context, contentTy
 }
 
 // DeleteVpnConnectionRoute Deletes a static route to a VPN connection previously created using the CreateVpnConnectionRoute method.
+//
+//sdk:group VpnConnection
 func (c *Client) DeleteVpnConnectionRoute(ctx context.Context, body DeleteVpnConnectionRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVpnConnectionRouteResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43949,6 +44139,8 @@ func (c *Client) DeregisterVmsInLoadBalancerWithBody(ctx context.Context, conten
 // > Deprecated: This call is deprecated and will be removed.<br />
 //
 // Deregisters a specified virtual machine (VM) from a load balancer.
+//
+//sdk:group LoadBalancer
 func (c *Client) DeregisterVmsInLoadBalancer(ctx context.Context, body DeregisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeregisterVmsInLoadBalancerResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -43987,6 +44179,8 @@ func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType s
 }
 
 // DisableOutscaleLogin Disables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44025,6 +44219,8 @@ func (c *Client) DisableOutscaleLoginForUsersWithBody(ctx context.Context, conte
 }
 
 // DisableOutscaleLoginForUsers Disables the possibility of logging in using the Outscale credentials of your EIM users when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) DisableOutscaleLoginForUsers(ctx context.Context, body DisableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44063,6 +44259,8 @@ func (c *Client) DisableOutscaleLoginPerUsersWithBody(ctx context.Context, conte
 }
 
 // DisableOutscaleLoginPerUsers Disables the possibility for one or more specific users to log in using their Outscale credentials when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) DisableOutscaleLoginPerUsers(ctx context.Context, body DisableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginPerUsersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44101,6 +44299,8 @@ func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType st
 }
 
 // EnableOutscaleLogin Enables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44139,6 +44339,8 @@ func (c *Client) EnableOutscaleLoginForUsersWithBody(ctx context.Context, conten
 }
 
 // EnableOutscaleLoginForUsers Enables the possibility for all your EIM users to log in using their Outscale credentials when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) EnableOutscaleLoginForUsers(ctx context.Context, body EnableOutscaleLoginForUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginForUsersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44177,6 +44379,8 @@ func (c *Client) EnableOutscaleLoginPerUsersWithBody(ctx context.Context, conten
 }
 
 // EnableOutscaleLoginPerUsers Enables the possibility for one or more specific users to log in using their Outscale credentials when identity federation is activated.
+//
+//sdk:group IdentityProvider
 func (c *Client) EnableOutscaleLoginPerUsers(ctx context.Context, body EnableOutscaleLoginPerUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginPerUsersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44219,6 +44423,8 @@ func (c *Client) LinkFlexibleGpuWithBody(ctx context.Context, contentType string
 //
 // **[NOTE]**<br />
 // You can attach fGPUs only to VMs with the `highest` (1) performance flag. For more information see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html) and [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
+//
+//sdk:group FlexibleGpu
 func (c *Client) LinkFlexibleGpu(ctx context.Context, body LinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkFlexibleGpuResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44258,6 +44464,8 @@ func (c *Client) LinkInternetServiceWithBody(ctx context.Context, contentType st
 
 // LinkInternetService Attaches an internet service to a Net.<br />
 // To enable the connection between the Internet and a Net, you must attach an internet service to this Net.
+//
+//sdk:group InternetService
 func (c *Client) LinkInternetService(ctx context.Context, body LinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkInternetServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44297,6 +44505,8 @@ func (c *Client) LinkLoadBalancerBackendMachinesWithBody(ctx context.Context, co
 
 // LinkLoadBalancerBackendMachines Attaches one or more virtual machines (VMs) to a specified load balancer. You need to specify at least the `BackendIps` or the `BackendVmIds` parameter.<br />
 // The VMs can be in different Subnets and different Subregions than the load balancer, as long as the VMs and load balancers are all in the public Cloud or all in the same Net. It may take a little time for a VM to be registered with the load balancer. Once the VM is registered with a load balancer, it receives traffic and requests from this load balancer and is called a backend VM.
+//
+//sdk:group LoadBalancer
 func (c *Client) LinkLoadBalancerBackendMachines(ctx context.Context, body LinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkLoadBalancerBackendMachinesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44339,6 +44549,8 @@ func (c *Client) LinkManagedPolicyToUserGroupWithBody(ctx context.Context, conte
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) LinkManagedPolicyToUserGroup(ctx context.Context, body LinkManagedPolicyToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkManagedPolicyToUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44378,6 +44590,8 @@ func (c *Client) LinkNicWithBody(ctx context.Context, contentType string, body i
 
 // LinkNic Attaches a network interface card (NIC) to a virtual machine (VM).<br />
 // The interface and the VM must be in the same Subregion. The VM can be either `running` or `stopped`. The NIC must be in the `available` state. For more information, see [Attaching a NIC to a VM](https://docs.outscale.com/en/userguide/Attaching-a-NIC-to-a-VM.html).
+//
+//sdk:group Nic
 func (c *Client) LinkNic(ctx context.Context, body LinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkNicResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44420,6 +44634,8 @@ func (c *Client) LinkPolicyWithBody(ctx context.Context, contentType string, bod
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) LinkPolicy(ctx context.Context, body LinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44458,6 +44674,8 @@ func (c *Client) LinkPrivateIpsWithBody(ctx context.Context, contentType string,
 }
 
 // LinkPrivateIps Assigns one or more secondary private IPs to a specified network interface card (NIC). This action is only available in a Net. The private IPs to be assigned can be added individually using the `PrivateIps` parameter, or you can specify the number of private IPs to be automatically chosen within the Subnet range using the `SecondaryPrivateIpCount` parameter. You can specify only one of these two parameters. If none of these parameters are specified, a private IP is chosen within the Subnet range.
+//
+//sdk:group Nic
 func (c *Client) LinkPrivateIps(ctx context.Context, body LinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPrivateIpsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44501,6 +44719,8 @@ func (c *Client) LinkPublicIpWithBody(ctx context.Context, contentType string, b
 //
 // **[IMPORTANT]**<br />
 // You can associate a public IP with a network address translation (NAT) service only when creating the NAT service. To modify its public IP, you need to delete the NAT service and re-create it with the new public IP. For more information, see the [CreateNatService](#createnatservice) method.
+//
+//sdk:group PublicIp
 func (c *Client) LinkPublicIp(ctx context.Context, body LinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkPublicIpResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44540,6 +44760,8 @@ func (c *Client) LinkRouteTableWithBody(ctx context.Context, contentType string,
 
 // LinkRouteTable Associates a Subnet with a route table.<br />
 // The Subnet and the route table must be in the same Net. The traffic is routed according to the route table defined within this Net. You can associate a route table with several Subnets.
+//
+//sdk:group RouteTable
 func (c *Client) LinkRouteTable(ctx context.Context, body LinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkRouteTableResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44581,6 +44803,8 @@ func (c *Client) LinkVirtualGatewayWithBody(ctx context.Context, contentType str
 //
 // **[IMPORTANT]**<br />
 // This action can be done only if the virtual gateway is in the `available` state.
+//
+//sdk:group VirtualGateway
 func (c *Client) LinkVirtualGateway(ctx context.Context, body LinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVirtualGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44620,6 +44844,8 @@ func (c *Client) LinkVolumeWithBody(ctx context.Context, contentType string, bod
 
 // LinkVolume Attaches a Block Storage Unit (BSU) volume to a virtual machine (VM).<br />
 // The volume and the VM must be in the same Subregion. The VM can be running or stopped. The volume is attached to the specified VM device.
+//
+//sdk:group Volume
 func (c *Client) LinkVolume(ctx context.Context, body LinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*LinkVolumeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44663,6 +44889,8 @@ func (c *Client) PutUserGroupPolicyWithBody(ctx context.Context, contentType str
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when creating or deleting an inline policy.
+//
+//sdk:group Policy
 func (c *Client) PutUserGroupPolicy(ctx context.Context, body PutUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserGroupPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44706,6 +44934,8 @@ func (c *Client) PutUserPolicyWithBody(ctx context.Context, contentType string, 
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when creating or deleting an inline policy.
+//
+//sdk:group Policy
 func (c *Client) PutUserPolicy(ctx context.Context, body PutUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*PutUserPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44744,6 +44974,8 @@ func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string,
 }
 
 // ReadAccessKeys Lists the access key IDs of either your root account or an EIM user.
+//
+//sdk:group AccessKey
 func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44782,6 +45014,8 @@ func (c *Client) ReadAccountsWithBody(ctx context.Context, contentType string, b
 }
 
 // ReadAccounts Gets information about the account that sent the request.
+//
+//sdk:group Account
 func (c *Client) ReadAccounts(ctx context.Context, body ReadAccountsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccountsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44825,6 +45059,8 @@ func (c *Client) ReadAdminPasswordWithBody(ctx context.Context, contentType stri
 // **[IMPORTANT]**<br />
 // * Only RSA keypairs can decrypt the password of a Windows VM.<br />
 // * The administrator password is generated only on the first boot of the Windows VM. It is not returned after the first boot.
+//
+//sdk:group Vm
 func (c *Client) ReadAdminPassword(ctx context.Context, body ReadAdminPasswordJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAdminPasswordResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44864,6 +45100,8 @@ func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType st
 
 // ReadApiAccessPolicy Gets information about the API access policy of your account.<br /><br />
 // For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
+//
+//sdk:group ApiAccessPolicy
 func (c *Client) ReadApiAccessPolicy(ctx context.Context, body ReadApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44902,6 +45140,8 @@ func (c *Client) ReadApiAccessRulesWithBody(ctx context.Context, contentType str
 }
 
 // ReadApiAccessRules Lists one or more API access rules.
+//
+//sdk:group ApiAccessRule
 func (c *Client) ReadApiAccessRules(ctx context.Context, body ReadApiAccessRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiAccessRulesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44945,6 +45185,8 @@ func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, bo
 // Past logs are accessible for up to 32 days.<br />
 // By default, the retrieved interval is 48 hours. If neither of the `QueryDateBefore` nor `QueryDateAfter` parameters are specified, logs from the past 48 hours are retrieved. If you only specify one of two, logs are retrieved from a 2-day interval based on the date you provided. To retrieve logs beyond a 2-day interval, specify both parameters.<br /><br />
 // For more information, see [About OMS](https://docs.outscale.com/en/userguide/About-OMS.html).
+//
+//sdk:group ApiLog
 func (c *Client) ReadApiLogs(ctx context.Context, body ReadApiLogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadApiLogsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -44983,6 +45225,8 @@ func (c *Client) ReadCO2EmissionAccountWithBody(ctx context.Context, contentType
 }
 
 // ReadCO2EmissionAccount Gets information about the estimated carbon footprint of your account for the current Region within the specified time period.
+//
+//sdk:group Account
 func (c *Client) ReadCO2EmissionAccount(ctx context.Context, body ReadCO2EmissionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCO2EmissionAccountResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45021,6 +45265,8 @@ func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body i
 }
 
 // ReadCas Gets information about one or more of your Client Certificate Authorities (CAs).
+//
+//sdk:group Ca
 func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45059,6 +45305,8 @@ func (c *Client) ReadCatalogWithBody(ctx context.Context, contentType string, bo
 }
 
 // ReadCatalog Returns the price list of OUTSCALE services for the current Region.
+//
+//sdk:group Catalog
 func (c *Client) ReadCatalog(ctx context.Context, body ReadCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45097,6 +45345,8 @@ func (c *Client) ReadCatalogsWithBody(ctx context.Context, contentType string, b
 }
 
 // ReadCatalogs Returns the price list of OUTSCALE services for the current Region within a specific time period.
+//
+//sdk:group Catalog
 func (c *Client) ReadCatalogs(ctx context.Context, body ReadCatalogsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCatalogsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45135,6 +45385,8 @@ func (c *Client) ReadClientGatewaysWithBody(ctx context.Context, contentType str
 }
 
 // ReadClientGateways Lists one or more of your client gateways.
+//
+//sdk:group ClientGateway
 func (c *Client) ReadClientGateways(ctx context.Context, body ReadClientGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadClientGatewaysResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45176,6 +45428,8 @@ func (c *Client) ReadConsoleOutputWithBody(ctx context.Context, contentType stri
 //
 // **[IMPORTANT]**<br />
 // On Windows VMs, the console is handled only on the first boot. It returns no output after the first boot.
+//
+//sdk:group Vm
 func (c *Client) ReadConsoleOutput(ctx context.Context, body ReadConsoleOutputJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsoleOutputResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45214,6 +45468,8 @@ func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType
 }
 
 // ReadConsumptionAccount Gets information about the consumption of your account for each billable resource within the specified time period.
+//
+//sdk:group Account
 func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45252,6 +45508,8 @@ func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType st
 }
 
 // ReadDedicatedGroups List one or more dedicated groups of virtual machines (VMs).
+//
+//sdk:group DedicatedGroup
 func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45290,6 +45548,8 @@ func (c *Client) ReadDhcpOptionsWithBody(ctx context.Context, contentType string
 }
 
 // ReadDhcpOptions Gets information about the content of one or more DHCP options sets.
+//
+//sdk:group DhcpOption
 func (c *Client) ReadDhcpOptions(ctx context.Context, body ReadDhcpOptionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDhcpOptionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45328,6 +45588,8 @@ func (c *Client) ReadDirectLinkInterfacesWithBody(ctx context.Context, contentTy
 }
 
 // ReadDirectLinkInterfaces Lists one or more of your DirectLink interfaces.
+//
+//sdk:group DirectLinkInterface
 func (c *Client) ReadDirectLinkInterfaces(ctx context.Context, body ReadDirectLinkInterfacesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinkInterfacesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45366,6 +45628,8 @@ func (c *Client) ReadDirectLinksWithBody(ctx context.Context, contentType string
 }
 
 // ReadDirectLinks Lists all DirectLinks in the Region.
+//
+//sdk:group DirectLink
 func (c *Client) ReadDirectLinks(ctx context.Context, body ReadDirectLinksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDirectLinksResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45404,6 +45668,8 @@ func (c *Client) ReadEntitiesLinkedToPolicyWithBody(ctx context.Context, content
 }
 
 // ReadEntitiesLinkedToPolicy Lists all entities (account, users, or user groups) linked to a specific managed policy.
+//
+//sdk:group Policy
 func (c *Client) ReadEntitiesLinkedToPolicy(ctx context.Context, body ReadEntitiesLinkedToPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadEntitiesLinkedToPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45442,6 +45708,8 @@ func (c *Client) ReadFlexibleGpuCatalogWithBody(ctx context.Context, contentType
 }
 
 // ReadFlexibleGpuCatalog Lists all flexible GPUs available in the public catalog.
+//
+//sdk:group FlexibleGpu
 func (c *Client) ReadFlexibleGpuCatalog(ctx context.Context, body ReadFlexibleGpuCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpuCatalogResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45480,6 +45748,8 @@ func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType strin
 }
 
 // ReadFlexibleGpus Lists one or more flexible GPUs (fGPUs) allocated to your account.
+//
+//sdk:group FlexibleGpu
 func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45518,6 +45788,8 @@ func (c *Client) ReadImageExportTasksWithBody(ctx context.Context, contentType s
 }
 
 // ReadImageExportTasks Lists one or more image export tasks.
+//
+//sdk:group Image
 func (c *Client) ReadImageExportTasks(ctx context.Context, body ReadImageExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImageExportTasksResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45556,6 +45828,8 @@ func (c *Client) ReadImagesWithBody(ctx context.Context, contentType string, bod
 }
 
 // ReadImages Lists one or more OUTSCALE machine images (OMIs) you can use.
+//
+//sdk:group Image
 func (c *Client) ReadImages(ctx context.Context, body ReadImagesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadImagesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45595,6 +45869,8 @@ func (c *Client) ReadInternetServicesWithBody(ctx context.Context, contentType s
 
 // ReadInternetServices Lists one or more of your internet services.<br />
 // An internet service enables virtual machines (VMs) launched in a Net to connect to the Internet. It allows the routing of incoming and outgoing Internet traffic and management of public IPs.
+//
+//sdk:group InternetService
 func (c *Client) ReadInternetServices(ctx context.Context, body ReadInternetServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadInternetServicesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45633,6 +45909,8 @@ func (c *Client) ReadKeypairsWithBody(ctx context.Context, contentType string, b
 }
 
 // ReadKeypairs Lists one or more of your keypairs.
+//
+//sdk:group Keypair
 func (c *Client) ReadKeypairs(ctx context.Context, body ReadKeypairsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadKeypairsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45671,6 +45949,8 @@ func (c *Client) ReadLinkedPoliciesWithBody(ctx context.Context, contentType str
 }
 
 // ReadLinkedPolicies Lists the managed policies linked to a specified user.
+//
+//sdk:group Policy
 func (c *Client) ReadLinkedPolicies(ctx context.Context, body ReadLinkedPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLinkedPoliciesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45709,6 +45989,8 @@ func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType stri
 }
 
 // ReadListenerRules Lists one or more listener rules. By default, this action returns the full list of listener rules for the account.
+//
+//sdk:group Listener
 func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45747,6 +46029,8 @@ func (c *Client) ReadLoadBalancerTagsWithBody(ctx context.Context, contentType s
 }
 
 // ReadLoadBalancerTags Lists the tags associated with one or more specified load balancers.
+//
+//sdk:group LoadBalancer
 func (c *Client) ReadLoadBalancerTags(ctx context.Context, body ReadLoadBalancerTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancerTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45785,6 +46069,8 @@ func (c *Client) ReadLoadBalancersWithBody(ctx context.Context, contentType stri
 }
 
 // ReadLoadBalancers Lists one or more load balancers and their attributes.
+//
+//sdk:group LoadBalancer
 func (c *Client) ReadLoadBalancers(ctx context.Context, body ReadLoadBalancersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLoadBalancersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45824,6 +46110,8 @@ func (c *Client) ReadLocationsWithBody(ctx context.Context, contentType string, 
 
 // ReadLocations Lists the locations, corresponding to datacenters, where you can set up a DirectLink.<br /><br />
 // For more information, see [About DirectLink](https://docs.outscale.com/en/userguide/About-DirectLink.html).
+//
+//sdk:group Location
 func (c *Client) ReadLocations(ctx context.Context, body ReadLocationsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadLocationsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45862,6 +46150,8 @@ func (c *Client) ReadManagedPoliciesLinkedToUserGroupWithBody(ctx context.Contex
 }
 
 // ReadManagedPoliciesLinkedToUserGroup Lists the managed policies linked to a specified group.
+//
+//sdk:group Policy
 func (c *Client) ReadManagedPoliciesLinkedToUserGroup(ctx context.Context, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadManagedPoliciesLinkedToUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45900,6 +46190,8 @@ func (c *Client) ReadNatServicesWithBody(ctx context.Context, contentType string
 }
 
 // ReadNatServices Lists one or more network address translation (NAT) services.
+//
+//sdk:group NatService
 func (c *Client) ReadNatServices(ctx context.Context, body ReadNatServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNatServicesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45939,6 +46231,8 @@ func (c *Client) ReadNetAccessPointServicesWithBody(ctx context.Context, content
 
 // ReadNetAccessPointServices Lists OUTSCALE services available to create Net access points.<br />
 // For more information, see [CreateNetAccessPoint](#createnetaccesspoint).
+//
+//sdk:group NetAccessPoint
 func (c *Client) ReadNetAccessPointServices(ctx context.Context, body ReadNetAccessPointServicesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointServicesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -45977,6 +46271,8 @@ func (c *Client) ReadNetAccessPointsWithBody(ctx context.Context, contentType st
 }
 
 // ReadNetAccessPoints Lists one or more Net access points.
+//
+//sdk:group NetAccessPoint
 func (c *Client) ReadNetAccessPoints(ctx context.Context, body ReadNetAccessPointsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetAccessPointsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46015,6 +46311,8 @@ func (c *Client) ReadNetPeeringsWithBody(ctx context.Context, contentType string
 }
 
 // ReadNetPeerings Lists one or more peering connections between two Nets.
+//
+//sdk:group NetPeering
 func (c *Client) ReadNetPeerings(ctx context.Context, body ReadNetPeeringsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetPeeringsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46053,6 +46351,8 @@ func (c *Client) ReadNetsWithBody(ctx context.Context, contentType string, body 
 }
 
 // ReadNets Lists one or more Nets.
+//
+//sdk:group Net
 func (c *Client) ReadNets(ctx context.Context, body ReadNetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNetsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46092,6 +46392,8 @@ func (c *Client) ReadNicsWithBody(ctx context.Context, contentType string, body 
 
 // ReadNics Lists one or more network interface cards (NICs).<br />
 // A NIC is a virtual network interface that you can attach to a virtual machine (VM) in a Net.
+//
+//sdk:group Nic
 func (c *Client) ReadNics(ctx context.Context, body ReadNicsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadNicsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46130,6 +46432,8 @@ func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, b
 }
 
 // ReadPolicies Lists all the managed policies available for your account.
+//
+//sdk:group Policy
 func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46168,6 +46472,8 @@ func (c *Client) ReadPolicyWithBody(ctx context.Context, contentType string, bod
 }
 
 // ReadPolicy Lists information about a specified managed policy.
+//
+//sdk:group Policy
 func (c *Client) ReadPolicy(ctx context.Context, body ReadPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46206,6 +46512,8 @@ func (c *Client) ReadPolicyVersionWithBody(ctx context.Context, contentType stri
 }
 
 // ReadPolicyVersion Lists information about a specified version of a managed policy.
+//
+//sdk:group Policy
 func (c *Client) ReadPolicyVersion(ctx context.Context, body ReadPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46244,6 +46552,8 @@ func (c *Client) ReadPolicyVersionsWithBody(ctx context.Context, contentType str
 }
 
 // ReadPolicyVersions Lists information about all the policy versions of a specified managed policy.
+//
+//sdk:group Policy
 func (c *Client) ReadPolicyVersions(ctx context.Context, body ReadPolicyVersionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPolicyVersionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46282,6 +46592,8 @@ func (c *Client) ReadProductTypesWithBody(ctx context.Context, contentType strin
 }
 
 // ReadProductTypes Lists one or more product types.
+//
+//sdk:group ProductType
 func (c *Client) ReadProductTypes(ctx context.Context, body ReadProductTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadProductTypesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46320,6 +46632,8 @@ func (c *Client) ReadPublicCatalogWithBody(ctx context.Context, contentType stri
 }
 
 // ReadPublicCatalog Returns the price list of OUTSCALE products and services for the Region specified in the endpoint of the request. For more information, see [About Regions and Subregions](https://docs.outscale.com/en/userguide/About-Regions-and-Subregions.html).
+//
+//sdk:group PublicCatalog
 func (c *Client) ReadPublicCatalog(ctx context.Context, body ReadPublicCatalogJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicCatalogResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46358,6 +46672,8 @@ func (c *Client) ReadPublicIpRangesWithBody(ctx context.Context, contentType str
 }
 
 // ReadPublicIpRanges Gets the public IPv4 addresses in CIDR notation for the Region specified in the endpoint of the request. For more information, see [About Regions and Subregions](https://docs.outscale.com/en/userguide/About-Regions-and-Subregions.html).
+//
+//sdk:group PublicIp
 func (c *Client) ReadPublicIpRanges(ctx context.Context, body ReadPublicIpRangesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpRangesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46397,6 +46713,8 @@ func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, 
 
 // ReadPublicIps Lists one or more public IPs allocated to your account.<br />
 // By default, this action returns information about all your public IPs: available or associated with a virtual machine (VM), a network interface card (NIC) or a NAT service.
+//
+//sdk:group PublicIp
 func (c *Client) ReadPublicIps(ctx context.Context, body ReadPublicIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPublicIpsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46436,6 +46754,8 @@ func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, bod
 
 // ReadQuotas Lists one or more of your quotas.<br /><br />
 // For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-Account.html).
+//
+//sdk:group Quota
 func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46475,6 +46795,8 @@ func (c *Client) ReadRegionsWithBody(ctx context.Context, contentType string, bo
 
 // ReadRegions Lists one or more Regions of the OUTSCALE Cloud.<br /><br />
 // For more information, see [About Regions and Subregions](https://docs.outscale.com/en/userguide/About-Regions-and-Subregions.html).
+//
+//sdk:group Region
 func (c *Client) ReadRegions(ctx context.Context, body ReadRegionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRegionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46514,6 +46836,8 @@ func (c *Client) ReadRouteTablesWithBody(ctx context.Context, contentType string
 
 // ReadRouteTables Lists one or more of your route tables.<br />
 // In your Net, each Subnet must be associated with a route table. If a Subnet is not explicitly associated with a route table, it is implicitly associated with the main route table of the Net.
+//
+//sdk:group RouteTable
 func (c *Client) ReadRouteTables(ctx context.Context, body ReadRouteTablesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadRouteTablesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46553,6 +46877,8 @@ func (c *Client) ReadSecurityGroupsWithBody(ctx context.Context, contentType str
 
 // ReadSecurityGroups Lists one or more security groups.<br />
 // You can specify either the name of the security groups or their IDs.
+//
+//sdk:group SecurityGroup
 func (c *Client) ReadSecurityGroups(ctx context.Context, body ReadSecurityGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSecurityGroupsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46591,6 +46917,8 @@ func (c *Client) ReadServerCertificatesWithBody(ctx context.Context, contentType
 }
 
 // ReadServerCertificates Lists your server certificates.
+//
+//sdk:group ServerCertificate
 func (c *Client) ReadServerCertificates(ctx context.Context, body ReadServerCertificatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadServerCertificatesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46629,6 +46957,8 @@ func (c *Client) ReadSnapshotExportTasksWithBody(ctx context.Context, contentTyp
 }
 
 // ReadSnapshotExportTasks Lists one or more snapshot export tasks.
+//
+//sdk:group Snapshot
 func (c *Client) ReadSnapshotExportTasks(ctx context.Context, body ReadSnapshotExportTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotExportTasksResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46667,6 +46997,8 @@ func (c *Client) ReadSnapshotsWithBody(ctx context.Context, contentType string, 
 }
 
 // ReadSnapshots Lists one or more snapshots that are available to you and the permissions to create volumes from them.
+//
+//sdk:group Snapshot
 func (c *Client) ReadSnapshots(ctx context.Context, body ReadSnapshotsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSnapshotsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46706,6 +47038,8 @@ func (c *Client) ReadSubnetsWithBody(ctx context.Context, contentType string, bo
 
 // ReadSubnets Lists one or more of your Subnets.<br />
 // If you do not specify any Subnet ID, this action describes all of your Subnets.
+//
+//sdk:group Subnet
 func (c *Client) ReadSubnets(ctx context.Context, body ReadSubnetsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubnetsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46746,6 +47080,8 @@ func (c *Client) ReadSubregionsWithBody(ctx context.Context, contentType string,
 // ReadSubregions Lists one or more of the enabled Subregions that you can access in the current Region.<br /><br />
 //
 // For more information, see [About Regions and Subregions](https://docs.outscale.com/en/userguide/About-Regions-and-Subregions.html).
+//
+//sdk:group Subregion
 func (c *Client) ReadSubregions(ctx context.Context, body ReadSubregionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadSubregionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46784,6 +47120,8 @@ func (c *Client) ReadTagsWithBody(ctx context.Context, contentType string, body 
 }
 
 // ReadTags Lists one or more tags for your resources.
+//
+//sdk:group Tag
 func (c *Client) ReadTags(ctx context.Context, body ReadTagsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadTagsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46822,6 +47160,8 @@ func (c *Client) ReadUnitPriceWithBody(ctx context.Context, contentType string, 
 }
 
 // ReadUnitPrice Gets unit price information for the specified parameters.
+//
+//sdk:group Catalog
 func (c *Client) ReadUnitPrice(ctx context.Context, body ReadUnitPriceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUnitPriceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46860,6 +47200,8 @@ func (c *Client) ReadUserGroupWithBody(ctx context.Context, contentType string, 
 }
 
 // ReadUserGroup Lists information about a specified user group, including its users.
+//
+//sdk:group UserGroup
 func (c *Client) ReadUserGroup(ctx context.Context, body ReadUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46898,6 +47240,8 @@ func (c *Client) ReadUserGroupPoliciesWithBody(ctx context.Context, contentType 
 }
 
 // ReadUserGroupPolicies Lists the names of the inline policies embedded in a specific group.
+//
+//sdk:group Policy
 func (c *Client) ReadUserGroupPolicies(ctx context.Context, body ReadUserGroupPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPoliciesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46936,6 +47280,8 @@ func (c *Client) ReadUserGroupPolicyWithBody(ctx context.Context, contentType st
 }
 
 // ReadUserGroupPolicy Returns information about an inline policy included in a specified group.
+//
+//sdk:group Policy
 func (c *Client) ReadUserGroupPolicy(ctx context.Context, body ReadUserGroupPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -46975,6 +47321,8 @@ func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string,
 
 // ReadUserGroups Lists all the user groups of the account.<br />
 // The response can be filtered using either the PathPrefix or the UserGroupIds.
+//
+//sdk:group UserGroup
 func (c *Client) ReadUserGroups(ctx context.Context, body ReadUserGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47013,6 +47361,8 @@ func (c *Client) ReadUserGroupsPerUserWithBody(ctx context.Context, contentType 
 }
 
 // ReadUserGroupsPerUser Lists the groups a specified user belongs to.
+//
+//sdk:group UserGroup
 func (c *Client) ReadUserGroupsPerUser(ctx context.Context, body ReadUserGroupsPerUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserGroupsPerUserResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47051,6 +47401,8 @@ func (c *Client) ReadUserPoliciesWithBody(ctx context.Context, contentType strin
 }
 
 // ReadUserPolicies Lists the names of inline policies included in a specified user.
+//
+//sdk:group Policy
 func (c *Client) ReadUserPolicies(ctx context.Context, body ReadUserPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPoliciesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47089,6 +47441,8 @@ func (c *Client) ReadUserPolicyWithBody(ctx context.Context, contentType string,
 }
 
 // ReadUserPolicy Returns information about an inline policy included in a specified user.
+//
+//sdk:group Policy
 func (c *Client) ReadUserPolicy(ctx context.Context, body ReadUserPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUserPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47128,6 +47482,8 @@ func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body
 
 // ReadUsers Lists all EIM users in the account.<br />
 // The response can be filtered using the UserIds.
+//
+//sdk:group User
 func (c *Client) ReadUsers(ctx context.Context, body ReadUsersJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadUsersResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47166,6 +47522,8 @@ func (c *Client) ReadVirtualGatewaysWithBody(ctx context.Context, contentType st
 }
 
 // ReadVirtualGateways Lists one or more virtual gateways.
+//
+//sdk:group VirtualGateway
 func (c *Client) ReadVirtualGateways(ctx context.Context, body ReadVirtualGatewaysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVirtualGatewaysResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47207,6 +47565,8 @@ func (c *Client) ReadVmGroupsWithBody(ctx context.Context, contentType string, b
 // > This feature is currently under development and may not function properly.<br />
 //
 // Lists one or more group of virtual machines (VMs).
+//
+//sdk:group VmGroup
 func (c *Client) ReadVmGroups(ctx context.Context, body ReadVmGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmGroupsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47248,6 +47608,8 @@ func (c *Client) ReadVmTemplatesWithBody(ctx context.Context, contentType string
 // > This feature is currently under development and may not function properly.<br />
 //
 // Lists one or more virtual machine (VM) templates.
+//
+//sdk:group VmTemplate
 func (c *Client) ReadVmTemplates(ctx context.Context, body ReadVmTemplatesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTemplatesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47286,6 +47648,8 @@ func (c *Client) ReadVmTypesWithBody(ctx context.Context, contentType string, bo
 }
 
 // ReadVmTypes Lists one or more predefined VM types.
+//
+//sdk:group Vm
 func (c *Client) ReadVmTypes(ctx context.Context, body ReadVmTypesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmTypesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47325,6 +47689,8 @@ func (c *Client) ReadVmsWithBody(ctx context.Context, contentType string, body i
 
 // ReadVms Lists one or more of your virtual machines (VMs).<br />
 // If you provide one or more VM IDs, this action returns a description for all of these VMs. If you do not provide any VM ID, this action returns a description for all of the VMs that belong to you. If you provide an invalid VM ID, an error is returned. If you provide the ID of a VM that does not belong to you, the description of this VM is not included in the response. The refresh interval for data returned by this action is one hour, meaning that a terminated VM may appear in the response.
+//
+//sdk:group Vm
 func (c *Client) ReadVms(ctx context.Context, body ReadVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47363,6 +47729,8 @@ func (c *Client) ReadVmsHealthWithBody(ctx context.Context, contentType string, 
 }
 
 // ReadVmsHealth Lists the state of one or more backend virtual machines (VMs) registered with a specified load balancer.
+//
+//sdk:group LoadBalancer
 func (c *Client) ReadVmsHealth(ctx context.Context, body ReadVmsHealthJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsHealthResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47401,6 +47769,8 @@ func (c *Client) ReadVmsStateWithBody(ctx context.Context, contentType string, b
 }
 
 // ReadVmsState Lists the status of one or more virtual machines (VMs).
+//
+//sdk:group Vm
 func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47439,6 +47809,8 @@ func (c *Client) ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType 
 }
 
 // ReadVolumeUpdateTasks Lists one or more specified tasks of volume update.
+//
+//sdk:group Volume
 func (c *Client) ReadVolumeUpdateTasks(ctx context.Context, body ReadVolumeUpdateTasksJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47477,6 +47849,8 @@ func (c *Client) ReadVolumesWithBody(ctx context.Context, contentType string, bo
 }
 
 // ReadVolumes Lists one or more specified Block Storage Unit (BSU) volumes.
+//
+//sdk:group Volume
 func (c *Client) ReadVolumes(ctx context.Context, body ReadVolumesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47515,6 +47889,8 @@ func (c *Client) ReadVpnConnectionsWithBody(ctx context.Context, contentType str
 }
 
 // ReadVpnConnections Lists one or more VPN connections.
+//
+//sdk:group VpnConnection
 func (c *Client) ReadVpnConnections(ctx context.Context, body ReadVpnConnectionsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVpnConnectionsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47554,6 +47930,8 @@ func (c *Client) RebootVmsWithBody(ctx context.Context, contentType string, body
 
 // RebootVms Reboots one or more virtual machines (VMs).<br />
 // This operation sends a reboot request to one or more specified VMs. This is an asynchronous action that queues this reboot request. This action only reboots VMs that are valid and that belong to you.
+//
+//sdk:group Vm
 func (c *Client) RebootVms(ctx context.Context, body RebootVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RebootVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47596,6 +47974,8 @@ func (c *Client) RegisterVmsInLoadBalancerWithBody(ctx context.Context, contentT
 //
 // Registers one or more virtual machines (VMs) with a specified load balancer.<br />
 // The VMs can be in different Subnets and different Subregions than the load balancer, as long as the VMs and load balancers are all in the public Cloud or all in the same Net. It may take a little time for a VM to be registered with the load balancer. Once the VM is registered with a load balancer, it receives traffic and requests from this load balancer and is called a backend VM.
+//
+//sdk:group LoadBalancer
 func (c *Client) RegisterVmsInLoadBalancer(ctx context.Context, body RegisterVmsInLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RegisterVmsInLoadBalancerResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47635,6 +48015,8 @@ func (c *Client) RejectNetPeeringWithBody(ctx context.Context, contentType strin
 
 // RejectNetPeering Rejects a Net peering request.<br />
 // The Net peering must be in the `pending-acceptance` state to be rejected. The rejected Net peering is then in the `rejected` state.
+//
+//sdk:group NetPeering
 func (c *Client) RejectNetPeering(ctx context.Context, body RejectNetPeeringJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RejectNetPeeringResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47673,6 +48055,8 @@ func (c *Client) RemoveUserFromUserGroupWithBody(ctx context.Context, contentTyp
 }
 
 // RemoveUserFromUserGroup Removes a specified user from a specified group.
+//
+//sdk:group UserGroup
 func (c *Client) RemoveUserFromUserGroup(ctx context.Context, body RemoveUserFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*RemoveUserFromUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47715,6 +48099,8 @@ func (c *Client) ScaleDownVmGroupWithBody(ctx context.Context, contentType strin
 //
 // Deletes virtual machines (VMs) from a VM group.<br />
 // The oldest VMs are the first to be deleted.
+//
+//sdk:group VmGroup
 func (c *Client) ScaleDownVmGroup(ctx context.Context, body ScaleDownVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleDownVmGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47757,6 +48143,8 @@ func (c *Client) ScaleUpVmGroupWithBody(ctx context.Context, contentType string,
 //
 // Creates additional virtual machines (VMs) in a VM group.<br />
 // The new VMs use the current version of the VM template.
+//
+//sdk:group VmGroup
 func (c *Client) ScaleUpVmGroup(ctx context.Context, body ScaleUpVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ScaleUpVmGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47800,6 +48188,8 @@ func (c *Client) SetDefaultPolicyVersionWithBody(ctx context.Context, contentTyp
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) SetDefaultPolicyVersion(ctx context.Context, body SetDefaultPolicyVersionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*SetDefaultPolicyVersionResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47839,6 +48229,8 @@ func (c *Client) StartVmsWithBody(ctx context.Context, contentType string, body 
 
 // StartVms Start one or more virtual machines (VMs).<br />
 // You can start only VMs that are valid and that belong to you.
+//
+//sdk:group Vm
 func (c *Client) StartVms(ctx context.Context, body StartVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StartVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47878,6 +48270,8 @@ func (c *Client) StopVmsWithBody(ctx context.Context, contentType string, body i
 
 // StopVms Stops one or more running virtual machines (VMs).<br />
 // You can stop only VMs that are valid and that belong to you. Data stored in the VM RAM is lost.
+//
+//sdk:group Vm
 func (c *Client) StopVms(ctx context.Context, body StopVmsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*StopVmsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47917,6 +48311,8 @@ func (c *Client) UnlinkFlexibleGpuWithBody(ctx context.Context, contentType stri
 
 // UnlinkFlexibleGpu Detaches a flexible GPU (fGPU) from a virtual machine (VM).<br />
 // The fGPU is in the `detaching` state until the VM is stopped, after which it becomes `allocated`. It is then available again for attachment to a VM.
+//
+//sdk:group FlexibleGpu
 func (c *Client) UnlinkFlexibleGpu(ctx context.Context, body UnlinkFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkFlexibleGpuResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47956,6 +48352,8 @@ func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType 
 
 // UnlinkInternetService Detaches an internet service from a Net.<br />
 // This action disables and detaches an internet service from a Net. The Net must not contain virtual machines (VMs) using public IPs nor internet-facing load balancers.
+//
+//sdk:group InternetService
 func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -47994,6 +48392,8 @@ func (c *Client) UnlinkLoadBalancerBackendMachinesWithBody(ctx context.Context, 
 }
 
 // UnlinkLoadBalancerBackendMachines Detaches one or more backend virtual machines (VMs) from a load balancer. You need to specify at least the `BackendIps` or the `BackendVmIds` parameter.
+//
+//sdk:group LoadBalancer
 func (c *Client) UnlinkLoadBalancerBackendMachines(ctx context.Context, body UnlinkLoadBalancerBackendMachinesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkLoadBalancerBackendMachinesResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48036,6 +48436,8 @@ func (c *Client) UnlinkManagedPolicyFromUserGroupWithBody(ctx context.Context, c
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) UnlinkManagedPolicyFromUserGroup(ctx context.Context, body UnlinkManagedPolicyFromUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkManagedPolicyFromUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48075,6 +48477,8 @@ func (c *Client) UnlinkNicWithBody(ctx context.Context, contentType string, body
 
 // UnlinkNic Detaches a network interface card (NIC) from a virtual machine (VM).<br />
 // The primary NIC cannot be detached.
+//
+//sdk:group Nic
 func (c *Client) UnlinkNic(ctx context.Context, body UnlinkNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkNicResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48117,6 +48521,8 @@ func (c *Client) UnlinkPolicyWithBody(ctx context.Context, contentType string, b
 //
 // **[IMPORTANT]**<br />
 // A delay of up to 15 seconds can occur when attaching, detaching, or updating a managed policy.
+//
+//sdk:group Policy
 func (c *Client) UnlinkPolicy(ctx context.Context, body UnlinkPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48155,6 +48561,8 @@ func (c *Client) UnlinkPrivateIpsWithBody(ctx context.Context, contentType strin
 }
 
 // UnlinkPrivateIps Unassigns one or more secondary private IPs from a network interface card (NIC).
+//
+//sdk:group Nic
 func (c *Client) UnlinkPrivateIps(ctx context.Context, body UnlinkPrivateIpsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPrivateIpsResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48196,6 +48604,8 @@ func (c *Client) UnlinkPublicIpWithBody(ctx context.Context, contentType string,
 //
 // **[IMPORTANT]**<br />
 // To disassociate the public IP from a NAT service, you need to delete the NAT service. For more information, see the [DeleteNatService](#deletenatservice) method.
+//
+//sdk:group PublicIp
 func (c *Client) UnlinkPublicIp(ctx context.Context, body UnlinkPublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkPublicIpResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48235,6 +48645,8 @@ func (c *Client) UnlinkRouteTableWithBody(ctx context.Context, contentType strin
 
 // UnlinkRouteTable Disassociates a Subnet from a route table.<br />
 // After disassociation, the Subnet can no longer use the routes in this route table, but uses the routes in the main route table of the Net instead.
+//
+//sdk:group RouteTable
 func (c *Client) UnlinkRouteTable(ctx context.Context, body UnlinkRouteTableJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkRouteTableResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48274,6 +48686,8 @@ func (c *Client) UnlinkVirtualGatewayWithBody(ctx context.Context, contentType s
 
 // UnlinkVirtualGateway Detaches a virtual gateway from a Net.<br />
 // You must wait until the virtual gateway is in the detached state before you can attach another Net to it or delete the Net it was previously attached to.
+//
+//sdk:group VirtualGateway
 func (c *Client) UnlinkVirtualGateway(ctx context.Context, body UnlinkVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVirtualGatewayResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48313,6 +48727,8 @@ func (c *Client) UnlinkVolumeWithBody(ctx context.Context, contentType string, b
 
 // UnlinkVolume Detaches a Block Storage Unit (BSU) volume from a virtual machine (VM).<br />
 // To detach the root device of a VM, this VM must be stopped.
+//
+//sdk:group Volume
 func (c *Client) UnlinkVolume(ctx context.Context, body UnlinkVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkVolumeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48352,6 +48768,8 @@ func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string
 
 // UpdateAccessKey Modifies the attributes of the specified access key of either your root account or an EIM user.<br /><br />
 // The parameter `ExpirationDate` is not required when updating the state of your access key. However, if you do not specify the expiration date of an access key when updating its state, it is then set to not expire.
+//
+//sdk:group AccessKey
 func (c *Client) UpdateAccessKey(ctx context.Context, body UpdateAccessKeyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccessKeyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48390,6 +48808,8 @@ func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, 
 }
 
 // UpdateAccount Updates the account information for the account that sends the request.
+//
+//sdk:group Account
 func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48431,6 +48851,8 @@ func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType 
 //
 // **[IMPORTANT]**<br />
 // Only one API access policy can be associated with your account.
+//
+//sdk:group ApiAccessPolicy
 func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48473,6 +48895,8 @@ func (c *Client) UpdateApiAccessRuleWithBody(ctx context.Context, contentType st
 // **[WARNING]**<br />
 // - The new rule you specify fully replaces the old rule. Therefore, for a parameter that is not specified, any previously set value is deleted.<br />
 // - If, as result of your modification, you no longer have access to the APIs, you will need to contact the Support team to regain access. For more information, see [Technical Support](https://docs.outscale.com/en/userguide/Technical-Support.html).
+//
+//sdk:group ApiAccessRule
 func (c *Client) UpdateApiAccessRule(ctx context.Context, body UpdateApiAccessRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48511,6 +48935,8 @@ func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body 
 }
 
 // UpdateCa Modifies the specified attribute of a Client Certificate Authority (CA).
+//
+//sdk:group Ca
 func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48549,6 +48975,8 @@ func (c *Client) UpdateDedicatedGroupWithBody(ctx context.Context, contentType s
 }
 
 // UpdateDedicatedGroup Modifies the name of a specified dedicated group.
+//
+//sdk:group DedicatedGroup
 func (c *Client) UpdateDedicatedGroup(ctx context.Context, body UpdateDedicatedGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDedicatedGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48587,6 +49015,8 @@ func (c *Client) UpdateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 }
 
 // UpdateDirectLinkInterface Modifies the maximum transmission unit (MTU) of a DirectLink interface.
+//
+//sdk:group DirectLinkInterface
 func (c *Client) UpdateDirectLinkInterface(ctx context.Context, body UpdateDirectLinkInterfaceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateDirectLinkInterfaceResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48625,6 +49055,8 @@ func (c *Client) UpdateFlexibleGpuWithBody(ctx context.Context, contentType stri
 }
 
 // UpdateFlexibleGpu Modifies a flexible GPU (fGPU) behavior.
+//
+//sdk:group FlexibleGpu
 func (c *Client) UpdateFlexibleGpu(ctx context.Context, body UpdateFlexibleGpuJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateFlexibleGpuResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48665,6 +49097,8 @@ func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, bo
 // UpdateImage Modifies the access permissions for an OUTSCALE machine image (OMI).<br />
 // You must specify either the `Additions` or the `Removals` parameter.<br />
 // After sharing an OMI with an account, the other account can create a copy of it that they own. For more information about copying OMIs, see [CreateImage](#createimage).
+//
+//sdk:group Image
 func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48704,6 +49138,8 @@ func (c *Client) UpdateListenerRuleWithBody(ctx context.Context, contentType str
 
 // UpdateListenerRule Updates the pattern of the listener rule.<br />
 // This call updates the pattern matching algorithm for incoming traffic.
+//
+//sdk:group Listener
 func (c *Client) UpdateListenerRule(ctx context.Context, body UpdateListenerRuleJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateListenerRuleResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48748,6 +49184,8 @@ func (c *Client) UpdateLoadBalancerWithBody(ctx context.Context, contentType str
 //
 // You can also replace the currently enabled policy for the load balancer with another one.<br />
 // If the `PolicyNames` parameter is empty, the currently enabled policy is disabled.
+//
+//sdk:group LoadBalancer
 func (c *Client) UpdateLoadBalancer(ctx context.Context, body UpdateLoadBalancerJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateLoadBalancerResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48786,6 +49224,8 @@ func (c *Client) UpdateNetWithBody(ctx context.Context, contentType string, body
 }
 
 // UpdateNet Associates a DHCP options set with a specified Net.
+//
+//sdk:group Net
 func (c *Client) UpdateNet(ctx context.Context, body UpdateNetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48825,6 +49265,8 @@ func (c *Client) UpdateNetAccessPointWithBody(ctx context.Context, contentType s
 
 // UpdateNetAccessPoint Modifies the attributes of a Net access point.<br />
 // This action enables you to add or remove route tables associated with the specified Net access point.
+//
+//sdk:group NetAccessPoint
 func (c *Client) UpdateNetAccessPoint(ctx context.Context, body UpdateNetAccessPointJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNetAccessPointResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48863,6 +49305,8 @@ func (c *Client) UpdateNicWithBody(ctx context.Context, contentType string, body
 }
 
 // UpdateNic Modifies the specified network interface card (NIC). You can specify only one attribute at a time.
+//
+//sdk:group Nic
 func (c *Client) UpdateNic(ctx context.Context, body UpdateNicJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateNicResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48911,6 +49355,8 @@ func (c *Client) UpdateRouteWithBody(ctx context.Context, contentType string, bo
 // * Network interface card (NIC)<br /><br />
 //
 // The routing algorithm is based on the most specific match.
+//
+//sdk:group Route
 func (c *Client) UpdateRoute(ctx context.Context, body UpdateRouteJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48949,6 +49395,8 @@ func (c *Client) UpdateRoutePropagationWithBody(ctx context.Context, contentType
 }
 
 // UpdateRoutePropagation Configures the propagation of routes to a specified route table of a Net by a virtual gateway.
+//
+//sdk:group VirtualGateway
 func (c *Client) UpdateRoutePropagation(ctx context.Context, body UpdateRoutePropagationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRoutePropagationResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -48988,6 +49436,8 @@ func (c *Client) UpdateRouteTableLinkWithBody(ctx context.Context, contentType s
 
 // UpdateRouteTableLink Replaces the route table associated with a specific Subnet in a Net with another one.<br />
 // After the route table is replaced, the Subnet uses the routes in the new route table it is associated with.
+//
+//sdk:group RouteTable
 func (c *Client) UpdateRouteTableLink(ctx context.Context, body UpdateRouteTableLinkJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateRouteTableLinkResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49026,6 +49476,8 @@ func (c *Client) UpdateServerCertificateWithBody(ctx context.Context, contentTyp
 }
 
 // UpdateServerCertificate Modifies the name and/or the path of a specified server certificate.
+//
+//sdk:group ServerCertificate
 func (c *Client) UpdateServerCertificate(ctx context.Context, body UpdateServerCertificateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateServerCertificateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49066,6 +49518,8 @@ func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string,
 // UpdateSnapshot Modifies the permissions for a specified snapshot.<br />
 // You must specify either the `Additions` or the `Removals` parameter.<br />
 // After sharing a snapshot with an account, the other account can create a copy of it that they own. For more information about copying snapshots, see [CreateSnapshot](#createsnapshot).
+//
+//sdk:group Snapshot
 func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49104,6 +49558,8 @@ func (c *Client) UpdateSubnetWithBody(ctx context.Context, contentType string, b
 }
 
 // UpdateSubnet Modifies the specified attribute of a Subnet.
+//
+//sdk:group Subnet
 func (c *Client) UpdateSubnet(ctx context.Context, body UpdateSubnetJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSubnetResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49142,6 +49598,8 @@ func (c *Client) UpdateUserWithBody(ctx context.Context, contentType string, bod
 }
 
 // UpdateUser Modifies the name and/or the path of a specified EIM user.
+//
+//sdk:group User
 func (c *Client) UpdateUser(ctx context.Context, body UpdateUserJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49180,6 +49638,8 @@ func (c *Client) UpdateUserGroupWithBody(ctx context.Context, contentType string
 }
 
 // UpdateUserGroup Modifies the name and/or the path of a specified group.
+//
+//sdk:group UserGroup
 func (c *Client) UpdateUserGroup(ctx context.Context, body UpdateUserGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateUserGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49225,6 +49685,8 @@ func (c *Client) UpdateVmWithBody(ctx context.Context, contentType string, body 
 // * `VmType`
 //
 // To complete the update of secure boot, you need to do a stop/start of the VM. A simple restart is not sufficient, as the update is done when the VM goes through the stopped state. For the difference between stop/start and restart, see [About VM Lifecycle](https://docs.outscale.com/en/userguide/About-VM-Lifecycle.html).
+//
+//sdk:group Vm
 func (c *Client) UpdateVm(ctx context.Context, body UpdateVmJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49266,6 +49728,8 @@ func (c *Client) UpdateVmGroupWithBody(ctx context.Context, contentType string, 
 // > This feature is currently under development and may not function properly.<br />
 //
 // Modifies the specified attributes of a group of virtual machines (VMs).
+//
+//sdk:group VmGroup
 func (c *Client) UpdateVmGroup(ctx context.Context, body UpdateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmGroupResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49307,6 +49771,8 @@ func (c *Client) UpdateVmTemplateWithBody(ctx context.Context, contentType strin
 // > This feature is currently under development and may not function properly.<br />
 //
 // Modifies the specified attributes of a template of virtual machines (VMs).
+//
+//sdk:group VmTemplate
 func (c *Client) UpdateVmTemplate(ctx context.Context, body UpdateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVmTemplateResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49350,6 +49816,8 @@ func (c *Client) UpdateVolumeWithBody(ctx context.Context, contentType string, b
 // - We recommend creating a snapshot of your volume before updating it, in case any issue occurs during the process. For more information, see [Creating a Snapshot of a Volume](https://docs.outscale.com/en/userguide/Creating-a-Snapshot-of-a-Volume.html).
 // - Do not shut down or restart the virtual machine (VM) from within the guest operating system while a volume update is in progress. This interrupts the process and compromises the integrity of the volume.
 // - When the modification is not instantaneous, the response displays the previous value. You can use the [ReadVolumeUpdateTasks](#readvolumeupdatetasks) method to see the progression of the update.<br />
+//
+//sdk:group Volume
 func (c *Client) UpdateVolume(ctx context.Context, body UpdateVolumeJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVolumeResponse, error) {
 	c.LogRequest(ctx, body)
 
@@ -49388,6 +49856,8 @@ func (c *Client) UpdateVpnConnectionWithBody(ctx context.Context, contentType st
 }
 
 // UpdateVpnConnection Modifies the specified attributes of a VPN connection.
+//
+//sdk:group VpnConnection
 func (c *Client) UpdateVpnConnection(ctx context.Context, body UpdateVpnConnectionJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateVpnConnectionResponse, error) {
 	c.LogRequest(ctx, body)
 
