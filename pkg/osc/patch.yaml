@@ -760,3 +760,12 @@ actions:
 - target: $.components.schemas.*.*.NextPageToken.format
   description: Switch pagination to string
   remove: true
+- target: $.paths["/DeleteSecurityGroup"].post.responses
+  update:
+    '409':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 409 response (Conflict).
+    
