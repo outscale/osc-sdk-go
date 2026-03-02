@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	dario.cat/mergo v1.0.2
-	github.com/aws/smithy-go/aws-http-auth v1.1.1
+	github.com/aws/smithy-go/aws-http-auth v1.1.2
 	github.com/getkin/kin-openapi v0.133.0
 	github.com/hashicorp/go-retryablehttp v0.7.8
 	github.com/oapi-codegen/runtime v1.1.2
