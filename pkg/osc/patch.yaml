@@ -792,3 +792,12 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 424 response (Failed Dependency).
+- target: $.paths.*.post.responses
+  update:
+    '400':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 400 response (Bad Request).
+
