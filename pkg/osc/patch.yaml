@@ -776,6 +776,14 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 409 response (Conflict).
+- target: $.paths["/CreateLoadBalancer"].post.responses
+  update:
+    '409':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 409 response (Conflict).
 - target: $.paths["/UpdateLoadBalancer"].post.responses
   update:
     '409':
