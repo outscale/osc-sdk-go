@@ -40,7 +40,7 @@ func AsErrorResponse(e error) *ErrorResponse {
 	return nil
 }
 
-func hasErrorCode(err error, codes []string) bool {
+func HasErrorCode(err error, codes []string) bool {
 	if err := AsErrorResponse(err); err != nil {
 		for _, e := range err.Errors {
 			if slices.Contains(codes, e.Code) {
@@ -74,7 +74,7 @@ func IsConflict(err error) bool {
 }
 
 func IsAuthError(err error) bool {
-	return hasErrorCode(err, []string{
+	return HasErrorCode(err, []string{
 		"1", "5", "7", "14", "20", "4120", "4000",
 	})
 }
