@@ -1037,22 +1037,22 @@ type CheckAuthenticationResponse struct {
 // ClientGateway Information about the client gateway.
 type ClientGateway struct {
 	// BgpAsn The Autonomous System Number (ASN) used by the Border Gateway Protocol (BGP) to find the path to your client gateway through the Internet.
-	BgpAsn *int `json:"BgpAsn,omitempty"`
+	BgpAsn int `json:"BgpAsn"`
 
 	// ClientGatewayId The ID of the client gateway.
-	ClientGatewayId *string `json:"ClientGatewayId,omitempty"`
+	ClientGatewayId string `json:"ClientGatewayId"`
 
 	// ConnectionType The type of communication tunnel used by the client gateway (always `ipsec.1`).
-	ConnectionType *string `json:"ConnectionType,omitempty"`
+	ConnectionType string `json:"ConnectionType"`
 
 	// PublicIp The public IPv4 address of the client gateway (must be a fixed address into a NATed network).
-	PublicIp *string `json:"PublicIp,omitempty"`
+	PublicIp string `json:"PublicIp"`
 
 	// State The state of the client gateway (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// Tags One or more tags associated with the client gateway.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // ConsumptionEntry Information about the resources consumed during the specified time period.
@@ -5667,22 +5667,22 @@ type NetState string
 // NetAccessPoint Information about the Net access point.
 type NetAccessPoint struct {
 	// NetAccessPointId The ID of the Net access point.
-	NetAccessPointId *string `json:"NetAccessPointId,omitempty"`
+	NetAccessPointId string `json:"NetAccessPointId"`
 
 	// NetId The ID of the Net with which the Net access point is associated.
-	NetId *string `json:"NetId,omitempty"`
+	NetId string `json:"NetId"`
 
 	// RouteTableIds The ID of the route tables associated with the Net access point.
-	RouteTableIds *[]string `json:"RouteTableIds,omitempty"`
+	RouteTableIds []string `json:"RouteTableIds"`
 
 	// ServiceName The name of the service with which the Net access point is associated.
-	ServiceName *string `json:"ServiceName,omitempty"`
+	ServiceName string `json:"ServiceName"`
 
 	// State The state of the Net access point (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *NetAccessPointState `json:"State,omitempty"`
+	State NetAccessPointState `json:"State"`
 
 	// Tags One or more tags associated with the Net access point.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 }
 
 // NetAccessPointState The state of the Net access point (`pending` \| `available` \| `deleting` \| `deleted`).
@@ -6135,10 +6135,10 @@ type PublicIp struct {
 // PublicIpLight Information about the public IP.
 type PublicIpLight struct {
 	// PublicIp The public IP associated with the NAT service.
-	PublicIp *string `json:"PublicIp,omitempty"`
+	PublicIp string `json:"PublicIp"`
 
 	// PublicIpId The allocation ID of the public IP associated with the NAT service.
-	PublicIpId *string `json:"PublicIpId,omitempty"`
+	PublicIpId string `json:"PublicIpId"`
 }
 
 // PutUserGroupPolicyRequest defines model for PutUserGroupPolicyRequest.
@@ -9610,19 +9610,19 @@ type VgwTelemetry struct {
 // VirtualGateway Information about the virtual gateway.
 type VirtualGateway struct {
 	// ConnectionType The type of VPN connection supported by the virtual gateway (always `ipsec.1`).
-	ConnectionType *string `json:"ConnectionType,omitempty"`
+	ConnectionType string `json:"ConnectionType"`
 
 	// NetToVirtualGatewayLinks The Net to which the virtual gateway is attached.
-	NetToVirtualGatewayLinks *[]NetToVirtualGatewayLink `json:"NetToVirtualGatewayLinks,omitempty"`
+	NetToVirtualGatewayLinks []NetToVirtualGatewayLink `json:"NetToVirtualGatewayLinks"`
 
 	// State The state of the virtual gateway (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// Tags One or more tags associated with the virtual gateway.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// VirtualGatewayId The ID of the virtual gateway.
-	VirtualGatewayId *string `json:"VirtualGatewayId,omitempty"`
+	VirtualGatewayId string `json:"VirtualGatewayId"`
 }
 
 // Vm Information about the VM.
@@ -9992,31 +9992,31 @@ type VpnConnection struct {
 	ClientGatewayConfiguration *string `json:"ClientGatewayConfiguration,omitempty"`
 
 	// ClientGatewayId The ID of the client gateway used on the client end of the connection.
-	ClientGatewayId *string `json:"ClientGatewayId,omitempty"`
+	ClientGatewayId string `json:"ClientGatewayId"`
 
 	// ConnectionType The type of VPN connection (always `ipsec.1`).
-	ConnectionType *string `json:"ConnectionType,omitempty"`
+	ConnectionType string `json:"ConnectionType"`
 
 	// Routes Information about one or more static routes associated with the VPN connection, if any.
-	Routes *[]RouteLight `json:"Routes,omitempty"`
+	Routes []RouteLight `json:"Routes"`
 
 	// State The state of the VPN connection (`pending` \| `available` \| `deleting` \| `deleted`).
-	State *string `json:"State,omitempty"`
+	State string `json:"State"`
 
 	// StaticRoutesOnly If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
-	StaticRoutesOnly *bool `json:"StaticRoutesOnly,omitempty"`
+	StaticRoutesOnly bool `json:"StaticRoutesOnly"`
 
 	// Tags One or more tags associated with the VPN connection.
-	Tags *[]ResourceTag `json:"Tags,omitempty"`
+	Tags []ResourceTag `json:"Tags"`
 
 	// VgwTelemetries Information about the current state of one or more of the VPN tunnels.
-	VgwTelemetries *[]VgwTelemetry `json:"VgwTelemetries,omitempty"`
+	VgwTelemetries []VgwTelemetry `json:"VgwTelemetries"`
 
 	// VirtualGatewayId The ID of the virtual gateway used on the OUTSCALE end of the connection.
-	VirtualGatewayId *string `json:"VirtualGatewayId,omitempty"`
+	VirtualGatewayId string `json:"VirtualGatewayId"`
 
 	// VpnConnectionId The ID of the VPN connection.
-	VpnConnectionId *string `json:"VpnConnectionId,omitempty"`
+	VpnConnectionId string `json:"VpnConnectionId"`
 
 	// VpnOptions Information about the VPN options.
 	VpnOptions *VpnOptions `json:"VpnOptions,omitempty"`
