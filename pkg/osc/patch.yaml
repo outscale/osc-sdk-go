@@ -611,6 +611,12 @@ actions:
     - PublicIpId
     - PublicIp
     - Tags
+- target: $.components.schemas.PublicIpLight
+  description: Required fields for PublicIpLight
+  update:
+    required:
+    - PublicIpId
+    - PublicIp
 - target: $.components.schemas.LinkPublicIpLightForVm
   description: Required fields for LinkPublicIpLightForVm
   update:
@@ -757,6 +763,48 @@ actions:
     - DestinationIpRange
     - RouteType
     - State
+- target: $.components.schemas.VirtualGateway
+  description: Required fields for VirtualGateway
+  update:
+    required:
+    - ConnectionType
+    - NetToVirtualGatewayLinks
+    - State
+    - Tags
+    - VirtualGatewayId
+- target: $.components.schemas.ClientGateway
+  description: Required fields for ClientGateway
+  update:
+    required:
+    - BgpAsn
+    - ConnectionType
+    - PublicIp
+    - State
+    - Tags
+    - ClientGatewayId
+- target: $.components.schemas.VpnConnection
+  description: Required fields for VpnConnection
+  update:
+    required:
+    - ClientGatewayId
+    - ConnectionType
+    - Routes
+    - VirtualGatewayId
+    - VgwTelemetries
+    - StaticRoutesOnly
+    - State
+    - Tags
+    - VpnConnectionId
+- target: $.components.schemas.NetAccessPoint
+  description: Required fields for NetAccessPoint
+  update:
+    required:
+    - NetId
+    - RouteTableIds
+    - ServiceName
+    - State
+    - Tags
+    - NetAccessPointId
 - target: $.components.schemas.*.*.NextPageToken.format
   description: Switch pagination to string
   remove: true
@@ -816,4 +864,3 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 400 response (Bad Request).
-
