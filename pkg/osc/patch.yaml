@@ -856,6 +856,14 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 424 response (Failed Dependency).
+- target: $.paths["/AddUserToUserGroup"].post.responses
+  update:
+    '404':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 404 response (Not Found).
 - target: $.paths.*.post.responses
   update:
     '400':
