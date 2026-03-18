@@ -600,6 +600,21 @@ actions:
     - attached
     - detaching
     - detached
+- target: $.components.schemas.FiltersLoadBalancer.*.States.items
+  description:
+  update:
+    x-go-type: LoadBalancerState
+- target: $.components.schemas.LoadBalancer.*.State
+  description: Type for LoadBalancer.State
+  update:
+    enum:
+    - provisioning
+    - starting
+    - reloading
+    - active
+    - reconfiguring
+    - deleting
+    - deleted
 - target: $.components.schemas.LinkNicLight.*.State
   description:
   update:
@@ -651,6 +666,7 @@ actions:
   description: Required fields for LoadBalancer
   update:
     required:
+    - State
     - AccessLog
     - ApplicationStickyCookiePolicies
     - BackendIps
