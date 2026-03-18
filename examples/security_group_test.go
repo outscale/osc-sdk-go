@@ -1,0 +1,124 @@
+package examples_test
+
+import (
+	"slices"
+	"testing"
+
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
+	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/require"
+)
+
+// Steps done in this test:
+// 1. Create a security group.
+// 2. Add an inbound SSH rule.
+// 3. Read the security group and validate the rule.
+// 4. Delete the security group rule.
+// 5. Delete the security group.
+func TestSecurityGroup(t *testing.T) {
+	ctx := t.Context()
+
+	userProfile, err := profile.New()
+	require.NoError(t, err)
+
+	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	require.NoError(t, err)
+
+	securityGroupName := "OscGoSdkTest-" + RandomString(10)
+
+	// Create a security group
+	createReq := osc.CreateSecurityGroupJSONRequestBody{
+		SecurityGroupName: securityGroupName,
+		Description:       "Test security group lifecycle",
+	}
+
+	createResp, err := client.CreateSecurityGroup(ctx, createReq)
+	require.NoError(t, err)
+	require.NotNil(t, createResp.SecurityGroup)
+
+	securityGroupID := createResp.SecurityGroup.SecurityGroupId
+	require.NotEmpty(t, securityGroupID)
+
+	t.Logf("Created security group: %s", securityGroupID)
+
+	// Create a security group rule
+	tcp := "tcp"
+	ipRange := "0.0.0.0/0"
+	fromPort := 22
+	toPort := 22
+	ruleReq := osc.CreateSecurityGroupRuleJSONRequestBody{
+		SecurityGroupId: securityGroupID,
+		Flow:            "Inbound",
+		IpProtocol:      &tcp,
+		FromPortRange:   &fromPort,
+		ToPortRange:     &toPort,
+		IpRange:         &ipRange,
+	}
+
+	ruleResp, err := client.CreateSecurityGroupRule(ctx, ruleReq)
+	require.NoError(t, err)
+	require.NotNil(t, ruleResp.SecurityGroup)
+
+	t.Logf("Created security group rule for: %s", securityGroupID)
+
+	// Read the security group
+	readReq := osc.ReadSecurityGroupsJSONRequestBody{
+		Filters: &osc.FiltersSecurityGroup{
+			SecurityGroupIds: &[]string{securityGroupID},
+		},
+	}
+
+	readResp, err := client.ReadSecurityGroups(ctx, readReq)
+	require.NoError(t, err)
+	require.NotNil(t, readResp.SecurityGroups)
+	require.Len(t, *readResp.SecurityGroups, 1)
+
+	sg := (*readResp.SecurityGroups)[0]
+	foundSSHRule := false
+	for _, rule := range sg.InboundRules {
+		if rule.FromPortRange != fromPort {
+			continue
+		}
+		if rule.ToPortRange != toPort {
+			continue
+		}
+		if rule.IpProtocol != tcp {
+			continue
+		}
+		if slices.Contains(rule.IpRanges, ipRange) {
+			foundSSHRule = true
+			break
+		}
+	}
+	require.True(t, foundSSHRule, "expected SSH rule %s %d-%d for %s", tcp, fromPort, toPort, ipRange)
+
+	t.Logf("Successfully read security group: %s", securityGroupID)
+
+	// Delete the security group rule
+	deleteRuleReq := osc.DeleteSecurityGroupRuleJSONRequestBody{
+		SecurityGroupId: securityGroupID,
+		Flow:            "Inbound",
+		IpProtocol:      &tcp,
+		FromPortRange:   &fromPort,
+		ToPortRange:     &toPort,
+		IpRange:         &ipRange,
+	}
+
+	_, err = client.DeleteSecurityGroupRule(ctx, deleteRuleReq)
+	require.NoError(t, err)
+
+	t.Logf("Successfully deleted security group rule for: %s", securityGroupID)
+
+	// Delete the security group
+	deleteReq := osc.DeleteSecurityGroupJSONRequestBody{
+		SecurityGroupId: &securityGroupID,
+	}
+
+	deleteResp, err := client.DeleteSecurityGroup(ctx, deleteReq)
+	require.NoError(t, err)
+	require.NotNil(t, deleteResp.ResponseContext)
+	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+
+	t.Logf("Successfully deleted security group: %s", securityGroupID)
+}
