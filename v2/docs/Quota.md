@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the owner of the quotas. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the quotas. | [optional] 
 **Description** | Pointer to **string** | The description of the quota. | [optional] 
 **MaxValue** | Pointer to **int32** | The maximum value of the quota for the account (if there is no limit, &#x60;0&#x60;). | [optional] 
 **Name** | Pointer to **string** | The unique name of the quota. | [optional] 

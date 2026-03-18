@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsPrimary** | Pointer to **bool** | If true, the IP is the primary private IP of the NIC. | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP of the NIC. | [optional] 
+**PrivateIp** | Pointer to **string** | A private IP for the NIC. This IP must be within the IP range of the Subnet that you specify with the &#x60;SubnetId&#x60; parameter. However, it cannot be one of the first four IPs (ending in &#x60;.0&#x60;, &#x60;.1&#x60;, &#x60;.2&#x60;, &#x60;.3&#x60;) or the last IP (ending in &#x60;.255&#x60;) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html). | [optional] 
 
 ## Methods
 

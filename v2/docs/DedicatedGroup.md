@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the owners of the dedicated group. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the owners of the dedicated group. | [optional] 
 **CpuGeneration** | Pointer to **int32** | The processor generation. | [optional] 
 **DedicatedGroupId** | Pointer to **string** | The ID of the dedicated group. | [optional] 
 **Name** | Pointer to **string** | The name of the dedicated group. | [optional] 

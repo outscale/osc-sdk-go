@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SecurityGroupAccountId** | Pointer to **string** | The account ID of the owner of the security group. | [optional] 
+**SecurityGroupAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the security group. | [optional] 
 **SecurityGroupName** | Pointer to **string** | The name of the security group. | [optional] 
 
 ## Methods

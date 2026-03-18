@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **SecuredCookies** | Pointer to **bool** | Whether secure cookies are enabled for the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | Pointer to [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
+**State** | Pointer to **string** | The state of the load balancer (&#x60;provisioning&#x60; \\| &#x60;starting&#x60; \\| &#x60;reloading&#x60; \\| &#x60;active&#x60; \\| &#x60;reconfiguring&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 **Subnets** | Pointer to **[]string** | The ID of the Subnet in which the load balancer was created. | [optional] 
 **SubregionNames** | Pointer to **[]string** | The ID of the Subregion in which the load balancer was created. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the load balancer. | [optional] 
@@ -416,6 +417,31 @@ SetSourceSecurityGroup sets SourceSecurityGroup field to given value.
 `func (o *LoadBalancer) HasSourceSecurityGroup() bool`
 
 HasSourceSecurityGroup returns a boolean if a field has been set.
+
+### GetState
+
+`func (o *LoadBalancer) GetState() string`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *LoadBalancer) GetStateOk() (*string, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *LoadBalancer) SetState(v string)`
+
+SetState sets State field to given value.
+
+### HasState
+
+`func (o *LoadBalancer) HasState() bool`
+
+HasState returns a boolean if a field has been set.
 
 ### GetSubnets
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the owner of the DirectLink interface. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the DirectLink interface. | [optional] 
 **BgpAsn** | Pointer to **int32** | The BGP (Border Gateway Protocol) ASN (Autonomous System Number) on the customer&#39;s side of the DirectLink interface. | [optional] 
 **BgpKey** | Pointer to **string** | The BGP authentication key. | [optional] 
 **ClientPrivateIp** | Pointer to **string** | The IP on the customer&#39;s side of the DirectLink interface. | [optional] 

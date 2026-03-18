@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DeviceNumber** | Pointer to **int32** | The device index for the NIC attachment (between &#x60;1&#x60; and &#x60;7&#x60;, both included). | [optional] 
 **LinkNicId** | Pointer to **string** | The ID of the NIC to attach. | [optional] 
 **State** | Pointer to **string** | The state of the attachment (&#x60;attaching&#x60; \\| &#x60;attached&#x60; \\| &#x60;detaching&#x60; \\| &#x60;detached&#x60;). | [optional] 
-**VmAccountId** | Pointer to **string** | The account ID of the owner of the VM. | [optional] 
+**VmAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the VM. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
 
 ## Methods

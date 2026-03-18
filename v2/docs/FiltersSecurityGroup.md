@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Descriptions** | Pointer to **[]string** | The descriptions of the security groups. | [optional] 
-**InboundRuleAccountIds** | Pointer to **[]string** | The account IDs that have been granted permissions. | [optional] 
+**InboundRuleAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs that have been granted permissions. | [optional] 
 **InboundRuleFromPortRanges** | Pointer to **[]int32** | The beginnings of the port ranges for the TCP and UDP protocols, or the ICMP type numbers. | [optional] 
 **InboundRuleIpRanges** | Pointer to **[]string** | The IP ranges that have been granted permissions, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **InboundRuleProtocols** | Pointer to **[]string** | The IP protocols for the permissions (&#x60;tcp&#x60; \\| &#x60;udp&#x60; \\| &#x60;icmp&#x60;, or a protocol number, or &#x60;-1&#x60; for all protocols). | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **InboundRuleSecurityGroupNames** | Pointer to **[]string** | The names of the security groups that have been granted permissions. | [optional] 
 **InboundRuleToPortRanges** | Pointer to **[]int32** | The ends of the port ranges for the TCP and UDP protocols, or the ICMP code numbers. | [optional] 
 **NetIds** | Pointer to **[]string** | The IDs of the Nets specified when the security groups were created. | [optional] 
-**OutboundRuleAccountIds** | Pointer to **[]string** | The account IDs that have been granted permissions. | [optional] 
+**OutboundRuleAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs that have been granted permissions. | [optional] 
 **OutboundRuleFromPortRanges** | Pointer to **[]int32** | The beginnings of the port ranges for the TCP and UDP protocols, or the ICMP type numbers. | [optional] 
 **OutboundRuleIpRanges** | Pointer to **[]string** | The IP ranges that have been granted permissions, in CIDR notation (for example, &#x60;10.0.0.0/24&#x60;). | [optional] 
 **OutboundRuleProtocols** | Pointer to **[]string** | The IP protocols for the permissions (&#x60;tcp&#x60; \\| &#x60;udp&#x60; \\| &#x60;icmp&#x60;, or a protocol number, or &#x60;-1&#x60; for all protocols). | [optional] 

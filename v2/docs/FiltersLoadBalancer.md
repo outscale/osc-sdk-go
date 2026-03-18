@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LoadBalancerNames** | Pointer to **[]string** | The names of the load balancers. | [optional] 
+**States** | Pointer to **[]string** | The states of the load balancer (&#x60;provisioning&#x60; \\| &#x60;starting&#x60; \\| &#x60;reloading&#x60; \\| &#x60;active&#x60; \\| &#x60;reconfiguring&#x60; \\| &#x60;deleting&#x60; \\| &#x60;deleted&#x60;). | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetLoadBalancerNames sets LoadBalancerNames field to given value.
 `func (o *FiltersLoadBalancer) HasLoadBalancerNames() bool`
 
 HasLoadBalancerNames returns a boolean if a field has been set.
+
+### GetStates
+
+`func (o *FiltersLoadBalancer) GetStates() []string`
+
+GetStates returns the States field if non-nil, zero value otherwise.
+
+### GetStatesOk
+
+`func (o *FiltersLoadBalancer) GetStatesOk() (*[]string, bool)`
+
+GetStatesOk returns a tuple with the States field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStates
+
+`func (o *FiltersLoadBalancer) SetStates(v []string)`
+
+SetStates sets States field to given value.
+
+### HasStates
+
+`func (o *FiltersLoadBalancer) HasStates() bool`
+
+HasStates returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

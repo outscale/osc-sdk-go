@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the owner of the DirectLink. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the DirectLink. | [optional] 
 **Bandwidth** | Pointer to **string** | The physical link bandwidth (either 1 Gbps or 10 Gbps). | [optional] 
 **DirectLinkId** | Pointer to **string** | The ID of the DirectLink (for example, &#x60;dxcon-xxxxxxxx&#x60;). | [optional] 
 **DirectLinkName** | Pointer to **string** | The name of the DirectLink. | [optional] 

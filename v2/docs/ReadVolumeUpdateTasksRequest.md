@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Filters** | Pointer to [**FiltersUpdateVolumeTask**](FiltersUpdateVolumeTask.md) |  | [optional] 
+**Filters** | Pointer to [**FiltersReadVolumeUpdateTask**](FiltersReadVolumeUpdateTask.md) |  | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60; and &#x60;1000&#x60;, both included). By default, &#x60;100&#x60;. | [optional] 
 
@@ -55,20 +55,20 @@ HasDryRun returns a boolean if a field has been set.
 
 ### GetFilters
 
-`func (o *ReadVolumeUpdateTasksRequest) GetFilters() FiltersUpdateVolumeTask`
+`func (o *ReadVolumeUpdateTasksRequest) GetFilters() FiltersReadVolumeUpdateTask`
 
 GetFilters returns the Filters field if non-nil, zero value otherwise.
 
 ### GetFiltersOk
 
-`func (o *ReadVolumeUpdateTasksRequest) GetFiltersOk() (*FiltersUpdateVolumeTask, bool)`
+`func (o *ReadVolumeUpdateTasksRequest) GetFiltersOk() (*FiltersReadVolumeUpdateTask, bool)`
 
 GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilters
 
-`func (o *ReadVolumeUpdateTasksRequest) SetFilters(v FiltersUpdateVolumeTask)`
+`func (o *ReadVolumeUpdateTasksRequest) SetFilters(v FiltersReadVolumeUpdateTask)`
 
 SetFilters sets Filters field to given value.
 

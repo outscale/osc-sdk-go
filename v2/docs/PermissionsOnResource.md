@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountIds** | Pointer to **[]string** | One or more account IDs that the permission is associated with. | [optional] 
+**AccountIds** | Pointer to **[]string** | One or more OUTSCALE account IDs that the permission is associated with. | [optional] 
 **GlobalPermission** | Pointer to **bool** | A global permission for all accounts.&lt;br /&gt; (Request) Set this parameter to true to make the resource public (if the parent parameter is &#x60;Additions&#x60;) or to make the resource private (if the parent parameter is &#x60;Removals&#x60;).&lt;br /&gt; (Response) If true, the resource is public. If false, the resource is private. | [optional] 
 
 ## Methods

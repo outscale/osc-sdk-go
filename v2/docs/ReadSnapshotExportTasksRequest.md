@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**Filters** | Pointer to [**FiltersExportTask**](FiltersExportTask.md) |  | [optional] 
+**Filters** | Pointer to [**FiltersSnapshotExportTask**](FiltersSnapshotExportTask.md) |  | [optional] 
 **NextPageToken** | Pointer to **string** | The token to request the next page of results. Each token refers to a specific page. | [optional] 
 **ResultsPerPage** | Pointer to **int32** | The maximum number of logs returned in a single response (between &#x60;1&#x60; and &#x60;1000&#x60;, both included). | [optional] 
 
@@ -55,20 +55,20 @@ HasDryRun returns a boolean if a field has been set.
 
 ### GetFilters
 
-`func (o *ReadSnapshotExportTasksRequest) GetFilters() FiltersExportTask`
+`func (o *ReadSnapshotExportTasksRequest) GetFilters() FiltersSnapshotExportTask`
 
 GetFilters returns the Filters field if non-nil, zero value otherwise.
 
 ### GetFiltersOk
 
-`func (o *ReadSnapshotExportTasksRequest) GetFiltersOk() (*FiltersExportTask, bool)`
+`func (o *ReadSnapshotExportTasksRequest) GetFiltersOk() (*FiltersSnapshotExportTask, bool)`
 
 GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFilters
 
-`func (o *ReadSnapshotExportTasksRequest) SetFilters(v FiltersExportTask)`
+`func (o *ReadSnapshotExportTasksRequest) SetFilters(v FiltersSnapshotExportTask)`
 
 SetFilters sets Filters field to given value.
 

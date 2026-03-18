@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **IpProtocol** | Pointer to **string** | The IP protocol name (&#x60;tcp&#x60;, &#x60;udp&#x60;, &#x60;icmp&#x60;, or &#x60;-1&#x60; for all protocols). By default, &#x60;-1&#x60;. In a Net, this can also be an IP protocol number. For more information, see the [IANA.org website](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). | [optional] 
 **IpRange** | Pointer to **string** | The IP range for the security group rule, in CIDR notation (for example, &#x60;10.0.0.0/16&#x60;). | [optional] 
 **Rules** | Pointer to [**[]SecurityGroupRule**](SecurityGroupRule.md) | One or more rules you want to delete from the security group. | [optional] 
-**SecurityGroupAccountIdToUnlink** | Pointer to **string** | The account ID of the owner of the security group you want to delete a rule from. | [optional] 
+**SecurityGroupAccountIdToUnlink** | Pointer to **string** | The OUTSCALE account ID of the owner of the security group you want to delete a rule from. | [optional] 
 **SecurityGroupId** | **string** | The ID of the security group you want to delete a rule from. | 
 **SecurityGroupNameToUnlink** | Pointer to **string** | The ID of the source security group. If you are in the Public Cloud, you can also specify the name of the source security group. | [optional] 
 **ToPortRange** | Pointer to **int32** | The end of the port range for the TCP and UDP protocols, or an ICMP code number. | [optional] 

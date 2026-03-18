@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **bool** | If true, the account ID is displayed. | [optional] [default to true]
+**AccountId** | Pointer to **bool** | If true, the OUTSCALE account ID is displayed. | [optional] [default to true]
 **CallDuration** | Pointer to **bool** | If true, the duration of the call is displayed. | [optional] [default to true]
 **QueryAccessKey** | Pointer to **bool** | If true, the access key is displayed. | [optional] [default to true]
 **QueryApiName** | Pointer to **bool** | If true, the name of the API is displayed. | [optional] [default to true]

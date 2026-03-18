@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **NetPeeringId** | Pointer to **string** | The ID of the Net peering. | [optional] 
 **NicId** | Pointer to **string** | The ID of the NIC. | [optional] 
 **State** | Pointer to **string** | The state of a route in the route table (always &#x60;active&#x60;). | [optional] 
-**VmAccountId** | Pointer to **string** | The account ID of the owner of the VM. | [optional] 
+**VmAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the VM. | [optional] 
 **VmId** | Pointer to **string** | The ID of a VM specified in a route in the table. | [optional] 
 
 ## Methods

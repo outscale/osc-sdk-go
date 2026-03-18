@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the logged call. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the logged call. | [optional] 
 **CallDuration** | Pointer to **int32** | The duration of the logged call, in microseconds. | [optional] 
 **QueryAccessKey** | Pointer to **string** | The access key used for the logged call. | [optional] 
 **QueryApiName** | Pointer to **string** | The name of the API used by the logged call (always &#x60;oapi&#x60; for the OUTSCALE API). | [optional] 

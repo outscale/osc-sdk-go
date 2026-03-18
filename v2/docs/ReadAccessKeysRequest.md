@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Filters** | Pointer to [**FiltersAccessKeys**](FiltersAccessKeys.md) |  | [optional] 
 **Tag** | Pointer to **string** | The tag added to the access key. | [optional] 
-**UserName** | Pointer to **string** | The name of the EIM user. By default, the user who sends the request (which can be the root account). | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user. By default, the user who sends the request (which can be the root user). | [optional] 
 
 ## Methods
 

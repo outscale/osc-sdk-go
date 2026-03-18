@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAliases** | Pointer to **[]string** | The account aliases of the owners of the snapshots. | [optional] 
-**AccountIds** | Pointer to **[]string** | The account IDs of the owners of the snapshots. | [optional] 
+**AccountIds** | Pointer to **[]string** | The OUTSCALE account IDs of the owners of the snapshots. | [optional] 
 **ClientTokens** | Pointer to **[]string** | The idempotency tokens provided when creating the snapshots. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the snapshots. | [optional] 
 **FromCreationDate** | Pointer to **string** | The beginning of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | [optional] 
-**PermissionsToCreateVolumeAccountIds** | Pointer to **[]string** | The account IDs which have permissions to create volumes. | [optional] 
+**PermissionsToCreateVolumeAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs which have permissions to create volumes. | [optional] 
 **PermissionsToCreateVolumeGlobalPermission** | Pointer to **bool** | If true, lists all public volumes. If false, lists all private volumes. | [optional] 
 **Progresses** | Pointer to **[]int32** | The progresses of the snapshots, as a percentage. | [optional] 
 **SnapshotIds** | Pointer to **[]string** | The IDs of the snapshots. | [optional] 

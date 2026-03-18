@@ -230,7 +230,7 @@ import (
 )
 
 func main() {
-    updateAccessKeyRequest := *openapiclient.NewUpdateAccessKeyRequest("AccessKeyId_example", "State_example") // UpdateAccessKeyRequest |  (optional)
+    updateAccessKeyRequest := *openapiclient.NewUpdateAccessKeyRequest("AccessKeyId_example") // UpdateAccessKeyRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

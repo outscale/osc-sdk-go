@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID that owns the source or destination security group. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID that owns the source or destination security group. | [optional] 
 **SecurityGroupId** | Pointer to **string** | The ID of a source or destination security group that you want to link to the security group of the rule. | [optional] 
 **SecurityGroupName** | Pointer to **string** | The name of a source or destination security group that you want to link to the security group of the rule. | [optional] 
 
