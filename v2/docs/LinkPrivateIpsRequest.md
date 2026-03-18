@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AllowRelink** | Pointer to **bool** | If true, allows an IP that is already assigned to another NIC in the same Subnet to be assigned to the NIC you specified. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **NicId** | **string** | The ID of the NIC. | 
-**PrivateIps** | Pointer to **[]string** | The secondary private IP or IPs you want to assign to the NIC within the IP range of the Subnet. | [optional] 
+**PrivateIps** | Pointer to **[]string** | The secondary private IP or IPs you want to assign to the NIC within the IP range of the Subnet. They cannot be one of the first four IPs (ending in &#x60;.0&#x60;, &#x60;.1&#x60;, &#x60;.2&#x60;, &#x60;.3&#x60;) or the last IP (ending in &#x60;.255&#x60;) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html). | [optional] 
 **SecondaryPrivateIpCount** | Pointer to **int32** | The number of secondary private IPs to assign to the NIC. | [optional] 
 
 ## Methods

@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **StateReason** | Pointer to **string** | The reason explaining the current state of the VM. | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet for the VM. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VM. | [optional] 
-**TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not. | [optional] 
+**TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.&lt;br /&gt;The default behavior for this parameter varies depending on the source OMI of the VM.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting &#x60;TpmEnabled&#x60; to false will cause the creation request to fail.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is false, only setting &#x60;TpmEnabled&#x60; to true will create and attach a vTPM to the VM. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 

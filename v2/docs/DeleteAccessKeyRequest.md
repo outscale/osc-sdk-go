@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessKeyId** | **string** | The ID of the access key you want to delete. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**UserName** | Pointer to **string** | The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root account). | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root user). | [optional] 
 
 ## Methods
 

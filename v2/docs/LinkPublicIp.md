@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
 **PublicDnsName** | Pointer to **string** | The name of the public DNS. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP associated with the NIC. | [optional] 
-**PublicIpAccountId** | Pointer to **string** | The account ID of the owner of the public IP. | [optional] 
+**PublicIpAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the public IP. | [optional] 
 **PublicIpId** | Pointer to **string** | The allocation ID of the public IP. | [optional] 
 
 ## Methods

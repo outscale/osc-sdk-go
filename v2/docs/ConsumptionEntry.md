@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The ID of your TINA account. | [optional] 
+**AccountId** | Pointer to **string** | The ID of your OUTSCALE account. | [optional] 
 **Category** | Pointer to **string** | The category of the resource (for example, &#x60;network&#x60;). | [optional] 
 **FromDate** | Pointer to **string** | The beginning of the time period (UTC). | [optional] 
 **Operation** | Pointer to **string** | The API call that triggered the resource consumption (for example, &#x60;RunInstances&#x60; or &#x60;CreateVolume&#x60;). | [optional] 
-**PayingAccountId** | Pointer to **string** | The ID of the TINA account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
+**PayingAccountId** | Pointer to **string** | The ID of the OUTSCALE account which is billed for your consumption. It can be different from your account in the &#x60;AccountId&#x60; parameter. | [optional] 
 **Price** | Pointer to **float64** | The total price of the consumed resource during the specified time period, in the currency of the Region&#39;s catalog. | [optional] 
 **ResourceId** | Pointer to **string** | The ID of the consumed resource. | [optional] 
 **Service** | Pointer to **string** | The service of the API call (&#x60;TinaOS-FCU&#x60;, &#x60;TinaOS-LBU&#x60;, &#x60;TinaOS-DirectLink&#x60;, &#x60;TinaOS-OOS&#x60;, &#x60;TinaOS-OSU&#x60;, or &#x60;OKS&#x60;). | [optional] 

@@ -5,16 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessKeyId** | **string** | The ID of the access key. | 
+**ClearExpirationDate** | Pointer to **bool** | If true, the current expiration date is deleted and the access key is set to not expire. | [optional] 
+**ClearTag** | Pointer to **bool** | If true, the current tag of the access key is deleted. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
-**ExpirationDate** | Pointer to **string** | The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60; or &#x60;2020-06-14&#x60;). If not specified, the access key is set to not expire. | [optional] 
-**State** | **string** | The new state for the access key (&#x60;ACTIVE&#x60; \\| &#x60;INACTIVE&#x60;). When set to &#x60;ACTIVE&#x60;, the access key is enabled and can be used to send requests. When set to &#x60;INACTIVE&#x60;, the access key is disabled. | 
-**UserName** | Pointer to **string** | The name of the EIM user that the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root account). | [optional] 
+**ExpirationDate** | Pointer to **string** | The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60; or &#x60;2020-06-14&#x60;). If not specified, the access key is set to not expire. If the &#x60;ClearExpirationDate&#x60; parameter is set to true, the expiration date is ignored. | [optional] 
+**State** | Pointer to **string** | The new state for the access key (&#x60;ACTIVE&#x60; \\| &#x60;INACTIVE&#x60;). When set to &#x60;ACTIVE&#x60;, the access key is enabled and can be used to send requests. When set to &#x60;INACTIVE&#x60;, the access key is disabled. | [optional] 
+**Tag** | Pointer to **string** | A new tag to add to the access key. If the access key already had a tag, this replaces it. If the &#x60;ClearTag&#x60; parameter is set to true, the tag is ignored. | [optional] 
+**UserName** | Pointer to **string** | The name of the EIM user that the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root user). | [optional] 
 
 ## Methods
 
 ### NewUpdateAccessKeyRequest
 
-`func NewUpdateAccessKeyRequest(accessKeyId string, state string, ) *UpdateAccessKeyRequest`
+`func NewUpdateAccessKeyRequest(accessKeyId string, ) *UpdateAccessKeyRequest`
 
 NewUpdateAccessKeyRequest instantiates a new UpdateAccessKeyRequest object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +51,56 @@ and a boolean to check if the value has been set.
 
 SetAccessKeyId sets AccessKeyId field to given value.
 
+
+### GetClearExpirationDate
+
+`func (o *UpdateAccessKeyRequest) GetClearExpirationDate() bool`
+
+GetClearExpirationDate returns the ClearExpirationDate field if non-nil, zero value otherwise.
+
+### GetClearExpirationDateOk
+
+`func (o *UpdateAccessKeyRequest) GetClearExpirationDateOk() (*bool, bool)`
+
+GetClearExpirationDateOk returns a tuple with the ClearExpirationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClearExpirationDate
+
+`func (o *UpdateAccessKeyRequest) SetClearExpirationDate(v bool)`
+
+SetClearExpirationDate sets ClearExpirationDate field to given value.
+
+### HasClearExpirationDate
+
+`func (o *UpdateAccessKeyRequest) HasClearExpirationDate() bool`
+
+HasClearExpirationDate returns a boolean if a field has been set.
+
+### GetClearTag
+
+`func (o *UpdateAccessKeyRequest) GetClearTag() bool`
+
+GetClearTag returns the ClearTag field if non-nil, zero value otherwise.
+
+### GetClearTagOk
+
+`func (o *UpdateAccessKeyRequest) GetClearTagOk() (*bool, bool)`
+
+GetClearTagOk returns a tuple with the ClearTag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClearTag
+
+`func (o *UpdateAccessKeyRequest) SetClearTag(v bool)`
+
+SetClearTag sets ClearTag field to given value.
+
+### HasClearTag
+
+`func (o *UpdateAccessKeyRequest) HasClearTag() bool`
+
+HasClearTag returns a boolean if a field has been set.
 
 ### GetDryRun
 
@@ -118,6 +171,36 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
+### HasState
+
+`func (o *UpdateAccessKeyRequest) HasState() bool`
+
+HasState returns a boolean if a field has been set.
+
+### GetTag
+
+`func (o *UpdateAccessKeyRequest) GetTag() string`
+
+GetTag returns the Tag field if non-nil, zero value otherwise.
+
+### GetTagOk
+
+`func (o *UpdateAccessKeyRequest) GetTagOk() (*string, bool)`
+
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTag
+
+`func (o *UpdateAccessKeyRequest) SetTag(v string)`
+
+SetTag sets Tag field to given value.
+
+### HasTag
+
+`func (o *UpdateAccessKeyRequest) HasTag() bool`
+
+HasTag returns a boolean if a field has been set.
 
 ### GetUserName
 

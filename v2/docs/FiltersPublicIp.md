@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkPublicIpIds** | Pointer to **[]string** | The IDs representing the associations of public IPs with VMs or NICs. | [optional] 
-**NicAccountIds** | Pointer to **[]string** | The account IDs of the owners of the NICs. | [optional] 
+**NicAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs of the owners of the NICs. | [optional] 
 **NicIds** | Pointer to **[]string** | The IDs of the NICs. | [optional] 
 **Placements** | Pointer to **[]string** | Whether the public IPs are for use in the public Cloud or in a Net. | [optional] 
 **PrivateIps** | Pointer to **[]string** | The private IPs associated with the public IPs. | [optional] 

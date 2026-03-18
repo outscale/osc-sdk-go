@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**LoadBalancer** | Pointer to [**LoadBalancer**](LoadBalancer.md) |  | [optional] 
 **ResponseContext** | Pointer to [**ResponseContext**](ResponseContext.md) |  | [optional] 
 
 ## Methods
@@ -24,6 +25,31 @@ will change when the set of required properties is changed
 NewDeleteLoadBalancerResponseWithDefaults instantiates a new DeleteLoadBalancerResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetLoadBalancer
+
+`func (o *DeleteLoadBalancerResponse) GetLoadBalancer() LoadBalancer`
+
+GetLoadBalancer returns the LoadBalancer field if non-nil, zero value otherwise.
+
+### GetLoadBalancerOk
+
+`func (o *DeleteLoadBalancerResponse) GetLoadBalancerOk() (*LoadBalancer, bool)`
+
+GetLoadBalancerOk returns a tuple with the LoadBalancer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLoadBalancer
+
+`func (o *DeleteLoadBalancerResponse) SetLoadBalancer(v LoadBalancer)`
+
+SetLoadBalancer sets LoadBalancer field to given value.
+
+### HasLoadBalancer
+
+`func (o *DeleteLoadBalancerResponse) HasLoadBalancer() bool`
+
+HasLoadBalancer returns a boolean if a field has been set.
 
 ### GetResponseContext
 

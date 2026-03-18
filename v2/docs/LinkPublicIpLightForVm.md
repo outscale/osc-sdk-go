@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PublicDnsName** | Pointer to **string** | The name of the public DNS. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP associated with the NIC. | [optional] 
-**PublicIpAccountId** | Pointer to **string** | The account ID of the owner of the public IP. | [optional] 
+**PublicIpAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the public IP. | [optional] 
 
 ## Methods
 

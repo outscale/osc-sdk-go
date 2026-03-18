@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account ID of the owner of the NIC. | [optional] 
+**AccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the NIC. | [optional] 
 **Description** | Pointer to **string** | The description of the NIC. | [optional] 
 **IsSourceDestChecked** | Pointer to **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. | [optional] 
 **LinkNic** | Pointer to [**LinkNic**](LinkNic.md) |  | [optional] 

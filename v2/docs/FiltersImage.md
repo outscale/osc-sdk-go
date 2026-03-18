@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountAliases** | Pointer to **[]string** | The account aliases of the owners of the OMIs. | [optional] 
-**AccountIds** | Pointer to **[]string** | The account IDs of the owners of the OMIs. By default, all the OMIs for which you have launch permissions are described. | [optional] 
+**AccountIds** | Pointer to **[]string** | The OUTSCALE account IDs of the owners of the OMIs. By default, all the OMIs for which you have launch permissions are described. | [optional] 
 **Architectures** | Pointer to **[]string** | The architectures of the OMIs (&#x60;i386&#x60; \\| &#x60;x86_64&#x60;). | [optional] 
 **BlockDeviceMappingDeleteOnVmDeletion** | Pointer to **bool** | Whether the volumes are deleted or not when terminating the VM. | [optional] 
 **BlockDeviceMappingDeviceNames** | Pointer to **[]string** | The device names for the volumes. | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | Pointer to **[]string** | The names of the OMIs, provided when they were created. | [optional] 
-**PermissionsToLaunchAccountIds** | Pointer to **[]string** | The account IDs which have launch permissions for the OMIs. | [optional] 
+**PermissionsToLaunchAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs which have launch permissions for the OMIs. | [optional] 
 **PermissionsToLaunchGlobalPermission** | Pointer to **bool** | If true, lists all public OMIs. If false, lists all private OMIs. | [optional] 
 **ProductCodeNames** | Pointer to **[]string** | The names of the product codes associated with the OMI. | [optional] 
 **ProductCodes** | Pointer to **[]string** | The product codes associated with the OMI. | [optional] 

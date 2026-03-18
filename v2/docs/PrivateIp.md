@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **IsPrimary** | Pointer to **bool** | If true, the IP is the primary private IP of the NIC. | [optional] 
 **LinkPublicIp** | Pointer to [**LinkPublicIp**](LinkPublicIp.md) |  | [optional] 
 **PrivateDnsName** | Pointer to **string** | The name of the private DNS. | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP of the NIC. | [optional] 
+**PrivateIp** | Pointer to **string** | A private IP for the NIC. | [optional] 
 
 ## Methods
 
