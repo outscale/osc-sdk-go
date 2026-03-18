@@ -202,6 +202,30 @@ func (LinkedVolumeState) Values() []string {
 	}
 }
 
+// Defines values for LoadBalancerState.
+const (
+	LoadBalancerStateActive        LoadBalancerState = "active"
+	LoadBalancerStateDeleted       LoadBalancerState = "deleted"
+	LoadBalancerStateDeleting      LoadBalancerState = "deleting"
+	LoadBalancerStateProvisioning  LoadBalancerState = "provisioning"
+	LoadBalancerStateReconfiguring LoadBalancerState = "reconfiguring"
+	LoadBalancerStateReloading     LoadBalancerState = "reloading"
+	LoadBalancerStateStarting      LoadBalancerState = "starting"
+)
+
+// Method to return the list of values
+func (LoadBalancerState) Values() []string {
+	return []string{
+		"active",
+		"deleted",
+		"deleting",
+		"provisioning",
+		"reconfiguring",
+		"reloading",
+		"starting",
+	}
+}
+
 // Defines values for NatServiceState.
 const (
 	NatServiceStateAvailable NatServiceState = "available"
@@ -605,7 +629,7 @@ type AcceptNetPeeringResponse struct {
 
 // AccepterNet Information about the accepter Net.
 type AccepterNet struct {
-	// AccountId The account ID of the owner of the accepter Net.
+	// AccountId The OUTSCALE account ID of the owner of the accepter Net.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// IpRange The IP range for the accepter Net, in CIDR notation (for example, `10.0.0.0/16`).
@@ -1057,7 +1081,7 @@ type ClientGateway struct {
 
 // ConsumptionEntry Information about the resources consumed during the specified time period.
 type ConsumptionEntry struct {
-	// AccountId The ID of your TINA account.
+	// AccountId The ID of your OUTSCALE account.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// Category The category of the resource (for example, `network`).
@@ -1069,7 +1093,7 @@ type ConsumptionEntry struct {
 	// Operation The API call that triggered the resource consumption (for example, `RunInstances` or `CreateVolume`).
 	Operation *string `json:"Operation,omitempty"`
 
-	// PayingAccountId The ID of the TINA account which is billed for your consumption. It can be different from your account in the `AccountId` parameter.
+	// PayingAccountId The ID of the OUTSCALE account which is billed for your consumption. It can be different from your account in the `AccountId` parameter.
 	PayingAccountId *string `json:"PayingAccountId,omitempty"`
 
 	// Price The total price of the consumed resource during the specified time period, in the currency of the Region's catalog.
@@ -1105,13 +1129,13 @@ type CreateAccessKeyRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// ExpirationDate The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`, or `2020-06-14`). To remove an existing expiration date, use the method without specifying this parameter.
+	// ExpirationDate The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z`, or `2020-06-14`). If not specified, the access key is set to not expire.
 	ExpirationDate *iso8601.Time `json:"ExpirationDate,omitempty"`
 
 	// Tag A tag to add to the access key.
 	Tag *string `json:"Tag,omitempty"`
 
-	// UserName The name of the EIM user that owns the key to be created. If you do not specify a user name, this action creates an access key for the user who sends the request (which can be the root account).
+	// UserName The name of the EIM user that owns the key to be created. If you do not specify a user name, this action creates an access key for the user who sends the request (which can be the root user).
 	UserName *string `json:"UserName,omitempty"`
 }
 
@@ -1401,10 +1425,10 @@ type CreateImageExportTaskResponse struct {
 
 // CreateImageRequest defines model for CreateImageRequest.
 type CreateImageRequest struct {
-	// Architecture **When registering from a snapshot:** The architecture of the OMI (`i386` or `x86_64`). By default, set to `x86_64`.
+	// Architecture **(when registering from a snapshot)** The architecture of the OMI (`i386` or `x86_64`). By default, set to `x86_64`.
 	Architecture *string `json:"Architecture,omitempty"`
 
-	// BlockDeviceMappings **(required) When registering from a snapshot:** One or more block device mappings.
+	// BlockDeviceMappings **(required when registering from a snapshot)** One or more block device mappings.
 	BlockDeviceMappings *[]BlockDeviceMappingImage `json:"BlockDeviceMappings,omitempty"`
 
 	// BootModes The boot modes compatible with the OMI.
@@ -1416,32 +1440,32 @@ type CreateImageRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// FileLocation **(required) When registering from a bucket by using a manifest file:** The pre-signed URL of the manifest file for the OMI you want to register. For more information, see [Creating a Pre-signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
+	// FileLocation **(required when registering from a bucket by using a manifest file)** The pre-signed URL of the manifest file for the OMI you want to register. For more information, see [Creating a Pre-signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
 	FileLocation *string `json:"FileLocation,omitempty"`
 
 	// ImageName A unique name for the new OMI.<br />
 	// Constraints: 3-128 alphanumeric characters, underscores (`_`), spaces (` `), parentheses (`()`), slashes (`/`), periods (`.`), or dashes (`-`).
 	ImageName *string `json:"ImageName,omitempty"`
 
-	// NoReboot **When creating from a VM:** If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not.
+	// NoReboot **(when creating from a VM)** If false, the VM shuts down before creating the OMI and then reboots. If true, the VM does not.
 	NoReboot *bool `json:"NoReboot,omitempty"`
 
 	// ProductCodes The product codes associated with the OMI.
 	ProductCodes *[]string `json:"ProductCodes,omitempty"`
 
-	// RootDeviceName **(required) When registering from a snapshot:** The name of the root device for the new OMI.
+	// RootDeviceName **(required when registering from a snapshot)** The name of the root device for the new OMI.
 	RootDeviceName *string `json:"RootDeviceName,omitempty"`
 
-	// SourceImageId **(required) When copying an OMI:** The ID of the OMI you want to copy.
+	// SourceImageId **(required when copying an OMI)** The ID of the OMI you want to copy.
 	SourceImageId *string `json:"SourceImageId,omitempty"`
 
-	// SourceRegionName **(required) When copying an OMI:** The name of the source Region (always the same as the Region of your account).
+	// SourceRegionName **(required when copying an OMI)** The name of the source Region (always the same as the Region of your account).
 	SourceRegionName *string `json:"SourceRegionName,omitempty"`
 
 	// TpmMandatory By default or if set to false, a virtual Trusted Platform Module (vTPM) is not mandatory on VMs created from this OMI. If true, VMs created from this OMI must have a vTPM enabled.
 	TpmMandatory *bool `json:"TpmMandatory,omitempty"`
 
-	// VmId **(required) When creating from a VM:** The ID of the VM from which you want to create the OMI.
+	// VmId **(required when creating from a VM)** The ID of the VM from which you want to create the OMI.
 	VmId *string `json:"VmId,omitempty"`
 }
 
@@ -1674,10 +1698,10 @@ type CreateNetAccessPointResponse struct {
 // CreateNetPeeringRequest defines model for CreateNetPeeringRequest.
 type CreateNetPeeringRequest struct {
 	// AccepterNetId The ID of the Net you want to connect with. <br/ > <br/ >
-	// If the Net does not belong to you, you must also specify the `AccepterOwnerId` parameter with the account ID owning the Net you want to connect with.
+	// If the Net does not belong to you, you must also specify the `AccepterOwnerId` parameter with the OUTSCALE account ID owning the Net you want to connect with.
 	AccepterNetId string `json:"AccepterNetId"`
 
-	// AccepterOwnerId The account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. <br /><br/ >
+	// AccepterOwnerId The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. <br /><br/ >
 	// This parameter is required if the Net you want to connect with does not belong to you.
 	AccepterOwnerId *string `json:"AccepterOwnerId,omitempty"`
 
@@ -1729,9 +1753,7 @@ type CreateNicRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// PrivateIps The primary private IP for the NIC.<br />
-	// This IP must be within the IP range of the Subnet that you specify with the `SubnetId` attribute.<br />
-	// If you do not specify this attribute, a random private IP is selected within the IP range of the Subnet.
+	// PrivateIps Information about the private IP or IPs of the NIC. If you do not specify a primary private IP, one is still created, with an IP randomly selected within the IP range of the Subnet.
 	PrivateIps *[]PrivateIpLight `json:"PrivateIps,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security groups for the NIC.
@@ -1935,7 +1957,7 @@ type CreateSecurityGroupRuleRequest struct {
 	// Rules Information about the security group rule to create. If you specify this parent parameter and its subparameters, you cannot specify the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`, and `ToPortRange`.
 	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
-	// SecurityGroupAccountIdToLink The account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.
+	// SecurityGroupAccountIdToLink The OUTSCALE account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.
 	SecurityGroupAccountIdToLink *string `json:"SecurityGroupAccountIdToLink,omitempty"`
 
 	// SecurityGroupId The ID of the security group for which you want to create a rule.
@@ -2278,7 +2300,7 @@ type CreateVmsRequest struct {
 	// NestedVirtualization (dedicated tenancy only) If true, nested virtualization is enabled. If false, it is disabled.
 	NestedVirtualization *bool `json:"NestedVirtualization,omitempty"`
 
-	// Nics One or more NICs. If you specify this parameter, you must not specify the `SubnetId` and `SubregionName` parameters. You also must define one NIC as the primary network interface of the VM with `0` as its device number.
+	// Nics One or more NICs. If you specify this parameter, you must define one NIC as the primary network interface of the VM with `0` as its device number.
 	Nics []NicForVmCreation `json:"Nics,omitempty"`
 
 	// Performance The performance of the VM. This parameter is ignored if you specify a performance flag directly in the `VmType` parameter.
@@ -2287,7 +2309,7 @@ type CreateVmsRequest struct {
 	// Placement Information about the placement of the VM.
 	Placement *Placement `json:"Placement,omitempty"`
 
-	// PrivateIps One or more private IPs of the VM.
+	// PrivateIps One or more private IPs of the VM. These IPs must be within the IP range of the Subnet that you specify with the `SubnetId` parameter. However, they cannot be one of the first four IPs (ending in `.0`, `.1`, `.2`, `.3`) or the last IP (ending in `.255`) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html).
 	PrivateIps []string `json:"PrivateIps,omitempty"`
 
 	// SecurityGroupIds One or more IDs of security group for the VMs.
@@ -2296,10 +2318,10 @@ type CreateVmsRequest struct {
 	// SecurityGroups One or more names of security groups for the VMs.
 	SecurityGroups []string `json:"SecurityGroups,omitempty"`
 
-	// SubnetId The ID of the Subnet in which you want to create the VM. If you specify this parameter, you must not specify the `Nics` parameter.
+	// SubnetId The ID of the Subnet in which you want to create the VM.
 	SubnetId *string `json:"SubnetId,omitempty"`
 
-	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.<br />The default behavior for this parameter varies depending on the source OMI of the VM.<br />If the `TpmMandatory` parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting `TpmEnabled` to false will cause the creation request to fail.<br />If the `TpmMandatory` parameter of the source OMI is false, only setting `TpmEnabled` to true will create and attach a vTPM to the VM.
 	TpmEnabled *bool `json:"TpmEnabled,omitempty"`
 
 	// UserData Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html).
@@ -2406,7 +2428,7 @@ type CreateVpnConnectionRouteResponse struct {
 
 // DedicatedGroup Information about the dedicated group.
 type DedicatedGroup struct {
-	// AccountId The account ID of the owners of the dedicated group.
+	// AccountId The OUTSCALE account ID of the owners of the dedicated group.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// CpuGeneration The processor generation.
@@ -2436,7 +2458,7 @@ type DeleteAccessKeyRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// UserName The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root account).
+	// UserName The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root user).
 	UserName *string `json:"UserName,omitempty"`
 }
 
@@ -2700,6 +2722,9 @@ type DeleteLoadBalancerRequest struct {
 
 // DeleteLoadBalancerResponse defines model for DeleteLoadBalancerResponse.
 type DeleteLoadBalancerResponse struct {
+	// LoadBalancer Information about the load balancer.
+	LoadBalancer *LoadBalancer `json:"LoadBalancer,omitempty"`
+
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
@@ -2937,7 +2962,7 @@ type DeleteSecurityGroupRuleRequest struct {
 	// Rules One or more rules you want to delete from the security group.
 	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
-	// SecurityGroupAccountIdToUnlink The account ID of the owner of the security group you want to delete a rule from.
+	// SecurityGroupAccountIdToUnlink The OUTSCALE account ID of the owner of the security group you want to delete a rule from.
 	SecurityGroupAccountIdToUnlink *string `json:"SecurityGroupAccountIdToUnlink,omitempty"`
 
 	// SecurityGroupId The ID of the security group you want to delete a rule from.
@@ -3252,7 +3277,7 @@ type DhcpOptionsSet struct {
 
 // DirectLink Information about the DirectLink.
 type DirectLink struct {
-	// AccountId The account ID of the owner of the DirectLink.
+	// AccountId The OUTSCALE account ID of the owner of the DirectLink.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// Bandwidth The physical link bandwidth (either 1 Gbps or 10 Gbps).
@@ -3307,7 +3332,7 @@ type DirectLinkInterface struct {
 
 // DirectLinkInterfaces Information about the DirectLink interfaces.
 type DirectLinkInterfaces struct {
-	// AccountId The account ID of the owner of the DirectLink interface.
+	// AccountId The OUTSCALE account ID of the owner of the DirectLink interface.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// BgpAsn The BGP (Border Gateway Protocol) ASN (Autonomous System Number) on the customer's side of the DirectLink interface.
@@ -3605,12 +3630,6 @@ type FiltersDirectLinkInterface struct {
 	DirectLinkInterfaceIds *[]string `json:"DirectLinkInterfaceIds,omitempty"`
 }
 
-// FiltersExportTask One or more filters.
-type FiltersExportTask struct {
-	// TaskIds The IDs of the export tasks.
-	TaskIds *[]string `json:"TaskIds,omitempty"`
-}
-
 // FiltersFlexibleGpu One or more filters.
 type FiltersFlexibleGpu struct {
 	// DeleteOnVmDeletion Indicates whether the fGPU is deleted when terminating the VM.
@@ -3643,7 +3662,7 @@ type FiltersImage struct {
 	// AccountAliases The account aliases of the owners of the OMIs.
 	AccountAliases *[]string `json:"AccountAliases,omitempty"`
 
-	// AccountIds The account IDs of the owners of the OMIs. By default, all the OMIs for which you have launch permissions are described.
+	// AccountIds The OUTSCALE account IDs of the owners of the OMIs. By default, all the OMIs for which you have launch permissions are described.
 	AccountIds *[]string `json:"AccountIds,omitempty"`
 
 	// Architectures The architectures of the OMIs (`i386` \| `x86_64`).
@@ -3682,7 +3701,7 @@ type FiltersImage struct {
 	// ImageNames The names of the OMIs, provided when they were created.
 	ImageNames *[]string `json:"ImageNames,omitempty"`
 
-	// PermissionsToLaunchAccountIds The account IDs which have launch permissions for the OMIs.
+	// PermissionsToLaunchAccountIds The OUTSCALE account IDs which have launch permissions for the OMIs.
 	PermissionsToLaunchAccountIds *[]string `json:"PermissionsToLaunchAccountIds,omitempty"`
 
 	// PermissionsToLaunchGlobalPermission If true, lists all public OMIs. If false, lists all private OMIs.
@@ -3777,6 +3796,9 @@ type FiltersListenerRule struct {
 type FiltersLoadBalancer struct {
 	// LoadBalancerNames The names of the load balancers.
 	LoadBalancerNames *[]string `json:"LoadBalancerNames,omitempty"`
+
+	// States The states of the load balancer (`provisioning` \| `starting` \| `reloading` \| `active` \| `reconfiguring` \| `deleting` \| `deleted`).
+	States *[]LoadBalancerState `json:"States,omitempty"`
 }
 
 // FiltersNatService One or more filters.
@@ -3859,7 +3881,7 @@ type FiltersNetAccessPoint struct {
 
 // FiltersNetPeering One or more filters.
 type FiltersNetPeering struct {
-	// AccepterNetAccountIds The account IDs of the owners of the peer Nets.
+	// AccepterNetAccountIds The OUTSCALE account IDs of the owners of the peer Nets.
 	AccepterNetAccountIds *[]string `json:"AccepterNetAccountIds,omitempty"`
 
 	// AccepterNetIpRanges The IP ranges of the peer Nets, in CIDR notation (for example, `10.0.0.0/24`).
@@ -3874,7 +3896,7 @@ type FiltersNetPeering struct {
 	// NetPeeringIds The IDs of the Net peerings.
 	NetPeeringIds *[]string `json:"NetPeeringIds,omitempty"`
 
-	// SourceNetAccountIds The account IDs of the owners of the peer Nets.
+	// SourceNetAccountIds The OUTSCALE account IDs of the owners of the peer Nets.
 	SourceNetAccountIds *[]string `json:"SourceNetAccountIds,omitempty"`
 
 	// SourceNetIpRanges The IP ranges of the peer Nets.
@@ -3919,13 +3941,13 @@ type FiltersNic struct {
 	// LinkNicStates The states of the attachments.
 	LinkNicStates *[]string `json:"LinkNicStates,omitempty"`
 
-	// LinkNicVmAccountIds The account IDs of the owners of the VMs the NICs are attached to.
+	// LinkNicVmAccountIds The OUTSCALE account IDs of the owners of the VMs the NICs are attached to.
 	LinkNicVmAccountIds *[]string `json:"LinkNicVmAccountIds,omitempty"`
 
 	// LinkNicVmIds The IDs of the VMs the NICs are attached to.
 	LinkNicVmIds *[]string `json:"LinkNicVmIds,omitempty"`
 
-	// LinkPublicIpAccountIds The account IDs of the owners of the public IPs associated with the NICs.
+	// LinkPublicIpAccountIds The OUTSCALE account IDs of the owners of the public IPs associated with the NICs.
 	LinkPublicIpAccountIds *[]string `json:"LinkPublicIpAccountIds,omitempty"`
 
 	// LinkPublicIpLinkPublicIpIds The association IDs returned when the public IPs were associated with the NICs.
@@ -3952,7 +3974,7 @@ type FiltersNic struct {
 	// PrivateDnsNames The private DNS names associated with the primary private IPs.
 	PrivateDnsNames *[]string `json:"PrivateDnsNames,omitempty"`
 
-	// PrivateIpsLinkPublicIpAccountIds The account IDs of the owner of the public IPs associated with the private IPs.
+	// PrivateIpsLinkPublicIpAccountIds The OUTSCALE account IDs of the owner of the public IPs associated with the private IPs.
 	PrivateIpsLinkPublicIpAccountIds *[]string `json:"PrivateIpsLinkPublicIpAccountIds,omitempty"`
 
 	// PrivateIpsLinkPublicIpPublicIps The public IPs associated with the private IPs.
@@ -4000,7 +4022,7 @@ type FiltersPublicIp struct {
 	// LinkPublicIpIds The IDs representing the associations of public IPs with VMs or NICs.
 	LinkPublicIpIds *[]string `json:"LinkPublicIpIds,omitempty"`
 
-	// NicAccountIds The account IDs of the owners of the NICs.
+	// NicAccountIds The OUTSCALE account IDs of the owners of the NICs.
 	NicAccountIds *[]string `json:"NicAccountIds,omitempty"`
 
 	// NicIds The IDs of the NICs.
@@ -4044,6 +4066,24 @@ type FiltersQuota struct {
 
 	// ShortDescriptions The description of the quotas.
 	ShortDescriptions *[]string `json:"ShortDescriptions,omitempty"`
+}
+
+// FiltersReadImageExportTask One or more filters.
+type FiltersReadImageExportTask struct {
+	// ImageIds The IDs of the OMIs used for the snapshot export tasks.
+	ImageIds *[]string `json:"ImageIds,omitempty"`
+
+	// TaskIds The IDs of the snapshot export tasks.
+	TaskIds *[]string `json:"TaskIds,omitempty"`
+}
+
+// FiltersReadVolumeUpdateTask One or more filters.
+type FiltersReadVolumeUpdateTask struct {
+	// TaskIds The IDs of the snapshot export tasks.
+	TaskIds *[]string `json:"TaskIds,omitempty"`
+
+	// VolumeIds The IDs of the volumes used for the snapshot export tasks.
+	VolumeIds *[]string `json:"VolumeIds,omitempty"`
 }
 
 // FiltersRouteTable One or more filters.
@@ -4105,7 +4145,7 @@ type FiltersSecurityGroup struct {
 	// Descriptions The descriptions of the security groups.
 	Descriptions *[]string `json:"Descriptions,omitempty"`
 
-	// InboundRuleAccountIds The account IDs that have been granted permissions.
+	// InboundRuleAccountIds The OUTSCALE account IDs that have been granted permissions.
 	InboundRuleAccountIds *[]string `json:"InboundRuleAccountIds,omitempty"`
 
 	// InboundRuleFromPortRanges The beginnings of the port ranges for the TCP and UDP protocols, or the ICMP type numbers.
@@ -4129,7 +4169,7 @@ type FiltersSecurityGroup struct {
 	// NetIds The IDs of the Nets specified when the security groups were created.
 	NetIds *[]string `json:"NetIds,omitempty"`
 
-	// OutboundRuleAccountIds The account IDs that have been granted permissions.
+	// OutboundRuleAccountIds The OUTSCALE account IDs that have been granted permissions.
 	OutboundRuleAccountIds *[]string `json:"OutboundRuleAccountIds,omitempty"`
 
 	// OutboundRuleFromPortRanges The beginnings of the port ranges for the TCP and UDP protocols, or the ICMP type numbers.
@@ -4186,7 +4226,7 @@ type FiltersSnapshot struct {
 	// AccountAliases The account aliases of the owners of the snapshots.
 	AccountAliases *[]string `json:"AccountAliases,omitempty"`
 
-	// AccountIds The account IDs of the owners of the snapshots.
+	// AccountIds The OUTSCALE account IDs of the owners of the snapshots.
 	AccountIds *[]string `json:"AccountIds,omitempty"`
 
 	// ClientTokens The idempotency tokens provided when creating the snapshots.
@@ -4198,7 +4238,7 @@ type FiltersSnapshot struct {
 	// FromCreationDate The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
 	FromCreationDate *iso8601.Time `json:"FromCreationDate,omitempty"`
 
-	// PermissionsToCreateVolumeAccountIds The account IDs which have permissions to create volumes.
+	// PermissionsToCreateVolumeAccountIds The OUTSCALE account IDs which have permissions to create volumes.
 	PermissionsToCreateVolumeAccountIds *[]string `json:"PermissionsToCreateVolumeAccountIds,omitempty"`
 
 	// PermissionsToCreateVolumeGlobalPermission If true, lists all public volumes. If false, lists all private volumes.
@@ -4230,6 +4270,15 @@ type FiltersSnapshot struct {
 
 	// VolumeSizes The sizes of the volumes used to create the snapshots, in gibibytes (GiB).
 	VolumeSizes *[]int `json:"VolumeSizes,omitempty"`
+}
+
+// FiltersSnapshotExportTask One or more filters.
+type FiltersSnapshotExportTask struct {
+	// SnapshotIds The IDs of the snapshots used with the snapshot export tasks
+	SnapshotIds *[]string `json:"SnapshotIds,omitempty"`
+
+	// TaskIds The IDs of the snapshot export tasks.
+	TaskIds *[]string `json:"TaskIds,omitempty"`
 }
 
 // FiltersSubnet One or more filters.
@@ -4287,12 +4336,6 @@ type FiltersTag struct {
 
 	// Values The values of the tags that are assigned to the resources. You can use this filter alongside the `TagKeys` filter. In that case, you filter the resources corresponding to each tag, regardless of the other filter.
 	Values *[]string `json:"Values,omitempty"`
-}
-
-// FiltersUpdateVolumeTask One or more filters.
-type FiltersUpdateVolumeTask struct {
-	// TaskIds The IDs of the volume update tasks.
-	TaskIds *[]string `json:"TaskIds,omitempty"`
 }
 
 // FiltersUserGroup One or more filters.
@@ -4408,13 +4451,13 @@ type FiltersVm struct {
 	// NicLinkNicStates The states of the attachments.
 	NicLinkNicStates *[]string `json:"NicLinkNicStates,omitempty"`
 
-	// NicLinkNicVmAccountIds The account IDs of the owners of the VMs the NICs are attached to.
+	// NicLinkNicVmAccountIds The OUTSCALE account IDs of the owners of the VMs the NICs are attached to.
 	NicLinkNicVmAccountIds *[]string `json:"NicLinkNicVmAccountIds,omitempty"`
 
 	// NicLinkNicVmIds The IDs of the VMs the NICs are attached to.
 	NicLinkNicVmIds *[]string `json:"NicLinkNicVmIds,omitempty"`
 
-	// NicLinkPublicIpAccountIds The account IDs of the owners of the public IPs associated with the NICs.
+	// NicLinkPublicIpAccountIds The OUTSCALE account IDs of the owners of the public IPs associated with the NICs.
 	NicLinkPublicIpAccountIds *[]string `json:"NicLinkPublicIpAccountIds,omitempty"`
 
 	// NicLinkPublicIpLinkPublicIpIds The association IDs returned when the public IPs were associated with the NICs.
@@ -4435,7 +4478,7 @@ type FiltersVm struct {
 	// NicNicIds The IDs of the NICs.
 	NicNicIds *[]string `json:"NicNicIds,omitempty"`
 
-	// NicPrivateIpsLinkPublicIpAccountIds The account IDs of the owner of the public IPs associated with the private IPs.
+	// NicPrivateIpsLinkPublicIpAccountIds The OUTSCALE account IDs of the owner of the public IPs associated with the private IPs.
 	NicPrivateIpsLinkPublicIpAccountIds *[]string `json:"NicPrivateIpsLinkPublicIpAccountIds,omitempty"`
 
 	// NicPrivateIpsLinkPublicIpIds The public IPs associated with the private IPs.
@@ -5065,7 +5108,7 @@ type LinkNic struct {
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
 	State LinkNicState `json:"State"`
 
-	// VmAccountId The account ID of the owner of the VM.
+	// VmAccountId The OUTSCALE account ID of the owner of the VM.
 	VmAccountId string `json:"VmAccountId"`
 
 	// VmId The ID of the VM.
@@ -5152,7 +5195,7 @@ type LinkPrivateIpsRequest struct {
 	// NicId The ID of the NIC.
 	NicId string `json:"NicId"`
 
-	// PrivateIps The secondary private IP or IPs you want to assign to the NIC within the IP range of the Subnet.
+	// PrivateIps The secondary private IP or IPs you want to assign to the NIC within the IP range of the Subnet. They cannot be one of the first four IPs (ending in `.0`, `.1`, `.2`, `.3`) or the last IP (ending in `.255`) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html).
 	PrivateIps *[]string `json:"PrivateIps,omitempty"`
 
 	// SecondaryPrivateIpCount The number of secondary private IPs to assign to the NIC.
@@ -5176,7 +5219,7 @@ type LinkPublicIp struct {
 	// PublicIp The public IP associated with the NIC.
 	PublicIp string `json:"PublicIp"`
 
-	// PublicIpAccountId The account ID of the owner of the public IP.
+	// PublicIpAccountId The OUTSCALE account ID of the owner of the public IP.
 	PublicIpAccountId string `json:"PublicIpAccountId"`
 
 	// PublicIpId The allocation ID of the public IP.
@@ -5191,7 +5234,7 @@ type LinkPublicIpLightForVm struct {
 	// PublicIp The public IP associated with the NIC.
 	PublicIp string `json:"PublicIp"`
 
-	// PublicIpAccountId The account ID of the owner of the public IP.
+	// PublicIpAccountId The OUTSCALE account ID of the owner of the public IP.
 	PublicIpAccountId string `json:"PublicIpAccountId"`
 }
 
@@ -5485,6 +5528,9 @@ type LoadBalancer struct {
 	// To only allow traffic from load balancers, add a security group rule that specifies this source security group as the inbound source.
 	SourceSecurityGroup SourceSecurityGroup `json:"SourceSecurityGroup"`
 
+	// State The state of the load balancer (`provisioning` \| `starting` \| `reloading` \| `active` \| `reconfiguring` \| `deleting` \| `deleted`).
+	State LoadBalancerState `json:"State"`
+
 	// Subnets The ID of the Subnet in which the load balancer was created.
 	Subnets []string `json:"Subnets,omitempty"`
 
@@ -5494,6 +5540,9 @@ type LoadBalancer struct {
 	// Tags One or more tags associated with the load balancer.
 	Tags []ResourceTag `json:"Tags"`
 }
+
+// LoadBalancerState The state of the load balancer (`provisioning` \| `starting` \| `reloading` \| `active` \| `reconfiguring` \| `deleting` \| `deleted`).
+type LoadBalancerState string
 
 // LoadBalancerLight Information about the load balancer.
 type LoadBalancerLight struct {
@@ -5537,7 +5586,7 @@ type Location struct {
 
 // Log Information about the log.
 type Log struct {
-	// AccountId The account ID of the logged call.
+	// AccountId The OUTSCALE account ID of the logged call.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// CallDuration The duration of the logged call, in microseconds.
@@ -5732,7 +5781,7 @@ type NetToVirtualGatewayLink struct {
 
 // Nic Information about the NIC.
 type Nic struct {
-	// AccountId The account ID of the owner of the NIC.
+	// AccountId The OUTSCALE account ID of the owner of the NIC.
 	AccountId string `json:"AccountId"`
 
 	// Description The description of the NIC.
@@ -5810,7 +5859,7 @@ type NicForVmCreation struct {
 
 // NicLight Information about the network interface card (NIC).
 type NicLight struct {
-	// AccountId The account ID of the owner of the NIC.
+	// AccountId The OUTSCALE account ID of the owner of the NIC.
 	AccountId string `json:"AccountId"`
 
 	// Description The description of the NIC.
@@ -5906,7 +5955,7 @@ type OsuExportToCreate struct {
 
 // PermissionsOnResource Permissions for the resource.
 type PermissionsOnResource struct {
-	// AccountIds One or more account IDs that the permission is associated with.
+	// AccountIds One or more OUTSCALE account IDs that the permission is associated with.
 	AccountIds *[]string `json:"AccountIds,omitempty"`
 
 	// GlobalPermission A global permission for all accounts.<br />
@@ -5975,7 +6024,7 @@ type Phase2Options struct {
 
 // Placement Information about the placement of the VM.
 type Placement struct {
-	// SubregionName The name of the Subregion. If you specify this parameter, you must not specify the `Nics` parameter.
+	// SubregionName The name of the Subregion.
 	SubregionName string `json:"SubregionName"`
 
 	// Tenancy The tenancy of the VM (`default`, `dedicated`, or a dedicated group ID).
@@ -6065,7 +6114,7 @@ type PrivateIp struct {
 	// PrivateDnsName The name of the private DNS.
 	PrivateDnsName string `json:"PrivateDnsName"`
 
-	// PrivateIp The private IP of the NIC.
+	// PrivateIp A private IP for the NIC.
 	PrivateIp string `json:"PrivateIp"`
 }
 
@@ -6074,7 +6123,7 @@ type PrivateIpLight struct {
 	// IsPrimary If true, the IP is the primary private IP of the NIC.
 	IsPrimary bool `json:"IsPrimary"`
 
-	// PrivateIp The private IP of the NIC.
+	// PrivateIp A private IP for the NIC. This IP must be within the IP range of the Subnet that you specify with the `SubnetId` parameter. However, it cannot be one of the first four IPs (ending in `.0`, `.1`, `.2`, `.3`) or the last IP (ending in `.255`) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html).
 	PrivateIp string `json:"PrivateIp"`
 }
 
@@ -6089,7 +6138,7 @@ type PrivateIpLightForVm struct {
 	// PrivateDnsName The name of the private DNS.
 	PrivateDnsName string `json:"PrivateDnsName"`
 
-	// PrivateIp The private IP.
+	// PrivateIp A private IP for the NIC.
 	PrivateIp string `json:"PrivateIp"`
 }
 
@@ -6110,7 +6159,7 @@ type PublicIp struct {
 	// LinkPublicIpId (Required in a Net) The ID representing the association of the public IP with the VM or the NIC.
 	LinkPublicIpId *string `json:"LinkPublicIpId,omitempty"`
 
-	// NicAccountId The account ID of the owner of the NIC.
+	// NicAccountId The OUTSCALE account ID of the owner of the NIC.
 	NicAccountId *string `json:"NicAccountId,omitempty"`
 
 	// NicId The ID of the NIC the public IP is associated with (if any).
@@ -6188,7 +6237,7 @@ type PutUserPolicyResponse struct {
 
 // Quota Information about the quota.
 type Quota struct {
-	// AccountId The account ID of the owner of the quotas.
+	// AccountId The OUTSCALE account ID of the owner of the quotas.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// Description The description of the quota.
@@ -6230,7 +6279,7 @@ type ReadAccessKeysRequest struct {
 	// Tag The tag added to the access key.
 	Tag *string `json:"Tag,omitempty"`
 
-	// UserName The name of the EIM user. By default, the user who sends the request (which can be the root account).
+	// UserName The name of the EIM user. By default, the user who sends the request (which can be the root user).
 	UserName *string `json:"UserName,omitempty"`
 }
 
@@ -6675,7 +6724,7 @@ type ReadImageExportTasksRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Filters One or more filters.
-	Filters *FiltersExportTask `json:"Filters,omitempty"`
+	Filters *FiltersReadImageExportTask `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *string `json:"NextPageToken,omitempty"`
@@ -7416,7 +7465,7 @@ type ReadSnapshotExportTasksRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Filters One or more filters.
-	Filters *FiltersExportTask `json:"Filters,omitempty"`
+	Filters *FiltersSnapshotExportTask `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *string `json:"NextPageToken,omitempty"`
@@ -7956,7 +8005,7 @@ type ReadVolumeUpdateTasksRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Filters One or more filters.
-	Filters *FiltersUpdateVolumeTask `json:"Filters,omitempty"`
+	Filters *FiltersReadVolumeUpdateTask `json:"Filters,omitempty"`
 
 	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
 	NextPageToken *string `json:"NextPageToken,omitempty"`
@@ -8163,7 +8212,7 @@ type Route struct {
 	// State The state of a route in the route table (always `active`).
 	State string `json:"State"`
 
-	// VmAccountId The account ID of the owner of the VM.
+	// VmAccountId The OUTSCALE account ID of the owner of the VM.
 	VmAccountId *string `json:"VmAccountId,omitempty"`
 
 	// VmId The ID of a VM specified in a route in the table.
@@ -8250,7 +8299,7 @@ type SecureBootAction string
 
 // SecurityGroup Information about the security group.
 type SecurityGroup struct {
-	// AccountId The account ID that has been granted permission.
+	// AccountId The OUTSCALE account ID that has been granted permission.
 	AccountId string `json:"AccountId"`
 
 	// Description The description of the security group.
@@ -8310,7 +8359,7 @@ type SecurityGroupRule struct {
 
 // SecurityGroupsMember Information about a source or destination security group.
 type SecurityGroupsMember struct {
-	// AccountId The account ID that owns the source or destination security group.
+	// AccountId The OUTSCALE account ID that owns the source or destination security group.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// SecurityGroupId The ID of a source or destination security group that you want to link to the security group of the rule.
@@ -8373,7 +8422,7 @@ type Snapshot struct {
 	// AccountAlias The account alias of the owner of the snapshot.
 	AccountAlias *string `json:"AccountAlias,omitempty"`
 
-	// AccountId The account ID of the owner of the snapshot.
+	// AccountId The OUTSCALE account ID of the owner of the snapshot.
 	AccountId string `json:"AccountId"`
 
 	// ClientToken The idempotency token provided when creating the snapshot.
@@ -8439,7 +8488,7 @@ type SnapshotExportTaskState string
 
 // SourceNet Information about the source Net.
 type SourceNet struct {
-	// AccountId The account ID of the owner of the source Net.
+	// AccountId The OUTSCALE account ID of the owner of the source Net.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// IpRange The IP range for the source Net, in CIDR notation (for example, `10.0.0.0/16`).
@@ -8452,7 +8501,7 @@ type SourceNet struct {
 // SourceSecurityGroup Information about the source security group of the load balancer, which you can use as part of your inbound rules for your registered VMs.<br />
 // To only allow traffic from load balancers, add a security group rule that specifies this source security group as the inbound source.
 type SourceSecurityGroup struct {
-	// SecurityGroupAccountId The account ID of the owner of the security group.
+	// SecurityGroupAccountId The OUTSCALE account ID of the owner of the security group.
 	SecurityGroupAccountId *string `json:"SecurityGroupAccountId,omitempty"`
 
 	// SecurityGroupName The name of the security group.
@@ -8788,16 +8837,25 @@ type UpdateAccessKeyRequest struct {
 	// AccessKeyId The ID of the access key.
 	AccessKeyId string `json:"AccessKeyId"`
 
+	// ClearExpirationDate If true, the current expiration date is deleted and the access key is set to not expire.
+	ClearExpirationDate *bool `json:"ClearExpirationDate,omitempty"`
+
+	// ClearTag If true, the current tag of the access key is deleted.
+	ClearTag *bool `json:"ClearTag,omitempty"`
+
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
-	// ExpirationDate The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z` or `2020-06-14`). If not specified, the access key is set to not expire.
+	// ExpirationDate The date and time, or the date, at which you want the access key to expire, in ISO 8601 format (for example, `2020-06-14T00:00:00.000Z` or `2020-06-14`). If not specified, the access key is set to not expire. If the `ClearExpirationDate` parameter is set to true, the expiration date is ignored.
 	ExpirationDate *iso8601.Time `json:"ExpirationDate,omitempty"`
 
 	// State The new state for the access key (`ACTIVE` \| `INACTIVE`). When set to `ACTIVE`, the access key is enabled and can be used to send requests. When set to `INACTIVE`, the access key is disabled.
-	State string `json:"State"`
+	State *string `json:"State,omitempty"`
 
-	// UserName The name of the EIM user that the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root account).
+	// Tag A new tag to add to the access key. If the access key already had a tag, this replaces it. If the `ClearTag` parameter is set to true, the tag is ignored.
+	Tag *string `json:"Tag,omitempty"`
+
+	// UserName The name of the EIM user that the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root user).
 	UserName *string `json:"UserName,omitempty"`
 }
 
@@ -9723,7 +9781,7 @@ type Vm struct {
 	// Tags One or more tags associated with the VM.
 	Tags []ResourceTag `json:"Tags"`
 
-	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.
+	// TpmEnabled If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.<br />The default behavior for this parameter varies depending on the source OMI of the VM.<br />If the `TpmMandatory` parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting `TpmEnabled` to false will cause the creation request to fail.<br />If the `TpmMandatory` parameter of the source OMI is false, only setting `TpmEnabled` to true will create and attach a vTPM to the VM.
 	TpmEnabled bool `json:"TpmEnabled"`
 
 	// UserData The Base64-encoded MIME user data.
@@ -10036,7 +10094,7 @@ type VpnOptions struct {
 
 // With The information to display in each returned log.
 type With struct {
-	// AccountId If true, the account ID is displayed.
+	// AccountId If true, the OUTSCALE account ID is displayed.
 	AccountId *bool `json:"AccountId,omitempty"`
 
 	// CallDuration If true, the duration of the call is displayed.
@@ -40133,7 +40191,7 @@ func (c *Client) CheckAuthenticationWithBody(ctx context.Context, contentType st
 	return resp, err
 }
 
-// CheckAuthentication Validates the authenticity of the account.
+// CheckAuthentication Validates the authenticity of the OUTSCALE account.
 //
 //sdk:group Account
 func (c *Client) CheckAuthentication(ctx context.Context, body CheckAuthenticationJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CheckAuthenticationResponse, error) {
@@ -40173,7 +40231,7 @@ func (c *Client) CreateAccessKeyWithBody(ctx context.Context, contentType string
 	return resp, err
 }
 
-// CreateAccessKey Creates an access key for either your root account or an EIM user. The new key is automatically set to `ACTIVE`.<br /><br />
+// CreateAccessKey Creates an access key for either the root user or an EIM user. The new key is automatically set to `ACTIVE`.<br /><br />
 // For more information, see [About Access Keys](https://docs.outscale.com/en/userguide/About-Access-Keys.html).
 //
 //sdk:group AccessKey
@@ -40220,7 +40278,7 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 // * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales@outscale.com.<br />
 // * If you want to pass a numeral value as a string instead of an integer, you must wrap your string in additional quotes (for example, `'&quot;92000&quot;'`).
 //
-// For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-Account.html).
+// For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-OUTSCALE-Account.html).
 //
 //sdk:group Account
 func (c *Client) CreateAccount(ctx context.Context, body CreateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateAccountResponse, error) {
@@ -40260,7 +40318,7 @@ func (c *Client) CreateApiAccessRuleWithBody(ctx context.Context, contentType st
 	return resp, err
 }
 
-// CreateApiAccessRule Creates a rule to allow access to the API from your account.<br />
+// CreateApiAccessRule Creates a rule to allow access to the API from your OUTSCALE account.<br />
 // You need to specify at least the `CaIds` or the `IpRanges` parameter.<br /><br />
 //
 // **[NOTE]**<br />
@@ -40554,7 +40612,7 @@ func (c *Client) CreateFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return resp, err
 }
 
-// CreateFlexibleGpu Allocates a flexible GPU (fGPU) to your account.<br />
+// CreateFlexibleGpu Allocates a flexible GPU (fGPU) to your OUTSCALE account.<br />
 // You can then attach this fGPU to a virtual machine (VM).<br /><br />
 // For more information, see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html).
 //
@@ -40599,8 +40657,8 @@ func (c *Client) CreateImageWithBody(ctx context.Context, contentType string, bo
 // CreateImage Creates an OUTSCALE machine image (OMI).<br />
 // You can use this method for different use cases:
 // * **Creating from a VM**: You create an OMI from one of your virtual machines (VMs).<br>
-// * **Copying an OMI**: You copy an existing OMI. The source OMI can be one of your own OMIs, or an OMI owned by another account that has granted you permission via the [UpdateImage](#updateimage) method.<br>
-// * **Registering from a snapshot**: You register an OMI from an existing snapshot. The source snapshot can be one of your own snapshots, or a snapshot owned by another account that has granted you permission via the [UpdateSnapshot](#updatesnapshot) method.<br>
+// * **Copying an OMI**: You copy an existing OMI. The source OMI can be one of your own OMIs, or an OMI owned by another OUTSCALE account that has granted you permission via the [UpdateImage](#updateimage) method.<br>
+// * **Registering from a snapshot**: You register an OMI from an existing snapshot. The source snapshot can be one of your own snapshots, or a snapshot owned by another OUTSCALE account that has granted you permission via the [UpdateSnapshot](#updatesnapshot) method.<br>
 // * **Registering from a bucket by using a manifest file**: You register an OMI from the manifest file of an OMI that was exported to an OUTSCALE Object Storage (OOS) bucket. First, the owner of the source OMI must export it to the bucket by using the [CreateImageExportTask](#createimageexporttask) method. Then, they must grant you permission to read the manifest file via a pre-signed URL. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
 //
 // **[TIP]**<br />
@@ -40647,12 +40705,14 @@ func (c *Client) CreateImageExportTaskWithBody(ctx context.Context, contentType 
 }
 
 // CreateImageExportTask Exports an OUTSCALE machine image (OMI) to an OUTSCALE Object Storage (OOS) bucket.<br />
-// This enables you to copy an OMI between accounts in different Regions.<br /><br />
+// This enables you to copy an OMI between OUTSCALE accounts in different Regions.<br /><br />
 // This action creates the necessary snapshots and manifest file in the bucket. The OMI can then be imported to another account using a pre-signed URL of its manifest file. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).<br /><br />
 // To copy an OMI in the same Region, you can also use the [CreateImage](#createimage) method.<br />
 //
 // **[IMPORTANT]**<br />
-// You cannot export a shared or public OMI, as they do not belong to you. To do so, you must first copy it to your account. The copy then belongs to you and you can export it.<br /><br />
+// * You cannot export a shared or public OMI, as they do not belong to you. To do so, you must first copy it to your account. The copy then belongs to you and you can export it.<br />
+// * Export tasks can only be canceled while in the `pending/queued` state.
+//
 // For more information, see [About OMIs](https://docs.outscale.com/en/userguide/About-OMIs.html).
 //
 //sdk:group Image
@@ -40737,7 +40797,7 @@ func (c *Client) CreateKeypairWithBody(ctx context.Context, contentType string, 
 
 // CreateKeypair Creates a keypair to use with your virtual machines (VMs).<br />
 // You can use this method in two different ways:
-// * **Creating a keypair**: In that case, 3DS OUTSCALE creates a 2048-bit RSA keypair, stores its public key in your account, and returns its private key in the response of the call so that you can save it in a file.<br />
+// * **Creating a keypair**: In that case, 3DS OUTSCALE creates a 2048-bit RSA keypair, stores its public key in your OUTSCALE account, and returns its private key in the response of the call so that you can save it in a file.<br />
 // When you save the returned private key, make sure you replace the `\n` escape sequences with real line breaks.
 // * **Importing a keypair created locally**: If you already have a keypair that you have created locally with a third-party tool, you can import its public key in your account. The following types of key can be imported: RSA (2048 bits or preferably 4096 bits), Ed25519, and ECDSA (256 bits, 384 bits, or 521 bits). The following formats can be used: PEM, PKCS8, RFC4716, and OpenSSH.
 //
@@ -41089,7 +41149,7 @@ func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType s
 // CreateNetAccessPoint Creates a Net access point to access an OUTSCALE service from this Net without using the Internet and public IPs.<br />
 // You specify the service using its name. For more information about the available services, see [ReadNetAccessPointServices](#readnetaccesspointservices).<br /> <br />
 // To control the routing of traffic between the Net and the specified service, you can specify one or more route tables. Virtual machines placed in Subnets associated with the specified route table thus use the Net access point to access the service. When you specify a route table, a route is automatically added to it with the destination set to the prefix list ID of the service, and the target set to the ID of the access point.<br /><br />
-// When a Net access point is created, a public IP is automatically allocated to your account and used for the Net access point. This public IP is not connected to the Internet. It is counted in your quota, but it is not billed.<br /> <br />
+// When a Net access point is created, a public IP is automatically allocated to your OUTSCALE account and used for the Net access point. This public IP is not connected to the Internet. It is counted in your quota, but it is not billed.<br /> <br />
 // For more information, see [About Net Access Points](https://docs.outscale.com/en/userguide/About-Net-Access-Points.html).
 //
 //sdk:group NetAccessPoint
@@ -41130,7 +41190,7 @@ func (c *Client) CreateNetPeeringWithBody(ctx context.Context, contentType strin
 	return resp, err
 }
 
-// CreateNetPeering Requests a Net peering between a Net you own and a peer Net that belongs to you or another account.<br />
+// CreateNetPeering Requests a Net peering between a Net you own and a peer Net that belongs to you or another OUTSCALE account.<br />
 // This action creates a Net peering that remains in the `pending-acceptance` state until it is accepted by the owner of the peer Net. If the owner of the peer Net does not accept the request within 7 days, the state of the Net peering becomes `expired`. For more information, see [AcceptNetPeering](#acceptnetpeering).<br /><br />
 //
 // **[IMPORTANT]**<br />
@@ -41629,7 +41689,7 @@ func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string,
 // CreateSnapshot Creates a snapshot. Snapshots are point-in-time images of a volume that you can use to back up your data or to create replicas of this volume.<br />
 // You can use this method in three different ways:
 // * **Creating from a volume**: You create a snapshot from one of your volumes.<br />
-// * **Copying a snapshot**: You copy an existing snapshot. The source snapshot can be one of your own snapshots, or a snapshot owned by another account that has granted you permission via the [UpdateSnapshot](#updatesnapshot) method.<br />
+// * **Copying a snapshot**: You copy an existing snapshot. The source snapshot can be one of your own snapshots, or a snapshot owned by another OUTSCALE account that has granted you permission via the [UpdateSnapshot](#updatesnapshot) method.<br />
 // * **Importing from a bucket**: You import a snapshot located in an OUTSCALE Object Storage (OOS) bucket. First, the owner of the source snapshot must export it to a bucket by using the [CreateSnapshotExportTask](#createsnapshotexporttask) method. Then, they must grant you permission to read the snapshot via a pre-signed URL. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
 //
 // **[NOTE]**<br />
@@ -41676,7 +41736,9 @@ func (c *Client) CreateSnapshotExportTaskWithBody(ctx context.Context, contentTy
 }
 
 // CreateSnapshotExportTask Exports a snapshot to an OUTSCALE Object Storage (OOS) bucket that belongs to you. This action enables you to create a backup of your snapshot.<br /><br />
-// You can share this snapshot with others accounts by granting permission to read it via pre-signed URLs. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).<br /><br />
+// You can share this snapshot with others OUTSCALE accounts by granting permission to read it via pre-signed URLs. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).<br /><br />
+// **[IMPORTANT]**<br />
+// Export tasks can only be canceled while in the `pending/queued` state.<br /><br />
 // For more information, see [About Snapshots](https://docs.outscale.com/en/userguide/About-Snapshots.html).
 //
 //sdk:group Snapshot
@@ -41826,7 +41888,7 @@ func (c *Client) CreateUserWithBody(ctx context.Context, contentType string, bod
 	return resp, err
 }
 
-// CreateUser Creates an EIM user for your account.<br /><br />
+// CreateUser Creates an EIM user for your OUTSCALE account.<br /><br />
 // For more information, see [About EIM Users](https://docs.outscale.com/en/userguide/About-EIM-Users.html).
 //
 //sdk:group User
@@ -41954,7 +42016,7 @@ func (c *Client) CreateVmGroupWithBody(ctx context.Context, contentType string, 
 // > This feature is currently under development and may not function properly.<br />
 //
 // Creates a group of virtual machines (VMs) containing the same characteristics as a specified VM template, and then launches them.<br />
-// You can create up to 100 VM groups in your account.
+// You can create up to 100 VM groups in your OUTSCALE account.
 //
 //sdk:group VmGroup
 func (c *Client) CreateVmGroup(ctx context.Context, body CreateVmGroupJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmGroupResponse, error) {
@@ -41998,7 +42060,7 @@ func (c *Client) CreateVmTemplateWithBody(ctx context.Context, contentType strin
 // > This feature is currently under development and may not function properly.<br />
 //
 // Creates a virtual machine (VM) template. You can then use the VM template to create VM groups.<br />
-// You can create up to 50 VM templates in your account.
+// You can create up to 50 VM templates in your OUTSCALE account.
 //
 //sdk:group VmTemplate
 func (c *Client) CreateVmTemplate(ctx context.Context, body CreateVmTemplateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateVmTemplateResponse, error) {
@@ -42218,7 +42280,7 @@ func (c *Client) DeleteAccessKeyWithBody(ctx context.Context, contentType string
 	return resp, err
 }
 
-// DeleteAccessKey Deletes the specified access key of either your root account or an EIM user.<br /><br />
+// DeleteAccessKey Deletes the specified access key of either the root user or an EIM user.<br /><br />
 // The access key of an EIM user must be in the `INACTIVE` state to be deleted.
 //
 //sdk:group AccessKey
@@ -42595,7 +42657,7 @@ func (c *Client) DeleteFlexibleGpuWithBody(ctx context.Context, contentType stri
 	return resp, err
 }
 
-// DeleteFlexibleGpu Releases a flexible GPU (fGPU) from your account.<br />
+// DeleteFlexibleGpu Releases a flexible GPU (fGPU) from your OUTSCALE account.<br />
 // The fGPU becomes free to be used by someone else.
 //
 //sdk:group FlexibleGpu
@@ -42961,7 +43023,7 @@ func (c *Client) DeleteNatServiceWithBody(ctx context.Context, contentType strin
 }
 
 // DeleteNatService Deletes a specified network address translation (NAT) service.<br />
-// This action disassociates the public IP from the NAT service, but does not release this public IP from your account. However, it does not delete any NAT service routes in your route tables.
+// This action disassociates the public IP from the NAT service, but does not release this public IP from your OUTSCALE account. However, it does not delete any NAT service routes in your route tables.
 //
 //sdk:group NatService
 func (c *Client) DeleteNatService(ctx context.Context, body DeleteNatServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteNatServiceResponse, error) {
@@ -43307,7 +43369,7 @@ func (c *Client) DeletePublicIpWithBody(ctx context.Context, contentType string,
 }
 
 // DeletePublicIp Releases a public IP.<br />
-// You can release a public IP associated with your account. This address is released in the public IP pool and can be used by someone else. Before releasing a public IP, ensure you updated all your resources communicating with this address.
+// You can release a public IP associated with your OUTSCALE account. This address is released in the public IP pool and can be used by someone else. Before releasing a public IP, ensure you updated all your resources communicating with this address.
 //
 //sdk:group PublicIp
 func (c *Client) DeletePublicIp(ctx context.Context, body DeletePublicIpJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeletePublicIpResponse, error) {
@@ -43856,7 +43918,8 @@ func (c *Client) DeleteVirtualGatewayWithBody(ctx context.Context, contentType s
 }
 
 // DeleteVirtualGateway Deletes a specified virtual gateway.<br />
-// Before deleting a virtual gateway, we recommend to detach it from the Net and delete the VPN connection.
+// **[IMPORTANT]**<br />
+// Before deleting a virtual gateway, we recommend detaching it from any associated Net, DirectLink, and DirectLink interface, and deleting the VPN connection.
 //
 //sdk:group VirtualGateway
 func (c *Client) DeleteVirtualGateway(ctx context.Context, body DeleteVirtualGatewayJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteVirtualGatewayResponse, error) {
@@ -44189,7 +44252,7 @@ func (c *Client) DisableOutscaleLoginWithBody(ctx context.Context, contentType s
 	return resp, err
 }
 
-// DisableOutscaleLogin Disables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+// DisableOutscaleLogin Disables the possibility of logging in using the Outscale credentials of your root user when identity federation is activated.
 //
 //sdk:group IdentityProvider
 func (c *Client) DisableOutscaleLogin(ctx context.Context, body DisableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DisableOutscaleLoginResponse, error) {
@@ -44309,7 +44372,7 @@ func (c *Client) EnableOutscaleLoginWithBody(ctx context.Context, contentType st
 	return resp, err
 }
 
-// EnableOutscaleLogin Enables the possibility of logging in using the Outscale credentials of your root account when identity federation is activated.
+// EnableOutscaleLogin Enables the possibility of logging in using the Outscale credentials of your root user when identity federation is activated.
 //
 //sdk:group IdentityProvider
 func (c *Client) EnableOutscaleLogin(ctx context.Context, body EnableOutscaleLoginJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*EnableOutscaleLoginResponse, error) {
@@ -44984,7 +45047,7 @@ func (c *Client) ReadAccessKeysWithBody(ctx context.Context, contentType string,
 	return resp, err
 }
 
-// ReadAccessKeys Lists the access key IDs of either your root account or an EIM user.
+// ReadAccessKeys Lists the access key IDs of either your root user or an EIM user.
 //
 //sdk:group AccessKey
 func (c *Client) ReadAccessKeys(ctx context.Context, body ReadAccessKeysJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadAccessKeysResponse, error) {
@@ -45109,7 +45172,7 @@ func (c *Client) ReadApiAccessPolicyWithBody(ctx context.Context, contentType st
 	return resp, err
 }
 
-// ReadApiAccessPolicy Gets information about the API access policy of your account.<br /><br />
+// ReadApiAccessPolicy Gets information about the API access policy of your OUTSCALE account.<br /><br />
 // For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
 //
 //sdk:group ApiAccessPolicy
@@ -45190,7 +45253,7 @@ func (c *Client) ReadApiLogsWithBody(ctx context.Context, contentType string, bo
 	return resp, err
 }
 
-// ReadApiLogs Lists the logs of the API calls you have performed with this account.
+// ReadApiLogs Lists the logs of the API calls you have performed with this OUTSCALE account.
 //
 // **[IMPORTANT]**<br />
 // Past logs are accessible for up to 32 days.<br />
@@ -45478,7 +45541,7 @@ func (c *Client) ReadConsumptionAccountWithBody(ctx context.Context, contentType
 	return resp, err
 }
 
-// ReadConsumptionAccount Gets information about the consumption of your account for each billable resource within the specified time period.
+// ReadConsumptionAccount Gets information about the consumption of your OUTSCALE account for each billable resource within the specified time period.
 //
 //sdk:group Account
 func (c *Client) ReadConsumptionAccount(ctx context.Context, body ReadConsumptionAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadConsumptionAccountResponse, error) {
@@ -45758,7 +45821,7 @@ func (c *Client) ReadFlexibleGpusWithBody(ctx context.Context, contentType strin
 	return resp, err
 }
 
-// ReadFlexibleGpus Lists one or more flexible GPUs (fGPUs) allocated to your account.
+// ReadFlexibleGpus Lists one or more flexible GPUs (fGPUs) allocated to your OUTSCALE account.
 //
 //sdk:group FlexibleGpu
 func (c *Client) ReadFlexibleGpus(ctx context.Context, body ReadFlexibleGpusJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadFlexibleGpusResponse, error) {
@@ -45999,7 +46062,7 @@ func (c *Client) ReadListenerRulesWithBody(ctx context.Context, contentType stri
 	return resp, err
 }
 
-// ReadListenerRules Lists one or more listener rules. By default, this action returns the full list of listener rules for the account.
+// ReadListenerRules Lists one or more listener rules. By default, this action returns the full list of listener rules for the OUTSCALE account.
 //
 //sdk:group Listener
 func (c *Client) ReadListenerRules(ctx context.Context, body ReadListenerRulesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadListenerRulesResponse, error) {
@@ -46442,7 +46505,7 @@ func (c *Client) ReadPoliciesWithBody(ctx context.Context, contentType string, b
 	return resp, err
 }
 
-// ReadPolicies Lists all the managed policies available for your account.
+// ReadPolicies Lists all the managed policies available for your OUTSCALE account.
 //
 //sdk:group Policy
 func (c *Client) ReadPolicies(ctx context.Context, body ReadPoliciesJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadPoliciesResponse, error) {
@@ -46722,7 +46785,7 @@ func (c *Client) ReadPublicIpsWithBody(ctx context.Context, contentType string, 
 	return resp, err
 }
 
-// ReadPublicIps Lists one or more public IPs allocated to your account.<br />
+// ReadPublicIps Lists one or more public IPs allocated to your OUTSCALE account.<br />
 // By default, this action returns information about all your public IPs: available or associated with a virtual machine (VM), a network interface card (NIC) or a NAT service.
 //
 //sdk:group PublicIp
@@ -46764,7 +46827,7 @@ func (c *Client) ReadQuotasWithBody(ctx context.Context, contentType string, bod
 }
 
 // ReadQuotas Lists one or more of your quotas.<br /><br />
-// For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-Account.html).
+// For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-OUTSCALE-Account.html).
 //
 //sdk:group Quota
 func (c *Client) ReadQuotas(ctx context.Context, body ReadQuotasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadQuotasResponse, error) {
@@ -47330,7 +47393,7 @@ func (c *Client) ReadUserGroupsWithBody(ctx context.Context, contentType string,
 	return resp, err
 }
 
-// ReadUserGroups Lists all the user groups of the account.<br />
+// ReadUserGroups Lists all the user groups of the OUTSCALE account.<br />
 // The response can be filtered using either the PathPrefix or the UserGroupIds.
 //
 //sdk:group UserGroup
@@ -47491,7 +47554,7 @@ func (c *Client) ReadUsersWithBody(ctx context.Context, contentType string, body
 	return resp, err
 }
 
-// ReadUsers Lists all EIM users in the account.<br />
+// ReadUsers Lists all EIM users in the OUTSCALE account.<br />
 // The response can be filtered using the UserIds.
 //
 //sdk:group User
@@ -48777,7 +48840,7 @@ func (c *Client) UpdateAccessKeyWithBody(ctx context.Context, contentType string
 	return resp, err
 }
 
-// UpdateAccessKey Modifies the attributes of the specified access key of either your root account or an EIM user.<br /><br />
+// UpdateAccessKey Modifies the attributes of the specified access key of either the root user or an EIM user.<br /><br />
 // The parameter `ExpirationDate` is not required when updating the state of your access key. However, if you do not specify the expiration date of an access key when updating its state, it is then set to not expire.
 //
 //sdk:group AccessKey
@@ -48818,7 +48881,7 @@ func (c *Client) UpdateAccountWithBody(ctx context.Context, contentType string, 
 	return resp, err
 }
 
-// UpdateAccount Updates the account information for the account that sends the request.
+// UpdateAccount Updates the OUTSCALE account information for the account that sends the request.
 //
 //sdk:group Account
 func (c *Client) UpdateAccount(ctx context.Context, body UpdateAccountJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateAccountResponse, error) {
@@ -48858,7 +48921,7 @@ func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType 
 	return resp, err
 }
 
-// UpdateApiAccessPolicy Updates the API access policy of your account.<br /><br />
+// UpdateApiAccessPolicy Updates the API access policy of your OUTSCALE account.<br /><br />
 //
 // **[IMPORTANT]**<br />
 // Only one API access policy can be associated with your account.
@@ -49107,7 +49170,7 @@ func (c *Client) UpdateImageWithBody(ctx context.Context, contentType string, bo
 
 // UpdateImage Modifies the access permissions for an OUTSCALE machine image (OMI).<br />
 // You must specify either the `Additions` or the `Removals` parameter.<br />
-// After sharing an OMI with an account, the other account can create a copy of it that they own. For more information about copying OMIs, see [CreateImage](#createimage).
+// After sharing an OMI with an OUTSCALE account, the other account can create a copy of it that they own. For more information about copying OMIs, see [CreateImage](#createimage).
 //
 //sdk:group Image
 func (c *Client) UpdateImage(ctx context.Context, body UpdateImageJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateImageResponse, error) {
@@ -49528,7 +49591,7 @@ func (c *Client) UpdateSnapshotWithBody(ctx context.Context, contentType string,
 
 // UpdateSnapshot Modifies the permissions for a specified snapshot.<br />
 // You must specify either the `Additions` or the `Removals` parameter.<br />
-// After sharing a snapshot with an account, the other account can create a copy of it that they own. For more information about copying snapshots, see [CreateSnapshot](#createsnapshot).
+// After sharing a snapshot with an OUTSCALE account, the other account can create a copy of it that they own. For more information about copying snapshots, see [CreateSnapshot](#createsnapshot).
 //
 //sdk:group Snapshot
 func (c *Client) UpdateSnapshot(ctx context.Context, body UpdateSnapshotJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateSnapshotResponse, error) {
