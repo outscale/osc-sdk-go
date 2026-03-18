@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"testing"
 	"time"
@@ -81,4 +82,26 @@ func (t *testingLogger) Response(ctx context.Context, resp any) {
 
 func (t *testingLogger) Error(ctx context.Context, err error) {
 	t.Log("[error]", err.Error())
+}
+
+func lenOrZero[T any](items *[]T) int {
+	if items == nil {
+		return 0
+	}
+
+	return len(*items)
+}
+
+func RandomString(length int) string {
+	if length <= 0 {
+		return ""
+	}
+
+	const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789"
+	bytes := make([]byte, length)
+	for i := range bytes {
+		bytes[i] = alphabet[rand.IntN(len(alphabet))]
+	}
+
+	return string(bytes)
 }
