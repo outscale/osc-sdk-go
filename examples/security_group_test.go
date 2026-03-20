@@ -25,7 +25,7 @@ func TestSecurityGroup(t *testing.T) {
 	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
 	require.NoError(t, err)
 
-	securityGroupName := "OscGoSdkTest-" + RandomString(10)
+	securityGroupName := "osc-sdk-go-test-" + RandomString(10)
 
 	// Create a security group
 	createReq := osc.CreateSecurityGroupJSONRequestBody{
