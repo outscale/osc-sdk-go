@@ -127,8 +127,6 @@ func TestNetAndSubnet(t *testing.T) {
 
 	t.Logf("Successfully updated subnet: %s", subnetID)
 
-	time.Sleep(100 * time.Second)
-
 	// Delete the subnet
 	deleteReq := osc.DeleteSubnetJSONRequestBody{
 		SubnetId: subnetID,
