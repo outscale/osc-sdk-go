@@ -11,6 +11,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Steps done in this test:
+// 1. Read a non-existing project and validate the not-found error.
+// 2. List projects by name.
+// 3. Read the project template.
+// 4. Create a project from the template.
+// 5. Wait for the project to be ready.
+// 6. Delete the project.
 func TestProject(t *testing.T) {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
