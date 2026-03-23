@@ -9,8 +9,8 @@ Before running the examples, make sure your OUTSCALE credentials are configured 
 You can export credentials as environment variables:
 
 ```bash
-export OSC_ACCESS_KEY="your-access-key"
-export OSC_SECRET_KEY="your-secret-key"
+export OSC_ACCESS_KEY=<ACCESS_KEY>
+export OSC_SECRET_KEY=<SECRET_KEY>
 ```
 
 Or configure them in `~/.osc/config.json` and optionally select a profile with `OSC_PROFILE`.
@@ -28,7 +28,8 @@ go test ./examples
 ```bash
 go test ./examples -run TestSecurityGroup
 go test ./examples -run TestKeypair
-go test ./examples -run TestReadVms
+go test ./examples -run TestVm
+go test ./examples -run TestLoadBalancerBackend
 go test ./examples -run TestProject
 ```
 

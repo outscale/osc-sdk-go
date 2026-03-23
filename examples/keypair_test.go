@@ -10,6 +10,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Steps done in this test:
+// 1. Create a keypair.
+// 2. Validate the keypair data returned by the API.
+// 3. Delete the keypair.
 func TestKeypair(t *testing.T) {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
