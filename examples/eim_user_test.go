@@ -6,6 +6,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -35,10 +36,10 @@ func TestEIMUser(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, createResp.User)
 	require.NotNil(t, createResp.User.UserId)
-	require.NotNil(t, createResp.User.UserName)
+	assert.NotNil(t, createResp.User.UserName)
 
 	userID := *createResp.User.UserId
-	require.NotEmpty(t, userID)
+	assert.NotEmpty(t, userID)
 
 	t.Logf("Created EIM user: %s", userID)
 
@@ -59,11 +60,11 @@ func TestEIMUser(t *testing.T) {
 
 	user := (*readResp.Users)[0]
 	require.NotNil(t, user.UserId)
-	require.Equal(t, userID, *user.UserId)
+	assert.Equal(t, userID, *user.UserId)
 	require.NotNil(t, user.UserName)
-	require.Equal(t, userName, *user.UserName)
+	assert.Equal(t, userName, *user.UserName)
 	require.NotNil(t, user.UserEmail)
-	require.Equal(t, userEmail, *user.UserEmail)
+	assert.Equal(t, userEmail, *user.UserEmail)
 
 	t.Logf("Successfully read EIM user: %s", userID)
 
@@ -72,7 +73,7 @@ func TestEIMUser(t *testing.T) {
 	})
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted EIM user: %s", userID)
 }
