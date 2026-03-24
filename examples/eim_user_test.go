@@ -34,20 +34,31 @@ func TestEIMUser(t *testing.T) {
 		UserName:  userName,
 	})
 	require.NoError(t, err)
+
+	deleted := false
+	defer func() {
+		if deleted {
+			return
+		}
+
+		_, _ = client.DeleteUser(ctx, osc.DeleteUserRequest{
+			UserName: userName,
+		})
+	}()
+
 	require.NotNil(t, createResp.User)
 	require.NotNil(t, createResp.User.UserId)
-	assert.NotNil(t, createResp.User.UserName)
+	require.NotNil(t, createResp.User.UserName)
+	assert.Equal(t, userName, *createResp.User.UserName)
+	require.NotNil(t, createResp.User.UserEmail)
+	assert.Equal(t, userEmail, *createResp.User.UserEmail)
+	require.NotNil(t, createResp.User.Path)
+	assert.Equal(t, userPath, *createResp.User.Path)
 
 	userID := *createResp.User.UserId
 	assert.NotEmpty(t, userID)
 
 	t.Logf("Created EIM user: %s", userID)
-
-	defer func() {
-		_, _ = client.DeleteUser(ctx, osc.DeleteUserRequest{
-			UserName: userName,
-		})
-	}()
 
 	readResp, err := client.ReadUsers(ctx, osc.ReadUsersRequest{
 		Filters: &osc.FiltersUsers{
@@ -72,6 +83,7 @@ func TestEIMUser(t *testing.T) {
 		UserName: userName,
 	})
 	require.NoError(t, err)
+	deleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
