@@ -7,6 +7,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -38,7 +39,7 @@ func TestSecurityGroup(t *testing.T) {
 	require.NotNil(t, createResp.SecurityGroup)
 
 	securityGroupID := createResp.SecurityGroup.SecurityGroupId
-	require.NotEmpty(t, securityGroupID)
+	assert.NotEmpty(t, securityGroupID)
 
 	t.Logf("Created security group: %s", securityGroupID)
 
@@ -91,7 +92,7 @@ func TestSecurityGroup(t *testing.T) {
 			break
 		}
 	}
-	require.True(t, foundSSHRule, "expected SSH rule %s %d-%d for %s", tcp, fromPort, toPort, ipRange)
+	assert.True(t, foundSSHRule, "expected SSH rule %s %d-%d for %s", tcp, fromPort, toPort, ipRange)
 
 	t.Logf("Successfully read security group: %s", securityGroupID)
 
@@ -118,7 +119,7 @@ func TestSecurityGroup(t *testing.T) {
 	deleteResp, err := client.DeleteSecurityGroup(ctx, deleteReq)
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted security group: %s", securityGroupID)
 }

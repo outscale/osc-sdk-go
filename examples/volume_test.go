@@ -7,6 +7,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,11 +30,11 @@ func TestVolume(t *testing.T) {
 	subregions, err := client.ReadSubregions(ctx, osc.ReadSubregionsRequest{})
 	require.NoError(t, err)
 	require.NotNil(t, subregions.Subregions)
-	require.NotEmpty(t, *subregions.Subregions)
+	assert.NotEmpty(t, *subregions.Subregions)
 
 	subregionName := (*subregions.Subregions)[0].SubregionName
 	require.NotNil(t, subregionName)
-	require.NotEmpty(t, *subregionName)
+	assert.NotEmpty(t, *subregionName)
 
 	size := 10
 	tagKey := "Name"
@@ -50,7 +51,7 @@ func TestVolume(t *testing.T) {
 	require.NotNil(t, createResp.Volume)
 
 	volumeID := createResp.Volume.VolumeId
-	require.NotEmpty(t, volumeID)
+	assert.NotEmpty(t, volumeID)
 
 	t.Logf("Created volume: %s in %s", volumeID, *subregionName)
 
@@ -106,7 +107,7 @@ func TestVolume(t *testing.T) {
 	require.Len(t, *readResp.Volumes, 1)
 
 	volume := (*readResp.Volumes)[0]
-	require.Equal(t, osc.VolumeStateAvailable, volume.State)
+	assert.Equal(t, osc.VolumeStateAvailable, volume.State)
 
 	foundTag := false
 	for _, tag := range volume.Tags {
@@ -115,7 +116,7 @@ func TestVolume(t *testing.T) {
 			break
 		}
 	}
-	require.True(t, foundTag, "expected tag %q=%q on volume %s", tagKey, tagValue, volumeID)
+	assert.True(t, foundTag, "expected tag %q=%q on volume %s", tagKey, tagValue, volumeID)
 
 	t.Logf("Successfully read volume: %s", volumeID)
 
@@ -127,7 +128,7 @@ func TestVolume(t *testing.T) {
 	deleteResp, err := client.DeleteVolume(ctx, deleteReq, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted volume: %s", volumeID)
 }
