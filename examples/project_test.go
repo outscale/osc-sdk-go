@@ -8,6 +8,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,7 +30,7 @@ func TestProject(t *testing.T) {
 
 	_, err = client.GetProject(ctx, "a-non-existing-project")
 	require.Error(t, err, "a-non-existing-project should not exist")
-	require.True(t, oks.IsNotFound(err), "a-non-existing-project should be not found: %v", err)
+	assert.True(t, oks.IsNotFound(err), "a-non-existing-project should be not found: %v", err)
 
 	name := "osc-sdk-go-test-" + RandomString(10)
 	_, err = client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
@@ -58,7 +59,7 @@ func TestProject(t *testing.T) {
 		require.NotNil(t, createProject.Project)
 		projectID = createProject.Project.Id
 	}
-	require.NotEmpty(t, projectID)
+	assert.NotEmpty(t, projectID)
 
 	for {
 		readProject, err := client.GetProject(ctx, projectID)

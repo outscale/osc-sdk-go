@@ -8,6 +8,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,11 +52,11 @@ func TestVm(t *testing.T) {
 	subregions, err := client.ReadSubregions(ctx, osc.ReadSubregionsRequest{})
 	require.NoError(t, err)
 	require.NotNil(t, subregions.Subregions)
-	require.NotEmpty(t, *subregions.Subregions)
+	assert.NotEmpty(t, *subregions.Subregions)
 
 	subregionName := (*subregions.Subregions)[0].SubregionName
 	require.NotNil(t, subregionName)
-	require.NotEmpty(t, *subregionName)
+	assert.NotEmpty(t, *subregionName)
 
 	resultsPerPage := 10
 	publicImages := true
@@ -71,14 +72,14 @@ func TestVm(t *testing.T) {
 	})
 	require.NoError(t, err)
 	require.NotNil(t, imageResp.Images)
-	require.NotEmpty(t, *imageResp.Images)
+	assert.NotEmpty(t, *imageResp.Images)
 
 	images := append([]osc.Image(nil), (*imageResp.Images)...)
 	sort.Slice(images, func(i, j int) bool {
 		return images[i].CreationDate.Time.After(images[j].CreationDate.Time)
 	})
 	imageID := images[0].ImageId
-	require.NotEmpty(t, imageID)
+	assert.NotEmpty(t, imageID)
 
 	vmType := "tinav4.c1r1p2"
 	minVmsCount := 1
@@ -101,7 +102,7 @@ func TestVm(t *testing.T) {
 	require.Len(t, *createResp.Vms, 1)
 
 	vmID := (*createResp.Vms)[0].VmId
-	require.NotEmpty(t, vmID)
+	assert.NotEmpty(t, vmID)
 
 	defer func() {
 		_, _ = client.DeleteVms(ctx, osc.DeleteVmsRequest{
@@ -152,8 +153,8 @@ func TestVm(t *testing.T) {
 	require.Len(t, *readResp.Vms, 1)
 
 	vm := (*readResp.Vms)[0]
-	require.Equal(t, osc.VmStateRunning, vm.State)
-	require.Equal(t, imageID, vm.ImageId)
+	assert.Equal(t, osc.VmStateRunning, vm.State)
+	assert.Equal(t, imageID, vm.ImageId)
 
 	foundTag := false
 	for _, tag := range vm.Tags {
@@ -162,7 +163,7 @@ func TestVm(t *testing.T) {
 			break
 		}
 	}
-	require.True(t, foundTag, "expected tag %q=%q on VM %s", tagKey, tagValue, vmID)
+	assert.True(t, foundTag, "expected tag %q=%q on VM %s", tagKey, tagValue, vmID)
 
 	t.Logf("Successfully read VM: %s", vmID)
 
@@ -171,7 +172,7 @@ func TestVm(t *testing.T) {
 	}, options.WithRetryTimeout(10*time.Minute))
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted VM: %s", vmID)
 }

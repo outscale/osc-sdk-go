@@ -7,6 +7,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -38,11 +39,11 @@ func TestSnapshot(t *testing.T) {
 	subregions, err := client.ReadSubregions(ctx, osc.ReadSubregionsRequest{})
 	require.NoError(t, err)
 	require.NotNil(t, subregions.Subregions)
-	require.NotEmpty(t, *subregions.Subregions)
+	assert.NotEmpty(t, *subregions.Subregions)
 
 	subregionName := (*subregions.Subregions)[0].SubregionName
 	require.NotNil(t, subregionName)
-	require.NotEmpty(t, *subregionName)
+	assert.NotEmpty(t, *subregionName)
 
 	size := 10
 	volumeCreateResp, err := client.CreateVolume(ctx, osc.CreateVolumeJSONRequestBody{
@@ -53,7 +54,7 @@ func TestSnapshot(t *testing.T) {
 	require.NotNil(t, volumeCreateResp.Volume)
 
 	volumeID := volumeCreateResp.Volume.VolumeId
-	require.NotEmpty(t, volumeID)
+	assert.NotEmpty(t, volumeID)
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{volumeID},
@@ -98,7 +99,7 @@ func TestSnapshot(t *testing.T) {
 	require.NotNil(t, createResp.Snapshot)
 
 	snapshotID := createResp.Snapshot.SnapshotId
-	require.NotEmpty(t, snapshotID)
+	assert.NotEmpty(t, snapshotID)
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{snapshotID},
@@ -143,10 +144,10 @@ func TestSnapshot(t *testing.T) {
 	require.Len(t, *readResp.Snapshots, 1)
 
 	snapshot := (*readResp.Snapshots)[0]
-	require.Equal(t, snapshotID, snapshot.SnapshotId)
-	require.Equal(t, volumeID, snapshot.VolumeId)
+	assert.Equal(t, snapshotID, snapshot.SnapshotId)
+	assert.Equal(t, volumeID, snapshot.VolumeId)
 	require.NotNil(t, snapshot.Description)
-	require.Equal(t, description, *snapshot.Description)
+	assert.Equal(t, description, *snapshot.Description)
 	foundSnapshotTag := false
 	require.NotNil(t, snapshot.Tags)
 	for _, tag := range *snapshot.Tags {
@@ -155,7 +156,7 @@ func TestSnapshot(t *testing.T) {
 			break
 		}
 	}
-	require.True(t, foundSnapshotTag, "expected tag %q=%q on snapshot %s", snapshotTagKey, snapshotTagValue, snapshotID)
+	assert.True(t, foundSnapshotTag, "expected tag %q=%q on snapshot %s", snapshotTagKey, snapshotTagValue, snapshotID)
 
 	t.Logf("Successfully read snapshot: %s", snapshotID)
 
@@ -164,7 +165,7 @@ func TestSnapshot(t *testing.T) {
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted snapshot: %s", snapshotID)
 
@@ -173,7 +174,7 @@ func TestSnapshot(t *testing.T) {
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
 	require.NotNil(t, volumeDeleteResp.ResponseContext)
-	require.NotNil(t, volumeDeleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, volumeDeleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted volume: %s", volumeID)
 }

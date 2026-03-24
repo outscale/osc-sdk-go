@@ -7,6 +7,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -43,7 +44,7 @@ func TestNetAndSubnet(t *testing.T) {
 	require.NotNil(t, netCreateResp.Net)
 
 	netID := netCreateResp.Net.NetId
-	require.NotEmpty(t, netID)
+	assert.NotEmpty(t, netID)
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{netID},
@@ -72,7 +73,7 @@ func TestNetAndSubnet(t *testing.T) {
 	require.NotNil(t, createResp.Subnet)
 
 	subnetID := createResp.Subnet.SubnetId
-	require.NotEmpty(t, subnetID)
+	assert.NotEmpty(t, subnetID)
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{subnetID},
@@ -101,7 +102,7 @@ func TestNetAndSubnet(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, readResp.Subnets)
 	require.Len(t, *readResp.Subnets, 1)
-	require.Equal(t, subnetID, (*readResp.Subnets)[0].SubnetId)
+	assert.Equal(t, subnetID, (*readResp.Subnets)[0].SubnetId)
 
 	foundSubnetTag := false
 	for _, tag := range (*readResp.Subnets)[0].Tags {
@@ -110,7 +111,7 @@ func TestNetAndSubnet(t *testing.T) {
 			break
 		}
 	}
-	require.True(t, foundSubnetTag, "expected tag %q=%q on subnet %s", subnetTagKey, subnetTagValue, subnetID)
+	assert.True(t, foundSubnetTag, "expected tag %q=%q on subnet %s", subnetTagKey, subnetTagValue, subnetID)
 
 	t.Logf("Successfully read subnet: %s", subnetID)
 
@@ -135,7 +136,7 @@ func TestNetAndSubnet(t *testing.T) {
 	deleteResp, err := client.DeleteSubnet(ctx, deleteReq)
 	require.NoError(t, err)
 	require.NotNil(t, deleteResp.ResponseContext)
-	require.NotNil(t, deleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted subnet: %s", subnetID)
 
@@ -147,7 +148,7 @@ func TestNetAndSubnet(t *testing.T) {
 	netDeleteResp, err := client.DeleteNet(ctx, netDeleteReq)
 	require.NoError(t, err)
 	require.NotNil(t, netDeleteResp.ResponseContext)
-	require.NotNil(t, netDeleteResp.ResponseContext.RequestId)
+	assert.NotNil(t, netDeleteResp.ResponseContext.RequestId)
 
 	t.Logf("Successfully deleted net: %s", netID)
 }

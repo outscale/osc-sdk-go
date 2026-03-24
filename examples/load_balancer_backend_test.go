@@ -9,6 +9,7 @@ import (
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -38,11 +39,11 @@ func TestLoadBalancerBackend(t *testing.T) {
 	subregions, err := client.ReadSubregions(ctx, osc.ReadSubregionsRequest{})
 	require.NoError(t, err)
 	require.NotNil(t, subregions.Subregions)
-	require.NotEmpty(t, *subregions.Subregions)
+	assert.NotEmpty(t, *subregions.Subregions)
 
 	subregionName := (*subregions.Subregions)[0].SubregionName
 	require.NotNil(t, subregionName)
-	require.NotEmpty(t, *subregionName)
+	assert.NotEmpty(t, *subregionName)
 
 	resultsPerPage := 10
 	publicImages := true
@@ -58,14 +59,14 @@ func TestLoadBalancerBackend(t *testing.T) {
 	})
 	require.NoError(t, err)
 	require.NotNil(t, imageResp.Images)
-	require.NotEmpty(t, *imageResp.Images)
+	assert.NotEmpty(t, *imageResp.Images)
 
 	images := append([]osc.Image(nil), (*imageResp.Images)...)
 	sort.Slice(images, func(i, j int) bool {
 		return images[i].CreationDate.Time.After(images[j].CreationDate.Time)
 	})
 	imageID := images[0].ImageId
-	require.NotEmpty(t, imageID)
+	assert.NotEmpty(t, imageID)
 
 	userData := base64.StdEncoding.EncodeToString([]byte(`#!/bin/sh
 set -eu
@@ -93,7 +94,7 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	require.Len(t, *vmResp.Vms, 1)
 
 	vmID := (*vmResp.Vms)[0].VmId
-	require.NotEmpty(t, vmID)
+	assert.NotEmpty(t, vmID)
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{vmID},
@@ -182,7 +183,7 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 			break
 		}
 	}
-	require.True(t, foundBackend, "expected backend VM %s on load balancer %s", vmID, lbName)
+	assert.True(t, foundBackend, "expected backend VM %s on load balancer %s", vmID, lbName)
 
 	var healthEntry *osc.BackendVmHealth
 	for range 18 {
