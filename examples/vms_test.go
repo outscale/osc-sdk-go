@@ -146,9 +146,8 @@ func TestVm(t *testing.T) {
 		if vm.State == osc.VmStateRunning {
 			break
 		}
-		if vm.State == osc.VmStateTerminated || vm.State == osc.VmStateShuttingDown {
-			t.Fatalf("vm %s entered unexpected state %s", vmID, vm.State)
-		}
+		require.NotEqual(t, osc.VmStateTerminated, vm.State, "vm %s entered unexpected state %s", vmID, vm.State)
+		require.NotEqual(t, osc.VmStateShuttingDown, vm.State, "vm %s entered unexpected state %s", vmID, vm.State)
 
 		time.Sleep(10 * time.Second)
 	}
@@ -165,15 +164,10 @@ func TestVm(t *testing.T) {
 	vm := (*readResp.Vms)[0]
 	assert.Equal(t, osc.VmStateRunning, vm.State)
 	assert.Equal(t, imageID, vm.ImageId)
-
-	foundTag := false
-	for _, tag := range vm.Tags {
-		if tag.Key == tagKey && tag.Value == tagValue {
-			foundTag = true
-			break
-		}
-	}
-	assert.True(t, foundTag, "expected tag %q=%q on VM %s", tagKey, tagValue, vmID)
+	assert.Contains(t, vm.Tags, osc.ResourceTag{
+		Key:   tagKey,
+		Value: tagValue,
+	}, "expected tag %q=%q on VM %s", tagKey, tagValue, vmID)
 
 	t.Logf("Successfully read VM: %s", vmID)
 

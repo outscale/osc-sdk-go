@@ -46,16 +46,15 @@ func TestProject(t *testing.T) {
 
 	var projectID string
 	createProject, err := client.CreateProject(ctx, project)
-	if err != nil {
-		if oks.IsConflict(err) {
-			readtProject, errList := client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
-			require.NoError(t, errList)
-			require.Len(t, readtProject.Projects, 1)
-			projectID = readtProject.Projects[0].Id
-		} else {
-			require.NoError(t, err)
-		}
-	} else {
+	switch {
+	case oks.IsConflict(err):
+		readtProject, errList := client.ListProjects(ctx, &oks.ListProjectsParams{Name: &name})
+		require.NoError(t, errList)
+		require.Len(t, readtProject.Projects, 1)
+		projectID = readtProject.Projects[0].Id
+	case err != nil:
+		require.NoError(t, err)
+	default:
 		projectID = createProject.Project.Id
 	}
 	assert.NotEmpty(t, projectID)

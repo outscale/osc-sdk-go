@@ -93,22 +93,12 @@ func TestSecurityGroup(t *testing.T) {
 	require.Len(t, *readResp.SecurityGroups, 1)
 
 	sg := (*readResp.SecurityGroups)[0]
-	foundSSHRule := false
-	for _, rule := range sg.InboundRules {
-		if rule.FromPortRange != fromPort {
-			continue
-		}
-		if rule.ToPortRange != toPort {
-			continue
-		}
-		if rule.IpProtocol != tcp {
-			continue
-		}
-		if slices.Contains(rule.IpRanges, ipRange) {
-			foundSSHRule = true
-			break
-		}
-	}
+	foundSSHRule := slices.ContainsFunc(sg.InboundRules, func(rule osc.SecurityGroupRule) bool {
+		return rule.FromPortRange == fromPort &&
+			rule.ToPortRange == toPort &&
+			rule.IpProtocol == tcp &&
+			slices.Contains(rule.IpRanges, ipRange)
+	})
 	assert.True(t, foundSSHRule, "expected SSH rule %s %d-%d for %s", tcp, fromPort, toPort, ipRange)
 
 	t.Logf("Successfully read security group: %s", securityGroupID)

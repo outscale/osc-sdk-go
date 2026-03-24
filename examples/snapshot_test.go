@@ -97,9 +97,7 @@ func TestSnapshot(t *testing.T) {
 		if volume.State == osc.VolumeStateAvailable {
 			break
 		}
-		if volume.State == osc.VolumeStateError {
-			t.Fatalf("volume %s entered error state", volumeID)
-		}
+		require.NotEqual(t, osc.VolumeStateError, volume.State, "volume %s entered error state", volumeID)
 
 		time.Sleep(10 * time.Second)
 	}
@@ -159,9 +157,7 @@ func TestSnapshot(t *testing.T) {
 		if snapshot.State == osc.SnapshotStateCompleted {
 			break
 		}
-		if snapshot.State == osc.SnapshotStateError {
-			t.Fatalf("snapshot %s entered error state", snapshotID)
-		}
+		require.NotEqual(t, osc.SnapshotStateError, snapshot.State, "snapshot %s entered error state", snapshotID)
 
 		time.Sleep(10 * time.Second)
 	}
@@ -180,15 +176,11 @@ func TestSnapshot(t *testing.T) {
 	assert.Equal(t, volumeID, snapshot.VolumeId)
 	require.NotNil(t, snapshot.Description)
 	assert.Equal(t, description, *snapshot.Description)
-	foundSnapshotTag := false
 	require.NotNil(t, snapshot.Tags)
-	for _, tag := range *snapshot.Tags {
-		if tag.Key == snapshotTagKey && tag.Value == snapshotTagValue {
-			foundSnapshotTag = true
-			break
-		}
-	}
-	assert.True(t, foundSnapshotTag, "expected tag %q=%q on snapshot %s", snapshotTagKey, snapshotTagValue, snapshotID)
+	assert.Contains(t, *snapshot.Tags, osc.ResourceTag{
+		Key:   snapshotTagKey,
+		Value: snapshotTagValue,
+	}, "expected tag %q=%q on snapshot %s", snapshotTagKey, snapshotTagValue, snapshotID)
 
 	t.Logf("Successfully read snapshot: %s", snapshotID)
 
