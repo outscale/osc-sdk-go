@@ -29755,6 +29755,7 @@ type AddUserToUserGroupResp struct {
 	JSON200      *AddUserToUserGroupResponse
 	JSON400      *ErrorResponse
 	JSON404      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29791,6 +29792,10 @@ func (r AddUserToUserGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29799,6 +29804,7 @@ type CheckAuthenticationResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CheckAuthenticationResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29831,6 +29837,10 @@ func (r CheckAuthenticationResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29839,6 +29849,7 @@ type CreateAccessKeyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateAccessKeyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29871,6 +29882,10 @@ func (r CreateAccessKeyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29879,6 +29894,7 @@ type CreateAccountResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateAccountResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29911,6 +29927,10 @@ func (r CreateAccountResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29919,6 +29939,7 @@ type CreateApiAccessRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateApiAccessRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29951,6 +29972,10 @@ func (r CreateApiAccessRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29959,6 +29984,7 @@ type CreateCaResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateCaResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -29991,6 +30017,10 @@ func (r CreateCaResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -29999,6 +30029,7 @@ type CreateClientGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateClientGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30029,6 +30060,10 @@ func (r CreateClientGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -30089,6 +30124,7 @@ type CreateDhcpOptionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateDhcpOptionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30121,6 +30157,10 @@ func (r CreateDhcpOptionsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30129,6 +30169,7 @@ type CreateDirectLinkResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateDirectLinkResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30161,6 +30202,10 @@ func (r CreateDirectLinkResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30169,6 +30214,7 @@ type CreateDirectLinkInterfaceResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateDirectLinkInterfaceResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30201,6 +30247,10 @@ func (r CreateDirectLinkInterfaceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30209,6 +30259,7 @@ type CreateFlexibleGpuResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateFlexibleGpuResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30239,6 +30290,10 @@ func (r CreateFlexibleGpuResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -30299,6 +30354,7 @@ type CreateImageExportTaskResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateImageExportTaskResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30329,6 +30385,10 @@ func (r CreateImageExportTaskResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -30444,6 +30504,7 @@ type CreateListenerRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateListenerRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30476,6 +30537,10 @@ func (r CreateListenerRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30485,6 +30550,7 @@ type CreateLoadBalancerResp struct {
 	JSON200      *CreateLoadBalancerResponse
 	JSON400      *ErrorResponse
 	JSON409      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30521,6 +30587,10 @@ func (r CreateLoadBalancerResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30529,6 +30599,7 @@ type CreateLoadBalancerListenersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateLoadBalancerListenersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30561,6 +30632,10 @@ func (r CreateLoadBalancerListenersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30569,6 +30644,7 @@ type CreateLoadBalancerPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateLoadBalancerPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30601,6 +30677,10 @@ func (r CreateLoadBalancerPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30609,6 +30689,7 @@ type CreateLoadBalancerTagsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateLoadBalancerTagsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30639,6 +30720,10 @@ func (r CreateLoadBalancerTagsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -30759,6 +30844,7 @@ type CreateNetAccessPointResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateNetAccessPointResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30789,6 +30875,10 @@ func (r CreateNetAccessPointResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -30899,6 +30989,7 @@ type CreatePolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreatePolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30931,6 +31022,10 @@ func (r CreatePolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30939,6 +31034,7 @@ type CreatePolicyVersionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreatePolicyVersionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -30971,6 +31067,10 @@ func (r CreatePolicyVersionResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -30979,6 +31079,7 @@ type CreateProductTypeResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateProductTypeResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31009,6 +31110,10 @@ func (r CreateProductTypeResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -31269,6 +31374,7 @@ type CreateServerCertificateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateServerCertificateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31299,6 +31405,10 @@ func (r CreateServerCertificateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -31359,6 +31469,7 @@ type CreateSnapshotExportTaskResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateSnapshotExportTaskResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31389,6 +31500,10 @@ func (r CreateSnapshotExportTaskResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -31504,6 +31619,7 @@ type CreateUserResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateUserResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31536,6 +31652,10 @@ func (r CreateUserResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31544,6 +31664,7 @@ type CreateUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31576,6 +31697,10 @@ func (r CreateUserGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31584,6 +31709,7 @@ type CreateVirtualGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateVirtualGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31614,6 +31740,10 @@ func (r CreateVirtualGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -31674,6 +31804,7 @@ type CreateVmTemplateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateVmTemplateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31704,6 +31835,10 @@ func (r CreateVmTemplateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -31814,6 +31949,7 @@ type CreateVpnConnectionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateVpnConnectionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31846,6 +31982,10 @@ func (r CreateVpnConnectionResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31854,6 +31994,7 @@ type CreateVpnConnectionRouteResp struct {
 	HTTPResponse *http.Response
 	JSON200      *CreateVpnConnectionRouteResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31886,6 +32027,10 @@ func (r CreateVpnConnectionRouteResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31894,6 +32039,7 @@ type DeleteAccessKeyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteAccessKeyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31926,6 +32072,10 @@ func (r DeleteAccessKeyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31934,6 +32084,7 @@ type DeleteApiAccessRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteApiAccessRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -31966,6 +32117,10 @@ func (r DeleteApiAccessRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -31974,6 +32129,7 @@ type DeleteCaResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteCaResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32006,6 +32162,10 @@ func (r DeleteCaResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32014,6 +32174,7 @@ type DeleteClientGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteClientGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32044,6 +32205,10 @@ func (r DeleteClientGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -32104,6 +32269,7 @@ type DeleteDhcpOptionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteDhcpOptionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32136,6 +32302,10 @@ func (r DeleteDhcpOptionsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32144,6 +32314,7 @@ type DeleteDirectLinkResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteDirectLinkResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32176,6 +32347,10 @@ func (r DeleteDirectLinkResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32184,6 +32359,7 @@ type DeleteDirectLinkInterfaceResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteDirectLinkInterfaceResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32216,6 +32392,10 @@ func (r DeleteDirectLinkInterfaceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32224,6 +32404,7 @@ type DeleteExportTaskResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteExportTaskResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32256,6 +32437,10 @@ func (r DeleteExportTaskResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32264,6 +32449,7 @@ type DeleteFlexibleGpuResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteFlexibleGpuResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32294,6 +32480,10 @@ func (r DeleteFlexibleGpuResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -32454,6 +32644,7 @@ type DeleteListenerRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteListenerRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32486,6 +32677,10 @@ func (r DeleteListenerRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32494,6 +32689,7 @@ type DeleteLoadBalancerResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteLoadBalancerResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32526,6 +32722,10 @@ func (r DeleteLoadBalancerResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32534,6 +32734,7 @@ type DeleteLoadBalancerListenersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteLoadBalancerListenersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32566,6 +32767,10 @@ func (r DeleteLoadBalancerListenersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32574,6 +32779,7 @@ type DeleteLoadBalancerPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteLoadBalancerPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32606,6 +32812,10 @@ func (r DeleteLoadBalancerPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32614,6 +32824,7 @@ type DeleteLoadBalancerTagsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteLoadBalancerTagsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32644,6 +32855,10 @@ func (r DeleteLoadBalancerTagsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -32754,6 +32969,7 @@ type DeleteNetAccessPointResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteNetAccessPointResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32784,6 +33000,10 @@ func (r DeleteNetAccessPointResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -32899,6 +33119,7 @@ type DeletePolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeletePolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32931,6 +33152,10 @@ func (r DeletePolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -32939,6 +33164,7 @@ type DeletePolicyVersionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeletePolicyVersionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -32969,6 +33195,10 @@ func (r DeletePolicyVersionResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -33284,6 +33514,7 @@ type DeleteServerCertificateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteServerCertificateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33314,6 +33545,10 @@ func (r DeleteServerCertificateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -33479,6 +33714,7 @@ type DeleteUserResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteUserResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33511,6 +33747,10 @@ func (r DeleteUserResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33519,6 +33759,7 @@ type DeleteUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33551,6 +33792,10 @@ func (r DeleteUserGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33559,6 +33804,7 @@ type DeleteUserGroupPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteUserGroupPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33591,6 +33837,10 @@ func (r DeleteUserGroupPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33599,6 +33849,7 @@ type DeleteUserPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteUserPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33631,6 +33882,10 @@ func (r DeleteUserPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33639,6 +33894,7 @@ type DeleteVirtualGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteVirtualGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33669,6 +33925,10 @@ func (r DeleteVirtualGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -33729,6 +33989,7 @@ type DeleteVmTemplateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteVmTemplateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33759,6 +34020,10 @@ func (r DeleteVmTemplateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -33869,6 +34134,7 @@ type DeleteVpnConnectionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteVpnConnectionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33901,6 +34167,10 @@ func (r DeleteVpnConnectionResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33909,6 +34179,7 @@ type DeleteVpnConnectionRouteResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteVpnConnectionRouteResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33941,6 +34212,10 @@ func (r DeleteVpnConnectionRouteResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33949,6 +34224,7 @@ type DeregisterVmsInLoadBalancerResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeregisterVmsInLoadBalancerResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -33981,6 +34257,10 @@ func (r DeregisterVmsInLoadBalancerResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -33989,6 +34269,7 @@ type DisableOutscaleLoginResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DisableOutscaleLoginResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34021,6 +34302,10 @@ func (r DisableOutscaleLoginResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34029,6 +34314,7 @@ type DisableOutscaleLoginForUsersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DisableOutscaleLoginResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34061,6 +34347,10 @@ func (r DisableOutscaleLoginForUsersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34069,6 +34359,7 @@ type DisableOutscaleLoginPerUsersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DisableOutscaleLoginPerUsersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34101,6 +34392,10 @@ func (r DisableOutscaleLoginPerUsersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34109,6 +34404,7 @@ type EnableOutscaleLoginResp struct {
 	HTTPResponse *http.Response
 	JSON200      *EnableOutscaleLoginResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34141,6 +34437,10 @@ func (r EnableOutscaleLoginResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34149,6 +34449,7 @@ type EnableOutscaleLoginForUsersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *EnableOutscaleLoginForUsersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34181,6 +34482,10 @@ func (r EnableOutscaleLoginForUsersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34189,6 +34494,7 @@ type EnableOutscaleLoginPerUsersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *EnableOutscaleLoginPerUsersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34221,6 +34527,10 @@ func (r EnableOutscaleLoginPerUsersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34229,6 +34539,7 @@ type LinkFlexibleGpuResp struct {
 	HTTPResponse *http.Response
 	JSON200      *LinkFlexibleGpuResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34259,6 +34570,10 @@ func (r LinkFlexibleGpuResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -34319,6 +34634,7 @@ type LinkLoadBalancerBackendMachinesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *LinkLoadBalancerBackendMachinesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34351,6 +34667,10 @@ func (r LinkLoadBalancerBackendMachinesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34359,6 +34679,7 @@ type LinkManagedPolicyToUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *LinkManagedPolicyToUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34389,6 +34710,10 @@ func (r LinkManagedPolicyToUserGroupResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -34449,6 +34774,7 @@ type LinkPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *LinkPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34479,6 +34805,10 @@ func (r LinkPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -34639,6 +34969,7 @@ type LinkVirtualGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *LinkVirtualGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34669,6 +35000,10 @@ func (r LinkVirtualGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -34729,6 +35064,7 @@ type PutUserGroupPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *PutUserGroupPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34761,6 +35097,10 @@ func (r PutUserGroupPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34769,6 +35109,7 @@ type PutUserPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *PutUserPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34801,6 +35142,10 @@ func (r PutUserPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34809,6 +35154,7 @@ type ReadAccessKeysResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadAccessKeysResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34841,6 +35187,10 @@ func (r ReadAccessKeysResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -34849,6 +35199,7 @@ type ReadAccountsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadAccountsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -34879,6 +35230,10 @@ func (r ReadAccountsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -34989,6 +35344,7 @@ type ReadApiAccessRulesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadApiAccessRulesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35021,6 +35377,10 @@ func (r ReadApiAccessRulesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35029,6 +35389,7 @@ type ReadApiLogsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadApiLogsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35061,6 +35422,10 @@ func (r ReadApiLogsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35069,6 +35434,7 @@ type ReadCO2EmissionAccountResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadCO2EmissionAccountResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35101,6 +35467,10 @@ func (r ReadCO2EmissionAccountResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35109,6 +35479,7 @@ type ReadCasResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadCasResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35141,6 +35512,10 @@ func (r ReadCasResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35149,6 +35524,7 @@ type ReadCatalogResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadCatalogResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35181,6 +35557,10 @@ func (r ReadCatalogResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35189,6 +35569,7 @@ type ReadCatalogsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadCatalogsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35221,6 +35602,10 @@ func (r ReadCatalogsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35229,6 +35614,7 @@ type ReadClientGatewaysResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadClientGatewaysResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35259,6 +35645,10 @@ func (r ReadClientGatewaysResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -35319,6 +35709,7 @@ type ReadConsumptionAccountResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadConsumptionAccountResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35349,6 +35740,10 @@ func (r ReadConsumptionAccountResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -35409,6 +35804,7 @@ type ReadDhcpOptionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadDhcpOptionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35441,6 +35837,10 @@ func (r ReadDhcpOptionsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35449,6 +35849,7 @@ type ReadDirectLinkInterfacesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadDirectLinkInterfacesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35481,6 +35882,10 @@ func (r ReadDirectLinkInterfacesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35489,6 +35894,7 @@ type ReadDirectLinksResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadDirectLinksResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35521,6 +35927,10 @@ func (r ReadDirectLinksResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35529,6 +35939,7 @@ type ReadEntitiesLinkedToPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadEntitiesLinkedToPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35561,6 +35972,10 @@ func (r ReadEntitiesLinkedToPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35569,6 +35984,7 @@ type ReadFlexibleGpuCatalogResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadFlexibleGpuCatalogResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35601,6 +36017,10 @@ func (r ReadFlexibleGpuCatalogResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35609,6 +36029,7 @@ type ReadFlexibleGpusResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadFlexibleGpusResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35641,6 +36062,10 @@ func (r ReadFlexibleGpusResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35649,6 +36074,7 @@ type ReadImageExportTasksResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadImageExportTasksResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35679,6 +36105,10 @@ func (r ReadImageExportTasksResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -35839,6 +36269,7 @@ type ReadLinkedPoliciesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadLinkedPoliciesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35871,6 +36302,10 @@ func (r ReadLinkedPoliciesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35879,6 +36314,7 @@ type ReadListenerRulesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadListenerRulesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35911,6 +36347,10 @@ func (r ReadListenerRulesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35919,6 +36359,7 @@ type ReadLoadBalancerTagsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadLoadBalancerTagsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35951,6 +36392,10 @@ func (r ReadLoadBalancerTagsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35959,6 +36404,7 @@ type ReadLoadBalancersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadLoadBalancersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -35991,6 +36437,10 @@ func (r ReadLoadBalancersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -35999,6 +36449,7 @@ type ReadLocationsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadLocationsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36031,6 +36482,10 @@ func (r ReadLocationsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36039,6 +36494,7 @@ type ReadManagedPoliciesLinkedToUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadManagedPoliciesLinkedToUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36069,6 +36525,10 @@ func (r ReadManagedPoliciesLinkedToUserGroupResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -36129,6 +36589,7 @@ type ReadNetAccessPointServicesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadNetAccessPointServicesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36161,6 +36622,10 @@ func (r ReadNetAccessPointServicesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36169,6 +36634,7 @@ type ReadNetAccessPointsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadNetAccessPointsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36199,6 +36665,10 @@ func (r ReadNetAccessPointsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -36359,6 +36829,7 @@ type ReadPoliciesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPoliciesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36391,6 +36862,10 @@ func (r ReadPoliciesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36399,6 +36874,7 @@ type ReadPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36431,6 +36907,10 @@ func (r ReadPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36439,6 +36919,7 @@ type ReadPolicyVersionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPolicyVersionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36471,6 +36952,10 @@ func (r ReadPolicyVersionResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36479,6 +36964,7 @@ type ReadPolicyVersionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPolicyVersionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36511,6 +36997,10 @@ func (r ReadPolicyVersionsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36519,6 +37009,7 @@ type ReadProductTypesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadProductTypesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36551,6 +37042,10 @@ func (r ReadProductTypesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36559,6 +37054,7 @@ type ReadPublicCatalogResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPublicCatalogResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36591,6 +37087,10 @@ func (r ReadPublicCatalogResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36599,6 +37099,7 @@ type ReadPublicIpRangesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadPublicIpRangesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36629,6 +37130,10 @@ func (r ReadPublicIpRangesResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -36689,6 +37194,7 @@ type ReadQuotasResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadQuotasResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36721,6 +37227,10 @@ func (r ReadQuotasResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36729,6 +37239,7 @@ type ReadRegionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadRegionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36759,6 +37270,10 @@ func (r ReadRegionsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -36869,6 +37384,7 @@ type ReadServerCertificatesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadServerCertificatesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36901,6 +37417,10 @@ func (r ReadServerCertificatesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -36909,6 +37429,7 @@ type ReadSnapshotExportTasksResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadSnapshotExportTasksResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -36939,6 +37460,10 @@ func (r ReadSnapshotExportTasksResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37049,6 +37574,7 @@ type ReadSubregionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadSubregionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37079,6 +37605,10 @@ func (r ReadSubregionsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37139,6 +37669,7 @@ type ReadUnitPriceResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUnitPriceResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37171,6 +37702,10 @@ func (r ReadUnitPriceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37179,6 +37714,7 @@ type ReadUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37211,6 +37747,10 @@ func (r ReadUserGroupResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37219,6 +37759,7 @@ type ReadUserGroupPoliciesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserGroupPoliciesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37251,6 +37792,10 @@ func (r ReadUserGroupPoliciesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37259,6 +37804,7 @@ type ReadUserGroupPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserGroupPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37291,6 +37837,10 @@ func (r ReadUserGroupPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37299,6 +37849,7 @@ type ReadUserGroupsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserGroupsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37331,6 +37882,10 @@ func (r ReadUserGroupsResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37339,6 +37894,7 @@ type ReadUserGroupsPerUserResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserGroupsPerUserResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37371,6 +37927,10 @@ func (r ReadUserGroupsPerUserResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37379,6 +37939,7 @@ type ReadUserPoliciesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserPoliciesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37411,6 +37972,10 @@ func (r ReadUserPoliciesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37419,6 +37984,7 @@ type ReadUserPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUserPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37451,6 +38017,10 @@ func (r ReadUserPolicyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37459,6 +38029,7 @@ type ReadUsersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadUsersResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37491,6 +38062,10 @@ func (r ReadUsersResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37499,6 +38074,7 @@ type ReadVirtualGatewaysResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadVirtualGatewaysResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37529,6 +38105,10 @@ func (r ReadVirtualGatewaysResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37589,6 +38169,7 @@ type ReadVmTemplatesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadVmTemplatesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37621,6 +38202,10 @@ func (r ReadVmTemplatesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -37629,6 +38214,7 @@ type ReadVmTypesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadVmTypesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37659,6 +38245,10 @@ func (r ReadVmTypesResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37719,6 +38309,7 @@ type ReadVmsHealthResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadVmsHealthResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37749,6 +38340,10 @@ func (r ReadVmsHealthResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37909,6 +38504,7 @@ type ReadVpnConnectionsResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadVpnConnectionsResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -37939,6 +38535,10 @@ func (r ReadVpnConnectionsResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -37999,6 +38599,7 @@ type RegisterVmsInLoadBalancerResp struct {
 	HTTPResponse *http.Response
 	JSON200      *RegisterVmsInLoadBalancerResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38029,6 +38630,10 @@ func (r RegisterVmsInLoadBalancerResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38094,6 +38699,7 @@ type RemoveUserFromUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *RemoveUserFromUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38124,6 +38730,10 @@ func (r RemoveUserFromUserGroupResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38234,6 +38844,7 @@ type SetDefaultPolicyVersionResp struct {
 	HTTPResponse *http.Response
 	JSON200      *SetDefaultPolicyVersionResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38264,6 +38875,10 @@ func (r SetDefaultPolicyVersionResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38374,6 +38989,7 @@ type UnlinkFlexibleGpuResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UnlinkFlexibleGpuResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38404,6 +39020,10 @@ func (r UnlinkFlexibleGpuResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38469,6 +39089,7 @@ type UnlinkLoadBalancerBackendMachinesResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UnlinkLoadBalancerBackendMachinesResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38501,6 +39122,10 @@ func (r UnlinkLoadBalancerBackendMachinesResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -38509,6 +39134,7 @@ type UnlinkManagedPolicyFromUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UnlinkManagedPolicyFromUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38539,6 +39165,10 @@ func (r UnlinkManagedPolicyFromUserGroupResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38599,6 +39229,7 @@ type UnlinkPolicyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UnlinkPolicyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38629,6 +39260,10 @@ func (r UnlinkPolicyResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38789,6 +39424,7 @@ type UnlinkVirtualGatewayResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UnlinkVirtualGatewayResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38819,6 +39455,10 @@ func (r UnlinkVirtualGatewayResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -38879,6 +39519,7 @@ type UpdateAccessKeyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateAccessKeyResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38911,6 +39552,10 @@ func (r UpdateAccessKeyResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -38919,6 +39564,7 @@ type UpdateAccountResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateAccountResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -38949,6 +39595,10 @@ func (r UpdateAccountResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39009,6 +39659,7 @@ type UpdateApiAccessRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateApiAccessRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39041,6 +39692,10 @@ func (r UpdateApiAccessRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -39049,6 +39704,7 @@ type UpdateCaResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateCaResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39079,6 +39735,10 @@ func (r UpdateCaResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39139,6 +39799,7 @@ type UpdateDirectLinkInterfaceResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateDirectLinkInterfaceResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39171,6 +39832,10 @@ func (r UpdateDirectLinkInterfaceResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -39179,6 +39844,7 @@ type UpdateFlexibleGpuResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateFlexibleGpuResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39209,6 +39875,10 @@ func (r UpdateFlexibleGpuResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39269,6 +39939,7 @@ type UpdateListenerRuleResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateListenerRuleResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39301,6 +39972,10 @@ func (r UpdateListenerRuleResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -39310,6 +39985,7 @@ type UpdateLoadBalancerResp struct {
 	JSON200      *UpdateLoadBalancerResponse
 	JSON400      *ErrorResponse
 	JSON409      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39344,6 +40020,10 @@ func (r UpdateLoadBalancerResp) genError() error {
 
 	if r.JSON409 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39404,6 +40084,7 @@ type UpdateNetAccessPointResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateNetAccessPointResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39434,6 +40115,10 @@ func (r UpdateNetAccessPointResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39544,6 +40229,7 @@ type UpdateRoutePropagationResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateRoutePropagationResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39574,6 +40260,10 @@ func (r UpdateRoutePropagationResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39634,6 +40324,7 @@ type UpdateServerCertificateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateServerCertificateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39664,6 +40355,10 @@ func (r UpdateServerCertificateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39774,6 +40469,7 @@ type UpdateUserResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateUserResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39806,6 +40502,10 @@ func (r UpdateUserResp) genError() error {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
 	}
 
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
@@ -39814,6 +40514,7 @@ type UpdateUserGroupResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateUserGroupResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39844,6 +40545,10 @@ func (r UpdateUserGroupResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -39954,6 +40659,7 @@ type UpdateVmTemplateResp struct {
 	HTTPResponse *http.Response
 	JSON200      *UpdateVmTemplateResponse
 	JSON400      *ErrorResponse
+	JSON500      *ErrorResponse
 }
 
 // Status returns HTTPResponse.Status
@@ -39984,6 +40690,10 @@ func (r UpdateVmTemplateResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
 	}
 
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
@@ -50040,6 +50750,13 @@ func ParseAddUserToUserGroupResp(rsp *http.Response) (*AddUserToUserGroupResp, e
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50072,6 +50789,13 @@ func ParseCheckAuthenticationResp(rsp *http.Response) (*CheckAuthenticationResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50106,6 +50830,13 @@ func ParseCreateAccessKeyResp(rsp *http.Response) (*CreateAccessKeyResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50138,6 +50869,13 @@ func ParseCreateAccountResp(rsp *http.Response) (*CreateAccountResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50172,6 +50910,13 @@ func ParseCreateApiAccessRuleResp(rsp *http.Response) (*CreateApiAccessRuleResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50205,6 +50950,13 @@ func ParseCreateCaResp(rsp *http.Response) (*CreateCaResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50237,6 +50989,13 @@ func ParseCreateClientGatewayResp(rsp *http.Response) (*CreateClientGatewayResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50318,6 +51077,13 @@ func ParseCreateDhcpOptionsResp(rsp *http.Response) (*CreateDhcpOptionsResp, err
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50350,6 +51116,13 @@ func ParseCreateDirectLinkResp(rsp *http.Response) (*CreateDirectLinkResp, error
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50384,6 +51157,13 @@ func ParseCreateDirectLinkInterfaceResp(rsp *http.Response) (*CreateDirectLinkIn
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50416,6 +51196,13 @@ func ParseCreateFlexibleGpuResp(rsp *http.Response) (*CreateFlexibleGpuResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50496,6 +51283,13 @@ func ParseCreateImageExportTaskResp(rsp *http.Response) (*CreateImageExportTaskR
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50631,6 +51425,13 @@ func ParseCreateListenerRuleResp(rsp *http.Response) (*CreateListenerRuleResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50671,6 +51472,13 @@ func ParseCreateLoadBalancerResp(rsp *http.Response) (*CreateLoadBalancerResp, e
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50703,6 +51511,13 @@ func ParseCreateLoadBalancerListenersResp(rsp *http.Response) (*CreateLoadBalanc
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50737,6 +51552,13 @@ func ParseCreateLoadBalancerPolicyResp(rsp *http.Response) (*CreateLoadBalancerP
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -50769,6 +51591,13 @@ func ParseCreateLoadBalancerTagsResp(rsp *http.Response) (*CreateLoadBalancerTag
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50911,6 +51740,13 @@ func ParseCreateNetAccessPointResp(rsp *http.Response) (*CreateNetAccessPointRes
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51038,6 +51874,13 @@ func ParseCreatePolicyResp(rsp *http.Response) (*CreatePolicyResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51071,6 +51914,13 @@ func ParseCreatePolicyVersionResp(rsp *http.Response) (*CreatePolicyVersionResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51103,6 +51953,13 @@ func ParseCreateProductTypeResp(rsp *http.Response) (*CreateProductTypeResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51372,6 +52229,13 @@ func ParseCreateServerCertificateResp(rsp *http.Response) (*CreateServerCertific
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51451,6 +52315,13 @@ func ParseCreateSnapshotExportTaskResp(rsp *http.Response) (*CreateSnapshotExpor
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51586,6 +52457,13 @@ func ParseCreateUserResp(rsp *http.Response) (*CreateUserResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51619,6 +52497,13 @@ func ParseCreateUserGroupResp(rsp *http.Response) (*CreateUserGroupResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51651,6 +52536,13 @@ func ParseCreateVirtualGatewayResp(rsp *http.Response) (*CreateVirtualGatewayRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51731,6 +52623,13 @@ func ParseCreateVmTemplateResp(rsp *http.Response) (*CreateVmTemplateResp, error
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51859,6 +52758,13 @@ func ParseCreateVpnConnectionResp(rsp *http.Response) (*CreateVpnConnectionResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51891,6 +52797,13 @@ func ParseCreateVpnConnectionRouteResp(rsp *http.Response) (*CreateVpnConnection
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51925,6 +52838,13 @@ func ParseDeleteAccessKeyResp(rsp *http.Response) (*DeleteAccessKeyResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -51957,6 +52877,13 @@ func ParseDeleteApiAccessRuleResp(rsp *http.Response) (*DeleteApiAccessRuleResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -51991,6 +52918,13 @@ func ParseDeleteCaResp(rsp *http.Response) (*DeleteCaResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52023,6 +52957,13 @@ func ParseDeleteClientGatewayResp(rsp *http.Response) (*DeleteClientGatewayResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52104,6 +53045,13 @@ func ParseDeleteDhcpOptionsResp(rsp *http.Response) (*DeleteDhcpOptionsResp, err
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52136,6 +53084,13 @@ func ParseDeleteDirectLinkResp(rsp *http.Response) (*DeleteDirectLinkResp, error
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52170,6 +53125,13 @@ func ParseDeleteDirectLinkInterfaceResp(rsp *http.Response) (*DeleteDirectLinkIn
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52203,6 +53165,13 @@ func ParseDeleteExportTaskResp(rsp *http.Response) (*DeleteExportTaskResp, error
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52235,6 +53204,13 @@ func ParseDeleteFlexibleGpuResp(rsp *http.Response) (*DeleteFlexibleGpuResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52410,6 +53386,13 @@ func ParseDeleteListenerRuleResp(rsp *http.Response) (*DeleteListenerRuleResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52442,6 +53425,13 @@ func ParseDeleteLoadBalancerResp(rsp *http.Response) (*DeleteLoadBalancerResp, e
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52476,6 +53466,13 @@ func ParseDeleteLoadBalancerListenersResp(rsp *http.Response) (*DeleteLoadBalanc
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52509,6 +53506,13 @@ func ParseDeleteLoadBalancerPolicyResp(rsp *http.Response) (*DeleteLoadBalancerP
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52541,6 +53545,13 @@ func ParseDeleteLoadBalancerTagsResp(rsp *http.Response) (*DeleteLoadBalancerTag
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52668,6 +53679,13 @@ func ParseDeleteNetAccessPointResp(rsp *http.Response) (*DeleteNetAccessPointRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -52803,6 +53821,13 @@ func ParseDeletePolicyResp(rsp *http.Response) (*DeletePolicyResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -52835,6 +53860,13 @@ func ParseDeletePolicyVersionResp(rsp *http.Response) (*DeletePolicyVersionResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53158,6 +54190,13 @@ func ParseDeleteServerCertificateResp(rsp *http.Response) (*DeleteServerCertific
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53339,6 +54378,13 @@ func ParseDeleteUserResp(rsp *http.Response) (*DeleteUserResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53371,6 +54417,13 @@ func ParseDeleteUserGroupResp(rsp *http.Response) (*DeleteUserGroupResp, error) 
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53405,6 +54458,13 @@ func ParseDeleteUserGroupPolicyResp(rsp *http.Response) (*DeleteUserGroupPolicyR
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53438,6 +54498,13 @@ func ParseDeleteUserPolicyResp(rsp *http.Response) (*DeleteUserPolicyResp, error
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53470,6 +54537,13 @@ func ParseDeleteVirtualGatewayResp(rsp *http.Response) (*DeleteVirtualGatewayRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53550,6 +54624,13 @@ func ParseDeleteVmTemplateResp(rsp *http.Response) (*DeleteVmTemplateResp, error
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53678,6 +54759,13 @@ func ParseDeleteVpnConnectionResp(rsp *http.Response) (*DeleteVpnConnectionResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53710,6 +54798,13 @@ func ParseDeleteVpnConnectionRouteResp(rsp *http.Response) (*DeleteVpnConnection
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53744,6 +54839,13 @@ func ParseDeregisterVmsInLoadBalancerResp(rsp *http.Response) (*DeregisterVmsInL
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53776,6 +54878,13 @@ func ParseDisableOutscaleLoginResp(rsp *http.Response) (*DisableOutscaleLoginRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53810,6 +54919,13 @@ func ParseDisableOutscaleLoginForUsersResp(rsp *http.Response) (*DisableOutscale
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53842,6 +54958,13 @@ func ParseDisableOutscaleLoginPerUsersResp(rsp *http.Response) (*DisableOutscale
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53876,6 +54999,13 @@ func ParseEnableOutscaleLoginResp(rsp *http.Response) (*EnableOutscaleLoginResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53908,6 +55038,13 @@ func ParseEnableOutscaleLoginForUsersResp(rsp *http.Response) (*EnableOutscaleLo
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -53942,6 +55079,13 @@ func ParseEnableOutscaleLoginPerUsersResp(rsp *http.Response) (*EnableOutscaleLo
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -53974,6 +55118,13 @@ func ParseLinkFlexibleGpuResp(rsp *http.Response) (*LinkFlexibleGpuResp, error) 
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54055,6 +55206,13 @@ func ParseLinkLoadBalancerBackendMachinesResp(rsp *http.Response) (*LinkLoadBala
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54087,6 +55245,13 @@ func ParseLinkManagedPolicyToUserGroupResp(rsp *http.Response) (*LinkManagedPoli
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54167,6 +55332,13 @@ func ParseLinkPolicyResp(rsp *http.Response) (*LinkPolicyResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54342,6 +55514,13 @@ func ParseLinkVirtualGatewayResp(rsp *http.Response) (*LinkVirtualGatewayResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54422,6 +55601,13 @@ func ParsePutUserGroupPolicyResp(rsp *http.Response) (*PutUserGroupPolicyResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54454,6 +55640,13 @@ func ParsePutUserPolicyResp(rsp *http.Response) (*PutUserPolicyResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54488,6 +55681,13 @@ func ParseReadAccessKeysResp(rsp *http.Response) (*ReadAccessKeysResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54520,6 +55720,13 @@ func ParseReadAccountsResp(rsp *http.Response) (*ReadAccountsResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54648,6 +55855,13 @@ func ParseReadApiAccessRulesResp(rsp *http.Response) (*ReadApiAccessRulesResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54680,6 +55894,13 @@ func ParseReadApiLogsResp(rsp *http.Response) (*ReadApiLogsResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54714,6 +55935,13 @@ func ParseReadCO2EmissionAccountResp(rsp *http.Response) (*ReadCO2EmissionAccoun
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54746,6 +55974,13 @@ func ParseReadCasResp(rsp *http.Response) (*ReadCasResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54780,6 +56015,13 @@ func ParseReadCatalogResp(rsp *http.Response) (*ReadCatalogResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54813,6 +56055,13 @@ func ParseReadCatalogsResp(rsp *http.Response) (*ReadCatalogsResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -54845,6 +56094,13 @@ func ParseReadClientGatewaysResp(rsp *http.Response) (*ReadClientGatewaysResp, e
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54926,6 +56182,13 @@ func ParseReadConsumptionAccountResp(rsp *http.Response) (*ReadConsumptionAccoun
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55006,6 +56269,13 @@ func ParseReadDhcpOptionsResp(rsp *http.Response) (*ReadDhcpOptionsResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55038,6 +56308,13 @@ func ParseReadDirectLinkInterfacesResp(rsp *http.Response) (*ReadDirectLinkInter
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55072,6 +56349,13 @@ func ParseReadDirectLinksResp(rsp *http.Response) (*ReadDirectLinksResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55104,6 +56388,13 @@ func ParseReadEntitiesLinkedToPolicyResp(rsp *http.Response) (*ReadEntitiesLinke
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55138,6 +56429,13 @@ func ParseReadFlexibleGpuCatalogResp(rsp *http.Response) (*ReadFlexibleGpuCatalo
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55171,6 +56469,13 @@ func ParseReadFlexibleGpusResp(rsp *http.Response) (*ReadFlexibleGpusResp, error
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55203,6 +56508,13 @@ func ParseReadImageExportTasksResp(rsp *http.Response) (*ReadImageExportTasksRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55378,6 +56690,13 @@ func ParseReadLinkedPoliciesResp(rsp *http.Response) (*ReadLinkedPoliciesResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55410,6 +56729,13 @@ func ParseReadListenerRulesResp(rsp *http.Response) (*ReadListenerRulesResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55444,6 +56770,13 @@ func ParseReadLoadBalancerTagsResp(rsp *http.Response) (*ReadLoadBalancerTagsRes
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55476,6 +56809,13 @@ func ParseReadLoadBalancersResp(rsp *http.Response) (*ReadLoadBalancersResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55510,6 +56850,13 @@ func ParseReadLocationsResp(rsp *http.Response) (*ReadLocationsResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55542,6 +56889,13 @@ func ParseReadManagedPoliciesLinkedToUserGroupResp(rsp *http.Response) (*ReadMan
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55623,6 +56977,13 @@ func ParseReadNetAccessPointServicesResp(rsp *http.Response) (*ReadNetAccessPoin
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55655,6 +57016,13 @@ func ParseReadNetAccessPointsResp(rsp *http.Response) (*ReadNetAccessPointsResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55830,6 +57198,13 @@ func ParseReadPoliciesResp(rsp *http.Response) (*ReadPoliciesResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55862,6 +57237,13 @@ func ParseReadPolicyResp(rsp *http.Response) (*ReadPolicyResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55896,6 +57278,13 @@ func ParseReadPolicyVersionResp(rsp *http.Response) (*ReadPolicyVersionResp, err
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55928,6 +57317,13 @@ func ParseReadPolicyVersionsResp(rsp *http.Response) (*ReadPolicyVersionsResp, e
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -55962,6 +57358,13 @@ func ParseReadProductTypesResp(rsp *http.Response) (*ReadProductTypesResp, error
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -55995,6 +57398,13 @@ func ParseReadPublicCatalogResp(rsp *http.Response) (*ReadPublicCatalogResp, err
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56027,6 +57437,13 @@ func ParseReadPublicIpRangesResp(rsp *http.Response) (*ReadPublicIpRangesResp, e
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56108,6 +57525,13 @@ func ParseReadQuotasResp(rsp *http.Response) (*ReadQuotasResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56140,6 +57564,13 @@ func ParseReadRegionsResp(rsp *http.Response) (*ReadRegionsResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56268,6 +57699,13 @@ func ParseReadServerCertificatesResp(rsp *http.Response) (*ReadServerCertificate
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56300,6 +57738,13 @@ func ParseReadSnapshotExportTasksResp(rsp *http.Response) (*ReadSnapshotExportTa
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56428,6 +57873,13 @@ func ParseReadSubregionsResp(rsp *http.Response) (*ReadSubregionsResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56508,6 +57960,13 @@ func ParseReadUnitPriceResp(rsp *http.Response) (*ReadUnitPriceResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56540,6 +57999,13 @@ func ParseReadUserGroupResp(rsp *http.Response) (*ReadUserGroupResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56574,6 +58040,13 @@ func ParseReadUserGroupPoliciesResp(rsp *http.Response) (*ReadUserGroupPoliciesR
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56606,6 +58079,13 @@ func ParseReadUserGroupPolicyResp(rsp *http.Response) (*ReadUserGroupPolicyResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56640,6 +58120,13 @@ func ParseReadUserGroupsResp(rsp *http.Response) (*ReadUserGroupsResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56672,6 +58159,13 @@ func ParseReadUserGroupsPerUserResp(rsp *http.Response) (*ReadUserGroupsPerUserR
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56706,6 +58200,13 @@ func ParseReadUserPoliciesResp(rsp *http.Response) (*ReadUserPoliciesResp, error
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56738,6 +58239,13 @@ func ParseReadUserPolicyResp(rsp *http.Response) (*ReadUserPolicyResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56772,6 +58280,13 @@ func ParseReadUsersResp(rsp *http.Response) (*ReadUsersResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56804,6 +58319,13 @@ func ParseReadVirtualGatewaysResp(rsp *http.Response) (*ReadVirtualGatewaysResp,
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56885,6 +58407,13 @@ func ParseReadVmTemplatesResp(rsp *http.Response) (*ReadVmTemplatesResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -56917,6 +58446,13 @@ func ParseReadVmTypesResp(rsp *http.Response) (*ReadVmTypesResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -56997,6 +58533,13 @@ func ParseReadVmsHealthResp(rsp *http.Response) (*ReadVmsHealthResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -57172,6 +58715,13 @@ func ParseReadVpnConnectionsResp(rsp *http.Response) (*ReadVpnConnectionsResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -57251,6 +58801,13 @@ func ParseRegisterVmsInLoadBalancerResp(rsp *http.Response) (*RegisterVmsInLoadB
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -57338,6 +58895,13 @@ func ParseRemoveUserFromUserGroupResp(rsp *http.Response) (*RemoveUserFromUserGr
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -57466,6 +59030,13 @@ func ParseSetDefaultPolicyVersionResp(rsp *http.Response) (*SetDefaultPolicyVers
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -57593,6 +59164,13 @@ func ParseUnlinkFlexibleGpuResp(rsp *http.Response) (*UnlinkFlexibleGpuResp, err
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -57680,6 +59258,13 @@ func ParseUnlinkLoadBalancerBackendMachinesResp(rsp *http.Response) (*UnlinkLoad
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -57712,6 +59297,13 @@ func ParseUnlinkManagedPolicyFromUserGroupResp(rsp *http.Response) (*UnlinkManag
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -57792,6 +59384,13 @@ func ParseUnlinkPolicyResp(rsp *http.Response) (*UnlinkPolicyResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -57967,6 +59566,13 @@ func ParseUnlinkVirtualGatewayResp(rsp *http.Response) (*UnlinkVirtualGatewayRes
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58047,6 +59653,13 @@ func ParseUpdateAccessKeyResp(rsp *http.Response) (*UpdateAccessKeyResp, error) 
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58079,6 +59692,13 @@ func ParseUpdateAccountResp(rsp *http.Response) (*UpdateAccountResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58160,6 +59780,13 @@ func ParseUpdateApiAccessRuleResp(rsp *http.Response) (*UpdateApiAccessRuleResp,
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58192,6 +59819,13 @@ func ParseUpdateCaResp(rsp *http.Response) (*UpdateCaResp, error) {
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58273,6 +59907,13 @@ func ParseUpdateDirectLinkInterfaceResp(rsp *http.Response) (*UpdateDirectLinkIn
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58305,6 +59946,13 @@ func ParseUpdateFlexibleGpuResp(rsp *http.Response) (*UpdateFlexibleGpuResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58386,6 +60034,13 @@ func ParseUpdateListenerRuleResp(rsp *http.Response) (*UpdateListenerRuleResp, e
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58425,6 +60080,13 @@ func ParseUpdateLoadBalancerResp(rsp *http.Response) (*UpdateLoadBalancerResp, e
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58505,6 +60167,13 @@ func ParseUpdateNetAccessPointResp(rsp *http.Response) (*UpdateNetAccessPointRes
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58633,6 +60302,13 @@ func ParseUpdateRoutePropagationResp(rsp *http.Response) (*UpdateRoutePropagatio
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58712,6 +60388,13 @@ func ParseUpdateServerCertificateResp(rsp *http.Response) (*UpdateServerCertific
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58840,6 +60523,13 @@ func ParseUpdateUserResp(rsp *http.Response) (*UpdateUserResp, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	return response, nil
@@ -58872,6 +60562,13 @@ func ParseUpdateUserGroupResp(rsp *http.Response) (*UpdateUserGroupResp, error) 
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -58999,6 +60696,13 @@ func ParseUpdateVmTemplateResp(rsp *http.Response) (*UpdateVmTemplateResp, error
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
