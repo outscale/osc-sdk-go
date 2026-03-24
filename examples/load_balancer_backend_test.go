@@ -2,6 +2,7 @@ package examples_test
 
 import (
 	"encoding/base64"
+	"slices"
 	"sort"
 	"testing"
 	"time"
@@ -22,6 +23,8 @@ import (
 // 6. Link the backend VM to the load balancer.
 // 7. Read the load balancer and validate the backend registration.
 // 8. Read the backend VM health and validate it is reported.
+// 9. Delete the load balancer.
+// 10. Delete the backend VM.
 func TestLoadBalancerBackend(t *testing.T) {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
@@ -205,7 +208,7 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	}
 	assert.True(t, foundBackend, "expected backend VM %s on load balancer %s", vmID, lbName)
 
-	var healthEntry *osc.BackendVmHealth
+	foundHealthEntry := false
 	for range 18 {
 		healthResp, err := client.ReadVmsHealth(ctx, osc.ReadVmsHealthRequest{
 			LoadBalancerName: lbName,
@@ -213,22 +216,19 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 		})
 		require.NoError(t, err)
 		if healthResp.BackendVmHealth != nil {
-			for _, entry := range *healthResp.BackendVmHealth {
-				if entry.VmId != nil && *entry.VmId == vmID {
-					healthEntry = &entry
-					break
-				}
-			}
+			foundHealthEntry = slices.ContainsFunc(*healthResp.BackendVmHealth, func(entry osc.BackendVmHealth) bool {
+				return entry.VmId != nil && *entry.VmId == vmID
+			})
 		}
-		if healthEntry != nil {
+		if foundHealthEntry {
 			break
 		}
 
 		time.Sleep(10 * time.Second)
 	}
-	require.NotNil(t, healthEntry, "expected backend health entry for VM %s", vmID)
+	assert.True(t, foundHealthEntry, "expected backend health entry for VM %s", vmID)
 
-	t.Logf("Backend VM %s registered to load balancer %s with health state %v", vmID, lbName, healthEntry.State)
+	t.Logf("Backend VM %s registered to load balancer %s", vmID, lbName)
 
 	deleteLBResp, err := client.DeleteLoadBalancer(ctx, osc.DeleteLoadBalancerRequest{
 		LoadBalancerName: lbName,
@@ -237,6 +237,7 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	lbDeleted = true
 	require.NotNil(t, deleteLBResp.ResponseContext)
 	require.NotNil(t, deleteLBResp.ResponseContext.RequestId)
+	t.Logf("Successfully deleted Load Balancer: %s", lbName)
 
 	deleteVMResp, err := client.DeleteVms(ctx, osc.DeleteVmsRequest{
 		VmIds: []string{vmID},
@@ -245,4 +246,5 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	vmDeleted = true
 	require.NotNil(t, deleteVMResp.ResponseContext)
 	require.NotNil(t, deleteVMResp.ResponseContext.RequestId)
+	t.Logf("Successfully deleted VM: %s", vmID)
 }

@@ -135,15 +135,10 @@ func TestNetAndSubnet(t *testing.T) {
 	require.NotNil(t, readResp.Subnets)
 	require.Len(t, *readResp.Subnets, 1)
 	assert.Equal(t, subnetID, (*readResp.Subnets)[0].SubnetId)
-
-	foundSubnetTag := false
-	for _, tag := range (*readResp.Subnets)[0].Tags {
-		if tag.Key == subnetTagKey && tag.Value == subnetTagValue {
-			foundSubnetTag = true
-			break
-		}
-	}
-	assert.True(t, foundSubnetTag, "expected tag %q=%q on subnet %s", subnetTagKey, subnetTagValue, subnetID)
+	assert.Contains(t, (*readResp.Subnets)[0].Tags, osc.ResourceTag{
+		Key:   subnetTagKey,
+		Value: subnetTagValue,
+	}, "expected tag %q=%q on subnet %s", subnetTagKey, subnetTagValue, subnetID)
 
 	t.Logf("Successfully read subnet: %s", subnetID)
 

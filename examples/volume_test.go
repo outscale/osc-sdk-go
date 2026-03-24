@@ -103,9 +103,7 @@ func TestVolume(t *testing.T) {
 		if volume.State == osc.VolumeStateAvailable {
 			break
 		}
-		if volume.State == osc.VolumeStateError {
-			t.Fatalf("volume %s entered error state", volume.VolumeId)
-		}
+		require.NotEqual(t, osc.VolumeStateError, volume.State, "volume %s entered error state", volume.VolumeId)
 
 		time.Sleep(10 * time.Second)
 	}
@@ -124,15 +122,10 @@ func TestVolume(t *testing.T) {
 
 	volume := (*readResp.Volumes)[0]
 	assert.Equal(t, osc.VolumeStateAvailable, volume.State)
-
-	foundTag := false
-	for _, tag := range volume.Tags {
-		if tag.Key == tagKey && tag.Value == tagValue {
-			foundTag = true
-			break
-		}
-	}
-	assert.True(t, foundTag, "expected tag %q=%q on volume %s", tagKey, tagValue, volumeID)
+	assert.Contains(t, volume.Tags, osc.ResourceTag{
+		Key:   tagKey,
+		Value: tagValue,
+	}, "expected tag %q=%q on volume %s", tagKey, tagValue, volumeID)
 
 	t.Logf("Successfully read volume: %s", volumeID)
 
