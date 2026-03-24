@@ -36,7 +36,7 @@ func defaultPooledTransport() *http.Transport {
 			DualStack: true,
 		}).DialContext,
 		TLSClientConfig: &tls.Config{
-			MinVersion: tls.VersionTLS12,
+			MinVersion: tls.VersionTLS13,
 		},
 		MaxIdleConns:          10,
 		IdleConnTimeout:       90 * time.Second,
