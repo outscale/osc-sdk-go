@@ -30,6 +30,22 @@ func TestKeypair(t *testing.T) {
 		KeypairName: keypairName,
 	}, options.WithRetryTimeout(time.Minute*10))
 	require.NoError(t, err)
+
+	deleted := false
+	defer func() {
+		if deleted {
+			return
+		}
+
+		if resp.Keypair == nil || resp.Keypair.KeypairId == nil {
+			return
+		}
+
+		_, _ = client.DeleteKeypair(ctx, osc.DeleteKeypairRequest{
+			KeypairId: resp.Keypair.KeypairId,
+		})
+	}()
+
 	require.NotNil(t, resp.Keypair)
 	require.NotNil(t, resp.Keypair.KeypairId)
 
@@ -39,4 +55,5 @@ func TestKeypair(t *testing.T) {
 		KeypairId: resp.Keypair.KeypairId,
 	})
 	require.NoError(t, err)
+	deleted = true
 }

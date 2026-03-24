@@ -90,6 +90,22 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 		VmType:   &vmType,
 	}, options.WithRetryTimeout(10*time.Minute))
 	require.NoError(t, err)
+
+	vmDeleted := false
+	defer func() {
+		if vmDeleted {
+			return
+		}
+
+		if vmResp.Vms == nil || len(*vmResp.Vms) == 0 {
+			return
+		}
+
+		_, _ = client.DeleteVms(ctx, osc.DeleteVmsRequest{
+			VmIds: []string{(*vmResp.Vms)[0].VmId},
+		}, options.WithRetryTimeout(10*time.Minute))
+	}()
+
 	require.NotNil(t, vmResp.Vms)
 	require.Len(t, *vmResp.Vms, 1)
 
@@ -106,12 +122,6 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 		},
 	})
 	require.NoError(t, err)
-
-	defer func() {
-		_, _ = client.DeleteVms(ctx, osc.DeleteVmsRequest{
-			VmIds: []string{vmID},
-		}, options.WithRetryTimeout(10*time.Minute))
-	}()
 
 	for range 36 {
 		readVmsResp, err := client.ReadVms(ctx, osc.ReadVmsRequest{
@@ -152,13 +162,23 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 		},
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
-	require.NotNil(t, createLBResp.LoadBalancer)
 
+	lbDeleted := false
 	defer func() {
+		if lbDeleted {
+			return
+		}
+
+		if createLBResp.LoadBalancer == nil {
+			return
+		}
+
 		_, _ = client.DeleteLoadBalancer(ctx, osc.DeleteLoadBalancerRequest{
 			LoadBalancerName: lbName,
 		}, options.WithRetryTimeout(5*time.Minute))
 	}()
+
+	require.NotNil(t, createLBResp.LoadBalancer)
 
 	_, err = client.LinkLoadBalancerBackendMachines(ctx, osc.LinkLoadBalancerBackendMachinesRequest{
 		LoadBalancerName: lbName,
@@ -209,4 +229,20 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	require.NotNil(t, healthEntry, "expected backend health entry for VM %s", vmID)
 
 	t.Logf("Backend VM %s registered to load balancer %s with health state %v", vmID, lbName, healthEntry.State)
+
+	deleteLBResp, err := client.DeleteLoadBalancer(ctx, osc.DeleteLoadBalancerRequest{
+		LoadBalancerName: lbName,
+	}, options.WithRetryTimeout(5*time.Minute))
+	require.NoError(t, err)
+	lbDeleted = true
+	require.NotNil(t, deleteLBResp.ResponseContext)
+	require.NotNil(t, deleteLBResp.ResponseContext.RequestId)
+
+	deleteVMResp, err := client.DeleteVms(ctx, osc.DeleteVmsRequest{
+		VmIds: []string{vmID},
+	}, options.WithRetryTimeout(10*time.Minute))
+	require.NoError(t, err)
+	vmDeleted = true
+	require.NotNil(t, deleteVMResp.ResponseContext)
+	require.NotNil(t, deleteVMResp.ResponseContext.RequestId)
 }

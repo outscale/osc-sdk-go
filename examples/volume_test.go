@@ -48,6 +48,22 @@ func TestVolume(t *testing.T) {
 
 	createResp, err := client.CreateVolume(ctx, createReq, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
+
+	deleted := false
+	defer func() {
+		if deleted {
+			return
+		}
+
+		if createResp.Volume == nil {
+			return
+		}
+
+		_, _ = client.DeleteVolume(ctx, osc.DeleteVolumeJSONRequestBody{
+			VolumeId: createResp.Volume.VolumeId,
+		}, options.WithRetryTimeout(5*time.Minute))
+	}()
+
 	require.NotNil(t, createResp.Volume)
 
 	volumeID := createResp.Volume.VolumeId
@@ -127,6 +143,7 @@ func TestVolume(t *testing.T) {
 
 	deleteResp, err := client.DeleteVolume(ctx, deleteReq, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
+	deleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 

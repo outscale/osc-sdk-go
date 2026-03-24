@@ -36,6 +36,23 @@ func TestSecurityGroup(t *testing.T) {
 
 	createResp, err := client.CreateSecurityGroup(ctx, createReq)
 	require.NoError(t, err)
+
+	deleted := false
+	defer func() {
+		if deleted {
+			return
+		}
+
+		if createResp.SecurityGroup == nil {
+			return
+		}
+
+		securityGroupID := createResp.SecurityGroup.SecurityGroupId
+		_, _ = client.DeleteSecurityGroup(ctx, osc.DeleteSecurityGroupJSONRequestBody{
+			SecurityGroupId: &securityGroupID,
+		})
+	}()
+
 	require.NotNil(t, createResp.SecurityGroup)
 
 	securityGroupID := createResp.SecurityGroup.SecurityGroupId
@@ -118,6 +135,7 @@ func TestSecurityGroup(t *testing.T) {
 
 	deleteResp, err := client.DeleteSecurityGroup(ctx, deleteReq)
 	require.NoError(t, err)
+	deleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 

@@ -56,15 +56,23 @@ func TestProject(t *testing.T) {
 			require.NoError(t, err)
 		}
 	} else {
-		require.NotNil(t, createProject.Project)
 		projectID = createProject.Project.Id
 	}
 	assert.NotEmpty(t, projectID)
 
+	deleted := false
+	defer func() {
+		if deleted || projectID == "" {
+			return
+		}
+
+		_, _ = client.DeleteProject(ctx, projectID)
+	}()
+
 	for {
 		readProject, err := client.GetProject(ctx, projectID)
 		require.NoError(t, err)
-		require.NotNil(t, readProject.Project)
+		assert.Equal(t, name, readProject.Project.Name)
 
 		if readProject.Project.Status == oks.ProjectStatusReady {
 			break
@@ -75,4 +83,5 @@ func TestProject(t *testing.T) {
 
 	_, err = client.DeleteProject(ctx, projectID)
 	require.NoError(t, err)
+	deleted = true
 }

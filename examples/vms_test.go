@@ -98,17 +98,27 @@ func TestVm(t *testing.T) {
 		VmType: &vmType,
 	}, options.WithRetryTimeout(10*time.Minute))
 	require.NoError(t, err)
+
+	deleted := false
+	defer func() {
+		if deleted {
+			return
+		}
+
+		if createResp.Vms == nil || len(*createResp.Vms) == 0 {
+			return
+		}
+
+		_, _ = client.DeleteVms(ctx, osc.DeleteVmsRequest{
+			VmIds: []string{(*createResp.Vms)[0].VmId},
+		}, options.WithRetryTimeout(10*time.Minute))
+	}()
+
 	require.NotNil(t, createResp.Vms)
 	require.Len(t, *createResp.Vms, 1)
 
 	vmID := (*createResp.Vms)[0].VmId
 	assert.NotEmpty(t, vmID)
-
-	defer func() {
-		_, _ = client.DeleteVms(ctx, osc.DeleteVmsRequest{
-			VmIds: []string{vmID},
-		}, options.WithRetryTimeout(10*time.Minute))
-	}()
 
 	_, err = client.CreateTags(ctx, osc.CreateTagsJSONRequestBody{
 		ResourceIds: []string{vmID},
@@ -171,6 +181,7 @@ func TestVm(t *testing.T) {
 		VmIds: []string{vmID},
 	}, options.WithRetryTimeout(10*time.Minute))
 	require.NoError(t, err)
+	deleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 

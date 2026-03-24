@@ -51,6 +51,22 @@ func TestSnapshot(t *testing.T) {
 		SubregionName: *subregionName,
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
+
+	volumeDeleted := false
+	defer func() {
+		if volumeDeleted {
+			return
+		}
+
+		if volumeCreateResp.Volume == nil {
+			return
+		}
+
+		_, _ = client.DeleteVolume(ctx, osc.DeleteVolumeJSONRequestBody{
+			VolumeId: volumeCreateResp.Volume.VolumeId,
+		}, options.WithRetryTimeout(5*time.Minute))
+	}()
+
 	require.NotNil(t, volumeCreateResp.Volume)
 
 	volumeID := volumeCreateResp.Volume.VolumeId
@@ -96,6 +112,22 @@ func TestSnapshot(t *testing.T) {
 		VolumeId:    &volumeID,
 	}, options.WithRetryTimeout(10*time.Minute))
 	require.NoError(t, err)
+
+	snapshotDeleted := false
+	defer func() {
+		if snapshotDeleted {
+			return
+		}
+
+		if createResp.Snapshot == nil {
+			return
+		}
+
+		_, _ = client.DeleteSnapshot(ctx, osc.DeleteSnapshotJSONRequestBody{
+			SnapshotId: createResp.Snapshot.SnapshotId,
+		}, options.WithRetryTimeout(5*time.Minute))
+	}()
+
 	require.NotNil(t, createResp.Snapshot)
 
 	snapshotID := createResp.Snapshot.SnapshotId
@@ -164,6 +196,7 @@ func TestSnapshot(t *testing.T) {
 		SnapshotId: snapshotID,
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
+	snapshotDeleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
@@ -173,6 +206,7 @@ func TestSnapshot(t *testing.T) {
 		VolumeId: volumeID,
 	}, options.WithRetryTimeout(5*time.Minute))
 	require.NoError(t, err)
+	volumeDeleted = true
 	require.NotNil(t, volumeDeleteResp.ResponseContext)
 	assert.NotNil(t, volumeDeleteResp.ResponseContext.RequestId)
 

@@ -41,6 +41,22 @@ func TestNetAndSubnet(t *testing.T) {
 
 	netCreateResp, err := client.CreateNet(ctx, netCreateReq)
 	require.NoError(t, err)
+
+	netDeleted := false
+	defer func() {
+		if netDeleted {
+			return
+		}
+
+		if netCreateResp.Net == nil {
+			return
+		}
+
+		_, _ = client.DeleteNet(ctx, osc.DeleteNetJSONRequestBody{
+			NetId: netCreateResp.Net.NetId,
+		})
+	}()
+
 	require.NotNil(t, netCreateResp.Net)
 
 	netID := netCreateResp.Net.NetId
@@ -70,6 +86,22 @@ func TestNetAndSubnet(t *testing.T) {
 
 	createResp, err := client.CreateSubnet(ctx, createReq)
 	require.NoError(t, err)
+
+	subnetDeleted := false
+	defer func() {
+		if subnetDeleted {
+			return
+		}
+
+		if createResp.Subnet == nil {
+			return
+		}
+
+		_, _ = client.DeleteSubnet(ctx, osc.DeleteSubnetJSONRequestBody{
+			SubnetId: createResp.Subnet.SubnetId,
+		})
+	}()
+
 	require.NotNil(t, createResp.Subnet)
 
 	subnetID := createResp.Subnet.SubnetId
@@ -135,6 +167,7 @@ func TestNetAndSubnet(t *testing.T) {
 
 	deleteResp, err := client.DeleteSubnet(ctx, deleteReq)
 	require.NoError(t, err)
+	subnetDeleted = true
 	require.NotNil(t, deleteResp.ResponseContext)
 	assert.NotNil(t, deleteResp.ResponseContext.RequestId)
 
@@ -147,6 +180,7 @@ func TestNetAndSubnet(t *testing.T) {
 
 	netDeleteResp, err := client.DeleteNet(ctx, netDeleteReq)
 	require.NoError(t, err)
+	netDeleted = true
 	require.NotNil(t, netDeleteResp.ResponseContext)
 	assert.NotNil(t, netDeleteResp.ResponseContext.RequestId)
 
