@@ -6,7 +6,6 @@ import (
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
-	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,11 +14,7 @@ import (
 // 2. Validate the keypair data returned by the API.
 // 3. Delete the keypair.
 func TestKeypair(t *testing.T) {
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOSCClient(t)
 
 	ctx := t.Context()
 

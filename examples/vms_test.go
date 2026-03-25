@@ -7,7 +7,6 @@ import (
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
-	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -17,11 +16,7 @@ import (
 // 2. Validate the returned VM collection.
 // 3. Log each VM ID and image ID.
 func TestReadVms(t *testing.T) {
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOSCClient(t)
 
 	read, err := client.ReadVms(t.Context(), osc.ReadVmsRequest{Filters: nil})
 	require.NoError(t, err)
@@ -43,11 +38,7 @@ func TestReadVms(t *testing.T) {
 func TestVm(t *testing.T) {
 	ctx := t.Context()
 
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOSCClient(t)
 
 	subregions, err := client.ReadSubregions(ctx, osc.ReadSubregionsRequest{})
 	require.NoError(t, err)

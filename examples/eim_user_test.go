@@ -3,9 +3,7 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
-	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -18,11 +16,7 @@ import (
 func TestEIMUser(t *testing.T) {
 	ctx := t.Context()
 
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOSCClient(t)
 
 	userName := "osc-sdk-go-test-" + RandomString(10)
 	userPath := "/"

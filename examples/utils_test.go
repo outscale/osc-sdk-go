@@ -11,6 +11,12 @@ import (
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
+	"github.com/outscale/osc-sdk-go/v3/pkg/options"
+	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
+	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
+	"github.com/stretchr/testify/require"
 )
 
 type testingLogger struct {
@@ -106,6 +112,30 @@ func RandomString(length int) string {
 	}
 
 	return string(bytes)
+}
+
+func newOSCClient(t *testing.T) *osc.Client {
+	t.Helper()
+
+	userProfile, err := profile.New()
+	require.NoError(t, err)
+
+	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	require.NoError(t, err)
+
+	return client
+}
+
+func newOKSClient(t *testing.T) *oks.Client {
+	t.Helper()
+
+	userProfile, err := profile.New()
+	require.NoError(t, err)
+
+	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	require.NoError(t, err)
+
+	return client
 }
 
 func skipIfOKSTestsDisabled(t *testing.T) {

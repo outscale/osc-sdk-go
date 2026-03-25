@@ -4,9 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
-	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -23,11 +21,7 @@ import (
 func TestNetAndSubnet(t *testing.T) {
 	ctx := t.Context()
 
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOSCClient(t)
 
 	netTagKey := "Name"
 	netTagValue := "osc-sdk-go-test-tag-" + RandomString(10)
