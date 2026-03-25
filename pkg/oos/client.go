@@ -3,7 +3,6 @@ package oos
 import (
 	"context"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
@@ -36,8 +35,6 @@ func NewClient(ctx context.Context, p *profile.Profile, opts ...config.LoadOptio
 		ep, _ := p.GetEndpoint(profile.OscServiceOOS)
 		o.BaseEndpoint = &ep
 		o.UsePathStyle = true
-		o.RequestChecksumCalculation = aws.RequestChecksumCalculationWhenRequired
-		o.ResponseChecksumValidation = aws.ResponseChecksumValidationWhenRequired
 	})
 
 	return &Client{
