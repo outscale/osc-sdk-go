@@ -6,8 +6,6 @@ import (
 
 	"dario.cat/mergo"
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
-	"github.com/outscale/osc-sdk-go/v3/pkg/options"
-	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -22,15 +20,11 @@ import (
 func TestProject(t *testing.T) {
 	skipIfOKSTestsDisabled(t)
 
-	userProfile, err := profile.New()
-	require.NoError(t, err)
-
-	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
-	require.NoError(t, err)
+	client := newOKSClient(t)
 
 	ctx := t.Context()
 
-	_, err = client.GetProject(ctx, "a-non-existing-project")
+	_, err := client.GetProject(ctx, "a-non-existing-project")
 	require.Error(t, err, "a-non-existing-project should not exist")
 	assert.True(t, oks.IsNotFound(err), "a-non-existing-project should be not found: %v", err)
 
