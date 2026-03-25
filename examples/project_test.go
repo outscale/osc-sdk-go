@@ -20,6 +20,8 @@ import (
 // 5. Wait for the project to be ready.
 // 6. Delete the project.
 func TestProject(t *testing.T) {
+	skipIfOKSTestsDisabled(t)
+
 	userProfile, err := profile.New()
 	require.NoError(t, err)
 

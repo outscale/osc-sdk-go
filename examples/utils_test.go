@@ -7,6 +7,8 @@ import (
 	"io"
 	"math/rand/v2"
 	"net/http"
+	"os"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -104,4 +106,18 @@ func RandomString(length int) string {
 	}
 
 	return string(bytes)
+}
+
+func skipIfOKSTestsDisabled(t *testing.T) {
+	t.Helper()
+
+	value := os.Getenv("SKIP_OKS_TESTS")
+	if value == "" {
+		return
+	}
+
+	skip, err := strconv.ParseBool(value)
+	if err == nil && skip {
+		t.Skip("skipping OKS tests because SKIP_OKS_TESTS is enabled")
+	}
 }

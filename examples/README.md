@@ -23,6 +23,12 @@ From the repository root:
 go test ./examples
 ```
 
+To skip OKS example tests:
+
+```bash
+SKIP_OKS_TESTS=true go test ./examples
+```
+
 ## Run One Example
 
 ```bash
