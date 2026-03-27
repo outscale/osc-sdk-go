@@ -73,7 +73,7 @@ echo ok > /tmp/go-sdk-lb/index.html
 nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.log 2>&1 &
 `))
 
-	vmType := "tinav4.c1r1p2"
+	vmType := "tinav6.c1r1p2"
 	minVmsCount := 1
 	maxVmsCount := 1
 	vmResp, err := client.CreateVms(ctx, osc.CreateVmsRequest{
