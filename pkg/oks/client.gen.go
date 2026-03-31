@@ -1967,6 +1967,13 @@ func NewListClustersByProjectIDRequest(server string, params *ListClustersByProj
 // NewCreateClusterRequest calls the generic CreateCluster builder with application/json body
 func NewCreateClusterRequest(server string, body CreateClusterJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -2301,6 +2308,7 @@ func NewGetClusterRequest(server string, clusterId string) (*http.Request, error
 // NewUpdateClusterRequest calls the generic UpdateCluster builder with application/json body
 func NewUpdateClusterRequest(server string, clusterId string, body UpdateClusterJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -2718,6 +2726,13 @@ func NewListProjectsRequest(server string, params *ListProjectsParams) (*http.Re
 // NewCreateProjectRequest calls the generic CreateProject builder with application/json body
 func NewCreateProjectRequest(server string, body CreateProjectJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -2826,6 +2841,7 @@ func NewGetProjectRequest(server string, projectId string) (*http.Request, error
 // NewUpdateProjectRequest calls the generic UpdateProject builder with application/json body
 func NewUpdateProjectRequest(server string, projectId string, body UpdateProjectJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err

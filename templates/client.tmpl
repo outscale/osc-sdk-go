@@ -86,6 +86,16 @@ func (c *{{ $clientTypeName }}) {{$opid}}{{.Suffix}}Raw(ctx context.Context{{gen
 // New{{$opid}}Request{{.Suffix}} calls the generic {{$opid}} builder with {{.ContentType}} body
 func New{{$opid}}Request{{.Suffix}}(server string{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody) (*http.Request, error) {
     var bodyReader io.Reader
+
+    {{if eq (slice $opid 0 6) "Create" }}
+    if v, ok := any(body).(clientTokenSetter); ok {
+        err := v.SetClientToken()
+        if err != nil {
+            return nil, err
+        }
+    } 
+    {{end -}}
+
     {{if .IsJSON -}}
         buf, err := json.Marshal(body)
         if err != nil {
