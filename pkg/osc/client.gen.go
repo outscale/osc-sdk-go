@@ -84,6 +84,24 @@ func (CatalogsState) Values() []string {
 	}
 }
 
+// Defines values for ClientGatewayState.
+const (
+	ClientGatewayStateAvailable ClientGatewayState = "available"
+	ClientGatewayStateDeleted   ClientGatewayState = "deleted"
+	ClientGatewayStateDeleting  ClientGatewayState = "deleting"
+	ClientGatewayStatePending   ClientGatewayState = "pending"
+)
+
+// Method to return the list of values
+func (ClientGatewayState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+	}
+}
+
 // Defines values for CreateVmGroupRequestPositioningStrategy.
 const (
 	CreateVmGroupRequestPositioningStrategyAttract    CreateVmGroupRequestPositioningStrategy = "attract"
@@ -1073,11 +1091,14 @@ type ClientGateway struct {
 	PublicIp string `json:"PublicIp"`
 
 	// State The state of the client gateway (`pending` \| `available` \| `deleting` \| `deleted`).
-	State string `json:"State"`
+	State ClientGatewayState `json:"State"`
 
 	// Tags One or more tags associated with the client gateway.
 	Tags []ResourceTag `json:"Tags"`
 }
+
+// ClientGatewayState The state of the client gateway (`pending` \| `available` \| `deleting` \| `deleted`).
+type ClientGatewayState string
 
 // ConsumptionEntry Information about the resources consumed during the specified time period.
 type ConsumptionEntry struct {
@@ -3558,7 +3579,7 @@ type FiltersClientGateway struct {
 	PublicIps *[]string `json:"PublicIps,omitempty"`
 
 	// States The states of the client gateways (`pending` \| `available` \| `deleting` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]ClientGatewayState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the client gateways.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -4797,22 +4818,22 @@ type FiltersVpnConnection struct {
 // FlexibleGpu Information about the flexible GPU (fGPU).
 type FlexibleGpu struct {
 	// DeleteOnVmDeletion If true, the fGPU is deleted when the VM is terminated.
-	DeleteOnVmDeletion *bool `json:"DeleteOnVmDeletion,omitempty"`
+	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
 	// FlexibleGpuId The ID of the fGPU.
-	FlexibleGpuId *string `json:"FlexibleGpuId,omitempty"`
+	FlexibleGpuId string `json:"FlexibleGpuId"`
 
 	// Generation The compatible processor generation.
-	Generation *string `json:"Generation,omitempty"`
+	Generation string `json:"Generation"`
 
 	// ModelName The model of fGPU. For more information, see [About Flexible GPUs](https://docs.outscale.com/en/userguide/About-Flexible-GPUs.html).
-	ModelName *string `json:"ModelName,omitempty"`
+	ModelName string `json:"ModelName"`
 
 	// State The state of the fGPU (`allocated` \| `attaching` \| `attached` \| `detaching`).
-	State *FlexibleGpuState `json:"State,omitempty"`
+	State FlexibleGpuState `json:"State"`
 
 	// SubregionName The Subregion where the fGPU is located.
-	SubregionName *string `json:"SubregionName,omitempty"`
+	SubregionName string `json:"SubregionName"`
 
 	// Tags One or more tags associated with the fGPU.
 	Tags *[]Tag `json:"Tags,omitempty"`

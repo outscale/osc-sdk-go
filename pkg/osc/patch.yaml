@@ -542,6 +542,16 @@ actions:
   description:
   update:
     x-go-type: LinkedVolumeState
+- target: $.components.schemas.FlexibleGpu
+  description: Required fields for FlexibleGpu
+  update:
+    required:
+    - DeleteOnVmDeletion
+    - FlexibleGpuId
+    - Generation
+    - ModelName
+    - State
+    - SubregionName
 - target: $.components.schemas.FlexibleGpu.*.State
   description: Type for FlexibleGpu.State
   update:
@@ -798,6 +808,18 @@ actions:
     - State
     - Tags
     - ClientGatewayId
+- target: $.components.schemas.ClientGateway.*.State
+  description: Type for ClientGateway.State
+  update:
+    enum:
+      - pending
+      - available
+      - deleting
+      - deleted
+- target: $.components.schemas.FiltersClientGateway.*.States.items
+  description:
+  update:
+    x-go-type: ClientGatewayState
 - target: $.components.schemas.VpnConnection
   description: Required fields for VpnConnection
   update:
