@@ -14,6 +14,8 @@ package osc
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -33,8 +35,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
-	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	awsv4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
 	"golang.org/x/oauth2"
 )
 
@@ -495,16 +497,18 @@ func (c *APIClient) prepareRequest(
 
 		// AWS Signature v4 Authentication
 		if auth, ok := ctx.Value(ContextAWSv4).(AWSv4); ok {
-			creds := awscredentials.NewStaticCredentials(auth.AccessKey, auth.SecretKey, "")
-			signer := awsv4.NewSigner(creds)
-			var reader *strings.Reader
+			creds := aws.Credentials{AccessKeyID: auth.AccessKey, SecretAccessKey: auth.SecretKey}
+			signer := awsv4.NewSigner()
+			var payload string
 			if body == nil {
-				reader = strings.NewReader("")
+				payload = ""
 			} else {
-				reader = strings.NewReader(body.String())
+				payload = body.String()
 			}
+			hash := sha256.Sum256([]byte(payload))
+			payloadHash := hex.EncodeToString(hash[:])
 			timestamp := time.Now()
-			_, err := signer.Sign(localVarRequest, reader, "oapi", "eu-west-2", timestamp)
+			err := signer.SignHTTP(ctx, creds, localVarRequest, payloadHash, "oapi", "eu-west-2", timestamp)
 			if err != nil {
 				return nil, err
 			}
