@@ -920,7 +920,7 @@ type BsuCreated struct {
 	LinkDate iso8601.Time `json:"LinkDate"`
 
 	// State The state of the volume.
-	State VolumeState `json:"State"`
+	State LinkedVolumeState `json:"State"`
 
 	// VolumeId The ID of the volume.
 	VolumeId string `json:"VolumeId"`
