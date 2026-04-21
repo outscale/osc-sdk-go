@@ -520,7 +520,7 @@ actions:
 - target: $.components.schemas.BsuCreated.*.State
   description:
   update:
-    x-go-type: VolumeState
+    x-go-type: LinkedVolumeState
 - target: $.components.schemas.LinkedVolume
   description: Required fields for LinkedVolume
   update:
