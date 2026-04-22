@@ -61,7 +61,7 @@ func TestLoadBalancerBackend(t *testing.T) {
 
 	images := append([]osc.Image(nil), (*imageResp.Images)...)
 	sort.Slice(images, func(i, j int) bool {
-		return images[i].CreationDate.Time.After(images[j].CreationDate.Time)
+		return images[i].CreationDate.After(images[j].CreationDate.Time)
 	})
 	imageID := images[0].ImageId
 	assert.NotEmpty(t, imageID)
@@ -194,13 +194,7 @@ nohup python3 -m http.server 80 --directory /tmp/go-sdk-lb >/tmp/go-sdk-lb/http.
 	require.Len(t, *readLBResp.LoadBalancers, 1)
 
 	lb := (*readLBResp.LoadBalancers)[0]
-	foundBackend := false
-	for _, backendVMID := range lb.BackendVmIds {
-		if backendVMID == vmID {
-			foundBackend = true
-			break
-		}
-	}
+	foundBackend := slices.Contains(lb.BackendVmIds, vmID)
 	assert.True(t, foundBackend, "expected backend VM %s on load balancer %s", vmID, lbName)
 
 	foundHealthEntry := false

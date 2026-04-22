@@ -32,7 +32,7 @@ type Profile struct {
 	Password          string   `json:"password,omitempty"`
 	Protocol          string   `json:"protocol,omitempty"`
 	Region            string   `json:"region,omitempty"`
-	Endpoints         Endpoint `json:"endpoints,omitempty"`
+	Endpoints         Endpoint `json:"endpoints,omitzero"`
 }
 
 func (p *Profile) IsSet() bool {

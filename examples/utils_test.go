@@ -92,14 +92,6 @@ func (t *testingLogger) Error(ctx context.Context, err error) {
 	t.Log("[error]", err.Error())
 }
 
-func lenOrZero[T any](items *[]T) int {
-	if items == nil {
-		return 0
-	}
-
-	return len(*items)
-}
-
 func RandomString(length int) string {
 	if length <= 0 {
 		return ""

@@ -34,5 +34,7 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-var _ json.Marshaler = Time{}
-var _ json.Unmarshaler = (*Time)(nil)
+var (
+	_ json.Marshaler   = Time{}
+	_ json.Unmarshaler = (*Time)(nil)
+)

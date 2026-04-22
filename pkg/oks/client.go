@@ -1,8 +1,6 @@
 package oks
 
 import (
-	"fmt"
-
 	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
@@ -28,7 +26,7 @@ func newClientRaw(
 		options.WithRatelimit(5),
 		options.WithRetry(nil, nil, nil),
 		options.WithLogging(logger.Default()),
-		options.WithUseragent(fmt.Sprintf("osc-sdk-go/%s", version.Version)),
+		options.WithUseragent("osc-sdk-go/" + version.Version),
 	}, opts...)
 
 	m, err := middleware.NewMiddlewareChain(opts...)

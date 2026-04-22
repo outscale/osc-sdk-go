@@ -68,7 +68,7 @@ func ParseISOZone(inp []byte) (*time.Location, error) {
 			multiplier = 60 // multiplier for minutes
 			z = 0
 		} else { // next digit
-			z = z * 10
+			z *= 10
 		}
 
 		switch inp[i] {
@@ -81,7 +81,6 @@ func ParseISOZone(inp []byte) (*time.Location, error) {
 		default:
 			return nil, newUnexpectedCharacterError(inp[i])
 		}
-
 	}
 
 	offset += int(z * multiplier)
@@ -133,7 +132,7 @@ parse:
 	for ; i < len(inp); i++ {
 		switch inp[i] {
 		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-			c = c * 10
+			c *= 10
 			c += uint(inp[i]) - charStart
 
 			if p == millisecond {
@@ -242,7 +241,7 @@ parse:
 		return time.Time{}, 0, ErrPrecision
 	}
 	scale := 10 - nfraction
-	for i := 0; i < scale; i++ {
+	for range scale {
 		fraction *= 10
 	}
 

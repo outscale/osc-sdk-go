@@ -2,15 +2,21 @@ name: pull-request-v3
 
 on:
   pull_request:
-    branches: [ v3 ]
-    
+    branches: [v3]
+
 jobs:
-  reuse-test:
+  lint-test:
     runs-on: ubuntu-24.04
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - name: 🔎 Reuse check
+      - name: ⬇️ Install Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version-file: 'go.mod'
+      - name: 🔎 Lint
+        uses: outscale/goutils/.github/actions/lint@main
+      - name: 👮 Reuse
         run: |
           docker run --rm --volume $PWD:/data fsfe/reuse:5.1 lint
   examples-test:
@@ -27,7 +33,7 @@ jobs:
       - name: ⬇️ Install Go
         uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
         with:
-          go-version: 1.24
+          go-version-file: 'go.mod'
       - name: 🧪 Tests
         env:
           OSC_ACCESS_KEY: ${{ secrets.OSC_ACCESS_KEY }}
@@ -35,6 +41,7 @@ jobs:
           OSC_REGION: ${{ secrets.OSC_REGION }}
           OMI_ID: ${{ secrets.OMI_ID }}
         run: make test
+
   regeneration-test:
     runs-on: ubuntu-24.04
     steps:
@@ -43,8 +50,8 @@ jobs:
       - name: ⬇️ Install Go
         uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
         with:
-          go-version: 1.24
+          go-version-file: 'go.mod'
       - name: 🧪 SDK re-generation test
         run: |
-            make gen
-            git diff --exit-code
+          make gen
+          git diff --exit-code . ':(exclude)go.sum'

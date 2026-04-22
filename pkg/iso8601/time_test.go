@@ -10,50 +10,48 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var (
-	tcs = []struct {
-		json string
-		str  string
-		t    iso8601.Time
-		err  bool
-	}{
-		{
-			json: `"2026"`,
-			str:  "2026",
-			t:    iso8601.Time{Format: iso8601.DateYear, Time: time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)},
-		},
-		{
-			json: `"2026-02"`,
-			str:  "2026-02",
-			t:    iso8601.Time{Format: iso8601.DateMonth, Time: time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC)},
-		},
-		{
-			json: `"2026-09-02"`,
-			str:  "2026-09-02",
-			t:    iso8601.Time{Format: iso8601.DateDay, Time: time.Date(2026, 9, 2, 0, 0, 0, 0, time.UTC)},
-		},
-		{
-			json: `"2026-06-04T09:32:44Z"`,
-			str:  "2026-06-04T09:32:44Z",
-			t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, 0, time.UTC)},
-		},
-		{
-			json: `"2026-06-04T09:32:44+0000"`,
-			str:  "2026-06-04T09:32:44Z",
-			t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, 0, time.UTC)},
-		},
-		{
-			json: `"2026-06-04T09:32:44+0100"`,
-			str:  "2026-06-04T08:32:44Z",
-			t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 8, 32, 44, 0, time.UTC)},
-		},
-		{
-			json: `"2026-06-04T09:32:44.642Z"`,
-			str:  "2026-06-04T09:32:44.642Z",
-			t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, int(642*time.Millisecond), time.UTC)},
-		},
-	}
-)
+var tcs = []struct {
+	json string
+	str  string
+	t    iso8601.Time
+	err  bool
+}{
+	{
+		json: `"2026"`,
+		str:  "2026",
+		t:    iso8601.Time{Format: iso8601.DateYear, Time: time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)},
+	},
+	{
+		json: `"2026-02"`,
+		str:  "2026-02",
+		t:    iso8601.Time{Format: iso8601.DateMonth, Time: time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC)},
+	},
+	{
+		json: `"2026-09-02"`,
+		str:  "2026-09-02",
+		t:    iso8601.Time{Format: iso8601.DateDay, Time: time.Date(2026, 9, 2, 0, 0, 0, 0, time.UTC)},
+	},
+	{
+		json: `"2026-06-04T09:32:44Z"`,
+		str:  "2026-06-04T09:32:44Z",
+		t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, 0, time.UTC)},
+	},
+	{
+		json: `"2026-06-04T09:32:44+0000"`,
+		str:  "2026-06-04T09:32:44Z",
+		t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, 0, time.UTC)},
+	},
+	{
+		json: `"2026-06-04T09:32:44+0100"`,
+		str:  "2026-06-04T08:32:44Z",
+		t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 8, 32, 44, 0, time.UTC)},
+	},
+	{
+		json: `"2026-06-04T09:32:44.642Z"`,
+		str:  "2026-06-04T09:32:44.642Z",
+		t:    iso8601.Time{Format: iso8601.DateTime, Time: time.Date(2026, 6, 4, 9, 32, 44, int(642*time.Millisecond), time.UTC)},
+	},
+}
 
 func TestParseString(t *testing.T) {
 	for _, tc := range tcs {
