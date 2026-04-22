@@ -4,22 +4,23 @@ import (
 	"errors"
 	"slices"
 	"strconv"
+	"strings"
 )
 
 func (e *ErrorResponse) Error() string {
-	var msg string
+	var msgBuilder strings.Builder
 
 	for i, v := range e.Errors {
 		if i != 0 {
-			msg += "\n"
+			msgBuilder.WriteString("\n")
 		}
-		msg += "[" + v.Code + "] " + v.Type
+		msgBuilder.WriteString("[" + v.Code + "] " + v.Type)
 		if v.Details != "" {
-			msg += ", " + v.Details
+			msgBuilder.WriteString(", " + v.Details)
 		}
 	}
 
-	return msg
+	return msgBuilder.String()
 }
 
 func (e *ErrorResponse) GetCode() string {

@@ -125,8 +125,8 @@ func TestNewFrom(t *testing.T) {
 		t.Setenv("OSC_SECRET_KEY", "")
 		p, err := profile.NewFrom("", "")
 		require.NoError(t, err)
-		assert.Equal(t, "", p.AccessKey)
-		assert.Equal(t, "", p.SecretKey)
+		assert.Empty(t, p.AccessKey)
+		assert.Empty(t, p.SecretKey)
 	})
 	t.Run("NewFrom fails if a config file was requested and not found", func(t *testing.T) {
 		t.Setenv("OSC_ACCESS_KEY", "")
@@ -143,18 +143,19 @@ func TestNewFrom(t *testing.T) {
 }
 
 func newConfigFile(t *testing.T) *profile.ConfigFile {
+	t.Helper()
 	path := filepath.Join(t.TempDir(), "config.json")
 
 	cf := profile.ConfigFile{
 		Path: path,
 		Profiles: map[string]profile.Profile{
-			profile.DefaultProfile: profile.Profile{
+			profile.DefaultProfile: {
 				AccessKey:   "defaultak",
 				SecretKey:   "defaultsk",
 				AccessKeyV2: "defaultakv2",
 				SecretKeyV2: "defaultskv2",
 			},
-			"foo": profile.Profile{
+			"foo": {
 				AccessKey: "fooak",
 				SecretKey: "foosk",
 			},

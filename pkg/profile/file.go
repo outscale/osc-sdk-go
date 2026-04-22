@@ -67,13 +67,13 @@ func LoadConfigFile(path string) (*ConfigFile, error) {
 func (cf *ConfigFile) Save() error {
 	dir := filepath.Dir(cf.Path)
 	if _, err := os.Stat(dir); errors.Is(err, fs.ErrNotExist) {
-		err := os.MkdirAll(dir, 0700)
+		err := os.MkdirAll(dir, 0o700)
 		if err != nil {
 			return fmt.Errorf("unable to save config file: %w", err)
 		}
 	}
 	tmpFile := cf.Path + ".tmp"
-	fd, err := os.OpenFile(tmpFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+	fd, err := os.OpenFile(tmpFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o600) //nolint:gosec
 	if err != nil {
 		return fmt.Errorf("unable to save config file: %w", err)
 	}
