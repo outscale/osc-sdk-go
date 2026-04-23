@@ -918,3 +918,11 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 500 response (Internal Server Error).
+- target: $.paths["/UnlinkPrivateIps"].post.responses
+  update:
+    '409':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 409 response (Conflict).
