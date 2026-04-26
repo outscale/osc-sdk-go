@@ -19116,6 +19116,7 @@ func (c *ClientRaw) UpdateVpnConnectionRaw(ctx context.Context, body UpdateVpnCo
 // NewAcceptNetPeeringRequest calls the generic AcceptNetPeering builder with application/json body
 func NewAcceptNetPeeringRequest(server string, body AcceptNetPeeringJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19156,6 +19157,7 @@ func NewAcceptNetPeeringRequestWithBody(server string, contentType string, body 
 // NewAddUserToUserGroupRequest calls the generic AddUserToUserGroup builder with application/json body
 func NewAddUserToUserGroupRequest(server string, body AddUserToUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19196,6 +19198,7 @@ func NewAddUserToUserGroupRequestWithBody(server string, contentType string, bod
 // NewCheckAuthenticationRequest calls the generic CheckAuthentication builder with application/json body
 func NewCheckAuthenticationRequest(server string, body CheckAuthenticationJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19236,6 +19239,13 @@ func NewCheckAuthenticationRequestWithBody(server string, contentType string, bo
 // NewCreateAccessKeyRequest calls the generic CreateAccessKey builder with application/json body
 func NewCreateAccessKeyRequest(server string, body CreateAccessKeyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19276,6 +19286,13 @@ func NewCreateAccessKeyRequestWithBody(server string, contentType string, body i
 // NewCreateAccountRequest calls the generic CreateAccount builder with application/json body
 func NewCreateAccountRequest(server string, body CreateAccountJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19316,6 +19333,13 @@ func NewCreateAccountRequestWithBody(server string, contentType string, body io.
 // NewCreateApiAccessRuleRequest calls the generic CreateApiAccessRule builder with application/json body
 func NewCreateApiAccessRuleRequest(server string, body CreateApiAccessRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19356,6 +19380,13 @@ func NewCreateApiAccessRuleRequestWithBody(server string, contentType string, bo
 // NewCreateCaRequest calls the generic CreateCa builder with application/json body
 func NewCreateCaRequest(server string, body CreateCaJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19396,6 +19427,13 @@ func NewCreateCaRequestWithBody(server string, contentType string, body io.Reade
 // NewCreateClientGatewayRequest calls the generic CreateClientGateway builder with application/json body
 func NewCreateClientGatewayRequest(server string, body CreateClientGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19436,6 +19474,13 @@ func NewCreateClientGatewayRequestWithBody(server string, contentType string, bo
 // NewCreateDedicatedGroupRequest calls the generic CreateDedicatedGroup builder with application/json body
 func NewCreateDedicatedGroupRequest(server string, body CreateDedicatedGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19476,6 +19521,13 @@ func NewCreateDedicatedGroupRequestWithBody(server string, contentType string, b
 // NewCreateDhcpOptionsRequest calls the generic CreateDhcpOptions builder with application/json body
 func NewCreateDhcpOptionsRequest(server string, body CreateDhcpOptionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19516,6 +19568,13 @@ func NewCreateDhcpOptionsRequestWithBody(server string, contentType string, body
 // NewCreateDirectLinkRequest calls the generic CreateDirectLink builder with application/json body
 func NewCreateDirectLinkRequest(server string, body CreateDirectLinkJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19556,6 +19615,13 @@ func NewCreateDirectLinkRequestWithBody(server string, contentType string, body 
 // NewCreateDirectLinkInterfaceRequest calls the generic CreateDirectLinkInterface builder with application/json body
 func NewCreateDirectLinkInterfaceRequest(server string, body CreateDirectLinkInterfaceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19596,6 +19662,13 @@ func NewCreateDirectLinkInterfaceRequestWithBody(server string, contentType stri
 // NewCreateFlexibleGpuRequest calls the generic CreateFlexibleGpu builder with application/json body
 func NewCreateFlexibleGpuRequest(server string, body CreateFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19636,6 +19709,13 @@ func NewCreateFlexibleGpuRequestWithBody(server string, contentType string, body
 // NewCreateImageRequest calls the generic CreateImage builder with application/json body
 func NewCreateImageRequest(server string, body CreateImageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19676,6 +19756,13 @@ func NewCreateImageRequestWithBody(server string, contentType string, body io.Re
 // NewCreateImageExportTaskRequest calls the generic CreateImageExportTask builder with application/json body
 func NewCreateImageExportTaskRequest(server string, body CreateImageExportTaskJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19716,6 +19803,13 @@ func NewCreateImageExportTaskRequestWithBody(server string, contentType string, 
 // NewCreateInternetServiceRequest calls the generic CreateInternetService builder with application/json body
 func NewCreateInternetServiceRequest(server string, body CreateInternetServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19756,6 +19850,13 @@ func NewCreateInternetServiceRequestWithBody(server string, contentType string, 
 // NewCreateKeypairRequest calls the generic CreateKeypair builder with application/json body
 func NewCreateKeypairRequest(server string, body CreateKeypairJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19796,6 +19897,13 @@ func NewCreateKeypairRequestWithBody(server string, contentType string, body io.
 // NewCreateListenerRuleRequest calls the generic CreateListenerRule builder with application/json body
 func NewCreateListenerRuleRequest(server string, body CreateListenerRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19836,6 +19944,13 @@ func NewCreateListenerRuleRequestWithBody(server string, contentType string, bod
 // NewCreateLoadBalancerRequest calls the generic CreateLoadBalancer builder with application/json body
 func NewCreateLoadBalancerRequest(server string, body CreateLoadBalancerJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19876,6 +19991,13 @@ func NewCreateLoadBalancerRequestWithBody(server string, contentType string, bod
 // NewCreateLoadBalancerListenersRequest calls the generic CreateLoadBalancerListeners builder with application/json body
 func NewCreateLoadBalancerListenersRequest(server string, body CreateLoadBalancerListenersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19916,6 +20038,13 @@ func NewCreateLoadBalancerListenersRequestWithBody(server string, contentType st
 // NewCreateLoadBalancerPolicyRequest calls the generic CreateLoadBalancerPolicy builder with application/json body
 func NewCreateLoadBalancerPolicyRequest(server string, body CreateLoadBalancerPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19956,6 +20085,13 @@ func NewCreateLoadBalancerPolicyRequestWithBody(server string, contentType strin
 // NewCreateLoadBalancerTagsRequest calls the generic CreateLoadBalancerTags builder with application/json body
 func NewCreateLoadBalancerTagsRequest(server string, body CreateLoadBalancerTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -19996,6 +20132,13 @@ func NewCreateLoadBalancerTagsRequestWithBody(server string, contentType string,
 // NewCreateNatServiceRequest calls the generic CreateNatService builder with application/json body
 func NewCreateNatServiceRequest(server string, body CreateNatServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20036,6 +20179,13 @@ func NewCreateNatServiceRequestWithBody(server string, contentType string, body 
 // NewCreateNetRequest calls the generic CreateNet builder with application/json body
 func NewCreateNetRequest(server string, body CreateNetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20076,6 +20226,13 @@ func NewCreateNetRequestWithBody(server string, contentType string, body io.Read
 // NewCreateNetAccessPointRequest calls the generic CreateNetAccessPoint builder with application/json body
 func NewCreateNetAccessPointRequest(server string, body CreateNetAccessPointJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20116,6 +20273,13 @@ func NewCreateNetAccessPointRequestWithBody(server string, contentType string, b
 // NewCreateNetPeeringRequest calls the generic CreateNetPeering builder with application/json body
 func NewCreateNetPeeringRequest(server string, body CreateNetPeeringJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20156,6 +20320,13 @@ func NewCreateNetPeeringRequestWithBody(server string, contentType string, body 
 // NewCreateNicRequest calls the generic CreateNic builder with application/json body
 func NewCreateNicRequest(server string, body CreateNicJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20196,6 +20367,13 @@ func NewCreateNicRequestWithBody(server string, contentType string, body io.Read
 // NewCreatePolicyRequest calls the generic CreatePolicy builder with application/json body
 func NewCreatePolicyRequest(server string, body CreatePolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20236,6 +20414,13 @@ func NewCreatePolicyRequestWithBody(server string, contentType string, body io.R
 // NewCreatePolicyVersionRequest calls the generic CreatePolicyVersion builder with application/json body
 func NewCreatePolicyVersionRequest(server string, body CreatePolicyVersionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20276,6 +20461,13 @@ func NewCreatePolicyVersionRequestWithBody(server string, contentType string, bo
 // NewCreateProductTypeRequest calls the generic CreateProductType builder with application/json body
 func NewCreateProductTypeRequest(server string, body CreateProductTypeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20316,6 +20508,13 @@ func NewCreateProductTypeRequestWithBody(server string, contentType string, body
 // NewCreatePublicIpRequest calls the generic CreatePublicIp builder with application/json body
 func NewCreatePublicIpRequest(server string, body CreatePublicIpJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20356,6 +20555,13 @@ func NewCreatePublicIpRequestWithBody(server string, contentType string, body io
 // NewCreateRouteRequest calls the generic CreateRoute builder with application/json body
 func NewCreateRouteRequest(server string, body CreateRouteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20396,6 +20602,13 @@ func NewCreateRouteRequestWithBody(server string, contentType string, body io.Re
 // NewCreateRouteTableRequest calls the generic CreateRouteTable builder with application/json body
 func NewCreateRouteTableRequest(server string, body CreateRouteTableJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20436,6 +20649,13 @@ func NewCreateRouteTableRequestWithBody(server string, contentType string, body 
 // NewCreateSecurityGroupRequest calls the generic CreateSecurityGroup builder with application/json body
 func NewCreateSecurityGroupRequest(server string, body CreateSecurityGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20476,6 +20696,13 @@ func NewCreateSecurityGroupRequestWithBody(server string, contentType string, bo
 // NewCreateSecurityGroupRuleRequest calls the generic CreateSecurityGroupRule builder with application/json body
 func NewCreateSecurityGroupRuleRequest(server string, body CreateSecurityGroupRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20516,6 +20743,13 @@ func NewCreateSecurityGroupRuleRequestWithBody(server string, contentType string
 // NewCreateServerCertificateRequest calls the generic CreateServerCertificate builder with application/json body
 func NewCreateServerCertificateRequest(server string, body CreateServerCertificateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20556,6 +20790,13 @@ func NewCreateServerCertificateRequestWithBody(server string, contentType string
 // NewCreateSnapshotRequest calls the generic CreateSnapshot builder with application/json body
 func NewCreateSnapshotRequest(server string, body CreateSnapshotJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20596,6 +20837,13 @@ func NewCreateSnapshotRequestWithBody(server string, contentType string, body io
 // NewCreateSnapshotExportTaskRequest calls the generic CreateSnapshotExportTask builder with application/json body
 func NewCreateSnapshotExportTaskRequest(server string, body CreateSnapshotExportTaskJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20636,6 +20884,13 @@ func NewCreateSnapshotExportTaskRequestWithBody(server string, contentType strin
 // NewCreateSubnetRequest calls the generic CreateSubnet builder with application/json body
 func NewCreateSubnetRequest(server string, body CreateSubnetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20676,6 +20931,13 @@ func NewCreateSubnetRequestWithBody(server string, contentType string, body io.R
 // NewCreateTagsRequest calls the generic CreateTags builder with application/json body
 func NewCreateTagsRequest(server string, body CreateTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20716,6 +20978,13 @@ func NewCreateTagsRequestWithBody(server string, contentType string, body io.Rea
 // NewCreateUserRequest calls the generic CreateUser builder with application/json body
 func NewCreateUserRequest(server string, body CreateUserJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20756,6 +21025,13 @@ func NewCreateUserRequestWithBody(server string, contentType string, body io.Rea
 // NewCreateUserGroupRequest calls the generic CreateUserGroup builder with application/json body
 func NewCreateUserGroupRequest(server string, body CreateUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20796,6 +21072,13 @@ func NewCreateUserGroupRequestWithBody(server string, contentType string, body i
 // NewCreateVirtualGatewayRequest calls the generic CreateVirtualGateway builder with application/json body
 func NewCreateVirtualGatewayRequest(server string, body CreateVirtualGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20836,6 +21119,13 @@ func NewCreateVirtualGatewayRequestWithBody(server string, contentType string, b
 // NewCreateVmGroupRequest calls the generic CreateVmGroup builder with application/json body
 func NewCreateVmGroupRequest(server string, body CreateVmGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20876,6 +21166,13 @@ func NewCreateVmGroupRequestWithBody(server string, contentType string, body io.
 // NewCreateVmTemplateRequest calls the generic CreateVmTemplate builder with application/json body
 func NewCreateVmTemplateRequest(server string, body CreateVmTemplateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20916,6 +21213,13 @@ func NewCreateVmTemplateRequestWithBody(server string, contentType string, body 
 // NewCreateVmsRequest calls the generic CreateVms builder with application/json body
 func NewCreateVmsRequest(server string, body CreateVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20956,6 +21260,13 @@ func NewCreateVmsRequestWithBody(server string, contentType string, body io.Read
 // NewCreateVolumeRequest calls the generic CreateVolume builder with application/json body
 func NewCreateVolumeRequest(server string, body CreateVolumeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -20996,6 +21307,13 @@ func NewCreateVolumeRequestWithBody(server string, contentType string, body io.R
 // NewCreateVpnConnectionRequest calls the generic CreateVpnConnection builder with application/json body
 func NewCreateVpnConnectionRequest(server string, body CreateVpnConnectionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21036,6 +21354,13 @@ func NewCreateVpnConnectionRequestWithBody(server string, contentType string, bo
 // NewCreateVpnConnectionRouteRequest calls the generic CreateVpnConnectionRoute builder with application/json body
 func NewCreateVpnConnectionRouteRequest(server string, body CreateVpnConnectionRouteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
+	if v, ok := any(body).(clientTokenSetter); ok {
+		err := v.SetClientToken()
+		if err != nil {
+			return nil, err
+		}
+	}
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21076,6 +21401,7 @@ func NewCreateVpnConnectionRouteRequestWithBody(server string, contentType strin
 // NewDeleteAccessKeyRequest calls the generic DeleteAccessKey builder with application/json body
 func NewDeleteAccessKeyRequest(server string, body DeleteAccessKeyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21116,6 +21442,7 @@ func NewDeleteAccessKeyRequestWithBody(server string, contentType string, body i
 // NewDeleteApiAccessRuleRequest calls the generic DeleteApiAccessRule builder with application/json body
 func NewDeleteApiAccessRuleRequest(server string, body DeleteApiAccessRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21156,6 +21483,7 @@ func NewDeleteApiAccessRuleRequestWithBody(server string, contentType string, bo
 // NewDeleteCaRequest calls the generic DeleteCa builder with application/json body
 func NewDeleteCaRequest(server string, body DeleteCaJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21196,6 +21524,7 @@ func NewDeleteCaRequestWithBody(server string, contentType string, body io.Reade
 // NewDeleteClientGatewayRequest calls the generic DeleteClientGateway builder with application/json body
 func NewDeleteClientGatewayRequest(server string, body DeleteClientGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21236,6 +21565,7 @@ func NewDeleteClientGatewayRequestWithBody(server string, contentType string, bo
 // NewDeleteDedicatedGroupRequest calls the generic DeleteDedicatedGroup builder with application/json body
 func NewDeleteDedicatedGroupRequest(server string, body DeleteDedicatedGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21276,6 +21606,7 @@ func NewDeleteDedicatedGroupRequestWithBody(server string, contentType string, b
 // NewDeleteDhcpOptionsRequest calls the generic DeleteDhcpOptions builder with application/json body
 func NewDeleteDhcpOptionsRequest(server string, body DeleteDhcpOptionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21316,6 +21647,7 @@ func NewDeleteDhcpOptionsRequestWithBody(server string, contentType string, body
 // NewDeleteDirectLinkRequest calls the generic DeleteDirectLink builder with application/json body
 func NewDeleteDirectLinkRequest(server string, body DeleteDirectLinkJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21356,6 +21688,7 @@ func NewDeleteDirectLinkRequestWithBody(server string, contentType string, body 
 // NewDeleteDirectLinkInterfaceRequest calls the generic DeleteDirectLinkInterface builder with application/json body
 func NewDeleteDirectLinkInterfaceRequest(server string, body DeleteDirectLinkInterfaceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21396,6 +21729,7 @@ func NewDeleteDirectLinkInterfaceRequestWithBody(server string, contentType stri
 // NewDeleteExportTaskRequest calls the generic DeleteExportTask builder with application/json body
 func NewDeleteExportTaskRequest(server string, body DeleteExportTaskJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21436,6 +21770,7 @@ func NewDeleteExportTaskRequestWithBody(server string, contentType string, body 
 // NewDeleteFlexibleGpuRequest calls the generic DeleteFlexibleGpu builder with application/json body
 func NewDeleteFlexibleGpuRequest(server string, body DeleteFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21476,6 +21811,7 @@ func NewDeleteFlexibleGpuRequestWithBody(server string, contentType string, body
 // NewDeleteImageRequest calls the generic DeleteImage builder with application/json body
 func NewDeleteImageRequest(server string, body DeleteImageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21516,6 +21852,7 @@ func NewDeleteImageRequestWithBody(server string, contentType string, body io.Re
 // NewDeleteInternetServiceRequest calls the generic DeleteInternetService builder with application/json body
 func NewDeleteInternetServiceRequest(server string, body DeleteInternetServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21556,6 +21893,7 @@ func NewDeleteInternetServiceRequestWithBody(server string, contentType string, 
 // NewDeleteKeypairRequest calls the generic DeleteKeypair builder with application/json body
 func NewDeleteKeypairRequest(server string, body DeleteKeypairJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21596,6 +21934,7 @@ func NewDeleteKeypairRequestWithBody(server string, contentType string, body io.
 // NewDeleteListenerRuleRequest calls the generic DeleteListenerRule builder with application/json body
 func NewDeleteListenerRuleRequest(server string, body DeleteListenerRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21636,6 +21975,7 @@ func NewDeleteListenerRuleRequestWithBody(server string, contentType string, bod
 // NewDeleteLoadBalancerRequest calls the generic DeleteLoadBalancer builder with application/json body
 func NewDeleteLoadBalancerRequest(server string, body DeleteLoadBalancerJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21676,6 +22016,7 @@ func NewDeleteLoadBalancerRequestWithBody(server string, contentType string, bod
 // NewDeleteLoadBalancerListenersRequest calls the generic DeleteLoadBalancerListeners builder with application/json body
 func NewDeleteLoadBalancerListenersRequest(server string, body DeleteLoadBalancerListenersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21716,6 +22057,7 @@ func NewDeleteLoadBalancerListenersRequestWithBody(server string, contentType st
 // NewDeleteLoadBalancerPolicyRequest calls the generic DeleteLoadBalancerPolicy builder with application/json body
 func NewDeleteLoadBalancerPolicyRequest(server string, body DeleteLoadBalancerPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21756,6 +22098,7 @@ func NewDeleteLoadBalancerPolicyRequestWithBody(server string, contentType strin
 // NewDeleteLoadBalancerTagsRequest calls the generic DeleteLoadBalancerTags builder with application/json body
 func NewDeleteLoadBalancerTagsRequest(server string, body DeleteLoadBalancerTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21796,6 +22139,7 @@ func NewDeleteLoadBalancerTagsRequestWithBody(server string, contentType string,
 // NewDeleteNatServiceRequest calls the generic DeleteNatService builder with application/json body
 func NewDeleteNatServiceRequest(server string, body DeleteNatServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21836,6 +22180,7 @@ func NewDeleteNatServiceRequestWithBody(server string, contentType string, body 
 // NewDeleteNetRequest calls the generic DeleteNet builder with application/json body
 func NewDeleteNetRequest(server string, body DeleteNetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21876,6 +22221,7 @@ func NewDeleteNetRequestWithBody(server string, contentType string, body io.Read
 // NewDeleteNetAccessPointRequest calls the generic DeleteNetAccessPoint builder with application/json body
 func NewDeleteNetAccessPointRequest(server string, body DeleteNetAccessPointJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21916,6 +22262,7 @@ func NewDeleteNetAccessPointRequestWithBody(server string, contentType string, b
 // NewDeleteNetPeeringRequest calls the generic DeleteNetPeering builder with application/json body
 func NewDeleteNetPeeringRequest(server string, body DeleteNetPeeringJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21956,6 +22303,7 @@ func NewDeleteNetPeeringRequestWithBody(server string, contentType string, body 
 // NewDeleteNicRequest calls the generic DeleteNic builder with application/json body
 func NewDeleteNicRequest(server string, body DeleteNicJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -21996,6 +22344,7 @@ func NewDeleteNicRequestWithBody(server string, contentType string, body io.Read
 // NewDeletePolicyRequest calls the generic DeletePolicy builder with application/json body
 func NewDeletePolicyRequest(server string, body DeletePolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22036,6 +22385,7 @@ func NewDeletePolicyRequestWithBody(server string, contentType string, body io.R
 // NewDeletePolicyVersionRequest calls the generic DeletePolicyVersion builder with application/json body
 func NewDeletePolicyVersionRequest(server string, body DeletePolicyVersionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22076,6 +22426,7 @@ func NewDeletePolicyVersionRequestWithBody(server string, contentType string, bo
 // NewDeleteProductTypeRequest calls the generic DeleteProductType builder with application/json body
 func NewDeleteProductTypeRequest(server string, body DeleteProductTypeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22116,6 +22467,7 @@ func NewDeleteProductTypeRequestWithBody(server string, contentType string, body
 // NewDeletePublicIpRequest calls the generic DeletePublicIp builder with application/json body
 func NewDeletePublicIpRequest(server string, body DeletePublicIpJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22156,6 +22508,7 @@ func NewDeletePublicIpRequestWithBody(server string, contentType string, body io
 // NewDeleteRouteRequest calls the generic DeleteRoute builder with application/json body
 func NewDeleteRouteRequest(server string, body DeleteRouteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22196,6 +22549,7 @@ func NewDeleteRouteRequestWithBody(server string, contentType string, body io.Re
 // NewDeleteRouteTableRequest calls the generic DeleteRouteTable builder with application/json body
 func NewDeleteRouteTableRequest(server string, body DeleteRouteTableJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22236,6 +22590,7 @@ func NewDeleteRouteTableRequestWithBody(server string, contentType string, body 
 // NewDeleteSecurityGroupRequest calls the generic DeleteSecurityGroup builder with application/json body
 func NewDeleteSecurityGroupRequest(server string, body DeleteSecurityGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22276,6 +22631,7 @@ func NewDeleteSecurityGroupRequestWithBody(server string, contentType string, bo
 // NewDeleteSecurityGroupRuleRequest calls the generic DeleteSecurityGroupRule builder with application/json body
 func NewDeleteSecurityGroupRuleRequest(server string, body DeleteSecurityGroupRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22316,6 +22672,7 @@ func NewDeleteSecurityGroupRuleRequestWithBody(server string, contentType string
 // NewDeleteServerCertificateRequest calls the generic DeleteServerCertificate builder with application/json body
 func NewDeleteServerCertificateRequest(server string, body DeleteServerCertificateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22356,6 +22713,7 @@ func NewDeleteServerCertificateRequestWithBody(server string, contentType string
 // NewDeleteSnapshotRequest calls the generic DeleteSnapshot builder with application/json body
 func NewDeleteSnapshotRequest(server string, body DeleteSnapshotJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22396,6 +22754,7 @@ func NewDeleteSnapshotRequestWithBody(server string, contentType string, body io
 // NewDeleteSubnetRequest calls the generic DeleteSubnet builder with application/json body
 func NewDeleteSubnetRequest(server string, body DeleteSubnetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22436,6 +22795,7 @@ func NewDeleteSubnetRequestWithBody(server string, contentType string, body io.R
 // NewDeleteTagsRequest calls the generic DeleteTags builder with application/json body
 func NewDeleteTagsRequest(server string, body DeleteTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22476,6 +22836,7 @@ func NewDeleteTagsRequestWithBody(server string, contentType string, body io.Rea
 // NewDeleteUserRequest calls the generic DeleteUser builder with application/json body
 func NewDeleteUserRequest(server string, body DeleteUserJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22516,6 +22877,7 @@ func NewDeleteUserRequestWithBody(server string, contentType string, body io.Rea
 // NewDeleteUserGroupRequest calls the generic DeleteUserGroup builder with application/json body
 func NewDeleteUserGroupRequest(server string, body DeleteUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22556,6 +22918,7 @@ func NewDeleteUserGroupRequestWithBody(server string, contentType string, body i
 // NewDeleteUserGroupPolicyRequest calls the generic DeleteUserGroupPolicy builder with application/json body
 func NewDeleteUserGroupPolicyRequest(server string, body DeleteUserGroupPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22596,6 +22959,7 @@ func NewDeleteUserGroupPolicyRequestWithBody(server string, contentType string, 
 // NewDeleteUserPolicyRequest calls the generic DeleteUserPolicy builder with application/json body
 func NewDeleteUserPolicyRequest(server string, body DeleteUserPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22636,6 +23000,7 @@ func NewDeleteUserPolicyRequestWithBody(server string, contentType string, body 
 // NewDeleteVirtualGatewayRequest calls the generic DeleteVirtualGateway builder with application/json body
 func NewDeleteVirtualGatewayRequest(server string, body DeleteVirtualGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22676,6 +23041,7 @@ func NewDeleteVirtualGatewayRequestWithBody(server string, contentType string, b
 // NewDeleteVmGroupRequest calls the generic DeleteVmGroup builder with application/json body
 func NewDeleteVmGroupRequest(server string, body DeleteVmGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22716,6 +23082,7 @@ func NewDeleteVmGroupRequestWithBody(server string, contentType string, body io.
 // NewDeleteVmTemplateRequest calls the generic DeleteVmTemplate builder with application/json body
 func NewDeleteVmTemplateRequest(server string, body DeleteVmTemplateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22756,6 +23123,7 @@ func NewDeleteVmTemplateRequestWithBody(server string, contentType string, body 
 // NewDeleteVmsRequest calls the generic DeleteVms builder with application/json body
 func NewDeleteVmsRequest(server string, body DeleteVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22796,6 +23164,7 @@ func NewDeleteVmsRequestWithBody(server string, contentType string, body io.Read
 // NewDeleteVolumeRequest calls the generic DeleteVolume builder with application/json body
 func NewDeleteVolumeRequest(server string, body DeleteVolumeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22836,6 +23205,7 @@ func NewDeleteVolumeRequestWithBody(server string, contentType string, body io.R
 // NewDeleteVpnConnectionRequest calls the generic DeleteVpnConnection builder with application/json body
 func NewDeleteVpnConnectionRequest(server string, body DeleteVpnConnectionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22876,6 +23246,7 @@ func NewDeleteVpnConnectionRequestWithBody(server string, contentType string, bo
 // NewDeleteVpnConnectionRouteRequest calls the generic DeleteVpnConnectionRoute builder with application/json body
 func NewDeleteVpnConnectionRouteRequest(server string, body DeleteVpnConnectionRouteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22916,6 +23287,7 @@ func NewDeleteVpnConnectionRouteRequestWithBody(server string, contentType strin
 // NewDeregisterVmsInLoadBalancerRequest calls the generic DeregisterVmsInLoadBalancer builder with application/json body
 func NewDeregisterVmsInLoadBalancerRequest(server string, body DeregisterVmsInLoadBalancerJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22956,6 +23328,7 @@ func NewDeregisterVmsInLoadBalancerRequestWithBody(server string, contentType st
 // NewDisableOutscaleLoginRequest calls the generic DisableOutscaleLogin builder with application/json body
 func NewDisableOutscaleLoginRequest(server string, body DisableOutscaleLoginJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -22996,6 +23369,7 @@ func NewDisableOutscaleLoginRequestWithBody(server string, contentType string, b
 // NewDisableOutscaleLoginForUsersRequest calls the generic DisableOutscaleLoginForUsers builder with application/json body
 func NewDisableOutscaleLoginForUsersRequest(server string, body DisableOutscaleLoginForUsersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23036,6 +23410,7 @@ func NewDisableOutscaleLoginForUsersRequestWithBody(server string, contentType s
 // NewDisableOutscaleLoginPerUsersRequest calls the generic DisableOutscaleLoginPerUsers builder with application/json body
 func NewDisableOutscaleLoginPerUsersRequest(server string, body DisableOutscaleLoginPerUsersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23076,6 +23451,7 @@ func NewDisableOutscaleLoginPerUsersRequestWithBody(server string, contentType s
 // NewEnableOutscaleLoginRequest calls the generic EnableOutscaleLogin builder with application/json body
 func NewEnableOutscaleLoginRequest(server string, body EnableOutscaleLoginJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23116,6 +23492,7 @@ func NewEnableOutscaleLoginRequestWithBody(server string, contentType string, bo
 // NewEnableOutscaleLoginForUsersRequest calls the generic EnableOutscaleLoginForUsers builder with application/json body
 func NewEnableOutscaleLoginForUsersRequest(server string, body EnableOutscaleLoginForUsersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23156,6 +23533,7 @@ func NewEnableOutscaleLoginForUsersRequestWithBody(server string, contentType st
 // NewEnableOutscaleLoginPerUsersRequest calls the generic EnableOutscaleLoginPerUsers builder with application/json body
 func NewEnableOutscaleLoginPerUsersRequest(server string, body EnableOutscaleLoginPerUsersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23196,6 +23574,7 @@ func NewEnableOutscaleLoginPerUsersRequestWithBody(server string, contentType st
 // NewLinkFlexibleGpuRequest calls the generic LinkFlexibleGpu builder with application/json body
 func NewLinkFlexibleGpuRequest(server string, body LinkFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23236,6 +23615,7 @@ func NewLinkFlexibleGpuRequestWithBody(server string, contentType string, body i
 // NewLinkInternetServiceRequest calls the generic LinkInternetService builder with application/json body
 func NewLinkInternetServiceRequest(server string, body LinkInternetServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23276,6 +23656,7 @@ func NewLinkInternetServiceRequestWithBody(server string, contentType string, bo
 // NewLinkLoadBalancerBackendMachinesRequest calls the generic LinkLoadBalancerBackendMachines builder with application/json body
 func NewLinkLoadBalancerBackendMachinesRequest(server string, body LinkLoadBalancerBackendMachinesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23316,6 +23697,7 @@ func NewLinkLoadBalancerBackendMachinesRequestWithBody(server string, contentTyp
 // NewLinkManagedPolicyToUserGroupRequest calls the generic LinkManagedPolicyToUserGroup builder with application/json body
 func NewLinkManagedPolicyToUserGroupRequest(server string, body LinkManagedPolicyToUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23356,6 +23738,7 @@ func NewLinkManagedPolicyToUserGroupRequestWithBody(server string, contentType s
 // NewLinkNicRequest calls the generic LinkNic builder with application/json body
 func NewLinkNicRequest(server string, body LinkNicJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23396,6 +23779,7 @@ func NewLinkNicRequestWithBody(server string, contentType string, body io.Reader
 // NewLinkPolicyRequest calls the generic LinkPolicy builder with application/json body
 func NewLinkPolicyRequest(server string, body LinkPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23436,6 +23820,7 @@ func NewLinkPolicyRequestWithBody(server string, contentType string, body io.Rea
 // NewLinkPrivateIpsRequest calls the generic LinkPrivateIps builder with application/json body
 func NewLinkPrivateIpsRequest(server string, body LinkPrivateIpsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23476,6 +23861,7 @@ func NewLinkPrivateIpsRequestWithBody(server string, contentType string, body io
 // NewLinkPublicIpRequest calls the generic LinkPublicIp builder with application/json body
 func NewLinkPublicIpRequest(server string, body LinkPublicIpJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23516,6 +23902,7 @@ func NewLinkPublicIpRequestWithBody(server string, contentType string, body io.R
 // NewLinkRouteTableRequest calls the generic LinkRouteTable builder with application/json body
 func NewLinkRouteTableRequest(server string, body LinkRouteTableJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23556,6 +23943,7 @@ func NewLinkRouteTableRequestWithBody(server string, contentType string, body io
 // NewLinkVirtualGatewayRequest calls the generic LinkVirtualGateway builder with application/json body
 func NewLinkVirtualGatewayRequest(server string, body LinkVirtualGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23596,6 +23984,7 @@ func NewLinkVirtualGatewayRequestWithBody(server string, contentType string, bod
 // NewLinkVolumeRequest calls the generic LinkVolume builder with application/json body
 func NewLinkVolumeRequest(server string, body LinkVolumeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23636,6 +24025,7 @@ func NewLinkVolumeRequestWithBody(server string, contentType string, body io.Rea
 // NewPutUserGroupPolicyRequest calls the generic PutUserGroupPolicy builder with application/json body
 func NewPutUserGroupPolicyRequest(server string, body PutUserGroupPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23676,6 +24066,7 @@ func NewPutUserGroupPolicyRequestWithBody(server string, contentType string, bod
 // NewPutUserPolicyRequest calls the generic PutUserPolicy builder with application/json body
 func NewPutUserPolicyRequest(server string, body PutUserPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23716,6 +24107,7 @@ func NewPutUserPolicyRequestWithBody(server string, contentType string, body io.
 // NewReadAccessKeysRequest calls the generic ReadAccessKeys builder with application/json body
 func NewReadAccessKeysRequest(server string, body ReadAccessKeysJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23756,6 +24148,7 @@ func NewReadAccessKeysRequestWithBody(server string, contentType string, body io
 // NewReadAccountsRequest calls the generic ReadAccounts builder with application/json body
 func NewReadAccountsRequest(server string, body ReadAccountsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23796,6 +24189,7 @@ func NewReadAccountsRequestWithBody(server string, contentType string, body io.R
 // NewReadAdminPasswordRequest calls the generic ReadAdminPassword builder with application/json body
 func NewReadAdminPasswordRequest(server string, body ReadAdminPasswordJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23836,6 +24230,7 @@ func NewReadAdminPasswordRequestWithBody(server string, contentType string, body
 // NewReadApiAccessPolicyRequest calls the generic ReadApiAccessPolicy builder with application/json body
 func NewReadApiAccessPolicyRequest(server string, body ReadApiAccessPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23876,6 +24271,7 @@ func NewReadApiAccessPolicyRequestWithBody(server string, contentType string, bo
 // NewReadApiAccessRulesRequest calls the generic ReadApiAccessRules builder with application/json body
 func NewReadApiAccessRulesRequest(server string, body ReadApiAccessRulesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23916,6 +24312,7 @@ func NewReadApiAccessRulesRequestWithBody(server string, contentType string, bod
 // NewReadApiLogsRequest calls the generic ReadApiLogs builder with application/json body
 func NewReadApiLogsRequest(server string, body ReadApiLogsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23956,6 +24353,7 @@ func NewReadApiLogsRequestWithBody(server string, contentType string, body io.Re
 // NewReadCO2EmissionAccountRequest calls the generic ReadCO2EmissionAccount builder with application/json body
 func NewReadCO2EmissionAccountRequest(server string, body ReadCO2EmissionAccountJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -23996,6 +24394,7 @@ func NewReadCO2EmissionAccountRequestWithBody(server string, contentType string,
 // NewReadCasRequest calls the generic ReadCas builder with application/json body
 func NewReadCasRequest(server string, body ReadCasJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24036,6 +24435,7 @@ func NewReadCasRequestWithBody(server string, contentType string, body io.Reader
 // NewReadCatalogRequest calls the generic ReadCatalog builder with application/json body
 func NewReadCatalogRequest(server string, body ReadCatalogJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24076,6 +24476,7 @@ func NewReadCatalogRequestWithBody(server string, contentType string, body io.Re
 // NewReadCatalogsRequest calls the generic ReadCatalogs builder with application/json body
 func NewReadCatalogsRequest(server string, body ReadCatalogsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24116,6 +24517,7 @@ func NewReadCatalogsRequestWithBody(server string, contentType string, body io.R
 // NewReadClientGatewaysRequest calls the generic ReadClientGateways builder with application/json body
 func NewReadClientGatewaysRequest(server string, body ReadClientGatewaysJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24156,6 +24558,7 @@ func NewReadClientGatewaysRequestWithBody(server string, contentType string, bod
 // NewReadConsoleOutputRequest calls the generic ReadConsoleOutput builder with application/json body
 func NewReadConsoleOutputRequest(server string, body ReadConsoleOutputJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24196,6 +24599,7 @@ func NewReadConsoleOutputRequestWithBody(server string, contentType string, body
 // NewReadConsumptionAccountRequest calls the generic ReadConsumptionAccount builder with application/json body
 func NewReadConsumptionAccountRequest(server string, body ReadConsumptionAccountJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24236,6 +24640,7 @@ func NewReadConsumptionAccountRequestWithBody(server string, contentType string,
 // NewReadDedicatedGroupsRequest calls the generic ReadDedicatedGroups builder with application/json body
 func NewReadDedicatedGroupsRequest(server string, body ReadDedicatedGroupsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24276,6 +24681,7 @@ func NewReadDedicatedGroupsRequestWithBody(server string, contentType string, bo
 // NewReadDhcpOptionsRequest calls the generic ReadDhcpOptions builder with application/json body
 func NewReadDhcpOptionsRequest(server string, body ReadDhcpOptionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24316,6 +24722,7 @@ func NewReadDhcpOptionsRequestWithBody(server string, contentType string, body i
 // NewReadDirectLinkInterfacesRequest calls the generic ReadDirectLinkInterfaces builder with application/json body
 func NewReadDirectLinkInterfacesRequest(server string, body ReadDirectLinkInterfacesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24356,6 +24763,7 @@ func NewReadDirectLinkInterfacesRequestWithBody(server string, contentType strin
 // NewReadDirectLinksRequest calls the generic ReadDirectLinks builder with application/json body
 func NewReadDirectLinksRequest(server string, body ReadDirectLinksJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24396,6 +24804,7 @@ func NewReadDirectLinksRequestWithBody(server string, contentType string, body i
 // NewReadEntitiesLinkedToPolicyRequest calls the generic ReadEntitiesLinkedToPolicy builder with application/json body
 func NewReadEntitiesLinkedToPolicyRequest(server string, body ReadEntitiesLinkedToPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24436,6 +24845,7 @@ func NewReadEntitiesLinkedToPolicyRequestWithBody(server string, contentType str
 // NewReadFlexibleGpuCatalogRequest calls the generic ReadFlexibleGpuCatalog builder with application/json body
 func NewReadFlexibleGpuCatalogRequest(server string, body ReadFlexibleGpuCatalogJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24476,6 +24886,7 @@ func NewReadFlexibleGpuCatalogRequestWithBody(server string, contentType string,
 // NewReadFlexibleGpusRequest calls the generic ReadFlexibleGpus builder with application/json body
 func NewReadFlexibleGpusRequest(server string, body ReadFlexibleGpusJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24516,6 +24927,7 @@ func NewReadFlexibleGpusRequestWithBody(server string, contentType string, body 
 // NewReadImageExportTasksRequest calls the generic ReadImageExportTasks builder with application/json body
 func NewReadImageExportTasksRequest(server string, body ReadImageExportTasksJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24556,6 +24968,7 @@ func NewReadImageExportTasksRequestWithBody(server string, contentType string, b
 // NewReadImagesRequest calls the generic ReadImages builder with application/json body
 func NewReadImagesRequest(server string, body ReadImagesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24596,6 +25009,7 @@ func NewReadImagesRequestWithBody(server string, contentType string, body io.Rea
 // NewReadInternetServicesRequest calls the generic ReadInternetServices builder with application/json body
 func NewReadInternetServicesRequest(server string, body ReadInternetServicesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24636,6 +25050,7 @@ func NewReadInternetServicesRequestWithBody(server string, contentType string, b
 // NewReadKeypairsRequest calls the generic ReadKeypairs builder with application/json body
 func NewReadKeypairsRequest(server string, body ReadKeypairsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24676,6 +25091,7 @@ func NewReadKeypairsRequestWithBody(server string, contentType string, body io.R
 // NewReadLinkedPoliciesRequest calls the generic ReadLinkedPolicies builder with application/json body
 func NewReadLinkedPoliciesRequest(server string, body ReadLinkedPoliciesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24716,6 +25132,7 @@ func NewReadLinkedPoliciesRequestWithBody(server string, contentType string, bod
 // NewReadListenerRulesRequest calls the generic ReadListenerRules builder with application/json body
 func NewReadListenerRulesRequest(server string, body ReadListenerRulesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24756,6 +25173,7 @@ func NewReadListenerRulesRequestWithBody(server string, contentType string, body
 // NewReadLoadBalancerTagsRequest calls the generic ReadLoadBalancerTags builder with application/json body
 func NewReadLoadBalancerTagsRequest(server string, body ReadLoadBalancerTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24796,6 +25214,7 @@ func NewReadLoadBalancerTagsRequestWithBody(server string, contentType string, b
 // NewReadLoadBalancersRequest calls the generic ReadLoadBalancers builder with application/json body
 func NewReadLoadBalancersRequest(server string, body ReadLoadBalancersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24836,6 +25255,7 @@ func NewReadLoadBalancersRequestWithBody(server string, contentType string, body
 // NewReadLocationsRequest calls the generic ReadLocations builder with application/json body
 func NewReadLocationsRequest(server string, body ReadLocationsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24876,6 +25296,7 @@ func NewReadLocationsRequestWithBody(server string, contentType string, body io.
 // NewReadManagedPoliciesLinkedToUserGroupRequest calls the generic ReadManagedPoliciesLinkedToUserGroup builder with application/json body
 func NewReadManagedPoliciesLinkedToUserGroupRequest(server string, body ReadManagedPoliciesLinkedToUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24916,6 +25337,7 @@ func NewReadManagedPoliciesLinkedToUserGroupRequestWithBody(server string, conte
 // NewReadNatServicesRequest calls the generic ReadNatServices builder with application/json body
 func NewReadNatServicesRequest(server string, body ReadNatServicesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24956,6 +25378,7 @@ func NewReadNatServicesRequestWithBody(server string, contentType string, body i
 // NewReadNetAccessPointServicesRequest calls the generic ReadNetAccessPointServices builder with application/json body
 func NewReadNetAccessPointServicesRequest(server string, body ReadNetAccessPointServicesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -24996,6 +25419,7 @@ func NewReadNetAccessPointServicesRequestWithBody(server string, contentType str
 // NewReadNetAccessPointsRequest calls the generic ReadNetAccessPoints builder with application/json body
 func NewReadNetAccessPointsRequest(server string, body ReadNetAccessPointsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25036,6 +25460,7 @@ func NewReadNetAccessPointsRequestWithBody(server string, contentType string, bo
 // NewReadNetPeeringsRequest calls the generic ReadNetPeerings builder with application/json body
 func NewReadNetPeeringsRequest(server string, body ReadNetPeeringsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25076,6 +25501,7 @@ func NewReadNetPeeringsRequestWithBody(server string, contentType string, body i
 // NewReadNetsRequest calls the generic ReadNets builder with application/json body
 func NewReadNetsRequest(server string, body ReadNetsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25116,6 +25542,7 @@ func NewReadNetsRequestWithBody(server string, contentType string, body io.Reade
 // NewReadNicsRequest calls the generic ReadNics builder with application/json body
 func NewReadNicsRequest(server string, body ReadNicsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25156,6 +25583,7 @@ func NewReadNicsRequestWithBody(server string, contentType string, body io.Reade
 // NewReadPoliciesRequest calls the generic ReadPolicies builder with application/json body
 func NewReadPoliciesRequest(server string, body ReadPoliciesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25196,6 +25624,7 @@ func NewReadPoliciesRequestWithBody(server string, contentType string, body io.R
 // NewReadPolicyRequest calls the generic ReadPolicy builder with application/json body
 func NewReadPolicyRequest(server string, body ReadPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25236,6 +25665,7 @@ func NewReadPolicyRequestWithBody(server string, contentType string, body io.Rea
 // NewReadPolicyVersionRequest calls the generic ReadPolicyVersion builder with application/json body
 func NewReadPolicyVersionRequest(server string, body ReadPolicyVersionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25276,6 +25706,7 @@ func NewReadPolicyVersionRequestWithBody(server string, contentType string, body
 // NewReadPolicyVersionsRequest calls the generic ReadPolicyVersions builder with application/json body
 func NewReadPolicyVersionsRequest(server string, body ReadPolicyVersionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25316,6 +25747,7 @@ func NewReadPolicyVersionsRequestWithBody(server string, contentType string, bod
 // NewReadProductTypesRequest calls the generic ReadProductTypes builder with application/json body
 func NewReadProductTypesRequest(server string, body ReadProductTypesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25356,6 +25788,7 @@ func NewReadProductTypesRequestWithBody(server string, contentType string, body 
 // NewReadPublicCatalogRequest calls the generic ReadPublicCatalog builder with application/json body
 func NewReadPublicCatalogRequest(server string, body ReadPublicCatalogJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25396,6 +25829,7 @@ func NewReadPublicCatalogRequestWithBody(server string, contentType string, body
 // NewReadPublicIpRangesRequest calls the generic ReadPublicIpRanges builder with application/json body
 func NewReadPublicIpRangesRequest(server string, body ReadPublicIpRangesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25436,6 +25870,7 @@ func NewReadPublicIpRangesRequestWithBody(server string, contentType string, bod
 // NewReadPublicIpsRequest calls the generic ReadPublicIps builder with application/json body
 func NewReadPublicIpsRequest(server string, body ReadPublicIpsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25476,6 +25911,7 @@ func NewReadPublicIpsRequestWithBody(server string, contentType string, body io.
 // NewReadQuotasRequest calls the generic ReadQuotas builder with application/json body
 func NewReadQuotasRequest(server string, body ReadQuotasJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25516,6 +25952,7 @@ func NewReadQuotasRequestWithBody(server string, contentType string, body io.Rea
 // NewReadRegionsRequest calls the generic ReadRegions builder with application/json body
 func NewReadRegionsRequest(server string, body ReadRegionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25556,6 +25993,7 @@ func NewReadRegionsRequestWithBody(server string, contentType string, body io.Re
 // NewReadRouteTablesRequest calls the generic ReadRouteTables builder with application/json body
 func NewReadRouteTablesRequest(server string, body ReadRouteTablesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25596,6 +26034,7 @@ func NewReadRouteTablesRequestWithBody(server string, contentType string, body i
 // NewReadSecurityGroupsRequest calls the generic ReadSecurityGroups builder with application/json body
 func NewReadSecurityGroupsRequest(server string, body ReadSecurityGroupsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25636,6 +26075,7 @@ func NewReadSecurityGroupsRequestWithBody(server string, contentType string, bod
 // NewReadServerCertificatesRequest calls the generic ReadServerCertificates builder with application/json body
 func NewReadServerCertificatesRequest(server string, body ReadServerCertificatesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25676,6 +26116,7 @@ func NewReadServerCertificatesRequestWithBody(server string, contentType string,
 // NewReadSnapshotExportTasksRequest calls the generic ReadSnapshotExportTasks builder with application/json body
 func NewReadSnapshotExportTasksRequest(server string, body ReadSnapshotExportTasksJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25716,6 +26157,7 @@ func NewReadSnapshotExportTasksRequestWithBody(server string, contentType string
 // NewReadSnapshotsRequest calls the generic ReadSnapshots builder with application/json body
 func NewReadSnapshotsRequest(server string, body ReadSnapshotsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25756,6 +26198,7 @@ func NewReadSnapshotsRequestWithBody(server string, contentType string, body io.
 // NewReadSubnetsRequest calls the generic ReadSubnets builder with application/json body
 func NewReadSubnetsRequest(server string, body ReadSubnetsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25796,6 +26239,7 @@ func NewReadSubnetsRequestWithBody(server string, contentType string, body io.Re
 // NewReadSubregionsRequest calls the generic ReadSubregions builder with application/json body
 func NewReadSubregionsRequest(server string, body ReadSubregionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25836,6 +26280,7 @@ func NewReadSubregionsRequestWithBody(server string, contentType string, body io
 // NewReadTagsRequest calls the generic ReadTags builder with application/json body
 func NewReadTagsRequest(server string, body ReadTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25876,6 +26321,7 @@ func NewReadTagsRequestWithBody(server string, contentType string, body io.Reade
 // NewReadUnitPriceRequest calls the generic ReadUnitPrice builder with application/json body
 func NewReadUnitPriceRequest(server string, body ReadUnitPriceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25916,6 +26362,7 @@ func NewReadUnitPriceRequestWithBody(server string, contentType string, body io.
 // NewReadUserGroupRequest calls the generic ReadUserGroup builder with application/json body
 func NewReadUserGroupRequest(server string, body ReadUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25956,6 +26403,7 @@ func NewReadUserGroupRequestWithBody(server string, contentType string, body io.
 // NewReadUserGroupPoliciesRequest calls the generic ReadUserGroupPolicies builder with application/json body
 func NewReadUserGroupPoliciesRequest(server string, body ReadUserGroupPoliciesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -25996,6 +26444,7 @@ func NewReadUserGroupPoliciesRequestWithBody(server string, contentType string, 
 // NewReadUserGroupPolicyRequest calls the generic ReadUserGroupPolicy builder with application/json body
 func NewReadUserGroupPolicyRequest(server string, body ReadUserGroupPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26036,6 +26485,7 @@ func NewReadUserGroupPolicyRequestWithBody(server string, contentType string, bo
 // NewReadUserGroupsRequest calls the generic ReadUserGroups builder with application/json body
 func NewReadUserGroupsRequest(server string, body ReadUserGroupsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26076,6 +26526,7 @@ func NewReadUserGroupsRequestWithBody(server string, contentType string, body io
 // NewReadUserGroupsPerUserRequest calls the generic ReadUserGroupsPerUser builder with application/json body
 func NewReadUserGroupsPerUserRequest(server string, body ReadUserGroupsPerUserJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26116,6 +26567,7 @@ func NewReadUserGroupsPerUserRequestWithBody(server string, contentType string, 
 // NewReadUserPoliciesRequest calls the generic ReadUserPolicies builder with application/json body
 func NewReadUserPoliciesRequest(server string, body ReadUserPoliciesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26156,6 +26608,7 @@ func NewReadUserPoliciesRequestWithBody(server string, contentType string, body 
 // NewReadUserPolicyRequest calls the generic ReadUserPolicy builder with application/json body
 func NewReadUserPolicyRequest(server string, body ReadUserPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26196,6 +26649,7 @@ func NewReadUserPolicyRequestWithBody(server string, contentType string, body io
 // NewReadUsersRequest calls the generic ReadUsers builder with application/json body
 func NewReadUsersRequest(server string, body ReadUsersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26236,6 +26690,7 @@ func NewReadUsersRequestWithBody(server string, contentType string, body io.Read
 // NewReadVirtualGatewaysRequest calls the generic ReadVirtualGateways builder with application/json body
 func NewReadVirtualGatewaysRequest(server string, body ReadVirtualGatewaysJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26276,6 +26731,7 @@ func NewReadVirtualGatewaysRequestWithBody(server string, contentType string, bo
 // NewReadVmGroupsRequest calls the generic ReadVmGroups builder with application/json body
 func NewReadVmGroupsRequest(server string, body ReadVmGroupsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26316,6 +26772,7 @@ func NewReadVmGroupsRequestWithBody(server string, contentType string, body io.R
 // NewReadVmTemplatesRequest calls the generic ReadVmTemplates builder with application/json body
 func NewReadVmTemplatesRequest(server string, body ReadVmTemplatesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26356,6 +26813,7 @@ func NewReadVmTemplatesRequestWithBody(server string, contentType string, body i
 // NewReadVmTypesRequest calls the generic ReadVmTypes builder with application/json body
 func NewReadVmTypesRequest(server string, body ReadVmTypesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26396,6 +26854,7 @@ func NewReadVmTypesRequestWithBody(server string, contentType string, body io.Re
 // NewReadVmsRequest calls the generic ReadVms builder with application/json body
 func NewReadVmsRequest(server string, body ReadVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26436,6 +26895,7 @@ func NewReadVmsRequestWithBody(server string, contentType string, body io.Reader
 // NewReadVmsHealthRequest calls the generic ReadVmsHealth builder with application/json body
 func NewReadVmsHealthRequest(server string, body ReadVmsHealthJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26476,6 +26936,7 @@ func NewReadVmsHealthRequestWithBody(server string, contentType string, body io.
 // NewReadVmsStateRequest calls the generic ReadVmsState builder with application/json body
 func NewReadVmsStateRequest(server string, body ReadVmsStateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26516,6 +26977,7 @@ func NewReadVmsStateRequestWithBody(server string, contentType string, body io.R
 // NewReadVolumeUpdateTasksRequest calls the generic ReadVolumeUpdateTasks builder with application/json body
 func NewReadVolumeUpdateTasksRequest(server string, body ReadVolumeUpdateTasksJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26556,6 +27018,7 @@ func NewReadVolumeUpdateTasksRequestWithBody(server string, contentType string, 
 // NewReadVolumesRequest calls the generic ReadVolumes builder with application/json body
 func NewReadVolumesRequest(server string, body ReadVolumesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26596,6 +27059,7 @@ func NewReadVolumesRequestWithBody(server string, contentType string, body io.Re
 // NewReadVpnConnectionsRequest calls the generic ReadVpnConnections builder with application/json body
 func NewReadVpnConnectionsRequest(server string, body ReadVpnConnectionsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26636,6 +27100,7 @@ func NewReadVpnConnectionsRequestWithBody(server string, contentType string, bod
 // NewRebootVmsRequest calls the generic RebootVms builder with application/json body
 func NewRebootVmsRequest(server string, body RebootVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26676,6 +27141,7 @@ func NewRebootVmsRequestWithBody(server string, contentType string, body io.Read
 // NewRegisterVmsInLoadBalancerRequest calls the generic RegisterVmsInLoadBalancer builder with application/json body
 func NewRegisterVmsInLoadBalancerRequest(server string, body RegisterVmsInLoadBalancerJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26716,6 +27182,7 @@ func NewRegisterVmsInLoadBalancerRequestWithBody(server string, contentType stri
 // NewRejectNetPeeringRequest calls the generic RejectNetPeering builder with application/json body
 func NewRejectNetPeeringRequest(server string, body RejectNetPeeringJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26756,6 +27223,7 @@ func NewRejectNetPeeringRequestWithBody(server string, contentType string, body 
 // NewRemoveUserFromUserGroupRequest calls the generic RemoveUserFromUserGroup builder with application/json body
 func NewRemoveUserFromUserGroupRequest(server string, body RemoveUserFromUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26796,6 +27264,7 @@ func NewRemoveUserFromUserGroupRequestWithBody(server string, contentType string
 // NewScaleDownVmGroupRequest calls the generic ScaleDownVmGroup builder with application/json body
 func NewScaleDownVmGroupRequest(server string, body ScaleDownVmGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26836,6 +27305,7 @@ func NewScaleDownVmGroupRequestWithBody(server string, contentType string, body 
 // NewScaleUpVmGroupRequest calls the generic ScaleUpVmGroup builder with application/json body
 func NewScaleUpVmGroupRequest(server string, body ScaleUpVmGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26876,6 +27346,7 @@ func NewScaleUpVmGroupRequestWithBody(server string, contentType string, body io
 // NewSetDefaultPolicyVersionRequest calls the generic SetDefaultPolicyVersion builder with application/json body
 func NewSetDefaultPolicyVersionRequest(server string, body SetDefaultPolicyVersionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26916,6 +27387,7 @@ func NewSetDefaultPolicyVersionRequestWithBody(server string, contentType string
 // NewStartVmsRequest calls the generic StartVms builder with application/json body
 func NewStartVmsRequest(server string, body StartVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26956,6 +27428,7 @@ func NewStartVmsRequestWithBody(server string, contentType string, body io.Reade
 // NewStopVmsRequest calls the generic StopVms builder with application/json body
 func NewStopVmsRequest(server string, body StopVmsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -26996,6 +27469,7 @@ func NewStopVmsRequestWithBody(server string, contentType string, body io.Reader
 // NewUnlinkFlexibleGpuRequest calls the generic UnlinkFlexibleGpu builder with application/json body
 func NewUnlinkFlexibleGpuRequest(server string, body UnlinkFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27036,6 +27510,7 @@ func NewUnlinkFlexibleGpuRequestWithBody(server string, contentType string, body
 // NewUnlinkInternetServiceRequest calls the generic UnlinkInternetService builder with application/json body
 func NewUnlinkInternetServiceRequest(server string, body UnlinkInternetServiceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27076,6 +27551,7 @@ func NewUnlinkInternetServiceRequestWithBody(server string, contentType string, 
 // NewUnlinkLoadBalancerBackendMachinesRequest calls the generic UnlinkLoadBalancerBackendMachines builder with application/json body
 func NewUnlinkLoadBalancerBackendMachinesRequest(server string, body UnlinkLoadBalancerBackendMachinesJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27116,6 +27592,7 @@ func NewUnlinkLoadBalancerBackendMachinesRequestWithBody(server string, contentT
 // NewUnlinkManagedPolicyFromUserGroupRequest calls the generic UnlinkManagedPolicyFromUserGroup builder with application/json body
 func NewUnlinkManagedPolicyFromUserGroupRequest(server string, body UnlinkManagedPolicyFromUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27156,6 +27633,7 @@ func NewUnlinkManagedPolicyFromUserGroupRequestWithBody(server string, contentTy
 // NewUnlinkNicRequest calls the generic UnlinkNic builder with application/json body
 func NewUnlinkNicRequest(server string, body UnlinkNicJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27196,6 +27674,7 @@ func NewUnlinkNicRequestWithBody(server string, contentType string, body io.Read
 // NewUnlinkPolicyRequest calls the generic UnlinkPolicy builder with application/json body
 func NewUnlinkPolicyRequest(server string, body UnlinkPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27236,6 +27715,7 @@ func NewUnlinkPolicyRequestWithBody(server string, contentType string, body io.R
 // NewUnlinkPrivateIpsRequest calls the generic UnlinkPrivateIps builder with application/json body
 func NewUnlinkPrivateIpsRequest(server string, body UnlinkPrivateIpsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27276,6 +27756,7 @@ func NewUnlinkPrivateIpsRequestWithBody(server string, contentType string, body 
 // NewUnlinkPublicIpRequest calls the generic UnlinkPublicIp builder with application/json body
 func NewUnlinkPublicIpRequest(server string, body UnlinkPublicIpJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27316,6 +27797,7 @@ func NewUnlinkPublicIpRequestWithBody(server string, contentType string, body io
 // NewUnlinkRouteTableRequest calls the generic UnlinkRouteTable builder with application/json body
 func NewUnlinkRouteTableRequest(server string, body UnlinkRouteTableJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27356,6 +27838,7 @@ func NewUnlinkRouteTableRequestWithBody(server string, contentType string, body 
 // NewUnlinkVirtualGatewayRequest calls the generic UnlinkVirtualGateway builder with application/json body
 func NewUnlinkVirtualGatewayRequest(server string, body UnlinkVirtualGatewayJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27396,6 +27879,7 @@ func NewUnlinkVirtualGatewayRequestWithBody(server string, contentType string, b
 // NewUnlinkVolumeRequest calls the generic UnlinkVolume builder with application/json body
 func NewUnlinkVolumeRequest(server string, body UnlinkVolumeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27436,6 +27920,7 @@ func NewUnlinkVolumeRequestWithBody(server string, contentType string, body io.R
 // NewUpdateAccessKeyRequest calls the generic UpdateAccessKey builder with application/json body
 func NewUpdateAccessKeyRequest(server string, body UpdateAccessKeyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27476,6 +27961,7 @@ func NewUpdateAccessKeyRequestWithBody(server string, contentType string, body i
 // NewUpdateAccountRequest calls the generic UpdateAccount builder with application/json body
 func NewUpdateAccountRequest(server string, body UpdateAccountJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27516,6 +28002,7 @@ func NewUpdateAccountRequestWithBody(server string, contentType string, body io.
 // NewUpdateApiAccessPolicyRequest calls the generic UpdateApiAccessPolicy builder with application/json body
 func NewUpdateApiAccessPolicyRequest(server string, body UpdateApiAccessPolicyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27556,6 +28043,7 @@ func NewUpdateApiAccessPolicyRequestWithBody(server string, contentType string, 
 // NewUpdateApiAccessRuleRequest calls the generic UpdateApiAccessRule builder with application/json body
 func NewUpdateApiAccessRuleRequest(server string, body UpdateApiAccessRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27596,6 +28084,7 @@ func NewUpdateApiAccessRuleRequestWithBody(server string, contentType string, bo
 // NewUpdateCaRequest calls the generic UpdateCa builder with application/json body
 func NewUpdateCaRequest(server string, body UpdateCaJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27636,6 +28125,7 @@ func NewUpdateCaRequestWithBody(server string, contentType string, body io.Reade
 // NewUpdateDedicatedGroupRequest calls the generic UpdateDedicatedGroup builder with application/json body
 func NewUpdateDedicatedGroupRequest(server string, body UpdateDedicatedGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27676,6 +28166,7 @@ func NewUpdateDedicatedGroupRequestWithBody(server string, contentType string, b
 // NewUpdateDirectLinkInterfaceRequest calls the generic UpdateDirectLinkInterface builder with application/json body
 func NewUpdateDirectLinkInterfaceRequest(server string, body UpdateDirectLinkInterfaceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27716,6 +28207,7 @@ func NewUpdateDirectLinkInterfaceRequestWithBody(server string, contentType stri
 // NewUpdateFlexibleGpuRequest calls the generic UpdateFlexibleGpu builder with application/json body
 func NewUpdateFlexibleGpuRequest(server string, body UpdateFlexibleGpuJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27756,6 +28248,7 @@ func NewUpdateFlexibleGpuRequestWithBody(server string, contentType string, body
 // NewUpdateImageRequest calls the generic UpdateImage builder with application/json body
 func NewUpdateImageRequest(server string, body UpdateImageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27796,6 +28289,7 @@ func NewUpdateImageRequestWithBody(server string, contentType string, body io.Re
 // NewUpdateListenerRuleRequest calls the generic UpdateListenerRule builder with application/json body
 func NewUpdateListenerRuleRequest(server string, body UpdateListenerRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27836,6 +28330,7 @@ func NewUpdateListenerRuleRequestWithBody(server string, contentType string, bod
 // NewUpdateLoadBalancerRequest calls the generic UpdateLoadBalancer builder with application/json body
 func NewUpdateLoadBalancerRequest(server string, body UpdateLoadBalancerJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27876,6 +28371,7 @@ func NewUpdateLoadBalancerRequestWithBody(server string, contentType string, bod
 // NewUpdateNetRequest calls the generic UpdateNet builder with application/json body
 func NewUpdateNetRequest(server string, body UpdateNetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27916,6 +28412,7 @@ func NewUpdateNetRequestWithBody(server string, contentType string, body io.Read
 // NewUpdateNetAccessPointRequest calls the generic UpdateNetAccessPoint builder with application/json body
 func NewUpdateNetAccessPointRequest(server string, body UpdateNetAccessPointJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27956,6 +28453,7 @@ func NewUpdateNetAccessPointRequestWithBody(server string, contentType string, b
 // NewUpdateNicRequest calls the generic UpdateNic builder with application/json body
 func NewUpdateNicRequest(server string, body UpdateNicJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -27996,6 +28494,7 @@ func NewUpdateNicRequestWithBody(server string, contentType string, body io.Read
 // NewUpdateRouteRequest calls the generic UpdateRoute builder with application/json body
 func NewUpdateRouteRequest(server string, body UpdateRouteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28036,6 +28535,7 @@ func NewUpdateRouteRequestWithBody(server string, contentType string, body io.Re
 // NewUpdateRoutePropagationRequest calls the generic UpdateRoutePropagation builder with application/json body
 func NewUpdateRoutePropagationRequest(server string, body UpdateRoutePropagationJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28076,6 +28576,7 @@ func NewUpdateRoutePropagationRequestWithBody(server string, contentType string,
 // NewUpdateRouteTableLinkRequest calls the generic UpdateRouteTableLink builder with application/json body
 func NewUpdateRouteTableLinkRequest(server string, body UpdateRouteTableLinkJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28116,6 +28617,7 @@ func NewUpdateRouteTableLinkRequestWithBody(server string, contentType string, b
 // NewUpdateServerCertificateRequest calls the generic UpdateServerCertificate builder with application/json body
 func NewUpdateServerCertificateRequest(server string, body UpdateServerCertificateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28156,6 +28658,7 @@ func NewUpdateServerCertificateRequestWithBody(server string, contentType string
 // NewUpdateSnapshotRequest calls the generic UpdateSnapshot builder with application/json body
 func NewUpdateSnapshotRequest(server string, body UpdateSnapshotJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28196,6 +28699,7 @@ func NewUpdateSnapshotRequestWithBody(server string, contentType string, body io
 // NewUpdateSubnetRequest calls the generic UpdateSubnet builder with application/json body
 func NewUpdateSubnetRequest(server string, body UpdateSubnetJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28236,6 +28740,7 @@ func NewUpdateSubnetRequestWithBody(server string, contentType string, body io.R
 // NewUpdateUserRequest calls the generic UpdateUser builder with application/json body
 func NewUpdateUserRequest(server string, body UpdateUserJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28276,6 +28781,7 @@ func NewUpdateUserRequestWithBody(server string, contentType string, body io.Rea
 // NewUpdateUserGroupRequest calls the generic UpdateUserGroup builder with application/json body
 func NewUpdateUserGroupRequest(server string, body UpdateUserGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28316,6 +28822,7 @@ func NewUpdateUserGroupRequestWithBody(server string, contentType string, body i
 // NewUpdateVmRequest calls the generic UpdateVm builder with application/json body
 func NewUpdateVmRequest(server string, body UpdateVmJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28356,6 +28863,7 @@ func NewUpdateVmRequestWithBody(server string, contentType string, body io.Reade
 // NewUpdateVmGroupRequest calls the generic UpdateVmGroup builder with application/json body
 func NewUpdateVmGroupRequest(server string, body UpdateVmGroupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28396,6 +28904,7 @@ func NewUpdateVmGroupRequestWithBody(server string, contentType string, body io.
 // NewUpdateVmTemplateRequest calls the generic UpdateVmTemplate builder with application/json body
 func NewUpdateVmTemplateRequest(server string, body UpdateVmTemplateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28436,6 +28945,7 @@ func NewUpdateVmTemplateRequestWithBody(server string, contentType string, body 
 // NewUpdateVolumeRequest calls the generic UpdateVolume builder with application/json body
 func NewUpdateVolumeRequest(server string, body UpdateVolumeJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -28476,6 +28986,7 @@ func NewUpdateVolumeRequestWithBody(server string, contentType string, body io.R
 // NewUpdateVpnConnectionRequest calls the generic UpdateVpnConnection builder with application/json body
 func NewUpdateVpnConnectionRequest(server string, body UpdateVpnConnectionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
+
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err

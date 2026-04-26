@@ -148,13 +148,13 @@ func newConfigFile(t *testing.T) *profile.ConfigFile {
 	cf := profile.ConfigFile{
 		Path: path,
 		Profiles: map[string]profile.Profile{
-			profile.DefaultProfile: profile.Profile{
+			profile.DefaultProfile: {
 				AccessKey:   "defaultak",
 				SecretKey:   "defaultsk",
 				AccessKeyV2: "defaultakv2",
 				SecretKeyV2: "defaultskv2",
 			},
-			"foo": profile.Profile{
+			"foo": {
 				AccessKey: "fooak",
 				SecretKey: "foosk",
 			},

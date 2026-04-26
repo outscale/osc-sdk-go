@@ -31,4 +31,4 @@ endif
 
 .PHONY: test
 test: gen
-	go test -v ./examples
+	go test -v ./...

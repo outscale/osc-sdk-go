@@ -41,3 +41,7 @@ func newClientRaw(
 		Client: m,
 	}, nil
 }
+
+type clientTokenSetter interface {
+	SetClientToken() error
+}

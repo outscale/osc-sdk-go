@@ -3,6 +3,7 @@ package osc
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/outscale/osc-sdk-go/v3/pkg/logger"
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
@@ -40,4 +41,40 @@ func newClientRaw(
 		Server: s,
 		Client: m,
 	}, nil
+}
+
+type clientTokenSetter interface {
+	SetClientToken() error
+}
+
+func (r *CreateNatServiceRequest) SetClientToken() error {
+	return setClientToken(&r.ClientToken)
+}
+
+func (r *CreateSnapshotRequest) SetClientToken() error {
+	return setClientToken(&r.ClientToken)
+}
+
+func (r *CreateVmsRequest) SetClientToken() error {
+	return setClientToken(&r.ClientToken)
+}
+
+func (r *CreateVolumeRequest) SetClientToken() error {
+	return setClientToken(&r.ClientToken)
+}
+
+func setClientToken(clientToken **string) error {
+	if clientToken == nil || *clientToken != nil {
+		return nil
+	}
+
+	u, err := uuid.NewV7()
+	if err != nil {
+		return err
+	}
+
+	us := u.String()
+	*clientToken = &us
+
+	return nil
 }
