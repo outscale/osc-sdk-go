@@ -833,6 +833,18 @@ actions:
     - State
     - Tags
     - VpnConnectionId
+- target: $.components.schemas.VpnConnection.*.State
+  description: Type for VpnConnection.State
+  update:
+    enum:
+      - pending
+      - available
+      - deleting
+      - deleted
+- target: $.components.schemas.FiltersVpnConnection.*.States.items
+  description:
+  update:
+    x-go-type: VpnConnectionState
 - target: $.components.schemas.NetAccessPoint
   description: Required fields for NetAccessPoint
   update:

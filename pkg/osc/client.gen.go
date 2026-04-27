@@ -627,6 +627,24 @@ func (VolumeType) Values() []string {
 	}
 }
 
+// Defines values for VpnConnectionState.
+const (
+	VpnConnectionStateAvailable VpnConnectionState = "available"
+	VpnConnectionStateDeleted   VpnConnectionState = "deleted"
+	VpnConnectionStateDeleting  VpnConnectionState = "deleting"
+	VpnConnectionStatePending   VpnConnectionState = "pending"
+)
+
+// Method to return the list of values
+func (VpnConnectionState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+	}
+}
+
 // AcceptNetPeeringRequest defines model for AcceptNetPeeringRequest.
 type AcceptNetPeeringRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -4794,7 +4812,7 @@ type FiltersVpnConnection struct {
 	RouteDestinationIpRanges *[]string `json:"RouteDestinationIpRanges,omitempty"`
 
 	// States The states of the VPN connections (`pending` \| `available` \| `deleting` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]VpnConnectionState `json:"States,omitempty"`
 
 	// StaticRoutesOnly If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
 	StaticRoutesOnly *bool `json:"StaticRoutesOnly,omitempty"`
@@ -10080,7 +10098,7 @@ type VpnConnection struct {
 	Routes []RouteLight `json:"Routes"`
 
 	// State The state of the VPN connection (`pending` \| `available` \| `deleting` \| `deleted`).
-	State string `json:"State"`
+	State VpnConnectionState `json:"State"`
 
 	// StaticRoutesOnly If false, the VPN connection uses dynamic routing with Border Gateway Protocol (BGP). If true, routing is controlled using static routes. For more information about how to create and delete static routes, see [CreateVpnConnectionRoute](#createvpnconnectionroute) and [DeleteVpnConnectionRoute](#deletevpnconnectionroute).
 	StaticRoutesOnly bool `json:"StaticRoutesOnly"`
@@ -10100,6 +10118,9 @@ type VpnConnection struct {
 	// VpnOptions Information about the VPN options.
 	VpnOptions *VpnOptions `json:"VpnOptions,omitempty"`
 }
+
+// VpnConnectionState The state of the VPN connection (`pending` \| `available` \| `deleting` \| `deleted`).
+type VpnConnectionState string
 
 // VpnOptions Information about the VPN options.
 type VpnOptions struct {
