@@ -366,6 +366,24 @@ func (ReadPoliciesFiltersScope) Values() []string {
 	}
 }
 
+// Defines values for RouteLightState.
+const (
+	RouteLightStateAvailable RouteLightState = "available"
+	RouteLightStateDeleted   RouteLightState = "deleted"
+	RouteLightStateDeleting  RouteLightState = "deleting"
+	RouteLightStatePending   RouteLightState = "pending"
+)
+
+// Method to return the list of values
+func (RouteLightState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
+	}
+}
+
 // Defines values for SecureBootAction.
 const (
 	SecureBootActionDisable            SecureBootAction = "disable"
@@ -8267,8 +8285,11 @@ type RouteLight struct {
 	RouteType string `json:"RouteType"`
 
 	// State The current state of the static route (`pending` \| `available` \| `deleting` \| `deleted`).
-	State string `json:"State"`
+	State RouteLightState `json:"State"`
 }
+
+// RouteLightState The current state of the static route (`pending` \| `available` \| `deleting` \| `deleted`).
+type RouteLightState string
 
 // RoutePropagatingVirtualGateway Information about the route propagating virtual gateway.
 type RoutePropagatingVirtualGateway struct {

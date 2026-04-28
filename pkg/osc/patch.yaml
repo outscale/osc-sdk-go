@@ -845,6 +845,14 @@ actions:
   description:
   update:
     x-go-type: VpnConnectionState
+- target: $.components.schemas.RouteLight.*.State
+  description: Type for RouteLight.State
+  update:
+    enum:
+      - pending
+      - available
+      - deleting
+      - deleted
 - target: $.components.schemas.NetAccessPoint
   description: Required fields for NetAccessPoint
   update:
