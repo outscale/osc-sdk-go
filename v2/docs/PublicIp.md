@@ -5,13 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkPublicIpId** | Pointer to **string** | (Required in a Net) The ID representing the association of the public IP with the VM or the NIC. | [optional] 
-**NicAccountId** | Pointer to **string** | The OUTSCALE account ID of the owner of the NIC. | [optional] 
-**NicId** | Pointer to **string** | The ID of the NIC the public IP is associated with (if any). | [optional] 
-**PrivateIp** | Pointer to **string** | The private IP associated with the public IP. | [optional] 
+**NatServiceId** | Pointer to **NullableString** | The ID of the NAT service associated with the public IP (if any). | [optional] 
+**NetAccessPointIds** | Pointer to **[]string** | The IDs of the Net access points associated with the public IP (if any). | [optional] 
+**NicAccountId** | Pointer to **NullableString** | The OUTSCALE account ID of the owner of the NIC. | [optional] 
+**NicId** | Pointer to **NullableString** | The ID of the NIC the public IP is associated with (if any). | [optional] 
+**PrivateIp** | Pointer to **NullableString** | The private IP associated with the NIC or load balancer. | [optional] 
 **PublicIp** | Pointer to **string** | The public IP. | [optional] 
 **PublicIpId** | Pointer to **string** | The allocation ID of the public IP. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the public IP. | [optional] 
-**VmId** | Pointer to **string** | The ID of the VM the public IP is associated with (if any). | [optional] 
+**VmId** | Pointer to **NullableString** | The ID of the VM the public IP is associated with (if any). | [optional] 
 
 ## Methods
 
@@ -57,6 +59,76 @@ SetLinkPublicIpId sets LinkPublicIpId field to given value.
 
 HasLinkPublicIpId returns a boolean if a field has been set.
 
+### GetNatServiceId
+
+`func (o *PublicIp) GetNatServiceId() string`
+
+GetNatServiceId returns the NatServiceId field if non-nil, zero value otherwise.
+
+### GetNatServiceIdOk
+
+`func (o *PublicIp) GetNatServiceIdOk() (*string, bool)`
+
+GetNatServiceIdOk returns a tuple with the NatServiceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNatServiceId
+
+`func (o *PublicIp) SetNatServiceId(v string)`
+
+SetNatServiceId sets NatServiceId field to given value.
+
+### HasNatServiceId
+
+`func (o *PublicIp) HasNatServiceId() bool`
+
+HasNatServiceId returns a boolean if a field has been set.
+
+### SetNatServiceIdNil
+
+`func (o *PublicIp) SetNatServiceIdNil(b bool)`
+
+ SetNatServiceIdNil sets the value for NatServiceId to be an explicit nil
+
+### UnsetNatServiceId
+`func (o *PublicIp) UnsetNatServiceId()`
+
+UnsetNatServiceId ensures that no value is present for NatServiceId, not even an explicit nil
+### GetNetAccessPointIds
+
+`func (o *PublicIp) GetNetAccessPointIds() []string`
+
+GetNetAccessPointIds returns the NetAccessPointIds field if non-nil, zero value otherwise.
+
+### GetNetAccessPointIdsOk
+
+`func (o *PublicIp) GetNetAccessPointIdsOk() (*[]string, bool)`
+
+GetNetAccessPointIdsOk returns a tuple with the NetAccessPointIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNetAccessPointIds
+
+`func (o *PublicIp) SetNetAccessPointIds(v []string)`
+
+SetNetAccessPointIds sets NetAccessPointIds field to given value.
+
+### HasNetAccessPointIds
+
+`func (o *PublicIp) HasNetAccessPointIds() bool`
+
+HasNetAccessPointIds returns a boolean if a field has been set.
+
+### SetNetAccessPointIdsNil
+
+`func (o *PublicIp) SetNetAccessPointIdsNil(b bool)`
+
+ SetNetAccessPointIdsNil sets the value for NetAccessPointIds to be an explicit nil
+
+### UnsetNetAccessPointIds
+`func (o *PublicIp) UnsetNetAccessPointIds()`
+
+UnsetNetAccessPointIds ensures that no value is present for NetAccessPointIds, not even an explicit nil
 ### GetNicAccountId
 
 `func (o *PublicIp) GetNicAccountId() string`
@@ -82,6 +154,16 @@ SetNicAccountId sets NicAccountId field to given value.
 
 HasNicAccountId returns a boolean if a field has been set.
 
+### SetNicAccountIdNil
+
+`func (o *PublicIp) SetNicAccountIdNil(b bool)`
+
+ SetNicAccountIdNil sets the value for NicAccountId to be an explicit nil
+
+### UnsetNicAccountId
+`func (o *PublicIp) UnsetNicAccountId()`
+
+UnsetNicAccountId ensures that no value is present for NicAccountId, not even an explicit nil
 ### GetNicId
 
 `func (o *PublicIp) GetNicId() string`
@@ -107,6 +189,16 @@ SetNicId sets NicId field to given value.
 
 HasNicId returns a boolean if a field has been set.
 
+### SetNicIdNil
+
+`func (o *PublicIp) SetNicIdNil(b bool)`
+
+ SetNicIdNil sets the value for NicId to be an explicit nil
+
+### UnsetNicId
+`func (o *PublicIp) UnsetNicId()`
+
+UnsetNicId ensures that no value is present for NicId, not even an explicit nil
 ### GetPrivateIp
 
 `func (o *PublicIp) GetPrivateIp() string`
@@ -132,6 +224,16 @@ SetPrivateIp sets PrivateIp field to given value.
 
 HasPrivateIp returns a boolean if a field has been set.
 
+### SetPrivateIpNil
+
+`func (o *PublicIp) SetPrivateIpNil(b bool)`
+
+ SetPrivateIpNil sets the value for PrivateIp to be an explicit nil
+
+### UnsetPrivateIp
+`func (o *PublicIp) UnsetPrivateIp()`
+
+UnsetPrivateIp ensures that no value is present for PrivateIp, not even an explicit nil
 ### GetPublicIp
 
 `func (o *PublicIp) GetPublicIp() string`
@@ -232,6 +334,16 @@ SetVmId sets VmId field to given value.
 
 HasVmId returns a boolean if a field has been set.
 
+### SetVmIdNil
+
+`func (o *PublicIp) SetVmIdNil(b bool)`
+
+ SetVmIdNil sets the value for VmId to be an explicit nil
+
+### UnsetVmId
+`func (o *PublicIp) UnsetVmId()`
+
+UnsetVmId ensures that no value is present for VmId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -15,7 +15,8 @@ Name | Type | Description | Notes
 **LoadBalancerStickyCookiePolicies** | Pointer to [**[]LoadBalancerStickyCookiePolicy**](LoadBalancerStickyCookiePolicy.md) | The policies defined for the load balancer. | [optional] 
 **LoadBalancerType** | Pointer to **string** | The type of load balancer. Valid only for load balancers in a Net.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internet-facing&#x60;, the load balancer has a public DNS name that resolves to a public IP.&lt;br /&gt; If &#x60;LoadBalancerType&#x60; is &#x60;internal&#x60;, the load balancer has a public DNS name that resolves to a private IP. | [optional] 
 **NetId** | Pointer to **string** | The ID of the Net for the load balancer. | [optional] 
-**PublicIp** | Pointer to **string** | (internet-facing only) The public IP associated with the load balancer. | [optional] 
+**PrivateIp** | Pointer to **NullableString** | The primary private IP of the load balancer. | [optional] 
+**PublicIp** | Pointer to **NullableString** | (internet-facing only) The public IP associated with the load balancer. | [optional] 
 **SecuredCookies** | Pointer to **bool** | Whether secure cookies are enabled for the load balancer. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more IDs of security groups for the load balancers. Valid only for load balancers in a Net. | [optional] 
 **SourceSecurityGroup** | Pointer to [**SourceSecurityGroup**](SourceSecurityGroup.md) |  | [optional] 
@@ -318,6 +319,41 @@ SetNetId sets NetId field to given value.
 
 HasNetId returns a boolean if a field has been set.
 
+### GetPrivateIp
+
+`func (o *LoadBalancer) GetPrivateIp() string`
+
+GetPrivateIp returns the PrivateIp field if non-nil, zero value otherwise.
+
+### GetPrivateIpOk
+
+`func (o *LoadBalancer) GetPrivateIpOk() (*string, bool)`
+
+GetPrivateIpOk returns a tuple with the PrivateIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrivateIp
+
+`func (o *LoadBalancer) SetPrivateIp(v string)`
+
+SetPrivateIp sets PrivateIp field to given value.
+
+### HasPrivateIp
+
+`func (o *LoadBalancer) HasPrivateIp() bool`
+
+HasPrivateIp returns a boolean if a field has been set.
+
+### SetPrivateIpNil
+
+`func (o *LoadBalancer) SetPrivateIpNil(b bool)`
+
+ SetPrivateIpNil sets the value for PrivateIp to be an explicit nil
+
+### UnsetPrivateIp
+`func (o *LoadBalancer) UnsetPrivateIp()`
+
+UnsetPrivateIp ensures that no value is present for PrivateIp, not even an explicit nil
 ### GetPublicIp
 
 `func (o *LoadBalancer) GetPublicIp() string`
@@ -343,6 +379,16 @@ SetPublicIp sets PublicIp field to given value.
 
 HasPublicIp returns a boolean if a field has been set.
 
+### SetPublicIpNil
+
+`func (o *LoadBalancer) SetPublicIpNil(b bool)`
+
+ SetPublicIpNil sets the value for PublicIp to be an explicit nil
+
+### UnsetPublicIp
+`func (o *LoadBalancer) UnsetPublicIp()`
+
+UnsetPublicIp ensures that no value is present for PublicIp, not even an explicit nil
 ### GetSecuredCookies
 
 `func (o *LoadBalancer) GetSecuredCookies() bool`
