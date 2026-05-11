@@ -1,5 +1,5 @@
 package osc
 
 const (
-	Version = "v0.0.0+dev"
+	Version = "v1.41.0"
 )

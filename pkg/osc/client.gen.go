@@ -5572,6 +5572,9 @@ type LoadBalancer struct {
 	// NetId The ID of the Net for the load balancer.
 	NetId *string `json:"NetId,omitempty"`
 
+	// PrivateIp The primary private IP of the load balancer.
+	PrivateIp *string `json:"PrivateIp,omitempty"`
+
 	// PublicIp (internet-facing only) The public IP associated with the load balancer.
 	PublicIp *string `json:"PublicIp,omitempty"`
 
@@ -6216,13 +6219,19 @@ type PublicIp struct {
 	// LinkPublicIpId (Required in a Net) The ID representing the association of the public IP with the VM or the NIC.
 	LinkPublicIpId *string `json:"LinkPublicIpId,omitempty"`
 
+	// NatServiceId The ID of the NAT service associated with the public IP (if any).
+	NatServiceId *string `json:"NatServiceId,omitempty"`
+
+	// NetAccessPointIds The IDs of the Net access points associated with the public IP (if any).
+	NetAccessPointIds *[]string `json:"NetAccessPointIds,omitempty"`
+
 	// NicAccountId The OUTSCALE account ID of the owner of the NIC.
 	NicAccountId *string `json:"NicAccountId,omitempty"`
 
 	// NicId The ID of the NIC the public IP is associated with (if any).
 	NicId *string `json:"NicId,omitempty"`
 
-	// PrivateIp The private IP associated with the public IP.
+	// PrivateIp The private IP associated with the NIC or load balancer.
 	PrivateIp *string `json:"PrivateIp,omitempty"`
 
 	// PublicIp The public IP.
@@ -41924,7 +41933,7 @@ func (c *Client) CreateNetAccessPointWithBody(ctx context.Context, contentType s
 	return resp, err
 }
 
-// CreateNetAccessPoint Creates a Net access point to access an OUTSCALE service from this Net without using the Internet and public IPs.<br />
+// CreateNetAccessPoint Creates a Net access point to access an OUTSCALE service from this Net without using the Internet or public IPs.<br />
 // You specify the service using its name. For more information about the available services, see [ReadNetAccessPointServices](#readnetaccesspointservices).<br /> <br />
 // To control the routing of traffic between the Net and the specified service, you can specify one or more route tables. Virtual machines placed in Subnets associated with the specified route table thus use the Net access point to access the service. When you specify a route table, a route is automatically added to it with the destination set to the prefix list ID of the service, and the target set to the ID of the access point.<br /><br />
 // When a Net access point is created, a public IP is automatically allocated to your OUTSCALE account and used for the Net access point. This public IP is not connected to the Internet. It is counted in your quota, but it is not billed.<br /> <br />
