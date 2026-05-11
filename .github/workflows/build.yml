@@ -1,12 +1,50 @@
 name: osc-sdk-go release build
+
 on:
   workflow_dispatch:
     inputs:
       api_version:
-        description: 'Outscale API version'
+        description: "Outscale API version"
         required: true
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
 jobs:
+  auto-build-v3:
+    environment: auto-build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: v3
+      - uses: chainguard-dev/actions/setup-gitsign@main
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version-file: "go.mod"
+      - name: Build release
+        run: |
+          curl --retry 5 --retry-max-time 120 --retry-connrefused https://raw.githubusercontent.com/outscale/osc-api-deploy/refs/tags/${{ github.event.inputs.api_version }}/outscale.yaml > ./pkg/osc/api.yaml
+          make gen
+        env:
+          OAPI_VERSION: ${{ github.event.inputs.api_version }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          committer: "Outscale Bot <opensource+bot@outscale.com>"
+          author: "Outscale Bot <opensource+bot@outscale.com>"
+          commit-message: "⬆️ deps: upgrade OAPI to version ${{ env.api_version }}"
+          body: |
+            Automatic build of SDK based on Outscale API ${{ env.api_version }}.
+          title: "OAPI ${{ env.api_version }}"
+          token: "${{ env.token }}"
+          labels: "kind/feature"
+        env:
+          api_version: ${{ github.event.inputs.api_version }}
+          token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
   auto-build-v2:
     environment: auto-build
     runs-on: ubuntu-24.04
