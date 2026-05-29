@@ -3,6 +3,7 @@ package oos
 import (
 	"context"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
@@ -22,6 +23,8 @@ func NewClient(ctx context.Context, p *profile.Profile, opts ...config.LoadOptio
 		config.WithCredentialsProvider(
 			credentials.NewStaticCredentialsProvider(p.AccessKey, p.SecretKey, ""),
 		),
+		config.WithRequestChecksumCalculation(aws.RequestChecksumCalculationWhenRequired),
+		config.WithResponseChecksumValidation(aws.ResponseChecksumValidationWhenRequired),
 	}
 	for _, opt := range opts {
 		copts = append(copts, opt)
