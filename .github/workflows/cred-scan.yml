@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
     - name: Scan credentials
-      uses: outscale-dev/cred-scan@0cfcc115b740b7fea2b00f60296754c55ed29ef1 # main
+      uses: outscale-dev/cred-scan@36ef82cc690d72a17bf0993ab323961f1b1f9c66 # main
       with:
         scan_path: "./"
