@@ -3,6 +3,7 @@ package retry
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -33,6 +34,7 @@ func (r *RetryMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
 		Transport: next,
 	}
 	rc.Logger = nil
+	rc.ErrorHandler = errorHandler
 
 	if r.RetryWaitMin != nil {
 		rc.RetryWaitMin = *r.RetryWaitMin
@@ -57,4 +59,16 @@ func (r *RetryMiddleware) Decorate(next http.RoundTripper) http.RoundTripper {
 	}
 
 	return roundTripper
+}
+
+func errorHandler(resp *http.Response, err error, retryNum int) (*http.Response, error) {
+	if resp != nil {
+		return resp, nil
+	}
+
+	if err == nil {
+		return nil, fmt.Errorf("giving up after %d attempt(s)", retryNum)
+	}
+
+	return nil, fmt.Errorf("giving up after %d attempt(s): %w", retryNum, err)
 }
