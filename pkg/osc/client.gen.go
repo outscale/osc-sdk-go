@@ -318,6 +318,24 @@ func (NetPeeringStateName) Values() []string {
 	}
 }
 
+// Defines values for NetToVirtualGatewayLinkState.
+const (
+	NetToVirtualGatewayLinkStateAttached  NetToVirtualGatewayLinkState = "attached"
+	NetToVirtualGatewayLinkStateAttaching NetToVirtualGatewayLinkState = "attaching"
+	NetToVirtualGatewayLinkStateDetached  NetToVirtualGatewayLinkState = "detached"
+	NetToVirtualGatewayLinkStateDetaching NetToVirtualGatewayLinkState = "detaching"
+)
+
+// Method to return the list of values
+func (NetToVirtualGatewayLinkState) Values() []string {
+	return []string{
+		"attached",
+		"attaching",
+		"detached",
+		"detaching",
+	}
+}
+
 // Defines values for NicState.
 const (
 	NicStateAttaching NicState = "attaching"
@@ -528,6 +546,24 @@ func (UpdateVmRequestPerformance) Values() []string {
 		"high",
 		"highest",
 		"medium",
+	}
+}
+
+// Defines values for VirtualGatewayState.
+const (
+	VirtualGatewayStateAvailable VirtualGatewayState = "available"
+	VirtualGatewayStateDeleted   VirtualGatewayState = "deleted"
+	VirtualGatewayStateDeleting  VirtualGatewayState = "deleting"
+	VirtualGatewayStatePending   VirtualGatewayState = "pending"
+)
+
+// Method to return the list of values
+func (VirtualGatewayState) Values() []string {
+	return []string{
+		"available",
+		"deleted",
+		"deleting",
+		"pending",
 	}
 }
 
@@ -4419,10 +4455,10 @@ type FiltersVirtualGateway struct {
 	LinkNetIds *[]string `json:"LinkNetIds,omitempty"`
 
 	// LinkStates The current states of the attachments between the virtual gateways and the Nets (`attaching` \| `attached` \| `detaching` \| `detached`).
-	LinkStates *[]string `json:"LinkStates,omitempty"`
+	LinkStates *[]NetToVirtualGatewayLinkState `json:"LinkStates,omitempty"`
 
 	// States The states of the virtual gateways (`pending` \| `available` \| `deleting` \| `deleted`).
-	States *[]string `json:"States,omitempty"`
+	States *[]VirtualGatewayState `json:"States,omitempty"`
 
 	// TagKeys The keys of the tags associated with the virtual gateways.
 	TagKeys *[]string `json:"TagKeys,omitempty"`
@@ -5836,8 +5872,11 @@ type NetToVirtualGatewayLink struct {
 	NetId *string `json:"NetId,omitempty"`
 
 	// State The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
-	State *string `json:"State,omitempty"`
+	State *NetToVirtualGatewayLinkState `json:"State,omitempty"`
 }
+
+// NetToVirtualGatewayLinkState The state of the attachment (`attaching` \| `attached` \| `detaching` \| `detached`).
+type NetToVirtualGatewayLinkState string
 
 // Nic Information about the NIC.
 type Nic struct {
@@ -9743,7 +9782,7 @@ type VirtualGateway struct {
 	NetToVirtualGatewayLinks []NetToVirtualGatewayLink `json:"NetToVirtualGatewayLinks"`
 
 	// State The state of the virtual gateway (`pending` \| `available` \| `deleting` \| `deleted`).
-	State string `json:"State"`
+	State VirtualGatewayState `json:"State"`
 
 	// Tags One or more tags associated with the virtual gateway.
 	Tags []ResourceTag `json:"Tags"`
@@ -9751,6 +9790,9 @@ type VirtualGateway struct {
 	// VirtualGatewayId The ID of the virtual gateway.
 	VirtualGatewayId string `json:"VirtualGatewayId"`
 }
+
+// VirtualGatewayState The state of the virtual gateway (`pending` \| `available` \| `deleting` \| `deleted`).
+type VirtualGatewayState string
 
 // Vm Information about the VM.
 type Vm struct {
