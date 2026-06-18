@@ -853,6 +853,30 @@ actions:
       - available
       - deleting
       - deleted
+- target: $.components.schemas.VirtualGateway.*.State
+  description: Type for VirtualGateway.State
+  update:
+    enum:
+      - pending
+      - available
+      - deleting
+      - deleted
+- target: $.components.schemas.NetToVirtualGatewayLink.*.State
+  description: Type for NetToVirtualGatewayLink.State
+  update:
+    enum:
+      - attaching
+      - attached
+      - detaching
+      - detached
+- target: $.components.schemas.FiltersVirtualGateway.*.LinkStates.items
+  description:
+  update:
+    x-go-type: NetToVirtualGatewayLinkState
+- target: $.components.schemas.FiltersVirtualGateway.*.States.items
+  description:
+  update:
+    x-go-type: VirtualGatewayState
 - target: $.components.schemas.NetAccessPoint
   description: Required fields for NetAccessPoint
   update:
