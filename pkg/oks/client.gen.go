@@ -52,6 +52,30 @@ func (AutoUpgradeMaintenanceWeekDay) Values() []string {
 	}
 }
 
+// Defines values for ClusterStatus.
+const (
+	ClusterStatusDeleting  ClusterStatus = "deleting"
+	ClusterStatusDeploying ClusterStatus = "deploying"
+	ClusterStatusFailed    ClusterStatus = "failed"
+	ClusterStatusPending   ClusterStatus = "pending"
+	ClusterStatusReady     ClusterStatus = "ready"
+	ClusterStatusUpdating  ClusterStatus = "updating"
+	ClusterStatusUpgrading ClusterStatus = "upgrading"
+)
+
+// Method to return the list of values
+func (ClusterStatus) Values() []string {
+	return []string{
+		"deleting",
+		"deploying",
+		"failed",
+		"pending",
+		"ready",
+		"updating",
+		"upgrading",
+	}
+}
+
 // Defines values for MaintenanceWeekDay.
 const (
 	MaintenanceWeekDayFri    MaintenanceWeekDay = "Fri"
@@ -112,7 +136,6 @@ const (
 	ProjectStatusPending   ProjectStatus = "pending"
 	ProjectStatusReady     ProjectStatus = "ready"
 	ProjectStatusUpdating  ProjectStatus = "updating"
-	ProjectStatusUpgrading ProjectStatus = "upgrading"
 )
 
 // Method to return the list of values
@@ -124,7 +147,6 @@ func (ProjectStatus) Values() []string {
 		"pending",
 		"ready",
 		"updating",
-		"upgrading",
 	}
 }
 
@@ -396,6 +418,9 @@ type ClusterResponseList struct {
 	// ResponseContext Information about the context of the response.
 	ResponseContext ResponseContext `json:"ResponseContext"`
 }
+
+// ClusterStatus defines model for ClusterStatus.
+type ClusterStatus string
 
 // ClusterUpdate defines model for ClusterUpdate.
 type ClusterUpdate struct {
@@ -881,10 +906,10 @@ type Statuses struct {
 	AvailableUpgrade *string `json:"available_upgrade,omitempty"`
 
 	// CreatedAt Timestamp when the cluster was created
-	CreatedAt time.Time  `json:"created_at"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Status    *string    `json:"status,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt time.Time      `json:"created_at"`
+	DeletedAt *time.Time     `json:"deleted_at,omitempty"`
+	Status    *ClusterStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
 }
 
 // Subregion defines model for Subregion.
@@ -1047,14 +1072,14 @@ type QuotasQuotaSchemaQuotasResponse struct {
 
 // ListClustersByProjectIDParams defines parameters for ListClustersByProjectID.
 type ListClustersByProjectIDParams struct {
-	ProjectId *string `form:"project_id,omitempty" json:"project_id,omitempty"`
-	Name      *string `form:"name,omitempty" json:"name,omitempty"`
-	Status    *string `form:"status,omitempty" json:"status,omitempty"`
-	Version   *string `form:"version,omitempty" json:"version,omitempty"`
-	Deleted   *bool   `form:"deleted,omitempty" json:"deleted,omitempty"`
-	Cursor    *string `form:"cursor,omitempty" json:"cursor,omitempty"`
-	Page      *int    `form:"page,omitempty" json:"page,omitempty"`
-	Limit     *int    `form:"limit,omitempty" json:"limit,omitempty"`
+	ProjectId *string        `form:"project_id,omitempty" json:"project_id,omitempty"`
+	Name      *string        `form:"name,omitempty" json:"name,omitempty"`
+	Status    *ClusterStatus `form:"status,omitempty" json:"status,omitempty"`
+	Version   *string        `form:"version,omitempty" json:"version,omitempty"`
+	Deleted   *bool          `form:"deleted,omitempty" json:"deleted,omitempty"`
+	Cursor    *string        `form:"cursor,omitempty" json:"cursor,omitempty"`
+	Page      *int           `form:"page,omitempty" json:"page,omitempty"`
+	Limit     *int           `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // ListAllClustersParams defines parameters for ListAllClusters.

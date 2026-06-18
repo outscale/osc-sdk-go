@@ -27,7 +27,6 @@ actions:
           - ready
           - deploying
           - updating
-          - upgrading
           - failed
           - deleting
   - target: $.components.schemas.Project.properties.status
@@ -42,6 +41,30 @@ actions:
     update:
         schema:
           $ref: '#/components/schemas/ProjectStatus'
+  - target: $.components.schemas
+    update:
+      ClusterStatus:
+        type: string
+        enum:
+          - ready
+          - failed
+          - pending
+          - updating
+          - deleting
+          - deploying
+          - upgrading
+  - target: $.components.schemas.Statuses.properties.status
+    delete: true
+  - target: $.components.schemas.Statuses.properties
+    update:
+      status:
+        $ref: '#/components/schemas/ClusterStatus'
+  - target: $.paths./clusters.get.parameters.*[?(@.name == "status")].schema
+    delete: true
+  - target: $.paths./clusters.get.parameters.*[?(@.name == "status")]
+    update:
+        schema:
+          $ref: '#/components/schemas/ClusterStatus'
   - target: $.paths./myip
     remove: true
   - target: $.paths["/templates/cluster"].get.parameters.*[?(@.name == "X-Real-IP")]
@@ -59,4 +82,3 @@ actions:
   - target: $.components.schemas.*.properties.ResponseContext
     update:
       "$ref": "#/components/schemas/ResponseContext"
-
