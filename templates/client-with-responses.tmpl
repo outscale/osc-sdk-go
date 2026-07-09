@@ -107,7 +107,15 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Bytes() []byte {
 {{$responseTypeDefinitions := getResponseTypeDefinitions .}}
 {{ range $k, $v := $responseTypeDefinitions }}
 {{ if eq $v.TypeName "JSON200" }}
+{{ if $op.HasBody }}
 // {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with arbitrary body{{end}} returning *{{$v.Schema.TypeDecl}}
+{{ else }}
+{{ toGoComment $op.Spec.Description $opid }}
+//
+{{range $op.Spec.Tags -}}
+//sdk:group {{.}}
+{{end -}}
+{{end -}}
 func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error){
     rsp, err := c.{{$opid}}{{if $op.HasBody}}WithBody{{end}}Raw(ctx{{genParamNames $op.PathParams}}{{if $op.RequiresParamObject}}, params{{end}}{{if $op.HasBody}}, contentType, body{{end}}, reqEditors...)
     if err != nil {
@@ -137,7 +145,7 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{end -}}
 func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
     c.LogRequest(ctx, body)
-    
+
     rsp, err := c.{{$opid}}{{.Suffix}}Raw(ctx{{genParamNames $pathParams}}{{if $hasParams}}, params{{end}}, body, reqEditors...)
     if err != nil {
         return nil, err
@@ -146,7 +154,7 @@ func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathPar
     if err != nil {
         return nil, err
     }
-    
+
     resp, err := obj.Expect()
     if resp != nil {
         c.LogResponse(ctx, resp)

@@ -4754,7 +4754,9 @@ func (r GetProjectTemplateResponse) genError() error {
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
-// ListClustersByProjectID request returning *ClusterResponseList
+// ListClustersByProjectID Retrieves a list of clusters assosiated to project ID. You can optionally filter clusters by name, status, version, or deletion status. Returns a list of matching clusters
+//
+//sdk:group Clusters
 func (c *Client) ListClustersByProjectID(ctx context.Context, params *ListClustersByProjectIDParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error) {
 	rsp, err := c.ListClustersByProjectIDRaw(ctx, params, reqEditors...)
 	if err != nil {
@@ -4812,7 +4814,9 @@ func (c *Client) CreateCluster(ctx context.Context, body CreateClusterJSONReques
 	return resp, err
 }
 
-// ListAllClusters request returning *ClusterResponseList
+// ListAllClusters Retrieves a list of all clusters, with optional filters for name, status, version, and deletion status. Returns a list of matching clusters
+//
+//sdk:group Clusters
 func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersParams, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponseList, error) {
 	rsp, err := c.ListAllClustersRaw(ctx, params, reqEditors...)
 	if err != nil {
@@ -4830,7 +4834,9 @@ func (c *Client) ListAllClusters(ctx context.Context, params *ListAllClustersPar
 	return resp, err
 }
 
-// GetControlPlanePlans request returning *ControlPlanesResponse
+// GetControlPlanePlans Retrieves the available control plane plans for cluster deployment. Returns a list of supported control plane plans for cluster creation or upgrades.
+//
+//sdk:group Clusters
 func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*ControlPlanesResponse, error) {
 	rsp, err := c.GetControlPlanePlansRaw(ctx, reqEditors...)
 	if err != nil {
@@ -4848,7 +4854,9 @@ func (c *Client) GetControlPlanePlans(ctx context.Context, reqEditors ...middlew
 	return resp, err
 }
 
-// GetCPSubregions request returning *CPSubregionsResponse
+// GetCPSubregions Retrieves the available subregions for cluster deployment. Returns a list of supported subregions for cluster creation.
+//
+//sdk:group Clusters
 func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*CPSubregionsResponse, error) {
 	rsp, err := c.GetCPSubregionsRaw(ctx, reqEditors...)
 	if err != nil {
@@ -4866,7 +4874,9 @@ func (c *Client) GetCPSubregions(ctx context.Context, reqEditors ...middleware.M
 	return resp, err
 }
 
-// GetKubernetesVersions request returning *KubernetesVersionsResponse
+// GetKubernetesVersions Retrieves the available Kubernetes versions for cluster creation or upgrades. Returns a list of supported Kubernetes versions.
+//
+//sdk:group Clusters
 func (c *Client) GetKubernetesVersions(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*KubernetesVersionsResponse, error) {
 	rsp, err := c.GetKubernetesVersionsRaw(ctx, reqEditors...)
 	if err != nil {
@@ -4884,7 +4894,9 @@ func (c *Client) GetKubernetesVersions(ctx context.Context, reqEditors ...middle
 	return resp, err
 }
 
-// DeleteCluster request returning *DetailResponse
+// DeleteCluster Deletes a specific cluster by its ID. Returns confirmation of the deletion.
+//
+//sdk:group Clusters
 func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error) {
 	rsp, err := c.DeleteClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
@@ -4902,7 +4914,9 @@ func (c *Client) DeleteCluster(ctx context.Context, clusterId string, reqEditors
 	return resp, err
 }
 
-// GetCluster request returning *ClusterResponse
+// GetCluster Retrieves detailed information about a specific cluster by its ID. Returns the cluster details if found.
+//
+//sdk:group Clusters
 func (c *Client) GetCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.GetClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
@@ -4960,7 +4974,9 @@ func (c *Client) UpdateCluster(ctx context.Context, clusterId string, body Updat
 	return resp, err
 }
 
-// GetKubeconfig request returning *KubeconfigResponse
+// GetKubeconfig Retrieves the kubeconfig for a specific cluster by its ID. Optionally, you can specify a user, group, and TTL (time-to-live) for the kubeconfig. Returns the kubeconfig details as a dictionary.
+//
+//sdk:group Clusters
 func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *GetKubeconfigParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error) {
 	rsp, err := c.GetKubeconfigRaw(ctx, clusterId, params, reqEditors...)
 	if err != nil {
@@ -4978,7 +4994,9 @@ func (c *Client) GetKubeconfig(ctx context.Context, clusterId string, params *Ge
 	return resp, err
 }
 
-// GetKubeconfigWithPubkeyNACL request returning *KubeconfigResponse
+// GetKubeconfigWithPubkeyNACL Retrieves the kubeconfig for a specific cluster by its ID with optional NaCl public key encryption. Optionally, you can specify a user, group, and TTL (time-to-live) for the kubeconfig. If the x_encrypt_nacl header is provided, the kubeconfig will be encrypted using the given NaCl public key. Returns the kubeconfig details as a dictionary.
+//
+//sdk:group Clusters
 func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId string, params *GetKubeconfigWithPubkeyNACLParams, reqEditors ...middleware.MiddlewareChainOption) (*KubeconfigResponse, error) {
 	rsp, err := c.GetKubeconfigWithPubkeyNACLRaw(ctx, clusterId, params, reqEditors...)
 	if err != nil {
@@ -4996,7 +5014,9 @@ func (c *Client) GetKubeconfigWithPubkeyNACL(ctx context.Context, clusterId stri
 	return resp, err
 }
 
-// UpgradeCluster request returning *ClusterResponse
+// UpgradeCluster Upgrades a specific cluster by its ID to the latest available version. Returns the updated cluster details after the upgrade process is completed.
+//
+//sdk:group Clusters
 func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditors ...middleware.MiddlewareChainOption) (*ClusterResponse, error) {
 	rsp, err := c.UpgradeClusterRaw(ctx, clusterId, reqEditors...)
 	if err != nil {
@@ -5014,7 +5034,9 @@ func (c *Client) UpgradeCluster(ctx context.Context, clusterId string, reqEditor
 	return resp, err
 }
 
-// ListProjects request returning *ProjectResponseList
+// ListProjects Retrieves a list of all projects with optional filters for name, status, CIDR, and deletion status. Returns a list of matching projects based on the specified filters.
+//
+//sdk:group Projects
 func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponseList, error) {
 	rsp, err := c.ListProjectsRaw(ctx, params, reqEditors...)
 	if err != nil {
@@ -5072,7 +5094,9 @@ func (c *Client) CreateProject(ctx context.Context, body CreateProjectJSONReques
 	return resp, err
 }
 
-// DeleteProject request returning *DetailResponse
+// DeleteProject Deletes a specific project by its ID. Returns a confirmation of the project deletion.
+//
+//sdk:group Projects
 func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*DetailResponse, error) {
 	rsp, err := c.DeleteProjectRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5090,7 +5114,9 @@ func (c *Client) DeleteProject(ctx context.Context, projectId string, reqEditors
 	return resp, err
 }
 
-// GetProject request returning *ProjectResponse
+// GetProject Retrieves detailed information about a specific project by its ID. Returns the details of the project if found.
+//
+//sdk:group Projects
 func (c *Client) GetProject(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectResponse, error) {
 	rsp, err := c.GetProjectRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5148,7 +5174,9 @@ func (c *Client) UpdateProject(ctx context.Context, projectId string, body Updat
 	return resp, err
 }
 
-// GetProjectNets request returning *NetsResponse
+// GetProjectNets Retrieves the Nets details for a specific project by its ID. Returns the Nets information associated with the specified project.
+//
+//sdk:group Projects
 func (c *Client) GetProjectNets(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*NetsResponse, error) {
 	rsp, err := c.GetProjectNetsRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5166,7 +5194,9 @@ func (c *Client) GetProjectNets(ctx context.Context, projectId string, reqEditor
 	return resp, err
 }
 
-// GetProjectPublicIps request returning *PublicIpsResponse
+// GetProjectPublicIps Retrieves the Public IP details for a specific project by its ID. Returns the public IP information associated with the specified project.
+//
+//sdk:group Projects
 func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*PublicIpsResponse, error) {
 	rsp, err := c.GetProjectPublicIpsRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5184,7 +5214,9 @@ func (c *Client) GetProjectPublicIps(ctx context.Context, projectId string, reqE
 	return resp, err
 }
 
-// GetProjectQuotas request returning *ProjectsProjectSchemaQuotasResponse
+// GetProjectQuotas Retrieves the quota details for a specific project by its ID. Returns the quota information associated with the specified project.
+//
+//sdk:group Projects
 func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*ProjectsProjectSchemaQuotasResponse, error) {
 	rsp, err := c.GetProjectQuotasRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5202,7 +5234,9 @@ func (c *Client) GetProjectQuotas(ctx context.Context, projectId string, reqEdit
 	return resp, err
 }
 
-// GetProjectSnapshots request returning *SnapshotsResponse
+// GetProjectSnapshots Retrieves the snapshot details for a specific project by its ID. Returns the snapshot information associated with the specified project.
+//
+//sdk:group Projects
 func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqEditors ...middleware.MiddlewareChainOption) (*SnapshotsResponse, error) {
 	rsp, err := c.GetProjectSnapshotsRaw(ctx, projectId, reqEditors...)
 	if err != nil {
@@ -5220,7 +5254,9 @@ func (c *Client) GetProjectSnapshots(ctx context.Context, projectId string, reqE
 	return resp, err
 }
 
-// GetQuotas request returning *QuotasQuotaSchemaQuotasResponse
+// GetQuotas Get OKS Quotas.
+//
+//sdk:group Quotas
 func (c *Client) GetQuotas(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*QuotasQuotaSchemaQuotasResponse, error) {
 	rsp, err := c.GetQuotasRaw(ctx, reqEditors...)
 	if err != nil {
@@ -5238,7 +5274,9 @@ func (c *Client) GetQuotas(ctx context.Context, reqEditors ...middleware.Middlew
 	return resp, err
 }
 
-// GetClusterTemplate request returning *TemplateResponseClusterInputTemplate
+// GetClusterTemplate Retrieves the default cluster template, including predefined control plane configurations, networking settings, and maintenance schedules. Returns a JSON response containing the request context and template details, such as control plane type, CIDR ranges for pods and services, admission flags, multi-AZ support, Kubernetes version, subregions, and scheduled automatic maintenance settings.
+//
+//sdk:group Templates
 func (c *Client) GetClusterTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseClusterInputTemplate, error) {
 	rsp, err := c.GetClusterTemplateRaw(ctx, reqEditors...)
 	if err != nil {
@@ -5256,7 +5294,9 @@ func (c *Client) GetClusterTemplate(ctx context.Context, reqEditors ...middlewar
 	return resp, err
 }
 
-// GetNetPeeringAcceptanceTemplate request returning *TemplateResponseNetPeeringAcceptance
+// GetNetPeeringAcceptanceTemplate NetPeering Acceptance manifest
+//
+//sdk:group Templates
 func (c *Client) GetNetPeeringAcceptanceTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringAcceptance, error) {
 	rsp, err := c.GetNetPeeringAcceptanceTemplateRaw(ctx, reqEditors...)
 	if err != nil {
@@ -5274,7 +5314,9 @@ func (c *Client) GetNetPeeringAcceptanceTemplate(ctx context.Context, reqEditors
 	return resp, err
 }
 
-// GetNetPeeringRequestTemplate request returning *TemplateResponseNetPeeringRequest
+// GetNetPeeringRequestTemplate NetPeering Request manifest
+//
+//sdk:group Templates
 func (c *Client) GetNetPeeringRequestTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNetPeeringRequest, error) {
 	rsp, err := c.GetNetPeeringRequestTemplateRaw(ctx, reqEditors...)
 	if err != nil {
@@ -5292,7 +5334,9 @@ func (c *Client) GetNetPeeringRequestTemplate(ctx context.Context, reqEditors ..
 	return resp, err
 }
 
-// GetNodepoolTemplate request returning *TemplateResponseNodepool
+// GetNodepoolTemplate Retrieves the default node pool template, including predefined configurations for node scaling, storage, and upgrade strategies. Returns a JSON response containing the request context and template details, such as node count, node type, availability zones, volume specifications, upgrade strategy, and auto-healing settings.
+//
+//sdk:group Templates
 func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseNodepool, error) {
 	rsp, err := c.GetNodepoolTemplateRaw(ctx, reqEditors...)
 	if err != nil {
@@ -5310,7 +5354,9 @@ func (c *Client) GetNodepoolTemplate(ctx context.Context, reqEditors ...middlewa
 	return resp, err
 }
 
-// GetProjectTemplate request returning *TemplateResponseProjectInput
+// GetProjectTemplate Retrieves the default project template, including predefined network configurations, region, and metadata. Returns a JSON response containing the request context and template details, such as CIDR block, project name, region, description, and tags.
+//
+//sdk:group Templates
 func (c *Client) GetProjectTemplate(ctx context.Context, reqEditors ...middleware.MiddlewareChainOption) (*TemplateResponseProjectInput, error) {
 	rsp, err := c.GetProjectTemplateRaw(ctx, reqEditors...)
 	if err != nil {
