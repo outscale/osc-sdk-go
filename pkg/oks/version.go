@@ -1,5 +1,5 @@
 package oks
 
 const (
-	Version = "v0.0.0+dev"
+	Version = "v1.0"
 )
