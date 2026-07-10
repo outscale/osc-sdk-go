@@ -36518,6 +36518,7 @@ type ReadLoadBalancersResp struct {
 	HTTPResponse *http.Response
 	JSON200      *ReadLoadBalancersResponse
 	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
 	JSON500      *ErrorResponse
 }
 
@@ -36549,6 +36550,10 @@ func (r ReadLoadBalancersResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON404 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON404)
 	}
 
 	if r.JSON500 != nil {
@@ -56928,6 +56933,13 @@ func ParseReadLoadBalancersResp(rsp *http.Response) (*ReadLoadBalancersResp, err
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest ErrorResponse

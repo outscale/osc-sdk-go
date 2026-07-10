@@ -970,3 +970,11 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 409 response (Conflict).
+- target: $.paths["/ReadLoadBalancers"].post.responses
+  update:
+    '404':
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/ErrorResponse"
+      description: The HTTP 404 response (Not Found).
