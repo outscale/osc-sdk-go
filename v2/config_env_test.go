@@ -9,6 +9,7 @@ import (
 )
 
 func TestEnvVariablesAkSk(t *testing.T) {
+	requireIntegrationTests(t)
 	configEnv := NewConfigEnv()
 	config, err := configEnv.Configuration()
 	if err != nil {
@@ -22,6 +23,7 @@ func TestEnvVariablesAkSk(t *testing.T) {
 }
 
 func TestEnvVariablesWithProfile(t *testing.T) {
+	requireIntegrationTests(t)
 	if err := os.Setenv("OSC_PROFILE", "SomeProfile"); err != nil {
 		t.Fatalf("Cannot set OSC_PROFILE: %s", err.Error())
 	}
@@ -74,6 +76,13 @@ func TestEnvVariablesWithProfile(t *testing.T) {
 		t.Fatalf("Cannot create context for making a query: %s", err.Error())
 	}
 	testConfAndContextOk(t, config, &ctx)
+}
+
+func requireIntegrationTests(t *testing.T) {
+	t.Helper()
+	if os.Getenv("OSC_RUN_INTEGRATION_TESTS") == "" {
+		t.Skip("set OSC_RUN_INTEGRATION_TESTS to run live API tests")
+	}
 }
 
 func testConfAndContextOk(t *testing.T, config *Configuration, ctx *context.Context) {

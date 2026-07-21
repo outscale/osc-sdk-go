@@ -8,6 +8,7 @@ import (
 )
 
 func TestBasicConfigFileWithValidEndpoint1(t *testing.T) {
+	requireIntegrationTests(t)
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
@@ -40,6 +41,7 @@ func TestBasicConfigFileWithValidEndpoint1(t *testing.T) {
 }
 
 func TestBasicConfigFileWithValidEndpoint2(t *testing.T) {
+	requireIntegrationTests(t)
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
@@ -64,6 +66,7 @@ func TestBasicConfigFileWithValidEndpoint2(t *testing.T) {
 }
 
 func TestBasicConfigFileWithValidRegion2(t *testing.T) {
+	requireIntegrationTests(t)
 	ak := os.Getenv("OSC_ACCESS_KEY")
 	sk := os.Getenv("OSC_SECRET_KEY")
 	region := os.Getenv("OSC_REGION")
