@@ -3,7 +3,7 @@ name: pull-request-v2
 on:
   pull_request:
     branches: [ v2 ]
-    
+
 jobs:
   reuse-test:
     runs-on: ubuntu-24.04
@@ -16,7 +16,7 @@ jobs:
     runs-on: [self-hosted, linux, eu-west-2]
     steps:
       - name: 🧹 Frieza
-        uses: outscale/frieza-github-actions/frieza-clean@68ffd39d7e181f3548369e332242b329b04a3182 # master
+        uses: outscale/frieza-github-actions/frieza-clean@68ffd39d7e181f3548369e332242b329b04a3182 # main
         with:
           access_key: ${{ secrets.OSC_ACCESS_KEY }}
           secret_key: ${{ secrets.OSC_SECRET_KEY }}

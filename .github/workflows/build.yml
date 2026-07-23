@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: v2
-      - uses: chainguard-dev/actions/setup-gitsign@e00f17880eda6e399fda995ab2eb5122dfc33c8f # main
+      - uses: chainguard-dev/actions/setup-gitsign@4d37df0d85a91f619edc34a8803323033cdcb124 # v1.6.27
 
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
