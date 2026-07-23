@@ -22,7 +22,7 @@ jobs:
           ref: v3
       - uses: chainguard-dev/actions/setup-gitsign@3e76343fe029f8e2a10bfbec0da8f437e5dab7a5 # main
       - name: Set up Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: "go.mod"
       - name: Build release
@@ -53,7 +53,7 @@ jobs:
         with:
           ref: v2
       - name: Set up Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: 1.23
       - name: Write Outscale API version to use
