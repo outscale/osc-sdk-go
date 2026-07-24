@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 set -e
 
 root=$(cd "$(dirname $0)/../.." && pwd)
