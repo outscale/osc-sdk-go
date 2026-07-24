@@ -73,6 +73,11 @@ func (c *Client) DeleteObject(ctx context.Context, params *s3.DeleteObjectInput,
 }
 
 //sdk:group Object
+func (c *Client) DeleteObjects(ctx context.Context, params *s3.DeleteObjectsInput, optFns ...func(*s3.Options)) (*s3.DeleteObjectsOutput, error) {
+	return c.s3.DeleteObjects(ctx, params, optFns...)
+}
+
+//sdk:group Object
 func (c *Client) CopyObject(ctx context.Context, params *s3.CopyObjectInput, optFns ...func(*s3.Options)) (*s3.CopyObjectOutput, error) {
 	return c.s3.CopyObject(ctx, params, optFns...)
 }
