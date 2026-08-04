@@ -17,7 +17,6 @@ actions:
         - gp2
         - io1
         - standard
-  - target: $.paths./projects.get.parameters
   - target: $.components.schemas
     update:
       ProjectStatus:
@@ -30,13 +29,13 @@ actions:
           - failed
           - deleting
   - target: $.components.schemas.Project.properties.status
-    delete: true
+    remove: true
   - target: $.components.schemas.Project.properties
     update:
       status:
         $ref: '#/components/schemas/ProjectStatus'
   - target: $.paths./projects.get.parameters.*[?(@.name == "status")].schema
-    delete: true
+    remove: true
   - target: $.paths./projects.get.parameters.*[?(@.name == "status")]
     update:
         schema:
@@ -54,13 +53,13 @@ actions:
           - deploying
           - upgrading
   - target: $.components.schemas.Statuses.properties.status
-    delete: true
+    remove: true
   - target: $.components.schemas.Statuses.properties
     update:
       status:
         $ref: '#/components/schemas/ClusterStatus'
   - target: $.paths./clusters.get.parameters.*[?(@.name == "status")].schema
-    delete: true
+    remove: true
   - target: $.paths./clusters.get.parameters.*[?(@.name == "status")]
     update:
         schema:
