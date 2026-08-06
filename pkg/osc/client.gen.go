@@ -766,6 +766,58 @@ func (e SecureBootAction) Valid() bool {
 	}
 }
 
+// Defines values for ShutdownBehaviorConfigurationGuestAction.
+const (
+	ShutdownBehaviorConfigurationGuestActionStop      ShutdownBehaviorConfigurationGuestAction = "stop"
+	ShutdownBehaviorConfigurationGuestActionTerminate ShutdownBehaviorConfigurationGuestAction = "terminate"
+)
+
+// Method to return the list of values
+func (ShutdownBehaviorConfigurationGuestAction) Values() []string {
+	return []string{
+		"stop",
+		"terminate",
+	}
+}
+
+// Valid indicates whether the value is a known member of the ShutdownBehaviorConfigurationGuestAction enum.
+func (e ShutdownBehaviorConfigurationGuestAction) Valid() bool {
+	switch e {
+	case ShutdownBehaviorConfigurationGuestActionStop:
+		return true
+	case ShutdownBehaviorConfigurationGuestActionTerminate:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ShutdownBehaviorConfigurationHostAction.
+const (
+	ShutdownBehaviorConfigurationHostActionRestart ShutdownBehaviorConfigurationHostAction = "restart"
+	ShutdownBehaviorConfigurationHostActionStop    ShutdownBehaviorConfigurationHostAction = "stop"
+)
+
+// Method to return the list of values
+func (ShutdownBehaviorConfigurationHostAction) Values() []string {
+	return []string{
+		"restart",
+		"stop",
+	}
+}
+
+// Valid indicates whether the value is a known member of the ShutdownBehaviorConfigurationHostAction enum.
+func (e ShutdownBehaviorConfigurationHostAction) Valid() bool {
+	switch e {
+	case ShutdownBehaviorConfigurationHostActionRestart:
+		return true
+	case ShutdownBehaviorConfigurationHostActionStop:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SnapshotState.
 const (
 	SnapshotStateCompleted SnapshotState = "completed"
@@ -1515,10 +1567,10 @@ type BackendVmHealth struct {
 	// Description The description of the state of the backend VM.
 	Description *string `json:"Description,omitempty"`
 
-	// State The state of the backend VM (`InService` \| `OutOfService` \| `Unknown`).
+	// State The state of the backend VM (`UP` \| `DOWN` \| `UNKNOWN`).
 	State *BackendVmHealthState `json:"State,omitempty"`
 
-	// StateReason Information about the cause of `OutOfService` VMs.<br />
+	// StateReason Information about the cause of `DOWN` VMs.<br />
 	// Specifically, whether the cause is Elastic Load Balancing or the VM (`ELB` \| `Instance` \| `N/A`).
 	StateReason *string `json:"StateReason,omitempty"`
 
@@ -1526,7 +1578,7 @@ type BackendVmHealth struct {
 	VmId *string `json:"VmId,omitempty"`
 }
 
-// BackendVmHealthState The state of the backend VM (`InService` \| `OutOfService` \| `Unknown`).
+// BackendVmHealthState The state of the backend VM (`UP` \| `DOWN` \| `UNKNOWN`).
 type BackendVmHealthState string
 
 // BlockDeviceMappingCreated Information about the created block device mapping.
@@ -1855,7 +1907,7 @@ type CreateAccountRequest struct {
 	// Country The country of the account owner.
 	Country string `json:"Country"`
 
-	// CustomerId The ID of the customer. It must be 8 digits.
+	// CustomerId The ID of the customer. It must be 8 digits.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--CustomerId '&quot;12345678&quot;'`.
 	CustomerId string `json:"CustomerId"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -1885,7 +1937,7 @@ type CreateAccountRequest struct {
 	// VatNumber The value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
-	// ZipCode The ZIP code of the city.
+	// ZipCode The ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
 	ZipCode string `json:"ZipCode"`
 }
 
@@ -2341,7 +2393,7 @@ type CreateLoadBalancerTagsResponse struct {
 
 // CreateNatServiceRequest defines model for CreateNatServiceRequest.
 type CreateNatServiceRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.
+	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -2390,12 +2442,12 @@ type CreateNetAccessPointResponse struct {
 
 // CreateNetPeeringRequest defines model for CreateNetPeeringRequest.
 type CreateNetPeeringRequest struct {
-	// AccepterNetId The ID of the Net you want to connect with. <br/ > <br/ >
+	// AccepterNetId The ID of the Net you want to connect with.<br/ >
 	// If the Net does not belong to you, you must also specify the `AccepterOwnerId` parameter with the OUTSCALE account ID owning the Net you want to connect with.
 	AccepterNetId string `json:"AccepterNetId"`
 
-	// AccepterOwnerId The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. <br /><br/ >
-	// This parameter is required if the Net you want to connect with does not belong to you.
+	// AccepterOwnerId The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent.<br/ >
+	// This parameter is required if the Net you want to connect with does not belong to you.<br />With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: `--AccepterOwnerId '&quot;12345678&quot;'`.
 	AccepterOwnerId *string `json:"AccepterOwnerId,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -2650,7 +2702,7 @@ type CreateSecurityGroupRuleRequest struct {
 	// Rules Information about the security group rule to create. If you specify this parent parameter and its subparameters, you cannot specify the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`, and `ToPortRange`.
 	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
-	// SecurityGroupAccountIdToLink The OUTSCALE account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.
+	// SecurityGroupAccountIdToLink The OUTSCALE account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.<br />With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: `--SecurityGroupAccountIdToLink '&quot;12345678&quot;'`.
 	SecurityGroupAccountIdToLink *string `json:"SecurityGroupAccountIdToLink,omitempty"`
 
 	// SecurityGroupId The ID of the security group for which you want to create a rule.
@@ -2725,7 +2777,7 @@ type CreateSnapshotExportTaskResponse struct {
 
 // CreateSnapshotRequest defines model for CreateSnapshotRequest.
 type CreateSnapshotRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.
+	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// Description A description for the snapshot.
@@ -2969,7 +3021,7 @@ type CreateVmsRequest struct {
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
 
-	// ClientToken A unique identifier which enables you to manage the idempotency.
+	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DeletionProtection If true, you cannot delete the VM unless you change this parameter back to false.
@@ -3011,6 +3063,9 @@ type CreateVmsRequest struct {
 	// SecurityGroups One or more names of security groups for the VMs.
 	SecurityGroups []string `json:"SecurityGroups,omitempty"`
 
+	// ShutdownBehaviorConfiguration Information about the actions performed by the orchestrator when the VM shuts down.
+	ShutdownBehaviorConfiguration *ShutdownBehaviorConfiguration `json:"ShutdownBehaviorConfiguration,omitempty"`
+
 	// SubnetId The ID of the Subnet in which you want to create the VM.
 	SubnetId *string `json:"SubnetId,omitempty"`
 
@@ -3021,6 +3076,7 @@ type CreateVmsRequest struct {
 	UserData *string `json:"UserData,omitempty"`
 
 	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 
 	// VmType The type of VM. You can specify a TINA type (in the `tinavW.cXrYpZ` or `tinavW.cXrY` format), or an AWS type (for example, `t2.small`, which is the default value).<br />
@@ -3042,7 +3098,7 @@ type CreateVmsResponse struct {
 
 // CreateVolumeRequest defines model for CreateVolumeRequest.
 type CreateVolumeRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.
+	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -5400,6 +5456,21 @@ type FiltersVmsState struct {
 	VmStates *[]VmState `json:"VmStates,omitempty"`
 }
 
+// FiltersVmsStopHistory One or more filters.
+type FiltersVmsStopHistory struct {
+	// StateReasons The reason explaining why the VM stopped. You can filter by reason code or reason prefix (for example, `Client.ApiGracefulShutdown` or `Client.*`). For the list of reason codes, see [Creating VMs > VM State Reference](https://docs.outscale.com/en/userguide/Creating-VMs).
+	StateReasons *[]string `json:"StateReasons,omitempty"`
+
+	// StopDateAfter The date and time (UTC), or the date, after which you want to retrieve VM stops, in ISO 8601 format (for example, `2026-06-14T00:00:00.000Z` or `2026-06-14`).
+	StopDateAfter *iso8601.Time `json:"StopDateAfter,omitempty"`
+
+	// StopDateBefore The date and time (UTC), or the date, before which you want to retrieve VM stops, in ISO 8601 format (for example, `2026-06-14T00:00:00.000Z` or `2026-06-14`).
+	StopDateBefore *iso8601.Time `json:"StopDateBefore,omitempty"`
+
+	// VmIds The IDs of the stopped VM(s).
+	VmIds *[]string `json:"VmIds,omitempty"`
+}
+
 // FiltersVolume One or more filters.
 type FiltersVolume struct {
 	// ClientTokens The idempotency tokens provided when creating the volumes.
@@ -5792,7 +5863,7 @@ type LinkNic struct {
 	// DeleteOnVmDeletion If true, the NIC is deleted when the VM is terminated.
 	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
-	// DeviceNumber The device index for the NIC attachment (between `1` and `7`, both included).
+	// DeviceNumber The device index for the NIC attachment (between `0` and `7`, both included).
 	DeviceNumber int `json:"DeviceNumber"`
 
 	// LinkNicId The ID of the NIC to attach.
@@ -5816,7 +5887,7 @@ type LinkNicLight struct {
 	// DeleteOnVmDeletion If true, the NIC is deleted when the VM is terminated.
 	DeleteOnVmDeletion bool `json:"DeleteOnVmDeletion"`
 
-	// DeviceNumber The device index for the NIC attachment (between `1` and `7`, both included).
+	// DeviceNumber The device index for the NIC attachment (between `0` and `7`, both included).
 	DeviceNumber int `json:"DeviceNumber"`
 
 	// LinkNicId The ID of the NIC to attach.
@@ -8704,6 +8775,30 @@ type ReadVmsStateResponse struct {
 	VmStates *[]VmStates `json:"VmStates,omitempty"`
 }
 
+// ReadVmsStopHistoryRequest defines model for ReadVmsStopHistoryRequest.
+type ReadVmsStopHistoryRequest struct {
+	// Filters One or more filters.
+	Filters *FiltersVmsStopHistory `json:"Filters,omitempty"`
+
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *string `json:"NextPageToken,omitempty"`
+
+	// ResultsPerPage The maximum number of logs returned in a single response (between `1` and `1000`, both included).
+	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
+}
+
+// ReadVmsStopHistoryResponse defines model for ReadVmsStopHistoryResponse.
+type ReadVmsStopHistoryResponse struct {
+	// NextPageToken The token to request the next page of results. Each token refers to a specific page.
+	NextPageToken *string `json:"NextPageToken,omitempty"`
+
+	// ResponseContext Information about the context of the response.
+	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
+
+	// VmsStopHistory Information about the VM(s) stop history.
+	VmsStopHistory *[]VmsStopHistory `json:"VmsStopHistory,omitempty"`
+}
+
 // ReadVolumeUpdateTasksRequest defines model for ReadVolumeUpdateTasksRequest.
 type ReadVolumeUpdateTasksRequest struct {
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -9125,6 +9220,21 @@ type SetDefaultPolicyVersionResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
+// ShutdownBehaviorConfiguration Information about the actions performed by the orchestrator when the VM shuts down.
+type ShutdownBehaviorConfiguration struct {
+	// GuestAction The action performed by the orchestrator when the VM is shut down from the guest operating system. By default, `stop`.
+	GuestAction *ShutdownBehaviorConfigurationGuestAction `json:"GuestAction,omitempty"`
+
+	// HostAction The action performed by the orchestrator when the VM is shut down due to a host infrastructure failure. By default, `restart`.
+	HostAction *ShutdownBehaviorConfigurationHostAction `json:"HostAction,omitempty"`
+}
+
+// ShutdownBehaviorConfigurationGuestAction The action performed by the orchestrator when the VM is shut down from the guest operating system. By default, `stop`.
+type ShutdownBehaviorConfigurationGuestAction string
+
+// ShutdownBehaviorConfigurationHostAction The action performed by the orchestrator when the VM is shut down due to a host infrastructure failure. By default, `restart`.
+type ShutdownBehaviorConfigurationHostAction string
+
 // Snapshot Information about the snapshot.
 type Snapshot struct {
 	// AccountAlias The account alias of the owner of the snapshot.
@@ -9181,7 +9291,7 @@ type SnapshotExportTask struct {
 	// SnapshotId The ID of the snapshot to be exported.
 	SnapshotId string `json:"SnapshotId"`
 
-	// State The state of the snapshot export task (`pending` \| `active` \| `completed` \| `cancelled` \| `failed`).
+	// State The state of the snapshot export task (`pending` \| `initializing` \| `preparing` \| `uploading` \| `completed` \| `cancelled` \| `failed`).
 	State SnapshotExportTaskState `json:"State"`
 
 	// Tags One or more tags associated with the snapshot export task.
@@ -9191,7 +9301,7 @@ type SnapshotExportTask struct {
 	TaskId string `json:"TaskId"`
 }
 
-// SnapshotExportTaskState The state of the snapshot export task (`pending` \| `active` \| `completed` \| `cancelled` \| `failed`).
+// SnapshotExportTaskState The state of the snapshot export task (`pending` \| `initializing` \| `preparing` \| `uploading` \| `completed` \| `cancelled` \| `failed`).
 type SnapshotExportTaskState string
 
 // SourceNet Information about the source Net.
@@ -9272,7 +9382,7 @@ type Subnet struct {
 	// IpRange The IP range in the Subnet, in CIDR notation (for example, `10.0.0.0/16`).
 	IpRange string `json:"IpRange"`
 
-	// MapPublicIpOnLaunch If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet.
+	// MapPublicIpOnLaunch If true, a public IP is assigned to the network interface cards (NICs) created in the specified Subnet. By default, false.
 	MapPublicIpOnLaunch bool `json:"MapPublicIpOnLaunch"`
 
 	// NetId The ID of the Net in which the Subnet is.
@@ -9617,7 +9727,7 @@ type UpdateAccountRequest struct {
 	// VatNumber The new value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
-	// ZipCode The new ZIP code of the city.
+	// ZipCode The new ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
 	ZipCode *string `json:"ZipCode,omitempty"`
 }
 
@@ -10204,6 +10314,9 @@ type UpdateVmRequest struct {
 	// SecurityGroupIds One or more IDs of security groups for the VM.
 	SecurityGroupIds []string `json:"SecurityGroupIds,omitempty"`
 
+	// ShutdownBehaviorConfiguration Information about the actions performed by the orchestrator when the VM shuts down.
+	ShutdownBehaviorConfiguration *ShutdownBehaviorConfiguration `json:"ShutdownBehaviorConfiguration,omitempty"`
+
 	// UserData The Base64-encoded MIME user data, limited to 500 kibibytes (KiB).
 	UserData *string `json:"UserData,omitempty"`
 
@@ -10211,6 +10324,7 @@ type UpdateVmRequest struct {
 	VmId string `json:"VmId"`
 
 	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 
 	// VmType The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
@@ -10480,10 +10594,13 @@ type Vm struct {
 	// SecurityGroups One or more security groups associated with the VM.
 	SecurityGroups []SecurityGroupLight `json:"SecurityGroups"`
 
+	// ShutdownBehaviorConfiguration Information about the actions performed by the orchestrator when the VM shuts down.
+	ShutdownBehaviorConfiguration *ShutdownBehaviorConfiguration `json:"ShutdownBehaviorConfiguration,omitempty"`
+
 	// State The state of the VM (`pending` \| `running` \| `stopping` \| `stopped` \| `shutting-down` \| `terminated` \| `quarantine`).
 	State VmState `json:"State"`
 
-	// StateReason The reason explaining the current state of the VM.
+	// StateReason The reason explaining the current state of the VM. For more information, see [Creating VMs > VM State Reference](https://docs.outscale.com/en/userguide/Creating-VMs.html#_vm_state_reference_statereason_2).
 	StateReason string `json:"StateReason"`
 
 	// SubnetId The ID of the Subnet for the VM.
@@ -10501,7 +10618,7 @@ type Vm struct {
 	// VmId The ID of the VM.
 	VmId string `json:"VmId"`
 
-	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted.
+	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted. Important: This parameter is deprecated in favor of `ShutDownBeheviorConfiguration` and will be removed.
 	VmInitiatedShutdownBehavior string `json:"VmInitiatedShutdownBehavior"`
 
 	// VmType The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
@@ -10653,6 +10770,18 @@ type VmType struct {
 
 	// VolumeSize The size of one ephemeral storage disk, in gibibytes (GiB).
 	VolumeSize *int `json:"VolumeSize,omitempty"`
+}
+
+// VmsStopHistory Information about the stop history of one or more VMs.
+type VmsStopHistory struct {
+	// StateReason The reason explaining why the VM stopped. For more information, see [Creating VMs > VM State Reference](https://docs.outscale.com/en/userguide/Creating-VMs.html#_vm_state_reference_statereason_2).
+	StateReason *string `json:"StateReason,omitempty"`
+
+	// StopDate The date and time (UTC) of the stop event.
+	StopDate *iso8601.Time `json:"StopDate,omitempty"`
+
+	// VmId The ID of the VM.
+	VmId *string `json:"VmId,omitempty"`
 }
 
 // Volume Information about the volume.
@@ -11427,6 +11556,9 @@ type ReadVmsHealthJSONRequestBody = ReadVmsHealthRequest
 
 // ReadVmsStateJSONRequestBody defines body for ReadVmsState for application/json ContentType.
 type ReadVmsStateJSONRequestBody = ReadVmsStateRequest
+
+// ReadVmsStopHistoryJSONRequestBody defines body for ReadVmsStopHistory for application/json ContentType.
+type ReadVmsStopHistoryJSONRequestBody = ReadVmsStopHistoryRequest
 
 // ReadVolumeUpdateTasksJSONRequestBody defines body for ReadVolumeUpdateTasks for application/json ContentType.
 type ReadVolumeUpdateTasksJSONRequestBody = ReadVolumeUpdateTasksRequest
@@ -12517,6 +12649,11 @@ type clientInterfaceRaw interface {
 	ReadVmsStateWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	// ReadVmsStopHistoryWithBodyRaw request with any body
+	ReadVmsStopHistoryWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
+
+	ReadVmsStopHistoryRaw(ctx context.Context, body ReadVmsStopHistoryJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
 
 	// ReadVolumeUpdateTasksWithBodyRaw request with any body
 	ReadVolumeUpdateTasksWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error)
@@ -18309,6 +18446,36 @@ func (c *ClientRaw) ReadVmsStateWithBodyRaw(ctx context.Context, contentType str
 
 func (c *ClientRaw) ReadVmsStateRaw(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
 	req, err := NewReadVmsStateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVmsStopHistoryWithBodyRaw(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVmsStopHistoryRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	client, err := c.Client.WithOptions(reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.RoundTrip(req)
+}
+
+func (c *ClientRaw) ReadVmsStopHistoryRaw(ctx context.Context, body ReadVmsStopHistoryJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*http.Response, error) {
+	req, err := NewReadVmsStopHistoryRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -27222,6 +27389,46 @@ func NewReadVmsStateRequestWithBody(server string, contentType string, body io.R
 	return req, nil
 }
 
+// NewReadVmsStopHistoryRequest calls the generic ReadVmsStopHistory builder with application/json body
+func NewReadVmsStopHistoryRequest(server string, body ReadVmsStopHistoryJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReadVmsStopHistoryRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewReadVmsStopHistoryRequestWithBody generates requests for ReadVmsStopHistory with any type of body
+func NewReadVmsStopHistoryRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ReadVmsStopHistory")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewReadVolumeUpdateTasksRequest calls the generic ReadVolumeUpdateTasks builder with application/json body
 func NewReadVolumeUpdateTasksRequest(server string, body ReadVolumeUpdateTasksJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -30172,6 +30379,11 @@ type ClientInterface interface {
 	ReadVmsStateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
 
 	ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStateResponse, error)
+
+	// ReadVmsStopHistoryWithBody request with any body
+	ReadVmsStopHistoryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStopHistoryResponse, error)
+
+	ReadVmsStopHistory(ctx context.Context, body ReadVmsStopHistoryJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStopHistoryResponse, error)
 
 	// ReadVolumeUpdateTasksWithBody request with any body
 	ReadVolumeUpdateTasksWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVolumeUpdateTasksResponse, error)
@@ -39134,6 +39346,56 @@ func (r ReadVmsStateResp) genError() error {
 	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
 }
 
+type ReadVmsStopHistoryResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ReadVmsStopHistoryResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON500      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ReadVmsStopHistoryResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReadVmsStopHistoryResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+func (r ReadVmsStopHistoryResp) Expect() (*ReadVmsStopHistoryResponse, error) {
+	if r.JSON200 != nil {
+		return r.JSON200, nil
+	}
+
+	return nil, r.genError()
+}
+
+func (r ReadVmsStopHistoryResp) genError() error {
+
+	if r.JSON400 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON401 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
+	}
+
+	if r.JSON500 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON500)
+	}
+
+	return fmt.Errorf("unexpected response status %s: %s", r.Status(), string(r.Body))
+}
+
 type ReadVolumeUpdateTasksResp struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -41726,7 +41988,6 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 //
 // **[IMPORTANT]**<br />
 // * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales@outscale.com.<br />
-// * If you want to pass a numeral value as a string instead of an integer, you must wrap your string in additional quotes (for example, `'&quot;92000&quot;'`).
 //
 // For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-OUTSCALE-Account.html).
 //
@@ -42855,7 +43116,7 @@ func (c *Client) CreatePublicIpWithBody(ctx context.Context, contentType string,
 }
 
 // CreatePublicIp Acquires a public IP for your account.<br />
-// A public IP is a static IP designed for dynamic Cloud computing. It can be associated with a virtual machine (VM) in the public Cloud or in a Net, a network interface card (NIC), a NAT service.<br /><br />
+// A public IP is a static IP designed for dynamic Cloud computing. It can be associated with a virtual machine (VM) in the public Cloud, a VM in a Net, a network interface card (NIC), or a NAT service.<br /><br />
 // For more information, see [About Public IPs](https://docs.outscale.com/en/userguide/About-Public-IPs.html).
 //
 //sdk:group PublicIp
@@ -49303,6 +49564,46 @@ func (c *Client) ReadVmsState(ctx context.Context, body ReadVmsStateJSONRequestB
 		return nil, err
 	}
 	obj, err := ParseReadVmsStateResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+// ReadVmsStopHistoryWithBody request with arbitrary body returning *ReadVmsStopHistoryResponse
+func (c *Client) ReadVmsStopHistoryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStopHistoryResponse, error) {
+	rsp, err := c.ReadVmsStopHistoryWithBodyRaw(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVmsStopHistoryResp(rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := obj.Expect()
+	if resp != nil {
+		c.LogResponse(ctx, resp)
+	}
+	return resp, err
+}
+
+// ReadVmsStopHistory Lists the stop history of one or more VMs.
+//
+//sdk:group Vm
+func (c *Client) ReadVmsStopHistory(ctx context.Context, body ReadVmsStopHistoryJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadVmsStopHistoryResponse, error) {
+	c.LogRequest(ctx, body)
+
+	rsp, err := c.ReadVmsStopHistoryRaw(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	obj, err := ParseReadVmsStopHistoryResp(rsp)
 	if err != nil {
 		return nil, err
 	}
@@ -59309,6 +59610,53 @@ func ParseReadVmsStateResp(rsp *http.Response) (*ReadVmsStateResp, error) {
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ReadVmsStateResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReadVmsStopHistoryResp parses an HTTP response from a ReadVmsStopHistory call
+func ParseReadVmsStopHistoryResp(rsp *http.Response) (*ReadVmsStopHistoryResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReadVmsStopHistoryResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ReadVmsStopHistoryResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
