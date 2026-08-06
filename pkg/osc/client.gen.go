@@ -48,28 +48,28 @@ func (e AccessKeyState) Valid() bool {
 
 // Defines values for BackendVmHealthState.
 const (
-	BackendVmHealthStateInService    BackendVmHealthState = "InService"
-	BackendVmHealthStateOutOfService BackendVmHealthState = "OutOfService"
-	BackendVmHealthStateUnknown      BackendVmHealthState = "Unknown"
+	BackendVmHealthStateDOWN    BackendVmHealthState = "DOWN"
+	BackendVmHealthStateOK      BackendVmHealthState = "OK"
+	BackendVmHealthStateUNKNOWN BackendVmHealthState = "UNKNOWN"
 )
 
 // Method to return the list of values
 func (BackendVmHealthState) Values() []string {
 	return []string{
-		"InService",
-		"OutOfService",
-		"Unknown",
+		"DOWN",
+		"OK",
+		"UNKNOWN",
 	}
 }
 
 // Valid indicates whether the value is a known member of the BackendVmHealthState enum.
 func (e BackendVmHealthState) Valid() bool {
 	switch e {
-	case BackendVmHealthStateInService:
+	case BackendVmHealthStateDOWN:
 		return true
-	case BackendVmHealthStateOutOfService:
+	case BackendVmHealthStateOK:
 		return true
-	case BackendVmHealthStateUnknown:
+	case BackendVmHealthStateUNKNOWN:
 		return true
 	default:
 		return false
@@ -858,36 +858,44 @@ func (e SnapshotState) Valid() bool {
 
 // Defines values for SnapshotExportTaskState.
 const (
-	SnapshotExportTaskStateActive    SnapshotExportTaskState = "active"
-	SnapshotExportTaskStateCancelled SnapshotExportTaskState = "cancelled"
-	SnapshotExportTaskStateCompleted SnapshotExportTaskState = "completed"
-	SnapshotExportTaskStateFailed    SnapshotExportTaskState = "failed"
-	SnapshotExportTaskStatePending   SnapshotExportTaskState = "pending"
+	SnapshotExportTaskStateCancelled    SnapshotExportTaskState = "cancelled"
+	SnapshotExportTaskStateCompleted    SnapshotExportTaskState = "completed"
+	SnapshotExportTaskStateFailed       SnapshotExportTaskState = "failed"
+	SnapshotExportTaskStateInitializing SnapshotExportTaskState = "initializing"
+	SnapshotExportTaskStatePending      SnapshotExportTaskState = "pending"
+	SnapshotExportTaskStatePreparing    SnapshotExportTaskState = "preparing"
+	SnapshotExportTaskStateUploading    SnapshotExportTaskState = "uploading"
 )
 
 // Method to return the list of values
 func (SnapshotExportTaskState) Values() []string {
 	return []string{
-		"active",
 		"cancelled",
 		"completed",
 		"failed",
+		"initializing",
 		"pending",
+		"preparing",
+		"uploading",
 	}
 }
 
 // Valid indicates whether the value is a known member of the SnapshotExportTaskState enum.
 func (e SnapshotExportTaskState) Valid() bool {
 	switch e {
-	case SnapshotExportTaskStateActive:
-		return true
 	case SnapshotExportTaskStateCancelled:
 		return true
 	case SnapshotExportTaskStateCompleted:
 		return true
 	case SnapshotExportTaskStateFailed:
 		return true
+	case SnapshotExportTaskStateInitializing:
+		return true
 	case SnapshotExportTaskStatePending:
+		return true
+	case SnapshotExportTaskStatePreparing:
+		return true
+	case SnapshotExportTaskStateUploading:
 		return true
 	default:
 		return false
