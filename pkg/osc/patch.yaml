@@ -421,7 +421,9 @@ actions:
   update:
     enum:
     - pending
-    - active
+    - initializing
+    - preparing
+    - uploading
     - completed
     - cancelled
     - failed
@@ -441,9 +443,9 @@ actions:
   description: Type for BackendVmHealth.State
   update:
     enum:
-    - InService
-    - OutOfService
-    - Unknown
+    - OK
+    - DOWN
+    - UNKNOWN
 - target: $.components.schemas.Volume
   description: Required fields for Volume
   update:
