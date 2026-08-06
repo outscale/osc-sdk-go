@@ -443,7 +443,7 @@ actions:
   description: Type for BackendVmHealth.State
   update:
     enum:
-    - OK
+    - UP
     - DOWN
     - UNKNOWN
 - target: $.components.schemas.Volume
