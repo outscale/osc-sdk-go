@@ -49,7 +49,7 @@ func (e AccessKeyState) Valid() bool {
 // Defines values for BackendVmHealthState.
 const (
 	BackendVmHealthStateDOWN    BackendVmHealthState = "DOWN"
-	BackendVmHealthStateOK      BackendVmHealthState = "OK"
+	BackendVmHealthStateUP      BackendVmHealthState = "UP"
 	BackendVmHealthStateUNKNOWN BackendVmHealthState = "UNKNOWN"
 )
 
@@ -57,7 +57,7 @@ const (
 func (BackendVmHealthState) Values() []string {
 	return []string{
 		"DOWN",
-		"OK",
+		"UP",
 		"UNKNOWN",
 	}
 }
@@ -67,7 +67,7 @@ func (e BackendVmHealthState) Valid() bool {
 	switch e {
 	case BackendVmHealthStateDOWN:
 		return true
-	case BackendVmHealthStateOK:
+	case BackendVmHealthStateUP:
 		return true
 	case BackendVmHealthStateUNKNOWN:
 		return true
