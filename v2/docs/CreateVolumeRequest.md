@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency.&lt;br /&gt;With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: &#x60;--ClientToken &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Iops** | Pointer to **int32** | The number of I/O operations per second (IOPS). This parameter must be specified only if you create an &#x60;io1&#x60; volume. The maximum number of IOPS allowed for &#x60;io1&#x60; volumes is &#x60;13000&#x60; with a maximum performance ratio of 300 IOPS per gibibyte. | [optional] 
 **Size** | Pointer to **int32** | The size of the volume, in gibibytes (GiB). The maximum allowed size for a volume is 14901 GiB. This parameter is required if the volume is not created from a snapshot (&#x60;SnapshotId&#x60; unspecified). | [optional] 

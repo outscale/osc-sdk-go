@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency.&lt;br /&gt;With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: &#x60;--ClientToken &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 **Description** | Pointer to **string** | A description for the snapshot. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **FileLocation** | Pointer to **string** | **(when importing from a bucket)** The pre-signed URL of the snapshot you want to import. For more information, see [Creating a Pre-signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html). | [optional] 

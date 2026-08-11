@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency.&lt;br /&gt;With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: &#x60;--ClientToken &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **PublicIpId** | **string** | The allocation ID of the public IP to associate with the NAT service.&lt;br /&gt; If the public IP is already associated with another resource, you must first disassociate it. | 
 **SubnetId** | **string** | The ID of the Subnet in which you want to create the NAT service. | 

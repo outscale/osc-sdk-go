@@ -32,14 +32,15 @@ Name | Type | Description | Notes
 **RootDeviceName** | Pointer to **string** | The name of the root device for the VM (for example, &#x60;/dev/sda1&#x60;). | [optional] 
 **RootDeviceType** | Pointer to **string** | The type of root device used by the VM (always &#x60;bsu&#x60;). | [optional] 
 **SecurityGroups** | Pointer to [**[]SecurityGroupLight**](SecurityGroupLight.md) | One or more security groups associated with the VM. | [optional] 
+**ShutdownBehaviorConfiguration** | Pointer to [**ShutdownBehaviorConfiguration**](ShutdownBehaviorConfiguration.md) |  | [optional] 
 **State** | Pointer to **string** | The state of the VM (&#x60;pending&#x60; \\| &#x60;running&#x60; \\| &#x60;stopping&#x60; \\| &#x60;stopped&#x60; \\| &#x60;shutting-down&#x60; \\| &#x60;terminated&#x60; \\| &#x60;quarantine&#x60;). | [optional] 
-**StateReason** | Pointer to **string** | The reason explaining the current state of the VM. | [optional] 
+**StateReason** | Pointer to **string** | The reason explaining the current state of the VM. For more information, see [Creating VMs &gt; VM State Reference](https://docs.outscale.com/en/userguide/Creating-VMs.html#_vm_state_reference_statereason_2). | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet for the VM. | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the VM. | [optional] 
 **TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.&lt;br /&gt;The default behavior for this parameter varies depending on the source OMI of the VM.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting &#x60;TpmEnabled&#x60; to false will cause the creation request to fail.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is false, only setting &#x60;TpmEnabled&#x60; to true will create and attach a vTPM to the VM. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
-**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. | [optional] 
+**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. Important: This parameter is deprecated in favor of &#x60;ShutDownBeheviorConfiguration&#x60; and will be removed. | [optional] 
 **VmType** | Pointer to **string** | The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
 
 ## Methods
@@ -760,6 +761,31 @@ SetSecurityGroups sets SecurityGroups field to given value.
 `func (o *Vm) HasSecurityGroups() bool`
 
 HasSecurityGroups returns a boolean if a field has been set.
+
+### GetShutdownBehaviorConfiguration
+
+`func (o *Vm) GetShutdownBehaviorConfiguration() ShutdownBehaviorConfiguration`
+
+GetShutdownBehaviorConfiguration returns the ShutdownBehaviorConfiguration field if non-nil, zero value otherwise.
+
+### GetShutdownBehaviorConfigurationOk
+
+`func (o *Vm) GetShutdownBehaviorConfigurationOk() (*ShutdownBehaviorConfiguration, bool)`
+
+GetShutdownBehaviorConfigurationOk returns a tuple with the ShutdownBehaviorConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShutdownBehaviorConfiguration
+
+`func (o *Vm) SetShutdownBehaviorConfiguration(v ShutdownBehaviorConfiguration)`
+
+SetShutdownBehaviorConfiguration sets ShutdownBehaviorConfiguration field to given value.
+
+### HasShutdownBehaviorConfiguration
+
+`func (o *Vm) HasShutdownBehaviorConfiguration() bool`
+
+HasShutdownBehaviorConfiguration returns a boolean if a field has been set.
 
 ### GetState
 

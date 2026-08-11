@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **NestedVirtualization** | Pointer to **bool** | (dedicated tenancy only) If true, nested virtualization is enabled. If false, it is disabled. | [optional] 
 **Performance** | Pointer to **string** | The performance of the VM. | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security groups for the VM. | [optional] 
+**ShutdownBehaviorConfiguration** | Pointer to [**ShutdownBehaviorConfiguration**](ShutdownBehaviorConfiguration.md) |  | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data, limited to 500 kibibytes (KiB). | [optional] 
 **VmId** | **string** | The ID of the VM. | 
 **VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
@@ -287,6 +288,31 @@ SetSecurityGroupIds sets SecurityGroupIds field to given value.
 `func (o *UpdateVmRequest) HasSecurityGroupIds() bool`
 
 HasSecurityGroupIds returns a boolean if a field has been set.
+
+### GetShutdownBehaviorConfiguration
+
+`func (o *UpdateVmRequest) GetShutdownBehaviorConfiguration() ShutdownBehaviorConfiguration`
+
+GetShutdownBehaviorConfiguration returns the ShutdownBehaviorConfiguration field if non-nil, zero value otherwise.
+
+### GetShutdownBehaviorConfigurationOk
+
+`func (o *UpdateVmRequest) GetShutdownBehaviorConfigurationOk() (*ShutdownBehaviorConfiguration, bool)`
+
+GetShutdownBehaviorConfigurationOk returns a tuple with the ShutdownBehaviorConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShutdownBehaviorConfiguration
+
+`func (o *UpdateVmRequest) SetShutdownBehaviorConfiguration(v ShutdownBehaviorConfiguration)`
+
+SetShutdownBehaviorConfiguration sets ShutdownBehaviorConfiguration field to given value.
+
+### HasShutdownBehaviorConfiguration
+
+`func (o *UpdateVmRequest) HasShutdownBehaviorConfiguration() bool`
+
+HasShutdownBehaviorConfiguration returns a boolean if a field has been set.
 
 ### GetUserData
 
