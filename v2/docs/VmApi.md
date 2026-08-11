@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**ReadVmTypes**](VmApi.md#ReadVmTypes) | **Post** /ReadVmTypes | 
 [**ReadVms**](VmApi.md#ReadVms) | **Post** /ReadVms | 
 [**ReadVmsState**](VmApi.md#ReadVmsState) | **Post** /ReadVmsState | 
+[**ReadVmsStopHistory**](VmApi.md#ReadVmsStopHistory) | **Post** /ReadVmsStopHistory | 
 [**RebootVms**](VmApi.md#RebootVms) | **Post** /RebootVms | 
 [**StartVms**](VmApi.md#StartVms) | **Post** /StartVms | 
 [**StopVms**](VmApi.md#StopVms) | **Post** /StopVms | 
@@ -465,6 +466,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReadVmsStateResponse**](ReadVmsStateResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReadVmsStopHistory
+
+> ReadVmsStopHistoryResponse ReadVmsStopHistory(ctx).ReadVmsStopHistoryRequest(readVmsStopHistoryRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    readVmsStopHistoryRequest := *openapiclient.NewReadVmsStopHistoryRequest() // ReadVmsStopHistoryRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VmApi.ReadVmsStopHistory(context.Background()).ReadVmsStopHistoryRequest(readVmsStopHistoryRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VmApi.ReadVmsStopHistory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReadVmsStopHistory`: ReadVmsStopHistoryResponse
+    fmt.Fprintf(os.Stdout, "Response from `VmApi.ReadVmsStopHistory`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReadVmsStopHistoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **readVmsStopHistoryRequest** | [**ReadVmsStopHistoryRequest**](ReadVmsStopHistoryRequest.md) |  | 
+
+### Return type
+
+[**ReadVmsStopHistoryResponse**](ReadVmsStopHistoryResponse.md)
 
 ### Authorization
 

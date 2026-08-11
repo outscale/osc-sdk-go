@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **City** | **string** | The city of the account owner. | 
 **CompanyName** | **string** | The name of the company for the account. | 
 **Country** | **string** | The country of the account owner. | 
-**CustomerId** | **string** | The ID of the customer. It must be 8 digits. | 
+**CustomerId** | **string** | The ID of the customer. It must be 8 digits.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--CustomerId &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Email** | **string** | The main email address for the account. This address is used for your credentials and notifications. | 
 **FirstName** | **string** | The first name of the account owner. | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **PhoneNumber** | Pointer to **string** | The landline phone number of the account owner. | [optional] 
 **StateProvince** | Pointer to **string** | The state/province of the account. | [optional] 
 **VatNumber** | Pointer to **string** | The value added tax (VAT) number for the account. | [optional] 
-**ZipCode** | **string** | The ZIP code of the city. | 
+**ZipCode** | **string** | The ZIP code of the city.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--ZipCode &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | 
 
 ## Methods
 

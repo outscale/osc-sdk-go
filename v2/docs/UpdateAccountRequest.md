@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **PhoneNumber** | Pointer to **string** | The new landline phone number of the account owner. | [optional] 
 **StateProvince** | Pointer to **string** | The new state/province of the account owner. | [optional] 
 **VatNumber** | Pointer to **string** | The new value added tax (VAT) number for the account. | [optional] 
-**ZipCode** | Pointer to **string** | The new ZIP code of the city. | [optional] 
+**ZipCode** | Pointer to **string** | The new ZIP code of the city.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--ZipCode &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 
 ## Methods
 

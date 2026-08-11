@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **BootMode** | Pointer to [**BootMode**](BootMode.md) |  | [optional] 
 **BootOnCreation** | Pointer to **bool** | If true, the VM is started on creation. If false, the VM is stopped on creation. | [optional] [default to true]
 **BsuOptimized** | Pointer to **bool** | This parameter is not available. It is present in our API for the sake of historical compatibility with AWS. | [optional] 
-**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency. | [optional] 
+**ClientToken** | Pointer to **string** | A unique identifier which enables you to manage the idempotency.&lt;br /&gt;With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: &#x60;--ClientToken &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot delete the VM unless you change this parameter back to false. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **ImageId** | **string** | The ID of the OMI used to create the VM. You can find the list of OMIs by calling the [ReadImages](#readimages) method. | 
@@ -23,10 +23,11 @@ Name | Type | Description | Notes
 **PrivateIps** | Pointer to **[]string** | One or more private IPs of the VM. These IPs must be within the IP range of the Subnet that you specify with the &#x60;SubnetId&#x60; parameter. However, they cannot be one of the first four IPs (ending in &#x60;.0&#x60;, &#x60;.1&#x60;, &#x60;.2&#x60;, &#x60;.3&#x60;) or the last IP (ending in &#x60;.255&#x60;) of the Subnet, as these are reserved by 3DS OUTSCALE. For more information, see [About Nets](https://docs.outscale.com/en/userguide/About-Nets.html). | [optional] 
 **SecurityGroupIds** | Pointer to **[]string** | One or more IDs of security group for the VMs. | [optional] 
 **SecurityGroups** | Pointer to **[]string** | One or more names of security groups for the VMs. | [optional] 
+**ShutdownBehaviorConfiguration** | Pointer to [**ShutdownBehaviorConfiguration**](ShutdownBehaviorConfiguration.md) |  | [optional] 
 **SubnetId** | Pointer to **string** | The ID of the Subnet in which you want to create the VM. | [optional] 
 **TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.&lt;br /&gt;The default behavior for this parameter varies depending on the source OMI of the VM.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting &#x60;TpmEnabled&#x60; to false will cause the creation request to fail.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is false, only setting &#x60;TpmEnabled&#x60; to true will create and attach a vTPM to the VM. | [optional] 
 **UserData** | Pointer to **string** | Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html). | [optional] 
-**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] [default to "stop"]
+**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
 **VmType** | Pointer to **string** | The type of VM. You can specify a TINA type (in the &#x60;tinavW.cXrYpZ&#x60; or &#x60;tinavW.cXrY&#x60; format), or an AWS type (for example, &#x60;t2.small&#x60;, which is the default value).&lt;br /&gt; If you specify an AWS type, it is converted in the background to its corresponding TINA type, but the AWS type is still returned. If the specified or converted TINA type includes a performance flag, this performance flag is applied regardless of the value you may have provided in the &#x60;Performance&#x60; parameter. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
 
 ## Methods
@@ -517,6 +518,31 @@ SetSecurityGroups sets SecurityGroups field to given value.
 `func (o *CreateVmsRequest) HasSecurityGroups() bool`
 
 HasSecurityGroups returns a boolean if a field has been set.
+
+### GetShutdownBehaviorConfiguration
+
+`func (o *CreateVmsRequest) GetShutdownBehaviorConfiguration() ShutdownBehaviorConfiguration`
+
+GetShutdownBehaviorConfiguration returns the ShutdownBehaviorConfiguration field if non-nil, zero value otherwise.
+
+### GetShutdownBehaviorConfigurationOk
+
+`func (o *CreateVmsRequest) GetShutdownBehaviorConfigurationOk() (*ShutdownBehaviorConfiguration, bool)`
+
+GetShutdownBehaviorConfigurationOk returns a tuple with the ShutdownBehaviorConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShutdownBehaviorConfiguration
+
+`func (o *CreateVmsRequest) SetShutdownBehaviorConfiguration(v ShutdownBehaviorConfiguration)`
+
+SetShutdownBehaviorConfiguration sets ShutdownBehaviorConfiguration field to given value.
+
+### HasShutdownBehaviorConfiguration
+
+`func (o *CreateVmsRequest) HasShutdownBehaviorConfiguration() bool`
+
+HasShutdownBehaviorConfiguration returns a boolean if a field has been set.
 
 ### GetSubnetId
 

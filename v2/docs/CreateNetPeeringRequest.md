@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccepterNetId** | **string** | The ID of the Net you want to connect with. &lt;br/ &gt; &lt;br/ &gt; If the Net does not belong to you, you must also specify the &#x60;AccepterOwnerId&#x60; parameter with the OUTSCALE account ID owning the Net you want to connect with. | 
-**AccepterOwnerId** | Pointer to **string** | The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent. &lt;br /&gt;&lt;br/ &gt; This parameter is required if the Net you want to connect with does not belong to you. | [optional] 
+**AccepterNetId** | **string** | The ID of the Net you want to connect with.&lt;br/ &gt; If the Net does not belong to you, you must also specify the &#x60;AccepterOwnerId&#x60; parameter with the OUTSCALE account ID owning the Net you want to connect with. | 
+**AccepterOwnerId** | Pointer to **string** | The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent.&lt;br/ &gt; This parameter is required if the Net you want to connect with does not belong to you.&lt;br /&gt;With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: &#x60;--AccepterOwnerId &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **SourceNetId** | **string** | The ID of the Net you send the peering request from. | 
 

@@ -348,6 +348,7 @@ docs/FiltersVmGroup.md
 docs/FiltersVmTemplate.md
 docs/FiltersVmType.md
 docs/FiltersVmsState.md
+docs/FiltersVmsStopHistory.md
 docs/FiltersVolume.md
 docs/FiltersVpnConnection.md
 docs/FlexibleGpu.md
@@ -595,6 +596,8 @@ docs/ReadVmsRequest.md
 docs/ReadVmsResponse.md
 docs/ReadVmsStateRequest.md
 docs/ReadVmsStateResponse.md
+docs/ReadVmsStopHistoryRequest.md
+docs/ReadVmsStopHistoryResponse.md
 docs/ReadVolumeUpdateTasksRequest.md
 docs/ReadVolumeUpdateTasksResponse.md
 docs/ReadVolumesRequest.md
@@ -636,6 +639,7 @@ docs/ServerCertificateApi.md
 docs/Service.md
 docs/SetDefaultPolicyVersionRequest.md
 docs/SetDefaultPolicyVersionResponse.md
+docs/ShutdownBehaviorConfiguration.md
 docs/Snapshot.md
 docs/SnapshotApi.md
 docs/SnapshotExportTask.md
@@ -746,6 +750,7 @@ docs/VmStates.md
 docs/VmTemplate.md
 docs/VmTemplateApi.md
 docs/VmType.md
+docs/VmsStopHistory.md
 docs/Volume.md
 docs/VolumeApi.md
 docs/VolumeUpdate.md
@@ -1039,6 +1044,7 @@ model_filters_vm_group.go
 model_filters_vm_template.go
 model_filters_vm_type.go
 model_filters_vms_state.go
+model_filters_vms_stop_history.go
 model_filters_volume.go
 model_filters_vpn_connection.go
 model_flexible_gpu.go
@@ -1267,6 +1273,8 @@ model_read_vms_request.go
 model_read_vms_response.go
 model_read_vms_state_request.go
 model_read_vms_state_response.go
+model_read_vms_stop_history_request.go
+model_read_vms_stop_history_response.go
 model_read_volume_update_tasks_request.go
 model_read_volume_update_tasks_response.go
 model_read_volumes_request.go
@@ -1302,6 +1310,7 @@ model_server_certificate.go
 model_service.go
 model_set_default_policy_version_request.go
 model_set_default_policy_version_response.go
+model_shutdown_behavior_configuration.go
 model_snapshot.go
 model_snapshot_export_task.go
 model_source_net.go
@@ -1401,6 +1410,7 @@ model_vm_state.go
 model_vm_states.go
 model_vm_template.go
 model_vm_type.go
+model_vms_stop_history.go
 model_volume.go
 model_volume_update.go
 model_volume_update_parameters.go
