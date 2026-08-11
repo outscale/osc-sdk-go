@@ -12,6 +12,8 @@ github.com/outscale/osc-sdk-go/v2 v2.32.0 h1:twcX7/YF32aowN0khwK3fPKXGujRi7oOCLL
 github.com/outscale/osc-sdk-go/v2 v2.32.0/go.mod h1:fl+1NvnHptNVE0N57dkDa+H4fyBhlrFaRA+lYiUT44s=
 github.com/outscale/osc-sdk-go/v2 v2.33.0 h1:w33MCJzG8zI3sItaq8684hMwwXtxh7fCgDHYv/s1Fmo=
 github.com/outscale/osc-sdk-go/v2 v2.33.0/go.mod h1:6J8WRznaSIEXXVHhhTXisGJQgvE5fYzbf8hAw7YIGfQ=
+github.com/outscale/osc-sdk-go/v2 v2.35.0 h1:bKR94p9KCc8ybu36k4RS5RDkC9p/7W//78CXPtOyXPo=
+github.com/outscale/osc-sdk-go/v2 v2.35.0/go.mod h1:6J8WRznaSIEXXVHhhTXisGJQgvE5fYzbf8hAw7YIGfQ=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
