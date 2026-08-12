@@ -32989,6 +32989,7 @@ type DeleteAccessKeyResp struct {
 	HTTPResponse *http.Response
 	JSON200      *DeleteAccessKeyResponse
 	JSON400      *ErrorResponse
+	JSON409      *ErrorResponse
 	JSON500      *ErrorResponse
 }
 
@@ -33020,6 +33021,10 @@ func (r DeleteAccessKeyResp) genError() error {
 
 	if r.JSON400 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON400)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
@@ -53891,6 +53896,13 @@ func ParseDeleteAccessKeyResp(rsp *http.Response) (*DeleteAccessKeyResp, error) 
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest ErrorResponse
