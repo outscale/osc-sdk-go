@@ -49,16 +49,16 @@ func (e AccessKeyState) Valid() bool {
 // Defines values for BackendVmHealthState.
 const (
 	BackendVmHealthStateDOWN    BackendVmHealthState = "DOWN"
-	BackendVmHealthStateUP      BackendVmHealthState = "UP"
 	BackendVmHealthStateUNKNOWN BackendVmHealthState = "UNKNOWN"
+	BackendVmHealthStateUP      BackendVmHealthState = "UP"
 )
 
 // Method to return the list of values
 func (BackendVmHealthState) Values() []string {
 	return []string{
 		"DOWN",
-		"UP",
 		"UNKNOWN",
+		"UP",
 	}
 }
 
@@ -67,9 +67,9 @@ func (e BackendVmHealthState) Valid() bool {
 	switch e {
 	case BackendVmHealthStateDOWN:
 		return true
-	case BackendVmHealthStateUP:
-		return true
 	case BackendVmHealthStateUNKNOWN:
+		return true
+	case BackendVmHealthStateUP:
 		return true
 	default:
 		return false
@@ -35040,6 +35040,7 @@ type DeleteVolumeResp struct {
 	JSON200      *DeleteVolumeResponse
 	JSON400      *ErrorResponse
 	JSON401      *ErrorResponse
+	JSON409      *ErrorResponse
 	JSON500      *ErrorResponse
 }
 
@@ -35075,6 +35076,10 @@ func (r DeleteVolumeResp) genError() error {
 
 	if r.JSON401 != nil {
 		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON401)
+	}
+
+	if r.JSON409 != nil {
+		return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.JSON409)
 	}
 
 	if r.JSON500 != nil {
@@ -55774,6 +55779,13 @@ func ParseDeleteVolumeResp(rsp *http.Response) (*DeleteVolumeResp, error) {
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest ErrorResponse
