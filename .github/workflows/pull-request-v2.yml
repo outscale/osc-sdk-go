@@ -16,7 +16,7 @@ jobs:
     runs-on: [self-hosted, linux, eu-west-2]
     steps:
       - name: 🧹 Frieza
-        uses: outscale/frieza-github-actions/frieza-clean@68ffd39d7e181f3548369e332242b329b04a3182 # main
+        uses: outscale/frieza-github-actions/frieza-clean@1a8eba5199913da60ae6d92d6050e17410186a38 # main
         with:
           access_key: ${{ secrets.OSC_ACCESS_KEY }}
           secret_key: ${{ secrets.OSC_SECRET_KEY }}
