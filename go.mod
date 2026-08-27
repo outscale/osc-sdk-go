@@ -6,6 +6,7 @@ require (
 	dario.cat/mergo v1.0.2
 	github.com/aws/aws-sdk-go-v2/config v1.28.11
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.52
+	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.17.49
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.72.3
 	github.com/aws/smithy-go v1.25.1
 	github.com/aws/smithy-go/aws-http-auth v1.1.2
