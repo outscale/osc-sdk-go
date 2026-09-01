@@ -14,7 +14,6 @@ import (
 	"strings"
 	"time"
 
-	openapi_types "github.com/oapi-codegen/runtime/types"
 	iso8601 "github.com/outscale/osc-sdk-go/v3/pkg/iso8601"
 	"github.com/outscale/osc-sdk-go/v3/pkg/middleware"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
@@ -5149,7 +5148,7 @@ type FiltersVm struct {
 	BlockDeviceMappingDeviceNames *[]string `json:"BlockDeviceMappingDeviceNames,omitempty"`
 
 	// BlockDeviceMappingLinkDates The link dates for the BSU volumes mapped to the VMs (for example, `2016-01-23T18:45:30.000Z`).
-	BlockDeviceMappingLinkDates *[]openapi_types.Date `json:"BlockDeviceMappingLinkDates,omitempty"`
+	BlockDeviceMappingLinkDates *[]iso8601.Time `json:"BlockDeviceMappingLinkDates,omitempty"`
 
 	// BlockDeviceMappingStates The states for the BSU volumes (`attaching` \| `attached` \| `detaching` \| `detached`).
 	BlockDeviceMappingStates *[]string `json:"BlockDeviceMappingStates,omitempty"`
@@ -5164,7 +5163,7 @@ type FiltersVm struct {
 	ClientTokens *[]string `json:"ClientTokens,omitempty"`
 
 	// CreationDates The dates when the VMs were launched.
-	CreationDates *[]openapi_types.Date `json:"CreationDates,omitempty"`
+	CreationDates *[]iso8601.Time `json:"CreationDates,omitempty"`
 
 	// ImageIds The IDs of the OMIs used to launch the VMs.
 	ImageIds *[]string `json:"ImageIds,omitempty"`
@@ -5200,7 +5199,7 @@ type FiltersVm struct {
 	NicLinkNicDeviceNumbers *[]int `json:"NicLinkNicDeviceNumbers,omitempty"`
 
 	// NicLinkNicLinkNicDates The dates and times (UTC) when the NICs were attached to the VMs.
-	NicLinkNicLinkNicDates *[]openapi_types.Date `json:"NicLinkNicLinkNicDates,omitempty"`
+	NicLinkNicLinkNicDates *[]iso8601.Time `json:"NicLinkNicLinkNicDates,omitempty"`
 
 	// NicLinkNicLinkNicIds The IDs of the NIC attachments.
 	NicLinkNicLinkNicIds *[]string `json:"NicLinkNicLinkNicIds,omitempty"`
@@ -5449,10 +5448,10 @@ type FiltersVmsState struct {
 	MaintenanceEventDescriptions *[]string `json:"MaintenanceEventDescriptions,omitempty"`
 
 	// MaintenanceEventsNotAfter The latest date and time (UTC) the event can end.
-	MaintenanceEventsNotAfter *[]openapi_types.Date `json:"MaintenanceEventsNotAfter,omitempty"`
+	MaintenanceEventsNotAfter *[]iso8601.Time `json:"MaintenanceEventsNotAfter,omitempty"`
 
 	// MaintenanceEventsNotBefore The earliest date and time (UTC) the event can start.
-	MaintenanceEventsNotBefore *[]openapi_types.Date `json:"MaintenanceEventsNotBefore,omitempty"`
+	MaintenanceEventsNotBefore *[]iso8601.Time `json:"MaintenanceEventsNotBefore,omitempty"`
 
 	// SubregionNames The names of the Subregions of the VMs.
 	SubregionNames *[]string `json:"SubregionNames,omitempty"`
