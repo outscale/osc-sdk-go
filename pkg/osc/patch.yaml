@@ -24,6 +24,13 @@ actions:
     x-go-type-import:
       path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
       name: iso8601
+- target: $.components.schemas.*.*.*.*[?(@.format == 'date')]
+  description: Remove date format
+  update:
+    x-go-type: iso8601.Time
+    x-go-type-import:
+      path: github.com/outscale/osc-sdk-go/v3/pkg/iso8601
+      name: iso8601
 - target: $.components.schemas.Vm
   description: Required fields for Vm
   update:
