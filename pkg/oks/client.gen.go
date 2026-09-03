@@ -650,7 +650,7 @@ type ErrorResponse struct {
 // KubeconfigData defines model for KubeconfigData.
 type KubeconfigData struct {
 	// Kubeconfig Kubernetes configuration file content for cluster access
-	Kubeconfig string `json:"kubeconfig"`
+	Kubeconfig string `json:"kubeconfig" log:"sensitive"`
 }
 
 // KubeconfigResponse defines model for KubeconfigResponse.
