@@ -987,3 +987,219 @@ actions:
           schema:
             "$ref": "#/components/schemas/ErrorResponse"
       description: The HTTP 409 response (Conflict).
+- target: $.components.schemas.AccessKeySecretKey.properties.SecretKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.KeypairCreated.properties.PrivateKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.CheckAuthenticationRequest.properties.Password
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.DirectLinkInterface.properties.BgpKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.DirectLinkInterfaces.properties.BgpKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.CreateServerCertificateRequest.properties.PrivateKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.OsuApiKey.properties.SecretKey
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.ReadAdminPasswordResponse.properties.AdminPassword
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "sensitive"
+- target: $.components.schemas.Account.properties.AdditionalEmails
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.City
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.Country
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.Email
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.FirstName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.JobTitle
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.LastName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.MobileNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.PhoneNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.StateProvince
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Account.properties.ZipCode
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.AdditionalEmails
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.City
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.Country
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.Email
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.FirstName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.JobTitle
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.LastName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.MobileNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.PhoneNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.StateProvince
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateAccountRequest.properties.ZipCode
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.AdditionalEmails
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.City
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.Country
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.Email
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.FirstName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.JobTitle
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.LastName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.MobileNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.PhoneNumber
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.StateProvince
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateAccountRequest.properties.ZipCode
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.User.properties.UserEmail
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.User.properties.UserName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.User.properties.UserId
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateUserRequest.properties.UserEmail
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CreateUserRequest.properties.UserName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.CheckAuthenticationRequest.properties.Login
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Log.properties.QueryIpAddress
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.Log.properties.QueryUserAgent
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.FiltersApiLog.properties.QueryIpAddresses
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.FiltersApiLog.properties.QueryUserAgents
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.*.properties.UserName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateUserRequest.properties.NewUserEmail
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"
+- target: $.components.schemas.UpdateUserRequest.properties.NewUserName
+  update:
+    x-oapi-codegen-extra-tags:
+      log: "pii"

@@ -81,3 +81,7 @@ actions:
   - target: $.components.schemas.*.properties.ResponseContext
     update:
       "$ref": "#/components/schemas/ResponseContext"
+  - target: $.components.schemas.KubeconfigData.properties.kubeconfig
+    update:
+      x-oapi-codegen-extra-tags:
+        log: "sensitive"

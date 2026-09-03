@@ -19,17 +19,17 @@ const (
 type Profile struct {
 	Default           bool     `json:"default,omitempty"`
 	AccessKey         string   `json:"access_key,omitempty"`
-	SecretKey         string   `json:"secret_key,omitempty"`
+	SecretKey         string   `json:"secret_key,omitempty" log:"sensitive"`
 	AccessKeyV2       string   `json:"access_key_v2,omitempty"`
-	SecretKeyV2       string   `json:"secret_key_v2,omitempty"`
+	SecretKeyV2       string   `json:"secret_key_v2,omitempty" log:"sensitive"`
 	IAMV2Services     []string `json:"iam_v2_services,omitempty"`
 	X509ClientCert    string   `json:"x509_client_cert,omitempty"`
 	X509ClientCertB64 string   `json:"x509_client_cert_b64,omitempty"`
-	X509ClientKey     string   `json:"x509_client_key,omitempty"`
-	X509ClientKeyB64  string   `json:"x509_client_key_b64,omitempty"`
+	X509ClientKey     string   `json:"x509_client_key,omitempty" log:"sensitive"`
+	X509ClientKeyB64  string   `json:"x509_client_key_b64,omitempty" log:"sensitive"`
 	TlsSkipVerify     bool     `json:"tls_skip_verify,omitempty"`
 	Login             string   `json:"login,omitempty"`
-	Password          string   `json:"password,omitempty"`
+	Password          string   `json:"password,omitempty" log:"sensitive"`
 	Protocol          string   `json:"protocol,omitempty"`
 	Region            string   `json:"region,omitempty"`
 	Endpoints         Endpoint `json:"endpoints,omitzero"`

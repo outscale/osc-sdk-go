@@ -1427,7 +1427,7 @@ type AccessKeySecretKey struct {
 	LastModificationDate *iso8601.Time `json:"LastModificationDate,omitempty"`
 
 	// SecretKey The secret key that enables you to send requests.
-	SecretKey *string `json:"SecretKey,omitempty"`
+	SecretKey *string `json:"SecretKey,omitempty" log:"sensitive"`
 
 	// State The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
 	State *string `json:"State,omitempty"`
@@ -1457,49 +1457,49 @@ type Account struct {
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only.
-	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty"`
+	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The city of the account owner.
-	City *string `json:"City,omitempty"`
+	City *string `json:"City,omitempty" log:"pii"`
 
 	// CompanyName The name of the company for the account.
 	CompanyName *string `json:"CompanyName,omitempty"`
 
 	// Country The country of the account owner.
-	Country *string `json:"Country,omitempty"`
+	Country *string `json:"Country,omitempty" log:"pii"`
 
 	// CustomerId The ID of the customer.
 	CustomerId *string `json:"CustomerId,omitempty"`
 
 	// Email The main email address for the account. This address is used for your credentials and for notifications.
-	Email *string `json:"Email,omitempty"`
+	Email *string `json:"Email,omitempty" log:"pii"`
 
 	// FirstName The first name of the account owner.
-	FirstName *string `json:"FirstName,omitempty"`
+	FirstName *string `json:"FirstName,omitempty" log:"pii"`
 
 	// JobTitle The job title of the account owner.
-	JobTitle *string `json:"JobTitle,omitempty"`
+	JobTitle *string `json:"JobTitle,omitempty" log:"pii"`
 
 	// LastName The last name of the account owner.
-	LastName *string `json:"LastName,omitempty"`
+	LastName *string `json:"LastName,omitempty" log:"pii"`
 
 	// MobileNumber The mobile phone number of the account owner.
-	MobileNumber *string `json:"MobileNumber,omitempty"`
+	MobileNumber *string `json:"MobileNumber,omitempty" log:"pii"`
 
 	// OutscaleLoginAllowed Whether the account is allowed to log in to Cockpit v2 using its Outscale credentials when identity federation is activated.
 	OutscaleLoginAllowed *bool `json:"OutscaleLoginAllowed,omitempty"`
 
 	// PhoneNumber The landline phone number of the account owner.
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty" log:"pii"`
 
 	// StateProvince The state/province of the account.
-	StateProvince *string `json:"StateProvince,omitempty"`
+	StateProvince *string `json:"StateProvince,omitempty" log:"pii"`
 
 	// VatNumber The value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
 	// ZipCode The ZIP code of the city.
-	ZipCode *string `json:"ZipCode,omitempty"`
+	ZipCode *string `json:"ZipCode,omitempty" log:"pii"`
 }
 
 // ActionsOnNextBoot The action to perform on the next boot of the VM.
@@ -1520,7 +1520,7 @@ type AddUserToUserGroupRequest struct {
 	UserGroupPath *string `json:"UserGroupPath,omitempty"`
 
 	// UserName The name of the user you want to add to the group.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 
 	// UserPath The path to the user. If not specified, it is set to a slash (`/`).
 	UserPath *string `json:"UserPath,omitempty"`
@@ -1795,10 +1795,10 @@ type CheckAuthenticationRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Login The email address of the account.
-	Login string `json:"Login"`
+	Login string `json:"Login" log:"pii"`
 
 	// Password The password of the account.
-	Password string `json:"Password"`
+	Password string `json:"Password" log:"sensitive"`
 }
 
 // CheckAuthenticationResponse defines model for CheckAuthenticationResponse.
@@ -1888,7 +1888,7 @@ type CreateAccessKeyRequest struct {
 	Tag *string `json:"Tag,omitempty"`
 
 	// UserName The name of the EIM user that owns the key to be created. If you do not specify a user name, this action creates an access key for the user who sends the request (which can be the root user).
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // CreateAccessKeyResponse defines model for CreateAccessKeyResponse.
@@ -1903,16 +1903,16 @@ type CreateAccessKeyResponse struct {
 // CreateAccountRequest defines model for CreateAccountRequest.
 type CreateAccountRequest struct {
 	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
-	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty"`
+	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The city of the account owner.
-	City string `json:"City"`
+	City string `json:"City" log:"pii"`
 
 	// CompanyName The name of the company for the account.
 	CompanyName string `json:"CompanyName"`
 
 	// Country The country of the account owner.
-	Country string `json:"Country"`
+	Country string `json:"Country" log:"pii"`
 
 	// CustomerId The ID of the customer. It must be 8 digits.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--CustomerId '&quot;12345678&quot;'`.
 	CustomerId string `json:"CustomerId"`
@@ -1921,31 +1921,31 @@ type CreateAccountRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Email The main email address for the account. This address is used for your credentials and notifications.
-	Email string `json:"Email"`
+	Email string `json:"Email" log:"pii"`
 
 	// FirstName The first name of the account owner.
-	FirstName string `json:"FirstName"`
+	FirstName string `json:"FirstName" log:"pii"`
 
 	// JobTitle The job title of the account owner.
-	JobTitle *string `json:"JobTitle,omitempty"`
+	JobTitle *string `json:"JobTitle,omitempty" log:"pii"`
 
 	// LastName The last name of the account owner.
-	LastName string `json:"LastName"`
+	LastName string `json:"LastName" log:"pii"`
 
 	// MobileNumber The mobile phone number of the account owner.
-	MobileNumber *string `json:"MobileNumber,omitempty"`
+	MobileNumber *string `json:"MobileNumber,omitempty" log:"pii"`
 
 	// PhoneNumber The landline phone number of the account owner.
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty" log:"pii"`
 
 	// StateProvince The state/province of the account.
-	StateProvince *string `json:"StateProvince,omitempty"`
+	StateProvince *string `json:"StateProvince,omitempty" log:"pii"`
 
 	// VatNumber The value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
 	// ZipCode The ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
-	ZipCode string `json:"ZipCode"`
+	ZipCode string `json:"ZipCode" log:"pii"`
 }
 
 // CreateAccountResponse defines model for CreateAccountResponse.
@@ -2749,7 +2749,7 @@ type CreateServerCertificateRequest struct {
 	Path *string `json:"Path,omitempty"`
 
 	// PrivateKey The PEM-encoded private key matching the certificate.<br />With OSC CLI, use the following syntax to make sure your key file is correctly parsed: `--PrivateKey=&quot;$(cat FILENAME)&quot;`.
-	PrivateKey string `json:"PrivateKey"`
+	PrivateKey string `json:"PrivateKey" log:"sensitive"`
 }
 
 // CreateServerCertificateResponse defines model for CreateServerCertificateResponse.
@@ -2891,10 +2891,10 @@ type CreateUserRequest struct {
 	Path *string `json:"Path,omitempty"`
 
 	// UserEmail The email address of the EIM user.
-	UserEmail *string `json:"UserEmail,omitempty"`
+	UserEmail *string `json:"UserEmail,omitempty" log:"pii"`
 
 	// UserName The name of the EIM user. This user name must contain between 1 and 64 alphanumeric characters and/or pluses (`+`), equals (`=`), commas (`,`), periods (`.`), at signs (`@`), dashes (`-`), or underscores (`_`).
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // CreateUserResponse defines model for CreateUserResponse.
@@ -3215,7 +3215,7 @@ type DeleteAccessKeyRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserName The name of the EIM user the access key you want to delete is associated with. By default, the user who sends the request (which can be the root user).
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // DeleteAccessKeyResponse defines model for DeleteAccessKeyResponse.
@@ -3854,7 +3854,7 @@ type DeleteUserPolicyRequest struct {
 	PolicyName string `json:"PolicyName"`
 
 	// UserName The name of the user you want to delete the policy from.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // DeleteUserPolicyResponse defines model for DeleteUserPolicyResponse.
@@ -3869,7 +3869,7 @@ type DeleteUserRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserName The name of the EIM user you want to delete.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // DeleteUserResponse defines model for DeleteUserResponse.
@@ -4068,7 +4068,7 @@ type DirectLinkInterface struct {
 	BgpAsn int `json:"BgpAsn"`
 
 	// BgpKey The BGP authentication key.
-	BgpKey *string `json:"BgpKey,omitempty"`
+	BgpKey *string `json:"BgpKey,omitempty" log:"sensitive"`
 
 	// ClientPrivateIp The IP on the customer's side of the DirectLink interface.
 	ClientPrivateIp *string `json:"ClientPrivateIp,omitempty"`
@@ -4095,7 +4095,7 @@ type DirectLinkInterfaces struct {
 	BgpAsn *int `json:"BgpAsn,omitempty"`
 
 	// BgpKey The BGP authentication key.
-	BgpKey *string `json:"BgpKey,omitempty"`
+	BgpKey *string `json:"BgpKey,omitempty" log:"sensitive"`
 
 	// ClientPrivateIp The IP on the customer's side of the DirectLink interface.
 	ClientPrivateIp *string `json:"ClientPrivateIp,omitempty"`
@@ -4263,10 +4263,10 @@ type FiltersApiLog struct {
 	QueryDateBefore *iso8601.Time `json:"QueryDateBefore,omitempty"`
 
 	// QueryIpAddresses The IPs used for the logged calls.
-	QueryIpAddresses *[]string `json:"QueryIpAddresses,omitempty"`
+	QueryIpAddresses *[]string `json:"QueryIpAddresses,omitempty" log:"pii"`
 
 	// QueryUserAgents The user agents of the HTTP requests of the logged calls.
-	QueryUserAgents *[]string `json:"QueryUserAgents,omitempty"`
+	QueryUserAgents *[]string `json:"QueryUserAgents,omitempty" log:"pii"`
 
 	// RequestIds The request IDs provided in the responses of the logged calls.
 	RequestIds *[]string `json:"RequestIds,omitempty"`
@@ -5784,7 +5784,7 @@ type KeypairCreated struct {
 	KeypairType *string `json:"KeypairType,omitempty"`
 
 	// PrivateKey The private key, returned only if you are creating a keypair (not if you are importing). When you save this private key in a .rsa file, make sure you replace the `\n` escape sequences with real line breaks.
-	PrivateKey *string `json:"PrivateKey,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty" log:"sensitive"`
 
 	// Tags One or more tags associated with the keypair.
 	Tags *[]ResourceTag `json:"Tags,omitempty"`
@@ -5946,7 +5946,7 @@ type LinkPolicyRequest struct {
 	PolicyOrn string `json:"PolicyOrn"`
 
 	// UserName The name of the user you want to link the policy to (between 1 and 64 characters).
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // LinkPolicyResponse defines model for LinkPolicyResponse.
@@ -6388,7 +6388,7 @@ type Log struct {
 	QueryHeaderSize *int `json:"QueryHeaderSize,omitempty"`
 
 	// QueryIpAddress The IP used for the logged call.
-	QueryIpAddress *string `json:"QueryIpAddress,omitempty"`
+	QueryIpAddress *string `json:"QueryIpAddress,omitempty" log:"pii"`
 
 	// QueryPayloadRaw The raw payload of the HTTP request of the logged call.
 	QueryPayloadRaw *string `json:"QueryPayloadRaw,omitempty"`
@@ -6397,7 +6397,7 @@ type Log struct {
 	QueryPayloadSize *int `json:"QueryPayloadSize,omitempty"`
 
 	// QueryUserAgent The user agent of the HTTP request of the logged call.
-	QueryUserAgent *string `json:"QueryUserAgent,omitempty"`
+	QueryUserAgent *string `json:"QueryUserAgent,omitempty" log:"pii"`
 
 	// RequestId The request ID provided in the response of the logged call.
 	RequestId *string `json:"RequestId,omitempty"`
@@ -6682,7 +6682,7 @@ type OsuApiKey struct {
 	ApiKeyId *string `json:"ApiKeyId,omitempty"`
 
 	// SecretKey The secret key of the OOS account that enables you to access the bucket.
-	SecretKey *string `json:"SecretKey,omitempty"`
+	SecretKey *string `json:"SecretKey,omitempty" log:"sensitive"`
 }
 
 // OsuExportImageExportTask Information about the OMI export task.
@@ -7009,7 +7009,7 @@ type PutUserPolicyRequest struct {
 	PolicyName string `json:"PolicyName"`
 
 	// UserName The name of the user.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // PutUserPolicyResponse defines model for PutUserPolicyResponse.
@@ -7063,7 +7063,7 @@ type ReadAccessKeysRequest struct {
 	Tag *string `json:"Tag,omitempty"`
 
 	// UserName The name of the EIM user. By default, the user who sends the request (which can be the root user).
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // ReadAccessKeysResponse defines model for ReadAccessKeysResponse.
@@ -7102,7 +7102,7 @@ type ReadAdminPasswordRequest struct {
 // ReadAdminPasswordResponse defines model for ReadAdminPasswordResponse.
 type ReadAdminPasswordResponse struct {
 	// AdminPassword The password of the VM. After the first boot, returns an empty string.
-	AdminPassword *string `json:"AdminPassword,omitempty"`
+	AdminPassword *string `json:"AdminPassword,omitempty" log:"sensitive"`
 
 	// ResponseContext Information about the context of the response.
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
@@ -7630,7 +7630,7 @@ type ReadLinkedPoliciesRequest struct {
 	ResultsPerPage *int `json:"ResultsPerPage,omitempty"`
 
 	// UserName The name of the user the policies are linked to.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // ReadLinkedPoliciesResponse defines model for ReadLinkedPoliciesResponse.
@@ -8488,7 +8488,7 @@ type ReadUserGroupsPerUserRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserName The name of the user.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 
 	// UserPath The path to the user (by default, `/`).
 	UserPath *string `json:"UserPath,omitempty"`
@@ -8542,7 +8542,7 @@ type ReadUserPoliciesRequest struct {
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// UserName The name of the user.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // ReadUserPoliciesResponse defines model for ReadUserPoliciesResponse.
@@ -8563,7 +8563,7 @@ type ReadUserPolicyRequest struct {
 	PolicyName string `json:"PolicyName"`
 
 	// UserName The name of the user.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // ReadUserPolicyResponse defines model for ReadUserPolicyResponse.
@@ -8578,7 +8578,7 @@ type ReadUserPolicyResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 
 	// UserName The name of the user in which the inline policy is included.
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // ReadUsersRequest defines model for ReadUsersRequest.
@@ -8957,7 +8957,7 @@ type RemoveUserFromUserGroupRequest struct {
 	UserGroupPath *string `json:"UserGroupPath,omitempty"`
 
 	// UserName The name of the user you want to remove from the group.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 
 	// UserPath The path to the user (by default, `/`).
 	UserPath *string `json:"UserPath,omitempty"`
@@ -9561,7 +9561,7 @@ type UnlinkPolicyRequest struct {
 	PolicyOrn string `json:"PolicyOrn"`
 
 	// UserName The name of the user you want to detach the policy from.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // UnlinkPolicyResponse defines model for UnlinkPolicyResponse.
@@ -9681,7 +9681,7 @@ type UpdateAccessKeyRequest struct {
 	Tag *string `json:"Tag,omitempty"`
 
 	// UserName The name of the EIM user that the access key you want to modify is associated with. If you do not specify a user name, this action modifies the access key of the user who sends the request (which can be the root user).
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // UpdateAccessKeyResponse defines model for UpdateAccessKeyResponse.
@@ -9696,46 +9696,46 @@ type UpdateAccessKeyResponse struct {
 // UpdateAccountRequest defines model for UpdateAccountRequest.
 type UpdateAccountRequest struct {
 	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
-	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty"`
+	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The new city of the account owner.
-	City *string `json:"City,omitempty"`
+	City *string `json:"City,omitempty" log:"pii"`
 
 	// CompanyName The new name of the company for the account.
 	CompanyName *string `json:"CompanyName,omitempty"`
 
 	// Country The new country of the account owner.
-	Country *string `json:"Country,omitempty"`
+	Country *string `json:"Country,omitempty" log:"pii"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
 	DryRun *bool `json:"DryRun,omitempty"`
 
 	// Email The main email address for the account. This address is used for your credentials and notifications.
-	Email *string `json:"Email,omitempty"`
+	Email *string `json:"Email,omitempty" log:"pii"`
 
 	// FirstName The new first name of the account owner.
-	FirstName *string `json:"FirstName,omitempty"`
+	FirstName *string `json:"FirstName,omitempty" log:"pii"`
 
 	// JobTitle The new job title of the account owner.
-	JobTitle *string `json:"JobTitle,omitempty"`
+	JobTitle *string `json:"JobTitle,omitempty" log:"pii"`
 
 	// LastName The new last name of the account owner.
-	LastName *string `json:"LastName,omitempty"`
+	LastName *string `json:"LastName,omitempty" log:"pii"`
 
 	// MobileNumber The new mobile phone number of the account owner.
-	MobileNumber *string `json:"MobileNumber,omitempty"`
+	MobileNumber *string `json:"MobileNumber,omitempty" log:"pii"`
 
 	// PhoneNumber The new landline phone number of the account owner.
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty" log:"pii"`
 
 	// StateProvince The new state/province of the account owner.
-	StateProvince *string `json:"StateProvince,omitempty"`
+	StateProvince *string `json:"StateProvince,omitempty" log:"pii"`
 
 	// VatNumber The new value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
 	// ZipCode The new ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
-	ZipCode *string `json:"ZipCode,omitempty"`
+	ZipCode *string `json:"ZipCode,omitempty" log:"pii"`
 }
 
 // UpdateAccountResponse defines model for UpdateAccountResponse.
@@ -10240,13 +10240,13 @@ type UpdateUserRequest struct {
 	NewPath *string `json:"NewPath,omitempty"`
 
 	// NewUserEmail A new email address for the EIM user.
-	NewUserEmail *string `json:"NewUserEmail,omitempty"`
+	NewUserEmail *string `json:"NewUserEmail,omitempty" log:"pii"`
 
 	// NewUserName A new name for the EIM user.
-	NewUserName *string `json:"NewUserName,omitempty"`
+	NewUserName *string `json:"NewUserName,omitempty" log:"pii"`
 
 	// UserName The name of the EIM user you want to modify.
-	UserName string `json:"UserName"`
+	UserName string `json:"UserName" log:"pii"`
 }
 
 // UpdateUserResponse defines model for UpdateUserResponse.
@@ -10446,13 +10446,13 @@ type User struct {
 	Path *string `json:"Path,omitempty"`
 
 	// UserEmail The email address of the EIM user.
-	UserEmail *string `json:"UserEmail,omitempty"`
+	UserEmail *string `json:"UserEmail,omitempty" log:"pii"`
 
 	// UserId The ID of the EIM user.
-	UserId *string `json:"UserId,omitempty"`
+	UserId *string `json:"UserId,omitempty" log:"pii"`
 
 	// UserName The name of the EIM user.
-	UserName *string `json:"UserName,omitempty"`
+	UserName *string `json:"UserName,omitempty" log:"pii"`
 }
 
 // UserGroup Information about the user group.
