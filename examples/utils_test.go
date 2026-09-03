@@ -1,15 +1,16 @@
 package examples_test
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"io"
+	"fmt"
 	"math/rand/v2"
 	"net/http"
 	"os"
+	"reflect"
 	"slices"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -20,38 +21,76 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func marshalRedacted(value any) ([]byte, error) {
+	return json.Marshal(redactValue(reflect.ValueOf(value)))
+}
+
+func redactValue(value reflect.Value) any {
+	if !value.IsValid() {
+		return nil
+	}
+	if value.Kind() == reflect.Interface || value.Kind() == reflect.Pointer {
+		if value.IsNil() {
+			return nil
+		}
+		return redactValue(value.Elem())
+	}
+
+	switch value.Kind() {
+	case reflect.Struct:
+		result := make(map[string]any)
+		typeOfValue := value.Type()
+		for i := range value.NumField() {
+			field := typeOfValue.Field(i)
+			if field.PkgPath != "" {
+				continue
+			}
+			jsonName, _, _ := strings.Cut(field.Tag.Get("json"), ",")
+			if jsonName == "-" {
+				continue
+			}
+			if jsonName == "" {
+				jsonName = field.Name
+			}
+			if tag := field.Tag.Get("log"); tag == "sensitive" || tag == "pii" {
+				result[jsonName] = "[REDACTED]"
+			} else {
+				result[jsonName] = redactValue(value.Field(i))
+			}
+		}
+		return result
+	case reflect.Slice, reflect.Array:
+		result := make([]any, value.Len())
+		for i := range result {
+			result[i] = redactValue(value.Index(i))
+		}
+		return result
+	case reflect.Map:
+		result := make(map[string]any)
+		for _, key := range value.MapKeys() {
+			result[fmt.Sprint(key.Interface())] = redactValue(value.MapIndex(key))
+		}
+		return result
+	default:
+		return value.Interface()
+	}
+}
+
 type testingLogger struct {
 	*testing.T
 }
 
 func (t *testingLogger) RequestHttp(ctx context.Context, req *http.Request) {
-	var bodyString string
-
-	if req.GetBody != nil {
-		bodyReader, err := req.GetBody()
-		if err == nil {
-			bodyBytes, _ := io.ReadAll(bodyReader)
-			bodyString = string(bodyBytes)
-		}
-	}
-
 	t.Log(
 		"[http request]",
 		"method: ",
 		req.Method,
 		", url: ",
 		req.URL.String(),
-		" body: ",
-		bodyString,
 	)
 }
 
 func (t *testingLogger) ResponseHttp(ctx context.Context, resp *http.Response, d time.Duration) {
-	// Copy response body
-	bodyBytes, _ := io.ReadAll(resp.Body)
-	bodyString := string(bodyBytes)
-	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-
 	if resp.StatusCode != http.StatusOK {
 		t.Log(
 			"[http response error]",
@@ -59,34 +98,28 @@ func (t *testingLogger) ResponseHttp(ctx context.Context, resp *http.Response, d
 			resp.StatusCode,
 			", duration: ",
 			d.String(),
-			", body: ",
-			bodyString,
 		)
 	} else {
-		t.Log("[http response]", "status_code: ", resp.StatusCode, ", duration: ", d.String(), ", body: ", bodyString)
+		t.Log("[http response]", "status_code: ", resp.StatusCode, ", duration: ", d.String())
 	}
 }
 
 func (t *testingLogger) Request(ctx context.Context, req any) {
-	json, err := json.Marshal(req)
+	jsonBody, err := marshalRedacted(req)
 	if err != nil {
 		t.Log("[request]", "error :", err.Error())
+		return
 	}
-
-	if len(json) == 0 {
-		t.Log("[request]", "body: ", string(json))
-	}
+	t.Log("[request]", "body: ", string(jsonBody))
 }
 
 func (t *testingLogger) Response(ctx context.Context, resp any) {
-	json, err := json.Marshal(resp)
+	jsonBody, err := marshalRedacted(resp)
 	if err != nil {
 		t.Log("[response]", "error :", err.Error())
+		return
 	}
-
-	if len(json) == 0 {
-		t.Log("[response]", "body :", string(json))
-	}
+	t.Log("[response]", "body :", string(jsonBody))
 }
 
 func (t *testingLogger) Error(ctx context.Context, err error) {
