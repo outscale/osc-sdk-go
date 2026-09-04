@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.52
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.17.49
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.72.3
-	github.com/aws/smithy-go v1.25.1
+	github.com/aws/smithy-go v1.28.1
 	github.com/aws/smithy-go/aws-http-auth v1.2.1
 	github.com/hashicorp/go-retryablehttp v0.7.8
 	github.com/oapi-codegen/runtime v1.7.0
