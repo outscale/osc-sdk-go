@@ -14,6 +14,7 @@ package osc
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -33,8 +34,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
-	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	"github.com/aws/smithy-go/aws-http-auth/credentials"
+	"github.com/aws/smithy-go/aws-http-auth/sigv4"
 	"golang.org/x/oauth2"
 )
 
@@ -495,16 +496,22 @@ func (c *APIClient) prepareRequest(
 
 		// AWS Signature v4 Authentication
 		if auth, ok := ctx.Value(ContextAWSv4).(AWSv4); ok {
-			creds := awscredentials.NewStaticCredentials(auth.AccessKey, auth.SecretKey, "")
-			signer := awsv4.NewSigner(creds)
-			var reader *strings.Reader
-			if body == nil {
-				reader = strings.NewReader("")
-			} else {
-				reader = strings.NewReader(body.String())
+			var payload []byte
+			if body != nil {
+				payload = body.Bytes()
 			}
-			timestamp := time.Now()
-			_, err := signer.Sign(localVarRequest, reader, "oapi", "eu-west-2", timestamp)
+			payloadHash := sha256.Sum256(payload)
+			err := sigv4.New().SignRequest(&sigv4.SignRequestInput{
+				Request: localVarRequest,
+				Credentials: credentials.Credentials{
+					AccessKeyID:     auth.AccessKey,
+					SecretAccessKey: auth.SecretKey,
+				},
+				Service:     "oapi",
+				Region:      "eu-west-2",
+				PayloadHash: payloadHash[:],
+				Time:        time.Now(),
+			})
 			if err != nil {
 				return nil, err
 			}

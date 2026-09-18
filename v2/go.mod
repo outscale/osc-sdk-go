@@ -3,8 +3,6 @@ module github.com/outscale/osc-sdk-go/v2
 go 1.25.0
 
 require (
-	github.com/aws/aws-sdk-go v1.55.8
+	github.com/aws/smithy-go/aws-http-auth v1.2.1
 	golang.org/x/oauth2 v0.36.0
 )
-
-require github.com/jmespath/go-jmespath v0.4.0 // indirect
