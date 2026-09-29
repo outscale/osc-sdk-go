@@ -26,8 +26,9 @@ func WithRetry(
 	)
 }
 
+//go:fix inline
 func ptr[T any](t T) *T {
-	return &t
+	return new(t)
 }
 
 func WithRetryTimeout(timeout time.Duration,
