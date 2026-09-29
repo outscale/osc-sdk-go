@@ -5,7 +5,7 @@ type Client struct {
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
+func NewClient(profile profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
     client, err := newClientRaw(profile, opts...)
     if err != nil {
         return nil, err
@@ -20,23 +20,21 @@ type ClientInterface interface {
 {{$pathParams := .PathParams -}}
 {{$opid := .OperationId -}}
 {{$op := .}}
-{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
-{{- range $k, $v := $responseTypeDefinitions}}
-{{if eq $v.TypeName "JSON200" }}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}{{$successType := ""}}{{range $responseTypeDefinitions}}{{if and (eq $successType "") (or (eq .TypeName "JSON200") (eq .TypeName "JSON201"))}}{{$successType = .Schema.TypeDecl}}{{end}}{{end}}{{$has204 := false}}{{if index $op.Spec.Responses.Map "204"}}{{$has204 = true}}{{end}}
+{{- if or $successType $has204}}{{$ret := "error"}}{{if $successType}}{{$ret = printf "(*%s, error)" $successType}}{{end}}
     // {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with any body{{end}}
-    {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error)
+    {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) {{$ret}}
 {{range $op.Bodies}}
     {{if .IsSupportedByClient -}}
-        {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error)
+        {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) {{$ret}}
     {{end -}}
 {{end}}{{/* range $op.Bodies */}}
-{{end}}{{/* if JSON200 */}}
-{{end}}{{/* range $responseTypeDefinitions */}}
+{{end}}{{/* if success (200/201 payload or 204) */}}
 {{end}}{{/* range . $opid := .OperationId */}}
 }
 
 {{range .}}{{$opid := .OperationId}}{{$op := .}}
-{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}{{$successType := ""}}{{range $responseTypeDefinitions}}{{if and (eq $successType "") (or (eq .TypeName "JSON200") (eq .TypeName "JSON201"))}}{{$successType = .Schema.TypeDecl}}{{end}}{{end}}{{$has204 := false}}{{if index $op.Spec.Responses.Map "204"}}{{$has204 = true}}{{end}}
 type {{genResponseTypeName $opid | ucFirst}} struct {
     Body         []byte
 	HTTPResponse *http.Response
@@ -67,21 +65,37 @@ func (r {{genResponseTypeName $opid | ucFirst}}) StatusCode() int {
     return 0
 }
 
-{{- range $responseTypeDefinitions}}
-{{ if eq .TypeName "JSON200" }}
-func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{.Schema.TypeDecl}}, error) {
-    if r.JSON200 != nil {
-        return r.JSON200, nil
+{{- if $successType}}
+
+func (r {{genResponseTypeName $opid | ucFirst}}) Expect() (*{{$successType}}, error) {
+    {{- range $responseTypeDefinitions}}
+    {{- if and (or (eq .TypeName "JSON200") (eq .TypeName "JSON201")) (eq .Schema.TypeDecl $successType)}}
+    if r.{{.TypeName}} != nil {
+        return r.{{.TypeName}}, nil
     }
+    {{- end}}
+    {{- end}}
+    {{- if $has204}}
+    if r.StatusCode() == 204 {
+        return nil, nil
+    }
+    {{- end}}
 
     return nil, r.genError()
 }
-{{ end }}
-{{ end}}
+{{- else if $has204}}
+
+func (r {{genResponseTypeName $opid | ucFirst}}) Expect() error {
+    if r.StatusCode() == 204 {
+        return nil
+    }
+    return r.genError()
+}
+{{- end}}
 
 func (r {{genResponseTypeName $opid | ucFirst}}) genError() error {
     {{- range $responseTypeDefinitions}}
-    {{ if ne .TypeName "JSON200" }}
+    {{ if and (ne .TypeName "JSON200") (ne .TypeName "JSON201") }}
     if r.{{.TypeName}} != nil {
         return fmt.Errorf("HTTP %d: %w", r.StatusCode(), r.{{.TypeName}})
     }
@@ -104,11 +118,10 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Bytes() []byte {
 {{$opid := .OperationId -}}
 {{$op := .}}
 {{/* Generate client methods (with responses)*/}}
-{{$responseTypeDefinitions := getResponseTypeDefinitions .}}
-{{ range $k, $v := $responseTypeDefinitions }}
-{{ if eq $v.TypeName "JSON200" }}
+{{$responseTypeDefinitions := getResponseTypeDefinitions .}}{{$successType := ""}}{{range $responseTypeDefinitions}}{{if and (eq $successType "") (or (eq .TypeName "JSON200") (eq .TypeName "JSON201"))}}{{$successType = .Schema.TypeDecl}}{{end}}{{end}}{{$has204 := false}}{{if index $op.Spec.Responses.Map "204"}}{{$has204 = true}}{{end}}
+{{- if or $successType $has204}}{{$ret := "error"}}{{if $successType}}{{$ret = printf "(*%s, error)" $successType}}{{end}}
 {{ if $op.HasBody }}
-// {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with arbitrary body{{end}} returning *{{$v.Schema.TypeDecl}}
+// {{$opid}}{{if $op.HasBody}}WithBody{{end}} request{{if $op.HasBody}} with arbitrary body{{end}}{{if $successType}} returning *{{$successType}}{{end}}
 {{ else }}
 {{ toGoComment $op.Spec.Description $opid }}
 //
@@ -116,21 +129,26 @@ func (r {{genResponseTypeName $opid | ucFirst}}) Bytes() []byte {
 //sdk:group {{.}}
 {{end -}}
 {{end -}}
-func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error){
+func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{{genParamArgs $op.PathParams}}{{if $op.RequiresParamObject}}, params *{{$opid}}Params{{end}}{{if $op.HasBody}}, contentType string, body io.Reader{{end}}, reqEditors... middleware.MiddlewareChainOption) {{$ret}} {
     rsp, err := c.{{$opid}}{{if $op.HasBody}}WithBody{{end}}Raw(ctx{{genParamNames $op.PathParams}}{{if $op.RequiresParamObject}}, params{{end}}{{if $op.HasBody}}, contentType, body{{end}}, reqEditors...)
     if err != nil {
-        return nil, err
+        return {{if $successType}}nil, {{end}}err
     }
     obj, err := Parse{{genResponseTypeName $opid | ucFirst}}(rsp)
     if err != nil {
-        return nil, err
+        return {{if $successType}}nil, {{end}}err
     }
+{{- if $successType}}
 
     resp, err := obj.Expect()
     if resp != nil {
         c.LogResponse(ctx, resp)
     }
     return resp, err
+{{- else}}
+
+    return obj.Expect()
+{{- end}}
 }
 
 {{$hasParams := $op.RequiresParamObject -}}
@@ -143,28 +161,33 @@ func (c *Client) {{$opid}}{{if $op.HasBody}}WithBody{{end}}(ctx context.Context{
 {{range $op.Spec.Tags -}}
 //sdk:group {{.}}
 {{end -}}
-func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) (*{{$v.Schema.TypeDecl}}, error) {
+func (c *Client) {{$opid}}{{.Suffix}}(ctx context.Context{{genParamArgs $pathParams}}{{if $hasParams}}, params *{{$opid}}Params{{end}}, body {{$opid}}{{.NameTag}}RequestBody, reqEditors... middleware.MiddlewareChainOption) {{$ret}} {
     c.LogRequest(ctx, body)
 
     rsp, err := c.{{$opid}}{{.Suffix}}Raw(ctx{{genParamNames $pathParams}}{{if $hasParams}}, params{{end}}, body, reqEditors...)
     if err != nil {
-        return nil, err
+        return {{if $successType}}nil, {{end}}err
     }
     obj, err := Parse{{genResponseTypeName $opid | ucFirst}}(rsp)
     if err != nil {
-        return nil, err
+        return {{if $successType}}nil, {{end}}err
     }
+{{- if $successType}}
 
     resp, err := obj.Expect()
     if resp != nil {
         c.LogResponse(ctx, resp)
     }
     return resp, err
+{{- else}}
+
+    return obj.Expect()
+{{- end}}
 }
 {{end}}
 {{end}}
 
-{{end}}{{end}}{{/* range type */}}
+{{end}}{{/* if success */}}
 {{end}}{{/* operations */}}
 
 {{/* Generate parse functions for responses */}}
