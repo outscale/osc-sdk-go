@@ -146,7 +146,7 @@ func newOSCClient(t *testing.T) *osc.Client {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
 
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	client, err := osc.NewClient(&userProfile, options.WithLogging(&testingLogger{t}))
 	require.NoError(t, err)
 
 	return client
@@ -158,11 +158,11 @@ func newOKSClient(t *testing.T) *oks.Client {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
 
-	if !slices.Contains([]string{"eu-west-2", "cloudgouv-eu-west-1"}, userProfile.Region) {
+	if !slices.Contains([]string{"eu-west-2", "cloudgouv-eu-west-1"}, userProfile.Values.Region) {
 		t.Skip("OKS is not deployed in this region")
 	}
 
-	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	client, err := oks.NewClient(&userProfile, options.WithLogging(&testingLogger{t}))
 	require.NoError(t, err)
 
 	return client

@@ -74,38 +74,38 @@ func withLoginPassword(login, password string) MiddlewareChainOption {
 	return WithMiddleware(MiddlewareSlotAuth, sec)
 }
 
-func FromProfile(userProfile *profile.Profile, service profile.OscService) MiddlewareChainOption {
+func FromProfile(userProfile *profile.Result, service profile.OscService) MiddlewareChainOption {
 	opts := make([]MiddlewareChainOption, 0, 2)
 
 	// 0. Skip Tls Verify.
-	if userProfile.TlsSkipVerify {
+	if userProfile.Values.TlsSkipVerify != nil && *userProfile.Values.TlsSkipVerify {
 		opts = append(opts, withTlsSkipVerify())
 	}
 
 	// 1. Check authentication
-	ak, sk := userProfile.GetAccessKeys(service)
+	ak, sk := userProfile.Values.GetAccessKeys(service)
 
-	if userProfile.X509ClientCert != "" && userProfile.X509ClientKey != "" {
+	if userProfile.Values.X509ClientCert != "" && userProfile.Values.X509ClientKey != "" {
 		opts = append(
 			opts,
-			withClientCertificatFiles(userProfile.X509ClientCert, userProfile.X509ClientKey),
+			withClientCertificatFiles(userProfile.Values.X509ClientCert, userProfile.Values.X509ClientKey),
 		)
-	} else if userProfile.X509ClientCertB64 != "" && userProfile.X509ClientKeyB64 != "" {
+	} else if userProfile.Values.X509ClientCertB64 != "" && userProfile.Values.X509ClientKeyB64 != "" {
 		opts = append(
 			opts,
-			withClientCertificatBase64(userProfile.X509ClientCertB64, userProfile.X509ClientKeyB64),
+			withClientCertificatBase64(userProfile.Values.X509ClientCertB64, userProfile.Values.X509ClientKeyB64),
 		)
 	}
 
-	if ak != "" && sk != "" && userProfile.Region != "" {
+	if ak != "" && sk != "" && userProfile.Values.Region != "" {
 		opts = append(
 			opts,
-			withAkSk(ak, sk, userProfile.Region, service),
+			withAkSk(ak, sk, userProfile.Values.Region, service),
 		)
-	} else if userProfile.Login != "" && userProfile.Password != "" {
+	} else if userProfile.Values.Login != "" && userProfile.Values.Password != "" {
 		opts = append(
 			opts,
-			withLoginPassword(userProfile.Login, userProfile.Password),
+			withLoginPassword(userProfile.Values.Login, userProfile.Values.Password),
 		)
 	}
 

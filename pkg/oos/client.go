@@ -16,11 +16,11 @@ type Client struct {
 	s3 *s3.Client
 }
 
-func NewClient(ctx context.Context, p *profile.Profile, opts ...config.LoadOptionsFunc) (*Client, error) {
+func NewClient(ctx context.Context, p *profile.Result, opts ...config.LoadOptionsFunc) (*Client, error) {
 	copts := []func(*config.LoadOptions) error{
-		config.WithRegion(p.Region),
+		config.WithRegion(p.Values.Region),
 		config.WithCredentialsProvider(
-			credentials.NewStaticCredentialsProvider(p.AccessKey, p.SecretKey, ""),
+			credentials.NewStaticCredentialsProvider(p.Values.AccessKey, p.Values.SecretKey, ""),
 		),
 	}
 	for _, opt := range opts {
@@ -32,7 +32,7 @@ func NewClient(ctx context.Context, p *profile.Profile, opts ...config.LoadOptio
 	}
 
 	s3Client := s3.NewFromConfig(cfg, func(o *s3.Options) {
-		ep, _ := p.GetEndpoint(profile.OscServiceOOS)
+		ep := p.Values.Endpoints[profile.OscServiceOOS]
 		o.BaseEndpoint = &ep
 		o.UsePathStyle = true
 	})

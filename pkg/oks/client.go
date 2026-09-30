@@ -9,14 +9,10 @@ import (
 )
 
 func newClientRaw(
-	userProfile *profile.Profile,
+	userProfile *profile.Result,
 	opts ...middleware.MiddlewareChainOption,
 ) (*ClientRaw, error) {
-	s, err := userProfile.GetEndpoint(profile.OscServiceOKS)
-	if err != nil {
-		return nil, err
-	}
-
+	s := userProfile.Values.Endpoints[profile.OscServiceOKS]
 	if s[len(s)-1] != '/' {
 		s += "/"
 	}
