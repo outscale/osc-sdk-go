@@ -29451,7 +29451,7 @@ type Client struct {
 
 // NewClient creates a new Client, which wraps
 // Client with return type handling
-func NewClient(profile *profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
+func NewClient(profile profile.Profile, opts ...middleware.MiddlewareChainOption) (*Client, error) {
 	client, err := newClientRaw(profile, opts...)
 	if err != nil {
 		return nil, err
