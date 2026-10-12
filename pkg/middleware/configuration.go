@@ -78,7 +78,7 @@ func FromProfile(userProfile *profile.Profile, service profile.OscService) Middl
 	opts := make([]MiddlewareChainOption, 0, 2)
 
 	// 0. Skip Tls Verify.
-	if userProfile.TlsSkipVerify {
+	if userProfile.TlsSkipVerify != nil && *userProfile.TlsSkipVerify {
 		opts = append(opts, withTlsSkipVerify())
 	}
 
