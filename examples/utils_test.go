@@ -146,7 +146,7 @@ func newOSCClient(t *testing.T) *osc.Client {
 	userProfile, err := profile.New()
 	require.NoError(t, err)
 
-	client, err := osc.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	client, err := osc.NewClient(&userProfile, options.WithLogging(&testingLogger{t}))
 	require.NoError(t, err)
 
 	return client
@@ -162,7 +162,7 @@ func newOKSClient(t *testing.T) *oks.Client {
 		t.Skip("OKS is not deployed in this region")
 	}
 
-	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	client, err := oks.NewClient(&userProfile, options.WithLogging(&testingLogger{t}))
 	require.NoError(t, err)
 
 	return client

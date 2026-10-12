@@ -32,9 +32,7 @@ func (e *ErrorResponse) GetCode() string {
 }
 
 func AsErrorResponse(e error) *ErrorResponse {
-	var err *ErrorResponse
-
-	if errors.As(e, &err) {
+	if err, ok := errors.AsType[*ErrorResponse](e); ok {
 		return err
 	}
 
