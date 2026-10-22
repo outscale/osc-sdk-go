@@ -9675,7 +9675,7 @@ type UpdateAccessKeyRequest struct {
 	ExpirationDate *iso8601.Time `json:"ExpirationDate,omitempty"`
 
 	// State The new state for the access key (`ACTIVE` \| `INACTIVE`). When set to `ACTIVE`, the access key is enabled and can be used to send requests. When set to `INACTIVE`, the access key is disabled.
-	State *string `json:"State,omitempty"`
+	State *AccessKeyState `json:"State,omitempty"`
 
 	// Tag A new tag to add to the access key. If the access key already had a tag, this replaces it. If the `ClearTag` parameter is set to true, the tag is ignored.
 	Tag *string `json:"Tag,omitempty"`
