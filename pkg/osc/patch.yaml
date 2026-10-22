@@ -591,6 +591,10 @@ actions:
     enum:
     - ACTIVE
     - INACTIVE
+- target: $.components.schemas.UpdateAccessKeyRequest.*.State
+  description: Type for UpdateAccessKeyRequest.State
+  update:
+    x-go-type: AccessKeyState
 - target: $.components.schemas.FiltersAccessKeys.*.States.items
   description:
   update:
