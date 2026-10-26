@@ -1203,3 +1203,7 @@ actions:
   update:
     x-oapi-codegen-extra-tags:
       log: "pii"
+- target: $.components.schemas.UpdateAccessKeyRequest.*.State
+  description: Type for UpdateAccessKeyRequest.State
+  update:
+    x-go-type: AccessKeyState
