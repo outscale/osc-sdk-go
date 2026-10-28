@@ -11,7 +11,7 @@ require (
 	github.com/aws/smithy-go v1.28.1
 	github.com/aws/smithy-go/aws-http-auth v1.2.1
 	github.com/hashicorp/go-retryablehttp v0.7.8
-	github.com/oapi-codegen/runtime v1.7.0
+	github.com/oapi-codegen/runtime v1.8.0
 	github.com/stretchr/testify v1.12.1
 	go.uber.org/ratelimit v0.3.1
 )
