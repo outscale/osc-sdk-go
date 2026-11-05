@@ -33,7 +33,6 @@ func defaultPooledTransport() *http.Transport {
 		DialContext: (&net.Dialer{
 			Timeout:   30 * time.Second,
 			KeepAlive: 30 * time.Second,
-			DualStack: true,
 		}).DialContext,
 		TLSClientConfig: &tls.Config{
 			MinVersion: tls.VersionTLS13,

@@ -12,11 +12,7 @@ func newClientRaw(
 	userProfile *profile.Profile,
 	opts ...middleware.MiddlewareChainOption,
 ) (*ClientRaw, error) {
-	s, err := userProfile.GetEndpoint(profile.OscServiceApi)
-	if err != nil {
-		return nil, err
-	}
-
+	s := userProfile.Endpoints[profile.OscServiceApi]
 	if s[len(s)-1] != '/' {
 		s += "/"
 	}
