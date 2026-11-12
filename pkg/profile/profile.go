@@ -23,10 +23,10 @@ type Profile struct {
 	AccessKeyV2       string   `json:"access_key_v2,omitempty"`
 	SecretKeyV2       string   `json:"secret_key_v2,omitempty" log:"sensitive"`
 	IAMV2Services     []string `json:"iam_v2_services,omitempty"`
-	X509ClientCert    string   `json:"x509_client_cert,omitempty"`
-	X509ClientCertB64 string   `json:"x509_client_cert_b64,omitempty"`
-	X509ClientKey     string   `json:"x509_client_key,omitempty" log:"sensitive"`
-	X509ClientKeyB64  string   `json:"x509_client_key_b64,omitempty" log:"sensitive"`
+	X509ClientCert    string   `json:"x509_client_cert,omitempty"`                    // Deprecated
+	X509ClientCertB64 string   `json:"x509_client_cert_b64,omitempty"`                // Deprecated
+	X509ClientKey     string   `json:"x509_client_key,omitempty" log:"sensitive"`     // Deprecated
+	X509ClientKeyB64  string   `json:"x509_client_key_b64,omitempty" log:"sensitive"` // Deprecated
 	TlsSkipVerify     bool     `json:"tls_skip_verify,omitempty"`
 	Login             string   `json:"login,omitempty"`
 	Password          string   `json:"password,omitempty" log:"sensitive"`
