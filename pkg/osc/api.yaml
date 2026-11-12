@@ -65,6 +65,10 @@ components:
         Tag:
           description: The tag added to the access key.
           type: string
+        Trusted:
+          description: If true, the access key has an expiration date and was created
+            using Cockpit v2 after a multi-factor authentication.
+          type: boolean
       type: object
     AccessKeySecretKey:
       additionalProperties: false
@@ -127,7 +131,8 @@ components:
           type: string
         AdditionalEmails:
           description: One or more additional email addresses for the account. These
-            addresses are used for notifications only.
+            addresses are used for notifications about maintenances on your resources
+            and hypervisor crashes.
           items:
             pattern: "^.+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+$"
             type: string
@@ -227,9 +232,16 @@ components:
           format: int64
           type: integer
         RequireTrustedEnv:
-          description: |-
-            If true, a trusted session is activated, allowing you to bypass Certificate Authorities (CAs) enforcement. For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).<br />
-            If this is enabled, it is required that you and all your users log in to Cockpit v2 using the WebAuthn method for multi-factor authentication. For more information, see [About Authentication > Multi-Factor Authentication](https://docs.outscale.com/en/userguide/About-Authentication.html#_multi_factor_authentication).
+          description: If true, a trusted session is activated, allowing you to bypass
+            Certificate Authorities (CAs) enforcement. For more information, see [About
+            Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
+          type: boolean
+        RequireTrustedEnvSecureMode:
+          description: If true, a trusted session is activated. This will require
+            you and all your EIM users to use only trusted access keys, to log in
+            to Cockpit v2 using multi-factor authentication (MFA), and will restrict
+            the CLI use of certain API calls. For more information, see [About Your
+            API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
           type: boolean
       type: object
     ApiAccessRule:
@@ -717,9 +729,10 @@ components:
       properties:
         AdditionalEmails:
           description: One or more additional email addresses for the account. These
-            addresses are used for notifications only. If you already have a list
-            of additional emails registered, you cannot add to it, only replace it.
-            To remove all registered additional emails, specify an empty list.
+            addresses are used for notifications about maintenances on your resources
+            and hypervisor crashes. If you already have a list of additional emails
+            registered, you cannot add to it, only replace it. To remove all registered
+            additional emails, specify an empty list.
           items:
             pattern: "^.+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+$"
             type: string
@@ -734,9 +747,7 @@ components:
           description: The country of the account owner.
           type: string
         CustomerId:
-          description: 'The ID of the customer. It must be 8 digits.<br />With OSC
-            CLI, you must wrap this value in two pairs of quotes to make sure it is
-            parsed as a string: `--CustomerId ''&quot;12345678&quot;''`.'
+          description: The ID of the customer. It must be 8 digits.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -768,9 +779,7 @@ components:
           description: The value added tax (VAT) number for the account.
           type: string
         ZipCode:
-          description: 'The ZIP code of the city.<br />With OSC CLI, you must wrap
-            this value in two pairs of quotes to make sure it is parsed as a string:
-            `--ZipCode ''&quot;12345678&quot;''`.'
+          description: The ZIP code of the city.
           type: string
       required:
       - City
@@ -833,9 +842,7 @@ components:
       additionalProperties: false
       properties:
         CaPem:
-          description: 'The CA in PEM format.<br />With OSC CLI, use the following
-            syntax to make sure your CA file is correctly parsed: `--CaPem=&quot;$(cat
-            FILENAME)&quot;`.'
+          description: The CA in PEM format.
           type: string
         Description:
           description: The description of the CA.
@@ -1202,7 +1209,7 @@ components:
           type: string
         PublicKey:
           description: The public key to import in your account, if you are importing
-            an existing keypair. This value must be Base64-encoded.
+            an existing keypair. This must be Base64-encoded.
           type: string
       required:
       - KeypairName
@@ -1424,10 +1431,7 @@ components:
       additionalProperties: false
       properties:
         ClientToken:
-          description: 'A unique identifier which enables you to manage the idempotency.<br
-            />With OSC CLI, if you want to specify a number for this value, you must
-            wrap it in two pairs of quotes to make sure the value is parsed as a string:
-            `--ClientToken ''&quot;12345678&quot;''`.'
+          description: A unique identifier which enables you to manage the idempotency.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -1498,7 +1502,7 @@ components:
         AccepterOwnerId:
           description: |-
             The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent.<br/ >
-            This parameter is required if the Net you want to connect with does not belong to you.<br />With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: `--AccepterOwnerId '&quot;12345678&quot;'`.
+            This parameter is required if the Net you want to connect with does not belong to you.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -1840,10 +1844,8 @@ components:
             "$ref": "#/components/schemas/SecurityGroupRule"
           type: array
         SecurityGroupAccountIdToLink:
-          description: 'The OUTSCALE account ID that owns the source or destination
-            security group specified in the `SecurityGroupNameToLink` parameter.<br
-            />With OSC CLI, you must wrap the value in two pairs of quotes to make
-            sure it is parsed as a string: `--SecurityGroupAccountIdToLink ''&quot;12345678&quot;''`.'
+          description: The OUTSCALE account ID that owns the source or destination
+            security group specified in the `SecurityGroupNameToLink` parameter.
           type: string
         SecurityGroupId:
           description: The ID of the security group for which you want to create a
@@ -1876,14 +1878,10 @@ components:
       additionalProperties: false
       properties:
         Body:
-          description: 'The PEM-encoded X509 certificate.<br />With OSC CLI, use the
-            following syntax to make sure your certificate file is correctly parsed:
-            `--Body=&quot;$(cat FILENAME)&quot;`.'
+          description: The PEM-encoded X509 certificate.
           type: string
         Chain:
-          description: 'The PEM-encoded intermediate certification authorities.<br
-            />With OSC CLI, use the following syntax to make sure your certificate
-            chain file is correctly parsed: `--Chain=&quot;$(cat FILENAME)&quot;`.'
+          description: The PEM-encoded intermediate certification authorities.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -1899,9 +1897,7 @@ components:
             not specified.
           type: string
         PrivateKey:
-          description: 'The PEM-encoded private key matching the certificate.<br />With
-            OSC CLI, use the following syntax to make sure your key file is correctly
-            parsed: `--PrivateKey=&quot;$(cat FILENAME)&quot;`.'
+          description: The PEM-encoded private key matching the certificate.
           type: string
       required:
       - Body
@@ -1949,10 +1945,7 @@ components:
       additionalProperties: false
       properties:
         ClientToken:
-          description: 'A unique identifier which enables you to manage the idempotency.<br
-            />With OSC CLI, if you want to specify a number for this value, you must
-            wrap it in two pairs of quotes to make sure the value is parsed as a string:
-            `--ClientToken ''&quot;12345678&quot;''`.'
+          description: A unique identifier which enables you to manage the idempotency.
           type: string
         Description:
           description: A description for the snapshot.
@@ -2284,10 +2277,7 @@ components:
             the sake of historical compatibility with AWS.
           type: boolean
         ClientToken:
-          description: 'A unique identifier which enables you to manage the idempotency.<br
-            />With OSC CLI, if you want to specify a number for this value, you must
-            wrap it in two pairs of quotes to make sure the value is parsed as a string:
-            `--ClientToken ''&quot;12345678&quot;''`.'
+          description: A unique identifier which enables you to manage the idempotency.
           type: string
         DeletionProtection:
           description: If true, you cannot delete the VM unless you change this parameter
@@ -2381,9 +2371,11 @@ components:
           type: string
         VmInitiatedShutdownBehavior:
           deprecated: true
-          description: The VM behavior when you stop it. If set to `stop`, the VM
+          description: 'The VM behavior when you stop it. If set to `stop`, the VM
             stops. If set to `restart`, the VM stops then automatically restarts.
-            If set to `terminate`, the VM stops and is terminated.
+            If set to `terminate`, the VM stops and is terminated. Important: This
+            parameter is deprecated in favor of `ShutDownBehaviorConfiguration` and
+            will be removed.'
           type: string
         VmType:
           description: |-
@@ -2409,10 +2401,7 @@ components:
       additionalProperties: false
       properties:
         ClientToken:
-          description: 'A unique identifier which enables you to manage the idempotency.<br
-            />With OSC CLI, if you want to specify a number for this value, you must
-            wrap it in two pairs of quotes to make sure the value is parsed as a string:
-            `--ClientToken ''&quot;12345678&quot;''`.'
+          description: A unique identifier which enables you to manage the idempotency.
           type: string
         DryRun:
           description: If true, checks whether you have the required permissions to
@@ -2521,7 +2510,7 @@ components:
       description: Information about the dedicated group.
       properties:
         AccountId:
-          description: The OUTSCALE account ID of the owners of the dedicated group.
+          description: The OUTSCALE account ID of the owner of the dedicated group.
           type: string
         CpuGeneration:
           description: The processor generation.
@@ -3712,12 +3701,16 @@ components:
           type: string
         ClientPrivateIp:
           description: The IP on the customer's side of the DirectLink interface.
+            If this parameter is specified, you must also specify the `OutscalePrivateIp`
+            parameter.
           type: string
         DirectLinkInterfaceName:
           description: The name of the DirectLink interface.
           type: string
         OutscalePrivateIp:
-          description: The IP on the OUTSCALE side of the DirectLink interface.
+          description: The IP on the OUTSCALE side of the DirectLink interface. If
+            this parameter is specified, you must also specify the `ClientPrivateIp`
+            parameter.
           type: string
         VirtualGatewayId:
           description: The ID of the target virtual gateway.
@@ -4316,7 +4309,7 @@ components:
             type: string
           type: array
         Hypervisors:
-          description: The hypervisor type of the OMI (always `xen`).
+          description: The hypervisor type of the OMI (always `kvm`).
           items:
             type: string
           type: array
@@ -5247,6 +5240,13 @@ components:
           type: array
         Descriptions:
           description: The descriptions of the snapshots.
+          items:
+            type: string
+          type: array
+        EffectiveSnapshotModes:
+          description: The snapshot mode in effect (`crash-consistent` \| `application-consistent`
+            \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots
+            (`in-queue`, `pending`, or `error` states).
           items:
             type: string
           type: array
@@ -10821,6 +10821,20 @@ components:
           "$ref": "#/components/schemas/ResponseContext"
           description: Information about the context of the response.
       type: object
+    RequestedSnapshotMode:
+      additionalProperties: false
+      description: Information about the requested snapshot mode.
+      properties:
+        Mode:
+          description: The requested mode (`application-consistent` \| `crash-consistent`).
+          type: string
+        OnFailure:
+          description: The fallback behavior if snapshot creation in `application-consistent`
+            mode fails (`continue` \| `abort`). By default or if set to `continue`,
+            the snapshot is created in crash-consistent mode. If set to `abort`, the
+            task is canceled.
+          type: string
+      type: object
     ResourceLoadBalancerTag:
       additionalProperties: false
       description: Information about the tag.
@@ -11214,12 +11228,20 @@ components:
         Description:
           description: The description of the snapshot.
           type: string
+        EffectiveSnapshotMode:
+          description: The snapshot mode in effect (`crash-consistent` \| `application-consistent`
+            \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots
+            (`in-queue`, `pending`, or `error` states).
+          type: string
         PermissionsToCreateVolume:
           "$ref": "#/components/schemas/PermissionsOnResource"
           description: Permissions for the resource.
         Progress:
           description: The progress of the snapshot, as a percentage.
           type: integer
+        RequestedSnapshotMode:
+          "$ref": "#/components/schemas/RequestedSnapshotMode"
+          description: Information about the requested snapshot mode.
         SnapshotId:
           description: The ID of the snapshot.
           type: string
@@ -11789,9 +11811,10 @@ components:
       properties:
         AdditionalEmails:
           description: One or more additional email addresses for the account. These
-            addresses are used for notifications only. If you already have a list
-            of additional emails registered, you cannot add to it, only replace it.
-            To remove all registered additional emails, specify an empty list.
+            addresses are used for notifications about maintenances on your resources
+            and hypervisor crashes. If you already have a list of additional emails
+            registered, you cannot add to it, only replace it. To remove all registered
+            additional emails, specify an empty list.
           items:
             pattern: "^.+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+$"
             type: string
@@ -11835,9 +11858,7 @@ components:
           description: The new value added tax (VAT) number for the account.
           type: string
         ZipCode:
-          description: 'The new ZIP code of the city.<br />With OSC CLI, you must
-            wrap this value in two pairs of quotes to make sure it is parsed as a
-            string: `--ZipCode ''&quot;12345678&quot;''`.'
+          description: The new ZIP code of the city.
           type: string
       type: object
     UpdateAccountResponse:
@@ -11867,13 +11888,23 @@ components:
           format: int64
           type: integer
         RequireTrustedEnv:
-          description: |-
-            If true, a trusted session is activated, provided that you specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater than `0`.<br />
-            Enabling this will require you and all your users to log in to Cockpit v2 using the WebAuthn method for multi-factor authentication. For more information, see [About Authentication > Multi-Factor Authentication](https://docs.outscale.com/en/userguide/About-Authentication.html#_multi_factor_authentication).
+          description: If true, a trusted session is activated, provided that you
+            specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater
+            than `0`. This allows you to bypass Certificate Authorities (CAs) enforcement.
+          type: boolean
+        RequireTrustedEnvSecureMode:
+          description: If true, a trusted session is activated, provided that you
+            specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater
+            than `0` and that the parameter `RequireTrustedEnv` is set to `true`.
+            This requires you and all your EIM users to use only trusted access keys,
+            to log in to Cockpit v2 using multi-factor authentication (MFA), and will
+            restrict the CLI use of certain API calls. For more information, see [About
+            Your API Access Policy > Scope of a Trusted Session](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html#_scope_of_a_trusted_session).
           type: boolean
       required:
       - MaxAccessKeyExpirationSeconds
       - RequireTrustedEnv
+      - RequireTrustedEnvSecureMode
       type: object
     UpdateApiAccessPolicyResponse:
       additionalProperties: false
@@ -12632,9 +12663,11 @@ components:
           type: string
         VmInitiatedShutdownBehavior:
           deprecated: true
-          description: The VM behavior when you stop it. If set to `stop`, the VM
+          description: 'The VM behavior when you stop it. If set to `stop`, the VM
             stops. If set to `restart`, the VM stops then automatically restarts.
-            If set to `terminate`, the VM stops and is terminated.
+            If set to `terminate`, the VM stops and is terminated. Important: This
+            parameter is deprecated in favor of `ShutDownBehaviorConfiguration` and
+            will be removed.'
           type: string
         VmType:
           description: The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
@@ -12894,7 +12927,7 @@ components:
             back to false.
           type: boolean
         Hypervisor:
-          description: The hypervisor type of the VMs (`ovm` \| `xen`).
+          description: The hypervisor type of the VMs (`ovm` \| `kvm`).
           type: string
         ImageId:
           description: The ID of the OMI used to create the VM.
@@ -13004,7 +13037,7 @@ components:
           description: 'The VM behavior when you stop it. If set to `stop`, the VM
             stops. If set to `restart`, the VM stops then automatically restarts.
             If set to `terminate`, the VM stops and is deleted. Important: This parameter
-            is deprecated in favor of `ShutDownBeheviorConfiguration` and will be
+            is deprecated in favor of `ShutDownBehaviorConfiguration` and will be
             removed.'
           type: string
         VmType:
@@ -13412,8 +13445,8 @@ components:
           description: Information about Phase 2 of the Internet Key Exchange (IKE)
             negotiation.
         TunnelInsideIpRange:
-          description: The range of inside IPs for the tunnel. This must be a /30
-            CIDR block from the 169.254.254.0/24 range.
+          description: The range of inside IPs for the tunnel. This must be a `/30`
+            CIDR block from the `169.254.254.0/24` range.
           type: string
       type: object
     With:
@@ -13568,12 +13601,12 @@ info:
     url: https://opensource.org/licenses/BSD-3-Clause
   termsOfService: https://en.outscale.com/terms-of-service/
   title: 3DS OUTSCALE API
-  version: 1.42.0
+  version: 1.43.2
   x-osc-api-osc-billing: 1.39.0
   x-osc-api-osc-cloud-region: 1.37.0
   x-osc-api-osc-cloud-vision: 1.37.0
-  x-osc-api-osc-core-iaas: 1.40.0
-  x-osc-api-osc-iam: 1.37.6
+  x-osc-api-osc-core-iaas: 1.41.0
+  x-osc-api-osc-iam: 1.37.10
   x-osc-api-type: external
 openapi: 3.0.0
 paths:
@@ -13754,7 +13787,7 @@ paths:
         Creates an OUTSCALE account.<br /><br />
 
         **[IMPORTANT]**<br />
-        * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales@outscale.com.<br />
+        * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales-eu@outscale.com.<br />
 
         For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-OUTSCALE-Account.html).
       operationId: CreateAccount
@@ -13875,7 +13908,7 @@ paths:
     post:
       description: |-
         Creates a Client Certificate Authority (CA).<br /><br />
-        For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).
+        For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).<br /><br />> Deprecated: This call is deprecated and will be removed.
       operationId: CreateCa
       requestBody:
         content:
@@ -13908,6 +13941,7 @@ paths:
       - BasicAuth: []
       tags:
       - Ca
+      deprecated: true
   "/CreateClientGateway":
     post:
       description: |-
@@ -14094,7 +14128,11 @@ paths:
     post:
       description: |-
         Creates a DirectLink interface.<br />
-        DirectLink interfaces enable you to reach one of your Nets through a virtual gateway.<br /><br />
+        DirectLink interfaces enable you to reach one of your Nets through a virtual gateway.
+
+        **[NOTE]**<br />
+        To choose the interconnection IPs for your DirectLink interface, you must specify both the `ClientPrivateIp` and `OutscalePrivateIp` parameters. If these parameters are not specified, TINA selects two IPs within a `/30` CIDR block.
+
         For more information, see [About DirectLink](https://docs.outscale.com/en/userguide/About-DirectLink.html).
       operationId: CreateDirectLinkInterface
       requestBody:
@@ -15997,7 +16035,8 @@ paths:
         * **Importing from a bucket**: You import a snapshot located in an OUTSCALE Object Storage (OOS) bucket. First, the owner of the source snapshot must export it to a bucket by using the [CreateSnapshotExportTask](#createsnapshotexporttask) method. Then, they must grant you permission to read the snapshot via a pre-signed URL. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
 
         **[NOTE]**<br />
-        In case of excessive use of the snapshot creation feature on the same volume over a short period of time, 3DS OUTSCALE reserves the right to temporarily block the feature.
+        * By default, all new snapshots are created in `application-consistent` mode.
+        * In case of excessive use of the snapshot creation feature on the same volume over a short period of time, 3DS OUTSCALE reserves the right to temporarily block the feature.
 
         For more information, see [About Snapshots](https://docs.outscale.com/en/userguide/About-Snapshots.html).
       operationId: CreateSnapshot
@@ -16561,6 +16600,7 @@ paths:
                 summary: Creating a VM (minimal syntax)
                 value:
                   ImageId: ami-12345678
+                  VmType: tinav5.c1r1p2
               ex2:
                 summary: Creating a VM in a Net
                 value:
@@ -16613,7 +16653,7 @@ paths:
                   summary: Creating a VM (minimal syntax)
                   value:
                     Vms:
-                    - VmType: t2.small
+                    - VmType: tinav5.c1r1p2
                       VmInitiatedShutdownBehavior: stop
                       State: pending
                       StateReason: ''
@@ -16635,7 +16675,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -16683,7 +16723,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -16761,7 +16801,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -16833,7 +16873,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -17143,7 +17183,8 @@ paths:
       - ApiAccessRule
   "/DeleteCa":
     post:
-      description: Deletes a specified Client Certificate Authority (CA).
+      description: 'Deletes a specified Client Certificate Authority (CA).<br /><br
+        />> Deprecated: This call is deprecated and will be removed.'
       operationId: DeleteCa
       requestBody:
         content:
@@ -17171,6 +17212,7 @@ paths:
       - BasicAuth: []
       tags:
       - Ca
+      deprecated: true
   "/DeleteClientGateway":
     post:
       description: |-
@@ -20131,8 +20173,9 @@ paths:
       - Account
   "/ReadCas":
     post:
-      description: Gets information about one or more of your Client Certificate Authorities
-        (CAs).
+      description: 'Gets information about one or more of your Client Certificate
+        Authorities (CAs).<br /><br />> Deprecated: This call is deprecated and will
+        be removed.'
       operationId: ReadCas
       requestBody:
         content:
@@ -20166,6 +20209,7 @@ paths:
       - BasicAuth: []
       tags:
       - Ca
+      deprecated: true
   "/ReadCatalog":
     post:
       description: Returns the price list of OUTSCALE services for the current Region.
@@ -20434,7 +20478,7 @@ paths:
       - Account
   "/ReadDedicatedGroups":
     post:
-      description: List one or more dedicated groups of virtual machines (VMs).
+      description: Lists one or more dedicated groups of virtual machines (VMs).
       operationId: ReadDedicatedGroups
       requestBody:
         content:
@@ -23215,7 +23259,7 @@ paths:
                       VmId: i-12345678
                       TpmEnabled: false
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -23503,7 +23547,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/ErrorResponse"
           description: The HTTP 500 response (Internal Server Error).
-      summary: Lists one or more update tasks of volumes
       tags:
       - Volume
   "/ReadVolumes":
@@ -24069,7 +24112,7 @@ paths:
     post:
       description: |-
         Detaches an internet service from a Net.<br />
-        This action disables and detaches an internet service from a Net. The Net must not contain virtual machines (VMs) using public IPs nor internet-facing load balancers.
+        This action disables and detaches an internet service from a Net. The Net must not contain virtual machines (VMs) using public IPs nor internet-facing load balancers, and its Subnets must not contain NAT Services.
       operationId: UnlinkInternetService
       requestBody:
         content:
@@ -24609,7 +24652,9 @@ paths:
         Updates the API access policy of your OUTSCALE account.<br /><br />
 
         **[IMPORTANT]**<br />
-        Only one API access policy can be associated with your account.
+        Only one API access policy can be associated with your account.<br /><br />
+
+        For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
       operationId: UpdateApiAccessPolicy
       requestBody:
         content:
@@ -24622,18 +24667,21 @@ paths:
                 value:
                   MaxAccessKeyExpirationSeconds: 31536000
                   RequireTrustedEnv: false
+                  RequireTrustedEnvSecureMode: false
               ex2:
                 summary: Require expiration dates of maximum 100 years and activate
                   a trusted session
                 value:
                   MaxAccessKeyExpirationSeconds: 3153600000
                   RequireTrustedEnv: true
+                  RequireTrustedEnvSecureMode: false
               ex3:
                 summary: Do not require expiration dates and deactivate a trusted
                   session
                 value:
                   MaxAccessKeyExpirationSeconds: 0
                   RequireTrustedEnv: false
+                  RequireTrustedEnvSecureMode: false
       responses:
         '200':
           content:
@@ -24738,8 +24786,8 @@ paths:
       - ApiAccessRule
   "/UpdateCa":
     post:
-      description: Modifies the specified attribute of a Client Certificate Authority
-        (CA).
+      description: 'Modifies the specified attribute of a Client Certificate Authority
+        (CA).<br /><br />> Deprecated: This call is deprecated and will be removed.'
       operationId: UpdateCa
       requestBody:
         content:
@@ -24772,6 +24820,7 @@ paths:
       - BasicAuth: []
       tags:
       - Ca
+      deprecated: true
   "/UpdateDedicatedGroup":
     post:
       description: Modifies the name of a specified dedicated group.
@@ -26175,7 +26224,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
@@ -26249,7 +26298,7 @@ paths:
                           DeleteOnVmDeletion: true
                       VmId: i-12345678
                       ReservationId: r-12345678
-                      Hypervisor: xen
+                      Hypervisor: kvm
                       Placement:
                         Tenancy: default
                         SubregionName: eu-west-2a
