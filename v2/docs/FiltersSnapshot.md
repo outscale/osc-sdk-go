@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **AccountIds** | Pointer to **[]string** | The OUTSCALE account IDs of the owners of the snapshots. | [optional] 
 **ClientTokens** | Pointer to **[]string** | The idempotency tokens provided when creating the snapshots. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the snapshots. | [optional] 
+**EffectiveSnapshotModes** | Pointer to **[]string** | The snapshot mode in effect (&#x60;crash-consistent&#x60; \\| &#x60;application-consistent&#x60; \\| &#x60;Not Applicable&#x60;). &#x60;Not Applicable&#x60; is returned for unavailable snapshots (&#x60;in-queue&#x60;, &#x60;pending&#x60;, or &#x60;error&#x60; states). | [optional] 
 **FromCreationDate** | Pointer to **string** | The beginning of the time period, in ISO 8601 date-time format (for example, &#x60;2020-06-14T00:00:00.000Z&#x60;). | [optional] 
 **PermissionsToCreateVolumeAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs which have permissions to create volumes. | [optional] 
 **PermissionsToCreateVolumeGlobalPermission** | Pointer to **bool** | If true, lists all public volumes. If false, lists all private volumes. | [optional] 
@@ -139,6 +140,31 @@ SetDescriptions sets Descriptions field to given value.
 `func (o *FiltersSnapshot) HasDescriptions() bool`
 
 HasDescriptions returns a boolean if a field has been set.
+
+### GetEffectiveSnapshotModes
+
+`func (o *FiltersSnapshot) GetEffectiveSnapshotModes() []string`
+
+GetEffectiveSnapshotModes returns the EffectiveSnapshotModes field if non-nil, zero value otherwise.
+
+### GetEffectiveSnapshotModesOk
+
+`func (o *FiltersSnapshot) GetEffectiveSnapshotModesOk() (*[]string, bool)`
+
+GetEffectiveSnapshotModesOk returns a tuple with the EffectiveSnapshotModes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEffectiveSnapshotModes
+
+`func (o *FiltersSnapshot) SetEffectiveSnapshotModes(v []string)`
+
+SetEffectiveSnapshotModes sets EffectiveSnapshotModes field to given value.
+
+### HasEffectiveSnapshotModes
+
+`func (o *FiltersSnapshot) HasEffectiveSnapshotModes() bool`
+
+HasEffectiveSnapshotModes returns a boolean if a field has been set.
 
 ### GetFromCreationDate
 

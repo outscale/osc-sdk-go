@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**CreateVolume**](VolumeApi.md#CreateVolume) | **Post** /CreateVolume | 
 [**DeleteVolume**](VolumeApi.md#DeleteVolume) | **Post** /DeleteVolume | 
 [**LinkVolume**](VolumeApi.md#LinkVolume) | **Post** /LinkVolume | 
-[**ReadVolumeUpdateTasks**](VolumeApi.md#ReadVolumeUpdateTasks) | **Post** /ReadVolumeUpdateTasks | Lists one or more update tasks of volumes
+[**ReadVolumeUpdateTasks**](VolumeApi.md#ReadVolumeUpdateTasks) | **Post** /ReadVolumeUpdateTasks | 
 [**ReadVolumes**](VolumeApi.md#ReadVolumes) | **Post** /ReadVolumes | 
 [**UnlinkVolume**](VolumeApi.md#UnlinkVolume) | **Post** /UnlinkVolume | 
 [**UpdateVolume**](VolumeApi.md#UpdateVolume) | **Post** /UpdateVolume | 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 > ReadVolumeUpdateTasksResponse ReadVolumeUpdateTasks(ctx).ReadVolumeUpdateTasksRequest(readVolumeUpdateTasksRequest).Execute()
 
-Lists one or more update tasks of volumes
+
 
 
 

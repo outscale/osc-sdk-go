@@ -9,8 +9,10 @@ Name | Type | Description | Notes
 **ClientToken** | Pointer to **string** | The idempotency token provided when creating the snapshot. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the snapshot was created. | [optional] 
 **Description** | Pointer to **string** | The description of the snapshot. | [optional] 
+**EffectiveSnapshotMode** | Pointer to **string** | The snapshot mode in effect (&#x60;crash-consistent&#x60; \\| &#x60;application-consistent&#x60; \\| &#x60;Not Applicable&#x60;). &#x60;Not Applicable&#x60; is returned for unavailable snapshots (&#x60;in-queue&#x60;, &#x60;pending&#x60;, or &#x60;error&#x60; states). | [optional] 
 **PermissionsToCreateVolume** | Pointer to [**PermissionsOnResource**](PermissionsOnResource.md) |  | [optional] 
 **Progress** | Pointer to **int32** | The progress of the snapshot, as a percentage. | [optional] 
+**RequestedSnapshotMode** | Pointer to [**RequestedSnapshotMode**](RequestedSnapshotMode.md) |  | [optional] 
 **SnapshotId** | Pointer to **string** | The ID of the snapshot. | [optional] 
 **State** | Pointer to **string** | The state of the snapshot (&#x60;in-queue&#x60; \\| &#x60;pending&#x60; \\| &#x60;completed&#x60; \\| &#x60;error&#x60; \\| &#x60;deleting&#x60;). | [optional] 
 **Tags** | Pointer to [**[]ResourceTag**](ResourceTag.md) | One or more tags associated with the snapshot. | [optional] 
@@ -161,6 +163,31 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### GetEffectiveSnapshotMode
+
+`func (o *Snapshot) GetEffectiveSnapshotMode() string`
+
+GetEffectiveSnapshotMode returns the EffectiveSnapshotMode field if non-nil, zero value otherwise.
+
+### GetEffectiveSnapshotModeOk
+
+`func (o *Snapshot) GetEffectiveSnapshotModeOk() (*string, bool)`
+
+GetEffectiveSnapshotModeOk returns a tuple with the EffectiveSnapshotMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEffectiveSnapshotMode
+
+`func (o *Snapshot) SetEffectiveSnapshotMode(v string)`
+
+SetEffectiveSnapshotMode sets EffectiveSnapshotMode field to given value.
+
+### HasEffectiveSnapshotMode
+
+`func (o *Snapshot) HasEffectiveSnapshotMode() bool`
+
+HasEffectiveSnapshotMode returns a boolean if a field has been set.
+
 ### GetPermissionsToCreateVolume
 
 `func (o *Snapshot) GetPermissionsToCreateVolume() PermissionsOnResource`
@@ -210,6 +237,31 @@ SetProgress sets Progress field to given value.
 `func (o *Snapshot) HasProgress() bool`
 
 HasProgress returns a boolean if a field has been set.
+
+### GetRequestedSnapshotMode
+
+`func (o *Snapshot) GetRequestedSnapshotMode() RequestedSnapshotMode`
+
+GetRequestedSnapshotMode returns the RequestedSnapshotMode field if non-nil, zero value otherwise.
+
+### GetRequestedSnapshotModeOk
+
+`func (o *Snapshot) GetRequestedSnapshotModeOk() (*RequestedSnapshotMode, bool)`
+
+GetRequestedSnapshotModeOk returns a tuple with the RequestedSnapshotMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequestedSnapshotMode
+
+`func (o *Snapshot) SetRequestedSnapshotMode(v RequestedSnapshotMode)`
+
+SetRequestedSnapshotMode sets RequestedSnapshotMode field to given value.
+
+### HasRequestedSnapshotMode
+
+`func (o *Snapshot) HasRequestedSnapshotMode() bool`
+
+HasRequestedSnapshotMode returns a boolean if a field has been set.
 
 ### GetSnapshotId
 

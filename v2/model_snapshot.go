@@ -3,7 +3,7 @@
  *
  * Welcome to the OUTSCALE API documentation.<br /> The OUTSCALE API enables you to manage your resources in the OUTSCALE Cloud. This documentation describes the different actions available along with code examples.<br /><br /> Throttling: To protect against overloads, the number of identical requests allowed in a given time period is limited.<br /> Brute force: To protect against brute force attacks, the number of failed authentication attempts in a given time period is limited.<br /><br /> Note that the OUTSCALE Cloud is compatible with Amazon Web Services (AWS) APIs, but there are [differences in resource names](https://docs.outscale.com/en/userguide/About-the-APIs.html) between AWS and the OUTSCALE API.<br /> You can also manage your resources using the [Cockpit](https://docs.outscale.com/en/userguide/About-Cockpit.html) web interface.<br /><br /> An OpenAPI description of this API is also available for download: <button>[GitHub repository](https://github.com/outscale/osc-api)</button><br /> # Authentication Schemes ### Access Key/Secret Key The main way to authenticate your requests to the OUTSCALE API is to use an access key and a secret key.<br /> The mechanism behind this is based on AWS Signature Version 4, whose technical implementation details are described in [Signature of API Requests](https://docs.outscale.com/en/userguide/Signature-of-API-Requests.html).<br /><br /> In practice, the way to specify your access key and secret key depends on the tool or SDK you want to use to interact with the API.<br />  > For example, to authenticate with access key/secret key when using octl: > * You can specify the following environment variables: `OSC_ACCESS_KEY`, `OSC_SECRET_KEY`, and `OSC_REGION`. > * Or you can store a profile in a **~/.osc/config.json** file, with the following fields specified: `access_key`, `secret_key`, and `region`. Then you select the profile by specifying the `--profile` option when executing octl commands. > > For more information, see [Installing and Configuring octl](https://docs.outscale.com/en/userguide/Installing-and-Configuring-octl.html).  See the code samples in each section of this documentation for specific examples in different programming languages.<br /> For more information about access keys, see [About Access Keys](https://docs.outscale.com/en/userguide/About-Access-Keys.html).  > If you try to sign requests with an invalid access key four times in a row, further authentication attempts will be prevented for 1 minute. This lockout time increases 1 minute every four failed attempts, for up to 10 minutes.  ### Login/Password For certain API actions, you can also use basic authentication with the login (email address) and password of your OUTSCALE account.<br /> This is useful only in special circumstances, for example if you do not know your access key/secret key and want to retrieve them programmatically.<br /> In most cases, however, you can use the Cockpit web interface to retrieve them.<br />  > For example, to authenticate with login/password when using octl: > * You can specify the following environment variables: `OSC_LOGIN`, `OSC_PASSWORD`, and `OSC_REGION`. > * Or you can store a profile in a **~/.osc/config.json** file, with the following fields specified: `login`, `password`, and `region`. Then you select the profile by specifying the `--profile` option when executing octl commands. > > For more information, see [Installing and Configuring octl](https://docs.outscale.com/en/userguide/Installing-and-Configuring-octl.html).  See the code samples in each section of this documentation for specific examples in different programming languages.  > If you try to sign requests with an invalid password four times in a row, further authentication attempts will be prevented for 1 minute. This lockout time increases 1 minute every four failed attempts, for up to 10 minutes.  ### No Authentication A few API actions do not require any authentication. They are indicated as such in this documentation.<br /> ### Other Security Mechanisms In parallel with the authentication schemes, you can add other security mechanisms to your OUTSCALE account, for example to restrict API requests by IP or other criteria.<br /> For more information, see [Managing Your API Accesses](https://docs.outscale.com/en/userguide/Managing-Your-API-Accesses.html). # Pagination Tutorial You can learn more about the pagination methods for read calls in the dedicated [pagination tutorial](https://docs.outscale.com/en/userguide/Tutorial-Paginating-an-API-Request.html). # Error Codes Reference You can learn more about errors returned by the API in the dedicated [errors page](api-errors.html).
  *
- * API version: 1.42.0
+ * API version: 1.43.2
  * Contact: support@outscale.com
  */
 
@@ -26,10 +26,13 @@ type Snapshot struct {
 	// The date and time (UTC) at which the snapshot was created.
 	CreationDate *string `json:"CreationDate,omitempty"`
 	// The description of the snapshot.
-	Description               *string                `json:"Description,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	// The snapshot mode in effect (`crash-consistent` \\| `application-consistent` \\| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
+	EffectiveSnapshotMode     *string                `json:"EffectiveSnapshotMode,omitempty"`
 	PermissionsToCreateVolume *PermissionsOnResource `json:"PermissionsToCreateVolume,omitempty"`
 	// The progress of the snapshot, as a percentage.
-	Progress *int32 `json:"Progress,omitempty"`
+	Progress              *int32                 `json:"Progress,omitempty"`
+	RequestedSnapshotMode *RequestedSnapshotMode `json:"RequestedSnapshotMode,omitempty"`
 	// The ID of the snapshot.
 	SnapshotId *string `json:"SnapshotId,omitempty"`
 	// The state of the snapshot (`in-queue` \\| `pending` \\| `completed` \\| `error` \\| `deleting`).
@@ -219,6 +222,38 @@ func (o *Snapshot) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetEffectiveSnapshotMode returns the EffectiveSnapshotMode field value if set, zero value otherwise.
+func (o *Snapshot) GetEffectiveSnapshotMode() string {
+	if o == nil || o.EffectiveSnapshotMode == nil {
+		var ret string
+		return ret
+	}
+	return *o.EffectiveSnapshotMode
+}
+
+// GetEffectiveSnapshotModeOk returns a tuple with the EffectiveSnapshotMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Snapshot) GetEffectiveSnapshotModeOk() (*string, bool) {
+	if o == nil || o.EffectiveSnapshotMode == nil {
+		return nil, false
+	}
+	return o.EffectiveSnapshotMode, true
+}
+
+// HasEffectiveSnapshotMode returns a boolean if a field has been set.
+func (o *Snapshot) HasEffectiveSnapshotMode() bool {
+	if o != nil && o.EffectiveSnapshotMode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEffectiveSnapshotMode gets a reference to the given string and assigns it to the EffectiveSnapshotMode field.
+func (o *Snapshot) SetEffectiveSnapshotMode(v string) {
+	o.EffectiveSnapshotMode = &v
+}
+
 // GetPermissionsToCreateVolume returns the PermissionsToCreateVolume field value if set, zero value otherwise.
 func (o *Snapshot) GetPermissionsToCreateVolume() PermissionsOnResource {
 	if o == nil || o.PermissionsToCreateVolume == nil {
@@ -281,6 +316,38 @@ func (o *Snapshot) HasProgress() bool {
 // SetProgress gets a reference to the given int32 and assigns it to the Progress field.
 func (o *Snapshot) SetProgress(v int32) {
 	o.Progress = &v
+}
+
+// GetRequestedSnapshotMode returns the RequestedSnapshotMode field value if set, zero value otherwise.
+func (o *Snapshot) GetRequestedSnapshotMode() RequestedSnapshotMode {
+	if o == nil || o.RequestedSnapshotMode == nil {
+		var ret RequestedSnapshotMode
+		return ret
+	}
+	return *o.RequestedSnapshotMode
+}
+
+// GetRequestedSnapshotModeOk returns a tuple with the RequestedSnapshotMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Snapshot) GetRequestedSnapshotModeOk() (*RequestedSnapshotMode, bool) {
+	if o == nil || o.RequestedSnapshotMode == nil {
+		return nil, false
+	}
+	return o.RequestedSnapshotMode, true
+}
+
+// HasRequestedSnapshotMode returns a boolean if a field has been set.
+func (o *Snapshot) HasRequestedSnapshotMode() bool {
+	if o != nil && o.RequestedSnapshotMode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedSnapshotMode gets a reference to the given RequestedSnapshotMode and assigns it to the RequestedSnapshotMode field.
+func (o *Snapshot) SetRequestedSnapshotMode(v RequestedSnapshotMode) {
+	o.RequestedSnapshotMode = &v
 }
 
 // GetSnapshotId returns the SnapshotId field value if set, zero value otherwise.
@@ -460,11 +527,17 @@ func (o Snapshot) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["Description"] = o.Description
 	}
+	if o.EffectiveSnapshotMode != nil {
+		toSerialize["EffectiveSnapshotMode"] = o.EffectiveSnapshotMode
+	}
 	if o.PermissionsToCreateVolume != nil {
 		toSerialize["PermissionsToCreateVolume"] = o.PermissionsToCreateVolume
 	}
 	if o.Progress != nil {
 		toSerialize["Progress"] = o.Progress
+	}
+	if o.RequestedSnapshotMode != nil {
+		toSerialize["RequestedSnapshotMode"] = o.RequestedSnapshotMode
 	}
 	if o.SnapshotId != nil {
 		toSerialize["SnapshotId"] = o.SnapshotId

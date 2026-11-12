@@ -6,13 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **MaxAccessKeyExpirationSeconds** | **int64** | The maximum possible lifetime for your access keys, in seconds (between &#x60;0&#x60; and &#x60;3153600000&#x60;, both included). If set to &#x60;O&#x60;, your access keys can have unlimited lifetimes, but a trusted session cannot be activated. Otherwise, all your access keys must have an expiration date. This value must be greater than the remaining lifetime of each access key of your account. | 
-**RequireTrustedEnv** | **bool** | If true, a trusted session is activated, provided that you specify the &#x60;MaxAccessKeyExpirationSeconds&#x60; parameter with a value greater than &#x60;0&#x60;.&lt;br /&gt; Enabling this will require you and all your users to log in to Cockpit v2 using the WebAuthn method for multi-factor authentication. For more information, see [About Authentication &gt; Multi-Factor Authentication](https://docs.outscale.com/en/userguide/About-Authentication.html#_multi_factor_authentication). | 
+**RequireTrustedEnv** | **bool** | If true, a trusted session is activated, provided that you specify the &#x60;MaxAccessKeyExpirationSeconds&#x60; parameter with a value greater than &#x60;0&#x60;. This allows you to bypass Certificate Authorities (CAs) enforcement. | 
+**RequireTrustedEnvSecureMode** | **bool** | If true, a trusted session is activated, provided that you specify the &#x60;MaxAccessKeyExpirationSeconds&#x60; parameter with a value greater than &#x60;0&#x60; and that the parameter &#x60;RequireTrustedEnv&#x60; is set to &#x60;true&#x60;. This requires you and all your EIM users to use only trusted access keys, to log in to Cockpit v2 using multi-factor authentication (MFA), and will restrict the CLI use of certain API calls. For more information, see [About Your API Access Policy &gt; Scope of a Trusted Session](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html#_scope_of_a_trusted_session). | 
 
 ## Methods
 
 ### NewUpdateApiAccessPolicyRequest
 
-`func NewUpdateApiAccessPolicyRequest(maxAccessKeyExpirationSeconds int64, requireTrustedEnv bool, ) *UpdateApiAccessPolicyRequest`
+`func NewUpdateApiAccessPolicyRequest(maxAccessKeyExpirationSeconds int64, requireTrustedEnv bool, requireTrustedEnvSecureMode bool, ) *UpdateApiAccessPolicyRequest`
 
 NewUpdateApiAccessPolicyRequest instantiates a new UpdateApiAccessPolicyRequest object
 This constructor will assign default values to properties that have it defined,
@@ -90,6 +91,26 @@ and a boolean to check if the value has been set.
 `func (o *UpdateApiAccessPolicyRequest) SetRequireTrustedEnv(v bool)`
 
 SetRequireTrustedEnv sets RequireTrustedEnv field to given value.
+
+
+### GetRequireTrustedEnvSecureMode
+
+`func (o *UpdateApiAccessPolicyRequest) GetRequireTrustedEnvSecureMode() bool`
+
+GetRequireTrustedEnvSecureMode returns the RequireTrustedEnvSecureMode field if non-nil, zero value otherwise.
+
+### GetRequireTrustedEnvSecureModeOk
+
+`func (o *UpdateApiAccessPolicyRequest) GetRequireTrustedEnvSecureModeOk() (*bool, bool)`
+
+GetRequireTrustedEnvSecureModeOk returns a tuple with the RequireTrustedEnvSecureMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequireTrustedEnvSecureMode
+
+`func (o *UpdateApiAccessPolicyRequest) SetRequireTrustedEnvSecureMode(v bool)`
+
+SetRequireTrustedEnvSecureMode sets RequireTrustedEnvSecureMode field to given value.
 
 
 

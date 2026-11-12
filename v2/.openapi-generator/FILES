@@ -614,6 +614,7 @@ docs/RejectNetPeeringRequest.md
 docs/RejectNetPeeringResponse.md
 docs/RemoveUserFromUserGroupRequest.md
 docs/RemoveUserFromUserGroupResponse.md
+docs/RequestedSnapshotMode.md
 docs/ResourceLoadBalancerTag.md
 docs/ResourceTag.md
 docs/ResponseContext.md
@@ -1290,6 +1291,7 @@ model_reject_net_peering_request.go
 model_reject_net_peering_response.go
 model_remove_user_from_user_group_request.go
 model_remove_user_from_user_group_response.go
+model_requested_snapshot_mode.go
 model_resource_load_balancer_tag.go
 model_resource_tag.go
 model_response_context.go

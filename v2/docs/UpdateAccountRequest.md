@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list. | [optional] 
+**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list. | [optional] 
 **City** | Pointer to **string** | The new city of the account owner. | [optional] 
 **CompanyName** | Pointer to **string** | The new name of the company for the account. | [optional] 
 **Country** | Pointer to **string** | The new country of the account owner. | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **PhoneNumber** | Pointer to **string** | The new landline phone number of the account owner. | [optional] 
 **StateProvince** | Pointer to **string** | The new state/province of the account owner. | [optional] 
 **VatNumber** | Pointer to **string** | The new value added tax (VAT) number for the account. | [optional] 
-**ZipCode** | Pointer to **string** | The new ZIP code of the city.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--ZipCode &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | [optional] 
+**ZipCode** | Pointer to **string** | The new ZIP code of the city. | [optional] 
 
 ## Methods
 

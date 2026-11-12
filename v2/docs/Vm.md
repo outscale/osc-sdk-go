@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ClientToken** | Pointer to **string** | The idempotency token provided when launching the VM. | [optional] 
 **CreationDate** | Pointer to **string** | The date and time (UTC) at which the VM was created. | [optional] 
 **DeletionProtection** | Pointer to **bool** | If true, you cannot delete the VM unless you change this parameter back to false. | [optional] 
-**Hypervisor** | Pointer to **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;xen&#x60;). | [optional] 
+**Hypervisor** | Pointer to **string** | The hypervisor type of the VMs (&#x60;ovm&#x60; \\| &#x60;kvm&#x60;). | [optional] 
 **ImageId** | Pointer to **string** | The ID of the OMI used to create the VM. | [optional] 
 **IsSourceDestChecked** | Pointer to **bool** | (Net only) If true, the source/destination check is enabled. If false, it is disabled. | [optional] 
 **KeypairName** | Pointer to **string** | The name of the keypair used when launching the VM. | [optional] 
@@ -40,7 +40,7 @@ Name | Type | Description | Notes
 **TpmEnabled** | Pointer to **bool** | If true, a virtual Trusted Platform Module (vTPM) is enabled on the VM. If false, it is not.&lt;br /&gt;The default behavior for this parameter varies depending on the source OMI of the VM.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is true, a vTPM has to be attached to the VM and it will be created by default. Setting &#x60;TpmEnabled&#x60; to false will cause the creation request to fail.&lt;br /&gt;If the &#x60;TpmMandatory&#x60; parameter of the source OMI is false, only setting &#x60;TpmEnabled&#x60; to true will create and attach a vTPM to the VM. | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data. | [optional] 
 **VmId** | Pointer to **string** | The ID of the VM. | [optional] 
-**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. Important: This parameter is deprecated in favor of &#x60;ShutDownBeheviorConfiguration&#x60; and will be removed. | [optional] 
+**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is deleted. Important: This parameter is deprecated in favor of &#x60;ShutDownBehaviorConfiguration&#x60; and will be removed. | [optional] 
 **VmType** | Pointer to **string** | The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
 
 ## Methods

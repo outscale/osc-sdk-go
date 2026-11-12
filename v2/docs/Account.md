@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | The ID of the account. | [optional] 
-**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications only. | [optional] 
+**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes. | [optional] 
 **City** | Pointer to **string** | The city of the account owner. | [optional] 
 **CompanyName** | Pointer to **string** | The name of the company for the account. | [optional] 
 **Country** | Pointer to **string** | The country of the account owner. | [optional] 
