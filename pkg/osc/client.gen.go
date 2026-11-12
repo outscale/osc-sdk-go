@@ -1407,6 +1407,9 @@ type AccessKey struct {
 
 	// Tag The tag added to the access key.
 	Tag *string `json:"Tag,omitempty"`
+
+	// Trusted If true, the access key has an expiration date and was created using Cockpit v2 after a multi-factor authentication.
+	Trusted *bool `json:"Trusted,omitempty"`
 }
 
 // AccessKeyState The state of the access key (`ACTIVE` if the key is valid for API calls, or `INACTIVE` if not).
@@ -1456,7 +1459,7 @@ type Account struct {
 	// AccountId The ID of the account.
 	AccountId *string `json:"AccountId,omitempty"`
 
-	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only.
+	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes.
 	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The city of the account owner.
@@ -1537,9 +1540,11 @@ type ApiAccessPolicy struct {
 	// MaxAccessKeyExpirationSeconds The maximum possible lifetime for your access keys, in seconds. If `0`, your access keys can have unlimited lifetimes.
 	MaxAccessKeyExpirationSeconds *int64 `json:"MaxAccessKeyExpirationSeconds,omitempty"`
 
-	// RequireTrustedEnv If true, a trusted session is activated, allowing you to bypass Certificate Authorities (CAs) enforcement. For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).<br />
-	// If this is enabled, it is required that you and all your users log in to Cockpit v2 using the WebAuthn method for multi-factor authentication. For more information, see [About Authentication > Multi-Factor Authentication](https://docs.outscale.com/en/userguide/About-Authentication.html#_multi_factor_authentication).
+	// RequireTrustedEnv If true, a trusted session is activated, allowing you to bypass Certificate Authorities (CAs) enforcement. For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
 	RequireTrustedEnv *bool `json:"RequireTrustedEnv,omitempty"`
+
+	// RequireTrustedEnvSecureMode If true, a trusted session is activated. This will require you and all your EIM users to use only trusted access keys, to log in to Cockpit v2 using multi-factor authentication (MFA), and will restrict the CLI use of certain API calls. For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
+	RequireTrustedEnvSecureMode *bool `json:"RequireTrustedEnvSecureMode,omitempty"`
 }
 
 // ApiAccessRule Information about the API access rule.
@@ -1902,7 +1907,7 @@ type CreateAccessKeyResponse struct {
 
 // CreateAccountRequest defines model for CreateAccountRequest.
 type CreateAccountRequest struct {
-	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
+	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
 	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The city of the account owner.
@@ -1914,7 +1919,7 @@ type CreateAccountRequest struct {
 	// Country The country of the account owner.
 	Country string `json:"Country" log:"pii"`
 
-	// CustomerId The ID of the customer. It must be 8 digits.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--CustomerId '&quot;12345678&quot;'`.
+	// CustomerId The ID of the customer. It must be 8 digits.
 	CustomerId string `json:"CustomerId"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -1944,7 +1949,7 @@ type CreateAccountRequest struct {
 	// VatNumber The value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
-	// ZipCode The ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
+	// ZipCode The ZIP code of the city.
 	ZipCode string `json:"ZipCode" log:"pii"`
 }
 
@@ -1986,7 +1991,7 @@ type CreateApiAccessRuleResponse struct {
 
 // CreateCaRequest defines model for CreateCaRequest.
 type CreateCaRequest struct {
-	// CaPem The CA in PEM format.<br />With OSC CLI, use the following syntax to make sure your CA file is correctly parsed: `--CaPem=&quot;$(cat FILENAME)&quot;`.
+	// CaPem The CA in PEM format.
 	CaPem string `json:"CaPem"`
 
 	// Description The description of the CA.
@@ -2253,7 +2258,7 @@ type CreateKeypairRequest struct {
 	// KeypairName A unique name for the keypair, with a maximum length of 255 [ASCII printable characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters).
 	KeypairName string `json:"KeypairName"`
 
-	// PublicKey The public key to import in your account, if you are importing an existing keypair. This value must be Base64-encoded.
+	// PublicKey The public key to import in your account, if you are importing an existing keypair. This must be Base64-encoded.
 	PublicKey *string `json:"PublicKey,omitempty"`
 }
 
@@ -2400,7 +2405,7 @@ type CreateLoadBalancerTagsResponse struct {
 
 // CreateNatServiceRequest defines model for CreateNatServiceRequest.
 type CreateNatServiceRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
+	// ClientToken A unique identifier which enables you to manage the idempotency.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -2454,7 +2459,7 @@ type CreateNetPeeringRequest struct {
 	AccepterNetId string `json:"AccepterNetId"`
 
 	// AccepterOwnerId The OUTSCALE account ID of the owner of the Net you want to connect with. By default, the account ID of the owner of the Net from which the peering request is sent.<br/ >
-	// This parameter is required if the Net you want to connect with does not belong to you.<br />With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: `--AccepterOwnerId '&quot;12345678&quot;'`.
+	// This parameter is required if the Net you want to connect with does not belong to you.
 	AccepterOwnerId *string `json:"AccepterOwnerId,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -2709,7 +2714,7 @@ type CreateSecurityGroupRuleRequest struct {
 	// Rules Information about the security group rule to create. If you specify this parent parameter and its subparameters, you cannot specify the following parent parameters: `FromPortRange`, `IpProtocol`, `IpRange`, and `ToPortRange`.
 	Rules []SecurityGroupRule `json:"Rules,omitempty"`
 
-	// SecurityGroupAccountIdToLink The OUTSCALE account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.<br />With OSC CLI, you must wrap the value in two pairs of quotes to make sure it is parsed as a string: `--SecurityGroupAccountIdToLink '&quot;12345678&quot;'`.
+	// SecurityGroupAccountIdToLink The OUTSCALE account ID that owns the source or destination security group specified in the `SecurityGroupNameToLink` parameter.
 	SecurityGroupAccountIdToLink *string `json:"SecurityGroupAccountIdToLink,omitempty"`
 
 	// SecurityGroupId The ID of the security group for which you want to create a rule.
@@ -2733,10 +2738,10 @@ type CreateSecurityGroupRuleResponse struct {
 
 // CreateServerCertificateRequest defines model for CreateServerCertificateRequest.
 type CreateServerCertificateRequest struct {
-	// Body The PEM-encoded X509 certificate.<br />With OSC CLI, use the following syntax to make sure your certificate file is correctly parsed: `--Body=&quot;$(cat FILENAME)&quot;`.
+	// Body The PEM-encoded X509 certificate.
 	Body string `json:"Body"`
 
-	// Chain The PEM-encoded intermediate certification authorities.<br />With OSC CLI, use the following syntax to make sure your certificate chain file is correctly parsed: `--Chain=&quot;$(cat FILENAME)&quot;`.
+	// Chain The PEM-encoded intermediate certification authorities.
 	Chain *string `json:"Chain,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -2748,7 +2753,7 @@ type CreateServerCertificateRequest struct {
 	// Path The path to the server certificate, set to a slash (`/`) if not specified.
 	Path *string `json:"Path,omitempty"`
 
-	// PrivateKey The PEM-encoded private key matching the certificate.<br />With OSC CLI, use the following syntax to make sure your key file is correctly parsed: `--PrivateKey=&quot;$(cat FILENAME)&quot;`.
+	// PrivateKey The PEM-encoded private key matching the certificate.
 	PrivateKey string `json:"PrivateKey" log:"sensitive"`
 }
 
@@ -2784,7 +2789,7 @@ type CreateSnapshotExportTaskResponse struct {
 
 // CreateSnapshotRequest defines model for CreateSnapshotRequest.
 type CreateSnapshotRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
+	// ClientToken A unique identifier which enables you to manage the idempotency.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// Description A description for the snapshot.
@@ -3028,7 +3033,7 @@ type CreateVmsRequest struct {
 	// BsuOptimized This parameter is not available. It is present in our API for the sake of historical compatibility with AWS.
 	BsuOptimized *bool `json:"BsuOptimized,omitempty"`
 
-	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
+	// ClientToken A unique identifier which enables you to manage the idempotency.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DeletionProtection If true, you cannot delete the VM unless you change this parameter back to false.
@@ -3082,7 +3087,7 @@ type CreateVmsRequest struct {
 	// UserData Data or script used to add a specific configuration to the VM. It must be Base64-encoded and is limited to 500 kibibytes (KiB). For more information about user data, see [Configuring a VM with User Data and OUTSCALE Tags](https://docs.outscale.com/en/userguide/Configuring-a-VM-with-User-Data-and-OUTSCALE-Tags.html).
 	UserData *string `json:"UserData,omitempty"`
 
-	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
+	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated. Important: This parameter is deprecated in favor of `ShutDownBehaviorConfiguration` and will be removed.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 
@@ -3105,7 +3110,7 @@ type CreateVmsResponse struct {
 
 // CreateVolumeRequest defines model for CreateVolumeRequest.
 type CreateVolumeRequest struct {
-	// ClientToken A unique identifier which enables you to manage the idempotency.<br />With OSC CLI, if you want to specify a number for this value, you must wrap it in two pairs of quotes to make sure the value is parsed as a string: `--ClientToken '&quot;12345678&quot;'`.
+	// ClientToken A unique identifier which enables you to manage the idempotency.
 	ClientToken *string `json:"ClientToken,omitempty"`
 
 	// DryRun If true, checks whether you have the required permissions to perform the action.
@@ -3184,7 +3189,7 @@ type CreateVpnConnectionRouteResponse struct {
 
 // DedicatedGroup Information about the dedicated group.
 type DedicatedGroup struct {
-	// AccountId The OUTSCALE account ID of the owners of the dedicated group.
+	// AccountId The OUTSCALE account ID of the owner of the dedicated group.
 	AccountId *string `json:"AccountId,omitempty"`
 
 	// CpuGeneration The processor generation.
@@ -4070,13 +4075,13 @@ type DirectLinkInterface struct {
 	// BgpKey The BGP authentication key.
 	BgpKey *string `json:"BgpKey,omitempty" log:"sensitive"`
 
-	// ClientPrivateIp The IP on the customer's side of the DirectLink interface.
+	// ClientPrivateIp The IP on the customer's side of the DirectLink interface. If this parameter is specified, you must also specify the `OutscalePrivateIp` parameter.
 	ClientPrivateIp *string `json:"ClientPrivateIp,omitempty"`
 
 	// DirectLinkInterfaceName The name of the DirectLink interface.
 	DirectLinkInterfaceName string `json:"DirectLinkInterfaceName"`
 
-	// OutscalePrivateIp The IP on the OUTSCALE side of the DirectLink interface.
+	// OutscalePrivateIp The IP on the OUTSCALE side of the DirectLink interface. If this parameter is specified, you must also specify the `ClientPrivateIp` parameter.
 	OutscalePrivateIp *string `json:"OutscalePrivateIp,omitempty"`
 
 	// VirtualGatewayId The ID of the target virtual gateway.
@@ -4448,7 +4453,7 @@ type FiltersImage struct {
 	// FileLocations The locations of the buckets where the OMI files are stored.
 	FileLocations *[]string `json:"FileLocations,omitempty"`
 
-	// Hypervisors The hypervisor type of the OMI (always `xen`).
+	// Hypervisors The hypervisor type of the OMI (always `kvm`).
 	Hypervisors *[]string `json:"Hypervisors,omitempty"`
 
 	// ImageIds The IDs of the OMIs.
@@ -4990,6 +4995,9 @@ type FiltersSnapshot struct {
 
 	// Descriptions The descriptions of the snapshots.
 	Descriptions *[]string `json:"Descriptions,omitempty"`
+
+	// EffectiveSnapshotModes The snapshot mode in effect (`crash-consistent` \| `application-consistent` \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
+	EffectiveSnapshotModes *[]string `json:"EffectiveSnapshotModes,omitempty"`
 
 	// FromCreationDate The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
 	FromCreationDate *iso8601.Time `json:"FromCreationDate,omitempty"`
@@ -8969,6 +8977,15 @@ type RemoveUserFromUserGroupResponse struct {
 	ResponseContext *ResponseContext `json:"ResponseContext,omitempty"`
 }
 
+// RequestedSnapshotMode Information about the requested snapshot mode.
+type RequestedSnapshotMode struct {
+	// Mode The requested mode (`application-consistent` \| `crash-consistent`).
+	Mode *string `json:"Mode,omitempty"`
+
+	// OnFailure The fallback behavior if snapshot creation in `application-consistent` mode fails (`continue` \| `abort`). By default or if set to `continue`, the snapshot is created in crash-consistent mode. If set to `abort`, the task is canceled.
+	OnFailure *string `json:"OnFailure,omitempty"`
+}
+
 // ResourceLoadBalancerTag Information about the tag.
 type ResourceLoadBalancerTag struct {
 	// Key The key of the tag, between 1 and 128 characters.
@@ -9259,11 +9276,17 @@ type Snapshot struct {
 	// Description The description of the snapshot.
 	Description *string `json:"Description,omitempty"`
 
+	// EffectiveSnapshotMode The snapshot mode in effect (`crash-consistent` \| `application-consistent` \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
+	EffectiveSnapshotMode *string `json:"EffectiveSnapshotMode,omitempty"`
+
 	// PermissionsToCreateVolume Permissions for the resource.
 	PermissionsToCreateVolume *PermissionsOnResource `json:"PermissionsToCreateVolume,omitempty"`
 
 	// Progress The progress of the snapshot, as a percentage.
 	Progress *int `json:"Progress,omitempty"`
+
+	// RequestedSnapshotMode Information about the requested snapshot mode.
+	RequestedSnapshotMode *RequestedSnapshotMode `json:"RequestedSnapshotMode,omitempty"`
 
 	// SnapshotId The ID of the snapshot.
 	SnapshotId string `json:"SnapshotId"`
@@ -9695,7 +9718,7 @@ type UpdateAccessKeyResponse struct {
 
 // UpdateAccountRequest defines model for UpdateAccountRequest.
 type UpdateAccountRequest struct {
-	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
+	// AdditionalEmails One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list.
 	AdditionalEmails *[]string `json:"AdditionalEmails,omitempty" log:"pii"`
 
 	// City The new city of the account owner.
@@ -9734,7 +9757,7 @@ type UpdateAccountRequest struct {
 	// VatNumber The new value added tax (VAT) number for the account.
 	VatNumber *string `json:"VatNumber,omitempty"`
 
-	// ZipCode The new ZIP code of the city.<br />With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: `--ZipCode '&quot;12345678&quot;'`.
+	// ZipCode The new ZIP code of the city.
 	ZipCode *string `json:"ZipCode,omitempty" log:"pii"`
 }
 
@@ -9755,9 +9778,11 @@ type UpdateApiAccessPolicyRequest struct {
 	// MaxAccessKeyExpirationSeconds The maximum possible lifetime for your access keys, in seconds (between `0` and `3153600000`, both included). If set to `O`, your access keys can have unlimited lifetimes, but a trusted session cannot be activated. Otherwise, all your access keys must have an expiration date. This value must be greater than the remaining lifetime of each access key of your account.
 	MaxAccessKeyExpirationSeconds int64 `json:"MaxAccessKeyExpirationSeconds"`
 
-	// RequireTrustedEnv If true, a trusted session is activated, provided that you specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater than `0`.<br />
-	// Enabling this will require you and all your users to log in to Cockpit v2 using the WebAuthn method for multi-factor authentication. For more information, see [About Authentication > Multi-Factor Authentication](https://docs.outscale.com/en/userguide/About-Authentication.html#_multi_factor_authentication).
+	// RequireTrustedEnv If true, a trusted session is activated, provided that you specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater than `0`. This allows you to bypass Certificate Authorities (CAs) enforcement.
 	RequireTrustedEnv bool `json:"RequireTrustedEnv"`
+
+	// RequireTrustedEnvSecureMode If true, a trusted session is activated, provided that you specify the `MaxAccessKeyExpirationSeconds` parameter with a value greater than `0` and that the parameter `RequireTrustedEnv` is set to `true`. This requires you and all your EIM users to use only trusted access keys, to log in to Cockpit v2 using multi-factor authentication (MFA), and will restrict the CLI use of certain API calls. For more information, see [About Your API Access Policy > Scope of a Trusted Session](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html#_scope_of_a_trusted_session).
+	RequireTrustedEnvSecureMode bool `json:"RequireTrustedEnvSecureMode"`
 }
 
 // UpdateApiAccessPolicyResponse defines model for UpdateApiAccessPolicyResponse.
@@ -10330,7 +10355,7 @@ type UpdateVmRequest struct {
 	// VmId The ID of the VM.
 	VmId string `json:"VmId"`
 
-	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated.
+	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is terminated. Important: This parameter is deprecated in favor of `ShutDownBehaviorConfiguration` and will be removed.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	VmInitiatedShutdownBehavior *string `json:"VmInitiatedShutdownBehavior,omitempty"`
 
@@ -10541,7 +10566,7 @@ type Vm struct {
 	// DeletionProtection If true, you cannot delete the VM unless you change this parameter back to false.
 	DeletionProtection bool `json:"DeletionProtection"`
 
-	// Hypervisor The hypervisor type of the VMs (`ovm` \| `xen`).
+	// Hypervisor The hypervisor type of the VMs (`ovm` \| `kvm`).
 	Hypervisor string `json:"Hypervisor"`
 
 	// ImageId The ID of the OMI used to create the VM.
@@ -10625,7 +10650,7 @@ type Vm struct {
 	// VmId The ID of the VM.
 	VmId string `json:"VmId"`
 
-	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted. Important: This parameter is deprecated in favor of `ShutDownBeheviorConfiguration` and will be removed.
+	// VmInitiatedShutdownBehavior The VM behavior when you stop it. If set to `stop`, the VM stops. If set to `restart`, the VM stops then automatically restarts. If set to `terminate`, the VM stops and is deleted. Important: This parameter is deprecated in favor of `ShutDownBehaviorConfiguration` and will be removed.
 	VmInitiatedShutdownBehavior string `json:"VmInitiatedShutdownBehavior"`
 
 	// VmType The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html).
@@ -10954,7 +10979,7 @@ type VpnOptions struct {
 	// Phase2Options Information about Phase 2 of the Internet Key Exchange (IKE) negotiation.
 	Phase2Options *Phase2Options `json:"Phase2Options,omitempty"`
 
-	// TunnelInsideIpRange The range of inside IPs for the tunnel. This must be a /30 CIDR block from the 169.254.254.0/24 range.
+	// TunnelInsideIpRange The range of inside IPs for the tunnel. This must be a `/30` CIDR block from the `169.254.254.0/24` range.
 	TunnelInsideIpRange *string `json:"TunnelInsideIpRange,omitempty"`
 }
 
@@ -11028,6 +11053,8 @@ type CreateAccountJSONRequestBody = CreateAccountRequest
 type CreateApiAccessRuleJSONRequestBody = CreateApiAccessRuleRequest
 
 // CreateCaJSONRequestBody defines body for CreateCa for application/json ContentType.
+//
+// Deprecated: this type has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 type CreateCaJSONRequestBody = CreateCaRequest
 
 // CreateClientGatewayJSONRequestBody defines body for CreateClientGateway for application/json ContentType.
@@ -11163,6 +11190,8 @@ type DeleteAccessKeyJSONRequestBody = DeleteAccessKeyRequest
 type DeleteApiAccessRuleJSONRequestBody = DeleteApiAccessRuleRequest
 
 // DeleteCaJSONRequestBody defines body for DeleteCa for application/json ContentType.
+//
+// Deprecated: this type has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 type DeleteCaJSONRequestBody = DeleteCaRequest
 
 // DeleteClientGatewayJSONRequestBody defines body for DeleteClientGateway for application/json ContentType.
@@ -11376,6 +11405,8 @@ type ReadApiLogsJSONRequestBody = ReadApiLogsRequest
 type ReadCO2EmissionAccountJSONRequestBody = ReadCO2EmissionAccountRequest
 
 // ReadCasJSONRequestBody defines body for ReadCas for application/json ContentType.
+//
+// Deprecated: this type has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 type ReadCasJSONRequestBody = ReadCasRequest
 
 // ReadCatalogJSONRequestBody defines body for ReadCatalog for application/json ContentType.
@@ -11649,6 +11680,8 @@ type UpdateApiAccessPolicyJSONRequestBody = UpdateApiAccessPolicyRequest
 type UpdateApiAccessRuleJSONRequestBody = UpdateApiAccessRuleRequest
 
 // UpdateCaJSONRequestBody defines body for UpdateCa for application/json ContentType.
+//
+// Deprecated: this type has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 type UpdateCaJSONRequestBody = UpdateCaRequest
 
 // UpdateDedicatedGroupJSONRequestBody defines body for UpdateDedicatedGroup for application/json ContentType.
@@ -41994,7 +42027,7 @@ func (c *Client) CreateAccountWithBody(ctx context.Context, contentType string, 
 // CreateAccount Creates an OUTSCALE account.<br /><br />
 //
 // **[IMPORTANT]**<br />
-// * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales@outscale.com.<br />
+// * You need OUTSCALE credentials and the appropriate quotas to create an account via API. To get quotas, you can send an email to sales-eu@outscale.com.<br />
 //
 // For more information, see [About Your Account](https://docs.outscale.com/en/userguide/About-Your-OUTSCALE-Account.html).
 //
@@ -42082,7 +42115,7 @@ func (c *Client) CreateCaWithBody(ctx context.Context, contentType string, body 
 }
 
 // CreateCa Creates a Client Certificate Authority (CA).<br /><br />
-// For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).
+// For more information, see [About API Access Rules](https://docs.outscale.com/en/userguide/About-API-Access-Rules.html).<br /><br />> Deprecated: This call is deprecated and will be removed.
 //
 //sdk:group Ca
 func (c *Client) CreateCa(ctx context.Context, body CreateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*CreateCaResponse, error) {
@@ -42289,7 +42322,11 @@ func (c *Client) CreateDirectLinkInterfaceWithBody(ctx context.Context, contentT
 }
 
 // CreateDirectLinkInterface Creates a DirectLink interface.<br />
-// DirectLink interfaces enable you to reach one of your Nets through a virtual gateway.<br /><br />
+// DirectLink interfaces enable you to reach one of your Nets through a virtual gateway.
+//
+// **[NOTE]**<br />
+// To choose the interconnection IPs for your DirectLink interface, you must specify both the `ClientPrivateIp` and `OutscalePrivateIp` parameters. If these parameters are not specified, TINA selects two IPs within a `/30` CIDR block.
+//
 // For more information, see [About DirectLink](https://docs.outscale.com/en/userguide/About-DirectLink.html).
 //
 //sdk:group DirectLinkInterface
@@ -43411,7 +43448,8 @@ func (c *Client) CreateSnapshotWithBody(ctx context.Context, contentType string,
 // * **Importing from a bucket**: You import a snapshot located in an OUTSCALE Object Storage (OOS) bucket. First, the owner of the source snapshot must export it to a bucket by using the [CreateSnapshotExportTask](#createsnapshotexporttask) method. Then, they must grant you permission to read the snapshot via a pre-signed URL. For more information, see [Creating a Pre-Signed URL](https://docs.outscale.com/en/userguide/Creating-a-Pre-Signed-URL.html).
 //
 // **[NOTE]**<br />
-// In case of excessive use of the snapshot creation feature on the same volume over a short period of time, 3DS OUTSCALE reserves the right to temporarily block the feature.
+// * By default, all new snapshots are created in `application-consistent` mode.
+// * In case of excessive use of the snapshot creation feature on the same volume over a short period of time, 3DS OUTSCALE reserves the right to temporarily block the feature.
 //
 // For more information, see [About Snapshots](https://docs.outscale.com/en/userguide/About-Snapshots.html).
 //
@@ -44082,7 +44120,7 @@ func (c *Client) DeleteCaWithBody(ctx context.Context, contentType string, body 
 	return resp, err
 }
 
-// DeleteCa Deletes a specified Client Certificate Authority (CA).
+// DeleteCa Deletes a specified Client Certificate Authority (CA).<br /><br />> Deprecated: This call is deprecated and will be removed.
 //
 //sdk:group Ca
 func (c *Client) DeleteCa(ctx context.Context, body DeleteCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*DeleteCaResponse, error) {
@@ -47056,7 +47094,7 @@ func (c *Client) ReadCasWithBody(ctx context.Context, contentType string, body i
 	return resp, err
 }
 
-// ReadCas Gets information about one or more of your Client Certificate Authorities (CAs).
+// ReadCas Gets information about one or more of your Client Certificate Authorities (CAs).<br /><br />> Deprecated: This call is deprecated and will be removed.
 //
 //sdk:group Ca
 func (c *Client) ReadCas(ctx context.Context, body ReadCasJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadCasResponse, error) {
@@ -47299,7 +47337,7 @@ func (c *Client) ReadDedicatedGroupsWithBody(ctx context.Context, contentType st
 	return resp, err
 }
 
-// ReadDedicatedGroups List one or more dedicated groups of virtual machines (VMs).
+// ReadDedicatedGroups Lists one or more dedicated groups of virtual machines (VMs).
 //
 //sdk:group DedicatedGroup
 func (c *Client) ReadDedicatedGroups(ctx context.Context, body ReadDedicatedGroupsJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*ReadDedicatedGroupsResponse, error) {
@@ -50183,7 +50221,7 @@ func (c *Client) UnlinkInternetServiceWithBody(ctx context.Context, contentType 
 }
 
 // UnlinkInternetService Detaches an internet service from a Net.<br />
-// This action disables and detaches an internet service from a Net. The Net must not contain virtual machines (VMs) using public IPs nor internet-facing load balancers.
+// This action disables and detaches an internet service from a Net. The Net must not contain virtual machines (VMs) using public IPs nor internet-facing load balancers, and its Subnets must not contain NAT Services.
 //
 //sdk:group InternetService
 func (c *Client) UnlinkInternetService(ctx context.Context, body UnlinkInternetServiceJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UnlinkInternetServiceResponse, error) {
@@ -50682,7 +50720,9 @@ func (c *Client) UpdateApiAccessPolicyWithBody(ctx context.Context, contentType 
 // UpdateApiAccessPolicy Updates the API access policy of your OUTSCALE account.<br /><br />
 //
 // **[IMPORTANT]**<br />
-// Only one API access policy can be associated with your account.
+// Only one API access policy can be associated with your account.<br /><br />
+//
+// For more information, see [About Your API Access Policy](https://docs.outscale.com/en/userguide/About-Your-API-Access-Policy.html).
 //
 //sdk:group ApiAccessPolicy
 func (c *Client) UpdateApiAccessPolicy(ctx context.Context, body UpdateApiAccessPolicyJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateApiAccessPolicyResponse, error) {
@@ -50766,7 +50806,7 @@ func (c *Client) UpdateCaWithBody(ctx context.Context, contentType string, body 
 	return resp, err
 }
 
-// UpdateCa Modifies the specified attribute of a Client Certificate Authority (CA).
+// UpdateCa Modifies the specified attribute of a Client Certificate Authority (CA).<br /><br />> Deprecated: This call is deprecated and will be removed.
 //
 //sdk:group Ca
 func (c *Client) UpdateCa(ctx context.Context, body UpdateCaJSONRequestBody, reqEditors ...middleware.MiddlewareChainOption) (*UpdateCaResponse, error) {
