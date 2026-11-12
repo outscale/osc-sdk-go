@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications only. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list. | [optional] 
+**AdditionalEmails** | Pointer to **[]string** | One or more additional email addresses for the account. These addresses are used for notifications about maintenances on your resources and hypervisor crashes. If you already have a list of additional emails registered, you cannot add to it, only replace it. To remove all registered additional emails, specify an empty list. | [optional] 
 **City** | **string** | The city of the account owner. | 
 **CompanyName** | **string** | The name of the company for the account. | 
 **Country** | **string** | The country of the account owner. | 
-**CustomerId** | **string** | The ID of the customer. It must be 8 digits.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--CustomerId &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | 
+**CustomerId** | **string** | The ID of the customer. It must be 8 digits. | 
 **DryRun** | Pointer to **bool** | If true, checks whether you have the required permissions to perform the action. | [optional] 
 **Email** | **string** | The main email address for the account. This address is used for your credentials and notifications. | 
 **FirstName** | **string** | The first name of the account owner. | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **PhoneNumber** | Pointer to **string** | The landline phone number of the account owner. | [optional] 
 **StateProvince** | Pointer to **string** | The state/province of the account. | [optional] 
 **VatNumber** | Pointer to **string** | The value added tax (VAT) number for the account. | [optional] 
-**ZipCode** | **string** | The ZIP code of the city.&lt;br /&gt;With OSC CLI, you must wrap this value in two pairs of quotes to make sure it is parsed as a string: &#x60;--ZipCode &#39;&amp;quot;12345678&amp;quot;&#39;&#x60;. | 
+**ZipCode** | **string** | The ZIP code of the city. | 
 
 ## Methods
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LastModificationDate** | Pointer to **string** | The date and time (UTC) at which the access key was last modified. | [optional] 
 **State** | Pointer to **string** | The state of the access key (&#x60;ACTIVE&#x60; if the key is valid for API calls, or &#x60;INACTIVE&#x60; if not). | [optional] 
 **Tag** | Pointer to **string** | The tag added to the access key. | [optional] 
+**Trusted** | Pointer to **bool** | If true, the access key has an expiration date and was created using Cockpit v2 after a multi-factor authentication. | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetTag sets Tag field to given value.
 `func (o *AccessKey) HasTag() bool`
 
 HasTag returns a boolean if a field has been set.
+
+### GetTrusted
+
+`func (o *AccessKey) GetTrusted() bool`
+
+GetTrusted returns the Trusted field if non-nil, zero value otherwise.
+
+### GetTrustedOk
+
+`func (o *AccessKey) GetTrustedOk() (*bool, bool)`
+
+GetTrustedOk returns a tuple with the Trusted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrusted
+
+`func (o *AccessKey) SetTrusted(v bool)`
+
+SetTrusted sets Trusted field to given value.
+
+### HasTrusted
+
+`func (o *AccessKey) HasTrusted() bool`
+
+HasTrusted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

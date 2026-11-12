@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Phase1Options** | Pointer to [**Phase1Options**](Phase1Options.md) |  | [optional] 
 **Phase2Options** | Pointer to [**Phase2Options**](Phase2Options.md) |  | [optional] 
-**TunnelInsideIpRange** | Pointer to **string** | The range of inside IPs for the tunnel. This must be a /30 CIDR block from the 169.254.254.0/24 range. | [optional] 
+**TunnelInsideIpRange** | Pointer to **string** | The range of inside IPs for the tunnel. This must be a &#x60;/30&#x60; CIDR block from the &#x60;169.254.254.0/24&#x60; range. | [optional] 
 
 ## Methods
 

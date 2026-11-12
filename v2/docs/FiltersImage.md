@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **BootModes** | Pointer to [**[]BootMode**](BootMode.md) | The boot modes compatible with the OMIs. | [optional] 
 **Descriptions** | Pointer to **[]string** | The descriptions of the OMIs, provided when they were created. | [optional] 
 **FileLocations** | Pointer to **[]string** | The locations of the buckets where the OMI files are stored. | [optional] 
-**Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;xen&#x60;). | [optional] 
+**Hypervisors** | Pointer to **[]string** | The hypervisor type of the OMI (always &#x60;kvm&#x60;). | [optional] 
 **ImageIds** | Pointer to **[]string** | The IDs of the OMIs. | [optional] 
 **ImageNames** | Pointer to **[]string** | The names of the OMIs, provided when they were created. | [optional] 
 **PermissionsToLaunchAccountIds** | Pointer to **[]string** | The OUTSCALE account IDs which have launch permissions for the OMIs. | [optional] 

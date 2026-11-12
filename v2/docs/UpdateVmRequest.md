@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **ShutdownBehaviorConfiguration** | Pointer to [**ShutdownBehaviorConfiguration**](ShutdownBehaviorConfiguration.md) |  | [optional] 
 **UserData** | Pointer to **string** | The Base64-encoded MIME user data, limited to 500 kibibytes (KiB). | [optional] 
 **VmId** | **string** | The ID of the VM. | 
-**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. | [optional] 
+**VmInitiatedShutdownBehavior** | Pointer to **string** | The VM behavior when you stop it. If set to &#x60;stop&#x60;, the VM stops. If set to &#x60;restart&#x60;, the VM stops then automatically restarts. If set to &#x60;terminate&#x60;, the VM stops and is terminated. Important: This parameter is deprecated in favor of &#x60;ShutDownBehaviorConfiguration&#x60; and will be removed. | [optional] 
 **VmType** | Pointer to **string** | The type of VM. For more information, see [VM Types](https://docs.outscale.com/en/userguide/VM-Types.html). | [optional] 
 
 ## Methods

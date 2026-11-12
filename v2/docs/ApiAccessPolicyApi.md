@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-    updateApiAccessPolicyRequest := *openapiclient.NewUpdateApiAccessPolicyRequest(int64(123), false) // UpdateApiAccessPolicyRequest |  (optional)
+    updateApiAccessPolicyRequest := *openapiclient.NewUpdateApiAccessPolicyRequest(int64(123), false, false) // UpdateApiAccessPolicyRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
