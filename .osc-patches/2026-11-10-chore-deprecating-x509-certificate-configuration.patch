@@ -1,0 +1,73 @@
+From 2493390114c1267aa08a03dd5abeb8d1d8ce0c39 Mon Sep 17 00:00:00 2001
+From: "Ch.-David Blot" <charles-david.blot@outscale.com>
+Date: Thu, 12 Nov 2026 10:19:15 +0100
+Subject: [PATCH] =?UTF-8?q?=F0=9F=97=91=EF=B8=8F=20chore:=20deprecating=20?=
+ =?UTF-8?q?x509=20certificate=20configuration?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ v2/config_env.go  | 10 +++++-----
+ v2/config_file.go | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/v2/config_env.go b/v2/config_env.go
+index 8707707c..3f422497 100644
+--- a/v2/config_env.go
++++ b/v2/config_env.go
+@@ -15,10 +15,10 @@ type ConfigEnv struct {
+ 	OutscaleApiEndpoint *string
+ 	ProfileName         *string
+ 	Region              *string
+-	X509ClientCert      *string
+-	X509ClientCertB64   *string
+-	X509ClientKey       *string
+-	X509ClientKeyB64    *string
++	X509ClientCert      *string // Deprecated
++	X509ClientCertB64   *string // Deprecated
++	X509ClientKey       *string // Deprecated
++	X509ClientKeyB64    *string // Deprecated
+ }
+ 
+ func NewConfigEnv() *ConfigEnv {
+@@ -77,7 +77,7 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
+ 				URL:         "https://api.{region}.outscale.com/api/v1",
+ 				Description: "Loaded from profile",
+ 				Variables: map[string]ServerVariable{
+-					"region": ServerVariable{
++					"region": {
+ 						Description:  "Loaded from env variables",
+ 						DefaultValue: default_region,
+ 						EnumValues:   []string{default_region},
+diff --git a/v2/config_file.go b/v2/config_file.go
+index 601af3b7..71670f9d 100644
+--- a/v2/config_file.go
++++ b/v2/config_file.go
+@@ -21,10 +21,10 @@ type ConfigFile struct {
+ type Profile struct {
+ 	AccessKey         string   `json:"access_key"`
+ 	SecretKey         string   `json:"secret_key"`
+-	X509ClientCert    string   `json:"x509_client_cert"`
+-	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
+-	X509ClientKey     string   `json:"x509_client_key"`
+-	X509ClientKeyB64  string   `json:"x509_client_key_b64"`
++	X509ClientCert    string   `json:"x509_client_cert"`     // Deprecated
++	X509ClientCertB64 string   `json:"x509_client_cert_b64"` // Deprecated
++	X509ClientKey     string   `json:"x509_client_key"`      // Deprecated
++	X509ClientKeyB64  string   `json:"x509_client_key_b64"`  // Deprecated
+ 	Protocol          string   `json:"protocol"`
+ 	Method            string   `json:"method"`
+ 	Region            string   `json:"region"`
+@@ -109,7 +109,7 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
+ 			URL:         url,
+ 			Description: "Loaded from profile",
+ 			Variables: map[string]ServerVariable{
+-				"region": ServerVariable{
++				"region": {
+ 					Description:  "Loaded from profile",
+ 					DefaultValue: region,
+ 					EnumValues:   []string{region},
+-- 
+2.54.0
+

@@ -21,10 +21,10 @@ type ConfigFile struct {
 type Profile struct {
 	AccessKey         string   `json:"access_key"`
 	SecretKey         string   `json:"secret_key"`
-	X509ClientCert    string   `json:"x509_client_cert"`
-	X509ClientCertB64 string   `json:"x509_client_cert_b64"`
-	X509ClientKey     string   `json:"x509_client_key"`
-	X509ClientKeyB64  string   `json:"x509_client_key_b64"`
+	X509ClientCert    string   `json:"x509_client_cert"`     // Deprecated
+	X509ClientCertB64 string   `json:"x509_client_cert_b64"` // Deprecated
+	X509ClientKey     string   `json:"x509_client_key"`      // Deprecated
+	X509ClientKeyB64  string   `json:"x509_client_key_b64"`  // Deprecated
 	Protocol          string   `json:"protocol"`
 	Method            string   `json:"method"`
 	Region            string   `json:"region"`
@@ -109,7 +109,7 @@ func (configFile *ConfigFile) Configuration(profileName string) (*Configuration,
 			URL:         url,
 			Description: "Loaded from profile",
 			Variables: map[string]ServerVariable{
-				"region": ServerVariable{
+				"region": {
 					Description:  "Loaded from profile",
 					DefaultValue: region,
 					EnumValues:   []string{region},
