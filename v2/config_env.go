@@ -15,10 +15,10 @@ type ConfigEnv struct {
 	OutscaleApiEndpoint *string
 	ProfileName         *string
 	Region              *string
-	X509ClientCert      *string
-	X509ClientCertB64   *string
-	X509ClientKey       *string
-	X509ClientKeyB64    *string
+	X509ClientCert      *string // Deprecated
+	X509ClientCertB64   *string // Deprecated
+	X509ClientKey       *string // Deprecated
+	X509ClientKeyB64    *string // Deprecated
 }
 
 func NewConfigEnv() *ConfigEnv {
@@ -77,7 +77,7 @@ func (configEnv *ConfigEnv) Configuration() (*Configuration, error) {
 				URL:         "https://api.{region}.outscale.com/api/v1",
 				Description: "Loaded from profile",
 				Variables: map[string]ServerVariable{
-					"region": ServerVariable{
+					"region": {
 						Description:  "Loaded from env variables",
 						DefaultValue: default_region,
 						EnumValues:   []string{default_region},
