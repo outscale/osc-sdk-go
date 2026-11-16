@@ -11,7 +11,7 @@
 ## 🌐 Links
 
 * Documentation: [https://docs.outscale.com/en/](https://docs.outscale.com/en/)
-* Go package reference: [https://pkg.go.dev/github.com/outscale/osc-sdk-go/v2](https://pkg.go.dev/github.com/outscale/osc-sdk-go/v2)
+* Go package reference: [https://pkg.go.dev/github.com/outscale/osc-sdk-go/v3](https://pkg.go.dev/github.com/outscale/osc-sdk-go/v3)
 * Project repository: [https://github.com/outscale/osc-sdk-go](https://github.com/outscale/osc-sdk-go)
 * OUTSCALE website: [https://outscale.com/](https://outscale.com/)
 * Join our community on [Discord](https://discord.gg/HUVtY5gT6s)
@@ -47,7 +47,7 @@ You will need an OUTSCALE account and API credentials to use this SDK.
 
 ## ✅ Requirements
 
-* Go 1.24+.
+* Go 1.25+.
 * Git (if you plan to clone the repository).
 * Access to the OUTSCALE API (valid access key / secret key or basic auth).
 * Network access to OUTSCALE API endpoints.
