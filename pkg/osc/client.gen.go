@@ -873,7 +873,7 @@ func (e ShutdownBehaviorConfigurationHostAction) Valid() bool {
 const (
 	SnapshotEffectiveSnapshotModeApplicationConsistent SnapshotEffectiveSnapshotMode = "application-consistent"
 	SnapshotEffectiveSnapshotModeCrashConsistent       SnapshotEffectiveSnapshotMode = "crash-consistent"
-	SnapshotEffectiveSnapshotModeNotApplicable         SnapshotEffectiveSnapshotMode = "Not Applicable"
+	SnapshotEffectiveSnapshotModeNotApplicable         SnapshotEffectiveSnapshotMode = "not-applicable"
 )
 
 // Method to return the list of values
@@ -881,7 +881,7 @@ func (SnapshotEffectiveSnapshotMode) Values() []string {
 	return []string{
 		"application-consistent",
 		"crash-consistent",
-		"Not Applicable",
+		"not-applicable",
 	}
 }
 

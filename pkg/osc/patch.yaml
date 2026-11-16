@@ -418,7 +418,7 @@ actions:
     enum:
     - crash-consistent
     - application-consistent
-    - Not Applicable
+    - not-applicable
 - target: $.components.schemas.FiltersSnapshot.*.EffectiveSnapshotModes.items
   description:
   update:
