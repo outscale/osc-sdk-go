@@ -412,6 +412,29 @@ actions:
   description:
   update:
     x-go-type: SnapshotState
+- target: $.components.schemas.Snapshot.*.EffectiveSnapshotMode
+  description: Type for Snapshot.EffectiveSnapshotMode
+  update:
+    enum:
+    - crash-consistent
+    - application-consistent
+    - Not Applicable
+- target: $.components.schemas.FiltersSnapshot.*.EffectiveSnapshotModes.items
+  description:
+  update:
+    x-go-type: SnapshotEffectiveSnapshotMode
+- target: $.components.schemas.RequestedSnapshotMode.*.Mode
+  description: Type for RequestedSnapshotMode.Mode
+  update:
+    enum:
+    - application-consistent
+    - crash-consistent
+- target: $.components.schemas.RequestedSnapshotMode.*.OnFailure
+  description: Type for RequestedSnapshotMode.OnFailure
+  update:
+    enum:
+    - continue
+    - abort
 - target: $.components.schemas.SnapshotExportTask
   description: Required fields for SnapshotExportTask
   update:

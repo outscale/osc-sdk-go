@@ -693,6 +693,58 @@ func (e ReadPoliciesFiltersScope) Valid() bool {
 	}
 }
 
+// Defines values for RequestedSnapshotModeMode.
+const (
+	RequestedSnapshotModeModeApplicationConsistent RequestedSnapshotModeMode = "application-consistent"
+	RequestedSnapshotModeModeCrashConsistent       RequestedSnapshotModeMode = "crash-consistent"
+)
+
+// Method to return the list of values
+func (RequestedSnapshotModeMode) Values() []string {
+	return []string{
+		"application-consistent",
+		"crash-consistent",
+	}
+}
+
+// Valid indicates whether the value is a known member of the RequestedSnapshotModeMode enum.
+func (e RequestedSnapshotModeMode) Valid() bool {
+	switch e {
+	case RequestedSnapshotModeModeApplicationConsistent:
+		return true
+	case RequestedSnapshotModeModeCrashConsistent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RequestedSnapshotModeOnFailure.
+const (
+	RequestedSnapshotModeOnFailureAbort    RequestedSnapshotModeOnFailure = "abort"
+	RequestedSnapshotModeOnFailureContinue RequestedSnapshotModeOnFailure = "continue"
+)
+
+// Method to return the list of values
+func (RequestedSnapshotModeOnFailure) Values() []string {
+	return []string{
+		"abort",
+		"continue",
+	}
+}
+
+// Valid indicates whether the value is a known member of the RequestedSnapshotModeOnFailure enum.
+func (e RequestedSnapshotModeOnFailure) Valid() bool {
+	switch e {
+	case RequestedSnapshotModeOnFailureAbort:
+		return true
+	case RequestedSnapshotModeOnFailureContinue:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RouteLightState.
 const (
 	RouteLightStateAvailable RouteLightState = "available"
@@ -811,6 +863,36 @@ func (e ShutdownBehaviorConfigurationHostAction) Valid() bool {
 	case ShutdownBehaviorConfigurationHostActionRestart:
 		return true
 	case ShutdownBehaviorConfigurationHostActionStop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SnapshotEffectiveSnapshotMode.
+const (
+	SnapshotEffectiveSnapshotModeApplicationConsistent SnapshotEffectiveSnapshotMode = "application-consistent"
+	SnapshotEffectiveSnapshotModeCrashConsistent       SnapshotEffectiveSnapshotMode = "crash-consistent"
+	SnapshotEffectiveSnapshotModeNotApplicable         SnapshotEffectiveSnapshotMode = "Not Applicable"
+)
+
+// Method to return the list of values
+func (SnapshotEffectiveSnapshotMode) Values() []string {
+	return []string{
+		"application-consistent",
+		"crash-consistent",
+		"Not Applicable",
+	}
+}
+
+// Valid indicates whether the value is a known member of the SnapshotEffectiveSnapshotMode enum.
+func (e SnapshotEffectiveSnapshotMode) Valid() bool {
+	switch e {
+	case SnapshotEffectiveSnapshotModeApplicationConsistent:
+		return true
+	case SnapshotEffectiveSnapshotModeCrashConsistent:
+		return true
+	case SnapshotEffectiveSnapshotModeNotApplicable:
 		return true
 	default:
 		return false
@@ -4997,7 +5079,7 @@ type FiltersSnapshot struct {
 	Descriptions *[]string `json:"Descriptions,omitempty"`
 
 	// EffectiveSnapshotModes The snapshot mode in effect (`crash-consistent` \| `application-consistent` \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
-	EffectiveSnapshotModes *[]string `json:"EffectiveSnapshotModes,omitempty"`
+	EffectiveSnapshotModes *[]SnapshotEffectiveSnapshotMode `json:"EffectiveSnapshotModes,omitempty"`
 
 	// FromCreationDate The beginning of the time period, in ISO 8601 date-time format (for example, `2020-06-14T00:00:00.000Z`).
 	FromCreationDate *iso8601.Time `json:"FromCreationDate,omitempty"`
@@ -8980,11 +9062,17 @@ type RemoveUserFromUserGroupResponse struct {
 // RequestedSnapshotMode Information about the requested snapshot mode.
 type RequestedSnapshotMode struct {
 	// Mode The requested mode (`application-consistent` \| `crash-consistent`).
-	Mode *string `json:"Mode,omitempty"`
+	Mode *RequestedSnapshotModeMode `json:"Mode,omitempty"`
 
 	// OnFailure The fallback behavior if snapshot creation in `application-consistent` mode fails (`continue` \| `abort`). By default or if set to `continue`, the snapshot is created in crash-consistent mode. If set to `abort`, the task is canceled.
-	OnFailure *string `json:"OnFailure,omitempty"`
+	OnFailure *RequestedSnapshotModeOnFailure `json:"OnFailure,omitempty"`
 }
+
+// RequestedSnapshotModeMode The requested mode (`application-consistent` \| `crash-consistent`).
+type RequestedSnapshotModeMode string
+
+// RequestedSnapshotModeOnFailure The fallback behavior if snapshot creation in `application-consistent` mode fails (`continue` \| `abort`). By default or if set to `continue`, the snapshot is created in crash-consistent mode. If set to `abort`, the task is canceled.
+type RequestedSnapshotModeOnFailure string
 
 // ResourceLoadBalancerTag Information about the tag.
 type ResourceLoadBalancerTag struct {
@@ -9277,7 +9365,7 @@ type Snapshot struct {
 	Description *string `json:"Description,omitempty"`
 
 	// EffectiveSnapshotMode The snapshot mode in effect (`crash-consistent` \| `application-consistent` \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
-	EffectiveSnapshotMode *string `json:"EffectiveSnapshotMode,omitempty"`
+	EffectiveSnapshotMode *SnapshotEffectiveSnapshotMode `json:"EffectiveSnapshotMode,omitempty"`
 
 	// PermissionsToCreateVolume Permissions for the resource.
 	PermissionsToCreateVolume *PermissionsOnResource `json:"PermissionsToCreateVolume,omitempty"`
@@ -9303,6 +9391,9 @@ type Snapshot struct {
 	// VolumeSize The size of the volume used to create the snapshot, in gibibytes (GiB).
 	VolumeSize int `json:"VolumeSize"`
 }
+
+// SnapshotEffectiveSnapshotMode The snapshot mode in effect (`crash-consistent` \| `application-consistent` \| `Not Applicable`). `Not Applicable` is returned for unavailable snapshots (`in-queue`, `pending`, or `error` states).
+type SnapshotEffectiveSnapshotMode string
 
 // SnapshotState The state of the snapshot (`in-queue` \| `pending` \| `completed` \| `error` \| `deleting`).
 type SnapshotState string
