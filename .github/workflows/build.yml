@@ -10,7 +10,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 jobs:
   auto-build-v3:
@@ -21,7 +20,6 @@ jobs:
         with:
           ref: v3
           persist-credentials: false
-      - uses: chainguard-dev/actions/setup-gitsign@53668650c25af6e8864f1d1ddaa69ed4db4cdf09 # v1.6.42
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
@@ -35,17 +33,14 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
-          committer: "Outscale Bot <opensource+bot@outscale.com>"
-          author: "Outscale Bot <opensource+bot@outscale.com>"
           commit-message: "⬆️ deps: upgrade OAPI to version ${{ env.api_version }}"
           body: |
             Automatic build of SDK based on Outscale API ${{ env.api_version }}.
           title: "OAPI ${{ env.api_version }}"
-          token: "${{ env.token }}"
           labels: "kind/feature"
+          sign-commits: true
         env:
           api_version: ${{ github.event.inputs.api_version }}
-          token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
   auto-build-v2:
     environment: auto-build
     runs-on: ubuntu-24.04
