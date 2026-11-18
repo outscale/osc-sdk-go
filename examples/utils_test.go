@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/outscale/osc-sdk-go/v3/pkg/oks"
+	"github.com/outscale/osc-sdk-go/v3/pkg/oos"
 	"github.com/outscale/osc-sdk-go/v3/pkg/options"
 	"github.com/outscale/osc-sdk-go/v3/pkg/osc"
 	"github.com/outscale/osc-sdk-go/v3/pkg/profile"
@@ -163,6 +164,18 @@ func newOKSClient(t *testing.T) *oks.Client {
 	}
 
 	client, err := oks.NewClient(userProfile, options.WithLogging(&testingLogger{t}))
+	require.NoError(t, err)
+
+	return client
+}
+
+func newOOSClient(t *testing.T) *oos.Client {
+	t.Helper()
+
+	userProfile, err := profile.New()
+	require.NoError(t, err)
+
+	client, err := oos.NewClient(t.Context(), userProfile)
 	require.NoError(t, err)
 
 	return client
