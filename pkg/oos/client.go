@@ -17,18 +17,20 @@ type Client struct {
 }
 
 func NewClient(ctx context.Context, p profile.Profile, opts ...config.LoadOptionsFunc) (*Client, error) {
-	copts := make([]func(*config.LoadOptions) error, 0, 2+len(opts))
-	copts = append(
-		copts,
+	cfg, err := config.LoadDefaultConfig(ctx,
 		config.WithRegion(p.Region),
 		config.WithCredentialsProvider(
 			credentials.NewStaticCredentialsProvider(p.AccessKey, p.SecretKey, ""),
 		),
+		func(o *config.LoadOptions) error {
+			for _, opt := range opts {
+				if err := opt(o); err != nil {
+					return err
+				}
+			}
+			return nil
+		},
 	)
-	for _, opt := range opts {
-		copts = append(copts, opt)
-	}
-	cfg, err := config.LoadDefaultConfig(ctx, copts...)
 	if err != nil {
 		return nil, err
 	}

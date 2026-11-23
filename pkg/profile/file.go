@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-	"path"
 	"path/filepath"
 	"slices"
 )
@@ -16,118 +15,134 @@ var ErrProfileNotFound = errors.New("profile not found")
 
 const (
 	DefaultProfile     = "default"
-	ConfigFileEnvName  = "OSC_CONFIG_PATH"
+	ConfigFileEnvName  = "OSC_CONFIG_FILE"
 	ProfileNameEnvName = "OSC_PROFILE"
 )
 
-type profile struct {
-	Fields
-	Default bool `json:"default,omitempty"`
-}
-
 type ConfigFile struct {
-	FilePath            *string
-	SelectedProfileName string
-	DefaultProfileName  string
+	FilePath *string
 
-	// raw profile content
-	rawProfiles map[string]json.RawMessage
-
-	// Flags for explicit behavior
-	explicitFile    bool
-	explicitProfile bool
+	rawProfiles      map[string]json.RawMessage // We use RawMessage for forward compibility
+	markedDefault    string
+	hasMarkedDefault bool
 }
 
-func (cf *ConfigFile) SelectedProfile() (string, Fields, error) {
-	f, e := cf.Profile(cf.SelectedProfileName)
-	if e != nil && errors.Is(e, ErrProfileNotFound) && !cf.explicitFile && !cf.explicitProfile {
-		return cf.DefaultProfileName, Fields{}, nil
+func (cf *ConfigFile) defaultName() string {
+	if cf.hasMarkedDefault {
+		return cf.markedDefault
 	}
-
-	return cf.SelectedProfileName, f, e
+	return DefaultProfile
 }
 
-func (cf *ConfigFile) DefaultProfile() (string, Fields, error) {
-	f, e := cf.Profile(cf.DefaultProfileName)
-	if e != nil && errors.Is(e, ErrProfileNotFound) && !cf.explicitFile {
-		return cf.DefaultProfileName, Fields{}, nil
+// DefaultProfile returns the marked profile, or the entry named "default" if none is marked.
+func (cf *ConfigFile) DefaultProfile() (Profile, error) {
+	return cf.Profile(cf.defaultName())
+}
+
+// Profile returns a saved entry without applying environment or SDK defaults.
+func (cf *ConfigFile) Profile(name string) (Profile, error) {
+	raw, ok := cf.rawProfiles[name]
+	if !ok {
+		return Profile{}, ErrProfileNotFound
 	}
-
-	return cf.DefaultProfileName, f, e
-}
-
-func (cf *ConfigFile) Profile(p string) (Fields, error) {
-	var selectedProfile profile
-	if raw, ok := cf.rawProfiles[p]; ok {
-		if err := decodeOne(raw, &selectedProfile); err != nil {
-			return Fields{}, fmt.Errorf("decode profile %q: %w", p, err)
-		}
-		return selectedProfile.Fields, nil
+	p := Profile{Name: name}
+	if err := decodeOne(raw, &p); err != nil {
+		return Profile{}, fmt.Errorf("decode profile %q: %w", name, err)
 	}
-	return Fields{}, ErrProfileNotFound
+	p.Default = name == cf.defaultName()
+	return p, nil
 }
 
-func (cf *ConfigFile) ProfileList() []string {
-	profiles := make([]string, 0, len(cf.rawProfiles))
+// ListProfiles returns saved entries in name order, or an error if an entry cannot be decoded.
+func (cf *ConfigFile) ListProfiles() ([]Profile, error) {
+	names := make([]string, 0, len(cf.rawProfiles))
 	for name := range cf.rawProfiles {
-		profiles = append(profiles, name)
+		names = append(names, name)
 	}
-	slices.Sort(profiles)
-	return profiles
+	slices.Sort(names)
+	profiles := make([]Profile, 0, len(names))
+	for _, name := range names {
+		p, err := cf.Profile(name)
+		if err != nil {
+			return nil, err
+		}
+		profiles = append(profiles, p)
+	}
+	return profiles, nil
 }
 
-func (cf *ConfigFile) ProfileAdd(name string, fields Fields) error {
-	data, err := json.Marshal(fields) //nolint:gosec
+// AddProfile writes or replaces a saved entry. If p.Default is true, it marks
+// this entry as the default and clears any previous mark.
+func (cf *ConfigFile) AddProfile(p Profile) error {
+	data, err := json.Marshal(p)
 	if err != nil {
-		return fmt.Errorf("encode new profile %q: %w", name, err)
+		return fmt.Errorf("encode profile %q: %w", p.Name, err)
 	}
 
-	cf.rawProfiles[name] = json.RawMessage(data)
+	if p.Default && cf.hasMarkedDefault && cf.markedDefault != p.Name {
+		previous, err := cf.Profile(cf.markedDefault)
+		if err != nil {
+			return err
+		}
+		previous.Default = false
+		previousData, err := json.Marshal(previous)
+		if err != nil {
+			return fmt.Errorf("encode old default profile %q: %w", previous.Name, err)
+		}
+		cf.rawProfiles[previous.Name] = previousData
+	}
+
+	if cf.rawProfiles == nil {
+		cf.rawProfiles = make(map[string]json.RawMessage)
+	}
+	cf.rawProfiles[p.Name] = data
+	if p.Default {
+		cf.markedDefault, cf.hasMarkedDefault = p.Name, true
+	} else if p.Name == cf.markedDefault {
+		cf.markedDefault, cf.hasMarkedDefault = "", false
+	}
 
 	return nil
 }
 
-func (cf *ConfigFile) ProfileRemove(name string) error {
-	// Cannot remove the selected profile
-	if cf.explicitProfile && name == cf.SelectedProfileName {
-		return fmt.Errorf("cannot remove the selected profile %q", name)
-	}
-
+func (cf *ConfigFile) RemoveProfile(name string) error {
 	if _, ok := cf.rawProfiles[name]; !ok {
 		return fmt.Errorf("profile %q: %w", name, ErrProfileNotFound)
 	}
 	delete(cf.rawProfiles, name)
+	if name == cf.markedDefault {
+		cf.markedDefault, cf.hasMarkedDefault = "", false
+	}
 
 	return nil
 }
 
 func LoadConfigFile(o Options) (*ConfigFile, error) {
+	cf, _, err := loadConfigFile(o)
+	return cf, err
+}
+
+// loadConfigFile returns whether the caller or environment explicitly chose the file.
+func loadConfigFile(o Options) (*ConfigFile, bool, error) {
 	if o.ReadFile == nil {
 		o.ReadFile = os.ReadFile
 	}
-
-	return loadConfigFile(o)
-}
-
-func loadConfigFile(o Options) (*ConfigFile, error) {
 	var cf ConfigFile
 
-	// 1. First load config file
 	filePath, explicitFile := choose(o.FilePath, ConfigFileEnvName)
 	if filePath == "" {
 		if explicitFile {
-			return nil, errors.New("config path is explicitly empty")
+			return nil, explicitFile, errors.New("config path is explicitly empty")
 		}
 		filePath, _ = DefaultConfigPath()
 	}
-	cf.explicitFile = explicitFile
 
 	cf.rawProfiles = map[string]json.RawMessage{}
 	data, err := o.ReadFile(filePath)
 	switch {
 	case err == nil:
 		if err := decodeOne(data, &cf.rawProfiles); err != nil {
-			return nil, fmt.Errorf("parse config file: %w", err)
+			return nil, explicitFile, fmt.Errorf("parse config file: %w", err)
 		}
 		cf.FilePath = &filePath
 
@@ -135,36 +150,25 @@ func loadConfigFile(o Options) (*ConfigFile, error) {
 		// A missing default file is ok
 
 	default:
-		return nil, fmt.Errorf("reading config file: %w", err)
+		return nil, explicitFile, fmt.Errorf("reading config file: %w", err)
 	}
 
-	// 2. Find default profile
 	for name, raw := range cf.rawProfiles {
 		var marker struct {
 			Default *bool `json:"default"`
 		}
 		if err := json.Unmarshal(raw, &marker); err != nil {
-			return nil, fmt.Errorf("profile %q: invalid default marker: %w", name, err)
+			return nil, explicitFile, fmt.Errorf("profile %q: invalid default marker: %w", name, err)
 		}
-		if marker.Default != nil && *marker.Default {
-			if cf.DefaultProfileName != "" {
-				return nil, fmt.Errorf("more than one profile is marked default. first: %q, second: %q", cf.DefaultProfileName, name)
-			}
-			cf.DefaultProfileName = name
+		if marker.Default == nil || !*marker.Default {
+			continue
 		}
+		if cf.hasMarkedDefault {
+			return nil, explicitFile, fmt.Errorf("more than one profile is marked default. first: %q, second: %q", cf.markedDefault, name)
+		}
+		cf.markedDefault, cf.hasMarkedDefault = name, true
 	}
-	if cf.DefaultProfileName == "" {
-		cf.DefaultProfileName = DefaultProfile
-	}
-
-	// 3. Find selected profile
-	cf.SelectedProfileName, cf.explicitProfile = choose(o.ProfileName, ProfileNameEnvName)
-	if !cf.explicitProfile {
-		// Looking for marked default profile
-		cf.SelectedProfileName = cf.DefaultProfileName
-	}
-
-	return &cf, nil
+	return &cf, explicitFile, nil
 }
 
 func (cf *ConfigFile) Save() error {
@@ -218,48 +222,13 @@ func (cf *ConfigFile) configPath() (string, error) {
 	return DefaultConfigPath()
 }
 
-func (cf *ConfigFile) SetDefault(profileName string) error {
-	var tmpProfile profile
-
-	if p, ok := cf.rawProfiles[cf.DefaultProfileName]; ok {
-		if err := decodeOne(p, &tmpProfile); err != nil {
-			return fmt.Errorf("decode default profile %q: %w", cf.DefaultProfileName, err)
-		}
-
-		tmpProfile.Default = false
-
-		data, err := json.Marshal(tmpProfile)
-		if err != nil {
-			return fmt.Errorf("encode old default profile %q: %w", cf.DefaultProfileName, err)
-		}
-
-		cf.rawProfiles[cf.DefaultProfileName] = json.RawMessage(data)
+func (cf *ConfigFile) SetDefault(name string) error {
+	p, err := cf.Profile(name)
+	if err != nil {
+		return fmt.Errorf("setting default profile %q: %w", name, err)
 	}
-
-	if p, ok := cf.rawProfiles[profileName]; ok {
-		if err := decodeOne(p, &tmpProfile); err != nil {
-			return fmt.Errorf("decode profile %q: %w", profileName, err)
-		}
-
-		tmpProfile.Default = true
-		data, err := json.Marshal(tmpProfile)
-		if err != nil {
-			return fmt.Errorf("encode new default profile %q: %w", profileName, err)
-		}
-
-		cf.rawProfiles[profileName] = json.RawMessage(data)
-
-		// Update default profile and selected profile
-		cf.DefaultProfileName = profileName
-		if !cf.explicitProfile {
-			// Looking for marked default profile
-			cf.SelectedProfileName = cf.DefaultProfileName
-		}
-
-		return nil
-	} else {
-		return fmt.Errorf("profile %q does not exist", profileName)
-	}
+	p.Default = true
+	return cf.AddProfile(p)
 }
 
 func DefaultConfigPath() (string, error) {
@@ -267,7 +236,7 @@ func DefaultConfigPath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return path.Join(home, ".osc", "config.json"), nil
+	return filepath.Join(home, ".osc", "config.json"), nil
 }
 
 func decodeOne(data []byte, dst any) error {

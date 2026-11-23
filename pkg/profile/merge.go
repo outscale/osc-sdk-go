@@ -44,7 +44,7 @@ type groupPlan struct {
 	names     []string
 }
 
-func callGetter(src FieldsGetter, name string, want reflect.Type) (reflect.Value, bool, error) {
+func callGetter(src fieldsGetter, name string, want reflect.Type) (reflect.Value, bool, error) {
 	f := reflect.ValueOf(src).FieldByName(name)
 	if !f.IsValid() || f.Kind() != reflect.Func || f.IsNil() {
 		return reflect.Value{}, false, nil
@@ -63,9 +63,9 @@ func callGetter(src FieldsGetter, name string, want reflect.Type) (reflect.Value
 	return out[0], true, nil
 }
 
-func pick(out reflect.Value, sources *map[string]string, p groupPlan, srcs []FieldsGetter) ([]reflect.Value, error) {
+func pick(out reflect.Value, sources map[string]string, p groupPlan, srcs []fieldsGetter) ([]reflect.Value, error) {
 	if len(p.types) != len(p.names) {
-		return nil, errors.New("plan is boggus")
+		return nil, fmt.Errorf("invalid merge plan for group %q: %d field types for %d field names", p.groupName, len(p.types), len(p.names))
 	}
 
 	// Maps merge key-by-key and must form their own group.
@@ -108,7 +108,7 @@ func pick(out reflect.Value, sources *map[string]string, p groupPlan, srcs []Fie
 
 		if sources != nil {
 			for _, i := range missing {
-				(*sources)[p.names[i]] = src.SourceName
+				sources[p.names[i]] = src.SourceName
 			}
 		}
 
@@ -118,7 +118,7 @@ func pick(out reflect.Value, sources *map[string]string, p groupPlan, srcs []Fie
 	return nil, nil
 }
 
-func pickMap(dst reflect.Value, sources *map[string]string, p groupPlan, srcs []FieldsGetter) ([]reflect.Value, error) {
+func pickMap(dst reflect.Value, sources map[string]string, p groupPlan, srcs []fieldsGetter) ([]reflect.Value, error) {
 	for _, src := range srcs {
 		val, ok, err := callGetter(src, p.names[0], p.types[0])
 		if err != nil {
@@ -144,7 +144,7 @@ func pickMap(dst reflect.Value, sources *map[string]string, p groupPlan, srcs []
 			dst.SetMapIndex(key, v)
 
 			if sources != nil {
-				(*sources)[p.names[0]+"."+key.String()] = src.SourceName
+				sources[p.names[0]+"."+key.String()] = src.SourceName
 			}
 		}
 	}
@@ -165,7 +165,7 @@ func isSet(value reflect.Value) bool {
 	}
 }
 
-func Merge(out *Fields, sources *map[string]string, getters ...FieldsGetter) error {
+func merge(out *Fields, sources map[string]string, getters ...fieldsGetter) error {
 	if out == nil {
 		return errors.New("target must be a non-nil pointer")
 	}

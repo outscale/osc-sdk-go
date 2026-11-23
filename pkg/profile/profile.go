@@ -5,9 +5,9 @@
 package profile
 
 import (
+	"errors"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -29,7 +29,7 @@ type Fields struct {
 	Endpoints         map[OscService]string `json:"endpoints,omitzero"`
 }
 
-type FieldsGetter struct {
+type fieldsGetter struct {
 	AccessKey         func() (string, error)
 	SecretKey         func() (string, error)
 	AccessKeyV2       func() (string, error)
@@ -53,20 +53,23 @@ type Options struct {
 	ProfileName *string
 	Overrides   Fields
 
-	// **HAZMAT** do not use in production unless you understand the implications.
-	Default FieldsGetter
-	// Nil mean os.ReadFile. for mocking
+	// ReadFile defaults to os.ReadFile.
 	ReadFile func(string) ([]byte, error)
+
+	defaultRegion func() (string, error)
 }
 
 func NewOptions() Options {
-	return Options{
-		Default: FieldsGetter{
-			Region:        func() (string, error) { return "eu-west-2", nil },
-			Protocol:      func() (string, error) { return "https", nil },
-			TlsSkipVerify: func() (*bool, error) { return new(false), nil },
-			SourceName:    "default",
-		},
+	return Options{}
+}
+
+// WithDefaultRegion resolves the region only when no configured or static default
+// region is set. An empty result uses the SDK default; an error aborts loading.
+// A nil resolver disables the option.
+func WithDefaultRegion(resolve func() (string, error)) func(*Options) error {
+	return func(o *Options) error {
+		o.defaultRegion = resolve
+		return nil
 	}
 }
 
@@ -82,26 +85,37 @@ func NewOptionsWith(opts ...func(*Options) error) (Options, error) {
 }
 
 type Profile struct {
+	Name    string `json:"-"`
+	Default bool   `json:"default,omitempty"`
 	Fields
-	Sources     map[string]string
-	ProfileName string
-	File        *string
 }
 
-func New() (Profile, error) {
+// ProfileExplanation records the sources of resolved fields and the config file read.
+type ProfileExplanation struct {
+	Sources map[string]string
+	File    *string
+}
+
+func New() (*Profile, error) {
 	return NewWith()
 }
 
-func NewWith(opts ...func(*Options) error) (Profile, error) {
+func NewWith(opts ...func(*Options) error) (*Profile, error) {
 	o, err := NewOptionsWith(opts...)
 	if err != nil {
-		return Profile{}, err
+		return nil, err
 	}
 
-	return Load(o)
+	p, err := load(o, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &p, nil
 }
 
-func NewFrom(path, name string) (Profile, error) {
+// NewFrom loads the named profile from path. Empty arguments use the usual
+// environment and default selection rules.
+func NewFrom(name, path string) (*Profile, error) {
 	return NewWith(func(o *Options) error {
 		if path != "" {
 			o.FilePath = &path
@@ -125,44 +139,40 @@ var endpointEnvVars = map[OscService]string{
 	OscServiceDirectLink: "OSC_ENDPOINT_DIRECTLINK",
 }
 
-func layerFromEnv() FieldsGetter {
-	var fields FieldsGetter
+func layerFromEnv() fieldsGetter {
+	var fields fieldsGetter
 
-	genenv := func(envVar string) func() (string, error) {
+	getenv := func(envVar string) func() (string, error) {
 		return func() (string, error) {
 			return os.Getenv(envVar), nil
 		}
 	}
 
-	fields.AccessKey = genenv("OSC_ACCESS_KEY")
-	fields.SecretKey = genenv("OSC_SECRET_KEY")
-	fields.AccessKeyV2 = genenv("OSC_ACCESS_KEY_V2")
-	fields.SecretKeyV2 = genenv("OSC_SECRET_KEY_V2")
-	fields.X509ClientCert = genenv("OSC_X509_CLIENT_CERT")
-	fields.X509ClientCertB64 = genenv("OSC_X509_CLIENT_CERT_B64")
-	fields.X509ClientKey = genenv("OSC_X509_CLIENT_KEY")
-	fields.X509ClientKeyB64 = genenv("OSC_X509_CLIENT_KEY_B64")
+	fields.AccessKey = getenv("OSC_ACCESS_KEY")
+	fields.SecretKey = getenv("OSC_SECRET_KEY")
+	fields.AccessKeyV2 = getenv("OSC_ACCESS_KEY_V2")
+	fields.SecretKeyV2 = getenv("OSC_SECRET_KEY_V2")
+	fields.X509ClientCert = getenv("OSC_X509_CLIENT_CERT")
+	fields.X509ClientCertB64 = getenv("OSC_X509_CLIENT_CERT_B64")
+	fields.X509ClientKey = getenv("OSC_X509_CLIENT_KEY")
+	fields.X509ClientKeyB64 = getenv("OSC_X509_CLIENT_KEY_B64")
 	fields.TlsSkipVerify = func() (*bool, error) {
 		v, ok := os.LookupEnv("OSC_TLS_SKIP_VERIFY")
-		if ok {
-			b, err := strconv.ParseBool(v)
-			if err != nil {
-				return nil, err
-			}
-			return &b, nil
+		if !ok {
+			return nil, nil
 		}
 
-		return nil, nil
+		// EqualFold alone also matches the long-s lookalike in "yeſ".
+		return new(strings.EqualFold(v, "true") || (len(v) == len("yes") && strings.EqualFold(v, "yes"))), nil
 	}
-	fields.Login = genenv("OSC_LOGIN")
-	fields.Password = genenv("OSC_PASSWORD")
-	fields.Protocol = genenv("OSC_PROTOCOL")
-	fields.Region = genenv("OSC_REGION")
+	fields.Login = getenv("OSC_LOGIN")
+	fields.Password = getenv("OSC_PASSWORD")
+	fields.Protocol = getenv("OSC_PROTOCOL")
+	fields.Region = getenv("OSC_REGION")
 	fields.Endpoints = func() (map[OscService]string, error) {
 		endpoints := make(map[OscService]string)
 		for svc, envVar := range endpointEnvVars {
-			v, ok := os.LookupEnv(envVar)
-			if ok {
+			if v := os.Getenv(envVar); v != "" {
 				endpoints[svc] = v
 			}
 		}
@@ -170,7 +180,7 @@ func layerFromEnv() FieldsGetter {
 		return endpoints, nil
 	}
 	fields.IAMV2Services = func() ([]string, error) {
-		if v, ok := os.LookupEnv("OSC_IAM_V2_SERVICES"); ok && v != "" {
+		if v := os.Getenv("OSC_IAM_V2_SERVICES"); v != "" {
 			return strings.Split(v, ","), nil
 		}
 
@@ -181,78 +191,99 @@ func layerFromEnv() FieldsGetter {
 	return fields
 }
 
-func getterFromFields(sourceName string, f Fields, err error) FieldsGetter {
-	return FieldsGetter{
-		AccessKey:         func() (string, error) { return f.AccessKey, err },
-		SecretKey:         func() (string, error) { return f.SecretKey, err },
-		AccessKeyV2:       func() (string, error) { return f.AccessKeyV2, err },
-		SecretKeyV2:       func() (string, error) { return f.SecretKeyV2, err },
-		IAMV2Services:     func() ([]string, error) { return f.IAMV2Services, err },
-		X509ClientCert:    func() (string, error) { return f.X509ClientCert, err },
-		X509ClientKey:     func() (string, error) { return f.X509ClientKey, err },
-		X509ClientCertB64: func() (string, error) { return f.X509ClientCertB64, err },
-		X509ClientKeyB64:  func() (string, error) { return f.X509ClientKeyB64, err },
-		TlsSkipVerify:     func() (*bool, error) { return f.TlsSkipVerify, err },
-		Login:             func() (string, error) { return f.Login, err },
-		Password:          func() (string, error) { return f.Password, err },
-		Protocol:          func() (string, error) { return f.Protocol, err },
-		Region:            func() (string, error) { return f.Region, err },
-		Endpoints:         func() (map[OscService]string, error) { return f.Endpoints, err },
+func layerFromFields(sourceName string, f *Fields) fieldsGetter {
+	return fieldsGetter{
+		AccessKey:         func() (string, error) { return f.AccessKey, nil },
+		SecretKey:         func() (string, error) { return f.SecretKey, nil },
+		AccessKeyV2:       func() (string, error) { return f.AccessKeyV2, nil },
+		SecretKeyV2:       func() (string, error) { return f.SecretKeyV2, nil },
+		IAMV2Services:     func() ([]string, error) { return f.IAMV2Services, nil },
+		X509ClientCert:    func() (string, error) { return f.X509ClientCert, nil },
+		X509ClientKey:     func() (string, error) { return f.X509ClientKey, nil },
+		X509ClientCertB64: func() (string, error) { return f.X509ClientCertB64, nil },
+		X509ClientKeyB64:  func() (string, error) { return f.X509ClientKeyB64, nil },
+		TlsSkipVerify:     func() (*bool, error) { return f.TlsSkipVerify, nil },
+		Login:             func() (string, error) { return f.Login, nil },
+		Password:          func() (string, error) { return f.Password, nil },
+		Protocol:          func() (string, error) { return f.Protocol, nil },
+		Region:            func() (string, error) { return f.Region, nil },
+		Endpoints:         func() (map[OscService]string, error) { return f.Endpoints, nil },
 		SourceName:        sourceName,
 	}
 }
 
-func layerFromConfigFile(cf *ConfigFile) FieldsGetter {
-	name, fields, err := cf.SelectedProfile()
-	return getterFromFields("profile:"+name, fields, err)
-}
-
-func Load(o Options) (Profile, error) {
-	if o.ReadFile == nil {
-		o.ReadFile = os.ReadFile
+// Load resolves a profile and reports the origin of its fields.
+func Load(o Options) (Profile, ProfileExplanation, error) {
+	var explanation ProfileExplanation
+	p, err := load(o, &explanation)
+	if err != nil {
+		return Profile{}, ProfileExplanation{}, err
 	}
-
-	return load(o)
+	return p, explanation, nil
 }
 
-func load(o Options) (Profile, error) {
-	// 1. Load Config file and profile
-	cf, err := loadConfigFile(o)
+func load(o Options, explanation *ProfileExplanation) (Profile, error) {
+	cf, explicitFile, err := loadConfigFile(o)
 	if err != nil {
 		return Profile{}, fmt.Errorf("could not load config file: %w", err)
 	}
 
-	// 4. Layer definition and ordering
-	tool := getterFromFields("tool", o.Overrides, nil)
-	file := layerFromConfigFile(cf)
-	environment := layerFromEnv()
-
-	layers := []FieldsGetter{tool, environment, file, o.Default}
-	if cf.explicitProfile || cf.explicitFile {
-		layers = []FieldsGetter{tool, file, environment, o.Default}
+	name, explicitProfile := choose(o.ProfileName, ProfileNameEnvName)
+	if !explicitProfile {
+		name = cf.defaultName()
+	}
+	saved, err := cf.Profile(name)
+	var file fieldsGetter
+	switch {
+	case err == nil:
+		file = layerFromFields("profile:"+name, &saved.Fields)
+	case explicitFile || explicitProfile || !errors.Is(err, ErrProfileNotFound):
+		return Profile{}, fmt.Errorf("loading profile %q: %w", name, err)
 	}
 
-	// 5. layer merging
-	r := Profile{
-		Sources:     map[string]string{},
-		ProfileName: cf.SelectedProfileName,
-		File:        cf.FilePath,
+	var sources map[string]string
+	if explanation != nil {
+		sources = make(map[string]string)
+	}
+	r := Profile{Name: name, Default: saved.Default}
+	layers := [...]fieldsGetter{
+		layerFromFields("tool", &o.Overrides),
+		layerFromEnv(),
+		file,
+		{
+			Protocol:      func() (string, error) { return "https", nil },
+			TlsSkipVerify: func() (*bool, error) { return new(false), nil },
+			Region: func() (string, error) {
+				if o.defaultRegion != nil {
+					region, err := o.defaultRegion()
+					if err != nil {
+						return "", fmt.Errorf("resolving default region: %w", err)
+					}
+					return region, nil
+				}
+				return "eu-west-2", nil
+			},
+			SourceName: "default",
+		},
+	}
+	if explicitFile || explicitProfile {
+		layers[1], layers[2] = layers[2], layers[1]
+	}
+	if err := merge(&r.Fields, sources, layers[:]...); err != nil {
+		return Profile{}, fmt.Errorf("merging layers: %w", err)
 	}
 
-	if err := Merge(&r.Fields, &r.Sources, layers...); err != nil {
-		return Profile{}, fmt.Errorf("merging merging layers: %w", err)
-	}
-
-	// 6. Add computed default
-	computedDefault := computedDefault(&r.Fields)
-	if err := Merge(&r.Fields, &r.Sources, computedDefault); err != nil {
+	if err := merge(&r.Fields, sources, layerFromComputedDefaults(&r.Fields)); err != nil {
 		return Profile{}, fmt.Errorf("merging layer default (computed): %w", err)
+	}
+	if explanation != nil {
+		*explanation = ProfileExplanation{Sources: sources, File: cf.FilePath}
 	}
 
 	return r, nil
 }
 
-func computedDefault(fields *Fields) FieldsGetter {
+func layerFromComputedDefaults(fields *Fields) fieldsGetter {
 	endpoints := make(map[OscService]string)
 	endpoints[OscServiceApi] = fmt.Sprintf("%s://api.%s.outscale.com/api/v1", fields.Protocol, fields.Region)
 	endpoints[OscServiceFCU] = fmt.Sprintf("%s://fcu.%s.outscale.com", fields.Protocol, fields.Region)
@@ -261,7 +292,7 @@ func computedDefault(fields *Fields) FieldsGetter {
 	endpoints[OscServiceEIM] = fmt.Sprintf("%s://eim.%s.outscale.com", fields.Protocol, fields.Region)
 	endpoints[OscServiceDirectLink] = fmt.Sprintf("%s://directlink.%s.outscale.com", fields.Protocol, fields.Region)
 	endpoints[OscServiceOKS] = fmt.Sprintf("%s://api.%s.oks.outscale.com/api/v2", fields.Protocol, fields.Region)
-	return FieldsGetter{
+	return fieldsGetter{
 		Endpoints: func() (map[OscService]string, error) {
 			return endpoints, nil
 		},
