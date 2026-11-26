@@ -26,16 +26,12 @@ func WithRetry(
 	)
 }
 
-func ptr[T any](t T) *T {
-	return &t
-}
-
 func WithRetryTimeout(timeout time.Duration,
 ) middleware.MiddlewareChainOption {
 	return middleware.WithMiddleware(
 		middleware.MiddlewareSlotRetry,
 		&retry.RetryMiddleware{
-			RetryMax:     ptr(math.MaxInt),
+			RetryMax:     new(math.MaxInt),
 			RetryTimeout: &timeout,
 		},
 	)

@@ -4,7 +4,7 @@ import (
 	"slices"
 )
 
-func (p *Profile) GetAccessKeys(svc OscService) (string, string) {
+func (p *Fields) GetAccessKeys(svc OscService) (string, string) {
 	if slices.Contains(p.IAMV2Services, svc) {
 		return p.AccessKeyV2, p.SecretKeyV2
 	} else {
